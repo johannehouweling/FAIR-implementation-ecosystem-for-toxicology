@@ -226,7 +226,7 @@ def build(doc, path):
                 c.number_format = '@'
             if kind == 'lane':
                 s, k = f'{col_of["Scope"]}{n}', f'{col_of["Phase"]}{n}'
-                c.value = (f'=IF({s}="FAIR","FAIR infrastructure",'
+                c.value = (f'=IF({s}="Generic","Generic infrastructure",'
                            f'IF({s}="Life Sciences","Life Sciences infrastructure",IF({s}="Toxicology",'
                            f'IF({k}="Data Generation","Data Generation",IF({k}="Data Integration",'
                            f'"Tools & Integration",IF({k}="Application (Regulatory Use)","Application (regulatory)",'

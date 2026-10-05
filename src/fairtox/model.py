@@ -65,9 +65,9 @@ TYPES = {
     'Tool': ('Tool', None, None, 'Software or service; FAIRsharing does not register these.'),
 }
 SCOPE = {
-    'FAIR': 'Generic FAIR infrastructure, not specific to a research domain.',
+    'Generic': 'Infrastructure not specific to a research domain, including FAIR resources such as the FIP.',
     'Life Sciences': 'Generic life-science infrastructure that toxicology uses.',
-    'Toxicology': 'Made for toxicology, including toxicology resources that build on FAIR infrastructure.',
+    'Toxicology': 'Made for toxicology, including toxicology instances of generic resources.',
 }
 # Who created a toxicology resource; several may apply. Information, plotted as an alternative lane layout.
 STAKEHOLDER = {
@@ -83,7 +83,7 @@ PHASES = {
     'Application (Regulatory Use)': 'Mainly used to prepare, submit, assess or publish data for regulatory decisions.',
 }
 LANE_DEF = {
-    'FAIR infrastructure': 'Generic FAIR resources.',
+    'Generic infrastructure': 'Resources not specific to a research domain.',
     'Life Sciences infrastructure': 'Generic life-science resources that toxicology uses.',
     'Data Generation': 'Toxicology resources mainly used to generate and describe data.',
     'Tools & Integration': 'Toxicology resources mainly used to integrate, model and analyse data.',
@@ -102,6 +102,7 @@ CREATOR_LANE_DEF = {
 CREATOR_LANE_OF = dict(zip(STAKEHOLDER, CREATOR_LANE_DEF))
 # Relation labels that make a toxicology resource count as building on FAIR when they point to a FAIR resource.
 BUILDS_ON = ('implements', 'extends', 'profiles', 'recommends')
+FAIR_PUBLISHED = 2016   # the FAIR guiding principles: only later resources can build on FAIR
 SUBDOMAINS = {
     'in vitro toxicology': 'Data generation (manuscript Figure 2 caption and section III).',
     'nanotoxicology': 'Data generation.',
@@ -216,10 +217,10 @@ def new_document(resources=()):
 # ---- derived values --------------------------------------------------------------------------------------------------
 
 def lane(r):
-    """Dashboard lane by intended use (display only, never stored): generic FAIR and life-science resources have
+    """Dashboard lane by intended use (display only, never stored): generic and life-science resources have
     their own lanes; a toxicology resource sits in the lane of its phase."""
-    if r.get('scope') == 'FAIR':
-        return 'FAIR infrastructure'
+    if r.get('scope') == 'Generic':
+        return 'Generic infrastructure'
     if r.get('scope') == 'Life Sciences':
         return 'Life Sciences infrastructure'
     return LANE_OF_PHASE.get(r.get('phase'), '')
@@ -299,8 +300,8 @@ def normalise(doc):
             q['relation'] = new_ids.get(key, q['relation'])
     by_id = {r['@id']: r for r in doc['hasPart']}
     for r in doc['hasPart']:                                # derived: a toxicology resource building on FAIR
-        fair = r.get('scope') == 'Toxicology' and any(
-            q.get('hadRole') in BUILDS_ON and (by_id.get(q['relation']) or {}).get('scope') == 'FAIR'
+        fair = r.get('scope') == 'Toxicology' and (_year(r) or 0) >= FAIR_PUBLISHED and any(
+            q.get('hadRole') in BUILDS_ON and (by_id.get(q['relation']) or {}).get('scope') == 'Generic'
             for q in r.get('qualifiedRelation', []))
         if fair:
             r['buildsOnFair'] = True

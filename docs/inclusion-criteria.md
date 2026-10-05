@@ -69,12 +69,12 @@ Each excluded row carries exactly one code.
 - **Programmes and their data.** A screening programme counts only through a named data resource (for example the
   ToxCast and Tox21 data rather than the programmes).
 - **Generic web and semantic-web standards** (RDF, OWL, SPARQL, JSON-LD, nanopublications) and FAIR assessment tools
-  (F-UJI) are resources with scope FAIR when the manuscript uses them for toxicology.
+  (F-UJI) are resources with scope Generic when the manuscript uses them for toxicology.
 
 ## 6. Classification
 
-- **Scope** says what a resource was made for: FAIR (generic FAIR infrastructure), Life Sciences (generic life-science
-  infrastructure) or Toxicology.
+- **Scope** says what a resource was made for: Generic (infrastructure not specific to a research domain, including
+  FAIR resources such as FAIRsharing and the FIP), Life Sciences (life-science infrastructure) or Toxicology.
 - **Phase.** A toxicology resource's lifecycle phase is its main intended use in toxicology, whatever its type and
   whoever made it: Data Generation (generating, recording or describing experimental data), Data Integration
   (combining, curating, linking, modelling or analysing data and knowledge) or Application (Regulatory Use)
@@ -82,9 +82,9 @@ Each excluded row carries exactly one code.
 - **Creator types.** Who created a toxicology resource is recorded separately as one or more creator types: wet-lab
   research, in silico research and regulator. A resource made by a consortium gets all types that apply; the
   organisations are named in Creator.
-- **Building on FAIR** is derived, not chosen: a toxicology resource builds on FAIR when it implements, extends,
-  profiles or recommends a FAIR resource, such as a toxicology FAIR Implementation Profile building on the FIP.
-- **Lanes.** The dashboard places FAIR resources in FAIR infrastructure, Life Sciences resources in Life Sciences
+- **Building on FAIR** is derived, not chosen: a toxicology resource builds on FAIR when it was first published in
+  2016 or later and implements, extends, profiles or recommends a generic resource, such as a toxicology FAIR Implementation Profile building on the FIP.
+- **Lanes.** The dashboard places Generic resources in Generic infrastructure, Life Sciences resources in Life Sciences
   infrastructure, and toxicology resources in the lane of their phase (Data Generation, Tools & Integration,
   Application (regulatory)), which together form the toxicology infrastructure. The toxicology lanes can also be
   arranged by creator type, with one lane for resources made jointly.
@@ -124,6 +124,7 @@ Each excluded row carries exactly one code.
 | 5 Oct 2026 | FERs only, not initiatives. The phase of a toxicology resource follows the stakeholder who created it. Sub-domains are those of the manuscript; a resource can have several. Toxicology building on FAIR is a scope of its own. | Jente Houweling |
 | 5 Oct 2026 | Alignment with the PARC Toxicology and Reference AOP FAIR Implementation Profiles follows after the first curated version. | Jente Houweling |
 | 5 Oct 2026 | The phase of a toxicology resource is its main intended use, chosen directly; who made it is recorded separately as one or more creator types (wet-lab research, in silico research, regulator), so both can be plotted. "Toxicology building on FAIR" is no longer a scope: it is derived from a builds-on relation to a FAIR resource, and those resources sit in the toxicology lanes. This replaces the earlier rule that the creator sets the phase. | Jente Houweling |
+| 5 Oct 2026 | Scope and lane FAIR are renamed Generic (generic infrastructure): several of these resources (RDF, OWL, SPARQL, nanopublications, FAIRsharing as BioSharing) predate the FAIR principles, so calling them FAIR was anachronistic. For the same reason a toxicology resource counts as building on FAIR only when first published in 2016 or later. | Jente Houweling |
 
 ## 9. Limitations
 

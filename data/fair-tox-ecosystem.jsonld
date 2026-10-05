@@ -126,9 +126,9 @@
    "Tool": "Software or service; FAIRsharing does not register these."
   },
   "scope": {
-   "FAIR": "Generic FAIR infrastructure, not specific to a research domain.",
+   "Generic": "Infrastructure not specific to a research domain, including FAIR resources such as the FIP.",
    "Life Sciences": "Generic life-science infrastructure that toxicology uses.",
-   "Toxicology": "Made for toxicology, including toxicology resources that build on FAIR infrastructure."
+   "Toxicology": "Made for toxicology, including toxicology instances of generic resources."
   },
   "phase": {
    "Data Generation": "Mainly used to generate, record or describe experimental toxicology data.",
@@ -141,7 +141,7 @@
    "Regulator": "Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA."
   },
   "lane": {
-   "FAIR infrastructure": "Generic FAIR resources.",
+   "Generic infrastructure": "Resources not specific to a research domain.",
    "Life Sciences infrastructure": "Generic life-science resources that toxicology uses.",
    "Data Generation": "Toxicology resources mainly used to generate and describe data.",
    "Tools & Integration": "Toxicology resources mainly used to integrate, model and analyse data.",
@@ -253,7 +253,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "FAIR",
+   "scope": "Generic",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L341"
   },
@@ -1819,7 +1819,7 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2020",
    "dateBasis": "release",
    "dateSource": "https://doi.org/10.1038/s41597-023-02166-3",
@@ -2608,7 +2608,7 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -3644,7 +3644,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "FAIR",
+   "scope": "Generic",
    "manuscript": "cited",
    "manuscriptEvidence": "VI Priorities; L330"
   },
@@ -3745,7 +3745,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "FAIR",
+   "scope": "Generic",
    "manuscript": "named",
    "manuscriptEvidence": "Throughout; L7, L10, L14, L42, L111-112, L138, L239, L289, L335-336"
   },
@@ -3758,7 +3758,7 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2022",
    "dateBasis": "release",
    "dateSource": "https://web.archive.org/web/20221025092955/https://fairconnect.pro/",
@@ -3829,7 +3829,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "type": "Policy: project",
-   "scope": "FAIR",
+   "scope": "Generic",
    "creator": "IMI2 FAIRplus consortium",
    "url": "https://fairplus-project.eu",
    "manuscript": "named",
@@ -3862,7 +3862,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2016",
    "dateSource": "https://doi.org/10.1038/sdata.2016.18",
    "creator": "FORCE11 (Wilkinson et al. 2016)",
@@ -3897,7 +3897,7 @@
    ],
    "decision": "include",
    "type": "Database: knowledgebase and repository",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2011",
    "dateBasis": "release",
    "dateSource": "https://doi.org/10.1093/database/baw075",
@@ -3934,7 +3934,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "type": "Policy: society",
-   "scope": "FAIR",
+   "scope": "Generic",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L61"
   },
@@ -3947,7 +3947,7 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -3973,7 +3973,7 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2019-01",
    "dateBasis": "release",
    "dateSource": "http://web.archive.org/web/20240425011817/https://www.go-fair.org/today/FAIR-matrix/",
@@ -3996,7 +3996,7 @@
    ],
    "decision": "include",
    "type": "Standard: model/format",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2020",
    "dateBasis": "release",
    "dateSource": "https://web.archive.org/web/20200811221637/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/",
@@ -4056,7 +4056,7 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2020-10-02",
    "dateBasis": "release",
    "dateSource": "https://doi.org/10.5281/zenodo.4063720",
@@ -4079,7 +4079,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "type": "Policy: funder",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4952,7 +4952,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -5546,7 +5546,7 @@
    ],
    "decision": "include",
    "type": "Standard: model/format",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -6019,7 +6019,7 @@
    "decision": "exclude",
    "exclusionReason": "E5",
    "type": "Database: knowledgebase",
-   "scope": "FAIR",
+   "scope": "Generic",
    "creator": "OurResearch",
    "url": "https://openalex.org",
    "manuscript": "comment only",
@@ -6181,7 +6181,7 @@
    ],
    "decision": "include",
    "type": "Standard: model/format",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "nanotoxicology"
    ],
@@ -6549,7 +6549,7 @@
    ],
    "decision": "include",
    "type": "Standard: model/format",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -6575,7 +6575,7 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "FAIR",
+   "scope": "Generic",
    "datePublished": "2021-03-31",
    "dateBasis": "release",
    "dateSource": "https://doi.org/10.5281/zenodo.5110072",
@@ -6925,7 +6925,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "FAIR",
+   "scope": "Generic",
    "creator": "Edwards, Mayernik, Batcheller, Bowker and Borgman (2011)",
    "url": "https://doi.org/10.1177/0306312711413314",
    "manuscript": "comment only",
@@ -7127,7 +7127,7 @@
    ],
    "decision": "include",
    "type": "Standard: model/format",
-   "scope": "FAIR",
+   "scope": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],

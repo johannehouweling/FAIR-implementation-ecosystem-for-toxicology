@@ -40,7 +40,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id` and 
 | `scope` | Scope | What the resource was made for (list below). |
 | `phase` | Phase | For toxicology resources: the main intended use in the toxicology data lifecycle (list below). Required for included and undecided toxicology resources. |
 | `stakeholders` | one "Made by" column per creator type | For toxicology resources: who created it; several may apply (list below). Required for included and undecided toxicology resources. |
-| `buildsOnFair` | Builds on FAIR | Derived: true for a toxicology resource that implements, extends, profiles or recommends a FAIR resource. |
+| `buildsOnFair` | Builds on FAIR | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
 | `subdomains` | one column per sub-domain | Sub-domains that apply (list below). |
 | `datePublished` | First published | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. |
 | `dateBasis` | Date basis | What the date refers to (list below). |
@@ -60,11 +60,11 @@ Curated fields are edited in the curation sheet; the column is given. `@id` and 
 
 ## Lanes
 
-The dashboard lane is derived and not stored. Scope FAIR gives FAIR infrastructure and scope Life Sciences gives Life Sciences infrastructure. A toxicology resource sits in the lane of its phase (intended use); the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure.
+The dashboard lane is derived and not stored. Scope Generic gives Generic infrastructure and scope Life Sciences gives Life Sciences infrastructure. A toxicology resource sits in the lane of its phase (intended use); the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure.
 
 | Lane (by intended use) | Meaning |
 |---|---|
-| FAIR infrastructure | Generic FAIR resources. |
+| Generic infrastructure | Resources not specific to a research domain. |
 | Life Sciences infrastructure | Generic life-science resources that toxicology uses. |
 | Data Generation | Toxicology resources mainly used to generate and describe data. |
 | Tools & Integration | Toxicology resources mainly used to integrate, model and analyse data. |
@@ -131,9 +131,9 @@ The dashboard lane is derived and not stored. Scope FAIR gives FAIR infrastructu
 
 | Value | Meaning |
 |---|---|
-| FAIR | Generic FAIR infrastructure, not specific to a research domain. |
+| Generic | Infrastructure not specific to a research domain, including FAIR resources such as the FIP. |
 | Life Sciences | Generic life-science infrastructure that toxicology uses. |
-| Toxicology | Made for toxicology, including toxicology resources that build on FAIR infrastructure. |
+| Toxicology | Made for toxicology, including toxicology instances of generic resources. |
 
 ### Phase (`phase`)
 

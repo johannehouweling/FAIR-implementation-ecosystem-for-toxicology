@@ -35,7 +35,7 @@ def fixture():
          'datePublished': '2026', 'manuscript': 'cited',
          'manuscriptEvidence': 'L190'},
         {'key': 'parc', 'name': 'PARC', 'decision': 'exclude', 'exclusionReason': 'E1', 'manuscript': 'named'},
-        {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'type': 'Tool', 'scope': 'FAIR'},
+        {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'type': 'Tool', 'scope': 'Generic'},
     ]
     return model.new_document(rs)
 
@@ -98,7 +98,7 @@ class ModelTest(TempDir):
         self.assertTrue(any('not an allowed label' in e for e in model.check(model.normalise(doc))[0]))
 
     def test_lane_rules(self):
-        self.assertEqual(model.lane({'scope': 'FAIR'}), 'FAIR infrastructure')
+        self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life Sciences infrastructure')
         self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Data Generation'}), 'Data Generation')
         self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Data Integration'}), 'Tools & Integration')
@@ -113,10 +113,13 @@ class ModelTest(TempDir):
         doc = fixture()
         exo = next(r for r in doc['hasPart'] if r['key'] == 'exo')
         exo['qualifiedRelation'] = [{'relation': '#tool', 'hadRole': 'related_to', 'evidence': 'curator'}]
+        exo['datePublished'] = '2020'
         self.assertNotIn('buildsOnFair', next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo'))
         exo = next(r for r in doc['hasPart'] if r['key'] == 'exo')
         exo['qualifiedRelation'][0]['hadRole'] = 'implements'
         self.assertTrue(next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo')['buildsOnFair'])
+        next(r for r in doc['hasPart'] if r['key'] == 'exo')['datePublished'] = '2012'   # before the FAIR principles
+        self.assertNotIn('buildsOnFair', next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo'))
 
     def test_save_is_atomic_validated_and_skips_timestamp_only_changes(self):
         p = self.path('d.jsonld')
@@ -341,7 +344,7 @@ class SiteTest(TempDir):
             'exo': ('Tools & Integration', 'Made by in silico research', False),
             'ctd': ('Tools & Integration', 'Made jointly', False),
             'oecd_gd': ('Application (regulatory)', 'Made by regulators', True),
-            'tool': ('FAIR infrastructure', 'FAIR infrastructure', False)})
+            'tool': ('Generic infrastructure', 'Generic infrastructure', False)})
         self.assertEqual((nodes['ctd']['phase'], nodes['ctd']['stakeholders']),
                          ('Data Integration', ['Wet-lab research', 'In silico research']))
         self.assertEqual((nodes['tool']['phase'], nodes['tool']['stakeholders']), ('', []))
@@ -387,7 +390,7 @@ class SiteTest(TempDir):
             self.assertNotIn('prefers-color-scheme', html)
             self.assertNotIn('data-theme', html)
             self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
-            for text in ('FAIR infrastructure', 'Life sciences infrastructure', 'Data generation', 'Tools & integration',
+            for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Tools & integration',
                          'Application (regulatory)', 'Toxicology infrastructure', 'Year first published',
                          'Before 2010, compressed', 'window.publicationSVG', '183mm', 'Data dictionary',
                          'as required by the FAIRsharing data they include', 'Toxicology lanes', 'Intended use',
