@@ -143,8 +143,9 @@ def add_previous_evidence(resources, old_dir):
         n, a = nodes.get(r['key']), audit.get(r['key'])
         if not n or not a:
             continue
-        r['datePublished'] = r.get('datePublished') or n['year']
-        r['dateSource'] = r.get('dateSource') or first_url(a['doi_or_url'])
+        if not r.get('datePublished') or r.get('dateBasis') == 'FAIRsharing year':
+            r['datePublished'], r['dateSource'] = n['year'], first_url(a['doi_or_url'])
+            r.pop('dateBasis', None)
         if not r.get('url'):
             u = first_url(a['doi_or_url'])
             if u and 'doi.org' not in u:
@@ -172,18 +173,37 @@ def add_previous_relations(resources, old_dir):
             evidence = 'FAIRsharing'
         else:
             evidence = 'curator'
+        # line references only: the notes of the previous inventory quote the unpublished draft
+        refs = ', '.join(dict.fromkeys(re.findall(r'l\.\s?\d+', e['note'])))
         q = {'relation': '#' + earlier, 'hadRole': label, 'evidence': evidence,
-             'source': 'previous inventory (2 Oct 2026)', 'note': (e['note'] + ' To verify.').strip()}
+             'source': 'previous inventory (2 Oct 2026)' + (f', older draft {refs}' if refs else ''),
+             'note': 'To verify.'}
         by_key[later].setdefault('qualifiedRelation', []).append(q)
         count += 1
     return count
+
+
+def adopt_previous_keys(doc):
+    """Give collection members that the previous inventory already had its key, so its evidence applies.
+    Returns the adopted rows."""
+    old_key = {v: k for k, v in FS_IDS.items()}
+    taken = {r['key'] for r in doc['hasPart']}
+    adopted = []
+    for r in doc['hasPart']:
+        fid = (r.get('fairsharing') or {}).get('id')
+        key = old_key.get(fid)
+        if key and key not in taken and r.get('note', '').startswith('Added from the FAIRsharing'):
+            taken.discard(r['key'])
+            r['key'] = key
+            taken.add(key)
+            adopted.append(r)
+    return adopted
 
 
 def main(old_dir, draft):
     today = dt.date.today().isoformat()
     resources = manuscript_rows('scripts/seed-manuscript.csv')
     add_previous_evidence(resources, old_dir)
-    n_rel = add_previous_relations(resources, old_dir)
     with open(draft, 'rb') as f:
         digest = hashlib.sha256(f.read()).hexdigest()
     doc = model.new_document(resources)
@@ -208,6 +228,8 @@ def main(old_dir, draft):
             print(f'FAIRsharing {ref}: {e}')
         time.sleep(0.3)
     report = fairsharing.merge(doc, records, members, today)
+    add_previous_evidence(adopt_previous_keys(doc), old_dir)
+    n_rel = add_previous_relations(doc['hasPart'], old_dir)
     doc['sources']['fairsharing'] = {
         'collection': model.COLLECTION_DOI, 'members': len(members),
         'method': 'membership read from fairsharing.org on 2026-10-01; record data from the public FAIRsharing '

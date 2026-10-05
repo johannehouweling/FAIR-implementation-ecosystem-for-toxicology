@@ -30,7 +30,7 @@ def cmd_fetch(a):
         print('FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD are not set; nothing fetched. '
               'Locally: uv run --env-file .env fairtox fetch')
         return 0
-    doc = _load()
+    doc = _load() if os.path.exists(model.DATASET) else model.new_document()
     before = json.loads(json.dumps(doc))
     try:
         report = fairsharing.fetch(doc, login, password, dry_run=a.dry_run)
@@ -109,6 +109,17 @@ def lines_of(evidence):
     return out
 
 
+def names_of(r):
+    """A resource's name and aliases, plus the parts of 'Long name (ABBR)'."""
+    out = set()
+    for n in [r['name']] + r.get('alternateName', []):
+        out.add(n)
+        m = re.match(r'^(.*?)\s*\(([^)]+)\)\s*$', n)
+        if m:
+            out.update({m.group(1).strip(), m.group(2).strip()})
+    return {n for n in out if len(n) >= 2}
+
+
 def mentions(text, names):
     """Line numbers (1-based) where any of the names occurs as a word; short names are matched case-sensitively."""
     hits = set()
@@ -122,24 +133,24 @@ def mentions(text, names):
 def cmd_draft_check(a):
     with open(a.draft, encoding='utf-8') as f:
         text = f.read().splitlines()
-    problems = 0
+    lines_wrong, described, newly_named = [], [], []
     for r in _load()['hasPart']:
-        names = [r['name']] + r.get('alternateName', [])
-        found = mentions(text, names)
+        found = mentions(text, names_of(r))
         cited = lines_of(r.get('manuscriptEvidence'))
         if r.get('manuscript', 'absent') != 'absent':
-            wrong = sorted(cited - found)
-            if not cited:
-                print(f"{r['key']}: marked {r['manuscript']} but no line numbers in Manuscript evidence"
-                      + (f"; found at {sorted(found)[:10]}" if found else ''))
-                problems += 1
-            elif wrong:
-                print(f"{r['key']}: not found at lines {wrong}" + (f"; found at {sorted(found)[:10]}" if found else ''))
-                problems += 1
+            if not found:
+                described.append(r['key'])
+            elif not cited or cited - found:
+                lines_wrong.append(f"{r['key']}: cited at {sorted(cited)}, name found at {sorted(found)[:10]}")
         elif found and r.get('decision') != 'exclude':
-            print(f"{r['key']}: marked absent, but named at lines {sorted(found)[:10]}")
-            problems += 1
-    print(f'{problems} rows to check')
+            newly_named.append(f"{r['key']}: marked absent, but named at lines {sorted(found)[:10]}")
+    for title, items in (('Check the line numbers (the name occurs, but not at every cited line)', lines_wrong),
+                         ('Marked absent but named in this draft', newly_named)):
+        print(f'{title}: {len(items)}')
+        for item in items:
+            print('  ' + item)
+    print(f'Described rather than named, so not checked by name: {len(described)}')
+    print('  ' + ', '.join(described))
     return 0
 
 

@@ -45,15 +45,29 @@ def _request(method, url, body=None, token=None):
                     raise FairsharingError('FAIRsharing is in maintenance or read-only mode; try again later.')
                 return json.load(resp)
         except urllib.error.HTTPError as e:
-            if e.code == 401:
-                raise FairsharingError('FAIRsharing refused the sign-in: check FAIRSHARING_LOGIN and '
+            reason = _reason(e)
+            if e.code == 401 and url.endswith('/users/sign_in'):
+                raise FairsharingError(f'FAIRsharing refused the sign-in ({reason}): check FAIRSHARING_LOGIN and '
                                        'FAIRSHARING_PASSWORD (an ORCID account needs a FAIRsharing password).') from None
+            if e.code in (401, 403):
+                raise FairsharingError(f'signed in, but FAIRsharing refused {method} {url} '
+                                       f'(HTTP {e.code}: {reason}).') from None
             if e.code in (429, 500, 502, 503, 504) and attempt == 1:
                 time.sleep(5)
                 continue
-            raise FairsharingError(f'{method} {url} answered HTTP {e.code}.') from None
+            raise FairsharingError(f'{method} {url} answered HTTP {e.code} ({reason}).') from None
         except urllib.error.URLError as e:
             raise FairsharingError(f'{method} {url} failed: {e.reason}') from None
+
+
+def _reason(error):
+    """FAIRsharing's own error text from an HTTP error response (it never echoes credentials)."""
+    try:
+        body = json.loads(error.read().decode('utf-8', 'replace'))
+        return str(body.get('error') or body.get('message') or body.get('errors') or body)[:200] \
+            if isinstance(body, dict) else str(body)[:200]
+    except (ValueError, OSError):
+        return 'no details'
 
 
 def sign_in(login, password):
