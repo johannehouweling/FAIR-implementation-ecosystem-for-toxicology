@@ -19,19 +19,20 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def fixture():
     rs = [
         {'key': 'exo', 'name': 'Exposure Ontology', 'alternateName': ['ExO'], 'decision': 'include',
-         'type': 'Standard: terminology artefact', 'scope': 'Toxicology', 'stakeholder': 'In silico research',
-         'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
+         'type': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data Integration',
+         'stakeholders': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
          'dateSource': 'https://doi.org/10.1021/es2033857', 'url': 'https://github.com/CTDbase/exposure-ontology',
          'manuscript': 'named', 'manuscriptEvidence': 'Data generation; L100', 'fairsharingRecord': 'FAIRsharing.6hna78',
          'fairsharingMatch': 'confirmed', 'maintained': 'active'},
         {'key': 'ctd', 'name': 'Comparative Toxicogenomics Database', 'alternateName': ['CTD'], 'decision': 'include',
-         'type': 'Database: knowledgebase', 'scope': 'Toxicology', 'stakeholder': 'In silico research',
-         'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
+         'type': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data Integration',
+         'stakeholders': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
          'url': 'https://ctdbase.org', 'description': 'Curated chemical-gene-disease interactions.',
          'manuscript': 'absent', 'maintained': 'active',
          'qualifiedRelation': [{'relation': '#exo', 'hadRole': 'implements', 'evidence': 'FAIRsharing'}]},
         {'key': 'oecd_gd', 'name': 'OECD guidance on research data', 'decision': 'include', 'type': 'Policy: institution',
-         'scope': 'Toxicology', 'stakeholder': 'Regulator', 'datePublished': '2026', 'manuscript': 'cited',
+         'scope': 'Toxicology', 'phase': 'Application (Regulatory Use)', 'stakeholders': ['Regulator'],
+         'datePublished': '2026', 'manuscript': 'cited',
          'manuscriptEvidence': 'L190'},
         {'key': 'parc', 'name': 'PARC', 'decision': 'exclude', 'exclusionReason': 'E1', 'manuscript': 'named'},
         {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'type': 'Tool', 'scope': 'FAIR'},
@@ -71,8 +72,10 @@ class ModelTest(TempDir):
             ('exo', 'datePublished', '2012-13', 'YYYY'),
             ('exo', 'datePublished', '2999', 'YYYY'),
             ('parc', 'exclusionReason', '', 'exclusion reason is required'),
-            ('ctd', 'stakeholder', '', 'stakeholder is required'),
-            ('tool', 'stakeholder', 'Regulator', 'stakeholder is required'),
+            ('ctd', 'phase', '', 'phase is required'),
+            ('ctd', 'stakeholders', [], 'creator type is required'),
+            ('tool', 'phase', 'Data Generation', 'phase is required'),
+            ('exo', 'stakeholders', ['Lab'], 'creator type'),
             ('parc', 'exclusionReason', 'E6', 'E6 needs Covered by'),
             ('exo', 'subdomains', ['ecotox'], 'sub-domain'),
             ('exo', 'url', 'ctdbase.org', 'http(s) URL'),
@@ -94,12 +97,26 @@ class ModelTest(TempDir):
         doc['hasPart'][1]['qualifiedRelation'][0]['hadRole'] = 'part_of'
         self.assertTrue(any('not an allowed label' in e for e in model.check(model.normalise(doc))[0]))
 
-    def test_lane_rule(self):
-        self.assertEqual(model.lane({'scope': 'Toxicology building on FAIR'}), 'FAIR infrastructure')
+    def test_lane_rules(self):
+        self.assertEqual(model.lane({'scope': 'FAIR'}), 'FAIR infrastructure')
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life Sciences infrastructure')
-        self.assertEqual(model.lane({'scope': 'Toxicology', 'stakeholder': 'Wet-lab research'}), 'Data Generation')
-        self.assertEqual(model.lane({'scope': 'Toxicology', 'stakeholder': 'In silico research'}), 'Tools & Integration')
-        self.assertEqual(model.lane({'scope': 'Toxicology', 'stakeholder': 'Regulator'}), 'Application (regulatory)')
+        self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Data Generation'}), 'Data Generation')
+        self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Data Integration'}), 'Tools & Integration')
+        self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Application (Regulatory Use)'}),
+                         'Application (regulatory)')
+        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator']}), 'Made by regulators')
+        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator', 'Wet-lab research']}),
+                         'Made jointly')
+        self.assertEqual(model.creator_lane({'scope': 'Life Sciences'}), 'Life Sciences infrastructure')
+
+    def test_building_on_fair_is_derived_from_a_builds_on_relation(self):
+        doc = fixture()
+        exo = next(r for r in doc['hasPart'] if r['key'] == 'exo')
+        exo['qualifiedRelation'] = [{'relation': '#tool', 'hadRole': 'related_to', 'evidence': 'curator'}]
+        self.assertNotIn('buildsOnFair', next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo'))
+        exo = next(r for r in doc['hasPart'] if r['key'] == 'exo')
+        exo['qualifiedRelation'][0]['hadRole'] = 'implements'
+        self.assertTrue(next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo')['buildsOnFair'])
 
     def test_save_is_atomic_validated_and_skips_timestamp_only_changes(self):
         p = self.path('d.jsonld')

@@ -20,12 +20,13 @@ BOLD = Font(bold=True)
 
 LISTS = {
     'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['type'],
-    'Scope': model.SCOPE, 'Stakeholder': model.STAKEHOLDER, 'Date basis': model.DATE_BASIS,
+    'Scope': model.SCOPE, 'Phase': model.PHASES, 'Date basis': model.DATE_BASIS,
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
     'Relation': model.VOCABULARIES['hadRole'], 'Evidence': model.EVIDENCE,
     'Keep': {'keep': 'Keep this relation.', 'remove': 'Remove this relation.'},
     'Mark': {'x': 'Applies.'},
 }
+CREATOR_HEAD = {s: f'Made by {s.lower()}' for s in model.STAKEHOLDER}
 # (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark,
 # and the grey kinds lane, fslink, static, version, which are computed and ignored on import.
 RESOURCE_COLUMNS = [
@@ -38,10 +39,14 @@ RESOURCE_COLUMNS = [
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
     ('Type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
-    ('Scope', 'scope', 'list:Scope', 24, 'FAIR, Life Sciences, Toxicology, or Toxicology building on FAIR.'),
-    ('Stakeholder', 'stakeholder', 'list:Stakeholder', 18,
-     'Who created it. Only for scope Toxicology; it sets the lane.'),
-    ('Lane', None, 'lane', 26, 'Computed from Scope and Stakeholder.'),
+    ('Scope', 'scope', 'list:Scope', 18, 'FAIR, Life Sciences or Toxicology.'),
+    ('Phase', 'phase', 'list:Phase', 26,
+     'Main intended use in toxicology. Only for scope Toxicology; it sets the lane.'),
+    ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
+    *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
+       'Toxicology; several may apply.') for s in model.STAKEHOLDER],
+    ('Builds on FAIR', None, 'static', 10,
+     'Derived from the Relations tab: implements, extends, profiles or recommends a FAIR resource.'),
     *[(s, s, 'mark', 11, f'Mark x when the resource belongs to {s}. Several sub-domains may apply.')
       for s in model.SUBDOMAINS],
     ('First published', 'datePublished', 'date', 14,
@@ -86,8 +91,13 @@ INSTRUCTIONS = [
     'Mark each sub-domain that applies with x. A resource can belong to several.',
     'First published is the date the resource first became public, as YYYY, YYYY-MM or YYYY-MM-DD. '
     'Put the DOI or web page that shows the date in Date source.',
-    'Stakeholder says who created a toxicology resource and sets its lane: wet-lab research goes to Data Generation, '
-    'in silico research to Tools & Integration, regulators to Application (regulatory).',
+    'Phase is the main intended use of a toxicology resource and sets its lane: Data Generation, Data Integration '
+    '(the Tools & Integration lane) or Application (Regulatory Use). Choose by what the resource is used for, '
+    'not by who made it.',
+    'Mark x in each "Made by" column that describes who created a toxicology resource; several may apply. '
+    'The dashboard can also arrange the toxicology lanes by creator.',
+    'Builds on FAIR is derived: a toxicology resource that implements, extends, profiles or recommends a FAIR '
+    'resource on the Relations tab.',
     'Relations read from left to right, for example "CTD implements ExO". Set Keep to remove to drop one; '
     'add new ones at the bottom of the Relations tab.',
     'Put your initials in Reviewed by when you have checked a row.',
@@ -114,7 +124,7 @@ def _validation(ws, kind, letter, first, last, keys_range):
         formula = f'=Lists!${col}$2:${col}${1 + len(LISTS[name])}'
     elif kind == 'keys':
         formula = keys_range
-    elif kind == 'mark':
+    elif kind in ('mark', 'creator'):
         formula = '"x"'
     else:
         return
@@ -215,11 +225,12 @@ def build(doc, path):
             if kind == 'date':
                 c.number_format = '@'
             if kind == 'lane':
-                s, k = f'{col_of["Scope"]}{n}', f'{col_of["Stakeholder"]}{n}'
-                c.value = (f'=IF(OR({s}="FAIR",{s}="Toxicology building on FAIR"),"FAIR infrastructure",'
+                s, k = f'{col_of["Scope"]}{n}', f'{col_of["Phase"]}{n}'
+                c.value = (f'=IF({s}="FAIR","FAIR infrastructure",'
                            f'IF({s}="Life Sciences","Life Sciences infrastructure",IF({s}="Toxicology",'
-                           f'IF({k}="Wet-lab research","Data Generation",IF({k}="In silico research",'
-                           f'"Tools & Integration",IF({k}="Regulator","Application (regulatory)",""))),"")))')
+                           f'IF({k}="Data Generation","Data Generation",IF({k}="Data Integration",'
+                           f'"Tools & Integration",IF({k}="Application (Regulatory Use)","Application (regulatory)",'
+                           f'""))),"")))')
                 continue
             if kind == 'fslink':
                 f = f'{col_of["FAIRsharing record"]}{n}'
@@ -231,6 +242,10 @@ def build(doc, path):
             fs = r.get('fairsharing') or {}
             if kind == 'mark':
                 c.value = 'x' if field in r.get('subdomains', []) else None
+            elif kind == 'creator':
+                c.value = 'x' if field in r.get('stakeholders', []) else None
+            elif head == 'Builds on FAIR':
+                c.value = 'yes' if r.get('buildsOnFair') else None
             elif kind == 'aliases':
                 c.value = '; '.join(r.get('alternateName', [])) or None
             elif kind == 'version':
@@ -349,7 +364,7 @@ def ingest(doc, path, force=False):
         version = _text(val.get('Row version'))
         parsed, bad = {}, False
         for h, field, kind, *_ in RESOURCE_COLUMNS:
-            if not field or kind in ('key', 'mark'):
+            if not field or kind in ('key', 'mark', 'creator'):
                 continue
             v = val.get(h)
             if kind == 'aliases':
@@ -371,10 +386,11 @@ def ingest(doc, path, force=False):
             else:
                 parsed[field] = _text(v)
         parsed['subdomains'] = [s for s in model.SUBDOMAINS if _text(val.get(s)).lower() == 'x']
-        for s in model.SUBDOMAINS:
-            t = _text(val.get(s)).lower()
+        parsed['stakeholders'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() == 'x']
+        for mark in list(model.SUBDOMAINS) + list(CREATOR_HEAD.values()):
+            t = _text(val.get(mark)).lower()
             if t and t != 'x':
-                problem('Resources', where[s], s, val.get(s), 'mark a sub-domain with x or leave it empty')
+                problem('Resources', where.get(mark, ''), mark, val.get(mark), 'mark with x or leave it empty')
                 bad = True
         if not parsed['name']:
             problem('Resources', where['Name'], 'Name', '', 'every row needs a name')

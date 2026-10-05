@@ -128,25 +128,30 @@
   "scope": {
    "FAIR": "Generic FAIR infrastructure, not specific to a research domain.",
    "Life Sciences": "Generic life-science infrastructure that toxicology uses.",
-   "Toxicology": "Made for toxicology.",
-   "Toxicology building on FAIR": "A toxicology-specific instance of a FAIR resource, such as a toxicology FAIR Implementation Profile or the RDMkit toxicology page."
-  },
-  "stakeholder": {
-   "Wet-lab research": "Made by experimental (wet-lab) researchers, mostly academic.",
-   "In silico research": "Made by computational researchers: modellers, AOP, PBK, QSAR and nano-informatics.",
-   "Regulator": "Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA."
+   "Toxicology": "Made for toxicology, including toxicology resources that build on FAIR infrastructure."
   },
   "phase": {
-   "Data Generation": "Toxicology lifecycle phase of resources made by wet-lab research.",
-   "Data Integration": "Toxicology lifecycle phase of resources made by in silico research.",
-   "Application (Regulatory Use)": "Toxicology lifecycle phase of resources made by regulators."
+   "Data Generation": "Mainly used to generate, record or describe experimental toxicology data.",
+   "Data Integration": "Mainly used to combine, curate, link, model or analyse toxicology data and knowledge.",
+   "Application (Regulatory Use)": "Mainly used to prepare, submit, assess or publish data for regulatory decisions."
+  },
+  "stakeholders": {
+   "Wet-lab research": "Made by experimental (wet-lab) researchers, mostly academic.",
+   "In silico research": "Made by computational researchers: modellers, AOP, PBK, QSAR, informatics and data stewards.",
+   "Regulator": "Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA."
   },
   "lane": {
-   "FAIR infrastructure": "Generic FAIR resources, and toxicology resources that build on them.",
+   "FAIR infrastructure": "Generic FAIR resources.",
    "Life Sciences infrastructure": "Generic life-science resources that toxicology uses.",
-   "Data Generation": "Toxicology infrastructure made by wet-lab research.",
-   "Tools & Integration": "Toxicology infrastructure made by in silico research.",
-   "Application (regulatory)": "Toxicology infrastructure made by regulators."
+   "Data Generation": "Toxicology resources mainly used to generate and describe data.",
+   "Tools & Integration": "Toxicology resources mainly used to integrate, model and analyse data.",
+   "Application (regulatory)": "Toxicology resources mainly used in regulatory decisions."
+  },
+  "creatorLane": {
+   "Made by wet-lab research": "Toxicology resources made by wet-lab research only.",
+   "Made by in silico research": "Toxicology resources made by in silico research only.",
+   "Made by regulators": "Toxicology resources made by regulators only.",
+   "Made jointly": "Toxicology resources made by two or more creator types together."
   },
   "subdomains": {
    "in vitro toxicology": "Data generation (manuscript Figure 2 caption and section III).",
@@ -204,8 +209,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "regulatory toxicology"
@@ -260,8 +267,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -303,7 +312,11 @@
    ],
    "decision": "include",
    "type": "Standard: reporting guideline",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -341,8 +354,10 @@
    "exclusionReason": "E3",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -359,8 +374,10 @@
    "decision": "include",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -386,8 +403,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -423,8 +442,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -449,8 +470,11 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -494,8 +518,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -517,8 +543,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -545,8 +573,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -572,8 +602,11 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -596,8 +629,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -620,8 +655,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -656,8 +693,10 @@
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -692,7 +731,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Policy: society",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -715,8 +754,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge",
     "computational and predictive toxicology"
@@ -751,8 +792,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -800,8 +843,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -912,8 +957,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "toxicogenomics"
    ],
@@ -1308,8 +1355,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "exposome",
     "eco-toxicology"
@@ -1349,8 +1398,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "exposome"
    ],
@@ -1445,8 +1496,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -1562,8 +1615,10 @@
    "decision": "include",
    "type": "Database: knowledgebase and repository",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "regulatory toxicology"
@@ -1720,8 +1775,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "exposome",
@@ -1785,8 +1842,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -1825,8 +1884,11 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Wet-lab research",
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "regulatory toxicology"
@@ -1889,8 +1951,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "exposome",
     "toxicogenomics"
@@ -1951,8 +2015,11 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "computational and predictive toxicology",
     "regulatory toxicology"
@@ -1990,8 +2057,10 @@
    "exclusionReason": "E1",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -2051,8 +2120,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "toxicogenomics"
@@ -2080,8 +2151,12 @@
    "decision": "include",
    "type": "Database: knowledgebase and repository",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "toxicogenomics"
    ],
@@ -2123,8 +2198,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "toxicogenomics"
    ],
@@ -2143,8 +2220,10 @@
    "exclusionReason": "E3",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -2232,8 +2311,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2271,8 +2352,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2311,8 +2394,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2351,8 +2436,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2388,8 +2475,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2437,8 +2526,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "regulatory toxicology"
@@ -2476,8 +2567,10 @@
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "eco-toxicology"
    ],
@@ -2540,7 +2633,12 @@
    ],
    "decision": "include",
    "type": "Policy: institution",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "computational and predictive toxicology",
@@ -2601,7 +2699,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "type": "Standard: model/format",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; Comments [g]; L60"
@@ -2616,7 +2714,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "type": "Policy: society",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "in vitro toxicology",
     "AOP-based mechanistic knowledge"
@@ -2637,8 +2735,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -2654,8 +2754,10 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
-   "phase": "Data Integration",
+   "phase": "Data Generation",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -2716,8 +2818,10 @@
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
-   "phase": "Data Integration",
+   "phase": "Data Generation",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -2860,8 +2964,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "regulatory toxicology"
@@ -2897,8 +3003,10 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2933,8 +3041,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2969,8 +3079,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -3008,8 +3120,11 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "toxicogenomics"
@@ -3050,8 +3165,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "creator": "IMI eTOX consortium",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L68"
@@ -3067,8 +3184,11 @@
    "decision": "undecided",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -3101,8 +3221,10 @@
    "coveredBy": "etransafe_repro",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -3119,8 +3241,10 @@
    "coveredBy": "etransafe_repro",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -3139,8 +3263,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -3160,8 +3286,10 @@
    "decision": "include",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology",
     "regulatory toxicology"
@@ -3187,8 +3315,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "nanotoxicology",
     "regulatory toxicology"
@@ -3247,8 +3377,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -3269,8 +3401,11 @@
    "decision": "include",
    "type": "Database: knowledgebase and repository",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -3306,8 +3441,10 @@
    "coveredBy": "eutr_ki",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -3327,8 +3464,10 @@
    "coveredBy": "eutr_ki",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -3348,8 +3487,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -3368,8 +3509,11 @@
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "exposome"
    ],
@@ -3406,8 +3550,11 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "exposome"
    ],
@@ -3462,8 +3609,10 @@
    "exclusionReason": "E3",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "exposome"
    ],
@@ -3480,7 +3629,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "type": "Policy: project",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); Comments [h], [av]; L344-345, L358, L418"
@@ -3506,7 +3655,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L345"
   },
@@ -3520,7 +3669,12 @@
    ],
    "decision": "include",
    "type": "Collection",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -3535,6 +3689,7 @@
    "manuscriptEvidence": "III AOP; Comments [ag]; L135, L391",
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (medium confidence): Corrected from 2023. The ALTEX paper (doi 10.14573/altex.2307131, online 2023-08-01) only says that work on an AOP FIP had started within PARC. The 'Reference Adverse Outcome Pathways FIP' v0.0.1 was first published as a nanopublication on 2025-07-14, from FIP Wizard project 3f1ebb12 and declared by the FAIR-AOPs community. The old url pointed to FIP Wizard project 2f1c0e80 ('Adverse Outcome Pathways FIP'), the draft it was copied from (edits January 2023 to December 2024), which was never nanopublished. The url now points to the published FIP. FAIRsharing: no record.",
+   "buildsOnFair": true,
    "qualifiedRelation": [
     {
      "relation": "#fipwiz",
@@ -3556,7 +3711,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -3572,7 +3727,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "type": "Policy: society",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -3627,7 +3782,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -3651,7 +3806,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -3688,7 +3843,7 @@
    "exclusionReason": "E6",
    "coveredBy": "cookbook",
    "type": "Tool",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "creator": "FAIRplus",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L68"
@@ -3860,8 +4015,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -3940,8 +4097,10 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Generation",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "regulatory toxicology"
@@ -3967,8 +4126,10 @@
    "decision": "include",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4019,8 +4180,10 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4061,8 +4224,10 @@
    "exclusionReason": "E8",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4087,8 +4252,10 @@
    "exclusionReason": "E8",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4161,8 +4328,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge",
     "regulatory toxicology"
@@ -4181,8 +4350,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4247,8 +4418,10 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4312,8 +4485,10 @@
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4353,8 +4528,11 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "eco-toxicology"
@@ -4381,7 +4559,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "type": "Policy: project",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; VI (to-do notes); Comments; L67, L344, L358, L418"
@@ -4399,7 +4577,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "type": "Policy: project",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "manuscript": "comment only",
    "manuscriptEvidence": "Comments [h], [av]; L358, L418-422"
@@ -4414,8 +4592,10 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
-   "phase": "Application (Regulatory Use)",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "exposome",
     "regulatory toxicology"
@@ -4455,8 +4635,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4492,7 +4674,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "type": "Standard: model/format",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "nanotoxicology",
     "exposome",
@@ -4583,8 +4765,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4631,8 +4815,10 @@
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "datePublished": "2012-02-16",
    "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1351/pac-rec-11-06-03",
@@ -4654,8 +4840,10 @@
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "datePublished": "2007-07",
    "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1351/pac200779071153",
@@ -4677,8 +4865,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "regulatory toxicology"
@@ -4719,8 +4909,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4782,8 +4974,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -4849,7 +5043,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "type": "Standard: principle",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -4944,8 +5138,11 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "toxicogenomics"
    ],
@@ -4994,8 +5191,10 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "toxicogenomics"
    ],
@@ -5084,8 +5283,11 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5128,8 +5330,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "regulatory toxicology"
@@ -5149,8 +5353,11 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology",
     "AOP-based mechanistic knowledge"
@@ -5193,8 +5400,10 @@
    "decision": "include",
    "type": "Database: knowledgebase and repository",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5248,8 +5457,10 @@
    "exclusionReason": "E3",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5265,8 +5476,10 @@
    "exclusionReason": "E3",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5285,8 +5498,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5310,8 +5525,10 @@
    "coveredBy": "nanocommons_project",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5358,8 +5575,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5376,8 +5595,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "creator": "Toxicologic Pathology Regulatory Forum",
    "manuscript": "comment only",
    "manuscriptEvidence": "V (to-do notes); L292"
@@ -5404,8 +5625,10 @@
    "exclusionReason": "E4",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L338"
   },
@@ -5419,8 +5642,11 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research"
+   ],
    "subdomains": [
     "exposome",
     "eco-toxicology"
@@ -5462,8 +5688,10 @@
    "exclusionReason": "E3",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5552,8 +5780,10 @@
    "exclusionReason": "E1",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -5572,8 +5802,10 @@
    "exclusionReason": "E1",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -5588,8 +5820,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -5628,8 +5862,10 @@
    "exclusionReason": "E8",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "regulatory toxicology"
@@ -5649,8 +5885,10 @@
    "decision": "include",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -5725,8 +5963,12 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "toxicogenomics",
     "regulatory toxicology"
@@ -5793,8 +6035,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -5835,8 +6079,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -5863,8 +6109,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -5883,8 +6131,10 @@
    "decision": "include",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology",
     "computational and predictive toxicology"
@@ -5911,8 +6161,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -5957,8 +6209,10 @@
    "exclusionReason": "E3",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "datePublished": "2023",
    "dateSource": "https://doi.org/10.5281/zenodo.15005810",
    "creator": "PARC",
@@ -5978,8 +6232,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge",
     "computational and predictive toxicology"
@@ -5999,7 +6255,11 @@
    ],
    "decision": "include",
    "type": "Collection",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "datePublished": "2026-09-07",
    "dateBasis": "release",
    "dateSource": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
@@ -6011,6 +6271,7 @@
    "manuscriptEvidence": "III Table 1; Comments [g]; L60",
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (medium confidence): The year 2026 is confirmed and now has a full date. The 'PARC Toxicology' FIP v0.1.0 nanopublication has dct:created 2026-09-07. It comes from FIP Wizard project 618ed60e, drafted since September 2023, with creators from the University of Birmingham and GO FAIR Foundation. The same PARC Toxicology community published earlier FIPs: 'PARC TOXRIC FIP' (first nanopublication 2023-04-17, updated 2024-01-22) and 'PARC Toxicology rFIP' v0.0.1 (2025-06-25) and v0.0.2 (2026-03-02). If the row stands for PARC toxicology FIPs in general, use 2023-04-17. Type changed from 'Standard: model/format' to 'Collection' to match fairaop, since a FIP lists the FAIR-enabling resources a community chose. FAIRsharing: no record.",
+   "buildsOnFair": true,
    "qualifiedRelation": [
     {
      "relation": "#fipwiz",
@@ -6031,8 +6292,11 @@
    "decision": "include",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -6068,8 +6332,10 @@
    "exclusionReason": "E2",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -6087,8 +6353,10 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "eco-toxicology",
     "regulatory toxicology"
@@ -6196,8 +6464,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -6218,8 +6488,10 @@
    "exclusionReason": "E2",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "nanotoxicology",
     "computational and predictive toxicology"
@@ -6326,7 +6598,11 @@
    ],
    "decision": "include",
    "type": "Collection",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "eco-toxicology",
@@ -6344,6 +6620,7 @@
    "fairsharingRecord": "7474",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): The year 2021 is confirmed and now has a full date. The page was added by pull request #714 'New page - Toxicology data', opened 2021-10-08 and merged 2021-10-20; this is the first commit of pages/your_domain/toxicology_data.md. The page was first archived 2022-05-29. The FAIRsharing collection 7474 mirrors the page and is later (yearCreation 2025; DOI FAIRsharing.acbc28 minted 2026-02-06). Type changed from 'Tool' to 'Collection' to follow the FAIRsharing record. Subdomains filled from the page's sections (in vitro, animal and human data from regulatory studies, ecotoxicology). The FAIRsharing record value is kept as 7474.",
+   "buildsOnFair": true,
    "qualifiedRelation": [
     {
      "relation": "#rdmkit",
@@ -6416,8 +6693,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -6434,7 +6713,12 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -6449,6 +6733,7 @@
    "manuscriptEvidence": "III Table 1; L67",
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (high confidence): Corrected from 2024. GitHub issue #668, a recipe proposal with the full draft text, was opened 2026-07-16 and is still open. The recipe is not yet published in the FAIR Cookbook, so maintained is set to 'in development'. FAIRsharing: no record. Verified 5 Oct 2026: datePublished changed (The recipe was drafted at INTOXICOM workshop 1 (Utrecht, 28-29 May 2024) as 'Adding KE Component annotations in AOP-Wiki'. That draft is a public HackMD page created 2024-05-28 by Marvin Martens (https://hackmd.io/@WBu-yMi5R62T6i7YA3RGVA/BJtnqIQVR; creation time from https://hackmd.io/BJtnqIQVR/info). He later opened issue #668 with the same objectives. The draft is first described in the workshop report posted 2024-11-05 (https://doi.org/10.37044/osf.io/un2rw), and manuscript L67 also attributes the recipe to INTOXICOM. The research change from 2024 to 2026 was wrong. Use 2024-05-28 instead if the HackMD draft counts as a public release.) Verified 5 Oct 2026: dateBasis changed (The earliest documented date is the online posting of the INTOXICOM workshop report, which first describes the recipe (https://doi.org/10.37044/osf.io/un2rw).) Verified 5 Oct 2026: dateSource changed (The INTOXICOM workshop 1 report (BioHackrXiv/OSF, posted 2024-11-05) describes the KE Component annotation recipe draft and links it.)",
+   "buildsOnFair": true,
    "qualifiedRelation": [
     {
      "relation": "#cookbook",
@@ -6468,7 +6753,11 @@
    ],
    "decision": "include",
    "type": "Tool",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Data Generation",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -6483,6 +6772,7 @@
    "manuscriptEvidence": "III Table 1; L67",
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (high confidence): Corrected from 2024. GitHub issue #666, a recipe proposal with the full draft text, was opened 2026-07-07 and is still open. The recipe is not yet published in the FAIR Cookbook, so maintained is set to 'in development'. FAIRsharing: no record. Verified 5 Oct 2026: datePublished changed (The INTOXICOM workshop 1 report, posted 2024-11-05 (https://doi.org/10.37044/osf.io/un2rw), describes the draft recipe 'Metadata for cell-based assays using BAO' and links its public HackMD version (https://hackmd.io/@lusinke/rkXlvLXE0; created 2024-05-28 per https://hackmd.io/rkXlvLXE0/info). That draft has the same title as issue #666 and the same 'Main Objectives' text word for word. Manuscript L67 also attributes the recipe to INTOXICOM. Use 2024-05-28 instead if the HackMD draft counts as a public release.) Verified 5 Oct 2026: dateBasis changed (The earliest documented date is the online posting of the INTOXICOM workshop report, which first describes the recipe (https://doi.org/10.37044/osf.io/un2rw).) Verified 5 Oct 2026: dateSource changed (The INTOXICOM workshop 1 report (BioHackrXiv/OSF, posted 2024-11-05) describes the BAO recipe draft and links it.)",
+   "buildsOnFair": true,
    "qualifiedRelation": [
     {
      "relation": "#cookbook",
@@ -6511,8 +6801,11 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "toxicogenomics",
     "regulatory toxicology"
@@ -6540,8 +6833,11 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -6568,8 +6864,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "nanotoxicology"
    ],
@@ -6643,8 +6941,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
-   "phase": "Data Generation",
+   "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "eco-toxicology",
@@ -6721,8 +7021,12 @@
    "decision": "include",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -6850,8 +7154,10 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "exposome",
     "regulatory toxicology"
@@ -6890,8 +7196,10 @@
    "exclusionReason": "E3",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -6906,8 +7214,10 @@
    "exclusionReason": "E3",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "manuscript": "named",
    "manuscriptEvidence": "I Introduction; L7"
   },
@@ -6919,8 +7229,10 @@
    "exclusionReason": "E3",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L339"
   },
@@ -6934,8 +7246,10 @@
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "exposome",
     "computational and predictive toxicology"
@@ -6976,8 +7290,12 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "toxicogenomics"
    ],
@@ -7037,8 +7355,10 @@
    "exclusionReason": "E8",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "eco-toxicology"
@@ -7061,8 +7381,12 @@
    "decision": "include",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "In silico research",
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "toxicogenomics"
@@ -7118,8 +7442,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -7139,8 +7465,10 @@
    "exclusionReason": "E1",
    "type": "Policy: project",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -7158,7 +7486,11 @@
    ],
    "decision": "include",
    "type": "Collection",
-   "scope": "Toxicology building on FAIR",
+   "scope": "Toxicology",
+   "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "datePublished": "2020-06-09",
    "dateBasis": "release",
    "dateSource": "https://fairsharing.org/3496",
@@ -7171,6 +7503,7 @@
    "fairsharingRecord": "FAIRsharing.f60a10",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (medium confidence): The year 2020 is confirmed and now has a full date. The FAIRsharing record page gives schema.org datePublished 2020-06-09 10:43:55, matching yearCreation 2020. The record was first archived 2022-05-22, and its DataCite DOI 10.25504/FAIRsharing.f60a10 was only minted 2025-07-29. Subdomains: removed 'in vitro toxicology', which was too narrow. The collection spans regulatory, eco-toxicology, exposome, nano and toxicogenomics resources, so leave it empty or tag all of them. FAIRsharing match kept as confirmed.",
+   "buildsOnFair": true,
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.2abjs5",
@@ -7501,8 +7834,10 @@
    "coveredBy": "eutr_ki",
    "type": "Database: repository",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research"
+   ],
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -7520,8 +7855,10 @@
    "decision": "include",
    "type": "Standard: model/format",
    "scope": "Toxicology",
-   "stakeholder": "In silico research",
    "phase": "Data Integration",
+   "stakeholders": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -7561,8 +7898,10 @@
    "decision": "include",
    "type": "Tool",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "regulatory toxicology"
@@ -7585,8 +7924,11 @@
    "decision": "include",
    "type": "Standard: reporting guideline",
    "scope": "Toxicology",
-   "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
+   "stakeholders": [
+    "Wet-lab research",
+    "Regulator"
+   ],
    "subdomains": [
     "in vitro toxicology",
     "regulatory toxicology"
@@ -7676,8 +8018,10 @@
    "exclusionReason": "E1",
    "type": "Policy: institution",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -7754,8 +8098,10 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Toxicology",
-   "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
+   "stakeholders": [
+    "Regulator"
+   ],
    "subdomains": [
     "AOP-based mechanistic knowledge",
     "regulatory toxicology"

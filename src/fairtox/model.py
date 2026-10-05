@@ -67,32 +67,41 @@ TYPES = {
 SCOPE = {
     'FAIR': 'Generic FAIR infrastructure, not specific to a research domain.',
     'Life Sciences': 'Generic life-science infrastructure that toxicology uses.',
-    'Toxicology': 'Made for toxicology.',
-    'Toxicology building on FAIR': 'A toxicology-specific instance of a FAIR resource, such as a toxicology FAIR '
-                                   'Implementation Profile or the RDMkit toxicology page.',
+    'Toxicology': 'Made for toxicology, including toxicology resources that build on FAIR infrastructure.',
 }
+# Who created a toxicology resource; several may apply. Information, plotted as an alternative lane layout.
 STAKEHOLDER = {
     'Wet-lab research': 'Made by experimental (wet-lab) researchers, mostly academic.',
-    'In silico research': 'Made by computational researchers: modellers, AOP, PBK, QSAR and nano-informatics.',
+    'In silico research': 'Made by computational researchers: modellers, AOP, PBK, QSAR, informatics and data '
+                          'stewards.',
     'Regulator': 'Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA.',
 }
-PHASE_OF = {'Wet-lab research': 'Data Generation', 'In silico research': 'Data Integration',
-            'Regulator': 'Application (Regulatory Use)'}
+# The lifecycle phase of a toxicology resource: its main intended use (curated directly).
 PHASES = {
-    'Data Generation': 'Toxicology lifecycle phase of resources made by wet-lab research.',
-    'Data Integration': 'Toxicology lifecycle phase of resources made by in silico research.',
-    'Application (Regulatory Use)': 'Toxicology lifecycle phase of resources made by regulators.',
+    'Data Generation': 'Mainly used to generate, record or describe experimental toxicology data.',
+    'Data Integration': 'Mainly used to combine, curate, link, model or analyse toxicology data and knowledge.',
+    'Application (Regulatory Use)': 'Mainly used to prepare, submit, assess or publish data for regulatory decisions.',
 }
 LANE_DEF = {
-    'FAIR infrastructure': 'Generic FAIR resources, and toxicology resources that build on them.',
+    'FAIR infrastructure': 'Generic FAIR resources.',
     'Life Sciences infrastructure': 'Generic life-science resources that toxicology uses.',
-    'Data Generation': 'Toxicology infrastructure made by wet-lab research.',
-    'Tools & Integration': 'Toxicology infrastructure made by in silico research.',
-    'Application (regulatory)': 'Toxicology infrastructure made by regulators.',
+    'Data Generation': 'Toxicology resources mainly used to generate and describe data.',
+    'Tools & Integration': 'Toxicology resources mainly used to integrate, model and analyse data.',
+    'Application (regulatory)': 'Toxicology resources mainly used in regulatory decisions.',
 }
 LANES = list(LANE_DEF)
 TOX_LANES = LANES[2:]
 LANE_OF_PHASE = dict(zip(PHASES, TOX_LANES))
+# The alternative layout of the toxicology lanes: by creator type, with one lane for resources made jointly.
+CREATOR_LANE_DEF = {
+    'Made by wet-lab research': 'Toxicology resources made by wet-lab research only.',
+    'Made by in silico research': 'Toxicology resources made by in silico research only.',
+    'Made by regulators': 'Toxicology resources made by regulators only.',
+    'Made jointly': 'Toxicology resources made by two or more creator types together.',
+}
+CREATOR_LANE_OF = dict(zip(STAKEHOLDER, CREATOR_LANE_DEF))
+# Relation labels that make a toxicology resource count as building on FAIR when they point to a FAIR resource.
+BUILDS_ON = ('implements', 'extends', 'profiles', 'recommends')
 SUBDOMAINS = {
     'in vitro toxicology': 'Data generation (manuscript Figure 2 caption and section III).',
     'nanotoxicology': 'Data generation.',
@@ -158,7 +167,7 @@ EVIDENCE = {
 
 VOCABULARIES = {
     'decision': DECISION, 'exclusionReason': EXCLUSION, 'type': {k: v[3] for k, v in TYPES.items()},
-    'scope': SCOPE, 'stakeholder': STAKEHOLDER, 'phase': PHASES, 'lane': LANE_DEF,
+    'scope': SCOPE, 'phase': PHASES, 'stakeholders': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
     'subdomains': SUBDOMAINS, 'dateBasis': DATE_BASIS, 'maintained': MAINTAINED, 'manuscript': MANUSCRIPT,
     'fairsharingMatch': MATCH, 'hadRole': {k: v[2] for k, v in RELATIONS.items()}, 'evidence': EVIDENCE,
 }
@@ -174,18 +183,18 @@ CONTEXT = {
     'dateModified': 'schema:dateModified', 'license': {'@id': 'schema:license', '@type': '@id'},
     'creditText': 'schema:creditText', 'isBasedOn': {'@id': 'schema:isBasedOn', '@type': '@id'},
     'hasPart': {'@id': 'schema:hasPart', '@container': '@set'},
-    'subdomains': {'@container': '@set'}, 'dateSource': {'@type': '@id'},
+    'subdomains': {'@container': '@set'}, 'stakeholders': {'@container': '@set'}, 'dateSource': {'@type': '@id'},
     'qualifiedRelation': {'@id': 'dcat:qualifiedRelation', '@container': '@set'},
     'relation': {'@id': 'dct:relation', '@type': '@id'}, 'hadRole': {'@id': 'dcat:hadRole', '@type': '@vocab'},
     'sources': {'@type': '@json'}, 'vocabularies': {'@type': '@json'}, 'fairsharing': {'@type': '@json'},
 }
-# Curated fields, in file order; edited in the Sheet. '@id' and 'phase' are derived, 'fairsharing' is fetched.
-CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'scope', 'stakeholder',
-           'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url', 'description', 'maintained',
-           'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch', 'reviewedBy', 'note']
-FIELD_ORDER = ['@id'] + CURATED[:9] + ['phase'] + CURATED[9:] + ['qualifiedRelation', 'fairsharing']
+# Curated fields, in file order; edited in the Sheet. '@id' and 'buildsOnFair' are derived, 'fairsharing' is fetched.
+CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'scope', 'phase',
+           'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url', 'description',
+           'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch', 'reviewedBy', 'note']
+FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'qualifiedRelation', 'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
-LIST_FIELDS = {'alternateName', 'subdomains'}
+LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders'}
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
 DATE_RE = re.compile(r'^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$')
 FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
@@ -207,12 +216,23 @@ def new_document(resources=()):
 # ---- derived values --------------------------------------------------------------------------------------------------
 
 def lane(r):
-    """Dashboard lane of a resource: where it comes from (display only, never stored)."""
-    if r.get('scope') in ('FAIR', 'Toxicology building on FAIR'):
+    """Dashboard lane by intended use (display only, never stored): generic FAIR and life-science resources have
+    their own lanes; a toxicology resource sits in the lane of its phase."""
+    if r.get('scope') == 'FAIR':
         return 'FAIR infrastructure'
     if r.get('scope') == 'Life Sciences':
         return 'Life Sciences infrastructure'
-    return LANE_OF_PHASE.get(PHASE_OF.get(r.get('stakeholder')), '')
+    return LANE_OF_PHASE.get(r.get('phase'), '')
+
+
+def creator_lane(r):
+    """Dashboard lane by creator: the toxicology lanes follow the creator types, 'Made jointly' for several."""
+    if r.get('scope') != 'Toxicology':
+        return lane(r)
+    types = r.get('stakeholders') or []
+    if len(types) > 1:
+        return 'Made jointly'
+    return CREATOR_LANE_OF.get(types[0], '') if types else ''
 
 
 def registry(r):
@@ -265,21 +285,27 @@ def normalise(doc):
                 r[f] = r[f].strip()
             elif isinstance(r.get(f), list):
                 r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
-        if r.get('subdomains'):                             # one canonical order, so round trips are exact
-            known = [x for x in SUBDOMAINS if x in r['subdomains']]
-            r['subdomains'] = known + [x for x in r['subdomains'] if x not in SUBDOMAINS]
+        for f, vocab in (('subdomains', SUBDOMAINS), ('stakeholders', STAKEHOLDER)):
+            if r.get(f):                                    # one canonical order, so round trips are exact
+                known = [x for x in vocab if x in r[f]]
+                r[f] = known + [x for x in r[f] if x not in vocab]
         if r.get('fairsharingRecord'):
             r['fairsharingRecord'] = fs_ref(r['fairsharingRecord'])
         r['@id'] = iri_of(r)
-        if r.get('scope') == 'Toxicology' and r.get('stakeholder') in PHASE_OF:
-            r['phase'] = PHASE_OF[r['stakeholder']]
-        else:
-            r.pop('phase', None)
     new_ids = {r['key']: r['@id'] for r in doc['hasPart']}
     for r in doc['hasPart']:
         for q in r.get('qualifiedRelation', []):
             key = old_ids.get(q['relation'], q['relation'].lstrip('#'))
             q['relation'] = new_ids.get(key, q['relation'])
+    by_id = {r['@id']: r for r in doc['hasPart']}
+    for r in doc['hasPart']:                                # derived: a toxicology resource building on FAIR
+        fair = r.get('scope') == 'Toxicology' and any(
+            q.get('hadRole') in BUILDS_ON and (by_id.get(q['relation']) or {}).get('scope') == 'FAIR'
+            for q in r.get('qualifiedRelation', []))
+        if fair:
+            r['buildsOnFair'] = True
+        else:
+            r.pop('buildsOnFair', None)
     doc['hasPart'] = sorted((_ordered(r) for r in doc['hasPart']), key=lambda r: r['key'])
     doc['vocabularies'] = VOCABULARIES
     doc['version'] = __version__
@@ -316,7 +342,7 @@ def check(doc):
             continue
         if not r.get('name'):
             e(f'{k}: name is empty')
-        for field, vocab in (('decision', DECISION), ('type', TYPES), ('scope', SCOPE), ('stakeholder', STAKEHOLDER),
+        for field, vocab in (('decision', DECISION), ('type', TYPES), ('scope', SCOPE), ('phase', PHASES),
                              ('dateBasis', DATE_BASIS), ('maintained', MAINTAINED), ('manuscript', MANUSCRIPT),
                              ('fairsharingMatch', MATCH), ('exclusionReason', EXCLUSION)):
             if r.get(field) not in (None, '') and r[field] not in vocab:
@@ -329,8 +355,14 @@ def check(doc):
             e(f'{k}: exclusion reason E6 needs Covered by naming another row')
         if r.get('coveredBy') and (r['coveredBy'] not in by_key or r['coveredBy'] == k):
             e(f'{k}: covered by {r["coveredBy"]!r} is not another row')
-        if (r.get('scope') == 'Toxicology') != bool(r.get('stakeholder')):
-            e(f'{k}: a stakeholder is required exactly when the scope is Toxicology')
+        if r.get('decision') != 'exclude':                  # excluded rows need no classification
+            if (r.get('scope') == 'Toxicology') != bool(r.get('phase')):
+                e(f'{k}: a phase is required exactly when the scope is Toxicology')
+            if (r.get('scope') == 'Toxicology') != bool(r.get('stakeholders')):
+                e(f'{k}: at least one creator type is required exactly when the scope is Toxicology')
+        for s in r.get('stakeholders', []) if isinstance(r.get('stakeholders'), list) else []:
+            if s not in STAKEHOLDER:
+                e(f'{k}: creator type {s!r} is not an allowed value')
         for s in r.get('subdomains', []):
             if s not in SUBDOMAINS:
                 e(f'{k}: sub-domain {s!r} is not an allowed value')

@@ -18,38 +18,39 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | `license` | CC BY-SA 4.0, required because the dataset contains FAIRsharing data. |
 | `creator` | ELIXIR Toxicology Community. |
 | `creditText` | Attribution to FAIRsharing. |
-| `isBasedOn` | The FAIRsharing Toxicology collection (and, later, the toxicology FAIR Implementation Profiles). |
-| `sources` | What each source contributed: manuscript version and checksum, FAIRsharing retrieval time and member count. |
+| `isBasedOn` | The FAIRsharing Toxicology collection. |
+| `sources` | What each source contributed, with versions, checksums and retrieval times. |
 | `vocabularies` | Every controlled list with its definitions, so the file can be read on its own. |
 | `hasPart` | The resources. |
 
 ## Resource fields
 
-Curated fields are edited in the curation Sheet; the column is given. `@id` and `phase` are derived; `fairsharing` is written by `fairtox fetch`.
+Curated fields are edited in the curation sheet; the column is given. `@id` and `buildsOnFair` are derived; `fairsharing` is written by `fairtox fetch`.
 
 | Field | Sheet column | Content |
 |---|---|---|
 | `@id` |  | FAIRsharing DOI when the match is confirmed, else `#key`. |
 | `key` | Key | Stable short identifier: lowercase letters, digits, `_` or `-`. Never changes. |
 | `name` | Name | Full name. |
-| `alternateName` | Aliases | Abbreviations and other names; the first is shown in the figure. |
+| `alternateName` | Aliases | Abbreviations and other names; the first short one is shown in the figure. |
 | `decision` | Decision | Screening decision (list below). |
 | `exclusionReason` | Exclusion reason | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by | Key of the row that covers this one (exclusion reason E6). |
 | `type` | Type | FAIRsharing registry and record type, or Tool (list below). |
 | `scope` | Scope | What the resource was made for (list below). |
-| `stakeholder` | Stakeholder | Who created a toxicology resource; required exactly when the scope is Toxicology. |
-| `phase` |  | Toxicology lifecycle phase, derived from the stakeholder. |
-| `subdomains` | one column per sub-domain | Sub-domains of the manuscript that apply (list below). |
+| `phase` | Phase | For toxicology resources: the main intended use in the toxicology data lifecycle (list below). Required for included and undecided toxicology resources. |
+| `stakeholders` | one "Made by" column per creator type | For toxicology resources: who created it; several may apply (list below). Required for included and undecided toxicology resources. |
+| `buildsOnFair` | Builds on FAIR | Derived: true for a toxicology resource that implements, extends, profiles or recommends a FAIR resource. |
+| `subdomains` | one column per sub-domain | Sub-domains that apply (list below). |
 | `datePublished` | First published | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. |
 | `dateBasis` | Date basis | What the date refers to (list below). |
 | `dateSource` | Date source | DOI or URL that shows the date. |
-| `creator` | Creator | Organisation(s) that made the resource. |
+| `creator` | Creator | Organisation(s) that made the resource, as information. |
 | `url` | Homepage | Main web address. |
 | `description` | Description | One to three sentences; needed to register the resource in FAIRsharing. |
 | `maintained` | Maintained | Maintenance status (list below). |
-| `manuscript` | In manuscript | Whether and how the manuscript names it (list below). |
-| `manuscriptEvidence` | Manuscript evidence | Section and line numbers in the frozen manuscript draft. |
+| `manuscript` | In manuscript | Whether and how the manuscript names it (list below). Internal only. |
+| `manuscriptEvidence` | Manuscript evidence | Section and line numbers in the frozen manuscript draft. Internal only. |
 | `fairsharingRecord` | FAIRsharing record | FAIRsharing record code (`FAIRsharing.xxxxxx`) or numeric id. |
 | `fairsharingMatch` | FAIRsharing match | Whether that record is this resource (list below). |
 | `reviewedBy` | Reviewed by | Initials of the curator who checked the row. |
@@ -59,21 +60,28 @@ Curated fields are edited in the curation Sheet; the column is given. `@id` and 
 
 ## Lanes
 
-The dashboard lane is derived and not stored: scope FAIR or Toxicology building on FAIR gives FAIR infrastructure, scope Life Sciences gives Life Sciences infrastructure, and scope Toxicology gives the lane of the stakeholder's phase. The last three lanes together form the toxicology infrastructure.
+The dashboard lane is derived and not stored. Scope FAIR gives FAIR infrastructure and scope Life Sciences gives Life Sciences infrastructure. A toxicology resource sits in the lane of its phase (intended use); the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure.
 
-| Lane | Meaning |
+| Lane (by intended use) | Meaning |
 |---|---|
-| FAIR infrastructure | Generic FAIR resources, and toxicology resources that build on them. |
+| FAIR infrastructure | Generic FAIR resources. |
 | Life Sciences infrastructure | Generic life-science resources that toxicology uses. |
-| Data Generation | Toxicology infrastructure made by wet-lab research. |
-| Tools & Integration | Toxicology infrastructure made by in silico research. |
-| Application (regulatory) | Toxicology infrastructure made by regulators. |
+| Data Generation | Toxicology resources mainly used to generate and describe data. |
+| Tools & Integration | Toxicology resources mainly used to integrate, model and analyse data. |
+| Application (regulatory) | Toxicology resources mainly used in regulatory decisions. |
 
-| Stakeholder | Phase | Lane |
-|---|---|---|
-| Wet-lab research | Data Generation | Data Generation |
-| In silico research | Data Integration | Tools & Integration |
-| Regulator | Application (Regulatory Use) | Application (regulatory) |
+| Phase | Lane |
+|---|---|
+| Data Generation | Data Generation |
+| Data Integration | Tools & Integration |
+| Application (Regulatory Use) | Application (regulatory) |
+
+| Lane (by creator) | Meaning |
+|---|---|
+| Made by wet-lab research | Toxicology resources made by wet-lab research only. |
+| Made by in silico research | Toxicology resources made by in silico research only. |
+| Made by regulators | Toxicology resources made by regulators only. |
+| Made jointly | Toxicology resources made by two or more creator types together. |
 
 ## Controlled lists
 
@@ -125,24 +133,23 @@ The dashboard lane is derived and not stored: scope FAIR or Toxicology building 
 |---|---|
 | FAIR | Generic FAIR infrastructure, not specific to a research domain. |
 | Life Sciences | Generic life-science infrastructure that toxicology uses. |
-| Toxicology | Made for toxicology. |
-| Toxicology building on FAIR | A toxicology-specific instance of a FAIR resource, such as a toxicology FAIR Implementation Profile or the RDMkit toxicology page. |
-
-### Stakeholder (`stakeholder`)
-
-| Value | Meaning |
-|---|---|
-| Wet-lab research | Made by experimental (wet-lab) researchers, mostly academic. |
-| In silico research | Made by computational researchers: modellers, AOP, PBK, QSAR and nano-informatics. |
-| Regulator | Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA. |
+| Toxicology | Made for toxicology, including toxicology resources that build on FAIR infrastructure. |
 
 ### Phase (`phase`)
 
 | Value | Meaning |
 |---|---|
-| Data Generation | Toxicology lifecycle phase of resources made by wet-lab research. |
-| Data Integration | Toxicology lifecycle phase of resources made by in silico research. |
-| Application (Regulatory Use) | Toxicology lifecycle phase of resources made by regulators. |
+| Data Generation | Mainly used to generate, record or describe experimental toxicology data. |
+| Data Integration | Mainly used to combine, curate, link, model or analyse toxicology data and knowledge. |
+| Application (Regulatory Use) | Mainly used to prepare, submit, assess or publish data for regulatory decisions. |
+
+### Creator types (`stakeholders`)
+
+| Value | Meaning |
+|---|---|
+| Wet-lab research | Made by experimental (wet-lab) researchers, mostly academic. |
+| In silico research | Made by computational researchers: modellers, AOP, PBK, QSAR, informatics and data stewards. |
+| Regulator | Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA. |
 
 ### Sub-domains (`subdomains`)
 
@@ -203,7 +210,7 @@ The dashboard lane is derived and not stored: scope FAIR or Toxicology building 
 
 ## Relations
 
-A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`), `hadRole` (the label), `evidence`, `source`, `reviewedBy`, `note`. Only six of FAIRsharing's fourteen labels are used. Lineage labels are drawn as arrows from the earlier resource to the one building on it; related_to has no arrowhead. A lineage relation normally points to an earlier resource; it may point to a later one only when FAIRsharing asserts it.
+A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`), `hadRole` (the label), `evidence`, `source`, `reviewedBy`, `note`. Six of FAIRsharing's fourteen labels are used. Lineage labels are drawn as arrows from the earlier resource to the one building on it; related_to has no arrowhead. A lineage relation normally points to an earlier resource; it may point to a later one only when FAIRsharing asserts it.
 
 | Label (`hadRole`) | FAIRsharing id | Lineage | Meaning | Allowed in FAIRsharing between |
 |---|---|---|---|---|
@@ -222,4 +229,4 @@ Written by `fairtox fetch` from the FAIRsharing API; replaced on every refresh: 
 
 ## Change log
 
-`data/changes.csv` has one row per changed field: `date`, `round` (curation round or refresh), `key`, `field`, `old`, `new`, `by` (the Reviewed by initials from the Sheet) and `source` (workbook file name or FAIRsharing).
+`data/changes.csv` has one row per changed field: `date`, `round` (curation round or refresh), `key`, `field`, `old`, `new`, `by` (the Reviewed by initials from the sheet) and `source` (workbook file name or FAIRsharing).

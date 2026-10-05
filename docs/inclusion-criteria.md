@@ -60,8 +60,8 @@ Each excluded row carries exactly one code.
 - **Guidance, test guidelines and quality systems.** Guidance on how to report, share or describe data is included as
   a policy; guidelines that only standardise how an experiment is run are excluded (E8).
 - **Generic resource and toxicology instance.** Both are rows when each has its own identity, such as RDMkit and its
-  toxicology page, or FAIRsharing and the Toxicology collection. The toxicology instance has scope "Toxicology
-  building on FAIR".
+  toxicology page, or FAIRsharing and the Toxicology collection. The toxicology instance has scope Toxicology and a
+  relation to the generic resource it builds on.
 - **Versions and successors.** A successor is its own row when it has its own name, identifier or paper (for example
   ISA-JSON after ISA-Tab); otherwise it is covered by the original (E6).
 - **RDF conversions.** A conversion is its own row only with its own identifier, endpoint or paper (AOP-Wiki RDF,
@@ -74,15 +74,20 @@ Each excluded row carries exactly one code.
 ## 6. Classification
 
 - **Scope** says what a resource was made for: FAIR (generic FAIR infrastructure), Life Sciences (generic life-science
-  infrastructure), Toxicology, or Toxicology building on FAIR (a toxicology instance of a FAIR resource, the
-  right-hand column of Table 1 in the manuscript).
-- **Stakeholder and phase.** For scope Toxicology, the stakeholder who created the resource sets its lifecycle phase,
-  whatever its type: wet-lab research (experimental, mostly academic) gives Data Generation; in silico research
-  (modellers, most AOP, PBK and nano-informatics resources) gives Data Integration; regulators and intergovernmental
-  bodies (OECD, EFSA, ECHA, US EPA) give Application (Regulatory Use). Who made the resource is recorded in Creator.
-- **Lanes.** The dashboard places FAIR and Toxicology-building-on-FAIR resources in FAIR infrastructure, Life Sciences
-  resources in Life Sciences infrastructure, and toxicology resources in the lane of their phase (Data Generation,
-  Tools & Integration, Application (regulatory)), which together form the toxicology infrastructure.
+  infrastructure) or Toxicology.
+- **Phase.** A toxicology resource's lifecycle phase is its main intended use in toxicology, whatever its type and
+  whoever made it: Data Generation (generating, recording or describing experimental data), Data Integration
+  (combining, curating, linking, modelling or analysing data and knowledge) or Application (Regulatory Use)
+  (preparing, submitting, assessing or publishing data for regulatory decisions).
+- **Creator types.** Who created a toxicology resource is recorded separately as one or more creator types: wet-lab
+  research, in silico research and regulator. A resource made by a consortium gets all types that apply; the
+  organisations are named in Creator.
+- **Building on FAIR** is derived, not chosen: a toxicology resource builds on FAIR when it implements, extends,
+  profiles or recommends a FAIR resource, such as a toxicology FAIR Implementation Profile building on the FIP.
+- **Lanes.** The dashboard places FAIR resources in FAIR infrastructure, Life Sciences resources in Life Sciences
+  infrastructure, and toxicology resources in the lane of their phase (Data Generation, Tools & Integration,
+  Application (regulatory)), which together form the toxicology infrastructure. The toxicology lanes can also be
+  arranged by creator type, with one lane for resources made jointly.
 - **Sub-domains** are those of the manuscript: in vitro toxicology, nanotoxicology, exposome, eco-toxicology,
   toxicogenomics, AOP-based mechanistic knowledge, computational and predictive toxicology, regulatory toxicology.
   They are proposed from the section that discusses a resource and from its FAIRsharing subjects, and a resource
@@ -118,6 +123,7 @@ Each excluded row carries exactly one code.
 | 3 Oct 2026 | Relations use FAIRsharing's relation labels only, so that every relation can be entered in FAIRsharing. | Jente Houweling |
 | 5 Oct 2026 | FERs only, not initiatives. The phase of a toxicology resource follows the stakeholder who created it. Sub-domains are those of the manuscript; a resource can have several. Toxicology building on FAIR is a scope of its own. | Jente Houweling |
 | 5 Oct 2026 | Alignment with the PARC Toxicology and Reference AOP FAIR Implementation Profiles follows after the first curated version. | Jente Houweling |
+| 5 Oct 2026 | The phase of a toxicology resource is its main intended use, chosen directly; who made it is recorded separately as one or more creator types (wet-lab research, in silico research, regulator), so both can be plotted. "Toxicology building on FAIR" is no longer a scope: it is derived from a builds-on relation to a FAIR resource, and those resources sit in the toxicology lanes. This replaces the earlier rule that the creator sets the phase. | Jente Houweling |
 
 ## 9. Limitations
 
@@ -125,5 +131,5 @@ Each excluded row carries exactly one code.
   (`fairtox draft-check` reports the differences).
 - The FAIRsharing collection is curated by its maintainers and changes over time; the retrieval date is recorded.
 - First-publication dates depend on what is documented; some can only be bounded.
-- Assigning a stakeholder is a judgement for resources made by mixed consortia; the creator is recorded so the choice
-  can be checked.
+- Choosing a phase by main use is a judgement for resources with several uses, and creator types depend on what
+  is documented about the makers; both are recorded per resource so they can be checked and revised.
