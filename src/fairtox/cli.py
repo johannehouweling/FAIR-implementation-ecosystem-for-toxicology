@@ -33,11 +33,13 @@ def cmd_fetch(a):
     doc = _load() if os.path.exists(model.DATASET) else model.new_document()
     before = json.loads(json.dumps(doc))
     try:
-        report = fairsharing.fetch(doc, login, password, dry_run=a.dry_run)
+        sample = [int(x) for x in a.ids.split(',')] if a.ids else None
+        report = fairsharing.fetch(doc, login, password, dry_run=a.dry_run or (len(sample) if sample else None),
+                                   sample=sample)
     except fairsharing.FairsharingError as e:
         print('FAIRsharing:', e)
         return 1
-    if not a.dry_run:
+    if not (a.dry_run or a.ids):
         changes = model.diff(before, model.normalise(doc))
         if model.save(doc):
             model.log_changes(changes, 'FAIRsharing refresh', 'FAIRsharing REST API')
@@ -164,6 +166,7 @@ def main(argv=None):
     s = sub.add_parser('fetch', help='pull the FAIRsharing Toxicology collection and linked records')
     s.add_argument('--dry-run', type=int, metavar='N', help='read N records and print their fields; write nothing')
     s.add_argument('--report', metavar='FILE', help='append the report to a markdown file')
+    s.add_argument('--ids', metavar='ID,ID', help='dry run on these FAIRsharing record ids')
     s.set_defaults(run=cmd_fetch)
     s = sub.add_parser('sheet', help='build the curation workbook')
     s.add_argument('out', help='path of the .xlsx to write')

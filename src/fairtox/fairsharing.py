@@ -273,7 +273,7 @@ def merge(doc, records, members, today=None):
     return report
 
 
-def fetch(doc, login, password, dry_run=None, today=None, log=print):
+def fetch(doc, login, password, dry_run=None, today=None, log=print, sample=None):
     """Sign in, read the collection and every relevant record, merge. Returns report lines."""
     today = today or dt.date.today().isoformat()
     jwt = sign_in(login, password)
@@ -302,7 +302,7 @@ def fetch(doc, login, password, dry_run=None, today=None, log=print):
         elif ref.startswith('FAIRsharing.'):
             ids.add(slim(lookup(ref))['id'])
             time.sleep(PAUSE)
-    ids = sorted(ids)[:dry_run] if dry_run else sorted(ids)
+    ids = (list(sample) if sample else sorted(ids)[:dry_run]) if dry_run else sorted(ids)
     records = []
     for rid in ids:
         raw = record(rid, jwt)
@@ -310,7 +310,10 @@ def fetch(doc, login, password, dry_run=None, today=None, log=print):
         if dry_run:
             attrs = (raw.get('data') or {}).get('attributes') or raw
             log(f'record {rid} keys: ' + ', '.join(sorted(attrs)))
-            log(json.dumps(records[-1], ensure_ascii=False)[:1500])
+            for key in ('linked_records', 'linking_records'):
+                items = attrs.get(key) if isinstance(attrs.get(key), list) else []
+                log(f'  {key}: {len(items)} items; first two: ' + json.dumps(items[:2], ensure_ascii=False)[:800])
+            log('  ' + json.dumps({k: v for k, v in records[-1].items() if k != 'description'}, ensure_ascii=False)[:800])
         time.sleep(PAUSE)
     if dry_run:
         return [f'dry run: {len(members)} collection members; nothing written']
