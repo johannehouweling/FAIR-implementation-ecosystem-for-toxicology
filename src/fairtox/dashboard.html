@@ -155,7 +155,7 @@ const link = (href, text) => isUrl(href) ? `<a href="${esc(href)}" target="_blan
 const plural = (k, one, many) => `${k} ${k === 1 ? one : many}`;
 
 const byKey = Object.fromEntries(NODES.map(n => [n.key, n]));
-const short = n => n.abbr || n.name;
+const short = n => n.label || n.name;
 const nameOf = k => byKey[k] ? short(byKey[k]) : k;
 const SHAPE = {Standard: 'standard', Database: 'database', Collection: 'database', Policy: 'policy', Tool: 'tool'};
 const kind = n => SHAPE[n.registry] || 'tool';

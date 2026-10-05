@@ -1,0 +1,4 @@
+date,round,key,field,old,new,by,source
+2026-10-05,labels,aopdb,alternateName,US EPA AOP-DB,AOP-DB; US EPA AOP-DB,Claude,figure labels: correct short name first
+2026-10-05,labels,miame,alternateName,MIAMI,MIAME; MIAMI,Claude,figure labels: correct short name first
+2026-10-05,labels,parcfip,alternateName,Toxicology specific FIPs (PARC); PARC Toxicology FIP,PARC Toxicology FIP; Toxicology specific FIPs (PARC),Claude,figure labels: correct short name first

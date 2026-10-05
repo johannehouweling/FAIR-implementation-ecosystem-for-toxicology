@@ -268,6 +268,16 @@ class SiteTest(TempDir):
             self.assertTrue(os.path.exists(self.path(f'site/{f}')))
 
 
+class LabelTest(unittest.TestCase):
+    def test_figure_labels(self):
+        self.assertEqual(site.label({'name': 'AOP-Wiki', 'alternateName': ['AOP-wiki']}), 'AOP-Wiki')
+        self.assertEqual(site.label({'name': 'ChEBI (Chemical Entities of Biological Interest)',
+                                     'alternateName': ['ChEBI']}), 'ChEBI')
+        self.assertEqual(site.label({'name': 'Nanomaterial data integrated with AOP knowledge in RDF',
+                                     'alternateName': ['vanrijn2024']}), 'Nanomaterial data integrated with AOP…')
+        self.assertEqual(site.clean_alias({'name': 'AOP-helpFinder', 'alternateName': ['jaylet2023']}), '')
+
+
 class RepositoryTest(unittest.TestCase):
     def test_one_version_everywhere(self):
         with open(os.path.join(ROOT, 'pyproject.toml')) as f:

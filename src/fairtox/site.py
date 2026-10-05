@@ -2,6 +2,7 @@
 import csv
 import json
 import os
+import re
 import shutil
 from importlib.resources import files
 
@@ -10,9 +11,29 @@ from fairtox import model
 REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology'
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-for-toxicology/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
-NODE_FIELDS = ['key', 'name', 'abbr', 'year', 'date', 'lane', 'phase', 'type', 'registry', 'scope', 'stakeholder',
+NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'year', 'date', 'lane', 'phase', 'type', 'registry', 'scope', 'stakeholder',
                'subdomains', 'decision', 'exclusionReason', 'coveredBy', 'manuscript', 'manuscriptEvidence',
                'inCollection', 'fairsharing', 'url', 'creator', 'maintained', 'description', 'dateSource', 'dateBasis']
+
+
+NOT_A_NAME = re.compile(r'^[a-z]+\d+[a-z]?$|^Issue #|FAIRsharing\.')   # citation keys, issue numbers, record codes
+
+
+def clean_alias(r):
+    """The first alias when it is a usable short name, else ''."""
+    a = (r.get('alternateName') or [''])[0]
+    ok = a and a != r['name'] and len(a) <= 28 and re.search(r'[A-Z0-9]', a) and not NOT_A_NAME.search(a)
+    return a if ok else ''
+
+
+def label(r):
+    """The figure label: the name when short, else a clean short alias, else the name cut at a word."""
+    name = r['name']
+    if len(name) <= 28:
+        return name
+    if clean_alias(r):
+        return clean_alias(r)
+    return name if len(name) <= 40 else name[:40].rsplit(' ', 1)[0] + '…'
 
 
 def fairsharing_url(r):
@@ -29,7 +50,7 @@ def nodes_links(doc):
     for r in doc['hasPart']:
         fs = r.get('fairsharing') or {}
         nodes.append({
-            'key': r['key'], 'name': r['name'], 'abbr': (r.get('alternateName') or [''])[0], 'year': model._year(r),
+            'key': r['key'], 'name': r['name'], 'label': label(r), 'abbr': clean_alias(r), 'year': model._year(r),
             'date': r.get('datePublished', ''), 'lane': model.lane(r), 'phase': r.get('phase', ''),
             'type': r.get('type', ''), 'registry': model.registry(r) or '', 'scope': r.get('scope', ''),
             'stakeholder': r.get('stakeholder', ''), 'subdomains': r.get('subdomains', []),

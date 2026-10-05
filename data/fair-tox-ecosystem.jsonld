@@ -352,6 +352,7 @@
    "key": "aopdb",
    "name": "AOP-DB (Adverse Outcome Pathway Database)",
    "alternateName": [
+    "AOP-DB",
     "US EPA AOP-DB"
    ],
    "decision": "include",
@@ -4267,6 +4268,7 @@
    "key": "miame",
    "name": "MIAME (Minimum Information About a Microarray Experiment)",
    "alternateName": [
+    "MIAME",
     "MIAMI"
    ],
    "decision": "include",
@@ -5266,8 +5268,8 @@
    "key": "parcfip",
    "name": "PARC Toxicology FAIR Implementation Profile",
    "alternateName": [
-    "Toxicology specific FIPs (PARC)",
-    "PARC Toxicology FIP"
+    "PARC Toxicology FIP",
+    "Toxicology specific FIPs (PARC)"
    ],
    "decision": "include",
    "type": "Standard: model/format",
