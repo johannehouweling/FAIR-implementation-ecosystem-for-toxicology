@@ -3039,6 +3039,9 @@
    "@id": "https://doi.org/10.25504/FAIRsharing.e1124d",
    "key": "epa_integrated_risk_information",
    "name": "EPA Integrated Risk Information System",
+   "alternateName": [
+    "EPA IRIS"
+   ],
    "decision": "include",
    "type": "Database: knowledgebase",
    "scope": "Toxicology",

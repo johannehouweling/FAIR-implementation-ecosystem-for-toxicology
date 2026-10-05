@@ -1662,3 +1662,4 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-05,review fixes 2026-10-05,iupac_toxgloss,alternateName,Glossary Of Terms Used In Toxicology,IUPAC toxicology glossary; Glossary Of Terms Used In Toxicology,Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
 2026-10-05,review fixes 2026-10-05,iuclid,relation,implements oht,(removed),Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
 2026-10-05,review fixes 2026-10-05,iuclid,relation,(new),related_to oht,Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
+2026-10-05,review fixes 2026-10-05,epa_integrated_risk_information,alternateName,,EPA IRIS,Claude (review),dashboard review: short alias for a cut label
