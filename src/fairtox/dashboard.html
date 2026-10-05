@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>FAIR implementation ecosystem for toxicology</title>
-<meta name="description" content="FAIR-enabling resources used in toxicology on a timeline, with their FAIRsharing records, manuscript status and relations.">
+<meta name="description" content="Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable, on a timeline with the relations between them.">
+<!--internal--><meta name="robots" content="noindex"><!--/internal-->
 <script type="application/ld+json">__SCHEMA__</script>
 <style>
 :root {
-  --bg: #f4f4f1; --surface: #fcfcfb; --band: #f0efea; --ink: #18181b; --ink-2: #52514e; --muted: #85837c; --grid: #e2e0d9; --rule: #cfcdc5;
+  --bg: #f5f5f2; --surface: #fcfcfb; --band: #f0efea; --ink: #18181b; --ink-2: #4f4e4a; --muted: #6c6a64; --grid: #e2e0d9; --rule: #cfcdc5;
   --standard: #2a78d6; --database: #eb6834; --policy: #1baf7a; --tool: #6b6a65; --edge: #7b7972; --fair: #e34948;
   --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -20,38 +21,103 @@
   --bg: #111110; --surface: #1a1a19; --band: #222220; --ink: #f4f3ee; --ink-2: #c3c2b7; --muted: #8f8d86; --grid: #2e2e2b; --rule: #3d3d39;
   --standard: #3987e5; --database: #d95926; --policy: #199e70; --tool: #9a9991; --edge: #8f8d86; --fair: #e66767; color-scheme: dark; }
 [hidden] { display: none !important; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 var(--sans); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 var(--sans); -webkit-text-size-adjust: 100%; }
 a { color: inherit; text-decoration: underline; text-decoration-color: var(--muted); text-underline-offset: 2px; }
 a:hover { text-decoration-color: var(--ink); }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .skip { position: absolute; left: 16px; top: -48px; z-index: 5; padding: 6px 12px; border-radius: 4px; background: var(--ink); color: var(--surface); text-decoration: none; }
 .skip:focus { top: 8px; }
-.page { box-sizing: border-box; max-width: 1480px; margin: 0 auto; padding-inline: 16px; padding-block: 20px 36px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
-header { display: grid; gap: 4px; }
-h1 { font-size: 21px; font-weight: 600; margin: 0; letter-spacing: -.005em; text-wrap: balance; }
+.m { color: var(--muted); }
+.num { font-variant-numeric: tabular-nums; }
+.page { box-sizing: border-box; max-width: 1600px; margin: 0 auto; padding: 28px 16px 40px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+h1 { font-size: 25px; line-height: 1.25; font-weight: 650; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
 h2 { font-size: 16px; font-weight: 600; margin: 0; }
-h3 { margin: 6px 0 0; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
-header p { margin: 0; color: var(--ink-2); font-size: 13.5px; max-width: 92ch; }
-header p.meta { color: var(--muted); font-size: 12.5px; }
-.num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
-.downloads { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-top: 6px; font-size: 13px; }
-.controls { display: flex; flex-wrap: wrap; gap: 8px 26px; align-items: center; font-size: 13px; }
-fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-wrap: wrap; gap: 4px 13px; align-items: center; }
-legend { float: left; padding: 0; margin-right: 2px; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
-#f-subs fieldset { gap: 4px 11px; padding-left: 10px; border-left: 1px solid var(--rule); }
-#f-subs fieldset legend { color: var(--ink-2); font-size: 12px; letter-spacing: 0; text-transform: none; font-style: italic; }
-fieldset.tox { padding: 3px 10px; border: 1px solid var(--rule); border-radius: 4px; }
-label { display: inline-flex; gap: 5px; align-items: center; white-space: nowrap; cursor: pointer; }
-input[type=checkbox] { margin: 0; accent-color: var(--ink); }
-button { font: inherit; font-size: 13px; padding: 4px 12px; border: 1px solid var(--rule); border-radius: 4px; background: var(--surface); color: var(--ink); cursor: pointer; }
-button:hover { border-color: var(--ink-2); }
-:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.msg, .m { color: var(--muted); }
-.msg { font-size: 12px; }
-.figure { background: var(--surface); border: 1px solid var(--grid); border-radius: 6px; overflow-x: auto; }
-#fig { display: block; width: 100%; min-width: 980px; height: auto; }
+h3 { font-size: 13.5px; font-weight: 600; margin: 0; }
+header { display: grid; gap: 6px; }
+header p { margin: 0; max-width: 80ch; }
+.lede { color: var(--ink-2); font-size: 15px; }
+.meta { color: var(--muted); font-size: 12.5px; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
+input[type=search], select { box-sizing: border-box; height: 32px; max-width: 100%; padding: 4px 9px; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; }
+input[type=search] { width: 172px; }
+select { cursor: pointer; field-sizing: content; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.chip { box-sizing: border-box; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px 0 8px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); white-space: nowrap; cursor: pointer; }
+.chip:has(input:not(:checked)) { color: var(--muted); background: transparent; border-style: dashed; }
+.chip input { margin: 0; accent-color: var(--ink); }
+.tox { padding: 2px 3px 2px 10px; border: 1px solid var(--rule); border-radius: 18px; }
+.tox legend { float: left; padding: 0; margin-right: 2px; color: var(--ink-2); font-size: 12px; }
+.tox .chip { height: 26px; }
+
+.viz { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
+@media (min-width: 1340px) {
+  .viz.open { grid-template-columns: minmax(0, 1fr) 320px; }
+  .panel { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
+}
+.figure { background: var(--surface); border: 1px solid var(--grid); border-radius: 8px; overflow-x: auto; }
+#fig { display: block; width: 100%; min-width: 960px; height: auto; }
 #fig .node { cursor: pointer; }
-.notes { margin: 0; color: var(--ink-2); font-size: 13px; max-width: 100ch; }
-section { display: grid; gap: 8px; }
+#fig .node.sel .mark { stroke: var(--ink); stroke-width: 2.4px; }
+.notes { margin: -6px 0 0; color: var(--ink-2); font-size: 13px; max-width: 110ch; }
+
+.panel { box-sizing: border-box; padding: 14px 16px 16px; background: var(--surface); border: 1px solid var(--grid); border-radius: 8px; font-size: 13.5px; overflow-wrap: anywhere; }
+.panel p { margin: 4px 0 0; }
+.p-head { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+.p-head h2 { font-size: 17px; line-height: 1.3; }
+.p-head h2:focus { outline: none; }
+.close { flex: none; width: 30px; height: 30px; margin: -4px -6px 0 0; padding: 0; font: 20px/1 var(--sans); color: var(--ink-2); background: none; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
+.close:hover { border-color: var(--rule); }
+.panel dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 12px 0 0; }
+.panel dt { color: var(--muted); }
+.panel dd { margin: 0; }
+.panel .links { margin-top: 12px; }
+.panel h3 { margin: 14px 0 4px; color: var(--muted); font-size: 12px; font-weight: 600; }
+.rel { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
+.rel button { display: block; padding: 0; font: inherit; text-align: left; color: inherit; background: none; border: 0; cursor: pointer; }
+.rel u { text-decoration-color: var(--muted); text-underline-offset: 2px; }
+.rel button:hover u { text-decoration-color: var(--ink); }
+
+.list { display: grid; gap: 8px; }
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+caption { max-width: calc(100vw - 32px); padding-bottom: 8px; text-align: left; color: var(--ink-2); }
+th, td { padding: 6px 16px 6px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--grid); }
+thead th { padding-top: 0; font-size: 12px; font-weight: 500; color: var(--muted); white-space: nowrap; }
+thead button { padding: 2px 0; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+thead button:hover, th[aria-sort] button { color: var(--ink); }
+tbody th { font-weight: 500; min-width: 180px; }
+td:nth-child(2) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+td:nth-child(4) { white-space: nowrap; }
+
+.about { padding-top: 8px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 6px 40px; }
+.about h3 { margin-top: 10px; }
+.about p, .about dl { margin: 3px 0 0; color: var(--ink-2); max-width: 66ch; }
+.about dt { margin-top: 6px; color: var(--ink); font-weight: 500; }
+.about dd { margin: 0; }
+
+footer { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px 40px; padding-top: 18px; border-top: 1px solid var(--grid); color: var(--ink-2); font-size: 13px; }
+footer h2 { margin-bottom: 6px; font-size: 13.5px; color: var(--ink); }
+footer p { margin: 0 0 6px; overflow-wrap: anywhere; }
+.plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+button.btn { padding: 3px 11px; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; cursor: pointer; }
+button.btn:hover { border-color: var(--ink-2); }
+.credit img { height: 30px; width: auto; margin-right: 8px; padding: 2px 6px; vertical-align: middle; background: #fff; border-radius: 4px; }
+#tip { position: fixed; z-index: 4; pointer-events: none; box-sizing: border-box; max-width: min(320px, calc(100vw - 16px)); padding: 6px 10px; background: var(--surface); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: 6px; font-size: 12.5px; box-shadow: 0 4px 14px rgba(0, 0, 0, .12); }
+#tip b { display: block; font-weight: 600; }
+#tip span { color: var(--muted); }
+/*internal*/
+.banner { margin: 0; padding: 10px 16px; background: #f5c542; color: #1a1400; font-size: 14px; text-align: center; }
+.cur { gap: 4px 12px; padding-left: 10px; border-left: 1px solid var(--rule); }
+.cur legend { float: left; margin-right: 2px; color: var(--muted); font-size: 12px; }
+.cur label { display: inline-flex; gap: 5px; align-items: center; white-space: nowrap; cursor: pointer; }
+.cur input { margin: 0; accent-color: var(--ink); }
+.cur-panel { display: grid; gap: 8px; }
+.cur-panel > p { margin: 0; color: var(--ink-2); font-size: 13px; }
+.cur-panel h3 { margin: 6px 0 0; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
 .stats, .flow { display: flex; flex-wrap: wrap; gap: 8px; }
 .stat, .flow li { box-sizing: border-box; padding: 8px 14px; background: var(--surface); border: 1px solid var(--grid); border-radius: 6px; }
 .stat { display: grid; min-width: 150px; }
@@ -63,131 +129,152 @@ details li { break-inside: avoid; }
 details p { margin: 4px 0 8px; font-size: 13px; }
 .flow { list-style: none; margin: 0; padding: 0; font-size: 13px; }
 .flow li { max-width: 440px; }
-.flow li:first-child { position: relative; margin-right: 22px; }
-.flow li:first-child::after { content: "\2192" / ""; position: absolute; right: -19px; top: 12px; color: var(--muted); }
 .flow .m { font-size: 12.5px; }
-@media (max-width: 600px) { .flow li:first-child { margin-right: 0; } .flow li:first-child::after { content: none; } }
-.tbl-head { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; font-size: 13px; }
-.tablewrap { overflow-x: auto; }
-table { border-collapse: collapse; font-size: 12.5px; }
-caption { max-width: calc(100vw - 32px); text-align: left; color: var(--ink-2); font-size: 13px; padding-bottom: 6px; }
-th, td { text-align: left; padding: 4px 12px 4px 0; border-bottom: 1px solid var(--grid); vertical-align: top; }
-thead th { color: var(--muted); font-weight: 500; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
-tbody th { font-weight: 400; }
-td.num { white-space: nowrap; }
 tr.out th, tr.out td { color: var(--muted); }
-footer { display: grid; gap: 6px; padding-top: 12px; border-top: 1px solid var(--grid); color: var(--ink-2); font-size: 12.5px; }
-footer p { margin: 0; }
-.credit img { height: 30px; width: auto; margin-right: 8px; padding: 2px 6px; vertical-align: middle; background: #fff; border-radius: 4px; }
-#tip { position: fixed; z-index: 4; pointer-events: none; box-sizing: border-box; max-width: min(360px, calc(100vw - 16px)); padding: 8px 10px; background: var(--surface); color: var(--ink);
-  border: 1px solid var(--rule); border-radius: 6px; font-size: 12.5px; box-shadow: 0 6px 18px rgba(0, 0, 0, .14); }
-#tip.pinned { pointer-events: auto; }
-#tip b { font-weight: 600; }
-#tip div + div { margin-top: 2px; }
+/*/internal*/
 </style>
 </head>
 <body>
-<a class="skip" href="#table">Skip to the table</a>
+<!--internal--><p class="banner" role="note"><b>Internal curation view. Not for publication.</b> Every row of the dataset with its curation status; the public page is built without --internal.</p><!--/internal-->
+<a class="skip" href="#list">Skip to the list</a>
 <div class="page">
   <header>
     <h1 id="title">FAIR implementation ecosystem for toxicology</h1>
-    <p>FAIR-enabling resources used in toxicology, each placed at its first publication in the lane it comes from, with links from a resource to the resources that build on it.</p>
+    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published, in the lane of who made it; lines show which resources build on others.</p>
     <p class="meta" id="meta"></p>
-    <p class="downloads"><span class="m">Download</span>
-      <a href="fair-tox-ecosystem.jsonld" download>dataset (JSON-LD)</a>
-      <a href="resources.csv" download>resources (CSV)</a>
-      <a href="relations.csv" download>relations (CSV)</a>
-      <button id="b-export" type="button">Export SVG</button>
-      <span id="export-msg" class="msg" role="status"></span></p>
   </header>
-  <div class="controls">
-    <fieldset id="f-lanes"><legend>Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology infrastructure</legend></fieldset></fieldset>
-    <fieldset id="f-subs"><legend>Sub-domains</legend></fieldset>
-    <fieldset><legend>Decision</legend>
+
+  <div class="controls" role="search" aria-label="Search and filter the resources">
+    <input id="q" type="search" placeholder="Search resources" aria-label="Search resources by name, alias or description" autocomplete="off" spellcheck="false">
+    <fieldset id="f-lanes"><legend class="sr">Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology infrastructure</legend></fieldset></fieldset>
+    <select id="f-type" aria-label="Type"><option value="">All types</option><option>Standard</option><option>Database</option><option>Policy</option><option>Collection</option><option>Tool</option></select>
+    <select id="f-sub" aria-label="Sub-domain"><option value="">All sub-domains</option></select>
+    <label class="chip"><input type="checkbox" id="t-links" checked> Relations</label>
+    <!--internal-->
+    <fieldset class="cur"><legend>Decision</legend>
       <label><input type="checkbox" id="d-include" checked> included</label>
       <label><input type="checkbox" id="d-undecided" checked> not yet screened</label>
       <label><input type="checkbox" id="d-exclude"> screened out</label>
     </fieldset>
-    <fieldset><legend>Manuscript</legend>
+    <fieldset class="cur"><legend>Manuscript</legend>
       <label><input type="checkbox" id="m-in" checked> in the manuscript</label>
       <label><input type="checkbox" id="m-out" checked> not in the manuscript</label>
     </fieldset>
-    <fieldset><legend>Show</legend>
-      <label><input type="checkbox" id="t-links" checked> relations</label>
-      <label><input type="checkbox" id="t-labels" checked> labels</label>
-    </fieldset>
+    <!--/internal-->
   </div>
-  <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Timeline of FAIR-enabling resources in toxicology"></svg></div>
+
+  <div class="viz" id="viz">
+    <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Timeline of FAIR-enabling resources for toxicology"></svg></div>
+    <aside id="panel" class="panel" aria-label="Details of the selected resource" hidden></aside>
+  </div>
   <p class="notes" id="notes" aria-live="polite"></p>
-  <section aria-labelledby="fs-h">
+  <!--internal-->
+  <section class="cur-panel" aria-labelledby="fs-h">
     <h2 id="fs-h">FAIRsharing vs manuscript</h2>
-    <p class="notes">Resources not screened out, compared with the <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a>.</p>
+    <p>Resources not screened out, compared with the <a id="coll-cur" href="https://fairsharing.org">FAIRsharing Toxicology collection</a>.</p>
     <div class="stats" id="fs-stats"></div>
     <div id="fs-lists"></div>
     <h3>Selection</h3>
     <ol class="flow" id="flow"></ol>
   </section>
-  <section id="table" tabindex="-1" aria-labelledby="tbl-h">
-    <div class="tbl-head"><h2 id="tbl-h">Data table</h2><label><input type="checkbox" id="t-all"> show all resources</label></div>
+  <!--/internal-->
+
+  <section id="list" class="list" tabindex="-1" aria-labelledby="list-h">
+    <h2 id="list-h">Resources</h2>
     <div class="tablewrap"><table>
-      <caption id="tbl-cap"></caption>
-      <thead><tr><th scope="col">Resource</th><th scope="col">First published</th><th scope="col">Type</th><th scope="col">Phase / lane</th><th scope="col">Sub-domains</th>
-        <th scope="col">In manuscript</th><th scope="col">FAIRsharing</th><th scope="col">In collection</th><th scope="col">Decision</th></tr></thead>
+      <caption id="cap"></caption>
+      <thead><tr id="thead"></tr></thead>
       <tbody id="tbody"></tbody>
     </table></div>
   </section>
+
+  <section class="about" aria-labelledby="about-h">
+    <h2 id="about-h">About the data</h2>
+    <div class="cols">
+    <div>
+      <h3>What is listed</h3>
+      <p>FAIR-enabling resources: standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable. Projects, initiatives and communities are not listed themselves, only the resources they made.</p>
+      <h3>Where the resources come from</h3>
+      <p>The <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and curation by the ELIXIR Toxicology Community. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools.</p>
+    </div>
+    <div>
+      <h3>Lanes</h3>
+      <dl id="lane-defs"></dl>
+    </div>
+    <div>
+      <h3>First published</h3>
+      <p>When a resource first became public: the online publication of the paper that first describes it, its first release, or the adoption of a guidance or policy. Each date links to its source. Resources without a known date are in the list but not in the figure.</p>
+      <h3>Versions</h3>
+      <p>The data are versioned and citable: each release has a version number, and every change is recorded in the repository.</p>
+    </div>
+    </div>
+  </section>
+
   <footer>
-    <p class="credit"><a href="https://fairsharing.org"><img src="https://api.fairsharing.org/img/fairsharing-attribution.svg" alt="FAIRsharing"></a> Contains information from FAIRsharing, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
-    <p>Dataset licence: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Code licence: <a href="https://opensource.org/license/mit">MIT</a>. <span id="links"></span></p>
+    <section aria-labelledby="dl-h">
+      <h2 id="dl-h">Download</h2>
+      <ul class="plain">
+        <li><a href="fair-tox-ecosystem.jsonld" download>Data (JSON-LD)</a></li>
+        <li><a href="resources.csv" download>Resources (CSV)</a></li>
+        <li><a href="relations.csv" download>Relations (CSV)</a></li>
+        <li><button id="b-export" class="btn" type="button">Export the figure (SVG)</button> <span id="export-msg" class="m" role="status"></span></li>
+      </ul>
+    </section>
+    <section aria-labelledby="cite-h">
+      <h2 id="cite-h">How to cite</h2>
+      <p id="cite"></p>
+      <p id="repo"></p>
+    </section>
+    <section aria-labelledby="lic-h">
+      <h2 id="lic-h">Licences</h2>
+      <p>Data: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Code: <a href="https://opensource.org/license/mit">MIT</a>.</p>
+      <p class="credit"><a href="https://fairsharing.org"><img src="https://api.fairsharing.org/img/fairsharing-attribution.svg" alt="FAIRsharing"></a> Contains information from FAIRsharing, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+      <!--internal--><p><a id="criteria" href="#">Inclusion criteria</a></p><!--/internal-->
+    </section>
   </footer>
 </div>
 <div id="tip" hidden></div>
 <script id="data" type="application/json">__DATA__</script>
 <script>
-const DATA = JSON.parse(document.getElementById('data').textContent);
+const $ = id => document.getElementById(id);
+const DATA = JSON.parse($('data').textContent);
 const META = DATA.meta, NODES = DATA.nodes, LINKS = DATA.links;
 const NS = 'http://www.w3.org/2000/svg';
-const $ = id => document.getElementById(id);
 const fig = $('fig');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
 const isUrl = s => /^https?:\/\//.test(s || '');
 const link = (href, text) => isUrl(href) ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text);
 const plural = (k, one, many) => `${k} ${k === 1 ? one : many}`;
+const words = s => String(s).replace(/_/g, ' ');
 
 const byKey = Object.fromEntries(NODES.map(n => [n.key, n]));
 const short = n => n.label || n.name;
-const nameOf = k => byKey[k] ? short(byKey[k]) : k;
 const SHAPE = {Standard: 'standard', Database: 'database', Collection: 'database', Policy: 'policy', Tool: 'tool'};
 const kind = n => SHAPE[n.registry] || 'tool';
 const TYPES = [['standard', 'Standard'], ['database', 'Database or collection'], ['policy', 'Policy'], ['tool', 'Tool']];
-const DECISION = {include: 'included', undecided: 'not yet screened', exclude: 'screened out'};
-const DEC_BOX = {include: 'd-include', undecided: 'd-undecided', exclude: 'd-exclude'};
-const PASSIVE = {implements: 'is implemented by', extends: 'is extended by', profiles: 'is profiled by', recommends: 'is recommended by',
-  deprecates: 'is deprecated by', related_to: 'is related to'};
-const words = s => s.replace(/_/g, ' ');
-const inMs = n => n.manuscript !== 'absent';
 const italic = n => n.scope === 'Toxicology building on FAIR';
 const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
 const label = n => short(n) + dagger(n);
 const laneText = n => n.phase || n.lane || '—';   // toxicology resources show their lifecycle phase
 const dated = n => Number.isInteger(n.year);
+const placed = n => dated(n) && META.lanes.includes(n.lane);
 const TOX = new Set(META.toxLanes);
 const byName = (a, b) => a.name.localeCompare(b.name);
 const laneIndex = n => { const i = META.lanes.indexOf(n.lane); return i < 0 ? META.lanes.length : i; };
-const byPlace = (a, b) => laneIndex(a) - laneIndex(b) || (a.year ?? 1e4) - (b.year ?? 1e4) || byName(a, b);
+const hay = Object.fromEntries(NODES.map(n => [n.key, [n.name, ...(n.aliases || []), n.description || ''].join(' ').toLowerCase()]));
 
-// Geometry: years before 2010 are compressed; the axis runs from the earliest year (floored to 5, at most 2000)
-// to the year after the latest one. The left margin holds the bracket that marks the toxicology lanes.
+// Geometry: years before 2010 are compressed, to at most the width of 9.6 later years; the axis runs from the earliest
+// year (floored to 5, at most 2000) to the year after the latest one. The left margin holds the toxicology bracket.
 const years = NODES.filter(dated).map(n => n.year);
-const YB = 2010, K = 0.32;
-const Y0 = Math.min(2000, Math.floor(Math.min(...years) / 5) * 5);
+const YB = 2010;
+const Y0 = Math.min(2000, Math.floor(Math.min(...years) / 5) * 5), K = Math.min(.32, 9.6 / (YB - Y0));
 const Y1 = (years.length ? Math.max(...years) : YB) + 1;
-const W = 1440, M = 30, LEFT = 24 + M, RIGHT = 14, TOP = 66, TRACK = 18, R = 5, RING = 8.5, FS = 11, HEAD = 26, GAP = 10;
+const W = 1440, M = 30, LEFT = 24 + M, RIGHT = 14, TOP = 66, TRACK = 18, R = 5, FS = 11, HEAD = 26, GAP = 10;
 const units = y => y < YB ? (y - Y0) * K : (YB - Y0) * K + (y - YB);
 const X = y => LEFT + 14 + units(y) / units(Y1) * (W - LEFT - RIGHT - 14);
-const rad = n => n.inCollection ? RING : R;
+let rad = () => R;
 const css = name => getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
-const SANS = css('sans'), MONO = css('mono');
+const SANS = css('sans');
 const ctx = document.createElement('canvas').getContext('2d');
 const textWidth = (s, it) => { ctx.font = `${it ? 'italic ' : ''}${FS}px ${SANS}`; return ctx.measureText(s).width; };
 
@@ -204,18 +291,37 @@ function shape(type, x, y, r, parent) {  // circle = standard, square = database
   if (type === 'policy') return el('path', {d: `M${x} ${y - r * 1.25}L${x + r * 1.25} ${y}L${x} ${y + r * 1.25}L${x - r * 1.25} ${y}Z`}, parent);
   return el('path', {d: `M${x} ${y - r * 1.2}L${x + r * 1.15} ${y + r * .9}L${x - r * 1.15} ${y + r * .9}Z`}, parent);
 }
+/*internal*/
+// The curation view: decision and manuscript filters and encodings, and the FAIRsharing vs manuscript panel.
+const DECISION = {include: 'included', undecided: 'not yet screened', exclude: 'screened out'};
+const DEC_BOX = {include: 'd-include', undecided: 'd-undecided', exclude: 'd-exclude'};
+const inMs = n => n.manuscript !== 'absent';
+const RING = 8.5;
+rad = n => n.inCollection ? RING : R;
+const curated = n => (!DEC_BOX[n.decision] || $(DEC_BOX[n.decision]).checked) && $(inMs(n) ? 'm-in' : 'm-out').checked;
+const curation = n => {
+  const why = ((META.vocab || {}).exclusionReason || {})[n.exclusionReason];
+  return '<h3>Curation</h3><dl>' +
+    `<dt>Manuscript</dt><dd>${esc(n.manuscript)}${n.manuscriptEvidence ? ` <span class="m">(${esc(n.manuscriptEvidence)})</span>` : ''}</dd>` +
+    `<dt>FAIRsharing</dt><dd>${n.fairsharing ? 'record' : 'no record'}, ${n.inCollection ? 'in' : 'not in'} the Toxicology collection</dd>` +
+    `<dt>Decision</dt><dd>${esc(DECISION[n.decision] || n.decision)}${n.exclusionReason ? ` (${esc(n.exclusionReason)}${why ? ': ' + esc(why) : ''})` : ''}` +
+    `${n.coveredBy ? `, covered by ${esc(byKey[n.coveredBy] ? byKey[n.coveredBy].name : n.coveredBy)}` : ''}</dd></dl>`;
+};
+/*/internal*/
 
-const state = {lanes: new Set(META.lanes), subs: new Set(META.subdomains.map(s => s[0]))};
-function passes(n) {  // every filter; the figure also needs a date and a lane
-  if (n.lane && !state.lanes.has(n.lane)) return false;
-  if (n.subdomains.length && !n.subdomains.some(s => state.subs.has(s))) return false;
-  if (DEC_BOX[n.decision] && !$(DEC_BOX[n.decision]).checked) return false;
-  return $(inMs(n) ? 'm-in' : 'm-out').checked;
-}
+const state = {lanes: new Set(META.lanes), type: '', sub: '', q: [], sel: null, col: 3, dir: 1};
+const passes = n => (!n.lane || state.lanes.has(n.lane)) && (!state.type || n.registry === state.type) &&
+  (!state.sub || n.subdomains.includes(state.sub)) /*internal*/ && curated(n) /*/internal*/;
+const matches = n => state.q.every(w => hay[n.key].includes(w));
+const offText = ns => {  // why some resources are listed but not drawn
+  const u = ns.filter(n => !dated(n)).length, l = ns.filter(n => dated(n) && !META.lanes.includes(n.lane)).length;
+  const parts = [u && `${plural(u, 'resource has', 'resources have')} no known date`, l && `${plural(l, 'resource has', 'resources have')} no lane`].filter(Boolean);
+  return parts.length ? `${parts.join(' and ')}; ${u + l === 1 ? 'it is' : 'they are'} in the list but not in the figure.` : '';
+};
 
 // Stacking: the fewest tracks a lane needs so that no labels overlap (first fit by left edge), then a few sweeps in
 // which every resource takes the free track nearest to the mean height of the resources it links to.
-function layout(shown, links, labels) {
+function layout(shown, links) {
   const nb = {};
   for (const l of links) { (nb[l.src] ||= []).push(l.dst); (nb[l.dst] ||= []).push(l.src); }
   const lanes = [];
@@ -224,7 +330,7 @@ function layout(shown, links, labels) {
     if (!ns.length) continue;
     for (const n of ns) {
       n.x = X(n.year + .5);
-      const w = labels ? textWidth(label(n), italic(n)) + 5 : 0;
+      const w = textWidth(label(n), italic(n)) + 5;
       n.flip = n.x + R + w > W - 10;
       n.l = n.flip ? n.x - R - w : n.x - rad(n);
       n.r = n.flip ? n.x + rad(n) : n.x + R + w;
@@ -274,14 +380,16 @@ function overlaps() {  // ponytail: O(n^2) over label boxes, fine for a few hund
   return k;
 }
 
+const aria = n => [`${n.name}${n.abbr ? ` (${n.abbr})` : ''}`, `first published ${n.date}`, n.type || 'type not set', laneText(n),
+  dagger(n) && 'no longer maintained' /*internal*/, `manuscript: ${n.manuscript}`, n.inCollection && 'in the FAIRsharing Toxicology collection',
+  DECISION[n.decision] || n.decision /*/internal*/].filter(Boolean).join(', ');
+
 let H = 0;
 function draw() {
-  highlight.cur = undefined;
-  const labels = $('t-labels').checked, showOut = $('d-exclude').checked;
-  for (const n of NODES) { n.pass = passes(n); n.shown = n.pass && dated(n) && META.lanes.includes(n.lane); }
+  for (const n of NODES) { n.pass = passes(n); n.shown = n.pass && placed(n); }
   const shown = NODES.filter(n => n.shown);
   const links = LINKS.filter(l => byKey[l.src] && byKey[l.src].shown && byKey[l.dst] && byKey[l.dst].shown);
-  const {lanes, bottom} = layout(shown, links, labels);
+  const {lanes, bottom} = layout(shown, links);
   fig.textContent = '';
   fig.setAttribute('font-family', SANS);
   const c = Object.fromEntries(['surface', 'band', 'ink', 'ink-2', 'muted', 'grid', 'edge', 'fair', 'standard', 'database', 'policy', 'tool'].map(k => [k, css(k)]));
@@ -302,7 +410,7 @@ function draw() {
   const yTop = TOP - 10, yBot = Math.max(bottom - 12, yTop + 20);
   for (let yr = Y0; yr < Y1; yr += yr < YB ? 5 : 1) {
     el('line', {x1: X(yr), x2: X(yr), y1: yTop, y2: yBot, stroke: c.grid, 'stroke-width': yr % 5 ? .6 : 1}, fig);
-    if (yr < YB || (yr % 2 === 0 && yr !== 2016)) el('text', {x: X(yr), y: yTop - 6, 'text-anchor': 'middle', 'font-size': 10.5, 'font-family': MONO, fill: c.muted}, fig, yr);
+    if (yr < YB || (yr % 2 === 0 && yr !== 2016)) el('text', {x: X(yr), y: yTop - 6, 'text-anchor': 'middle', 'font-size': 10.5, 'font-variant-numeric': 'tabular-nums', fill: c.muted}, fig, yr);
   }
   el('text', {x: (X(Y0) + X(YB)) / 2, y: yTop - 24, 'text-anchor': 'middle', 'font-size': 10.5, fill: c.muted}, fig, 'before 2010, compressed');
   if (Y0 < 2016 && 2016 < Y1) {
@@ -310,34 +418,36 @@ function draw() {
     el('text', {x: X(2016) + 6, y: yTop - 24, 'font-size': 11, 'font-weight': 600, fill: c.fair}, fig, 'FAIR principles published, 2016');
   }
 
-  // links run from the earlier resource (src) to the one that builds on it (dst)
+  // links run from the earlier resource (src) to the one that builds on it (dst); related_to links have no arrowhead
   const gLinks = el('g', {fill: 'none'}, fig);
   let nLinks = 0;
   if ($('t-links').checked) for (const l of links) {
-    const a = byKey[l.src], b = byKey[l.dst], out = a.decision === 'exclude' || b.decision === 'exclude';
+    const a = byKey[l.src], b = byKey[l.dst];
     // a link into a flipped label ends at the label's left end, so that the label does not hide the arrowhead
     const x1 = a.x + rad(a) + 1, y1 = a.y, x2 = (b.flip ? b.l : b.x - rad(b)) - 3, y2 = b.y, dx = Math.max(28, Math.abs(x2 - x1) / 2);
-    el('path', {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, d: `M${x1} ${y1}C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}`,
-      stroke: c.edge, 'stroke-width': 1.1, 'stroke-opacity': out ? .2 : .55, 'stroke-dasharray': l.evidence === 'manuscript' ? 'none' : '4 3',
-      'marker-end': l.lineage ? 'url(#arrow)' : 'none'}, gLinks);
+    const p = el('path', {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, d: `M${x1} ${y1}C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}`,
+      stroke: c.edge, 'stroke-width': l.lineage ? 1.2 : .9, 'stroke-opacity': l.lineage ? .6 : .45, 'marker-end': l.lineage ? 'url(#arrow)' : 'none'}, gLinks);
+    /*internal*/
+    if (l.evidence !== 'manuscript') p.setAttribute('stroke-dasharray', '4 3');
+    if (a.decision === 'exclude' || b.decision === 'exclude') p.setAttribute('stroke-opacity', .2);
+    /*/internal*/
     nLinks++;
   }
   const gNodes = el('g', {}, fig);
   for (const b of lanes) for (const n of b.nodes) {
-    const k = kind(n), col = c[k], filled = n.manuscript === 'cited' || n.manuscript === 'named';
-    const g = el('g', {class: 'node', 'data-key': n.key, tabindex: 0, 'aria-label': `${n.name}${n.abbr ? ` (${n.abbr})` : ''}, first published ${n.date}, ` +
-      `${n.type || 'type not set'}, ${n.lane}, manuscript: ${n.manuscript}${n.inCollection ? ', in the FAIRsharing Toxicology collection' : ''}` +
-      `${dagger(n) ? ', no longer maintained' : ''}, ${DECISION[n.decision] || n.decision}`}, gNodes);
-    if (n.decision === 'exclude') g.setAttribute('opacity', .35);
-    if (n.inCollection) el('circle', {cx: n.x, cy: n.y, r: RING, fill: 'none', stroke: col, 'stroke-width': 1.2}, g);
+    const k = kind(n), col = c[k];
+    const g = el('g', {class: 'node', 'data-key': n.key, tabindex: 0, role: 'button', 'aria-label': aria(n)}, gNodes);
     const s = shape(k, n.x, n.y, R, g);
-    s.setAttribute('fill', filled ? col : c.surface);
-    s.setAttribute('stroke', filled ? c.surface : col);
-    s.setAttribute('stroke-width', filled ? 1.5 : 1.6);
+    for (const [a, v] of [['class', 'mark'], ['fill', col], ['stroke', c.surface], ['stroke-width', 1.5]]) s.setAttribute(a, v);
+    const t = el('text', {x: n.flip ? n.x - R - 5 : n.x + R + 5, y: n.y + 3.8, 'text-anchor': n.flip ? 'end' : 'start', 'font-size': FS,
+      'font-style': italic(n) ? 'italic' : 'normal', fill: c.ink, stroke: c.band, 'stroke-width': 3, 'paint-order': 'stroke', 'stroke-linejoin': 'round'}, g, label(n));
+    /*internal*/
+    if (!(n.manuscript === 'cited' || n.manuscript === 'named')) { s.setAttribute('fill', c.surface); s.setAttribute('stroke', col); s.setAttribute('stroke-width', 1.6); }
     if (n.manuscript === 'absent') s.setAttribute('stroke-dasharray', '2.2 1.6');
-    if (labels) el('text', {x: n.flip ? n.x - R - 5 : n.x + R + 5, y: n.y + 3.8, 'text-anchor': n.flip ? 'end' : 'start', 'font-size': FS,
-      'font-style': italic(n) ? 'italic' : 'normal', fill: inMs(n) ? c.ink : c['ink-2'], stroke: c.band, 'stroke-width': 3, 'paint-order': 'stroke',
-      'stroke-linejoin': 'round', 'text-decoration': n.decision === 'exclude' ? 'line-through' : 'none'}, g, label(n));
+    if (n.inCollection) g.prepend(el('circle', {cx: n.x, cy: n.y, r: RING, fill: 'none', stroke: col, 'stroke-width': 1.2}));
+    if (!inMs(n)) t.setAttribute('fill', c['ink-2']);
+    if (n.decision === 'exclude') { g.setAttribute('opacity', .35); t.setAttribute('text-decoration', 'line-through'); }
+    /*/internal*/
     el('circle', {cx: n.x, cy: n.y, r: 10, fill: 'transparent'}, g);
   }
 
@@ -352,134 +462,228 @@ function draw() {
     el('text', {x: lx + sw + 6, y: ly, 'font-size': FS, fill: ink2}, fig, text);
     lx += sw + 6 + tw + 22;
   };
+  const line = (dash, mk, w) => (x, y) => el('path', {d: `M${x} ${y}L${x + 28} ${y}`, stroke: c.edge, 'stroke-width': w, 'stroke-dasharray': dash, 'marker-end': mk, fill: 'none'}, fig);
+  for (const [k, name] of TYPES) item(12, (x, y) => { const s = shape(k, x + 6, y, R, fig); s.setAttribute('fill', c[k]); s.setAttribute('stroke', c.surface); }, name);
+  lx += 22;
+  item(8, (x, y) => el('text', {x: x + 1, y: y + 4, 'font-size': FS, fill: ink2}, fig, '†'), 'no longer maintained');
+  item(textWidth('Italic', true), (x, y) => el('text', {x, y: y + 4, 'font-size': FS, 'font-style': 'italic', fill: ink2}, fig, 'Italic'),
+    'label: toxicology resource building on FAIR');
+  item(30, line('none', 'url(#arrow)', 1.2), 'A → B: B builds on A');
+  item(30, line('none', 'none', .9), 'related');
+  /*internal*/
+  row();
   const dot = (fill, stroke, dash, extra) => (x, y) => el('circle', Object.assign({cx: x + 6, cy: y, r: R, fill, stroke, 'stroke-width': 1.6},
     dash ? {'stroke-dasharray': '2.2 1.6'} : {}, extra), fig);
-  const line = (dash, mk) => (x, y) => el('path', {d: `M${x} ${y}L${x + 28} ${y}`, stroke: c.edge, 'stroke-width': 1.2, 'stroke-dasharray': dash, 'marker-end': mk, fill: 'none'}, fig);
-  for (const [k, name] of TYPES) item(12, (x, y) => { const s = shape(k, x + 6, y, R, fig); s.setAttribute('fill', c[k]); s.setAttribute('stroke', c.surface); }, name);
-  row();
   item(12, dot(ink2, c.surface), 'in the manuscript (cited or named)');
   item(12, dot(c.surface, ink2), 'in a manuscript comment only');
   item(12, dot(c.surface, ink2, true), 'not in the manuscript');
   item(17, (x, y) => { el('circle', {cx: x + RING, cy: y, r: RING, fill: 'none', stroke: ink2, 'stroke-width': 1.2}, fig); dot(ink2, c.surface)(x + RING - 6, y); },
     'ring: in the FAIRsharing Toxicology collection');
-  if (showOut) item(12, dot(ink2, c.surface, false, {opacity: .35}), 'faded, label struck through: screened out');
-  row();
-  item(8, (x, y) => el('text', {x: x + 1, y: y + 4, 'font-size': FS, fill: ink2}, fig, '†'), 'no longer maintained');
-  item(textWidth('Italic', true), (x, y) => el('text', {x, y: y + 4, 'font-size': FS, 'font-style': 'italic', fill: ink2}, fig, 'Italic'),
-    'label: toxicology resource building on FAIR');
-  item(30, line('none', 'url(#arrow)'), 'builds on, stated in the manuscript');
-  item(30, line('4 3', 'url(#arrow)'), 'builds on, other evidence');
-  item(30, line('none', 'none'), 'related, neither builds on the other');
+  if ($('d-exclude').checked) item(12, dot(ink2, c.surface, false, {opacity: .35}), 'faded, label struck through: screened out');
+  item(30, line('4 3', 'url(#arrow)', 1.2), 'dashed: relation not stated in the manuscript');
+  /*/internal*/
   H = ly + 18;
   bg.setAttribute('height', H);
   fig.setAttribute('viewBox', `0 0 ${W} ${H}`);
 
   fig.dataset.nodes = shown.length;
   fig.dataset.links = nLinks;
-  fig.dataset.overlaps = labels ? overlaps() : 0;
+  fig.dataset.overlaps = overlaps();
   fig.setAttribute('aria-label', `Timeline of ${plural(shown.length, 'FAIR-enabling resource', 'FAIR-enabling resources')} for toxicology, ${Y0} to ${Y1 - 1}, ` +
     `in ${plural(lanes.length, 'lane', 'lanes')} (${lanes.map(b => b.lane).join(', ')}), with ${plural(nLinks, 'relation', 'relations')} drawn. ` +
-    'The data table below lists the same resources.');
-  const undated = NODES.filter(n => n.pass && !dated(n)).length, laneless = NODES.filter(n => n.pass && dated(n) && !META.lanes.includes(n.lane)).length;
-  $('notes').textContent = `Showing ${plural(shown.length, 'resource', 'resources')} and ${plural(nLinks, 'relation', 'relations')}. ` +
-    (undated ? `${plural(undated, 'resource without a date is', 'resources without a date are')} listed in the table only. ` : '') +
-    (laneless ? `${plural(laneless, 'resource without a lane is', 'resources without a lane are')} listed in the table only. ` : '') +
-    'Hover or focus a resource for its details; click it to keep them open.';
+    'The list below gives the same resources.');
+  notes();
+  paint();
 }
 
-function highlight(key) {
-  if (highlight.cur === key) return;
-  highlight.cur = key;
-  const rel = new Set(key ? [key] : []);
-  if (key) LINKS.forEach(l => { if (l.src === key) rel.add(l.dst); if (l.dst === key) rel.add(l.src); });
-  fig.querySelectorAll('.node').forEach(g => { g.style.opacity = key && !rel.has(g.dataset.key) ? .18 : ''; });
+function notes() {
+  const hits = NODES.filter(n => n.pass && matches(n)).length;
+  $('notes').textContent = [`${plural(+fig.dataset.nodes, 'resource', 'resources')} and ${plural(+fig.dataset.links, 'relation', 'relations')} in the figure` +
+    (state.q.length ? `; ${plural(hits, 'resource matches', 'resources match')} the search.` : '.'), offText(NODES.filter(n => n.pass)), 'Select a resource for its details.']
+    .filter(Boolean).join(' ');
+}
+
+// Search dims the resources that do not match; a selection dims all but the selected resource and its neighbours.
+function paint() {
+  const sel = state.sel, near = new Set(sel ? [sel] : []);
+  if (sel) for (const l of LINKS) { if (l.src === sel) near.add(l.dst); if (l.dst === sel) near.add(l.src); }
+  const lit = k => matches(byKey[k]) && (!sel || near.has(k));
+  fig.querySelectorAll('.node').forEach(g => {
+    g.style.opacity = lit(g.dataset.key) ? '' : .16;
+    g.classList.toggle('sel', g.dataset.key === sel);
+  });
   fig.querySelectorAll('.edge').forEach(p => {
-    const on = p.dataset.src === key || p.dataset.dst === key;
-    p.style.opacity = key && !on ? .08 : '';
-    p.style.strokeOpacity = on ? .95 : '';
+    const on = sel ? p.dataset.src === sel || p.dataset.dst === sel : lit(p.dataset.src) && lit(p.dataset.dst);
+    p.style.opacity = on ? '' : .08;
+    p.style.strokeOpacity = sel && on ? .95 : '';
   });
 }
-function tipHTML(n) {
-  const rel = [];
-  for (const l of LINKS) {
-    if (l.dst === n.key) rel.push(`${words(l.label)} ${nameOf(l.src)}`);
-    else if (l.src === n.key) rel.push(`${PASSIVE[l.label] || `is ${words(l.label)} by`} ${nameOf(l.dst)}`);
-  }
-  const why = ((META.vocab || {}).exclusionReason || {})[n.exclusionReason];
-  return [
-    `<b>${esc(n.name)}</b>${n.abbr ? ` <span class="m">(${esc(n.abbr)})</span>` : ''}`,
-    `First published ${esc(n.date || 'unknown')}${n.dateBasis ? ` (${esc(n.dateBasis)})` : ''}${isUrl(n.dateSource) ? ` · ${link(n.dateSource, 'date source')}` : ''}`,
-    `<span class="m">${esc(n.type || 'Type not set')} · ${esc(laneText(n))}</span>`,
-    n.creator && `<span class="m">Made by ${esc(n.creator)}</span>`,
-    n.subdomains.length && `<span class="m">Sub-domains: ${esc(n.subdomains.join(', '))}</span>`,
-    `Manuscript: ${esc(n.manuscript)}${n.manuscriptEvidence ? ` <span class="m">(${esc(n.manuscriptEvidence)})</span>` : ''}`,
-    `FAIRsharing: ${n.fairsharing ? link(n.fairsharing, 'record') : 'no record'} · ${n.inCollection ? 'in' : 'not in'} the Toxicology collection`,
-    `Decision: ${esc(DECISION[n.decision] || n.decision)}${n.exclusionReason ? ` (${esc(n.exclusionReason)}${why ? ': ' + esc(why) : ''})` : ''}` +
-      (n.coveredBy ? ` · covered by ${esc(nameOf(n.coveredBy))}` : ''),
-    n.maintained && n.maintained !== 'active' && `<span class="m">${dagger(n) ? '† no longer maintained' : 'Maintenance: ' + esc(n.maintained)}</span>`,
-    rel.length && `Relations: ${esc(rel.join('; '))}`,
-  ].filter(Boolean).map(r => `<div>${r}</div>`).join('');
-}
-let pinned = false;
+
 function showTip(n, x, y) {
   const t = $('tip');
-  t.innerHTML = tipHTML(n);
+  t.innerHTML = `<b>${esc(n.name)}</b><span>${esc([n.year, n.type].filter(Boolean).join(' · '))}</span>`;
   t.hidden = false;
   const bw = t.offsetWidth, bh = t.offsetHeight;
   t.style.left = Math.max(8, Math.min(x + 14, innerWidth - bw - 8)) + 'px';
   t.style.top = (y + 14 + bh > innerHeight ? Math.max(8, y - bh - 10) : y + 14) + 'px';
 }
-function hideTip() { pinned = false; $('tip').classList.remove('pinned'); $('tip').hidden = true; highlight(null); }
-const nodeOf = ev => { const g = ev.target.closest('.node'); return g ? byKey[g.dataset.key] : null; };
-fig.addEventListener('pointermove', ev => {
-  if (pinned) return;
+const hideTip = () => { $('tip').hidden = true; };
+const nodeOf = ev => { const g = ev.target.closest && ev.target.closest('.node'); return g ? byKey[g.dataset.key] : null; };
+fig.addEventListener('pointermove', ev => { const n = nodeOf(ev); if (n) showTip(n, ev.clientX, ev.clientY); else hideTip(); });
+fig.addEventListener('pointerleave', hideTip);
+fig.addEventListener('click', ev => { const n = nodeOf(ev); if (n) select(n.key); });
+fig.addEventListener('keydown', ev => {
   const n = nodeOf(ev);
-  if (!n) return hideTip();
-  highlight(n.key); showTip(n, ev.clientX, ev.clientY);
+  if (n && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); select(n.key); }
 });
-fig.addEventListener('pointerleave', () => { if (!pinned) hideTip(); });
-fig.addEventListener('focusin', ev => {
-  const n = nodeOf(ev);
-  if (!n) return;
-  const r = ev.target.getBoundingClientRect();
-  hideTip(); highlight(n.key); showTip(n, r.right, r.top);
-});
-fig.addEventListener('focusout', () => { if (!pinned) hideTip(); });
-fig.addEventListener('click', ev => {  // a click keeps the details open, so that their links can be followed
-  const n = nodeOf(ev);
-  if (!n) return;
-  hideTip(); highlight(n.key); showTip(n, ev.clientX, ev.clientY);
-  pinned = true; $('tip').classList.add('pinned');
-});
-document.addEventListener('pointerdown', ev => { if (pinned && !ev.target.closest('#tip, .node')) hideTip(); });
-document.addEventListener('keydown', ev => { if (ev.key === 'Escape') hideTip(); });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { hideTip(); if (state.sel) closePanel(); } });
 
+function details(n) {
+  // each item reads as a sentence about this resource: "extends OBI", "eNanoMapper database implements it"
+  const item = (k, before, after) => `<li><button type="button" data-key="${esc(k)}">${before ? `<span class="m">${esc(before)}</span> ` : ''}` +
+    `<u>${esc(byKey[k] ? byKey[k].name : k)}</u>${after ? ` <span class="m">${esc(after)}</span>` : ''}</button></li>`;
+  const list = (title, items) => items.length ? `<h3>${title}</h3><ul class="rel">${items.join('')}</ul>` : '';
+  const row = (term, value) => value ? `<dt>${term}</dt><dd>${value}</dd>` : '';
+  const basis = ((META.vocab || {}).dateBasis || {})[n.dateBasis];
+  const status = {discontinued: 'no longer maintained', 'in development': 'in development'}[n.maintained];
+  const urls = [isUrl(n.url) && link(n.url, 'Homepage'), n.fairsharing && link(n.fairsharing, 'FAIRsharing record')].filter(Boolean);
+  const date = n.date ? esc(n.date) + (isUrl(n.dateSource) ? ` · ${link(n.dateSource, 'source')}` : '') + (basis ? `<div class="m">${esc(basis)}</div>` : '')
+    : '<span class="m">not known</span>';
+  return [
+    `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(n.name)}${dagger(n)}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>`,
+    n.abbr && `<p class="m">${esc(n.abbr)}</p>`,
+    n.description && `<p>${esc(n.description)}</p>`,
+    '<dl>' + row('Type', esc(n.type)) + row('Lane', esc(n.lane)) + row('Phase', esc(n.phase)) + row('Sub-domains', esc(n.subdomains.join(', '))) +
+      row('First published', date) + row('Made by', esc(n.creator)) + row('Status', status) + '</dl>',
+    urls.length && `<p class="links">${urls.join(' · ')}</p>`,
+    list('Builds on', LINKS.filter(l => l.lineage && l.dst === n.key).map(l => item(l.src, words(l.label)))),
+    list('Built on by', LINKS.filter(l => l.lineage && l.src === n.key).map(l => item(l.dst, '', words(l.label) + ' it'))),
+    list('Related to', LINKS.filter(l => !l.lineage && (l.src === n.key || l.dst === n.key)).map(l => item(l.src === n.key ? l.dst : l.src))),
+    /*internal*/ curation(n), /*/internal*/
+  ].filter(Boolean).join('');
+}
+function select(key) {
+  if (!byKey[key]) return;
+  state.sel = key;
+  $('panel').innerHTML = details(byKey[key]);
+  $('panel').hidden = false;
+  $('viz').classList.add('open');
+  hideTip();
+  paint();
+  $('p-name').focus();
+}
+function closePanel() {
+  const g = fig.querySelector(`.node[data-key="${CSS.escape(state.sel)}"]`);
+  state.sel = null;
+  $('panel').hidden = true;
+  $('viz').classList.remove('open');
+  paint();
+  if (g) g.focus();   // scrolls back to the resource when the panel was below the figure
+}
+$('panel').addEventListener('click', ev => {
+  const b = ev.target.closest('button');
+  if (b) b.hasAttribute('data-close') ? closePanel() : select(b.dataset.key);
+});
+
+// The list: the resources that pass the filters and match the search, sortable by any column.
+const COLS = [
+  {t: 'Resource', v: n => n.name, c: n => link(n.url, n.name) + (n.abbr ? ` <span class="m">(${esc(n.abbr)})</span>` : '') + dagger(n)},
+  {t: 'First published', v: n => n.date, c: n => n.date ? link(n.dateSource, n.date) : '<span class="m">—</span>'},
+  {t: 'Type', v: n => n.type, c: n => esc(n.type) || '<span class="m">—</span>'},
+  {t: 'Phase or lane', v: n => `${laneIndex(n)} ${n.date || '9999'}`, c: n => esc(laneText(n))},
+  {t: 'Sub-domains', v: n => n.subdomains.join(', '), c: n => esc(n.subdomains.join(', ')) || '<span class="m">—</span>'},
+  {t: 'FAIRsharing', v: n => n.fairsharing && n.name, c: n => n.fairsharing ? link(n.fairsharing, 'record') : '<span class="m">—</span>'},
+];
+let rowAttr = () => '';
+/*internal*/
+COLS.push({t: 'In manuscript', v: n => n.manuscript, c: n => esc(n.manuscript)},
+  {t: 'In collection', v: n => n.inCollection ? 'yes' : 'no', c: n => n.inCollection ? 'yes' : 'no'},
+  {t: 'Decision', v: n => n.decision, c: n => esc(DECISION[n.decision] || n.decision) + (n.exclusionReason ? ` (${esc(n.exclusionReason)})` : '')});
+rowAttr = n => n.decision === 'exclude' ? ' class="out"' : '';
+/*/internal*/
+$('thead').innerHTML = COLS.map((k, i) => `<th scope="col"><button type="button" data-col="${i}">${esc(k.t)}<span aria-hidden="true"></span></button></th>`).join('');
+$('thead').addEventListener('click', ev => {
+  const b = ev.target.closest('button');
+  if (!b) return;
+  state.dir = +b.dataset.col === state.col ? -state.dir : 1;
+  state.col = +b.dataset.col;
+  table();
+});
 function table() {
-  const all = $('t-all').checked, rows = NODES.filter(n => all || n.pass).sort(byPlace);
-  $('tbl-cap').textContent = (all ? `All ${NODES.length} resources` : `The ${rows.length} of ${NODES.length} resources that pass the filters above`) +
-    ', by lane and first publication; resources without a date appear only here.';
-  $('tbody').innerHTML = rows.map(n => `<tr${n.decision === 'exclude' ? ' class="out"' : ''}><th scope="row">${link(n.url, n.name)}` +
-    `${n.abbr ? ` (${esc(n.abbr)})` : ''}${dagger(n)}</th><td class="num">${n.date ? link(n.dateSource, n.date) : '—'}</td><td>${esc(n.type || '—')}</td>` +
-    `<td>${esc(laneText(n))}</td><td>${esc(n.subdomains.join(', ') || '—')}</td><td>${esc(n.manuscript)}</td>` +
-    `<td>${n.fairsharing ? link(n.fairsharing, n.fairsharing.replace(/\/$/, '').split('/').pop()) : '—'}</td><td>${n.inCollection ? 'yes' : 'no'}</td>` +
-    `<td>${esc(DECISION[n.decision] || n.decision)}${n.exclusionReason ? ` (${esc(n.exclusionReason)})` : ''}</td></tr>`).join('');
+  const col = COLS[state.col], v = n => String(col.v(n) || '');
+  const rows = NODES.filter(n => n.pass && matches(n))
+    .sort((a, b) => (!v(a) - !v(b)) || state.dir * v(a).localeCompare(v(b), 'en', {numeric: true}) || byName(a, b));
+  $('thead').querySelectorAll('th').forEach((th, i) => {
+    if (i === state.col) th.setAttribute('aria-sort', state.dir > 0 ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort');
+    th.querySelector('span').textContent = i === state.col ? (state.dir > 0 ? ' ↑' : ' ↓') : '';
+  });
+  $('tbody').innerHTML = rows.map(n => `<tr${rowAttr(n)}>` + COLS.map((k, i) => i ? `<td>${k.c(n)}</td>` : `<th scope="row">${k.c(n)}</th>`).join('') + '</tr>').join('');
+  $('cap').textContent = [(rows.length === NODES.length ? `All ${NODES.length} resources,` : `${rows.length} of ${NODES.length} resources match the search and filters;`) +
+    ` sorted by ${col.t.replace(/^[A-Z](?=[a-z])/, s => s.toLowerCase())}${state.dir < 0 ? ', descending' : ''}.`, offText(rows), 'Sort by clicking a column heading.'].filter(Boolean).join(' ');
 }
 
 function header() {
   document.title = $('title').textContent = META.title;
-  const src = META.sources || {}, ms = src.manuscript, fs = src.fairsharing;
-  const msText = !ms ? '' : typeof ms === 'string' ? (isUrl(ms) ? link(ms, 'draft') : esc(ms))
-    : link(ms.url, [ms.title || ms.name || ms.file, ms.version, ms.date || ms.dateModified || ms.retrieved].filter(Boolean).join(', '));
-  $('meta').innerHTML = [`Version <span class="num">${esc(META.version)}</span>`,
-    META.dateModified && `updated <span class="num">${esc(META.dateModified)}</span>`,
-    msText && `manuscript: ${msText}`,
-    fs && fs.retrieved && `FAIRsharing retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`].filter(Boolean).join(' · ');
+  const fs = (META.sources || {}).fairsharing;
+  $('meta').innerHTML = [plural(NODES.length, 'resource', 'resources'), `version <span class="num">${esc(META.version)}</span>`,
+    META.dateModified && `last updated <span class="num">${esc(META.dateModified)}</span>`,
+    fs && fs.retrieved && `FAIRsharing data retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`
+    /*internal*/, msSource() /*/internal*/].filter(Boolean).join(' · ');
+  const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '', year = String(META.dateModified || '').slice(0, 4);
+  $('cite').innerHTML = `${esc(META.creator)}${year ? ` (${esc(year)})` : ''}. <i>${esc(META.title)}</i>, version ${esc(META.version)}. ` +
+    (doi ? link(doi, doi) + '. ' : '') + link(META.repo, META.repo);
+  $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
+  $('lane-defs').innerHTML = META.lanes.map(l => `<dt>${esc(l)}</dt><dd>${esc(META.laneDef[l])}</dd>`).join('');
   if (isUrl(META.collection)) $('coll').href = META.collection;
-  const doi = META.doi || '';
-  $('links').innerHTML = [[META.repo, 'Source code and data'], [META.criteria, 'Inclusion criteria'],
-    [doi && (isUrl(doi) ? doi : 'https://doi.org/' + doi), 'Dataset DOI']].filter(([u]) => isUrl(u)).map(([u, t]) => link(u, t)).join(' · ');
 }
 
+function addChip(parent, text, on, before = null) {
+  const l = document.createElement('label'), i = document.createElement('input');
+  l.className = 'chip'; i.type = 'checkbox'; i.checked = true;
+  i.addEventListener('change', () => { on(i.checked); render(); });
+  l.append(i, ' ' + text); parent.insertBefore(l, before);
+}
+for (const lane of META.lanes)
+  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), lane, on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox'));
+for (const lane of META.lanes) {
+  const subs = META.subdomains.filter(s => s[1] === lane);
+  if (!subs.length) continue;
+  const g = document.createElement('optgroup');
+  g.label = lane;
+  for (const [s] of subs) g.append(new Option(s, s));
+  $('f-sub').append(g);
+}
+$('f-type').addEventListener('change', ev => { state.type = ev.target.value; render(); });
+$('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; render(); });
+$('t-links').addEventListener('change', render);
+$('q').addEventListener('input', ev => { state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean); paint(); table(); notes(); });
+
+function svgText() {  // the current view in the light theme
+  const root = document.documentElement, prev = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', 'light'); draw();
+  const svg = fig.cloneNode(true);
+  svg.setAttribute('width', W); svg.setAttribute('height', H);
+  svg.querySelectorAll('[style]').forEach(e => e.removeAttribute('style'));
+  if (prev === null) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', prev);
+  draw();
+  return '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg);
+}
+$('b-export').addEventListener('click', () => {
+  hideTip();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([svgText()], {type: 'image/svg+xml'}));
+  a.download = 'fair-tox-ecosystem.svg';
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  $('export-msg').textContent = 'Saved fair-tox-ecosystem.svg.';
+});
+/*internal*/
+function msSource() {
+  const ms = (META.sources || {}).manuscript;
+  if (!ms) return '';
+  return 'manuscript: ' + (typeof ms === 'string' ? (isUrl(ms) ? link(ms, 'draft') : esc(ms))
+    : link(ms.url, [ms.title || ms.name || ms.file, ms.version, ms.date || ms.dateModified || ms.retrieved].filter(Boolean).join(', ')));
+}
 function panel() {  // FAIRsharing vs manuscript, and the selection flow; from the data, not the filters
   const ns = NODES.filter(n => n.decision !== 'exclude');
   const both = ns.filter(n => n.inCollection && inMs(n)), msOnly = ns.filter(n => inMs(n) && !n.inCollection), fsOnly = ns.filter(n => n.inCollection && !inMs(n));
@@ -501,50 +705,16 @@ function panel() {  // FAIRsharing vs manuscript, and the selection flow; from t
     [count(n => n.decision === 'exclude'), 'screened out', Object.keys(codes).sort().map(k => `${k} (${codes[k]})${why[k] ? ': ' + why[k] : ''}`).join('\n')],
     [count(n => n.decision === 'undecided'), 'not yet screened', ''], [count(n => n.decision === 'include'), 'included', '']]
     .map(([k, t, d]) => `<li><b>${k}</b> ${t}${d ? `<div class="m">${esc(d).replace(/\n/g, '<br>')}</div>` : ''}</li>`).join('');
+  if (isUrl(META.collection)) $('coll-cur').href = META.collection;
+  $('criteria').href = META.criteria;
 }
-
-function addBox(parent, text, fn, before = null) {
-  const l = document.createElement('label'), i = document.createElement('input');
-  i.type = 'checkbox'; i.checked = true;
-  i.addEventListener('change', () => { fn(i.checked); render(); });
-  l.append(i, ' ' + text); parent.insertBefore(l, before);
-}
-const toggle = (set, v, on) => on ? set.add(v) : set.delete(v);
-for (const lane of META.lanes) addBox(TOX.has(lane) ? $('f-tox') : $('f-lanes'), lane, on => toggle(state.lanes, lane, on), TOX.has(lane) ? null : $('f-tox'));
-for (const lane of META.lanes) {
-  const subs = META.subdomains.filter(s => s[1] === lane);
-  if (!subs.length) continue;
-  const f = document.createElement('fieldset'), lg = document.createElement('legend');
-  lg.textContent = lane; f.append(lg); $('f-subs').append(f);
-  for (const [s] of subs) addBox(f, s, on => toggle(state.subs, s, on));
-}
-['d-include', 'd-undecided', 'd-exclude', 'm-in', 'm-out', 't-links', 't-labels'].forEach(id => $(id).addEventListener('change', render));
-$('t-all').addEventListener('change', table);
-
-function svgText() {  // the current view in the light theme
-  const root = document.documentElement, prev = root.getAttribute('data-theme');
-  root.setAttribute('data-theme', 'light'); draw();
-  const svg = fig.cloneNode(true);
-  svg.setAttribute('width', W); svg.setAttribute('height', H);
-  svg.querySelectorAll('[style]').forEach(e => e.removeAttribute('style'));
-  if (prev === null) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', prev);
-  draw();
-  return '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg);
-}
-$('b-export').addEventListener('click', () => {
-  hideTip();
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([svgText()], {type: 'image/svg+xml'}));
-  a.download = 'fair-tox-ecosystem.svg';
-  document.body.append(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  $('export-msg').textContent = 'Saved fair-tox-ecosystem.svg.';
-});
+['d-include', 'd-undecided', 'd-exclude', 'm-in', 'm-out'].forEach(id => $(id).addEventListener('change', render));
+/*/internal*/
 
 function render() { hideTip(); draw(); table(); }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render);
 new MutationObserver(render).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
-header(); panel(); render();
+header(); /*internal*/ panel(); /*/internal*/ render();
 </script>
 </body>
 </html>

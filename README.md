@@ -28,6 +28,7 @@ Requires [uv](https://docs.astral.sh/uv/).
 uv sync
 uv run fairtox validate
 uv run fairtox site build/site                 # the dashboard
+uv run fairtox site --internal build/internal  # curation view with every row; local only, never publish
 uv run --env-file .env fairtox fetch           # refresh from FAIRsharing; login in .env (see .env.example)
 ```
 

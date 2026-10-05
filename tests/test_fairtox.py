@@ -1,7 +1,10 @@
 """Tests for the fairtox package (standard-library unittest): uv run python -m unittest discover -s tests -v"""
 import copy
+import csv
+import io
 import json
 import os
+import pathlib
 import re
 import tempfile
 import unittest
@@ -269,22 +272,51 @@ class FairsharingTest(unittest.TestCase):
 
 
 class SiteTest(TempDir):
-    def test_build_embeds_data_lanes_and_metadata(self):
+    FILES = ('index.html', 'fair-tox-ecosystem.jsonld', 'resources.csv', 'relations.csv')
+
+    def build(self, internal=False):
         doc = fixture()
+        doc['sources'] = {'manuscript': {'name': 'ELIXIR Toxicology Community paper, draft (8)'},
+                          'previous': {'name': 'inventory'}, 'fairsharing': {'members': 74, 'retrieved': '2026-10-05'}}
         p = self.path('d.jsonld')
         model.save(doc, p)
-        n, m = site.build(model.load(p), self.path('site'), dataset_path=p)
-        self.assertEqual((n, m), (5, 1))
-        html = open(self.path('site/index.html'), encoding='utf-8').read()
+        out = self.path('internal' if internal else 'site')
+        counts = site.build(model.load(p), out, dataset_path=p, internal=internal)
+        return counts, {f: pathlib.Path(out, f).read_text(encoding='utf-8') for f in self.FILES}
+
+    def test_public_build_holds_included_resources_only(self):
+        counts, text = self.build()
+        self.assertEqual(counts, (3, 1))
+        for name, t in text.items():
+            for word in ('manuscript', 'draft', 'undecided', 'exclusion', 'screened', 'PARC', 'A FAIR tool'):
+                self.assertNotIn(word.lower(), t.lower(), name)
+        html = text['index.html']
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
-        self.assertEqual(data['meta']['lanes'], model.LANES)
+        included = {'exo', 'ctd', 'oecd_gd'}
+        self.assertEqual({x['key'] for x in data['nodes']}, included)
         self.assertEqual({x['src'] for x in data['links']}, {'exo'})
+        self.assertEqual(set(data['meta']['sources']), {'fairsharing'})
+        self.assertEqual(data['meta']['lanes'], model.LANES)
         self.assertIn('Toxicology infrastructure', html)
         schema = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1))
         self.assertEqual(schema['@type'], 'Dataset')
         self.assertIn('fairsharing-attribution.svg', html)
-        for f in ('fair-tox-ecosystem.jsonld', 'resources.csv', 'relations.csv'):
-            self.assertTrue(os.path.exists(self.path(f'site/{f}')))
+        self.assertIn('Contains information from FAIRsharing', html)
+        self.assertIn(site.PUBLIC_REPO, html)                      # the source repository is private
+        self.assertNotIn(site.REPO, html)
+        dataset = json.loads(text['fair-tox-ecosystem.jsonld'])
+        self.assertEqual(dataset['@context'], model.CONTEXT)
+        self.assertEqual({r['key'] for r in dataset['hasPart']}, included)
+        self.assertEqual({r['key'] for r in csv.DictReader(io.StringIO(text['resources.csv']))}, included)
+        self.assertEqual([(r['subject'], r['hadRole'], r['target']) for r in csv.DictReader(io.StringIO(text['relations.csv']))],
+                         [('ctd', 'implements', 'exo')])
+
+    def test_internal_build_keeps_every_row_and_the_curation_view(self):
+        counts, text = self.build(internal=True)
+        self.assertEqual(counts, (5, 1))
+        self.assertIn('FAIRsharing vs manuscript', text['index.html'])
+        self.assertIn('Internal curation view. Not for publication.', text['index.html'])
+        self.assertIn('"decision": "exclude"', text['fair-tox-ecosystem.jsonld'])
 
 
 class LabelTest(unittest.TestCase):
