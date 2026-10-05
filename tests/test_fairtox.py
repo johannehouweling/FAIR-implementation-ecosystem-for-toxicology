@@ -407,6 +407,13 @@ class LabelTest(unittest.TestCase):
                                      'alternateName': ['vanrijn2024']}), 'Nanomaterial data integrated with AOP…')
         self.assertEqual(site.clean_alias({'name': 'AOP-helpFinder', 'alternateName': ['jaylet2023']}), '')
 
+    def test_a_cut_label_does_not_end_on_a_stop_word(self):
+        for name, cut in (('FAIR Cookbook recipe: Metadata for bioassay data with BAO', 'FAIR Cookbook recipe: Metadata…'),
+                          ('Proposals to harmonise spreadsheets for toxicology data', 'Proposals to harmonise spreadsheets…'),
+                          ('ISA extensions for toxicogenomics, metabolomics and more', 'ISA extensions for toxicogenomics…'),
+                          ('Regulatory Forum Opinion Piece: The Interpretation', 'Regulatory Forum Opinion Piece…')):
+            self.assertEqual(site.label({'name': name}), cut)
+
 
 class RepositoryTest(unittest.TestCase):
     def test_one_version_everywhere(self):
@@ -424,6 +431,13 @@ class RepositoryTest(unittest.TestCase):
         for name, vocab in model.VOCABULARIES.items():
             for value in vocab:
                 self.assertIn(value, text, f'{name}: {value}')
+
+    def test_no_two_public_resources_share_a_figure_label(self):
+        dataset = os.path.join(ROOT, model.DATASET)
+        if not os.path.exists(dataset):
+            self.skipTest('no dataset yet')
+        labels = [site.label(r) for r in site.public(model.load(dataset))['hasPart']]
+        self.assertEqual(sorted({x for x in labels if labels.count(x) > 1}), [])
 
     def test_dataset_is_valid_and_parses_as_json_ld(self):
         dataset = os.path.join(ROOT, model.DATASET)

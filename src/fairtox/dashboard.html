@@ -13,7 +13,7 @@
 :root {
   color-scheme: light;
   --bg: #ffffff; --ink: #0b0b0b; --ink-2: #52514e; --grid: #e1e0d9; --rule: #898781; --edge: #898781;
-  --standard: #2a78d6; --database: #eb6834; --policy: #1baf7a; --tool: #52514e;
+  --standard: #2a78d6; --database: #eb6834; --policy: #199e70; --tool: #4a3aa7;
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 [hidden] { display: none !important; }
@@ -26,6 +26,8 @@ button, input, select { font: inherit; }
 .sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .skip { position: absolute; left: 16px; top: -48px; z-index: 5; padding: 6px 12px; border: 2px solid var(--ink); border-radius: 4px; background: var(--bg); color: var(--ink); text-decoration: none; }
 .skip:focus { top: 8px; }
+.skip.fig-skip { top: 8px; left: 8px; }
+.skip.fig-skip:not(:focus) { clip-path: inset(50%); }
 .m { color: var(--ink-2); }
 .num { font-variant-numeric: tabular-nums; }
 .page { box-sizing: border-box; max-width: 1600px; margin: 0 auto; padding: 28px 16px 40px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
@@ -42,21 +44,23 @@ input[type=search], select { box-sizing: border-box; height: 32px; max-width: 10
 input[type=search] { width: 172px; }
 select { cursor: pointer; field-sizing: content; }
 fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.chip { box-sizing: border-box; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px 0 8px; border: 1px solid var(--rule); border-radius: 999px; background: var(--bg); white-space: nowrap; cursor: pointer; }
+.chip { box-sizing: border-box; display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 2px 10px 2px 8px; border: 1px solid var(--rule); border-radius: 15px; background: var(--bg); cursor: pointer; }
 .chip:has(input:not(:checked)) { color: var(--ink-2); border-style: dashed; }
 .chip input { margin: 0; accent-color: var(--ink); }
 .tox { padding: 2px 3px 2px 10px; border: 1px solid var(--grid); border-radius: 18px; }
 .tox legend { float: left; padding: 0; margin-right: 2px; color: var(--ink-2); font-size: 12px; }
-.tox .chip { height: 26px; }
+.tox .chip { min-height: 26px; }
 
-.viz { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
+.viz { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
 @media (min-width: 1340px) {
   .viz.open { grid-template-columns: minmax(0, 1fr) 320px; }
   .panel { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
 }
 .figure { background: var(--bg); border: 1px solid var(--grid); border-radius: 8px; overflow-x: auto; }
-/* at least 1080 px wide, so that every marker stays at least 8 px across */
+/* at least 1080 px wide, so that it fits a laptop screen, also beside the details, with labels of 8 px or more; where
+   even that does not fit, at the 1440 units it is drawn in, so that labels keep their 11 px, scrolling in its own box */
 #fig { display: block; width: 100%; min-width: 1080px; height: auto; }
+@media (max-width: 1113px) { #fig { min-width: 1440px; } }
 #fig .node { cursor: pointer; }
 #fig .node.sel .mark { stroke: var(--ink); stroke-width: 2.4px; }
 /* dimmed by a search or a selection: the marks fade, the label stays legible in the secondary ink */
@@ -175,6 +179,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
   </div>
 
   <div class="viz" id="viz">
+    <a class="skip fig-skip" href="#list">Skip the figure</a>
     <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Timeline of FAIR-enabling resources for toxicology"></svg></div>
     <aside id="panel" class="panel" aria-label="Details of the selected resource" hidden></aside>
   </div>
@@ -222,7 +227,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
     </div>
     <details class="dict">
       <summary><h3>Data dictionary</h3></summary>
-      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by main intended use and by creator), registry (the FAIRsharing registry of the type) and fairsharing (the FAIRsharing record).</p>
+      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by main intended use and by creator), registry (the FAIRsharing registry of the type), fairsharing (the FAIRsharing record) and fromCollection (defined below).</p>
       <dl id="dict"></dl>
     </details>
   </section>
@@ -302,14 +307,15 @@ const Y0 = Math.min(YB, Math.floor(Math.min(...years) / 5) * 5), K = Y0 < YB ? C
 const Y1 = (years.length ? Math.max(...years) : YB) + 1;
 const units = y => y < YB ? (y - Y0) * K : (Y0 < YB ? COL + BREAK : 0) + (y - YB);
 // Two geometries in SVG user units. The screen figure is 1440 units wide, about a pixel each. The print figure is 183 mm
-// wide in points (1 unit = 1 pt) in the journal's type sizes: labels 6 pt; lane titles, axis title and bracket 7 pt;
-// ticks and key 6 pt; strokes about 0.5 pt; markers about 4 pt. M is the bracket, LEFT the start of the axis; u scales
-// the small offsets.
-const SCREEN = {W: 1440, M: 30, LEFT: 66, RIGHT: 12, FS: 11, BIG: 12.5, SMALL: 10.5, R: 6, TRACK: 18, HEAD: 24, GAP: 10,
-  PAD: 4, SEP: 14, TOP: 30, SW: 1, RING_W: 1.5, u: 1};
-const PRINT = {W: 183 / 25.4 * 72, M: 11, LEFT: 20, RIGHT: 2, FS: 6, BIG: 7, SMALL: 6, R: 2, TRACK: 8, HEAD: 10, GAP: 4,
-  PAD: 1, SEP: 5, TOP: 11, SW: .5, RING_W: .5, u: .4, print: true};
-const XU = (G, v) => G.LEFT + v / units(Y1) * (G.W - G.LEFT - G.RIGHT), X = (G, y) => XU(G, units(y));
+// wide in points (1 unit = 1 pt) in the journal's type sizes: labels 5 pt, the journal's minimum; lane titles, axis
+// title and bracket 7 pt; ticks and key 6 pt; strokes about 0.5 pt; markers about 4 pt. M is the bracket, LEFT the start
+// of the axis; the axis ends TAIL before the right edge, a margin for the labels of the latest years; u scales the
+// small offsets.
+const SCREEN = {W: 1440, M: 30, LEFT: 66, RIGHT: 12, TAIL: 150, FS: 11, BIG: 12.5, SMALL: 10.5, R: 6, TRACK: 18, HEAD: 24,
+  GAP: 10, PAD: 4, SEP: 14, TOP: 30, SW: 1, RING_W: 1.5, u: 1};
+const PRINT = {W: 183 / 25.4 * 72, M: 11, LEFT: 20, RIGHT: 2, TAIL: 65, FS: 5, BIG: 7, SMALL: 6, R: 2, TRACK: 6.5, HEAD: 10,
+  GAP: 4, PAD: 1, SEP: 5, TOP: 11, SW: .5, RING_W: .5, u: .4, print: true};
+const XU = (G, v) => G.LEFT + v / units(Y1) * (G.W - G.LEFT - G.RIGHT - G.TAIL), X = (G, y) => XU(G, units(y));
 let rad = (n, G) => G.R;
 const css = name => getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
 const C = Object.fromEntries(['bg', 'ink', 'ink-2', 'grid', 'edge', 'standard', 'database', 'policy', 'tool', 'sans'].map(k => [k.replace('-', ''), css(k)]));
@@ -370,15 +376,26 @@ const offText = ns => {  // why some resources are listed but not drawn
 // which every resource takes the free track nearest to the mean height of the resources it links to.
 function layout(shown, links, G) {
   const nb = {}, dx = G.R + 5 * G.u, right = G.W - G.RIGHT;
+  // Labels in the column of earlier years end before the axis break: right of the marker when they fit, else left of
+  // it, as the name without its parenthesis or the abbreviation, or cut at a word when neither side holds the label.
+  const brk = (XU(G, COL) + X(G, YB) - G.GAP) / 2, edge = G.M + 8 * G.u;
   for (const l of links) { (nb[l.src] ||= []).push(l.dst); (nb[l.dst] ||= []).push(l.src); }
   const lanes = [];
   for (const lane of laneNames()) {
     const ns = shown.filter(n => laneOf(n) === lane);
     if (!ns.length) continue;
     for (const n of ns) {
+      const w = s => textWidth(s, G.FS, italic(n) ? 'italic ' : ''), col = n.year < YB;
       n.x = X(G, n.year + .5);
-      n.w = textWidth(label(n), G.FS, italic(n) ? 'italic ' : '');
-      n.flip = n.x + dx + n.w > right;
+      n.text = label(n);
+      if (col) {
+        const room = Math.max(brk - n.x - dx, n.x - dx - edge), words = short(n).split(' ');
+        for (const alt of [short(n).replace(/ \(.*\)$/, ''), n.abbr, ...(n.aliases || []).filter(x => /^[A-Z][A-Z0-9-]+$/.test(x))])
+          if (alt && w(n.text) > room && w(alt + dagger(n)) < w(n.text)) n.text = alt + dagger(n);
+        while (w(n.text) > room && words.length > 1) { words.pop(); n.text = words.join(' ') + '…' + dagger(n); }
+      }
+      n.w = w(n.text);
+      n.flip = n.x + dx + n.w > (col ? brk : right);
       n.l = n.flip ? n.x - dx - n.w : n.x - rad(n, G);
       n.r = n.flip ? n.x + rad(n, G) : n.x + dx + n.w;
     }
@@ -452,7 +469,8 @@ function figure(G, svg) {
     el('rect', {x: extra['text-anchor'] === 'end' ? x - w : x, y: y - size * .85, width: w, height: size * 1.1, fill: C.bg}, parent);
     return text(x, y, size, s, extra, parent);
   };
-  const arrow = (x, y, parent) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill: C.edge}, parent);
+  const arrow = (x, y, parent, deg = 0) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill: C.edge,
+    ...(deg ? {transform: `rotate(${deg} ${x} ${y})`} : {})}, parent);
 
   for (const b of lanes.slice(1)) el('path', {d: `M${G.M + 4 * u} ${b.y0 - G.SEP / 2}H${G.W - G.RIGHT}`, stroke: C.grid, 'stroke-width': sw}, svg);
   // the x axis: ticks every two years from 2000; the column of earlier years has none and sits behind a break
@@ -474,17 +492,34 @@ function figure(G, svg) {
     text(x + 4 * u, G.TOP - G.FS * .6, G.FS, 'FAIR principles published, 2016', {'font-weight': bold});
   }
 
-  // links run from the earlier resource (src) to the one that builds on it (dst); related_to links have no arrowhead
-  const gLinks = el('g', {fill: 'none'}, svg);
+  // Links run from the earlier resource (src) to the one that builds on it (dst); related_to links, which have no
+  // arrowhead, from the left one of the pair. Every link ends at its target's marker: from the left, or at 45 degrees
+  // from the upper or lower left when the label is on the marker's left, which clears that label and any marker right
+  // above or below. A link to a target that is not well right of its source leaves the source upwards or downwards when
+  // the target still lies to its right, else on the left, and comes round on the left; so it never starts where links
+  // into the source end. Between two resources on one track it runs half a track above, clear of labels and markers,
+  // when the target is close, labelled on its left or behind other resources of the track.
+  const gLinks = el('g', {fill: 'none'}, svg), pt = xy => xy.join(' '), q = Math.SQRT1_2, j = 4 * u;
   let nLinks = 0;
   if ($('t-links').checked) for (const l of links) {
-    const s = byKey[l.src], t = byKey[l.dst];
-    // a link into a flipped label ends at the label's left end, so that the label does not hide the arrowhead
-    const x1 = s.x + rad(s, G) + u, y1 = s.y, x2 = (t.flip ? t.l : t.x - rad(t, G)) - 3 * u, y2 = t.y;
-    const xe = l.lineage ? x2 - a / 2 : x2, c = Math.max(28 * u, Math.abs(xe - x1) / 2);
-    const g = el('g', G.print ? {} : {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, opacity: l.lineage ? .6 : .45}, gLinks);
-    const p = el('path', {d: `M${x1} ${y1}C${x1 + c} ${y1} ${xe - c} ${y2} ${xe} ${y2}`, stroke: C.edge, 'stroke-width': sw * (l.lineage ? 1.2 : .9)}, g);
-    if (l.lineage) arrow(x2, y2, g);
+    let s = byKey[l.src], t = byKey[l.dst];
+    if (!l.lineage && t.x < s.x) [s, t] = [t, s];
+    const rs = rad(s, G) + u, rt = rad(t, G) + 3 * u, h = l.lineage ? a / 2 : 0, k = 28 * u;   // h: the line stops mid-arrowhead
+    const flat = Math.abs(t.y - s.y) < G.TRACK / 2, back = t.x - rt - h < s.x + rs + 2 * k;
+    const blocked = flat && shown.some(n => n !== s && n !== t && Math.abs(n.y - s.y) < 1 && n.r > Math.min(s.x, t.x) && n.l < Math.max(s.x, t.x));
+    const v = flat && (back || t.flip || blocked) ? 1 : t.flip ? Math.sign(t.y - s.y) : 0;   // enter from the left (0), upper (1) or lower (-1) left
+    const side = (v ? t.x < s.x : back) ? -1 : 1, arch = v && flat;               // leave to the left (-1) or right, upwards for an arch
+    const rise = !v && back && t.x - rt - h > s.x;                                 // leave upwards or downwards
+    const out = arch ? [side * q, -q] : rise ? [0, Math.sign(t.y - s.y)] : [side, 0], dir = v ? [q, v * q] : [1, 0];
+    const p0 = [s.x + out[0] * rs, s.y + out[1] * rs], tip = [t.x - dir[0] * rt, t.y - dir[1] * rt], e = [tip[0] - dir[0] * h, tip[1] - dir[1] * h];
+    const c = Math.max(k, Math.abs(e[0] - p0[0]) / 2), m = Math.max(k, Math.abs(e[1] - p0[1]) / 2), yr = s.y - G.TRACK / 2;
+    const d = arch ? `M${pt(p0)}Q${pt([p0[0] + side * j, yr])} ${pt([p0[0] + 2 * side * j, yr])}H${e[0] - 2 * j}Q${pt([e[0] - j, yr])} ${pt(e)}`
+      : rise ? `M${pt(p0)}C${pt([p0[0], p0[1] + .55 * (e[1] - p0[1])])} ${pt([e[0] - .55 * (e[0] - p0[0]), e[1]])} ${pt(e)}`   // a quarter ellipse
+      : `M${pt(p0)}C${pt([p0[0] + side * c, p0[1]])} ${pt(v ? [e[0] - m, e[1] - v * m] : [e[0] - c, e[1]])} ${pt(e)}`;
+    // on screen lineage links are opaque (3.6:1 on white), related ones lighter
+    const g = el('g', G.print ? {} : {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, ...(l.lineage ? {} : {opacity: .45})}, gLinks);
+    const p = el('path', {d, stroke: C.edge, 'stroke-width': sw * (l.lineage ? 1.2 : .9)}, g);
+    if (l.lineage) arrow(tip[0], tip[1], g, 45 * v);
     /*internal*/
     if (!G.print && l.evidence !== 'manuscript') p.setAttribute('stroke-dasharray', '4 3');
     if (!G.print && (s.decision === 'exclude' || t.decision === 'exclude')) g.setAttribute('opacity', .2);
@@ -498,7 +533,7 @@ function figure(G, svg) {
     const s = shape(k, n.x, n.y, G.R, g);
     for (const [attr, v] of [['fill', col], ['stroke', C.bg], ['stroke-width', G.RING_W]]) s.setAttribute(attr, v);
     if (!G.print) s.setAttribute('class', 'mark');
-    const t = clear(n.flip ? n.x - dx : n.x + dx, n.y + G.FS * .35, G.FS, label(n), {'text-anchor': n.flip ? 'end' : 'start',
+    const t = clear(n.flip ? n.x - dx : n.x + dx, n.y + G.FS * .35, G.FS, n.text, {'text-anchor': n.flip ? 'end' : 'start',
       ...(italic(n) ? {'font-style': 'italic'} : {})}, g, italic(n) ? 'italic ' : '');
     /*internal*/
     if (!G.print) {
@@ -537,7 +572,7 @@ function figure(G, svg) {
     lx += w + 6 * u + tw + step;
   };
   const sample = (lineage, dash) => (x, y) => {
-    const g = el('g', G.print ? {} : {opacity: lineage ? .6 : .45}, svg), end = x + 28 * u;
+    const g = el('g', G.print || lineage ? {} : {opacity: .45}, svg), end = x + 28 * u;
     el('path', {d: `M${x} ${y}H${lineage ? end - a / 2 : end}`, fill: 'none', stroke: C.edge, 'stroke-width': sw * (lineage ? 1.2 : .9),
       ...(dash ? {'stroke-dasharray': dash} : {})}, g);
     if (lineage) arrow(end, y, g);
@@ -550,7 +585,7 @@ function figure(G, svg) {
   item(textWidth('†', G.SMALL), (x, y) => text(x, y + mid, G.SMALL, '†', {fill: C.ink2}), 'No longer maintained');
   if (shown.some(italic)) item(textWidth('Italic', G.SMALL, 'italic '), (x, y) => text(x, y + mid, G.SMALL, 'Italic', {fill: C.ink2, 'font-style': 'italic'}),
     'label: toxicology resource building on FAIR');
-  item(28 * u, sample(true), 'A → B: B builds on A');
+  item(28 * u, sample(true), 'Points to the resource that builds on the other');
   item(28 * u, sample(false), 'Related');
   /*internal*/
   if (!G.print) {
@@ -759,8 +794,8 @@ const FIELDS = [
   ['url', 'Homepage.'],
   ['description', 'One to three sentences on what the resource is.'],
   ['maintained', 'Maintenance status.', 'maintained'],
-  ['fromCollection', 'Derived: true for a resource added from the FAIRsharing Toxicology collection. The switch of '+
-    'the same name hides these resources.'],
+  ['fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection that ' +
+    'entered this dataset only through the collection. The switch of the same name hides these resources.'],
   ['relations', 'Relations to other resources, read subject first ("CTD implements ExO"): qualifiedRelation in the JSON-LD, ' +
     'subject, hadRole and target in relations.csv.', 'hadRole'],
 ];
@@ -824,7 +859,7 @@ $('b-print').addEventListener('click', () => {
   const {svg, mm} = printFigure();
   save(svg, 'fair-tox-figure-183mm.svg');
   $('print-msg').textContent = 'Saved fair-tox-figure-183mm.svg.' +
-    (mm > 170 ? ` This figure is ${Math.round(mm)} mm tall; journals allow up to 170 mm. Filter it to fewer resources.` : '');
+    (mm > 170 ? ` This figure is ${(Math.ceil(mm * 10) / 10).toFixed(1)} mm tall; journals allow up to 170 mm. Filter it to fewer resources.` : '');
 });
 /*internal*/
 function msSource() {
@@ -864,6 +899,7 @@ function render() {
   hideTip();
   $('f-tox').querySelectorAll('.chip').forEach(c => { c.hidden = !laneNames().includes(c.dataset.lane); });
   draw(); table();
+  if (state.sel && !byKey[state.sel].pass) closePanel();   // a filter hid the selected resource: undim the figure
 }
 header(); dictionary(); /*internal*/ panel(); /*/internal*/ render();
 </script>

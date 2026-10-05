@@ -33,6 +33,7 @@ INTERNAL = re.compile(r'(?:<!--|/\*)internal(?:-->|\*/).*?(?:<!--|/\*)/internal(
 
 
 NOT_A_NAME = re.compile(r'^[a-z]+\d+[a-z]?$|^Issue #|FAIRsharing\.')   # citation keys, issue numbers, record codes
+DANGLING = re.compile(r'(?:\s+(?:the|of|on|in|for|and|to|a)|[\s,;:–-])+$', re.I)   # a cut name never ends on these
 
 
 def clean_alias(r):
@@ -49,7 +50,7 @@ def label(r):
         return name
     if clean_alias(r):
         return clean_alias(r)
-    return name if len(name) <= 40 else name[:40].rsplit(' ', 1)[0] + '…'
+    return name if len(name) <= 40 else DANGLING.sub('', name[:40].rsplit(' ', 1)[0]) + '…'
 
 
 def abbr(r):
