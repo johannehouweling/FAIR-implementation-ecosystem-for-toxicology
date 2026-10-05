@@ -265,6 +265,9 @@ def normalise(doc):
                 r[f] = r[f].strip()
             elif isinstance(r.get(f), list):
                 r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
+        if r.get('subdomains'):                             # one canonical order, so round trips are exact
+            known = [x for x in SUBDOMAINS if x in r['subdomains']]
+            r['subdomains'] = known + [x for x in r['subdomains'] if x not in SUBDOMAINS]
         if r.get('fairsharingRecord'):
             r['fairsharingRecord'] = fs_ref(r['fairsharingRecord'])
         r['@id'] = iri_of(r)

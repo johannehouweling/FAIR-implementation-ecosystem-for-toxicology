@@ -207,8 +207,8 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "regulatory toxicology",
-    "eco-toxicology"
+    "eco-toxicology",
+    "regulatory toxicology"
    ],
    "datePublished": "1986",
    "dateBasis": "release",
@@ -1311,8 +1311,8 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "eco-toxicology",
-    "exposome"
+    "exposome",
+    "eco-toxicology"
    ],
    "datePublished": "2023",
    "dateBasis": "release",
@@ -1565,8 +1565,8 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "regulatory toxicology",
-    "eco-toxicology"
+    "eco-toxicology",
+    "regulatory toxicology"
    ],
    "datePublished": "2019",
    "dateBasis": "release",
@@ -1723,9 +1723,9 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "computational and predictive toxicology",
     "in vitro toxicology",
-    "exposome"
+    "exposome",
+    "computational and predictive toxicology"
    ],
    "datePublished": "2016-04",
    "dateBasis": "release",
@@ -1892,8 +1892,8 @@
    "stakeholder": "In silico research",
    "phase": "Data Integration",
    "subdomains": [
-    "toxicogenomics",
-    "exposome"
+    "exposome",
+    "toxicogenomics"
    ],
    "datePublished": "2003-02-13",
    "dateBasis": "publication",
@@ -2542,9 +2542,9 @@
    "type": "Policy: institution",
    "scope": "Toxicology building on FAIR",
    "subdomains": [
-    "regulatory toxicology",
     "eco-toxicology",
-    "computational and predictive toxicology"
+    "computational and predictive toxicology",
+    "regulatory toxicology"
    ],
    "datePublished": "2025-10-29",
    "dateBasis": "adoption",
@@ -2824,8 +2824,8 @@
    "type": "Standard: terminology artefact",
    "scope": "Life Sciences",
    "subdomains": [
-    "eco-toxicology",
-    "exposome"
+    "exposome",
+    "eco-toxicology"
    ],
    "datePublished": "2007",
    "dateBasis": "release",
@@ -3011,8 +3011,8 @@
    "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
    "subdomains": [
-    "toxicogenomics",
-    "in vitro toxicology"
+    "in vitro toxicology",
+    "toxicogenomics"
    ],
    "datePublished": "2020",
    "dateBasis": "FAIRsharing year",
@@ -3163,8 +3163,8 @@
    "stakeholder": "In silico research",
    "phase": "Data Integration",
    "subdomains": [
-    "regulatory toxicology",
-    "computational and predictive toxicology"
+    "computational and predictive toxicology",
+    "regulatory toxicology"
    ],
    "datePublished": "2022-03-07",
    "dateBasis": "publication",
@@ -4494,9 +4494,9 @@
    "type": "Standard: model/format",
    "scope": "Toxicology building on FAIR",
    "subdomains": [
-    "toxicogenomics",
+    "nanotoxicology",
     "exposome",
-    "nanotoxicology"
+    "toxicogenomics"
    ],
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation; L100"
@@ -4542,9 +4542,9 @@
    "scope": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
-    "toxicogenomics",
+    "nanotoxicology",
     "exposome",
-    "nanotoxicology"
+    "toxicogenomics"
    ],
    "datePublished": "2008",
    "dateBasis": "publication",
@@ -4680,8 +4680,8 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "regulatory toxicology",
-    "eco-toxicology"
+    "eco-toxicology",
+    "regulatory toxicology"
    ],
    "datePublished": "2008",
    "dateBasis": "release",
@@ -5152,8 +5152,8 @@
    "stakeholder": "In silico research",
    "phase": "Data Integration",
    "subdomains": [
-    "AOP-based mechanistic knowledge",
-    "nanotoxicology"
+    "nanotoxicology",
+    "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2023-06-23",
    "dateBasis": "release",
@@ -5886,8 +5886,8 @@
    "stakeholder": "In silico research",
    "phase": "Data Integration",
    "subdomains": [
-    "computational and predictive toxicology",
-    "nanotoxicology"
+    "nanotoxicology",
+    "computational and predictive toxicology"
    ],
    "datePublished": "2009",
    "dateBasis": "release",
@@ -6090,8 +6090,8 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "regulatory toxicology",
-    "eco-toxicology"
+    "eco-toxicology",
+    "regulatory toxicology"
    ],
    "datePublished": "2009",
    "dateBasis": "release",
@@ -6156,8 +6156,8 @@
    "type": "Database: repository",
    "scope": "Life Sciences",
    "subdomains": [
-    "computational and predictive toxicology",
-    "in vitro toxicology"
+    "in vitro toxicology",
+    "computational and predictive toxicology"
    ],
    "datePublished": "2004",
    "dateBasis": "release",
@@ -6221,8 +6221,8 @@
    "stakeholder": "In silico research",
    "phase": "Data Integration",
    "subdomains": [
-    "computational and predictive toxicology",
-    "nanotoxicology"
+    "nanotoxicology",
+    "computational and predictive toxicology"
    ],
    "creator": "Cheminformatics community (Hansch & Fujita 1964), applied to toxicity prediction",
    "manuscript": "cited",
@@ -6646,9 +6646,9 @@
    "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
    "subdomains": [
-    "regulatory toxicology",
+    "in vitro toxicology",
     "eco-toxicology",
-    "in vitro toxicology"
+    "regulatory toxicology"
    ],
    "datePublished": "2013",
    "dateBasis": "release",
@@ -7064,8 +7064,8 @@
    "stakeholder": "Wet-lab research",
    "phase": "Data Generation",
    "subdomains": [
-    "toxicogenomics",
-    "in vitro toxicology"
+    "in vitro toxicology",
+    "toxicogenomics"
    ],
    "datePublished": "2011-02-25",
    "dateBasis": "release",
@@ -7564,8 +7564,8 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "regulatory toxicology",
-    "in vitro toxicology"
+    "in vitro toxicology",
+    "regulatory toxicology"
    ],
    "datePublished": "2009-05-27",
    "dateBasis": "publication",
@@ -7757,8 +7757,8 @@
    "stakeholder": "Regulator",
    "phase": "Application (Regulatory Use)",
    "subdomains": [
-    "regulatory toxicology",
-    "AOP-based mechanistic knowledge"
+    "AOP-based mechanistic knowledge",
+    "regulatory toxicology"
    ],
    "creator": "Regulatory risk-assessment community (e.g. OECD, EFSA)",
    "manuscript": "named",
