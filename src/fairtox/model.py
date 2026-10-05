@@ -260,6 +260,11 @@ def normalise(doc):
     """Derive @id and phase, order fields, sort resources and relations, keep relation targets in step with @ids."""
     old_ids = {r.get('@id'): r['key'] for r in doc['hasPart']}
     for r in doc['hasPart']:
+        for f in CURATED:                                   # no stray spaces in curated text
+            if isinstance(r.get(f), str):
+                r[f] = r[f].strip()
+            elif isinstance(r.get(f), list):
+                r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
         if r.get('fairsharingRecord'):
             r['fairsharingRecord'] = fs_ref(r['fairsharingRecord'])
         r['@id'] = iri_of(r)

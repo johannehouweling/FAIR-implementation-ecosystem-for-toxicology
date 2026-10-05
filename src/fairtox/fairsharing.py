@@ -136,7 +136,7 @@ def slim(raw):
     registry = _name(_first(a.get('registry'), a.get('fairsharing_registry')))
     return {
         'id': int(d['id']), 'doi': _first(a.get('doi'), meta.get('doi')),
-        'name': re.sub(r'^FAIRsharing record for:\s*', '', _first(meta.get('name'), a.get('name')) or ''),
+        'name': re.sub(r'^FAIRsharing record for:\s*', '', _first(meta.get('name'), a.get('name')) or '').strip(),
         'abbreviation': _first(a.get('abbreviation'), meta.get('abbreviation')),
         'registry': str(registry).capitalize() if registry else None,
         'recordType': _name(_first(a.get('record_type'), a.get('type'))),
