@@ -20,7 +20,7 @@ PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxico
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
 NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'type',
                'registry', 'scope', 'stakeholders', 'buildsOnFair', 'subdomains', 'decision', 'exclusionReason',
-               'coveredBy', 'manuscript', 'manuscriptEvidence', 'inCollection', 'fairsharing', 'url', 'creator',
+               'coveredBy', 'manuscript', 'manuscriptEvidence', 'inCollection', 'fromCollection', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target', 'evidence', 'source', 'reviewedBy', 'note']
 # Curation fields and vocabularies that stay out of the public build. Relations keep only their label: their evidence
@@ -81,6 +81,8 @@ def nodes_links(doc):
             'decision': r.get('decision', 'undecided'), 'exclusionReason': r.get('exclusionReason', ''),
             'coveredBy': r.get('coveredBy', ''), 'manuscript': r.get('manuscript', 'absent'),
             'manuscriptEvidence': r.get('manuscriptEvidence', ''), 'inCollection': bool(fs.get('inCollection')),
+            # in the collection but not in the manuscript: hidden by one switch on the page
+            'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
             'fairsharing': fairsharing_url(r), 'url': r.get('url', ''), 'creator': r.get('creator', ''),
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
             'dateSource': r.get('dateSource', ''), 'dateBasis': r.get('dateBasis', ''),

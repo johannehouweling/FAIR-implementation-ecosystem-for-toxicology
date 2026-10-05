@@ -362,6 +362,17 @@ class SiteTest(TempDir):
             self.assertNotRegex(t, r'(?i)\bstakeholder\b', name)
             self.assertNotIn('Toxicology building on FAIR', t, name)
 
+    def test_collection_switch_hides_collection_members_the_manuscript_does_not_name(self):
+        doc = fixture()
+        for r in doc['hasPart']:
+            if r['key'] in ('exo', 'ctd'):                       # exo is named in the manuscript, ctd is absent
+                r['fairsharing'] = {'inCollection': True}
+        html = self.build(doc=doc)[1]['index.html']
+        data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
+        self.assertEqual({n['key'] for n in data['nodes'] if n['fromCollection']}, {'ctd'})
+        self.assertIn('<input type="checkbox" id="t-coll" checked>', html)
+        self.assertIn("(!n.fromCollection || $('t-coll').checked)", html)
+
     def test_internal_build_keeps_every_row_and_the_curation_view(self):
         counts, text = self.build(internal=True)
         self.assertEqual(counts, (5, 1))

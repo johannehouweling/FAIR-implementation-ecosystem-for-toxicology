@@ -158,6 +158,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
     <select id="f-type" aria-label="Type"><option value="">All types</option><option>Standard</option><option>Database</option><option>Policy</option><option>Collection</option><option>Tool</option></select>
     <select id="f-sub" aria-label="Sub-domain"><option value="">All sub-domains</option></select>
     <label class="chip"><input type="checkbox" id="t-links" checked> Relations</label>
+    <label class="chip"><input type="checkbox" id="t-coll" checked> Added from the FAIRsharing Toxicology collection</label>
     <!-- the lane chips change with the layout, so they come after the controls that do not -->
     <fieldset id="f-lanes"><legend class="sr">Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology infrastructure</legend></fieldset></fieldset>
     <!--internal-->
@@ -357,7 +358,7 @@ const curation = n => {
 
 const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), type: '', sub: '', q: [], sel: null, col: 3, dir: 1};
 const passes = n => (!laneOf(n) || state.lanes.has(laneOf(n))) && (!state.type || n.registry === state.type) &&
-  (!state.sub || n.subdomains.includes(state.sub)) /*internal*/ && curated(n) /*/internal*/;
+  (!state.sub || n.subdomains.includes(state.sub)) && (!n.fromCollection || $('t-coll').checked) /*internal*/ && curated(n) /*/internal*/;
 const matches = n => state.q.every(w => hay[n.key].includes(w));
 const offText = ns => {  // why some resources are listed but not drawn
   const u = ns.filter(n => !dated(n)).length, l = ns.filter(n => dated(n) && !placed(n)).length;
@@ -754,6 +755,8 @@ const FIELDS = [
   ['url', 'Homepage.'],
   ['description', 'One to three sentences on what the resource is.'],
   ['maintained', 'Maintenance status.', 'maintained'],
+  ['fromCollection', 'Derived: true for a resource added from the FAIRsharing Toxicology collection. The switch of '+
+    'the same name hides these resources.'],
   ['relations', 'Relations to other resources, read subject first ("CTD implements ExO"): qualifiedRelation in the JSON-LD, ' +
     'subject, hadRole and target in relations.csv.', 'hadRole'],
 ];
@@ -790,6 +793,7 @@ for (const lane of META.lanes) {
 $('f-type').addEventListener('change', ev => { state.type = ev.target.value; render(); });
 $('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; render(); });
 $('t-links').addEventListener('change', render);
+$('t-coll').addEventListener('change', render);
 $('f-mode').addEventListener('change', render);
 $('q').addEventListener('input', ev => { state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean); paint(); table(); notes(); });
 
