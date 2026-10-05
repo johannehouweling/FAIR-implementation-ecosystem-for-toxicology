@@ -291,8 +291,8 @@ class FairsharingTest(unittest.TestCase):
 class SiteTest(TempDir):
     FILES = ('index.html', 'fair-tox-ecosystem.jsonld', 'resources.csv', 'relations.csv')
 
-    def build(self, internal=False):
-        doc = fixture()
+    def build(self, internal=False, doc=None):
+        doc = doc or fixture()
         doc['sources'] = {'manuscript': {'name': 'ELIXIR Toxicology Community paper, draft (8)'},
                           'previous': {'name': 'inventory'}, 'fairsharing': {'members': 74, 'retrieved': '2026-10-05'}}
         p = self.path('d.jsonld')
@@ -328,6 +328,40 @@ class SiteTest(TempDir):
         self.assertEqual([(r['subject'], r['hadRole'], r['target']) for r in csv.DictReader(io.StringIO(text['relations.csv']))],
                          [('ctd', 'implements', 'exo')])
 
+    def test_lanes_by_intended_use_or_by_creator(self):
+        doc = fixture()
+        next(r for r in doc['hasPart'] if r['key'] == 'tool')['decision'] = 'include'
+        next(r for r in doc['hasPart'] if r['key'] == 'oecd_gd')['qualifiedRelation'] = [
+            {'relation': '#tool', 'hadRole': 'recommends', 'evidence': 'curator'}]     # builds on a FAIR resource
+        _, text = self.build(doc=doc)
+        html = text['index.html']
+        data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
+        nodes = {n['key']: n for n in data['nodes']}
+        self.assertEqual({k: (n['lane'], n['creatorLane'], n['buildsOnFair']) for k, n in nodes.items()}, {
+            'exo': ('Tools & Integration', 'Made by in silico research', False),
+            'ctd': ('Tools & Integration', 'Made jointly', False),
+            'oecd_gd': ('Application (regulatory)', 'Made by regulators', True),
+            'tool': ('FAIR infrastructure', 'FAIR infrastructure', False)})
+        self.assertEqual((nodes['ctd']['phase'], nodes['ctd']['stakeholders']),
+                         ('Data Integration', ['Wet-lab research', 'In silico research']))
+        self.assertEqual((nodes['tool']['phase'], nodes['tool']['stakeholders']), ('', []))
+        self.assertEqual(data['meta']['creatorLanes'], list(model.CREATOR_LANE_DEF))
+        self.assertEqual(data['meta']['creatorLaneDef'], model.CREATOR_LANE_DEF)
+        self.assertLessEqual({'phase', 'stakeholders', 'creatorLane'}, set(data['meta']['vocab']))
+        rows = {r['key']: r for r in csv.DictReader(io.StringIO(text['resources.csv']))}
+        self.assertEqual((rows['ctd']['stakeholders'], rows['oecd_gd']['buildsOnFair'], rows['ctd']['buildsOnFair']),
+                         ('Wet-lab research; In silico research', 'True', 'False'))
+        # the two-option layout toggle, the creator lanes, and italics from buildsOnFair rather than the scope
+        self.assertIn('<legend>Toxicology lanes</legend>', html)
+        self.assertEqual(len(re.findall(r'<input type="radio" name="mode"', html)), 2)
+        for name in ('Intended use', 'Creator', *model.CREATOR_LANE_DEF):
+            self.assertIn(name, html)
+        self.assertRegex(html, r'const italic = n => n\.buildsOnFair\b')
+        self.assertIn('label: toxicology resource building on FAIR', html)
+        for name, t in text.items():   # no single stakeholder field is left
+            self.assertNotRegex(t, r'(?i)\bstakeholder\b', name)
+            self.assertNotIn('Toxicology building on FAIR', t, name)
+
     def test_internal_build_keeps_every_row_and_the_curation_view(self):
         counts, text = self.build(internal=True)
         self.assertEqual(counts, (5, 1))
@@ -345,7 +379,8 @@ class SiteTest(TempDir):
             for text in ('FAIR infrastructure', 'Life sciences infrastructure', 'Data generation', 'Tools & integration',
                          'Application (regulatory)', 'Toxicology infrastructure', 'Year first published',
                          'Before 2010, compressed', 'window.publicationSVG', '183mm', 'Data dictionary',
-                         'as required by the FAIRsharing data they include'):
+                         'as required by the FAIRsharing data they include', 'Toxicology lanes', 'Intended use',
+                         *model.CREATOR_LANE_DEF):
                 self.assertIn(text, html, (internal, text))
 
 

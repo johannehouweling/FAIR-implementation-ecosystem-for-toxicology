@@ -148,16 +148,18 @@ tr.out th, tr.out td { color: var(--ink-2); }
 <div class="page">
   <header>
     <h1 id="title">FAIR implementation ecosystem for toxicology</h1>
-    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published, in the lane of who made it; lines show which resources build on others.</p>
+    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published, in the lane of its main use in toxicology (or of who made it, when the lanes are arranged by creator). Lines show which resources build on others.</p>
     <p class="meta" id="meta"></p>
   </header>
 
   <div class="controls" role="search" aria-label="Search and filter the resources">
     <input id="q" type="search" placeholder="Search resources" aria-label="Search resources by name, alias or description" autocomplete="off" spellcheck="false">
-    <fieldset id="f-lanes"><legend class="sr">Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology infrastructure</legend></fieldset></fieldset>
+    <fieldset id="f-mode" class="tox"><legend>Toxicology lanes</legend><label class="chip"><input type="radio" name="mode" checked> Intended use</label><label class="chip"><input type="radio" name="mode" id="by-creator"> Creator</label></fieldset>
     <select id="f-type" aria-label="Type"><option value="">All types</option><option>Standard</option><option>Database</option><option>Policy</option><option>Collection</option><option>Tool</option></select>
     <select id="f-sub" aria-label="Sub-domain"><option value="">All sub-domains</option></select>
     <label class="chip"><input type="checkbox" id="t-links" checked> Relations</label>
+    <!-- the lane chips change with the layout, so they come after the controls that do not -->
+    <fieldset id="f-lanes"><legend class="sr">Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology infrastructure</legend></fieldset></fieldset>
     <!--internal-->
     <fieldset class="cur"><legend>Decision</legend>
       <label><input type="checkbox" id="d-include" checked> Included</label>
@@ -207,6 +209,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
     </div>
     <div>
       <h3>Lanes</h3>
+      <p>Generic FAIR and life-science resources have a lane each. The toxicology lanes, together the toxicology infrastructure, arrange toxicology resources by their main intended use or, with Toxicology lanes set to Creator, by who made them.</p>
       <dl id="lane-defs"></dl>
     </div>
     <div>
@@ -218,7 +221,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
     </div>
     <details class="dict">
       <summary><h3>Data dictionary</h3></summary>
-      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane, registry (the FAIRsharing registry of the type) and fairsharing (the FAIRsharing record).</p>
+      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by main intended use and by creator), registry (the FAIRsharing registry of the type) and fairsharing (the FAIRsharing record).</p>
       <dl id="dict"></dl>
     </details>
   </section>
@@ -272,13 +275,20 @@ const short = n => n.label || n.name;
 const SHAPE = {Standard: 'standard', Database: 'database', Collection: 'database', Policy: 'policy', Tool: 'tool'};
 const kind = n => SHAPE[n.registry] || 'tool';
 const TYPES = [['standard', 'Standard'], ['database', 'Database or collection'], ['policy', 'Policy'], ['tool', 'Tool']];
-const italic = n => n.scope === 'Toxicology building on FAIR';
+const italic = n => n.buildsOnFair === true;
 const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
 const label = n => short(n) + dagger(n);
-const laneText = n => show(n.phase || n.lane) || '—';   // toxicology resources show their lifecycle phase
+const laneText = n => show(n.phase || n.lane) || '—';   // toxicology resources show their main use
+// creator types in sentence case: "In silico research, regulator"
+const made = n => capital((n.stakeholders || []).map(s => s.charAt(0).toLowerCase() + s.slice(1)).join(', '));
+// The toxicology lanes are arranged by main intended use (lane) or by creator (creatorLane); the generic lanes stay.
+const byCreator = () => $('by-creator').checked;
+const laneOf = n => byCreator() ? n.creatorLane : n.lane;
+const GENERIC = META.lanes.filter(l => !META.toxLanes.includes(l));
+const laneNames = () => byCreator() ? [...GENERIC, ...META.creatorLanes] : META.lanes;
 const dated = n => Number.isInteger(n.year);
-const placed = n => dated(n) && META.lanes.includes(n.lane);
-const TOX = new Set(META.toxLanes);
+const placed = n => dated(n) && laneNames().includes(laneOf(n));
+const TOX = new Set([...META.toxLanes, ...META.creatorLanes]);
 const byName = (a, b) => a.name.localeCompare(b.name);
 const laneIndex = n => { const i = META.lanes.indexOf(n.lane); return i < 0 ? META.lanes.length : i; };
 const hay = Object.fromEntries(NODES.map(n => [n.key, [n.name, ...(n.aliases || []), n.description || ''].join(' ').toLowerCase()]));
@@ -345,12 +355,12 @@ const curation = n => {
 };
 /*/internal*/
 
-const state = {lanes: new Set(META.lanes), type: '', sub: '', q: [], sel: null, col: 3, dir: 1};
-const passes = n => (!n.lane || state.lanes.has(n.lane)) && (!state.type || n.registry === state.type) &&
+const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), type: '', sub: '', q: [], sel: null, col: 3, dir: 1};
+const passes = n => (!laneOf(n) || state.lanes.has(laneOf(n))) && (!state.type || n.registry === state.type) &&
   (!state.sub || n.subdomains.includes(state.sub)) /*internal*/ && curated(n) /*/internal*/;
 const matches = n => state.q.every(w => hay[n.key].includes(w));
 const offText = ns => {  // why some resources are listed but not drawn
-  const u = ns.filter(n => !dated(n)).length, l = ns.filter(n => dated(n) && !META.lanes.includes(n.lane)).length;
+  const u = ns.filter(n => !dated(n)).length, l = ns.filter(n => dated(n) && !placed(n)).length;
   const parts = [u && `${plural(u, 'resource has', 'resources have')} no known date`, l && `${plural(l, 'resource has', 'resources have')} no lane`].filter(Boolean);
   return parts.length ? `${parts.join(' and ')}; ${u + l === 1 ? 'it is' : 'they are'} in the list but not in the figure.` : '';
 };
@@ -361,8 +371,8 @@ function layout(shown, links, G) {
   const nb = {}, dx = G.R + 5 * G.u, right = G.W - G.RIGHT;
   for (const l of links) { (nb[l.src] ||= []).push(l.dst); (nb[l.dst] ||= []).push(l.src); }
   const lanes = [];
-  for (const lane of META.lanes) {
-    const ns = shown.filter(n => n.lane === lane);
+  for (const lane of laneNames()) {
+    const ns = shown.filter(n => laneOf(n) === lane);
     if (!ns.length) continue;
     for (const n of ns) {
       n.x = X(G, n.year + .5);
@@ -419,7 +429,7 @@ function overlaps(svg) {  // ponytail: O(n^2) over label boxes, fine for a few h
 }
 
 const aria = n => [`${n.name}${n.abbr ? ` (${n.abbr})` : ''}`, `first published ${n.date}`, n.type || 'type not set', laneText(n),
-  dagger(n) && 'no longer maintained' /*internal*/, `manuscript: ${n.manuscript}`, n.inCollection && 'in the FAIRsharing Toxicology collection',
+  made(n) && 'made by ' + made(n).toLowerCase(), italic(n) && 'builds on FAIR', dagger(n) && 'no longer maintained' /*internal*/, `manuscript: ${n.manuscript}`, n.inCollection && 'in the FAIRsharing Toxicology collection',
   DECISION[n.decision] || n.decision /*/internal*/].filter(Boolean).join(', ');
 
 // Draws the current view into svg in geometry G, on white: lanes separated by hairlines, an x axis, the relations, the
@@ -534,7 +544,7 @@ function figure(G, svg) {
   }, name);
   lx += step;
   item(textWidth('†', G.SMALL), (x, y) => text(x, y + mid, G.SMALL, '†', {fill: C.ink2}), 'No longer maintained');
-  item(textWidth('Italic', G.SMALL, 'italic '), (x, y) => text(x, y + mid, G.SMALL, 'Italic', {fill: C.ink2, 'font-style': 'italic'}),
+  if (shown.some(italic)) item(textWidth('Italic', G.SMALL, 'italic '), (x, y) => text(x, y + mid, G.SMALL, 'Italic', {fill: C.ink2, 'font-style': 'italic'}),
     'label: toxicology resource building on FAIR');
   item(28 * u, sample(true), 'A → B: B builds on A');
   item(28 * u, sample(false), 'Related');
@@ -636,8 +646,9 @@ function details(n) {
     `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(n.name)}${dagger(n)}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>`,
     n.abbr && `<p class="m">${esc(n.abbr)}</p>`,
     n.description && `<p>${esc(n.description)}</p>`,
-    '<dl>' + row('Type', esc(n.type)) + row('Lane', esc(show(n.lane))) + row('Phase', esc(show(n.phase))) + row('Sub-domains', esc(n.subdomains.join(', '))) +
-      row('First published', date) + row('Made by', esc(n.creator)) + row('Status', status) + '</dl>',
+    '<dl>' + row('Type', esc(n.type)) + row('Lane', !TOX.has(n.lane) && esc(show(n.lane))) + row('Main use', esc(show(n.phase))) +
+      row('Made by', esc(made(n))) + row('Builds on FAIR', italic(n) && 'Yes') + row('Sub-domains', esc(n.subdomains.join(', '))) +
+      row('First published', date) + row('Creator', esc(n.creator)) + row('Status', status) + '</dl>',
     urls.length && `<p class="links">${urls.join(' · ')}</p>`,
     list('Builds on', LINKS.filter(l => l.lineage && l.dst === n.key).map(l => item(l.src, words(l.label)))),
     list('Built on by', LINKS.filter(l => l.lineage && l.src === n.key).map(l => item(l.dst, '', words(l.label) + ' it'))),
@@ -674,6 +685,7 @@ const COLS = [
   {t: 'First published', v: n => n.date, c: n => n.date ? link(n.dateSource, n.date) : '<span class="m">—</span>'},
   {t: 'Type', v: n => n.type, c: n => esc(n.type) || '<span class="m">—</span>'},
   {t: 'Phase or lane', v: n => `${laneIndex(n)} ${n.date || '9999'}`, c: n => esc(laneText(n))},
+  {t: 'Made by', by: 'creator type', v: made, c: n => esc(made(n)) || '<span class="m">—</span>'},
   {t: 'Sub-domains', v: n => n.subdomains.join(', '), c: n => esc(n.subdomains.join(', ')) || '<span class="m">—</span>'},
   {t: 'FAIRsharing', v: n => n.fairsharing && n.name, c: n => n.fairsharing ? link(n.fairsharing, 'record') : '<span class="m">—</span>'},
 ];
@@ -702,7 +714,7 @@ function table() {
   });
   $('tbody').innerHTML = rows.map(n => `<tr${rowAttr(n)}>` + COLS.map((k, i) => i ? `<td>${k.c(n)}</td>` : `<th scope="row">${k.c(n)}</th>`).join('') + '</tr>').join('');
   $('cap').textContent = [(rows.length === NODES.length ? `All ${NODES.length} resources,` : `${rows.length} of ${NODES.length} resources match the search and filters;`) +
-    ` sorted by ${col.t.replace(/^[A-Z](?=[a-z])/, s => s.toLowerCase())}${state.dir < 0 ? ', descending' : ''}.`, offText(rows), 'Sort by clicking a column heading.'].filter(Boolean).join(' ');
+    ` sorted by ${col.by || col.t.replace(/^[A-Z](?=[a-z])/, s => s.toLowerCase())}${state.dir < 0 ? ', descending' : ''}.`, offText(rows), 'Sort by clicking a column heading.'].filter(Boolean).join(' ');
 }
 
 function header() {
@@ -718,7 +730,8 @@ function header() {
   const year = String(META.dateModified || '').slice(0, 4) || new Date().getFullYear();
   $('cite').innerHTML = `${esc(META.creator)}. ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`;
   $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
-  $('lane-defs').innerHTML = META.lanes.map(l => `<dt>${esc(show(l))}</dt><dd>${esc(META.laneDef[l])}</dd>`).join('');
+  const def = {...META.laneDef, ...META.creatorLaneDef};
+  $('lane-defs').innerHTML = [...META.lanes, ...META.creatorLanes].map(l => `<dt>${esc(show(l))}</dt><dd>${esc(def[l])}</dd>`).join('');
   if (isUrl(META.collection)) $('coll').href = META.collection;
 }
 
@@ -727,9 +740,12 @@ const FIELDS = [
   ['name', 'Full name.'],
   ['alternateName', 'Abbreviations and other names.'],
   ['type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not register.', 'type'],
-  ['scope', 'What the resource was made for; with the stakeholder it sets the lane.', 'scope'],
-  ['stakeholder', 'Who made a toxicology resource; given exactly when the scope is Toxicology.', 'stakeholder'],
-  ['phase', 'Toxicology lifecycle phase, derived from the stakeholder.', 'phase'],
+  ['scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'],
+  ['phase', 'Main intended use of a toxicology resource, which sets its lane.', 'phase'],
+  ['stakeholders', 'Creator types: who made a toxicology resource; several may apply. In the layout by creator they set ' +
+    'its lane (Made jointly for two or more).', 'stakeholders'],
+  ['buildsOnFair', 'Derived: true for a toxicology resource that implements, extends, profiles or recommends a FAIR resource. ' +
+    'Its label is in italics.'],
   ['subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'],
   ['datePublished', 'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'],
   ['dateBasis', 'What that date refers to.', 'dateBasis'],
@@ -759,9 +775,10 @@ function addChip(parent, text, on, before = null) {
   l.className = 'chip'; i.type = 'checkbox'; i.checked = true;
   i.addEventListener('change', () => { on(i.checked); render(); });
   l.append(i, ' ' + text); parent.insertBefore(l, before);
+  return l;
 }
-for (const lane of META.lanes)
-  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), show(lane), on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox'));
+for (const lane of [...META.lanes, ...META.creatorLanes])
+  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), show(lane), on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox')).dataset.lane = lane;
 for (const lane of META.lanes) {
   const subs = META.subdomains.filter(s => s[1] === lane);
   if (!subs.length) continue;
@@ -773,6 +790,7 @@ for (const lane of META.lanes) {
 $('f-type').addEventListener('change', ev => { state.type = ev.target.value; render(); });
 $('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; render(); });
 $('t-links').addEventListener('change', render);
+$('f-mode').addEventListener('change', render);
 $('q').addEventListener('input', ev => { state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean); paint(); table(); notes(); });
 
 function save(text, name) {
@@ -834,7 +852,11 @@ function panel() {  // FAIRsharing vs manuscript, and the selection flow; from t
 ['d-include', 'd-undecided', 'd-exclude', 'm-in', 'm-out'].forEach(id => $(id).addEventListener('change', render));
 /*/internal*/
 
-function render() { hideTip(); draw(); table(); }
+function render() {
+  hideTip();
+  $('f-tox').querySelectorAll('.chip').forEach(c => { c.hidden = !laneNames().includes(c.dataset.lane); });
+  draw(); table();
+}
 header(); dictionary(); /*internal*/ panel(); /*/internal*/ render();
 </script>
 </body>

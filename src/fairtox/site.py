@@ -18,9 +18,10 @@ REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-to
 PUBLIC_REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline'
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
-NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'phase', 'type', 'registry', 'scope',
-               'stakeholder', 'subdomains', 'decision', 'exclusionReason', 'coveredBy', 'manuscript', 'manuscriptEvidence',
-               'inCollection', 'fairsharing', 'url', 'creator', 'maintained', 'description', 'dateSource', 'dateBasis']
+NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'type',
+               'registry', 'scope', 'stakeholders', 'buildsOnFair', 'subdomains', 'decision', 'exclusionReason',
+               'coveredBy', 'manuscript', 'manuscriptEvidence', 'inCollection', 'fairsharing', 'url', 'creator',
+               'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target', 'evidence', 'source', 'reviewedBy', 'note']
 # Curation fields and vocabularies that stay out of the public build. Relations keep only their label: their evidence
 # and source cite the manuscript draft. inCollection serves the curation panel only.
@@ -73,9 +74,10 @@ def nodes_links(doc):
         nodes.append({
             'key': r['key'], 'name': r['name'].strip(), 'label': label(r), 'abbr': abbr(r),
             'aliases': r.get('alternateName', []), 'year': model._year(r),
-            'date': r.get('datePublished', ''), 'lane': model.lane(r), 'phase': r.get('phase', ''),
-            'type': r.get('type', ''), 'registry': model.registry(r) or '', 'scope': r.get('scope', ''),
-            'stakeholder': r.get('stakeholder', ''), 'subdomains': r.get('subdomains', []),
+            'date': r.get('datePublished', ''), 'lane': model.lane(r), 'creatorLane': model.creator_lane(r),
+            'phase': r.get('phase', ''), 'type': r.get('type', ''), 'registry': model.registry(r) or '',
+            'scope': r.get('scope', ''), 'stakeholders': r.get('stakeholders', []),
+            'buildsOnFair': bool(r.get('buildsOnFair')), 'subdomains': r.get('subdomains', []),
             'decision': r.get('decision', 'undecided'), 'exclusionReason': r.get('exclusionReason', ''),
             'coveredBy': r.get('coveredBy', ''), 'manuscript': r.get('manuscript', 'absent'),
             'manuscriptEvidence': r.get('manuscriptEvidence', ''), 'inCollection': bool(fs.get('inCollection')),
@@ -120,6 +122,7 @@ def page_meta(doc, internal=False):
         'title': doc['name'], 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
         'creator': doc.get('creator', ''), 'sources': doc.get('sources', {}), 'lanes': model.LANES,
         'toxLanes': model.TOX_LANES, 'laneDef': model.LANE_DEF,
+        'creatorLanes': list(model.CREATOR_LANE_DEF), 'creatorLaneDef': model.CREATOR_LANE_DEF,
         'subdomains': [[s, model.SUBDOMAIN_LANE[s]] for s in model.SUBDOMAINS],
         'relations': {k: {'id': v[0], 'lineage': v[1], 'definition': v[2]} for k, v in model.RELATIONS.items()},
         'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': REPO if internal else PUBLIC_REPO, 'pages': PAGES,
