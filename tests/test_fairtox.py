@@ -318,6 +318,19 @@ class SiteTest(TempDir):
         self.assertIn('Internal curation view. Not for publication.', text['index.html'])
         self.assertIn('"decision": "exclude"', text['fair-tox-ecosystem.jsonld'])
 
+    def test_both_builds_follow_the_journal_figure_rules(self):
+        # Scientific Data: white only, one sans-serif face, sentence-case labels, the 183 mm export, a data dictionary
+        for internal in (False, True):
+            html = self.build(internal)[1]['index.html']
+            self.assertNotIn('prefers-color-scheme', html)
+            self.assertNotIn('data-theme', html)
+            self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
+            for text in ('FAIR infrastructure', 'Life sciences infrastructure', 'Data generation', 'Tools & integration',
+                         'Application (regulatory)', 'Toxicology infrastructure', 'Year first published',
+                         'Before 2010, compressed', 'window.publicationSVG', '183mm', 'Data dictionary',
+                         'as required by the FAIRsharing data they include'):
+                self.assertIn(text, html, (internal, text))
+
 
 class LabelTest(unittest.TestCase):
     def test_figure_labels(self):

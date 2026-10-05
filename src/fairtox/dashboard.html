@@ -8,27 +8,25 @@
 <!--internal--><meta name="robots" content="noindex"><!--/internal-->
 <script type="application/ld+json">__SCHEMA__</script>
 <style>
+/* The journal's figure rules hold for the whole page: white only, one sans-serif face, text in two inks (at least
+   4.5:1 on white), colour carried by the markers. */
 :root {
-  --bg: #f5f5f2; --surface: #fcfcfb; --band: #f0efea; --ink: #18181b; --ink-2: #4f4e4a; --muted: #6c6a64; --grid: #e2e0d9; --rule: #cfcdc5;
-  --standard: #2a78d6; --database: #eb6834; --policy: #1baf7a; --tool: #6b6a65; --edge: #7b7972; --fair: #e34948;
-  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  color-scheme: light;
+  --bg: #ffffff; --ink: #0b0b0b; --ink-2: #52514e; --grid: #e1e0d9; --rule: #898781; --edge: #898781;
+  --standard: #2a78d6; --database: #eb6834; --policy: #1baf7a; --tool: #52514e;
+  --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #111110; --surface: #1a1a19; --band: #222220; --ink: #f4f3ee; --ink-2: #c3c2b7; --muted: #8f8d86; --grid: #2e2e2b; --rule: #3d3d39;
-  --standard: #3987e5; --database: #d95926; --policy: #199e70; --tool: #9a9991; --edge: #8f8d86; --fair: #e66767; color-scheme: dark; } }
-:root[data-theme="dark"] {
-  --bg: #111110; --surface: #1a1a19; --band: #222220; --ink: #f4f3ee; --ink-2: #c3c2b7; --muted: #8f8d86; --grid: #2e2e2b; --rule: #3d3d39;
-  --standard: #3987e5; --database: #d95926; --policy: #199e70; --tool: #9a9991; --edge: #8f8d86; --fair: #e66767; color-scheme: dark; }
 [hidden] { display: none !important; }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.5 var(--sans); -webkit-text-size-adjust: 100%; }
-a { color: inherit; text-decoration: underline; text-decoration-color: var(--muted); text-underline-offset: 2px; }
+a { color: inherit; text-decoration: underline; text-decoration-color: var(--ink-2); text-underline-offset: 2px; }
 a:hover { text-decoration-color: var(--ink); }
 :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+::placeholder { color: var(--ink-2); opacity: 1; }
+button, input, select { font: inherit; }
 .sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.skip { position: absolute; left: 16px; top: -48px; z-index: 5; padding: 6px 12px; border-radius: 4px; background: var(--ink); color: var(--surface); text-decoration: none; }
+.skip { position: absolute; left: 16px; top: -48px; z-index: 5; padding: 6px 12px; border: 2px solid var(--ink); border-radius: 4px; background: var(--bg); color: var(--ink); text-decoration: none; }
 .skip:focus { top: 8px; }
-.m { color: var(--muted); }
+.m { color: var(--ink-2); }
 .num { font-variant-numeric: tabular-nums; }
 .page { box-sizing: border-box; max-width: 1600px; margin: 0 auto; padding: 28px 16px 40px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 h1 { font-size: 25px; line-height: 1.25; font-weight: 650; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
@@ -37,17 +35,17 @@ h3 { font-size: 13.5px; font-weight: 600; margin: 0; }
 header { display: grid; gap: 6px; }
 header p { margin: 0; max-width: 80ch; }
 .lede { color: var(--ink-2); font-size: 15px; }
-.meta { color: var(--muted); font-size: 12.5px; }
+.meta { color: var(--ink-2); font-size: 12.5px; }
 
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
-input[type=search], select { box-sizing: border-box; height: 32px; max-width: 100%; padding: 4px 9px; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; }
+input[type=search], select { box-sizing: border-box; height: 32px; max-width: 100%; padding: 4px 9px; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; }
 input[type=search] { width: 172px; }
 select { cursor: pointer; field-sizing: content; }
 fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
-.chip { box-sizing: border-box; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px 0 8px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); white-space: nowrap; cursor: pointer; }
-.chip:has(input:not(:checked)) { color: var(--muted); background: transparent; border-style: dashed; }
+.chip { box-sizing: border-box; display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 10px 0 8px; border: 1px solid var(--rule); border-radius: 999px; background: var(--bg); white-space: nowrap; cursor: pointer; }
+.chip:has(input:not(:checked)) { color: var(--ink-2); border-style: dashed; }
 .chip input { margin: 0; accent-color: var(--ink); }
-.tox { padding: 2px 3px 2px 10px; border: 1px solid var(--rule); border-radius: 18px; }
+.tox { padding: 2px 3px 2px 10px; border: 1px solid var(--grid); border-radius: 18px; }
 .tox legend { float: left; padding: 0; margin-right: 2px; color: var(--ink-2); font-size: 12px; }
 .tox .chip { height: 26px; }
 
@@ -56,13 +54,17 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-w
   .viz.open { grid-template-columns: minmax(0, 1fr) 320px; }
   .panel { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow-y: auto; }
 }
-.figure { background: var(--surface); border: 1px solid var(--grid); border-radius: 8px; overflow-x: auto; }
-#fig { display: block; width: 100%; min-width: 960px; height: auto; }
+.figure { background: var(--bg); border: 1px solid var(--grid); border-radius: 8px; overflow-x: auto; }
+/* at least 1080 px wide, so that every marker stays at least 8 px across */
+#fig { display: block; width: 100%; min-width: 1080px; height: auto; }
 #fig .node { cursor: pointer; }
 #fig .node.sel .mark { stroke: var(--ink); stroke-width: 2.4px; }
+/* dimmed by a search or a selection: the marks fade, the label stays legible in the secondary ink */
+#fig .node.dim > :not(text) { opacity: .16; }
+#fig .node.dim text { fill: var(--ink-2); }
 .notes { margin: -6px 0 0; color: var(--ink-2); font-size: 13px; max-width: 110ch; }
 
-.panel { box-sizing: border-box; padding: 14px 16px 16px; background: var(--surface); border: 1px solid var(--grid); border-radius: 8px; font-size: 13.5px; overflow-wrap: anywhere; }
+.panel { box-sizing: border-box; padding: 14px 16px 16px; background: var(--bg); border: 1px solid var(--grid); border-radius: 8px; font-size: 13.5px; overflow-wrap: anywhere; }
 .panel p { margin: 4px 0 0; }
 .p-head { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
 .p-head h2 { font-size: 17px; line-height: 1.3; }
@@ -70,13 +72,13 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-w
 .close { flex: none; width: 30px; height: 30px; margin: -4px -6px 0 0; padding: 0; font: 20px/1 var(--sans); color: var(--ink-2); background: none; border: 1px solid transparent; border-radius: 6px; cursor: pointer; }
 .close:hover { border-color: var(--rule); }
 .panel dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 12px 0 0; }
-.panel dt { color: var(--muted); }
+.panel dt { color: var(--ink-2); }
 .panel dd { margin: 0; }
 .panel .links { margin-top: 12px; }
-.panel h3 { margin: 14px 0 4px; color: var(--muted); font-size: 12px; font-weight: 600; }
+.panel h3 { margin: 14px 0 4px; color: var(--ink-2); font-size: 12px; font-weight: 600; }
 .rel { list-style: none; margin: 0; padding: 0; display: grid; gap: 3px; }
-.rel button { display: block; padding: 0; font: inherit; text-align: left; color: inherit; background: none; border: 0; cursor: pointer; }
-.rel u { text-decoration-color: var(--muted); text-underline-offset: 2px; }
+.rel button { display: block; padding: 0; text-align: left; color: inherit; background: none; border: 0; cursor: pointer; }
+.rel u { text-decoration-color: var(--ink-2); text-underline-offset: 2px; }
 .rel button:hover u { text-decoration-color: var(--ink); }
 
 .list { display: grid; gap: 8px; }
@@ -84,8 +86,8 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-w
 table { width: 100%; border-collapse: collapse; font-size: 13px; }
 caption { max-width: calc(100vw - 32px); padding-bottom: 8px; text-align: left; color: var(--ink-2); }
 th, td { padding: 6px 16px 6px 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--grid); }
-thead th { padding-top: 0; font-size: 12px; font-weight: 500; color: var(--muted); white-space: nowrap; }
-thead button { padding: 2px 0; font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+thead th { padding-top: 0; font-size: 12px; font-weight: 500; color: var(--ink-2); white-space: nowrap; }
+thead button { padding: 2px 0; color: inherit; background: none; border: 0; cursor: pointer; }
 thead button:hover, th[aria-sort] button { color: var(--ink); }
 tbody th { font-weight: 500; min-width: 180px; }
 td:nth-child(2) { white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -97,40 +99,46 @@ td:nth-child(4) { white-space: nowrap; }
 .about p, .about dl { margin: 3px 0 0; color: var(--ink-2); max-width: 66ch; }
 .about dt { margin-top: 6px; color: var(--ink); font-weight: 500; }
 .about dd { margin: 0; }
+.dict { margin-top: 18px; overflow-wrap: anywhere; }
+.dict summary { cursor: pointer; width: fit-content; }
+.dict summary h3 { display: inline; }
+.dict > p { max-width: 90ch; }
+.dict dd > dl { margin: 2px 0 8px; padding-left: 12px; border-left: 1px solid var(--grid); }
+.dict dd > dl dt { margin-top: 3px; }
 
 footer { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px 40px; padding-top: 18px; border-top: 1px solid var(--grid); color: var(--ink-2); font-size: 13px; }
 footer h2 { margin-bottom: 6px; font-size: 13.5px; color: var(--ink); }
 footer p { margin: 0 0 6px; overflow-wrap: anywhere; }
 .plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
-button.btn { padding: 3px 11px; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; cursor: pointer; }
-button.btn:hover { border-color: var(--ink-2); }
+button.btn { padding: 3px 11px; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; cursor: pointer; }
+button.btn:hover { border-color: var(--ink); }
 .credit img { height: 30px; width: auto; margin-right: 8px; padding: 2px 6px; vertical-align: middle; background: #fff; border-radius: 4px; }
-#tip { position: fixed; z-index: 4; pointer-events: none; box-sizing: border-box; max-width: min(320px, calc(100vw - 16px)); padding: 6px 10px; background: var(--surface); color: var(--ink);
+#tip { position: fixed; z-index: 4; pointer-events: none; box-sizing: border-box; max-width: min(320px, calc(100vw - 16px)); padding: 6px 10px; background: var(--bg); color: var(--ink);
   border: 1px solid var(--rule); border-radius: 6px; font-size: 12.5px; box-shadow: 0 4px 14px rgba(0, 0, 0, .12); }
 #tip b { display: block; font-weight: 600; }
-#tip span { color: var(--muted); }
+#tip span { color: var(--ink-2); }
 /*internal*/
-.banner { margin: 0; padding: 10px 16px; background: #f5c542; color: #1a1400; font-size: 14px; text-align: center; }
-.cur { gap: 4px 12px; padding-left: 10px; border-left: 1px solid var(--rule); }
-.cur legend { float: left; margin-right: 2px; color: var(--muted); font-size: 12px; }
+.banner { margin: 0; padding: 10px 16px; background: var(--bg); color: var(--ink); border: 3px solid var(--ink); font-size: 14px; text-align: center; }
+.cur { gap: 4px 12px; padding-left: 10px; border-left: 1px solid var(--grid); }
+.cur legend { float: left; margin-right: 2px; color: var(--ink-2); font-size: 12px; }
 .cur label { display: inline-flex; gap: 5px; align-items: center; white-space: nowrap; cursor: pointer; }
 .cur input { margin: 0; accent-color: var(--ink); }
 .cur-panel { display: grid; gap: 8px; }
 .cur-panel > p { margin: 0; color: var(--ink-2); font-size: 13px; }
-.cur-panel h3 { margin: 6px 0 0; color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
+.cur-panel h3 { margin: 6px 0 0; color: var(--ink-2); font-size: 12px; font-weight: 600; }
 .stats, .flow { display: flex; flex-wrap: wrap; gap: 8px; }
-.stat, .flow li { box-sizing: border-box; padding: 8px 14px; background: var(--surface); border: 1px solid var(--grid); border-radius: 6px; }
+.stat, .flow li { box-sizing: border-box; padding: 8px 14px; background: var(--bg); border: 1px solid var(--grid); border-radius: 6px; }
 .stat { display: grid; min-width: 150px; }
-.stat b, .flow b { font: 600 20px/1.2 var(--mono); }
+.stat b, .flow b { font-size: 20px; line-height: 1.2; font-weight: 600; }
 .stat span { color: var(--ink-2); font-size: 12.5px; }
-details summary { cursor: pointer; color: var(--ink-2); font-size: 13px; }
-details ul { margin: 6px 0 8px; padding-left: 18px; columns: 3 240px; font-size: 13px; }
-details li { break-inside: avoid; }
-details p { margin: 4px 0 8px; font-size: 13px; }
+.cur-panel details summary { cursor: pointer; color: var(--ink-2); font-size: 13px; }
+.cur-panel details ul { margin: 6px 0 8px; padding-left: 18px; columns: 3 240px; font-size: 13px; }
+.cur-panel details li { break-inside: avoid; }
+.cur-panel details p { margin: 4px 0 8px; font-size: 13px; }
 .flow { list-style: none; margin: 0; padding: 0; font-size: 13px; }
 .flow li { max-width: 440px; }
 .flow .m { font-size: 12.5px; }
-tr.out th, tr.out td { color: var(--muted); }
+tr.out th, tr.out td { color: var(--ink-2); }
 /*/internal*/
 </style>
 </head>
@@ -152,13 +160,13 @@ tr.out th, tr.out td { color: var(--muted); }
     <label class="chip"><input type="checkbox" id="t-links" checked> Relations</label>
     <!--internal-->
     <fieldset class="cur"><legend>Decision</legend>
-      <label><input type="checkbox" id="d-include" checked> included</label>
-      <label><input type="checkbox" id="d-undecided" checked> not yet screened</label>
-      <label><input type="checkbox" id="d-exclude"> screened out</label>
+      <label><input type="checkbox" id="d-include" checked> Included</label>
+      <label><input type="checkbox" id="d-undecided" checked> Not yet screened</label>
+      <label><input type="checkbox" id="d-exclude"> Screened out</label>
     </fieldset>
     <fieldset class="cur"><legend>Manuscript</legend>
-      <label><input type="checkbox" id="m-in" checked> in the manuscript</label>
-      <label><input type="checkbox" id="m-out" checked> not in the manuscript</label>
+      <label><input type="checkbox" id="m-in" checked> In the manuscript</label>
+      <label><input type="checkbox" id="m-out" checked> Not in the manuscript</label>
     </fieldset>
     <!--/internal-->
   </div>
@@ -208,6 +216,11 @@ tr.out th, tr.out td { color: var(--muted); }
       <p>The data are versioned and citable: each release has a version number, and every change is recorded in the repository.</p>
     </div>
     </div>
+    <details class="dict">
+      <summary><h3>Data dictionary</h3></summary>
+      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane, registry (the FAIRsharing registry of the type) and fairsharing (the FAIRsharing record).</p>
+      <dl id="dict"></dl>
+    </details>
   </section>
 
   <footer>
@@ -218,6 +231,7 @@ tr.out th, tr.out td { color: var(--muted); }
         <li><a href="resources.csv" download>Resources (CSV)</a></li>
         <li><a href="relations.csv" download>Relations (CSV)</a></li>
         <li><button id="b-export" class="btn" type="button">Export the figure (SVG)</button> <span id="export-msg" class="m" role="status"></span></li>
+        <li><button id="b-print" class="btn" type="button">Export for publication (SVG, 183 mm)</button> <span id="print-msg" class="m" role="status"></span></li>
       </ul>
     </section>
     <section aria-labelledby="cite-h">
@@ -227,7 +241,7 @@ tr.out th, tr.out td { color: var(--muted); }
     </section>
     <section aria-labelledby="lic-h">
       <h2 id="lic-h">Licences</h2>
-      <p>Data: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>. Code: <a href="https://opensource.org/license/mit">MIT</a>.</p>
+      <p>Data and figure: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, as required by the FAIRsharing data they include. Code: <a href="https://opensource.org/license/mit">MIT</a>.</p>
       <p class="credit"><a href="https://fairsharing.org"><img src="https://api.fairsharing.org/img/fairsharing-attribution.svg" alt="FAIRsharing"></a> Contains information from FAIRsharing, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
       <!--internal--><p><a id="criteria" href="#">Inclusion criteria</a></p><!--/internal-->
     </section>
@@ -246,6 +260,12 @@ const isUrl = s => /^https?:\/\//.test(s || '');
 const link = (href, text) => isUrl(href) ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text);
 const plural = (k, one, many) => `${k} ${k === 1 ? one : many}`;
 const words = s => String(s).replace(/_/g, ' ');
+// Lanes and phases are shown in sentence case; the data keep their stored values, which the filters use.
+const SHOW = {'Life Sciences infrastructure': 'Life sciences infrastructure', 'Data Generation': 'Data generation',
+  'Tools & Integration': 'Tools & integration', 'Data Integration': 'Data integration',
+  'Application (Regulatory Use)': 'Application (regulatory use)'};
+const show = v => SHOW[v] || v;
+const capital = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 const byKey = Object.fromEntries(NODES.map(n => [n.key, n]));
 const short = n => n.label || n.name;
@@ -255,7 +275,7 @@ const TYPES = [['standard', 'Standard'], ['database', 'Database or collection'],
 const italic = n => n.scope === 'Toxicology building on FAIR';
 const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
 const label = n => short(n) + dagger(n);
-const laneText = n => n.phase || n.lane || '—';   // toxicology resources show their lifecycle phase
+const laneText = n => show(n.phase || n.lane) || '—';   // toxicology resources show their lifecycle phase
 const dated = n => Number.isInteger(n.year);
 const placed = n => dated(n) && META.lanes.includes(n.lane);
 const TOX = new Set(META.toxLanes);
@@ -263,41 +283,57 @@ const byName = (a, b) => a.name.localeCompare(b.name);
 const laneIndex = n => { const i = META.lanes.indexOf(n.lane); return i < 0 ? META.lanes.length : i; };
 const hay = Object.fromEntries(NODES.map(n => [n.key, [n.name, ...(n.aliases || []), n.description || ''].join(' ').toLowerCase()]));
 
-// Geometry: years before 2010 are compressed, to at most the width of 9.6 later years; the axis runs from the earliest
-// year (floored to 5, at most 2000) to the year after the latest one. The left margin holds the toxicology bracket.
+// Time: years before 2010 are compressed, to at most the width of 9.6 later years; the axis runs from the earliest year
+// (floored to 5, at most 2000) to the year after the latest one.
 const years = NODES.filter(dated).map(n => n.year);
 const YB = 2010;
 const Y0 = Math.min(2000, Math.floor(Math.min(...years) / 5) * 5), K = Math.min(.32, 9.6 / (YB - Y0));
 const Y1 = (years.length ? Math.max(...years) : YB) + 1;
-const W = 1440, M = 30, LEFT = 24 + M, RIGHT = 14, TOP = 66, TRACK = 18, R = 5, FS = 11, HEAD = 26, GAP = 10;
 const units = y => y < YB ? (y - Y0) * K : (YB - Y0) * K + (y - YB);
-const X = y => LEFT + 14 + units(y) / units(Y1) * (W - LEFT - RIGHT - 14);
-let rad = () => R;
+// Two geometries in SVG user units. The screen figure is 1440 units wide, about a pixel each. The print figure is 183 mm
+// wide in points (1 unit = 1 pt) in the journal's type sizes: labels 6 pt; lane titles, axis title and bracket 7 pt;
+// ticks and key 6 pt; strokes about 0.5 pt; markers about 4 pt. M is the bracket, LEFT the start of the axis; u scales
+// the small offsets.
+const SCREEN = {W: 1440, M: 30, LEFT: 66, RIGHT: 12, FS: 11, BIG: 12.5, SMALL: 10.5, R: 6, TRACK: 18, HEAD: 24, GAP: 10,
+  PAD: 4, SEP: 14, TOP: 30, SW: 1, RING_W: 1.5, u: 1};
+const PRINT = {W: 183 / 25.4 * 72, M: 11, LEFT: 20, RIGHT: 2, FS: 6, BIG: 7, SMALL: 6, R: 2, TRACK: 8, HEAD: 10, GAP: 4,
+  PAD: 1, SEP: 5, TOP: 11, SW: .5, RING_W: .5, u: .4, print: true};
+const X = (G, y) => G.LEFT + units(y) / units(Y1) * (G.W - G.LEFT - G.RIGHT);
+let rad = (n, G) => G.R;
 const css = name => getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
-const SANS = css('sans');
+const C = Object.fromEntries(['bg', 'ink', 'ink-2', 'grid', 'edge', 'standard', 'database', 'policy', 'tool', 'sans'].map(k => [k.replace('-', ''), css(k)]));
+const PRINT_FONT = "'Helvetica Neue', Helvetica, Arial, sans-serif";
 const ctx = document.createElement('canvas').getContext('2d');
-const textWidth = (s, it) => { ctx.font = `${it ? 'italic ' : ''}${FS}px ${SANS}`; return ctx.measureText(s).width; };
+// the widest of the faces the stack may fall back to, so that labels keep clear of each other in any of them
+const textWidth = (s, size, style = '') => Math.max(...['"Helvetica Neue"', 'Helvetica', 'Arial'].map(f => {
+  ctx.font = `${style}100px ${f}, sans-serif`;
+  return ctx.measureText(s).width;
+})) * size / 100;
 
 function el(tag, attrs, parent, text) {
   const e = document.createElementNS(NS, tag);
-  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  for (const k in attrs) {   // two decimals are plenty, in pixels or points
+    const v = attrs[k];
+    e.setAttribute(k, typeof v === 'number' ? +v.toFixed(2) : /^(d|transform|stroke-dasharray)$/.test(k) ? v.replace(/\d*\.\d{3,}/g, m => +(+m).toFixed(2)) : v);
+  }
   if (text != null) e.textContent = text;
   if (parent) parent.appendChild(e);
   return e;
 }
 function shape(type, x, y, r, parent) {  // circle = standard, square = database or collection, diamond = policy, triangle = tool
   if (type === 'standard') return el('circle', {cx: x, cy: y, r}, parent);
-  if (type === 'database') return el('rect', {x: x - r * .9, y: y - r * .9, width: r * 1.8, height: r * 1.8, rx: 1}, parent);
+  if (type === 'database') return el('rect', {x: x - r * .9, y: y - r * .9, width: r * 1.8, height: r * 1.8, rx: r * .2}, parent);
   if (type === 'policy') return el('path', {d: `M${x} ${y - r * 1.25}L${x + r * 1.25} ${y}L${x} ${y + r * 1.25}L${x - r * 1.25} ${y}Z`}, parent);
   return el('path', {d: `M${x} ${y - r * 1.2}L${x + r * 1.15} ${y + r * .9}L${x - r * 1.15} ${y + r * .9}Z`}, parent);
 }
 /*internal*/
-// The curation view: decision and manuscript filters and encodings, and the FAIRsharing vs manuscript panel.
+// The curation view: decision and manuscript filters and encodings (on screen only, never in the print figure), and
+// the FAIRsharing vs manuscript panel.
 const DECISION = {include: 'included', undecided: 'not yet screened', exclude: 'screened out'};
 const DEC_BOX = {include: 'd-include', undecided: 'd-undecided', exclude: 'd-exclude'};
 const inMs = n => n.manuscript !== 'absent';
-const RING = 8.5;
-rad = n => n.inCollection ? RING : R;
+const RING = 9.5;
+rad = (n, G) => !G.print && n.inCollection ? RING : G.R;
 const curated = n => (!DEC_BOX[n.decision] || $(DEC_BOX[n.decision]).checked) && $(inMs(n) ? 'm-in' : 'm-out').checked;
 const curation = n => {
   const why = ((META.vocab || {}).exclusionReason || {})[n.exclusionReason];
@@ -321,37 +357,38 @@ const offText = ns => {  // why some resources are listed but not drawn
 
 // Stacking: the fewest tracks a lane needs so that no labels overlap (first fit by left edge), then a few sweeps in
 // which every resource takes the free track nearest to the mean height of the resources it links to.
-function layout(shown, links) {
-  const nb = {};
+function layout(shown, links, G) {
+  const nb = {}, dx = G.R + 5 * G.u, right = G.W - G.RIGHT;
   for (const l of links) { (nb[l.src] ||= []).push(l.dst); (nb[l.dst] ||= []).push(l.src); }
   const lanes = [];
   for (const lane of META.lanes) {
     const ns = shown.filter(n => n.lane === lane);
     if (!ns.length) continue;
     for (const n of ns) {
-      n.x = X(n.year + .5);
-      const w = textWidth(label(n), italic(n)) + 5;
-      n.flip = n.x + R + w > W - 10;
-      n.l = n.flip ? n.x - R - w : n.x - rad(n);
-      n.r = n.flip ? n.x + rad(n) : n.x + R + w;
+      n.x = X(G, n.year + .5);
+      n.w = textWidth(label(n), G.FS, italic(n) ? 'italic ' : '');
+      n.flip = n.x + dx + n.w > right;
+      n.l = n.flip ? n.x - dx - n.w : n.x - rad(n, G);
+      n.r = n.flip ? n.x + rad(n, G) : n.x + dx + n.w;
     }
     ns.sort((a, b) => a.l - b.l || byName(a, b));
     const ends = [];
     for (const n of ns) {
-      let t = ends.findIndex(e => e + GAP <= n.l);
+      let t = ends.findIndex(e => e + G.GAP <= n.l);
       if (t < 0) { t = ends.length; ends.push(0); }
       ends[t] = n.r; n.track = t;
     }
     lanes.push({lane, nodes: ns, tracks: ends.length});
   }
+  const trackY = (b, t) => b.y0 + G.HEAD + (t + .5) * G.TRACK;
   const place = () => {
-    let y = TOP;
+    let y = G.TOP;
     for (const b of lanes) {
       b.y0 = y;
-      for (const n of b.nodes) n.y = y + HEAD + n.track * TRACK + TRACK / 2;
-      y += HEAD + b.tracks * TRACK + 6; b.y1 = y; y += 12;
+      for (const n of b.nodes) n.y = trackY(b, n.track);
+      b.y1 = y + G.HEAD + b.tracks * G.TRACK + G.PAD;
+      y = b.y1 + G.SEP;
     }
-    return y;
   };
   place();
   for (let pass = 0; pass < 4; pass++) for (const b of lanes) {
@@ -361,19 +398,20 @@ function layout(shown, links) {
       const target = ys.length ? ys.reduce((s, v) => s + v, 0) / ys.length : null;
       let best = -1, cost = Infinity;
       for (let t = 0; t < b.tracks; t++) {
-        if (ends[t] + GAP > n.l) continue;
-        const c = target === null ? t : Math.abs(b.y0 + HEAD + t * TRACK + TRACK / 2 - target) + t * .01;
+        if (ends[t] + G.GAP > n.l) continue;
+        const c = target === null ? t : Math.abs(trackY(b, t) - target) + t * .01;
         if (c < cost) { cost = c; best = t; }
       }
       if (best < 0) { best = b.tracks++; ends.push(-Infinity); }  // a guard; left-edge order always leaves a free track
-      ends[best] = n.r; n.track = best; n.y = b.y0 + HEAD + best * TRACK + TRACK / 2;
+      ends[best] = n.r; n.track = best; n.y = trackY(b, best);
     }
   }
-  return {lanes, bottom: place()};
+  place();
+  return lanes;
 }
 
-function overlaps() {  // ponytail: O(n^2) over label boxes, fine for a few hundred labels
-  const b = [...fig.querySelectorAll('.node text')].map(t => t.getBBox());
+function overlaps(svg) {  // ponytail: O(n^2) over label boxes, fine for a few hundred labels
+  const b = [...svg.querySelectorAll('.node text')].map(t => t.getBBox());
   let k = 0;
   for (let i = 0; i < b.length; i++) for (let j = i + 1; j < b.length; j++)
     if (b[i].x < b[j].x + b[j].width && b[j].x < b[i].x + b[i].width && b[i].y < b[j].y + b[j].height && b[j].y < b[i].y + b[i].height) k++;
@@ -384,117 +422,163 @@ const aria = n => [`${n.name}${n.abbr ? ` (${n.abbr})` : ''}`, `first published 
   dagger(n) && 'no longer maintained' /*internal*/, `manuscript: ${n.manuscript}`, n.inCollection && 'in the FAIRsharing Toxicology collection',
   DECISION[n.decision] || n.decision /*/internal*/].filter(Boolean).join(', ');
 
-let H = 0;
-function draw() {
+// Draws the current view into svg in geometry G, on white: lanes separated by hairlines, an x axis, the relations, the
+// resources, then the lane titles on top, and the key. No gridlines, no shaded bands, text in the two inks only.
+function figure(G, svg) {
   for (const n of NODES) { n.pass = passes(n); n.shown = n.pass && placed(n); }
   const shown = NODES.filter(n => n.shown);
   const links = LINKS.filter(l => byKey[l.src] && byKey[l.src].shown && byKey[l.dst] && byKey[l.dst].shown);
-  const {lanes, bottom} = layout(shown, links);
-  fig.textContent = '';
-  fig.setAttribute('font-family', SANS);
-  const c = Object.fromEntries(['surface', 'band', 'ink', 'ink-2', 'muted', 'grid', 'edge', 'fair', 'standard', 'database', 'policy', 'tool'].map(k => [k, css(k)]));
-  const bg = el('rect', {x: 0, y: 0, width: W, fill: c.surface}, fig);
-  const m = el('marker', {id: 'arrow', viewBox: '0 0 8 8', refX: 7, refY: 4, markerWidth: 6, markerHeight: 6, orient: 'auto'}, el('defs', {}, fig));
-  el('path', {d: 'M0 0L8 4L0 8Z', fill: c.edge}, m);
+  const lanes = layout(shown, links, G), u = G.u, sw = G.SW, dx = G.R + 5 * u, a = 7 * u;
+  const bold = G.print ? 'bold' : 600;   // in print a weight every editor maps to Helvetica or Arial Bold
+  svg.textContent = '';
+  svg.setAttribute('font-family', G.print ? PRINT_FONT : C.sans);
+  const bg = el('rect', {x: 0, y: 0, width: G.W, fill: C.bg}, svg);
+  const text = (x, y, size, s, extra, parent = svg) => el('text', {x, y, 'font-size': size, fill: C.ink, ...extra}, parent, s);
+  // text that lines may cross: a white halo on screen; in print a white box behind it, as not every editor draws halos
+  const clear = (x, y, size, s, extra, parent, style = '') => {
+    if (!G.print) return text(x, y, size, s, {stroke: C.bg, 'stroke-width': 3, 'paint-order': 'stroke', 'stroke-linejoin': 'round', ...extra}, parent);
+    const w = textWidth(s, size, style);
+    el('rect', {x: extra['text-anchor'] === 'end' ? x - w : x, y: y - size * .85, width: w, height: size * 1.1, fill: C.bg}, parent);
+    return text(x, y, size, s, extra, parent);
+  };
+  const arrow = (x, y, parent) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill: C.edge}, parent);
 
-  for (const b of lanes) {
-    el('rect', {x: 8 + M, y: b.y0, width: W - 16 - M, height: b.y1 - b.y0, rx: 4, fill: c.band}, fig);
-    el('text', {x: 18 + M, y: b.y0 + 17, 'font-size': 12.5, 'font-weight': 600, fill: c.ink}, fig, b.lane);
-  }
-  const tox = lanes.filter(b => TOX.has(b.lane));
-  if (tox.length) {  // together, the toxicology lanes are toxicology infrastructure
-    const y0 = tox[0].y0, y1 = tox[tox.length - 1].y1, mid = (y0 + y1) / 2;
-    el('path', {d: `M${M + 5} ${y0}H${M}V${y1}H${M + 5}`, fill: 'none', stroke: c['ink-2'], 'stroke-width': 1.2}, fig);
-    el('text', {x: M - 8, y: mid, transform: `rotate(-90 ${M - 8} ${mid})`, 'text-anchor': 'middle', 'font-size': 11.5, 'font-weight': 600, fill: c['ink-2']}, fig, 'Toxicology infrastructure');
-  }
-  const yTop = TOP - 10, yBot = Math.max(bottom - 12, yTop + 20);
-  for (let yr = Y0; yr < Y1; yr += yr < YB ? 5 : 1) {
-    el('line', {x1: X(yr), x2: X(yr), y1: yTop, y2: yBot, stroke: c.grid, 'stroke-width': yr % 5 ? .6 : 1}, fig);
-    if (yr < YB || (yr % 2 === 0 && yr !== 2016)) el('text', {x: X(yr), y: yTop - 6, 'text-anchor': 'middle', 'font-size': 10.5, 'font-variant-numeric': 'tabular-nums', fill: c.muted}, fig, yr);
-  }
-  el('text', {x: (X(Y0) + X(YB)) / 2, y: yTop - 24, 'text-anchor': 'middle', 'font-size': 10.5, fill: c.muted}, fig, 'before 2010, compressed');
+  for (const b of lanes.slice(1)) el('path', {d: `M${G.M + 4 * u} ${b.y0 - G.SEP / 2}H${G.W - G.RIGHT}`, stroke: C.grid, 'stroke-width': sw}, svg);
+  // the x axis: a line with ticks at the labelled years, broken where the compressed years end
+  const yA = (lanes.length ? lanes[lanes.length - 1].y1 : G.TOP + G.HEAD) + G.SEP / 2;
+  const x0 = X(G, Y0), x1 = X(G, Y1), xb = (X(G, YB - 5) + X(G, YB)) / 2, gap = 2.5 * u, tick = 5 * u, yrs = [];
+  for (let yr = Y0; yr < Y1; yr += yr < YB ? 5 : 2) yrs.push(yr);
+  el('path', {d: `M${x0} ${yA}H${xb - gap}M${xb + gap} ${yA}H${x1}` + yrs.map(yr => `M${X(G, yr)} ${yA}v${tick}`).join('') +
+    [xb - gap, xb + gap].map(x => `M${x - 1.5 * u} ${yA + 4 * u}l${3 * u} ${-8 * u}`).join(''), fill: 'none', stroke: C.ink2, 'stroke-width': sw}, svg);
+  const yT = yA + tick + G.SMALL * 1.1, yTitle = yT + G.BIG * 1.45;
+  for (const yr of yrs) text(X(G, yr), yT, G.SMALL, yr, {'text-anchor': 'middle', fill: C.ink2});
+  text((x0 + X(G, YB)) / 2, yTitle, G.SMALL, 'Before 2010, compressed', {'text-anchor': 'middle', fill: C.ink2});
+  text((x0 + x1) / 2, yTitle, G.BIG, 'Year first published', {'text-anchor': 'middle'});
   if (Y0 < 2016 && 2016 < Y1) {
-    el('line', {x1: X(2016), x2: X(2016), y1: yTop - 30, y2: yBot, stroke: c.fair, 'stroke-width': 1.4, 'stroke-dasharray': '5 4'}, fig);
-    el('text', {x: X(2016) + 6, y: yTop - 24, 'font-size': 11, 'font-weight': 600, fill: c.fair}, fig, 'FAIR principles published, 2016');
+    const x = X(G, 2016);
+    el('path', {d: `M${x} ${G.TOP - G.FS * 1.5}V${yA}`, stroke: C.ink2, 'stroke-width': sw * 1.2, 'stroke-dasharray': `${4 * u} ${3 * u}`}, svg);
+    text(x + 4 * u, G.TOP - G.FS * .6, G.FS, 'FAIR principles published, 2016', {'font-weight': bold});
   }
 
   // links run from the earlier resource (src) to the one that builds on it (dst); related_to links have no arrowhead
-  const gLinks = el('g', {fill: 'none'}, fig);
+  const gLinks = el('g', {fill: 'none'}, svg);
   let nLinks = 0;
   if ($('t-links').checked) for (const l of links) {
-    const a = byKey[l.src], b = byKey[l.dst];
+    const s = byKey[l.src], t = byKey[l.dst];
     // a link into a flipped label ends at the label's left end, so that the label does not hide the arrowhead
-    const x1 = a.x + rad(a) + 1, y1 = a.y, x2 = (b.flip ? b.l : b.x - rad(b)) - 3, y2 = b.y, dx = Math.max(28, Math.abs(x2 - x1) / 2);
-    const p = el('path', {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, d: `M${x1} ${y1}C${x1 + dx} ${y1} ${x2 - dx} ${y2} ${x2} ${y2}`,
-      stroke: c.edge, 'stroke-width': l.lineage ? 1.2 : .9, 'stroke-opacity': l.lineage ? .6 : .45, 'marker-end': l.lineage ? 'url(#arrow)' : 'none'}, gLinks);
+    const x1 = s.x + rad(s, G) + u, y1 = s.y, x2 = (t.flip ? t.l : t.x - rad(t, G)) - 3 * u, y2 = t.y;
+    const xe = l.lineage ? x2 - a / 2 : x2, c = Math.max(28 * u, Math.abs(xe - x1) / 2);
+    const g = el('g', G.print ? {} : {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, opacity: l.lineage ? .6 : .45}, gLinks);
+    const p = el('path', {d: `M${x1} ${y1}C${x1 + c} ${y1} ${xe - c} ${y2} ${xe} ${y2}`, stroke: C.edge, 'stroke-width': sw * (l.lineage ? 1.2 : .9)}, g);
+    if (l.lineage) arrow(x2, y2, g);
     /*internal*/
-    if (l.evidence !== 'manuscript') p.setAttribute('stroke-dasharray', '4 3');
-    if (a.decision === 'exclude' || b.decision === 'exclude') p.setAttribute('stroke-opacity', .2);
+    if (!G.print && l.evidence !== 'manuscript') p.setAttribute('stroke-dasharray', '4 3');
+    if (!G.print && (s.decision === 'exclude' || t.decision === 'exclude')) g.setAttribute('opacity', .2);
     /*/internal*/
     nLinks++;
   }
-  const gNodes = el('g', {}, fig);
+  const gNodes = el('g', {}, svg);
   for (const b of lanes) for (const n of b.nodes) {
-    const k = kind(n), col = c[k];
-    const g = el('g', {class: 'node', 'data-key': n.key, tabindex: 0, role: 'button', 'aria-label': aria(n)}, gNodes);
-    const s = shape(k, n.x, n.y, R, g);
-    for (const [a, v] of [['class', 'mark'], ['fill', col], ['stroke', c.surface], ['stroke-width', 1.5]]) s.setAttribute(a, v);
-    const t = el('text', {x: n.flip ? n.x - R - 5 : n.x + R + 5, y: n.y + 3.8, 'text-anchor': n.flip ? 'end' : 'start', 'font-size': FS,
-      'font-style': italic(n) ? 'italic' : 'normal', fill: c.ink, stroke: c.band, 'stroke-width': 3, 'paint-order': 'stroke', 'stroke-linejoin': 'round'}, g, label(n));
+    const k = kind(n), col = C[k];
+    const g = el('g', G.print ? {} : {class: 'node', 'data-key': n.key, tabindex: 0, role: 'button', 'aria-label': aria(n)}, gNodes);
+    const s = shape(k, n.x, n.y, G.R, g);
+    for (const [attr, v] of [['fill', col], ['stroke', C.bg], ['stroke-width', G.RING_W]]) s.setAttribute(attr, v);
+    if (!G.print) s.setAttribute('class', 'mark');
+    const t = clear(n.flip ? n.x - dx : n.x + dx, n.y + G.FS * .35, G.FS, label(n), {'text-anchor': n.flip ? 'end' : 'start',
+      ...(italic(n) ? {'font-style': 'italic'} : {})}, g, italic(n) ? 'italic ' : '');
     /*internal*/
-    if (!(n.manuscript === 'cited' || n.manuscript === 'named')) { s.setAttribute('fill', c.surface); s.setAttribute('stroke', col); s.setAttribute('stroke-width', 1.6); }
-    if (n.manuscript === 'absent') s.setAttribute('stroke-dasharray', '2.2 1.6');
-    if (n.inCollection) g.prepend(el('circle', {cx: n.x, cy: n.y, r: RING, fill: 'none', stroke: col, 'stroke-width': 1.2}));
-    if (!inMs(n)) t.setAttribute('fill', c['ink-2']);
-    if (n.decision === 'exclude') { g.setAttribute('opacity', .35); t.setAttribute('text-decoration', 'line-through'); }
+    if (!G.print) {
+      if (!(n.manuscript === 'cited' || n.manuscript === 'named')) { s.setAttribute('fill', C.bg); s.setAttribute('stroke', col); s.setAttribute('stroke-width', 1.6); }
+      if (n.manuscript === 'absent') s.setAttribute('stroke-dasharray', '2.2 1.6');
+      if (n.inCollection) g.prepend(el('circle', {cx: n.x, cy: n.y, r: RING, fill: 'none', stroke: col, 'stroke-width': 1.2}));
+      if (!inMs(n)) t.setAttribute('fill', C.ink2);
+      if (n.decision === 'exclude') {
+        g.querySelectorAll('circle, rect, path').forEach(m => m.setAttribute('opacity', .35));
+        t.setAttribute('fill', C.ink2); t.setAttribute('text-decoration', 'line-through');
+      }
+    }
     /*/internal*/
-    el('circle', {cx: n.x, cy: n.y, r: 10, fill: 'transparent'}, g);
+    if (!G.print) el('circle', {cx: n.x, cy: n.y, r: 12, fill: 'transparent'}, g);
+  }
+  for (const b of lanes) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, show(b.lane), {'font-weight': bold}, svg, bold + ' ');
+  const tox = lanes.filter(b => TOX.has(b.lane));
+  if (tox.length) {  // together, the toxicology lanes are toxicology infrastructure
+    const y0 = tox[0].y0, y1 = tox[tox.length - 1].y1, mid = (y0 + y1) / 2, x = G.M - 8 * u;
+    const name = ['Toxicology infrastructure', 'Toxicology'].find(s => textWidth(s, G.BIG, bold + ' ') < y1 - y0);
+    if (name) {
+      el('path', {d: `M${G.M + 5 * u} ${y0}H${G.M}V${y1}H${G.M + 5 * u}`, fill: 'none', stroke: C.ink2, 'stroke-width': sw * 1.2}, svg);
+      text(x, mid, G.BIG, name, {transform: `rotate(-90 ${x} ${mid})`, 'text-anchor': 'middle', 'font-weight': bold, fill: C.ink2});
+    }
   }
 
-  // legend, inside the SVG so that an export carries it
-  const ink2 = c['ink-2'];
-  let lx = LEFT + 14, ly = bottom + 16;
-  const row = () => { lx = LEFT + 14; ly += 22; };
-  const item = (sw, sym, text) => {
-    const tw = textWidth(text);
-    if (lx > LEFT + 14 && lx + sw + 6 + tw > W - 16) row();
-    sym(lx, ly - 4);
-    el('text', {x: lx + sw + 6, y: ly, 'font-size': FS, fill: ink2}, fig, text);
-    lx += sw + 6 + tw + 22;
+  // the key, inside the SVG so that an export carries it
+  const step = 16 * u, mid = G.SMALL * .35;
+  let lx = x0, ly = yTitle + G.SMALL * 2.2 + 8 * u;
+  const row = () => { lx = x0; ly += G.SMALL * 1.7 + 4 * u; };
+  const item = (w, sym, s) => {
+    const tw = textWidth(s, G.SMALL);
+    if (lx > x0 && lx + w + 6 * u + tw > G.W - G.RIGHT) row();
+    sym(lx, ly - mid);
+    text(lx + w + 6 * u, ly, G.SMALL, s, {fill: C.ink2});
+    lx += w + 6 * u + tw + step;
   };
-  const line = (dash, mk, w) => (x, y) => el('path', {d: `M${x} ${y}L${x + 28} ${y}`, stroke: c.edge, 'stroke-width': w, 'stroke-dasharray': dash, 'marker-end': mk, fill: 'none'}, fig);
-  for (const [k, name] of TYPES) item(12, (x, y) => { const s = shape(k, x + 6, y, R, fig); s.setAttribute('fill', c[k]); s.setAttribute('stroke', c.surface); }, name);
-  lx += 22;
-  item(8, (x, y) => el('text', {x: x + 1, y: y + 4, 'font-size': FS, fill: ink2}, fig, '†'), 'no longer maintained');
-  item(textWidth('Italic', true), (x, y) => el('text', {x, y: y + 4, 'font-size': FS, 'font-style': 'italic', fill: ink2}, fig, 'Italic'),
+  const sample = (lineage, dash) => (x, y) => {
+    const g = el('g', G.print ? {} : {opacity: lineage ? .6 : .45}, svg), end = x + 28 * u;
+    el('path', {d: `M${x} ${y}H${lineage ? end - a / 2 : end}`, fill: 'none', stroke: C.edge, 'stroke-width': sw * (lineage ? 1.2 : .9),
+      ...(dash ? {'stroke-dasharray': dash} : {})}, g);
+    if (lineage) arrow(end, y, g);
+  };
+  for (const [k, name] of TYPES) item(2 * G.R, (x, y) => {
+    const s = shape(k, x + G.R, y, G.R, svg);
+    s.setAttribute('fill', C[k]); s.setAttribute('stroke', C.bg); s.setAttribute('stroke-width', G.RING_W);
+  }, name);
+  lx += step;
+  item(textWidth('†', G.SMALL), (x, y) => text(x, y + mid, G.SMALL, '†', {fill: C.ink2}), 'No longer maintained');
+  item(textWidth('Italic', G.SMALL, 'italic '), (x, y) => text(x, y + mid, G.SMALL, 'Italic', {fill: C.ink2, 'font-style': 'italic'}),
     'label: toxicology resource building on FAIR');
-  item(30, line('none', 'url(#arrow)', 1.2), 'A → B: B builds on A');
-  item(30, line('none', 'none', .9), 'related');
+  item(28 * u, sample(true), 'A → B: B builds on A');
+  item(28 * u, sample(false), 'Related');
   /*internal*/
-  row();
-  const dot = (fill, stroke, dash, extra) => (x, y) => el('circle', Object.assign({cx: x + 6, cy: y, r: R, fill, stroke, 'stroke-width': 1.6},
-    dash ? {'stroke-dasharray': '2.2 1.6'} : {}, extra), fig);
-  item(12, dot(ink2, c.surface), 'in the manuscript (cited or named)');
-  item(12, dot(c.surface, ink2), 'in a manuscript comment only');
-  item(12, dot(c.surface, ink2, true), 'not in the manuscript');
-  item(17, (x, y) => { el('circle', {cx: x + RING, cy: y, r: RING, fill: 'none', stroke: ink2, 'stroke-width': 1.2}, fig); dot(ink2, c.surface)(x + RING - 6, y); },
-    'ring: in the FAIRsharing Toxicology collection');
-  if ($('d-exclude').checked) item(12, dot(ink2, c.surface, false, {opacity: .35}), 'faded, label struck through: screened out');
-  item(30, line('4 3', 'url(#arrow)', 1.2), 'dashed: relation not stated in the manuscript');
+  if (!G.print) {
+    row();
+    const dot = (fill, stroke, dash, extra) => (x, y) => el('circle', {cx: x + G.R, cy: y, r: G.R, fill, stroke, 'stroke-width': 1.6,
+      ...(dash ? {'stroke-dasharray': '2.2 1.6'} : {}), ...extra}, svg);
+    item(2 * G.R, dot(C.ink2, C.bg), 'In the manuscript (cited or named)');
+    item(2 * G.R, dot(C.bg, C.ink2), 'In a manuscript comment only');
+    item(2 * G.R, dot(C.bg, C.ink2, true), 'Not in the manuscript');
+    item(2 * RING, (x, y) => { el('circle', {cx: x + RING, cy: y, r: RING, fill: 'none', stroke: C.ink2, 'stroke-width': 1.2}, svg); dot(C.ink2, C.bg)(x + RING - G.R, y); },
+      'Ring: in the FAIRsharing Toxicology collection');
+    if ($('d-exclude').checked) item(2 * G.R, dot(C.ink2, C.bg, false, {opacity: .35}), 'Faded, label struck through: screened out');
+    item(28, sample(true, '4 3'), 'Dashed: relation not stated in the manuscript');
+  }
   /*/internal*/
-  H = ly + 18;
+  const H = Math.ceil(ly + G.SMALL * .5 + 10 * u);
   bg.setAttribute('height', H);
-  fig.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('viewBox', `0 0 ${+G.W.toFixed(2)} ${H}`);
+  return {H, shown, lanes, nLinks};
+}
 
+function draw() {  // the screen figure
+  const {shown, lanes, nLinks} = figure(SCREEN, fig);
   fig.dataset.nodes = shown.length;
   fig.dataset.links = nLinks;
-  fig.dataset.overlaps = overlaps();
+  fig.dataset.overlaps = overlaps(fig);
   fig.setAttribute('aria-label', `Timeline of ${plural(shown.length, 'FAIR-enabling resource', 'FAIR-enabling resources')} for toxicology, ${Y0} to ${Y1 - 1}, ` +
-    `in ${plural(lanes.length, 'lane', 'lanes')} (${lanes.map(b => b.lane).join(', ')}), with ${plural(nLinks, 'relation', 'relations')} drawn. ` +
+    `in ${plural(lanes.length, 'lane', 'lanes')} (${lanes.map(b => show(b.lane)).join(', ')}), with ${plural(nLinks, 'relation', 'relations')} drawn. ` +
     'The list below gives the same resources.');
   notes();
   paint();
 }
+
+// The current view laid out for print: 183 mm wide, 1 unit = 1 pt, white, editable text in Helvetica or Arial.
+function printFigure() {
+  const svg = document.createElementNS(NS, 'svg'), {H} = figure(PRINT, svg), mm = H * 25.4 / 72;
+  svg.querySelectorAll('text').forEach(t => t.setAttribute('font-family', PRINT_FONT));
+  svg.setAttribute('width', '183mm');
+  svg.setAttribute('height', `${+mm.toFixed(2)}mm`);
+  return {mm, svg: '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg)};
+}
+window.publicationSVG = () => printFigure().svg;
 
 function notes() {
   const hits = NODES.filter(n => n.pass && matches(n)).length;
@@ -509,13 +593,12 @@ function paint() {
   if (sel) for (const l of LINKS) { if (l.src === sel) near.add(l.dst); if (l.dst === sel) near.add(l.src); }
   const lit = k => matches(byKey[k]) && (!sel || near.has(k));
   fig.querySelectorAll('.node').forEach(g => {
-    g.style.opacity = lit(g.dataset.key) ? '' : .16;
+    g.classList.toggle('dim', !lit(g.dataset.key));
     g.classList.toggle('sel', g.dataset.key === sel);
   });
-  fig.querySelectorAll('.edge').forEach(p => {
-    const on = sel ? p.dataset.src === sel || p.dataset.dst === sel : lit(p.dataset.src) && lit(p.dataset.dst);
-    p.style.opacity = on ? '' : .08;
-    p.style.strokeOpacity = sel && on ? .95 : '';
+  fig.querySelectorAll('.edge').forEach(g => {
+    const on = sel ? g.dataset.src === sel || g.dataset.dst === sel : lit(g.dataset.src) && lit(g.dataset.dst);
+    g.style.opacity = !on ? .05 : sel ? .95 : '';
   });
 }
 
@@ -553,7 +636,7 @@ function details(n) {
     `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(n.name)}${dagger(n)}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>`,
     n.abbr && `<p class="m">${esc(n.abbr)}</p>`,
     n.description && `<p>${esc(n.description)}</p>`,
-    '<dl>' + row('Type', esc(n.type)) + row('Lane', esc(n.lane)) + row('Phase', esc(n.phase)) + row('Sub-domains', esc(n.subdomains.join(', '))) +
+    '<dl>' + row('Type', esc(n.type)) + row('Lane', esc(show(n.lane))) + row('Phase', esc(show(n.phase))) + row('Sub-domains', esc(n.subdomains.join(', '))) +
       row('First published', date) + row('Made by', esc(n.creator)) + row('Status', status) + '</dl>',
     urls.length && `<p class="links">${urls.join(' · ')}</p>`,
     list('Builds on', LINKS.filter(l => l.lineage && l.dst === n.key).map(l => item(l.src, words(l.label)))),
@@ -629,12 +712,46 @@ function header() {
     META.dateModified && `last updated <span class="num">${esc(META.dateModified)}</span>`,
     fs && fs.retrieved && `FAIRsharing data retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`
     /*internal*/, msSource() /*/internal*/].filter(Boolean).join(' · ');
-  const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '', year = String(META.dateModified || '').slice(0, 4);
-  $('cite').innerHTML = `${esc(META.creator)}${year ? ` (${esc(year)})` : ''}. <i>${esc(META.title)}</i>, version ${esc(META.version)}. ` +
-    (doi ? link(doi, doi) + '. ' : '') + link(META.repo, META.repo);
+  // the journal's data citation: Authors. Title, version. Repository URL (year).
+  const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '';
+  const [where, url] = doi ? ['Zenodo', doi] : ['GitHub', META.publicRepo];
+  const year = String(META.dateModified || '').slice(0, 4) || new Date().getFullYear();
+  $('cite').innerHTML = `${esc(META.creator)}. ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`;
   $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
-  $('lane-defs').innerHTML = META.lanes.map(l => `<dt>${esc(l)}</dt><dd>${esc(META.laneDef[l])}</dd>`).join('');
+  $('lane-defs').innerHTML = META.lanes.map(l => `<dt>${esc(show(l))}</dt><dd>${esc(META.laneDef[l])}</dd>`).join('');
   if (isUrl(META.collection)) $('coll').href = META.collection;
+}
+
+// The data dictionary: each field with a one-line definition, and the allowed values of the controlled ones.
+const FIELDS = [
+  ['name', 'Full name.'],
+  ['alternateName', 'Abbreviations and other names.'],
+  ['type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not register.', 'type'],
+  ['scope', 'What the resource was made for; with the stakeholder it sets the lane.', 'scope'],
+  ['stakeholder', 'Who made a toxicology resource; given exactly when the scope is Toxicology.', 'stakeholder'],
+  ['phase', 'Toxicology lifecycle phase, derived from the stakeholder.', 'phase'],
+  ['subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'],
+  ['datePublished', 'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'],
+  ['dateBasis', 'What that date refers to.', 'dateBasis'],
+  ['dateSource', 'DOI or URL of the source that shows the date.'],
+  ['creator', 'Organisations that made the resource.'],
+  ['url', 'Homepage.'],
+  ['description', 'One to three sentences on what the resource is.'],
+  ['maintained', 'Maintenance status.', 'maintained'],
+  ['relations', 'Relations to other resources, read subject first ("CTD implements ExO"): qualifiedRelation in the JSON-LD, ' +
+    'subject, hadRole and target in relations.csv.', 'hadRole'],
+];
+/*internal*/
+FIELDS.push(['decision', 'Screening decision.', 'decision'], ['exclusionReason', 'Why a resource is screened out.', 'exclusionReason'],
+  ['coveredBy', 'Key of the row that covers this one (E6).'], ['manuscript', 'Whether and how the manuscript names it.', 'manuscript'],
+  ['manuscriptEvidence', 'Section and line numbers in the frozen manuscript draft.'], ['fairsharingRecord', 'FAIRsharing record code or numeric id.'],
+  ['fairsharingMatch', 'Whether that record is this resource.', 'fairsharingMatch'], ['reviewedBy', 'Initials of the curator who checked the row.'],
+  ['note', 'Free text for the next curator.'], ['evidence', 'Where a relation is stated.', 'evidence']);
+/*/internal*/
+function dictionary() {
+  const vocab = META.vocab || {};
+  $('dict').innerHTML = FIELDS.map(([f, def, v]) => `<dt>${esc(f)}</dt><dd>${esc(def)}` + (vocab[v] ?
+    `<dl>${Object.entries(vocab[v]).map(([k, d]) => `<dt>${esc(k)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') + '</dd>').join('');
 }
 
 function addChip(parent, text, on, before = null) {
@@ -644,13 +761,13 @@ function addChip(parent, text, on, before = null) {
   l.append(i, ' ' + text); parent.insertBefore(l, before);
 }
 for (const lane of META.lanes)
-  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), lane, on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox'));
+  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), show(lane), on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox'));
 for (const lane of META.lanes) {
   const subs = META.subdomains.filter(s => s[1] === lane);
   if (!subs.length) continue;
   const g = document.createElement('optgroup');
-  g.label = lane;
-  for (const [s] of subs) g.append(new Option(s, s));
+  g.label = show(lane);
+  for (const [s] of subs) g.append(new Option(capital(s), s));
   $('f-sub').append(g);
 }
 $('f-type').addEventListener('change', ev => { state.type = ev.target.value; render(); });
@@ -658,24 +775,30 @@ $('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; rende
 $('t-links').addEventListener('change', render);
 $('q').addEventListener('input', ev => { state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean); paint(); table(); notes(); });
 
-function svgText() {  // the current view in the light theme
-  const root = document.documentElement, prev = root.getAttribute('data-theme');
-  root.setAttribute('data-theme', 'light'); draw();
-  const svg = fig.cloneNode(true);
-  svg.setAttribute('width', W); svg.setAttribute('height', H);
+function save(text, name) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text], {type: 'image/svg+xml'}));
+  a.download = name;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+function svgText() {  // the screen figure as drawn, without the search and selection dimming
+  const svg = fig.cloneNode(true), box = fig.viewBox.baseVal;
+  svg.setAttribute('width', box.width); svg.setAttribute('height', box.height);
   svg.querySelectorAll('[style]').forEach(e => e.removeAttribute('style'));
-  if (prev === null) root.removeAttribute('data-theme'); else root.setAttribute('data-theme', prev);
-  draw();
   return '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg);
 }
 $('b-export').addEventListener('click', () => {
   hideTip();
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([svgText()], {type: 'image/svg+xml'}));
-  a.download = 'fair-tox-ecosystem.svg';
-  document.body.append(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  save(svgText(), 'fair-tox-ecosystem.svg');
   $('export-msg').textContent = 'Saved fair-tox-ecosystem.svg.';
+});
+$('b-print').addEventListener('click', () => {
+  hideTip();
+  const {svg, mm} = printFigure();
+  save(svg, 'fair-tox-figure-183mm.svg');
+  $('print-msg').textContent = 'Saved fair-tox-figure-183mm.svg.' +
+    (mm > 170 ? ` This figure is ${Math.round(mm)} mm tall; journals allow up to 170 mm. Filter it to fewer resources.` : '');
 });
 /*internal*/
 function msSource() {
@@ -687,7 +810,7 @@ function msSource() {
 function panel() {  // FAIRsharing vs manuscript, and the selection flow; from the data, not the filters
   const ns = NODES.filter(n => n.decision !== 'exclude');
   const both = ns.filter(n => n.inCollection && inMs(n)), msOnly = ns.filter(n => inMs(n) && !n.inCollection), fsOnly = ns.filter(n => n.inCollection && !inMs(n));
-  $('fs-stats').innerHTML = [[both, 'in both'], [msOnly, 'manuscript only'], [fsOnly, 'FAIRsharing collection only']]
+  $('fs-stats').innerHTML = [[both, 'In both'], [msOnly, 'Manuscript only'], [fsOnly, 'FAIRsharing collection only']]
     .map(([a, t]) => `<div class="stat"><b>${a.length}</b><span>${t}</span></div>`).join('');
   const item = n => `<li>${link(n.fairsharing || n.url, n.name)}${dagger(n)} <span class="m">${esc([n.type, n.date].filter(Boolean).join(', '))}</span></li>`;
   $('fs-lists').innerHTML = [[fsOnly, 'Collection members not yet in the manuscript'],
@@ -712,9 +835,7 @@ function panel() {  // FAIRsharing vs manuscript, and the selection flow; from t
 /*/internal*/
 
 function render() { hideTip(); draw(); table(); }
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render);
-new MutationObserver(render).observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
-header(); /*internal*/ panel(); /*/internal*/ render();
+header(); dictionary(); /*internal*/ panel(); /*/internal*/ render();
 </script>
 </body>
 </html>

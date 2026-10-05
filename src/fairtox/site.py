@@ -123,6 +123,7 @@ def page_meta(doc, internal=False):
         'subdomains': [[s, model.SUBDOMAIN_LANE[s]] for s in model.SUBDOMAINS],
         'relations': {k: {'id': v[0], 'lineage': v[1], 'definition': v[2]} for k, v in model.RELATIONS.items()},
         'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': REPO if internal else PUBLIC_REPO, 'pages': PAGES,
+        'publicRepo': PUBLIC_REPO,   # cited in both builds: the source repository is private
         'doi': doc.get('identifier', ''), 'collection': model.COLLECTION_DOI,
         **({'criteria': CRITERIA} if internal else {}),
     }
