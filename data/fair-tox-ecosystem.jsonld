@@ -405,9 +405,9 @@
     {
      "relation": "#aopwiki",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1016/j.taap.2018.02.006",
+     "note": "Checked 5 Oct 2026: Pittman et al. describe AOP-DB as taking the AOP information held in AOP-Wiki and adding gene, chemical, disease and pathway associations mined from public databases, so it builds on and extends AOP-Wiki content."
     }
    ]
   },
@@ -468,16 +468,16 @@
     {
      "relation": "#aopdb",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3389/ftox.2022.803983",
+     "note": "Checked 5 Oct 2026: AOP-DB RDF was made by mapping the tables of the SQL AOP-DB into RDF triples, which is the standard case of an RDF version extending its source database."
     },
     {
      "relation": "#aopo",
      "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.129",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3389/ftox.2022.803983",
+     "note": "Checked 5 Oct 2026: The paper's vocabulary table includes the AOP Ontology (aopo prefix), and the live SPARQL endpoint types 157 key events as aopo:KeyEvent."
     }
    ]
   },
@@ -640,9 +640,9 @@
     {
      "relation": "#aopwiki",
      "hadRole": "related_to",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.132",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/bioadv/vbaf007",
+     "note": "Checked 5 Oct 2026: AOP-networkFinder builds and visualises networks from AOP-Wiki content without extending AOP-Wiki itself; it gets that content through the AOP-Wiki RDF SPARQL endpoint, so a link from aopnet to aopwikirdf would also hold."
     }
    ]
   },
@@ -674,10 +674,10 @@
    "qualifiedRelation": [
     {
      "relation": "#aopwiki",
-     "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1089/aivt.2021.0010",
+     "note": "Checked 5 Oct 2026: AOPO does not import or build on AOP-Wiki (its OWL file imports only ChEBI, HP and BAO and never mentions AOP-Wiki), but AOP-Wiki RDF types AOP-Wiki content with AOPO classes, so the two are related; the precise edge would be aopwikirdf implements aopo."
     }
    ]
   },
@@ -735,9 +735,9 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.1x53qk",
      "hadRole": "related_to",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3389/fgene.2018.00661",
+     "note": "Checked 5 Oct 2026: Martens et al. linked AOP-Wiki key events to WikiPathways molecular pathways and set up an AOP portal on WikiPathways, a cross-link in which neither resource extends the other."
     }
    ]
   },
@@ -770,23 +770,23 @@
     {
      "relation": "#aopdbrdf",
      "hadRole": "related_to",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3389/ftox.2022.803983",
+     "note": "Checked 5 Oct 2026: AOP-DB RDF was aligned with AOP-Wiki RDF and reuses its identifiers.org key-event IRIs, so the two are related; the AOP-DB RDF paper says it extends AOP-Wiki RDF, so the reverse edge, aopdbrdf extends aopwikirdf, would be more specific."
     },
     {
      "relation": "#aopwiki",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1089/aivt.2021.0010",
+     "note": "Checked 5 Oct 2026: Martens et al. converted all AOP-Wiki content into RDF, adding ontology annotations and links to external resources, so it is an RDF version that extends the source database."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.62qk8w",
      "hadRole": "implements",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://github.com/marvinm2/AOPWikiRDF",
+     "note": "Checked 5 Oct 2026: The AOP-Wiki RDF documentation declares a ChEBI identifier prefix, and the live endpoint maps 446 stressor chemicals to ChEBI IDs, so it uses ChEBI as its chemical identifier standard."
     }
    ]
   },
@@ -932,9 +932,9 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.32b10v",
      "hadRole": "implements",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1289/ehp.6497",
+     "note": "Checked 5 Oct 2026: Tong et al. state that ArrayTrack's MicroarrayDB component stores microarray experiment information in MIAME-compliant form."
     }
    ]
   },
@@ -1006,9 +1006,9 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.9qv71f",
      "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.147",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/nar/gkj092",
+     "note": "Checked 5 Oct 2026: BioModels curates and distributes its models in SBML, which its founding paper names as the format for retrieving models."
     }
    ],
    "fairsharing": {
@@ -2098,16 +2098,16 @@
     {
      "relation": "#tggates",
      "hadRole": "related_to",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/bioinformatics/btu827",
+     "note": "Checked 5 Oct 2026: Supplementary Table S1 of the diXa paper lists four Open TG-GATEs studies among the data in the diXa warehouse, so diXa aggregated TG-GATEs data without extending that resource."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.53gp75",
      "hadRole": "implements",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/bioinformatics/btu827",
+     "note": "Checked 5 Oct 2026: Hendrickx et al. state that diXa data are described in ISA-Tab format and that ISA-Tab tools check metadata completeness."
     }
    ]
   },
@@ -2407,9 +2407,9 @@
     {
      "relation": "#oht",
      "hadRole": "implements",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://www.echemportal.org/echemportal/news",
+     "note": "Checked 5 Oct 2026: eChemPortal's release notes (v2.0 in 2018 and later maintenance releases) state that its property-search fields follow the OECD Harmonised Templates."
     }
    ],
    "fairsharing": {
@@ -2676,23 +2676,23 @@
     {
      "relation": "#opentox",
      "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3762/bjnano.6.165",
+     "note": "Checked 5 Oct 2026: Jeliazkova et al. describe the AMBIT-based database as extending the OpenTox API and design and linking to OpenTox compound resources, so it implements the OpenTox API with nanomaterial extensions."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.2gpf81",
      "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.110",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3762/bjnano.6.165",
+     "note": "Checked 5 Oct 2026: The database paper says database content is annotated with classes chosen from the eNanoMapper ontology."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.53gp75",
      "hadRole": "implements",
-     "evidence": "FAIRsharing",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3762/bjnano.6.165",
+     "note": "Checked 5 Oct 2026: The database paper describes importing ISA-Tab files into its data model, which also borrows ISA-Tab's protocol-application concept; the FAIRsharing record behind the earlier evidence could not be read to confirm it."
     }
    ],
    "fairsharing": {
@@ -2738,30 +2738,30 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.284e1z",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://github.com/enanomapper/ontologies/blob/master/config/obi.props",
+     "note": "Checked 5 Oct 2026: The eNanoMapper ontology build imports a slimmed OBI module (obi.owl, about 1,900 OBI classes in the published slim)."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.62qk8w",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://github.com/enanomapper/ontologies/blob/master/config/chebi.props",
+     "note": "Checked 5 Oct 2026: The eNanoMapper ontology build imports a slimmed ChEBI module (from chebi_lite.obo, several hundred ChEBI classes in the published slim)."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.j9y503",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://github.com/enanomapper/ontologies/blob/master/config/clo.props",
+     "note": "Checked 5 Oct 2026: The import configuration named 'clo' actually slims the Cell Ontology (cl.owl), so CL cell-type classes such as lung macrophage are imported into the eNanoMapper ontology."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.mye76w",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://github.com/enanomapper/ontologies/blob/master/config/bao.props",
+     "note": "Checked 5 Oct 2026: The eNanoMapper ontology build imports a slimmed BAO module (about 700 BAO classes), and the eNanoMapper database paper names BAO as reused content."
     }
    ],
    "fairsharing": {
@@ -3088,9 +3088,9 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.7z842d",
      "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.188",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3390/ph14030237",
+     "note": "Checked 5 Oct 2026: Pognan et al. state that eTRANSAFE's preclinical database is built around the CDISC SEND domain tables and controlled terminology, with legacy non-SEND data mapped into that schema."
     }
    ]
   },
@@ -3290,9 +3290,9 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.mtjvme",
      "hadRole": "related_to",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1007/s00204-020-02802-6",
+     "note": "Checked 5 Oct 2026: Krebs et al. 2020 report that EU-ToxRisk used BioStudies as the data warehouse of its knowledge platform, and BioStudies still hosts an EU-ToxRisk collection (about 1,300 S-TOXR studies); a repository is not a standard, so related_to is the right label."
     }
    ]
   },
@@ -3539,18 +3539,11 @@
    "note": "Research 5 Oct 2026 (medium confidence): Corrected from 2023. The ALTEX paper (doi 10.14573/altex.2307131, online 2023-08-01) only says that work on an AOP FIP had started within PARC. The 'Reference Adverse Outcome Pathways FIP' v0.0.1 was first published as a nanopublication on 2025-07-14, from FIP Wizard project 3f1ebb12 and declared by the FAIR-AOPs community. The old url pointed to FIP Wizard project 2f1c0e80 ('Adverse Outcome Pathways FIP'), the draft it was copied from (edits January 2023 to December 2024), which was never nanopublished. The url now points to the published FIP. FAIRsharing: no record.",
    "qualifiedRelation": [
     {
-     "relation": "#aopwikirdf",
-     "hadRole": "recommends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
-    },
-    {
      "relation": "#fipwiz",
      "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
+     "note": "Checked 5 Oct 2026: Its nanopublication is typed fip:FAIR-Implementation-Profile and was generated by the FIP Wizard, so it is a profile built with the FIP model."
     }
    ]
   },
@@ -4614,9 +4607,9 @@
     {
      "relation": "#oht",
      "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://web.archive.org/web/2023/https://iuclid6.echa.europa.eu/",
+     "note": "Checked 5 Oct 2026: The official IUCLID site describes IUCLID as the tool for recording, storing, submitting and exchanging chemical data in the OECD Harmonised Templates format."
     }
    ]
   },
@@ -4976,8 +4969,8 @@
      "relation": "https://doi.org/10.25504/FAIRsharing.32b10v",
      "hadRole": "extends",
      "evidence": "FAIRsharing",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "source": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
+     "note": "Checked 5 Oct 2026: The FAIRsharing record says MIAME/Tox was developed as an extension of MIAME for array-based toxicogenomics experiments."
     }
    ],
    "fairsharing": {
@@ -5066,8 +5059,8 @@
      "relation": "https://doi.org/10.25504/FAIRsharing.9qv71f",
      "hadRole": "related_to",
      "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.146",
-     "note": "To verify."
+     "source": "manuscript draft, line 146",
+     "note": "Checked 5 Oct 2026: The draft presents MIRIAM as an annotation guideline that complements SBML, and FAIRsharing notes that MIRIAM works with any structured model format, so neither one builds on the other."
     }
    ],
    "fairsharing": {
@@ -5180,16 +5173,16 @@
     {
      "relation": "#aopwikirdf",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/s13321-024-00833-0",
+     "note": "Checked 5 Oct 2026: The nanosafety RDF links nanomaterials to MIEs and KEs that were looked up by SPARQL in AOP-Wiki RDF, and it is built for federated queries with that graph, so it adds a nanomaterial-stressor layer on top of it."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.2gpf81",
      "hadRole": "implements",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026), older draft l.132",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/s13321-024-00833-0",
+     "note": "Checked 5 Oct 2026: The paper types nanomaterial classes with eNanoMapper ontology terms, which make up about half (49%) of its material-type annotations."
     }
    ]
   },
@@ -5225,16 +5218,16 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.2gpf81",
      "hadRole": "implements",
-     "evidence": "FAIRsharing",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.3389/fphy.2023.1271842",
+     "note": "Checked 5 Oct 2026: Maier et al. 2023 state that the NanoCommons Knowledge Base annotates nanomaterials with the eNanoMapper ontology; the FAIRsharing association claimed earlier could not be checked without signing in."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.r18yt0",
-     "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.3389/fphy.2023.1271842",
+     "note": "Checked 5 Oct 2026: The KB runs on Biomax BioXM and integrates eNanoMapper database content only virtually, at the metadata level through the eNanoMapper API, so it links to that database rather than building on it."
     }
    ],
    "fairsharing": {
@@ -5707,8 +5700,8 @@
      "relation": "https://doi.org/10.25504/FAIRsharing.9qv71f",
      "hadRole": "related_to",
      "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.146",
-     "note": "To verify."
+     "source": "manuscript draft, line 146",
+     "note": "Checked 5 Oct 2026: The draft lists OMEX as the packaging format that complements SBML; an OMEX archive can hold SBML models, but neither standard extends the other."
     }
    ],
    "fairsharing": {
@@ -5758,9 +5751,9 @@
     {
      "relation": "#rodaf",
      "hadRole": "related_to",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026), older draft l.167",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://doi.org/10.1016/j.yrtph.2021.105020",
+     "note": "Checked 5 Oct 2026: Harrill et al. 2021 cite R-ODAF as the parallel initiative that prescribes omics analysis steps, while the OORF covers reporting, so the two are related but independent."
     }
    ],
    "fairsharing": {
@@ -6026,9 +6019,9 @@
     {
      "relation": "#fipwiz",
      "hadRole": "implements",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
+     "note": "Checked 5 Oct 2026: The PARC Toxicology FIP v0.1.0 nanopublication is typed fip:FAIR-Implementation-Profile and was generated by the FIP Wizard."
     }
    ]
   },
@@ -6060,10 +6053,10 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.9qv71f",
-     "hadRole": "extends",
-     "evidence": "curator",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "hadRole": "profiles",
+     "evidence": "literature",
+     "source": "https://fair-pbk.github.io/fair-pbk-standard/specification/",
+     "note": "Checked 5 Oct 2026: The FAIR PBK standard requires SBML Level 3 Version 2 or later and adds PBK-specific rules for units and for PBPKO, ChEBI and taxon annotation inside SBML's own mechanisms, so it is a profile of SBML, not an extension of the language."
     }
    ]
   },
@@ -6359,9 +6352,9 @@
     {
      "relation": "#rdmkit",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://rdmkit.elixir-europe.org/toxicology_data",
+     "note": "Checked 5 Oct 2026: The page is RDMkit's own 'Your domain: Toxicology data' page, which adds toxicology-specific data management guidance to the general toolkit."
     }
    ],
    "fairsharing": {
@@ -6464,9 +6457,9 @@
     {
      "relation": "#cookbook",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://github.com/FAIRplus/the-fair-cookbook/issues/668",
+     "note": "Checked 5 Oct 2026: It is a recipe proposal filed with the FAIR Cookbook's recipe template to add an AOP key-event annotation recipe to the Cookbook, though the issue is still open and the recipe is not yet published."
     }
    ]
   },
@@ -6498,16 +6491,16 @@
     {
      "relation": "#cookbook",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "literature",
+     "source": "https://github.com/FAIRplus/the-fair-cookbook/issues/666",
+     "note": "Checked 5 Oct 2026: It is a recipe proposal filed with the FAIR Cookbook's recipe template to add a cell-based assay metadata recipe to the Cookbook, though the issue is still open and the recipe is not yet published."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.mye76w",
-     "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "hadRole": "recommends",
+     "evidence": "literature",
+     "source": "https://github.com/FAIRplus/the-fair-cookbook/issues/666",
+     "note": "Checked 5 Oct 2026: The recipe is filed as Guidance and tells data managers to annotate cell-based assay metadata with BAO terms, so it recommends BAO; it is not a database or tool that implements it."
     }
    ]
   },
@@ -6702,8 +6695,8 @@
      "relation": "https://doi.org/10.25504/FAIRsharing.9qv71f",
      "hadRole": "related_to",
      "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.146",
-     "note": "To verify."
+     "source": "manuscript draft, line 146",
+     "note": "Checked 5 Oct 2026: The draft names SED-ML as the standard for simulation experiments that complements SBML; SED-ML points to models in SBML and other formats without extending SBML."
     }
    ],
    "fairsharing": {
@@ -7186,9 +7179,9 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.2abjs5",
      "hadRole": "extends",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026)",
-     "note": "To verify."
+     "evidence": "FAIRsharing",
+     "source": "https://doi.org/10.25504/FAIRsharing.f60a10",
+     "note": "Checked 5 Oct 2026: The record is a FAIRsharing collection that the ELIXIR Toxicology Community curates inside the registry, adding a toxicology selection on top of FAIRsharing."
     }
    ],
    "fairsharing": {
@@ -7615,10 +7608,10 @@
    "qualifiedRelation": [
     {
      "relation": "#gd211",
-     "hadRole": "implements",
-     "evidence": "manuscript",
-     "source": "previous inventory (2 Oct 2026), older draft l.191",
-     "note": "To verify."
+     "hadRole": "extends",
+     "evidence": "literature",
+     "source": "https://doi.org/10.14573/altex.1909271",
+     "note": "Checked 5 Oct 2026: ToxTemp was designed to meet all GD211 requirements and adds user guidance, acceptance criteria and description of the cell system, so as one reporting standard built on another it extends GD211 (FAIRsharing allows implements only from a database to a standard)."
     }
    ]
   },
