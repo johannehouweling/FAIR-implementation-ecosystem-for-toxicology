@@ -24,6 +24,10 @@ RECORD_TYPE = {v[1]: k for k, v in model.TYPES.items() if v[1]}
 MAINTAINED = {'ready': 'active', 'deprecated': 'discontinued', 'in_development': 'in development',
               'uncertain': 'unknown'}
 STATUS = {v: k for k, v in MAINTAINED.items()}
+# FAIRsharing's sub-labels folded into the six labels the dataset uses (accepts and outputs are kinds of implements;
+# shares_data_with and shares_code_with are kinds of related_to).
+FOLD = {'accepts': 'implements', 'outputs': 'implements', 'shares_data_with': 'related_to',
+        'shares_code_with': 'related_to'}
 
 
 class FairsharingError(RuntimeError):
@@ -119,12 +123,21 @@ def slim(raw):
             if isinstance(other, dict) and other.get('id') and label:
                 assocs.append({'other': int(other['id']), 'otherName': other.get('name', ''), 'label': label,
                                'outgoing': outgoing})
+    # REST shape (checked 5 Oct 2026): linked_records = outgoing, linking_records = incoming
+    for key, outgoing in (('linked_records', True), ('linking_records', False)):
+        for x in a.get(key) or []:
+            side = 'linked_record' if outgoing else 'linking_record'
+            rid = _first(x.get(f'{side}_id'), x.get('linked_record_id'), x.get('linking_record_id'))
+            if rid and x.get('relation'):
+                assocs.append({'other': int(rid), 'label': x['relation'], 'outgoing': outgoing,
+                               'otherName': _first(x.get(f'{side}_name'), x.get('linked_record_name'),
+                                                   x.get('linking_record_name')) or ''})
     year = _first(meta.get('year_creation'), a.get('year_creation'))
     registry = _name(_first(a.get('registry'), a.get('fairsharing_registry')))
     return {
         'id': int(d['id']), 'doi': _first(a.get('doi'), meta.get('doi')),
-        'name': _first(a.get('name'), meta.get('name')), 'abbreviation': _first(a.get('abbreviation'),
-                                                                                 meta.get('abbreviation')),
+        'name': re.sub(r'^FAIRsharing record for:\s*', '', _first(meta.get('name'), a.get('name')) or ''),
+        'abbreviation': _first(a.get('abbreviation'), meta.get('abbreviation')),
         'registry': str(registry).capitalize() if registry else None,
         'recordType': _name(_first(a.get('record_type'), a.get('type'))),
         'status': _first(meta.get('status'), a.get('status')),
@@ -140,7 +153,8 @@ def block(rec, members, today):
     keep = ('id', 'doi', 'name', 'abbreviation', 'registry', 'recordType', 'status', 'yearCreation', 'homepage')
     out = {k: rec[k] for k in keep if rec.get(k) not in (None, '')}
     out['inCollection'] = rec['id'] in members
-    out['associations'] = sorted([a['label'], a['other']] for a in rec['associations'] if a['outgoing'])
+    out['associations'] = sorted([FOLD.get(a['label'], a['label']), a['other']] for a in rec['associations']
+                                 if a['outgoing'])
     out['retrieved'] = today
     return out
 
@@ -240,7 +254,8 @@ def merge(doc, records, members, today=None):
     for rec in records:
         subject = find(doc, rec)
         for a in rec['associations']:
-            if not a['outgoing'] or a['label'] not in model.RELATIONS:
+            label = FOLD.get(a['label'], a['label'])
+            if not a['outgoing'] or label not in model.RELATIONS:
                 continue
             target = find(doc, {'id': a['other']})
             if subject is None or target is None:
@@ -252,9 +267,9 @@ def merge(doc, records, members, today=None):
             if target['@id'] in linked or subject['@id'] in back or target is subject:
                 continue
             subject.setdefault('qualifiedRelation', []).append({
-                'relation': target['@id'], 'hadRole': a['label'], 'evidence': 'FAIRsharing',
-                'source': f"https://fairsharing.org/{rec['id']}"})
-            report.append(f"new relation: {subject['key']} {a['label']} {target['key']}")
+                'relation': target['@id'], 'hadRole': label, 'evidence': 'FAIRsharing',
+                'source': f"https://fairsharing.org/{rec['id']}" + (f" ({a['label']})" if label != a['label'] else '')})
+            report.append(f"new relation: {subject['key']} {label} {target['key']}")
     return report
 
 
@@ -266,11 +281,17 @@ def fetch(doc, login, password, dry_run=None, today=None, log=print):
     if dry_run:
         attrs = (raw.get('data') or {}).get('attributes') or raw
         log('collection record keys: ' + ', '.join(sorted(attrs)))
+        for key in ('linked_records', 'linking_records', 'record_associations', 'reverse_record_associations'):
+            if isinstance(attrs.get(key), list):
+                log(f'{key}: {len(attrs[key])} items; first two: '
+                    + json.dumps(attrs[key][:2], ensure_ascii=False)[:1500])
     coll = slim(raw)
     members = {a['other'] for a in coll['associations'] if a['outgoing'] and a['label'] == 'collects'}
     if not members:
-        raise FairsharingError('No collection members found in the collection record; the REST field names may '
-                               'differ. Run with --dry-run 3 and adapt slim().')
+        if not dry_run:
+            raise FairsharingError('No collection members found in the collection record; the REST field names may '
+                                   'differ. Run with --dry-run 3 and adapt slim().')
+        log('no collection members recognised yet; continuing with records from the dataset')
     ids = set(members)
     for r in doc['hasPart']:
         fs, ref = r.get('fairsharing') or {}, model.fs_ref(r.get('fairsharingRecord'))

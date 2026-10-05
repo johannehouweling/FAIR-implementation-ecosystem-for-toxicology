@@ -205,7 +205,26 @@ NEW = {'id': 9999, 'name': 'New Tox Database', 'registry': 'Database', 'type': '
                     'homepage': 'https://newtox.example.org', 'description': 'Example.'}}
 
 
+# The REST shape as served on 5 Oct 2026 (abridged from a real response).
+REST_LINKED = {'data': {'id': '3496', 'type': 'fairsharing_records', 'attributes': {
+    'name': 'FAIRsharing record for: ELIXIR Toxicology Community', 'fairsharing_registry': 'Collection',
+    'record_type': 'collection', 'doi': '10.25504/FAIRsharing.f60a10',
+    'metadata': {'name': 'ELIXIR Toxicology Community', 'year_creation': 2020, 'status': 'ready'},
+    'linked_records': [{'linked_record_name': 'WikiPathways', 'linked_record_id': 1698, 'relation': 'collects',
+                        'relation_id': 10, 'linked_record_registry': 'Database'},
+                       {'linked_record_name': 'X', 'linked_record_id': 9, 'relation': 'accepts', 'relation_id': 2}],
+    'linking_records': [{'linking_record_name': 'Y', 'linking_record_id': 7, 'relation': 'recommends'}]}}}
+
+
 class FairsharingTest(unittest.TestCase):
+    def test_slim_reads_linked_records_and_the_real_name(self):
+        c = fairsharing.slim(REST_LINKED)
+        self.assertEqual((c['name'], c['registry'], c['yearCreation']), ('ELIXIR Toxicology Community', 'Collection', 2020))
+        self.assertIn({'other': 1698, 'otherName': 'WikiPathways', 'label': 'collects', 'outgoing': True},
+                      c['associations'])
+        self.assertIn({'other': 7, 'otherName': 'Y', 'label': 'recommends', 'outgoing': False}, c['associations'])
+        self.assertEqual(fairsharing.block(c, set(), '2026-10-05')['associations'], [['collects', 1698], ['implements', 9]])
+
     def test_slim_reads_rest_and_public_shapes(self):
         c, e = fairsharing.slim(REST), fairsharing.slim(PUBLIC)
         self.assertEqual((c['id'], c['registry'], c['recordType'], c['yearCreation'], c['homepage']),
