@@ -78,7 +78,8 @@ def schema_org(doc):
 
 
 def _script_json(value):
-    return json.dumps(value, ensure_ascii=False).replace('</', '<\\/')
+    # every '<' escaped, not only '</': '<!--' followed by '<script' in a text field would otherwise swallow the page
+    return json.dumps(value, ensure_ascii=False).replace('<', '\\u003c')
 
 
 def build(doc, outdir, dataset_path=model.DATASET):

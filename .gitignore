@@ -1,6 +1,6 @@
 # secrets and local environments
 .env
-.venv/
+.venv
 __pycache__/
 *.pyc
 .DS_Store
