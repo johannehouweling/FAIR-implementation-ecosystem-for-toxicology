@@ -1,5 +1,8 @@
 name: CI
 
+# Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
+# public repository johannehouweling/fair-tox-dashboard (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
+
 on:
   push:
     branches: [main]
@@ -25,26 +28,21 @@ jobs:
       - run: uv run python -m unittest discover -s tests -v
       - run: uv run fairtox validate
       - run: uv run fairtox site build/site
-      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
-      - if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+      - name: Check out the public dashboard repository
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          path: build/site
-
-  deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+          repository: johannehouweling/fair-tox-dashboard
+          ssh-key: ${{ secrets.SITE_DEPLOY_KEY }}
+          path: dashboard
+      - name: Publish the dashboard
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          rsync -a --delete --exclude .git --exclude README.md --exclude LICENSE --exclude .nojekyll build/site/ dashboard/
+          cd dashboard
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "The dashboard did not change."; exit 0; fi
+          git commit -m "Update the dashboard"
+          git push
