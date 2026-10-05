@@ -44,5 +44,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then echo "The dashboard did not change."; exit 0; fi
-          git commit -m "Update the dashboard"
+          git commit -m "chore(site): publish the dashboard built from ${GITHUB_SHA::7}"
           git push
