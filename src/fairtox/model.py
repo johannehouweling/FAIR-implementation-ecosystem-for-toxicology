@@ -195,9 +195,9 @@ def new_document(resources=()):
     return {
         '@context': CONTEXT, '@id': '', '@type': 'schema:Dataset',
         'name': 'FAIR implementation ecosystem for toxicology',
-        'description': 'FAIR-enabling resources used in toxicology: from the ELIXIR Toxicology Community paper on ten '
-                       'years of FAIR in toxicology and from the FAIRsharing Toxicology collection, with first '
-                       'publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.',
+        'description': 'FAIR-enabling resources used in toxicology (standards, databases, policies and tools), curated '
+                       'by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with '
+                       'first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.',
         'version': __version__, 'dateModified': '', 'license': 'https://creativecommons.org/licenses/by-sa/4.0/',
         'creator': 'ELIXIR Toxicology Community', 'creditText': FAIRSHARING_CREDIT, 'isBasedOn': [COLLECTION_DOI],
         'sources': {}, 'vocabularies': VOCABULARIES, 'hasPart': list(resources),
@@ -275,6 +275,7 @@ def normalise(doc):
     doc['hasPart'] = sorted((_ordered(r) for r in doc['hasPart']), key=lambda r: r['key'])
     doc['vocabularies'] = VOCABULARIES
     doc['version'] = __version__
+    doc['description'] = new_document()['description']
     return doc
 
 
