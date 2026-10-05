@@ -44,7 +44,7 @@ Each excluded row carries exactly one code.
 |---|---|---|
 | E1 | Organisation, project, initiative, consortium, community or event. Its named product is listed as its own row. | PARC, EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus, the FAIR AOP Cluster |
 | E2 | Principle, framework or concept without a reusable artefact, or a publication only. | The FAIR principles (shown as the 2016 line in the figure), the AOP framework, IATA |
-| E3 | Unnamed or not identifiable. | "ontology services", "data-fusion pipelines" |
+| E3 | Unnamed or not identifiable. | Services or pipelines mentioned in passing without a name |
 | E4 | Never publicly available. | A resource that cannot be found online and has no archived release |
 | E5 | No documented use in toxicology. | A generic resource named only outside a toxicology context |
 | E6 | Duplicate, version or component of another row; that row is named in Covered by. | An alternative name or a version without its own identity |
