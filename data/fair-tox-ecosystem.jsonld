@@ -2629,6 +2629,7 @@
    "key": "efsa_fairmem",
    "name": "EFSA statement on the interpretation of FAIR principles for mechanistic effect models in the regulatory environmental risk assessment of pesticides",
    "alternateName": [
+    "EFSA FAIR statement",
     "EFSA FAIR statement for mechanistic effect models"
    ],
    "decision": "include",
@@ -4121,6 +4122,7 @@
    "key": "gd417",
    "name": "OECD Guidance Document on the Generation, Reporting and Use of Research Data for Regulatory Assessments",
    "alternateName": [
+    "OECD research data guidance",
     "OECD Guidance Document on research data"
    ],
    "decision": "include",
@@ -4786,10 +4788,10 @@
    "qualifiedRelation": [
     {
      "relation": "#oht",
-     "hadRole": "implements",
+     "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://web.archive.org/web/2023/https://iuclid6.echa.europa.eu/",
-     "note": "Checked 5 Oct 2026: The official IUCLID site describes IUCLID as the tool for recording, storing, submitting and exchanging chemical data in the OECD Harmonised Templates format."
+     "note": "Checked 5 Oct 2026: The official IUCLID site describes IUCLID as the tool for recording, storing, submitting and exchanging chemical data in the OECD Harmonised Templates format. Relabelled 5 Oct 2026 from implements: the first IUCLID release (1993) predates the OECD harmonised templates; later IUCLID versions implement them."
     }
    ]
   },
@@ -4812,6 +4814,9 @@
    "@id": "#iupac_immunotox",
    "key": "iupac_immunotox",
    "name": "IUPAC Glossary of terms used in immunotoxicology (IUPAC Recommendations 2012)",
+   "alternateName": [
+    "IUPAC immunotox glossary"
+   ],
    "decision": "include",
    "type": "Standard: terminology artefact",
    "scope": "Toxicology",
@@ -4835,6 +4840,7 @@
    "key": "iupac_toxgloss",
    "name": "IUPAC Glossary of terms used in toxicology, 2nd edition (IUPAC Recommendations 2007)",
    "alternateName": [
+    "IUPAC toxicology glossary",
     "Glossary Of Terms Used In Toxicology"
    ],
    "decision": "include",

@@ -1656,3 +1656,9 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-05,rename 2026-10-05,rdmkit,scope,FAIR,Generic,Claude (rename),"scope FAIR renamed Generic (decision record, 5 Oct 2026)"
 2026-10-05,rename 2026-10-05,science_friction,scope,FAIR,Generic,Claude (rename),"scope FAIR renamed Generic (decision record, 5 Oct 2026)"
 2026-10-05,rename 2026-10-05,sparql,scope,FAIR,Generic,Claude (rename),"scope FAIR renamed Generic (decision record, 5 Oct 2026)"
+2026-10-05,review fixes 2026-10-05,efsa_fairmem,alternateName,EFSA FAIR statement for mechanistic effect models,EFSA FAIR statement; EFSA FAIR statement for mechanistic effect models,Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
+2026-10-05,review fixes 2026-10-05,gd417,alternateName,OECD Guidance Document on research data,OECD research data guidance; OECD Guidance Document on research data,Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
+2026-10-05,review fixes 2026-10-05,iupac_immunotox,alternateName,,IUPAC immunotox glossary,Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
+2026-10-05,review fixes 2026-10-05,iupac_toxgloss,alternateName,Glossary Of Terms Used In Toxicology,IUPAC toxicology glossary; Glossary Of Terms Used In Toxicology,Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
+2026-10-05,review fixes 2026-10-05,iuclid,relation,implements oht,(removed),Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
+2026-10-05,review fixes 2026-10-05,iuclid,relation,(new),related_to oht,Claude (review),dashboard review: short aliases for cut labels; IUCLID relation relabelled
