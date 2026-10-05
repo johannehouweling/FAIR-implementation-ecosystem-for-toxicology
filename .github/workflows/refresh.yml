@@ -1,0 +1,50 @@
+name: FAIRsharing refresh
+
+# Weekly: read the FAIRsharing Toxicology collection with the repository owner's FAIRsharing login (Actions secrets
+# FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and open a pull request when the dataset changed. Nothing is pushed to
+# main; the dashboard is redeployed after a person merges the pull request.
+
+on:
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          enable-cache: true
+      - run: uv sync --locked --all-groups
+      - name: Read FAIRsharing
+        env:
+          FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
+          FAIRSHARING_PASSWORD: ${{ secrets.FAIRSHARING_PASSWORD }}
+        run: uv run fairtox fetch --report build/refresh.md
+      # Pull requests opened with the workflow token do not trigger CI, so test here.
+      - run: uv run python -m unittest discover -s tests
+      - run: uv run fairtox validate
+      - name: Open a pull request if the dataset changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- data; then echo "The dataset did not change."; exit 0; fi
+          day="$(date -u +%Y-%m-%d)"
+          branch="refresh/${day}-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add data
+          git commit -m "FAIRsharing refresh ${day}"
+          git push -u origin "$branch"
+          gh pr create --title "FAIRsharing refresh ${day}" --body-file build/refresh.md

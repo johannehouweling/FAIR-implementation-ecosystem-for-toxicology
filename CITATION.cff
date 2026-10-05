@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: If you use this dataset or its code, please cite it as below.
+type: dataset
+title: FAIR implementation ecosystem for toxicology
+abstract: >-
+  A curated dataset of FAIR-enabling resources used in toxicology. It combines the resources named in the
+  ELIXIR Toxicology Community paper on ten years of the FAIR principles with the FAIRsharing Toxicology
+  collection, records when each resource was first published, its FAIRsharing type, lifecycle phase,
+  sub-domains and relations, and includes the code to curate the dataset and build its dashboard.
+authors:
+  - given-names: Jente
+    family-names: Houweling
+  - name: ELIXIR Toxicology Community
+version: 0.1.0
+license:
+  - CC-BY-SA-4.0
+  - MIT
+repository-code: https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology
+url: https://johannehouweling.github.io/FAIR-implementation-ecosystem-for-toxicology/
+keywords:
+  - FAIR
+  - toxicology
+  - FAIRsharing
+  - FAIR-enabling resources
+  - research data management

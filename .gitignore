@@ -1,0 +1,10 @@
+# secrets and local environments
+.env
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+
+# generated: site, curation workbooks, exports, reports
+build/
+*.xlsx

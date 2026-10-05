@@ -1,0 +1,11 @@
+Data licence
+
+The dataset (data/), the documentation (docs/) and the dashboard content are licensed under the
+Creative Commons Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0):
+https://creativecommons.org/licenses/by-sa/4.0/legalcode
+
+The dataset contains information from FAIRsharing (https://fairsharing.org), which is licensed
+CC BY-SA 4.0; the share-alike terms therefore apply to the whole dataset. When you reuse it, cite
+this dataset (see CITATION.cff) and credit FAIRsharing with a link to https://fairsharing.org.
+
+The code is licensed separately under the MIT licence (see LICENSE).
