@@ -1,7 +1,7 @@
 name: CI
 
 # Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
-# public repository johannehouweling/fair-tox-dashboard (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
+# public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          repository: johannehouweling/fair-tox-dashboard
+          repository: johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline
           ssh-key: ${{ secrets.SITE_DEPLOY_KEY }}
           path: dashboard
       - name: Publish the dashboard
