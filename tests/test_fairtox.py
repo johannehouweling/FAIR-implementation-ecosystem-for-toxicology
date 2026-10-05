@@ -392,7 +392,7 @@ class SiteTest(TempDir):
             self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
             for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Tools & integration',
                          'Application (regulatory)', 'Toxicology infrastructure', 'Year first published',
-                         'Before 2010, compressed', 'window.publicationSVG', '183mm', 'Data dictionary',
+                         'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
                          'as required by the FAIRsharing data they include', 'Toxicology lanes', 'Intended use',
                          *model.CREATOR_LANE_DEF):
                 self.assertIn(text, html, (internal, text))

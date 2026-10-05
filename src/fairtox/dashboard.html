@@ -294,13 +294,13 @@ const byName = (a, b) => a.name.localeCompare(b.name);
 const laneIndex = n => { const i = META.lanes.indexOf(n.lane); return i < 0 ? META.lanes.length : i; };
 const hay = Object.fromEntries(NODES.map(n => [n.key, [n.name, ...(n.aliases || []), n.description || ''].join(' ').toLowerCase()]));
 
-// Time: years before 2010 are compressed, to at most the width of 9.6 later years; the axis runs from the earliest year
-// (floored to 5, at most 2000) to the year after the latest one.
+// Time: a plain axis from 2000 to the year after the latest one. Earlier years share one narrow column on its left,
+// still in year order: COL year-widths, then a break of BREAK year-widths.
 const years = NODES.filter(dated).map(n => n.year);
-const YB = 2010;
-const Y0 = Math.min(2000, Math.floor(Math.min(...years) / 5) * 5), K = Math.min(.32, 9.6 / (YB - Y0));
+const YB = 2000, COL = 3, BREAK = 1.2;
+const Y0 = Math.min(YB, Math.floor(Math.min(...years) / 5) * 5), K = Y0 < YB ? COL / (YB - Y0) : 0;
 const Y1 = (years.length ? Math.max(...years) : YB) + 1;
-const units = y => y < YB ? (y - Y0) * K : (YB - Y0) * K + (y - YB);
+const units = y => y < YB ? (y - Y0) * K : (Y0 < YB ? COL + BREAK : 0) + (y - YB);
 // Two geometries in SVG user units. The screen figure is 1440 units wide, about a pixel each. The print figure is 183 mm
 // wide in points (1 unit = 1 pt) in the journal's type sizes: labels 6 pt; lane titles, axis title and bracket 7 pt;
 // ticks and key 6 pt; strokes about 0.5 pt; markers about 4 pt. M is the bracket, LEFT the start of the axis; u scales
@@ -309,7 +309,7 @@ const SCREEN = {W: 1440, M: 30, LEFT: 66, RIGHT: 12, FS: 11, BIG: 12.5, SMALL: 1
   PAD: 4, SEP: 14, TOP: 30, SW: 1, RING_W: 1.5, u: 1};
 const PRINT = {W: 183 / 25.4 * 72, M: 11, LEFT: 20, RIGHT: 2, FS: 6, BIG: 7, SMALL: 6, R: 2, TRACK: 8, HEAD: 10, GAP: 4,
   PAD: 1, SEP: 5, TOP: 11, SW: .5, RING_W: .5, u: .4, print: true};
-const X = (G, y) => G.LEFT + units(y) / units(Y1) * (G.W - G.LEFT - G.RIGHT);
+const XU = (G, v) => G.LEFT + v / units(Y1) * (G.W - G.LEFT - G.RIGHT), X = (G, y) => XU(G, units(y));
 let rad = (n, G) => G.R;
 const css = name => getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
 const C = Object.fromEntries(['bg', 'ink', 'ink-2', 'grid', 'edge', 'standard', 'database', 'policy', 'tool', 'sans'].map(k => [k.replace('-', ''), css(k)]));
@@ -455,16 +455,19 @@ function figure(G, svg) {
   const arrow = (x, y, parent) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill: C.edge}, parent);
 
   for (const b of lanes.slice(1)) el('path', {d: `M${G.M + 4 * u} ${b.y0 - G.SEP / 2}H${G.W - G.RIGHT}`, stroke: C.grid, 'stroke-width': sw}, svg);
-  // the x axis: a line with ticks at the labelled years, broken where the compressed years end
+  // the x axis: ticks every two years from 2000; the column of earlier years has none and sits behind a break
   const yA = (lanes.length ? lanes[lanes.length - 1].y1 : G.TOP + G.HEAD) + G.SEP / 2;
-  const x0 = X(G, Y0), x1 = X(G, Y1), xb = (X(G, YB - 5) + X(G, YB)) / 2, gap = 2.5 * u, tick = 5 * u, yrs = [];
-  for (let yr = Y0; yr < Y1; yr += yr < YB ? 5 : 2) yrs.push(yr);
-  el('path', {d: `M${x0} ${yA}H${xb - gap}M${xb + gap} ${yA}H${x1}` + yrs.map(yr => `M${X(G, yr)} ${yA}v${tick}`).join('') +
-    [xb - gap, xb + gap].map(x => `M${x - 1.5 * u} ${yA + 4 * u}l${3 * u} ${-8 * u}`).join(''), fill: 'none', stroke: C.ink2, 'stroke-width': sw}, svg);
+  const col = Y0 < YB, x0 = XU(G, 0), xc = XU(G, COL), xs = X(G, YB), x1 = X(G, Y1), xb = (xc + xs) / 2;
+  const gap = 2.5 * u, tick = 5 * u, yrs = [];
+  for (let yr = YB; yr < Y1; yr += 2) yrs.push(yr);
+  el('path', {d: (col ? `M${x0} ${yA}H${xb - gap}M${xb + gap} ${yA}` : `M${xs} ${yA}`) + `H${x1}` +
+    yrs.map(yr => `M${X(G, yr)} ${yA}v${tick}`).join('') +
+    (col ? [xb - gap, xb + gap].map(x => `M${x - 1.5 * u} ${yA + 4 * u}l${3 * u} ${-8 * u}`).join('') : ''),
+    fill: 'none', stroke: C.ink2, 'stroke-width': sw}, svg);
   const yT = yA + tick + G.SMALL * 1.1, yTitle = yT + G.BIG * 1.45;
   for (const yr of yrs) text(X(G, yr), yT, G.SMALL, yr, {'text-anchor': 'middle', fill: C.ink2});
-  text((x0 + X(G, YB)) / 2, yTitle, G.SMALL, 'Before 2010, compressed', {'text-anchor': 'middle', fill: C.ink2});
-  text((x0 + x1) / 2, yTitle, G.BIG, 'Year first published', {'text-anchor': 'middle'});
+  if (col) text((x0 + xc) / 2, yT, G.SMALL, 'Before 2000', {'text-anchor': 'middle', fill: C.ink2});
+  text((xs + x1) / 2, yTitle, G.BIG, 'Year first published', {'text-anchor': 'middle'});
   if (Y0 < 2016 && 2016 < Y1) {
     const x = X(G, 2016);
     el('path', {d: `M${x} ${G.TOP - G.FS * 1.5}V${yA}`, stroke: C.ink2, 'stroke-width': sw * 1.2, 'stroke-dasharray': `${4 * u} ${3 * u}`}, svg);
