@@ -1956,3 +1956,9 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-08,decisions 2026-10-08,fairaop,phase,Data Integration,Data generation,JH,decision record 8 Oct 2026
 2026-10-08,decisions 2026-10-08,parcfip,phase,Data Integration,Data generation,JH,decision record 8 Oct 2026
 2026-10-08,decisions 2026-10-08,parcfip,stakeholders,In silico research,Wet-lab research; In silico research; Regulator,JH,decision record 8 Oct 2026
+2026-10-09,decisions 2026-10-09,fairaop_cluster,decision,exclude,include,JH,FIC identity check of 9 Oct 2026
+2026-10-09,decisions 2026-10-09,fairaop_cluster,exclusionReason,E1,,JH,FIC identity check of 9 Oct 2026
+2026-10-09,decisions 2026-10-09,fairaop_cluster,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Implementation-Community,JH,FIC identity check of 9 Oct 2026
+2026-10-09,decisions 2026-10-09,parc_partnership,decision,exclude,include,JH,FIC identity check of 9 Oct 2026
+2026-10-09,decisions 2026-10-09,parc_partnership,exclusionReason,E1,,JH,FIC identity check of 9 Oct 2026
+2026-10-09,decisions 2026-10-09,parc_partnership,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Implementation-Community,JH,FIC identity check of 9 Oct 2026

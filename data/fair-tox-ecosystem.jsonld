@@ -80,6 +80,7 @@
    "@id": "fip:refers-to-question",
    "@type": "@id"
   },
+  "considerations": "fip:considerations",
   "declares-current-use-of": {
    "@id": "fip:declares-current-use-of",
    "@type": "@id"
@@ -100,6 +101,11 @@
    "@id": "fip:declared-by",
    "@type": "@id"
   },
+  "fsr": {
+   "@id": "skos:exactMatch",
+   "@type": "@id",
+   "@container": "@set"
+  },
   "buildsOnFair": null,
   "fsrCategory": null,
   "fsrParent": null,
@@ -115,7 +121,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "FAIR-enabling resources used in toxicology (standards, databases, policies and tools), curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.1.0",
- "dateModified": "2026-10-08",
+ "dateModified": "2026-10-09",
  "license": "https://creativecommons.org/licenses/by-sa/4.0/",
  "creator": "ELIXIR Toxicology Community",
  "creditText": "Contains information from FAIRsharing (https://fairsharing.org), licensed CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).",
@@ -3985,18 +3991,22 @@
    "manuscriptEvidence": "III AOP; L135"
   },
   {
-   "@id": "#fairaop_cluster",
+   "@id": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk#FAIR-AOPs",
    "key": "fairaop_cluster",
    "name": "FAIR AOP Cluster",
-   "decision": "exclude",
-   "exclusionReason": "E1",
+   "decision": "include",
    "type": "Policy: society",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
+   ],
    "scope": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
    "manuscript": "named",
-   "manuscriptEvidence": "III AOP; L135"
+   "manuscriptEvidence": "III AOP; L135",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "fsrParent": "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
   },
   {
    "@id": "#fairbydesign",
@@ -6629,15 +6639,17 @@
    "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify."
   },
   {
-   "@id": "#parc_partnership",
+   "@id": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M#PARC",
    "key": "parc_partnership",
    "name": "European Partnership for the Assessment of Risks from Chemicals (PARC)",
    "alternateName": [
     "PARC"
    ],
-   "decision": "exclude",
-   "exclusionReason": "E1",
+   "decision": "include",
    "type": "Policy: project",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
+   ],
    "scope": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
@@ -6653,7 +6665,9 @@
    "creator": "EU Horizon Europe partnership",
    "url": "https://www.eu-parc.eu",
    "manuscript": "named",
-   "manuscriptEvidence": "III Table 1; III Data generation; III AOP; III Computational; L60, L112, L135, L158, L399"
+   "manuscriptEvidence": "III Table 1; III Data generation; III AOP; III Computational; L60, L112, L135, L158, L399",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "fsrParent": "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
   },
   {
    "@id": "#parcfip",
