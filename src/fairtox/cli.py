@@ -1,5 +1,6 @@
 """Command line: `uv run fairtox <command>`. Run from the repository root."""
 import argparse
+import collections
 import csv
 import json
 import os
@@ -103,6 +104,36 @@ def cmd_export(a):
     return 0
 
 
+def cmd_fip(a):
+    from fairtox import fip
+    data = fip.read(offline=a.offline)
+    doc = _load()
+    matches = fip.match(doc, data)
+    rows = fip.report(doc, data, matches)
+    for key, f in data['fips'].items():
+        n = sum(1 for x in data['declarations'] if x['fip'] == key and x['target'])
+        print(f"{f['label']}: {n} declarations, {len(f['noChoice'])} no choice, "
+              f"{f['invalidated']} invalidated and skipped")
+    methods = collections.Counter(how for _, how in matches.values())
+    print(f'{len(matches)} declared resources, matched by ' + ', '.join(f'{k} {v}' for k, v in sorted(methods.items())))
+    e1 = {r['key'] for r in doc['hasPart'] if r.get('exclusionReason') == 'E1'}
+    hits = [r for r in rows if r['kind'] == 'FAIR-Implementation-Community' and r['key'] in e1]
+    print(f"{len(data['fic'])} valid FAIR Implementation Communities; {len(hits)} match rows excluded as E1 "
+          '(identity check)')
+    print(f'{fip.REPORT}: {len(rows)} rows')
+    if a.report:
+        fip.convergence(data)
+        print(f'{fip.CONVERGENCE} written')
+    if a.apply:
+        before = json.loads(json.dumps(doc))
+        changes = model.diff(before, model.normalise(fip.apply(doc, data, matches)))
+        if model.save(doc):
+            model.log_changes(changes, f"fip import {data['retrieved']}", 'FIP nanopublications',
+                              dict.fromkeys((c[0] for c in changes), 'fairtox fip'))
+        print(f'{len(changes)} changes applied and logged in {model.CHANGES}')
+    return 0
+
+
 def lines_of(evidence):
     """Line numbers in a manuscript evidence text such as 'AOP section; L117, L126-129, [ag] L391'."""
     out = set()
@@ -183,6 +214,11 @@ def main(argv=None):
     s = sub.add_parser('export-fairsharing', help='write what could be added to FAIRsharing (nothing is posted)')
     s.add_argument('outdir')
     s.set_defaults(run=cmd_export)
+    s = sub.add_parser('fip', help="read the toxicology FIPs' declarations and write the match report")
+    s.add_argument('--offline', action='store_true', help='read only the cache in data/raw/fip')
+    s.add_argument('--report', action='store_true', help='also write the convergence table, docs/fip-convergence.md')
+    s.add_argument('--apply', action='store_true', help='write the import into the dataset (after reviewing the report)')
+    s.set_defaults(run=cmd_fip)
     s = sub.add_parser('draft-check', help='check manuscript line references against a draft export (read-only)')
     s.add_argument('draft')
     s.set_defaults(run=cmd_draft_check)

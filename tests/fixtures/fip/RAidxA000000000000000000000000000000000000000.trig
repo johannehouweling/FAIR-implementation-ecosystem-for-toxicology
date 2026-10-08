@@ -1,0 +1,11 @@
+@prefix fip: <https://w3id.org/fair/fip/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+@prefix this: <https://w3id.org/np/RAidxA000000000000000000000000000000000000000> .
+@prefix sub: <https://w3id.org/np/RAidxA000000000000000000000000000000000000000/> .
+
+sub:assertion {
+  this: npx:includesElement <https://w3id.org/np/RAdecA000000000000000000000000000000000000000>, <https://w3id.org/np/RAdecB000000000000000000000000000000000000000>, <https://w3id.org/np/RAdecC000000000000000000000000000000000000000> .
+}

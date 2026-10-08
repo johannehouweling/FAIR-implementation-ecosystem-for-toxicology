@@ -220,20 +220,22 @@ CONTEXT = {
     'qualifiedRelation': {'@id': 'dcat:qualifiedRelation', '@container': '@set'},
     'relation': {'@id': 'dct:relation', '@type': '@id'}, 'hadRole': {'@id': 'dcat:hadRole', '@type': '@vocab'},
     'fipDeclaration': {'@id': 'dct:hasPart', '@container': '@set'},
-    'question': {'@id': 'fip:refers-to-question', '@type': '@id'},
+    'question': {'@id': 'fip:refers-to-question', '@type': '@id'}, 'considerations': 'fip:considerations',
     **{p: {'@id': 'fip:' + p, '@type': '@id'} for p in FIP_PROPERTIES},
+    'fsr': {'@id': 'skos:exactMatch', '@type': '@id', '@container': '@set'},
     # Kept in the file for people and the dashboard, but not part of the graph: derived fields, and the sources,
     # vocabularies and FAIRsharing snapshots (sources are linked through isBasedOn, terms are defined by their IRIs).
     **dict.fromkeys(['buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn', 'principles', 'principle', 'sources',
                      'vocabularies', 'fairsharing']),
 }
 # Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn'
-# and 'principles' are derived, 'fairsharing' is fetched and 'fipDeclaration' imported.
+# and 'principles' are derived, 'fairsharing' is fetched, 'fipDeclaration' and 'fsr' (a declared resource's IRIs in
+# the FIPs) are imported.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
            'phase', 'span', 'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
            'reviewedBy', 'note']
-FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn', 'principles',
+FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn', 'principles', 'fsr',
                                    'qualifiedRelation', 'declared-by', 'fipDeclaration', 'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
 LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders', 'fsrType', 'span'}
@@ -324,6 +326,8 @@ def slug(text, taken=()):
 
 
 def iri_of(r):
+    if FIC in r.get('fsrType', []) and re.match(r'^https?://(w3id|purl)\.org/np/', r.get('@id') or ''):
+        return r['@id']                                     # a FIC is identified by its FIC nanopublication
     code = fs_ref(r.get('fairsharingRecord'))
     if r.get('fairsharingMatch') == 'confirmed':
         if code.startswith('FAIRsharing.'):

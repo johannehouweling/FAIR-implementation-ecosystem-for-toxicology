@@ -1,0 +1,14 @@
+@prefix fip: <https://w3id.org/fair/fip/terms/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix npx: <http://purl.org/nanopub/x/> .
+@prefix this: <https://w3id.org/np/RAdecC000000000000000000000000000000000000000> .
+@prefix sub: <https://w3id.org/np/RAdecC000000000000000000000000000000000000000/> .
+
+sub:assertion {
+  sub:declaration a fip:FIP-Declaration ;
+    fip:declared-by <https://w3id.org/np/RAficA000000000000000000000000000000000000000#TOX> ;
+    fip:declares-current-use-of <http://purl.org/np/RAfsrY000000000000000000000000000000000000000#Y> ;
+    fip:refers-to-question fip:FIP-Question-I1-D .
+}

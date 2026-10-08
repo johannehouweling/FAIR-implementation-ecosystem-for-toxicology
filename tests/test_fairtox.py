@@ -12,7 +12,7 @@ from unittest import mock
 
 from openpyxl import load_workbook
 
-from fairtox import __version__, fairsharing, model, sheet, site
+from fairtox import __version__, fairsharing, fip, model, sheet, site
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -449,6 +449,91 @@ class LabelTest(unittest.TestCase):
                           ('ISA extensions for toxicogenomics, metabolomics and more', 'ISA extensions for toxicogenomics…'),
                           ('Regulatory Forum Opinion Piece: The Interpretation', 'Regulatory Forum Opinion Piece…')):
             self.assertEqual(site.label({'name': name}), cut)
+
+
+def np_iri(tag, base='https://w3id.org/np/'):
+    """A fixture nanopublication IRI (tests/fixtures/fip/<code>.trig)."""
+    return base + 'RA' + tag + '0' * (43 - len(tag))
+
+
+class FipTest(TempDir):
+    """Two FIPs on tiny TriG fixtures, read offline: the `tool` row's FIP and the `oecd_gd` row's FIP."""
+    X, W = np_iri('fsrX', 'http://purl.org/np/') + '#X', np_iri('fsrW', 'http://purl.org/np/') + '#W'
+
+    def setUp(self):
+        super().setUp()
+        fixtures = os.path.join(ROOT, 'tests', 'fixtures', 'fip')
+        for obj, name, value in ((fip, 'CACHE', fixtures), (model, 'FIC_LOOKUP', os.path.join(fixtures, 'fic-lookup.json')),
+                                 (fip, 'FIPS', {'tool': np_iri('fipA'), 'oecd_gd': np_iri('fipB')}),
+                                 (fip, 'REPORT', self.path('report.csv')), (fip, 'CONVERGENCE', self.path('fip.md'))):
+            patcher = mock.patch.object(obj, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+        self.data = fip.read(offline=True)
+
+    def test_index_walk_skips_invalidated_declarations_and_reads_the_latest_description(self):
+        a = self.data['fips']['tool']
+        self.assertEqual((a['label'], a['created'], a['invalidated'], a['noChoice']),
+                         ('Test FIP A', '2026-01-01T00:00:00Z', 1, ['A1.2-D']))
+        uses = sorted((x['fip'], fip._q(x['question']), x['principle'], x['target'], x['considerations'])
+                      for x in self.data['declarations'] if x['target'])
+        self.assertEqual(uses, [('oecd_gd', 'F1-D', 'F1', self.X, ''), ('oecd_gd', 'R1.1-D', 'R1.1', self.W, ''),
+                                ('tool', 'F1-D', 'F1', self.X, 'Used for test data.')])   # not the invalidated I1-D
+        x = self.data['fsrs'][self.X]   # superseded where it was minted: its latest valid description is read
+        self.assertEqual((x['description'], x['name'], x['aliases'], x['codes']),
+                         (np_iri('fsrXtwo'), 'X Resource Name', ['XYZ'], ['FAIRsharing.6hna78']))
+
+    def test_match_order(self):
+        rows = model.normalise(fixture())['hasPart']
+
+        def find(**kw):
+            r, how = fip.find(rows, self.X, **kw)
+            return r and r['key'], how
+        self.assertEqual(find(codes=['FAIRsharing.6hna78'], homepages=['https://ctdbase.org/'], names=['CTD']),
+                         ('exo', 'doi'))
+        self.assertEqual(find(homepages=['https://ctdbase.org/'], names=['ExO']), ('ctd', 'homepage'))
+        self.assertEqual(find(names=['ExO']), ('exo', 'name'))
+        self.assertEqual(find(names=['Unknown']), (None, 'none'))
+        next(r for r in rows if r['key'] == 'ctd')['fsr'] = [self.X]   # linked by an earlier import
+        self.assertEqual(find(codes=['FAIRsharing.6hna78']), ('ctd', 'fsr'))
+
+    def test_report_then_apply_twice_changes_nothing_the_second_time(self):
+        doc = model.normalise(fixture())
+        rows = fip.report(doc, self.data, fip.match(doc, self.data))
+        self.assertEqual([(r['label'], r['key'], r['method']) for r in rows], [
+            ('XYZ | X Resource Name', 'exo', 'doi'), ('W Licence | WLic', '', 'none'),
+            ('TOX | Toxicology Community', '', 'none'),           # the FIPs' own FIC
+            ('PARC | Partnership for testing', 'parc', 'name')])  # a valid FIC named like an E1 row: identity check
+        with open(fip.REPORT, encoding='utf-8') as f:
+            self.assertEqual(len(list(csv.DictReader(f))), 4)
+        one = model.normalise(fip.apply(doc, self.data, fip.match(doc, self.data)))
+        self.assertEqual(model.check(one)[0], [])
+        self.assertEqual([c[0] for c in model.diff(model.normalise(fixture()), one)], ['tox', 'wlic'])   # new rows
+        two = model.normalise(fip.apply(copy.deepcopy(one), self.data, fip.match(one, self.data)))
+        self.assertEqual(model.dumps(two), model.dumps(one))
+        by = {r['key']: r for r in one['hasPart']}
+        self.assertEqual((by['exo']['fsr'], by['exo']['declaredIn'], by['exo']['principles']),
+                         ([self.X], ['#oecd_gd', '#tool'], ['F1']))
+        self.assertEqual((by['wlic']['decision'], by['wlic']['alternateName'], by['wlic']['url'], by['wlic']['fsr']),
+                         ('undecided', ['WLic'], 'https://w.example.org/licence', [self.W]))
+        self.assertTrue(by['wlic']['note'].endswith('screen against I1-I5. Retrieved 2026-10-08.'))
+        fic = np_iri('ficA') + '#TOX'
+        self.assertEqual((by['tox']['@id'], by['tox']['fsrType'], by['tool']['declared-by']), (fic, [model.FIC], fic))
+        self.assertEqual(by['tool']['fipDeclaration'], [{
+            '@id': np_iri('decA') + '/declaration', '@type': 'fip:FIP-Declaration',
+            'declares-current-use-of': by['exo']['@id'], 'question': model.FIP + 'FIP-Question-F1-D', 'principle': 'F1',
+            'considerations': 'Used for test data.'}])
+        self.assertEqual(one['sources']['fip']['oecd_gd']['declarations'], 2)
+
+    def test_convergence_rows(self):
+        fip.convergence(self.data)
+        with open(fip.CONVERGENCE, encoding='utf-8') as f:
+            text = f.read()
+        for row in ('| Question | Principle | Test FIP A | Test FIP B | Shared |', '| F1-D | F1 | XYZ | XYZ | yes |',
+                    '| A1.2-D | A1.2 | no choice | not answered | no |', '| R1.1-D | R1.1 | not answered | WLic | no |',
+                    'share a choice on 1 of 21 core questions (F1-D)'):
+            self.assertIn(row, text)
+        self.assertLess(text.index('| F4-MD |'), text.index('| A1.1-D |'))   # F, A, I, R
 
 
 class RepositoryTest(unittest.TestCase):
