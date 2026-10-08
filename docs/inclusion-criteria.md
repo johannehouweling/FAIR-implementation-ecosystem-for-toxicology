@@ -109,7 +109,10 @@ Each excluded row carries exactly one code.
 2. **FAIRsharing.** The collection members were added. A member is matched to a manuscript row only through a
    recorded FAIRsharing record; homepage and name matches are proposed for a curator to confirm.
 3. **Evidence.** Dates, homepages, descriptions and FAIRsharing records were researched for every included or
-   undecided row, each with its source, and checked by a second pass.
+   undecided row, each with its source, and checked by a second pass. This research, the screening and classification
+   proposals and the relation checks were drafted with an AI-assisted workflow (Claude Opus 5.5, Anthropic) and remain
+   proposals until a curator confirms them. `data/changes.csv` records each change with its process (research,
+   verification, relation check, phase proposal, review, migration) and source.
 4. **Curation.** Co-authors review every row in the curation Sheet. Disagreements are discussed and settled by the
    corresponding authors; the outcome and the reviewer's initials are recorded in the row and in `data/changes.csv`.
 5. **Release.** A version is released when `fairtox validate --strict` passes. The dashboard shows the selection
