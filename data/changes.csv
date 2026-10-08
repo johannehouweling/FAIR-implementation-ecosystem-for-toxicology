@@ -1663,3 +1663,296 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-05,review fixes 2026-10-05,iuclid,relation,implements oht,(removed),review,dashboard review: short aliases for cut labels; IUCLID relation relabelled
 2026-10-05,review fixes 2026-10-05,iuclid,relation,(new),related_to oht,review,dashboard review: short aliases for cut labels; IUCLID relation relabelled
 2026-10-05,review fixes 2026-10-05,epa_integrated_risk_information,alternateName,,EPA IRIS,review,dashboard review: short alias for a cut label
+2026-10-08,model 2026-10-08,agritox,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,agritox,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,aicis,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,aicis,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,ammar_mi,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,ammar_mi,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aop_datafusion,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aop_datafusion,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aop_ec,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aop_ec,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopdb,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopdb,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopdb_v2,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopdb_v2,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopdbrdf,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopdbrdf,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopfw,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopfw,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,aophelp,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aophelp,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aophelp_2025,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aophelp_2025,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopkb,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopkb,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aoplink,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aoplink,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopnet,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopnet,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopo,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopo,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopwiki,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopwiki,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopwikirdf,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,aopwikirdf,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,apvma_cr,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,apvma_cr,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,arraytrack,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,arraytrack,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,biu,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,biu,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,blood_exposome_db,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,blood_exposome_db,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,cesar,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,cesar,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,cheminfo,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,cheminfo,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,comptox,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,comptox,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,cosing,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,cosing,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,cred,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,cred,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,ctd,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,ctd,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,danish_q_sar_database,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,danish_q_sar_database,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,datacure,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,datacure,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,dc_data_explorer,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,dc_data_explorer,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,dixa,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,dixa,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,dixa_project,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,dixa_project,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,dnt_negref,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,dnt_negref,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,ec_inventory,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,ec_inventory,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echa_bpr,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echa_bpr,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echa_chem_reach,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echa_chem_reach,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echa_clp,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echa_clp,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echemportal,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,echemportal,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,ecotox,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,ecotox,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,ectothes,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,ectothes,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,edelweissdata,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,efsa_fairmem,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,efsa_fairmem,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,enanomapper,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,enanomapper,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,enm_db,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,enm_db,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,enm_ont,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,enm_ont,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_aquatic_life_benchmarks,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_aquatic_life_benchmarks,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_chemview,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_chemview,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_integrated_risk_information,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_integrated_risk_information,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_substance_registry_services,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epa_substance_registry_services,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,epicrdb,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,epicrdb,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,etox,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etox,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_datasharing,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_datasharing,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_modelverif,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_modelverif,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_project,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_project,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_repro,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,etransafe_repro,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,euon,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,euon,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutoxrisk,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutoxrisk,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutr_ki,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutr_ki,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutr_methods,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutr_methods,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutr_notebooks,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,eutr_notebooks,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,exner_metadata,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,exner_metadata,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,exo,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,exo,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,expexplorer,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,expexplorer,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,exposome_sharing,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,exposome_sharing,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,fairaop,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,food_and_feed_information_portal,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,food_and_feed_information_portal,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,gd211,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,gd211,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,gd417,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,gd417,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,ghs_j,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,ghs_j,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,givimp,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,givimp,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,glp,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,glp,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,iata,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,iata,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,icscs,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,icscs,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,igs,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,igs,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,inhand,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,inhand,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,intob,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,intob,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,ipchem,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,ipchem,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,ipcs_inchem,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,ipcs_inchem,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,iuclid,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,iuclid,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,iupac_immunotox,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,iupac_immunotox,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,iupac_toxgloss,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,iupac_toxgloss,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,j_check,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,j_check,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,jecdb,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,jecdb,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,klimisch,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,klimisch,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,miametox,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,miametox,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,miate,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,miate,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,mitnano,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,mitnano,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,nams,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,nams,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanoaop,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanoaop,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_meta,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_meta,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_onto,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_onto,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_project,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_project,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_services,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanocommons_services,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanosafety_cluster,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,nanosafety_cluster,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,negdata_opinion,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,negdata_opinion,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,noeffect_repo,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,noeffect_repo,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,norman_susdat,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,norman_susdat,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,nsc,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,nsc,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd_aop_prog,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd_aop_prog,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd_existing_chemicals_database,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd_existing_chemicals_database,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd_tg,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oecd_tg,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oht,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oht,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oorf,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,oorf,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,openfoodtox,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,openfoodtox,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,openrisknet,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,openrisknet,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,openrisknet_project,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,openrisknet_project,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,opentox,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,opentox,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,opentox_project,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,opentox_project,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,parc,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,parc,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,parc_partnership,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,parc_partnership,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,parcfip,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,pbk,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,pbk,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,pbk_models,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,pbk_models,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,portail_substances_chimiques_psc,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,portail_substances_chimiques_psc,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,qaop,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,qaop,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,qsar,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,qsar,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,rdmtox,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,rdmtox,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,readacross,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,readacross,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,recipe_aop,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,recipe_aop,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,recipe_bao,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,recipe_bao,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,rodaf,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,rodaf,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,s2cie,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,s2cie,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,sbd,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,sbd,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,scirap,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,scirap,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,send,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,send,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,spin,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,spin,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,spreadsheet_harmon,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,spreadsheet_harmon,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,suppl_formats,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,suppl_formats,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,suppl_rules,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,suppl_rules,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,t3db,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,t3db,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,tbc,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,tbc,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,tg236,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,tg236,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,tggates,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,tggates,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,tox21,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,tox21,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxcast,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxcast,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxcoll,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxcoll,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxdataexplorer,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxdataexplorer,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxml,phase,Data Integration,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxml,span,,Data integration,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxrtool,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxrtool,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxtemp,phase,Data Generation,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,toxtemp,span,,Data generation,migration,phase redefinition
+2026-10-08,model 2026-10-08,usepa,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,usepa,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,woe,phase,Application (Regulatory Use),Regulatory assessment,migration,phase redefinition
+2026-10-08,model 2026-10-08,woe,span,,Regulatory assessment,migration,phase redefinition
+2026-10-08,decisions 2026-10-08,edelweissdata,scope,Generic,Toxicology,JH,decision record 8 Oct 2026
+2026-10-08,decisions 2026-10-08,edelweissdata,phase,,Data generation,JH,decision record 8 Oct 2026
+2026-10-08,decisions 2026-10-08,edelweissdata,stakeholders,,In silico research,JH,decision record 8 Oct 2026
+2026-10-08,decisions 2026-10-08,fairaop,phase,Data Integration,Data generation,JH,decision record 8 Oct 2026
+2026-10-08,decisions 2026-10-08,parcfip,phase,Data Integration,Data generation,JH,decision record 8 Oct 2026
+2026-10-08,decisions 2026-10-08,parcfip,stakeholders,In silico research,Wet-lab research; In silico research; Regulator,JH,decision record 8 Oct 2026

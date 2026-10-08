@@ -8,6 +8,7 @@ import pathlib
 import re
 import tempfile
 import unittest
+from unittest import mock
 
 from openpyxl import load_workbook
 
@@ -19,19 +20,22 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def fixture():
     rs = [
         {'key': 'exo', 'name': 'Exposure Ontology', 'alternateName': ['ExO'], 'decision': 'include',
-         'type': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data Integration',
+         'type': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data integration',
+         'span': ['Data integration'],
          'stakeholders': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
          'dateSource': 'https://doi.org/10.1021/es2033857', 'url': 'https://github.com/CTDbase/exposure-ontology',
          'manuscript': 'named', 'manuscriptEvidence': 'Data generation; L100', 'fairsharingRecord': 'FAIRsharing.6hna78',
          'fairsharingMatch': 'confirmed', 'maintained': 'active'},
         {'key': 'ctd', 'name': 'Comparative Toxicogenomics Database', 'alternateName': ['CTD'], 'decision': 'include',
-         'type': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data Integration',
+         'type': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data integration',
+         'span': ['Data integration', 'Regulatory assessment'],
          'stakeholders': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
          'url': 'https://ctdbase.org', 'description': 'Curated chemical-gene-disease interactions.',
          'manuscript': 'absent', 'maintained': 'active',
          'qualifiedRelation': [{'relation': '#exo', 'hadRole': 'implements', 'evidence': 'FAIRsharing'}]},
         {'key': 'oecd_gd', 'name': 'OECD guidance on research data', 'decision': 'include', 'type': 'Policy: institution',
-         'scope': 'Toxicology', 'phase': 'Application (Regulatory Use)', 'stakeholders': ['Regulator'],
+         'scope': 'Toxicology', 'phase': 'Regulatory assessment', 'span': ['Regulatory assessment'],
+         'stakeholders': ['Regulator'],
          'datePublished': '2026', 'manuscript': 'cited',
          'manuscriptEvidence': 'L190'},
         {'key': 'parc', 'name': 'PARC', 'decision': 'exclude', 'exclusionReason': 'E1', 'manuscript': 'named'},
@@ -61,7 +65,7 @@ class ModelTest(TempDir):
         ctd = next(r for r in doc['hasPart'] if r['key'] == 'ctd')
         self.assertEqual(exo['@id'], 'https://doi.org/10.25504/FAIRsharing.6hna78')
         self.assertEqual(ctd['qualifiedRelation'][0]['relation'], exo['@id'])   # follows the @id change
-        self.assertEqual(exo['phase'], 'Data Integration')
+        self.assertEqual(exo['phase'], 'Data integration')
         self.assertNotIn('phase', next(r for r in doc['hasPart'] if r['key'] == 'tool'))
         # CTD (2004) implements ExO (2012) backwards in time, allowed because FAIRsharing asserts it
         self.assertFalse(any('first published later' in w for w in warnings))
@@ -74,11 +78,15 @@ class ModelTest(TempDir):
             ('parc', 'exclusionReason', '', 'exclusion reason is required'),
             ('ctd', 'phase', '', 'phase is required'),
             ('ctd', 'stakeholders', [], 'creator type is required'),
-            ('tool', 'phase', 'Data Generation', 'phase is required'),
+            ('tool', 'phase', 'Data generation', 'phase is required'),
             ('exo', 'stakeholders', ['Lab'], 'creator type'),
             ('parc', 'exclusionReason', 'E6', 'E6 needs Covered by'),
             ('exo', 'subdomains', ['ecotox'], 'sub-domain'),
             ('exo', 'url', 'ctdbase.org', 'http(s) URL'),
+            ('exo', 'span', ['Data generation', 'Data integration'], 'earliest phase'),
+            ('ctd', 'span', [], 'earliest phase'),
+            ('exo', 'fsrType', [model.FIP + 'Structured-vocabulary', model.FIP + 'Registry'], 'direct FSR subclass'),
+            ('exo', 'fsrType', [model.DIGITAL_OBJECT, model.FIP + 'Structured-vocabulary'], 'Digital object alone'),
         ]
         for key, field, value, message in cases:
             doc = fixture()
@@ -100,10 +108,8 @@ class ModelTest(TempDir):
     def test_lane_rules(self):
         self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life Sciences infrastructure')
-        self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Data Generation'}), 'Data Generation')
-        self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Data Integration'}), 'Tools & Integration')
-        self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': 'Application (Regulatory Use)'}),
-                         'Application (regulatory)')
+        for phase in model.PHASES:   # the toxicology lanes take the phase names
+            self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': phase}), phase)
         self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator']}), 'Made by regulators')
         self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator', 'Wet-lab research']}),
                          'Made jointly')
@@ -120,6 +126,36 @@ class ModelTest(TempDir):
         self.assertTrue(next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo')['buildsOnFair'])
         next(r for r in doc['hasPart'] if r['key'] == 'exo')['datePublished'] = '2012'   # before the FAIR principles
         self.assertNotIn('buildsOnFair', next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo'))
+
+    def test_fsr_and_fip_fields_are_derived(self):
+        types = model.fsr_types()
+        self.assertEqual((len(types), sum(t[2] for t in types.values())), (57, 20))   # FSR types, of which FER
+        doc = fixture()
+        by = {r['key']: r for r in doc['hasPart']}
+        by['exo']['fsrType'] = [model.FIP + 'Structured-vocabulary', model.FIP + 'Crosswalk']   # both specifications
+        by['ctd']['fsrType'] = [model.DIGITAL_OBJECT]
+        by['tool']['declared-by'] = '#parc'
+        by['tool']['fipDeclaration'] = [{'@id': 'https://w3id.org/np/RAx', '@type': 'fip:FIP-Declaration',
+                                         'declares-current-use-of': '#exo', 'question': model.FIP + 'FIP-Question-I2-D',
+                                         'principle': 'I2'}]
+        by = {r['key']: r for r in model.normalise(doc)['hasPart']}
+        self.assertEqual((by['exo']['fsrCategory'], by['exo']['fsrParent']),
+                         (model.FER, model.FIP + 'FAIR-Specification'))
+        self.assertEqual((by['ctd']['fsrCategory'], 'fsrParent' in by['ctd']), (model.DIGITAL_OBJECT, False))
+        self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), (['#tool'], ['I2']))
+        self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
+        self.assertEqual(model.check(doc)[0], [])
+
+    def test_fair_implementation_community_needs_a_valid_fic_nanopublication(self):
+        doc = model.normalise(fixture())
+        parc = next(r for r in doc['hasPart'] if r['key'] == 'parc')
+        parc.update({'@id': 'https://w3id.org/np/RAexample#PARC', 'fsrType': [model.FIC]})
+        lookup = self.path('fic-lookup.json')
+        with mock.patch.object(model, 'FIC_LOOKUP', lookup):
+            self.assertTrue(any('FAIR Implementation Community' in e for e in model.check(doc)[0]))   # no lookup
+            with open(lookup, 'w', encoding='utf-8') as f:
+                json.dump({'valid': [parc['@id']]}, f)
+            self.assertEqual(model.check(doc)[0], [])
 
     def test_save_is_atomic_validated_and_skips_timestamp_only_changes(self):
         p = self.path('d.jsonld')
@@ -341,12 +377,12 @@ class SiteTest(TempDir):
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
         nodes = {n['key']: n for n in data['nodes']}
         self.assertEqual({k: (n['lane'], n['creatorLane'], n['buildsOnFair']) for k, n in nodes.items()}, {
-            'exo': ('Tools & Integration', 'Made by in silico research', False),
-            'ctd': ('Tools & Integration', 'Made jointly', False),
-            'oecd_gd': ('Application (regulatory)', 'Made by regulators', True),
+            'exo': ('Data integration', 'Made by in silico research', False),
+            'ctd': ('Data integration', 'Made jointly', False),
+            'oecd_gd': ('Regulatory assessment', 'Made by regulators', True),
             'tool': ('Generic infrastructure', 'Generic infrastructure', False)})
         self.assertEqual((nodes['ctd']['phase'], nodes['ctd']['stakeholders']),
-                         ('Data Integration', ['Wet-lab research', 'In silico research']))
+                         ('Data integration', ['Wet-lab research', 'In silico research']))
         self.assertEqual((nodes['tool']['phase'], nodes['tool']['stakeholders']), ('', []))
         self.assertEqual(data['meta']['creatorLanes'], list(model.CREATOR_LANE_DEF))
         self.assertEqual(data['meta']['creatorLaneDef'], model.CREATOR_LANE_DEF)
@@ -390,8 +426,8 @@ class SiteTest(TempDir):
             self.assertNotIn('prefers-color-scheme', html)
             self.assertNotIn('data-theme', html)
             self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
-            for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Tools & integration',
-                         'Application (regulatory)', 'Toxicology infrastructure', 'Year first published',
+            for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Data integration',
+                         'Regulatory assessment', 'Toxicology infrastructure', 'Year first published',
                          'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
                          'as required by the FAIRsharing data they include', 'Toxicology lanes', 'Intended use',
                          *model.CREATOR_LANE_DEF):
@@ -445,13 +481,14 @@ class RepositoryTest(unittest.TestCase):
             self.skipTest('no dataset yet')
         doc = model.load(dataset)
         self.assertEqual(model.check(doc)[0], [])
-        try:
-            import rdflib
-        except ImportError:
-            self.skipTest('rdflib is in the dev group')
+        import rdflib
         g = rdflib.Graph().parse(data=json.dumps(doc), format='json-ld')
         name = rdflib.URIRef('https://schema.org/name')
         self.assertGreaterEqual(len(set(g.subjects(name, None))), len(doc['hasPart']))
+        own = {str(p)[len(model.TERMS):] for p in g.predicates() if str(p).startswith(model.TERMS)}
+        self.assertLessEqual(own, {'scope', 'phase', 'span', 'stakeholders', 'dateBasis', 'dateSource', 'decision',
+                                   'exclusionReason', 'coveredBy', 'manuscript', 'manuscriptEvidence',
+                                   'fairsharingRecord', 'fairsharingMatch', 'evidence'})   # all else is standard
 
 
 if __name__ == '__main__':

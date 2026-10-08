@@ -269,10 +269,8 @@ const isUrl = s => /^https?:\/\//.test(s || '');
 const link = (href, text) => isUrl(href) ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text);
 const plural = (k, one, many) => `${k} ${k === 1 ? one : many}`;
 const words = s => String(s).replace(/_/g, ' ');
-// Lanes and phases are shown in sentence case; the data keep their stored values, which the filters use.
-const SHOW = {'Life Sciences infrastructure': 'Life sciences infrastructure', 'Data Generation': 'Data generation',
-  'Tools & Integration': 'Tools & integration', 'Data Integration': 'Data integration',
-  'Application (Regulatory Use)': 'Application (regulatory use)'};
+// Lanes are shown in sentence case; the data keep their stored values, which the filters use.
+const SHOW = {'Life Sciences infrastructure': 'Life sciences infrastructure'};
 const show = v => SHOW[v] || v;
 const capital = s => s.charAt(0).toUpperCase() + s.slice(1);
 

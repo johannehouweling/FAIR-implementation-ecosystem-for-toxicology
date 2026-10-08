@@ -25,7 +25,7 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 
 ## Resource fields
 
-Curated fields are edited in the curation sheet; the column is given. `@id` and `buildsOnFair` are derived; `fairsharing` is written by `fairtox fetch`.
+Curated fields are edited in the curation sheet; the column is given. `@id`, `buildsOnFair`, `fsrCategory`, `fsrParent`, `declaredIn` and `principles` are derived; `fairsharing` is written by `fairtox fetch`.
 
 | Field | Sheet column | Content |
 |---|---|---|
@@ -37,10 +37,14 @@ Curated fields are edited in the curation sheet; the column is given. `@id` and 
 | `exclusionReason` | Exclusion reason | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by | Key of the row that covers this one (exclusion reason E6). |
 | `type` | Type | FAIRsharing registry and record type, or Tool (list below). |
+| `fsrType` |  | FAIR Supporting Resource (FSR) type: one or two classes under `fip:FAIR-Supporting-Resource` in the pinned FIP ontology (`data/raw/fip/fip-ontology.trig`), the second under the same direct FSR subclass; or Digital object (`https://w3id.org/fair-tox/terms#DigitalObject`), our own value for a resource that is not a FAIR Supporting Resource. FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
 | `scope` | Scope | What the resource was made for (list below). |
-| `phase` | Phase | For toxicology resources: the main intended use in the toxicology data lifecycle (list below). Required for included and undecided toxicology resources. |
+| `phase` | Phase | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. |
+| `span` |  | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
 | `stakeholders` | one "Made by" column per creator type | For toxicology resources: who created it; several may apply (list below). Required for included and undecided toxicology resources. |
 | `buildsOnFair` | Builds on FAIR | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
+| `fsrCategory`, `fsrParent` |  | Derived from `fsrType`: FAIR-Enabling Resource, FAIR Supporting Resource or Digital object, and the direct FSR subclass. |
+| `declaredIn`, `principles` |  | Derived from the FIP rows' declarations: the FIPs that declare the resource and the principles of the questions it is declared for. |
 | `subdomains` | one column per sub-domain | Sub-domains that apply (list below). |
 | `datePublished` | First published | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`. |
 | `dateBasis` | Date basis | What the date refers to (list below). |
@@ -56,25 +60,20 @@ Curated fields are edited in the curation sheet; the column is given. `@id` and 
 | `reviewedBy` | Reviewed by | Initials of the curator who checked the row. |
 | `note` | Note | Free text for the next curator. |
 | `qualifiedRelation` | Relations tab | Relations to other resources (below). |
+| `fipDeclaration` |  | On a FIP row: its declarations, imported from its nanopublications (below). Never curated. |
 | `fairsharing` |  | Data read from FAIRsharing (below). Never curated. |
 
 ## Lanes
 
-The dashboard lane is derived and not stored. Scope Generic gives Generic infrastructure and scope Life Sciences gives Life Sciences infrastructure. A toxicology resource sits in the lane of its phase (intended use); the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure.
+The dashboard lane is derived and not stored. Scope Generic gives Generic infrastructure and scope Life Sciences gives Life Sciences infrastructure. A toxicology resource sits in the lane named after its phase; the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure.
 
 | Lane (by intended use) | Meaning |
 |---|---|
 | Generic infrastructure | Resources not specific to a research domain. |
 | Life Sciences infrastructure | Generic life-science resources that toxicology uses. |
-| Data Generation | Toxicology resources mainly used to generate and describe data. |
-| Tools & Integration | Toxicology resources mainly used to integrate, model and analyse data. |
-| Application (regulatory) | Toxicology resources mainly used in regulatory decisions. |
-
-| Phase | Lane |
-|---|---|
-| Data Generation | Data Generation |
-| Data Integration | Tools & Integration |
-| Application (Regulatory Use) | Application (regulatory) |
+| Data generation | Toxicology resources in the data generation phase. |
+| Data integration | Toxicology resources in the data integration phase. |
+| Regulatory assessment | Toxicology resources in the regulatory assessment phase. |
 
 | Lane (by creator) | Meaning |
 |---|---|
@@ -139,9 +138,9 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 
 | Value | Meaning |
 |---|---|
-| Data Generation | Mainly used to generate, record or describe experimental toxicology data. |
-| Data Integration | Mainly used to combine, curate, link, model or analyse toxicology data and knowledge. |
-| Application (Regulatory Use) | Mainly used to prepare, submit, assess or publish data for regulatory decisions. |
+| Data generation | Planning, producing and depositing primary records: datasets, protocols, method descriptions and the publications reporting them. |
+| Data integration | Integrating and synthesising those records into secondary resources and evidence: curated databases, knowledge bases, ontologies, pathway networks and models. |
+| Regulatory assessment | Assessing records and secondary resources for reliability and relevance in a regulatory context and integrating them into weight of evidence and decisions. |
 
 ### Creator types (`stakeholders`)
 
@@ -207,6 +206,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 | FAIRsharing | Asserted by FAIRsharing. |
 | literature | Stated in the literature or on the resource website. |
 | curator | Added by a curator. |
+| FIP | Declared in a FAIR Implementation Profile. |
 
 ## Relations
 
@@ -222,6 +222,16 @@ A relation sits on its subject as a DCAT qualified relation and reads the FAIRsh
 | related_to | 4 | no | The resources are related without one building on the other. | Database to Database, Database to Standard, Policy to Policy, Standard to Database, Standard to Standard |
 
 Relations FAIRsharing does not allow between the two types are kept and flagged as not enterable in FAIRsharing.
+
+A FIP row's declarations (`fipDeclaration`) are labelled with FIP ontology properties (`fip:` IRIs), read "FIP label target". They are imported, not lineage and not enterable in FAIRsharing; their evidence is FIP.
+
+| Label (`hadRole`) | Meaning |
+|---|---|
+| declares-current-use-of | The FIP declares that its community uses the target. |
+| declares-planned-use-of | The FIP declares that its community plans to use the target. |
+| declares-planned-development-of | The FIP declares that its community plans to develop the target. |
+| declares-planned-replacement-of | The FIP declares that its community plans to replace the target. |
+| declared-by | The FIP is declared by the target, a FAIR Implementation Community. |
 
 ## The `fairsharing` block
 

@@ -22,7 +22,7 @@ LISTS = {
     'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['type'],
     'Scope': model.SCOPE, 'Phase': model.PHASES, 'Date basis': model.DATE_BASIS,
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
-    'Relation': model.VOCABULARIES['hadRole'], 'Evidence': model.EVIDENCE,
+    'Relation': {k: v[2] for k, v in model.RELATIONS.items()}, 'Evidence': model.EVIDENCE,
     'Keep': {'keep': 'Keep this relation.', 'remove': 'Remove this relation.'},
     'Mark': {'x': 'Applies.'},
 }
@@ -41,7 +41,7 @@ RESOURCE_COLUMNS = [
     ('Type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('Scope', 'scope', 'list:Scope', 18, 'FAIR, Life Sciences or Toxicology.'),
     ('Phase', 'phase', 'list:Phase', 26,
-     'Main intended use in toxicology. Only for scope Toxicology; it sets the lane.'),
+     'The phase it acts on; the earliest when several. Only for scope Toxicology; it sets the lane.'),
     ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
@@ -91,9 +91,9 @@ INSTRUCTIONS = [
     'Mark each sub-domain that applies with x. A resource can belong to several.',
     'First published is the date the resource first became public, as YYYY, YYYY-MM or YYYY-MM-DD. '
     'Put the DOI or web page that shows the date in Date source.',
-    'Phase is the main intended use of a toxicology resource and sets its lane: Data Generation, Data Integration '
-    '(the Tools & Integration lane) or Application (Regulatory Use). Choose by what the resource is used for, '
-    'not by who made it.',
+    'Phase is the phase a toxicology resource acts on and sets its lane: Data generation, Data integration or '
+    'Regulatory assessment. When it acts on several, choose the earliest at which it must be applied. Choose by what '
+    'the resource is used for, not by who made it.',
     'Mark x in each "Made by" column that describes who created a toxicology resource; several may apply. '
     'The dashboard can also arrange the toxicology lanes by creator.',
     'Builds on FAIR is derived: a toxicology resource that implements, extends, profiles or recommends a FAIR '
@@ -227,10 +227,7 @@ def build(doc, path):
             if kind == 'lane':
                 s, k = f'{col_of["Scope"]}{n}', f'{col_of["Phase"]}{n}'
                 c.value = (f'=IF({s}="Generic","Generic infrastructure",'
-                           f'IF({s}="Life Sciences","Life Sciences infrastructure",IF({s}="Toxicology",'
-                           f'IF({k}="Data Generation","Data Generation",IF({k}="Data Integration",'
-                           f'"Tools & Integration",IF({k}="Application (Regulatory Use)","Application (regulatory)",'
-                           f'""))),"")))')
+                           f'IF({s}="Life Sciences","Life Sciences infrastructure",IF({s}="Toxicology",{k}&"","")))')
                 continue
             if kind == 'fslink':
                 f = f'{col_of["FAIRsharing record"]}{n}'
