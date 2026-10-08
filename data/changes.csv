@@ -1962,3 +1962,39 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-09,decisions 2026-10-09,parc_partnership,decision,exclude,include,JH,FIC identity check of 9 Oct 2026
 2026-10-09,decisions 2026-10-09,parc_partnership,exclusionReason,E1,,JH,FIC identity check of 9 Oct 2026
 2026-10-09,decisions 2026-10-09,parc_partnership,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Implementation-Community,JH,FIC identity check of 9 Oct 2026
+2026-10-09,fip import 2026-10-08,aop_wiki_id,(row),(new),Adverse Outcome Pathways Wiki Identifier,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,bioschemas_deploys,(row),(new),Bioschemas Deploys,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,cas_common_chemistry,(row),(new),Chemical Abstracts Service Common Chemistry,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,cc_by_4_0,(row),(new),Attribution 4.0 International,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,cc_by_sa_4_0,(row),(new),Attribution-ShareAlike 4.0 International,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,cerif,(row),(new),Common European Research Information Format,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,datacite_metadata_scheme,(row),(new),DataCite Metadata Scheme,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,doi,(row),(new),Digital Object Identifier,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,dryad,(row),(new),Dryad Digital Repository,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,edam_bioimaging,(row),(new),EDAM Bioimaging Ontology,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,ega,(row),(new),The European Genome-phenome Archive,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,empiar,(row),(new),Electron Microscopy Public Image Archive,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,ena,(row),(new),European Nucleotide Archive,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,ftp,(row),(new),File Transfer Protocol,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,harvard_dataverse_repository,(row),(new),Harvard Dataverse Repository,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,http,(row),(new),Hypertext Transfer Protocol,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,https,(row),(new),Hypertext Transfer Protocol Secure,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,intact,(row),(new),IntAct molecular interaction database,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,json_ld,(row),(new),JavaScript Object Notation for Linking Data,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,matrixdb,(row),(new),Extracellular Matrix Interaction Database,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,mesh,(row),(new),Medical Subject Headings,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,metabolights,(row),(new),MetaboLights,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,minseqe,(row),(new),Minimal Information about a high throughput SEQuencing Experiment,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,mit_license,(row),(new),MIT License,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,oauth,(row),(new),Open Authorization,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,open_data_commons_open_database,(row),(new),Open Data Commons Open Database License,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,orcid,(row),(new),Open Researcher and Contributor ID,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,osdr,(row),(new),NASA Open Science Data Repository,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,parctoxicology,(row),(new),PARC Chemicals Toxicology Community,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,pubchem_cid,(row),(new),PubChem Compound Identification,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,qid,(row),(new),Wikidata Identifier,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,ror,(row),(new),Research Organization Registry,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,uberon,(row),(new),Uber Cross-Species Anatomy Ontology,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,wikidata,(row),(new),Wikidata,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,workflowhub,(row),(new),WorkflowHub,fairtox fip,FIP nanopublications
+2026-10-09,fip import 2026-10-08,xmls,(row),(new),eXtensible Markup Language Schema,fairtox fip,FIP nanopublications

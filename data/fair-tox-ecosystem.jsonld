@@ -472,6 +472,20 @@
    "note": "Research 5 Oct 2026 (medium confidence): Ives et al. 2017 (US EPA, EC JRC), Appl In Vitro Toxicol 3(4): issue date 2017-12-01 (PubMed), DOI registered 2017-12-11 (Crossref); no earlier online date. The paper annotated AOP-Wiki content as of 2016-12-04, so Event Component fields may predate it in AOP-Wiki (not verified). URL changed from the DOI to the AOP-Wiki Event Components page (live; Key Event pages still carry Process/Object/Action terms). Implemented inside AOP-Wiki, so curators may weigh E6 (aopwiki); kept include. FAIRsharing: no DOI-bearing record found via DataCite title search (prefix 10.25504); records without a DOI not checked (web search unavailable)."
   },
   {
+   "@id": "#aop_wiki_id",
+   "key": "aop_wiki_id",
+   "name": "Adverse Outcome Pathways Wiki Identifier",
+   "alternateName": [
+    "AOP-WIKI-ID"
+   ],
+   "decision": "undecided",
+   "url": "https://aopwiki.org/aops",
+   "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAZiMrgnhgfRmIA45-4l-c9B3tJjoJKng-uFwv8QmDy9c#declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "https://w3id.org/np/RAp3fIzqG9r4IlvjvnMpkU6bvJhwD7U_xJAQ-H5niEmlM#AOP-WIKI-ID"
+   ]
+  },
+  {
    "@id": "#aopdb",
    "key": "aopdb",
    "name": "AOP-DB (Adverse Outcome Pathway Database)",
@@ -719,7 +733,10 @@
    "maintained": "discontinued",
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; L117",
-   "note": "Research 5 Oct 2026 (medium confidence): The AOP-KB was established by the OECD with the EU reference laboratory (JRC) and US EPA in 2014 (Environ Health Toxicol 2018, doi:10.5620/eht.e2018002; Martens et al. 2018, doi:10.3389/fgene.2018.00661: 'emerged in 2014'). Its first module, AOP-Wiki 1.0, was released 2014-09-28, and the aopkb.org hub page was captured 2014-12-01. aopkb.oecd.org served an AOP/KE search hub until June 2026 and has redirected (301) to aopwiki.org/aops since August 2026. I marked it active because the content lives on in the AOP-Wiki; 'discontinued' is also defensible for the hub page itself. I found no FAIRsharing DOI record through DataCite. Verified 5 Oct 2026: maintained changed (https://aopkb.oecd.org now answers HTTP 301 to https://aopwiki.org/aops (checked 2026-10-05). The AOP-KB hub and its search no longer exist as a resource of their own; only the AOP-Wiki, which has its own row, continues. 'active' (maintained and available) does not fit a homepage that permanently redirects to another resource.)"
+   "note": "Research 5 Oct 2026 (medium confidence): The AOP-KB was established by the OECD with the EU reference laboratory (JRC) and US EPA in 2014 (Environ Health Toxicol 2018, doi:10.5620/eht.e2018002; Martens et al. 2018, doi:10.3389/fgene.2018.00661: 'emerged in 2014'). Its first module, AOP-Wiki 1.0, was released 2014-09-28, and the aopkb.org hub page was captured 2014-12-01. aopkb.oecd.org served an AOP/KE search hub until June 2026 and has redirected (301) to aopwiki.org/aops since August 2026. I marked it active because the content lives on in the AOP-Wiki; 'discontinued' is also defensible for the hub page itself. I found no FAIRsharing DOI record through DataCite. Verified 5 Oct 2026: maintained changed (https://aopkb.oecd.org now answers HTTP 301 to https://aopwiki.org/aops (checked 2026-10-05). The AOP-KB hub and its search no longer exist as a resource of their own; only the AOP-Wiki, which has its own row, continues. 'active' (maintained and available) does not fit a homepage that permanently redirects to another resource.)",
+   "fsr": [
+    "https://w3id.org/np/RA7YayduNraHqcPIydwTnQN6JKrcEmOgpanf1SsFFIpM0#AOP-KB"
+   ]
   },
   {
    "@id": "#aoplink",
@@ -884,6 +901,9 @@
    "manuscript": "cited",
    "manuscriptEvidence": "I Introduction; III AOP; III Computational; V Challenges; L7, L117, L126, L129, L132, L135, L149, L245",
    "note": "Research 5 Oct 2026 (high confidence): I refined the year 2014 to the Release 1.0 date. The AOP-Wiki release notes (archived 2015) list alpha and beta releases from 2013-06-30, which were login-restricted (a 2013 web capture says 'beta phase, access limited'), and Release 1.0 on 2014-09-28. Patlewicz et al. 2017 (doi:10.1093/toxsci/kfw207) also says 'publicly accessible since September 2014'. The qualifiedRelation FAIRsharing.1x53qk is WikiPathways, not AOP-Wiki. I found no FAIRsharing DOI record for AOP-Wiki through DataCite, and it is not in the Toxicology collection list in the dataset.",
+   "fsr": [
+    "http://purl.org/np/RANeiOpnxatbd9img13duWA6RPl2aKHu6fsbxezleCbUY#AOP-Wiki"
+   ],
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.1x53qk",
@@ -1323,6 +1343,19 @@
    }
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.a847f0",
+   "key": "bioschemas_deploys",
+   "name": "Bioschemas Deploys",
+   "decision": "undecided",
+   "url": "https://bioschemas.org",
+   "fairsharingRecord": "FAIRsharing.a847f0",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA8FeBmXjIXHxm2Zlbyd_BQmviLa4Xa8WhfFf70n4VRP0/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "https://fairsharing.org/fairsharing_records/3517"
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.ccaad2",
    "key": "bioschemas_molecularentity",
    "name": "Bioschemas MolecularEntity Profile",
@@ -1410,6 +1443,9 @@
    "fairsharingRecord": "FAIRsharing.ewjdq6",
    "fairsharingMatch": "confirmed",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): The earliest web-archive capture of the public BioSD search interface is 2011-10-09, a lower bound. The describing paper (Gostev et al., NAR, online 2011-11-16, https://doi.org/10.1093/nar/gkr937) calls it a new database. No public release in 2010 was found to support the FAIRsharing year, so the date is changed to 2011. Subdomain toxicogenomics proposed (was empty) because BioSamples holds the sample metadata for omics submissions. Include: member of the FAIRsharing Toxicology collection (I4).",
+   "fsr": [
+    "https://fairsharing.org/10.25504/FAIRsharing.ewjdq6"
+   ],
    "fairsharing": {
     "id": 1554,
     "doi": "10.25504/FAIRsharing.ewjdq6",
@@ -1558,6 +1594,19 @@
    }
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.e5c86e",
+   "key": "cas_common_chemistry",
+   "name": "Chemical Abstracts Service Common Chemistry",
+   "alternateName": [
+    "CAS Common Chemistry"
+   ],
+   "decision": "undecided",
+   "url": "https://commonchemistry.cas.org",
+   "fairsharingRecord": "FAIRsharing.e5c86e",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RASnX7q_SpoIYrFTj47gYGzkQDxOujlzP0ooAPknI9W3U/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.r7Kwy7",
    "key": "cas_rn",
    "name": "CAS Registry Number",
@@ -1596,6 +1645,32 @@
    }
   },
   {
+   "@id": "#cc_by_4_0",
+   "key": "cc_by_4_0",
+   "name": "Attribution 4.0 International",
+   "alternateName": [
+    "CC BY 4.0"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAR6yeOv4eNPYd6Ep_GngSkGUFUE1LYw2r8X94RlWUFQo/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAQ__sGdY_Qc7l1O_zmn4nr-pMBOxKU04Ur9s998rS6Fc#CC-BY-4.0"
+   ]
+  },
+  {
+   "@id": "#cc_by_sa_4_0",
+   "key": "cc_by_sa_4_0",
+   "name": "Attribution-ShareAlike 4.0 International",
+   "alternateName": [
+    "CC BY SA 4.0"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAAsw25osO0qOYiHv6i2F55DiOcRuyR3fEzGrpBpznSW8#declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAEEcqbP_ghoZdqL-qsrjYp3YREEZMKuXb4t7xSGnIov8#CC-BY-SA-4.0"
+   ]
+  },
+  {
    "@id": "#cdisc",
    "key": "cdisc",
    "name": "CDISC (Clinical Data Interchange Standards Consortium)",
@@ -1612,6 +1687,21 @@
    "url": "https://www.cdisc.org",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory; L178, L188, L193"
+  },
+  {
+   "@id": "#cerif",
+   "key": "cerif",
+   "name": "Common European Research Information Format",
+   "alternateName": [
+    "CERIF"
+   ],
+   "decision": "undecided",
+   "fairsharingRecord": "FAIRsharing.6945dq",
+   "fairsharingMatch": "to check",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA0iZfdyOGR1ugbRfIfY_mhRsR8QraJSagJKteW5CdlN0/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RA4b-LIptEtHjOVWfK1uvEwd0s9NAWtKKEHTsXklIC6fU#CERIF"
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.750d23",
@@ -1684,6 +1774,9 @@
    "fairsharingRecord": "FAIRsharing.62qk8w",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): I refined 2004 to the exact date. Degtyarenko et al., NAR (online 2007-10-11) states 'Since its first public release (21 July 2004)'. The earliest web capture of www.ebi.ac.uk/chebi/ is 2004-07-24, which agrees. FAIRsharing gives year 2006; the project itself started at the EBI in 2002.",
+   "fsr": [
+    "https://w3id.org/np/RAiHZjVo32RyXg_i777br8u1oT-TW6ul20Xv5HAWszcis#ChEBI"
+   ],
    "fairsharing": {
     "id": 1036,
     "doi": "10.25504/FAIRsharing.62qk8w",
@@ -1723,6 +1816,9 @@
    "fairsharingRecord": "FAIRsharing.m3jtpg",
    "fairsharingMatch": "confirmed",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. First public release was ChEMBL_01: the web interface and downloads went live on 2009-10-28 (ChEMBL blog; FTP README dated 28/10/2009). This agrees with the FAIRsharing year 2009. The first describing paper, Gaulton et al., NAR, online 2011-09-23 (https://doi.org/10.1093/nar/gkr777), is later. Included through membership of the FAIRsharing Toxicology collection.",
+   "fsr": [
+    "http://purl.org/np/RAVAVosrskaZNJP2MtoEkVlNJXyuY4hB5fW2D4jOb4OvQ#ChEMBL"
+   ],
    "fairsharing": {
     "id": 1561,
     "doi": "10.25504/FAIRsharing.m3jtpg",
@@ -2198,6 +2294,18 @@
    }
   },
   {
+   "@id": "#datacite_metadata_scheme",
+   "key": "datacite_metadata_scheme",
+   "name": "DataCite Metadata Scheme",
+   "decision": "undecided",
+   "fairsharingRecord": "FAIRsharing.me4qwe",
+   "fairsharingMatch": "to check",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA5s44FA3LMGhslfp7iiERfpSDldn6NarlH9JRmVWKFPM/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAko0U2Q8boW-drM8t11DcbX6Ixu2mcSQf-2BrM07geIQ#datacite_metadata_scheme"
+   ]
+  },
+  {
    "@id": "#datacure",
    "key": "datacure",
    "name": "DataCure",
@@ -2394,6 +2502,22 @@
    "manuscriptEvidence": "V Challenges; L257"
   },
   {
+   "@id": "#doi",
+   "key": "doi",
+   "name": "Digital Object Identifier",
+   "alternateName": [
+    "DOI"
+   ],
+   "decision": "undecided",
+   "url": "https://www.doi.org",
+   "fairsharingRecord": "FAIRsharing.hFLKCn",
+   "fairsharingMatch": "to check",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA6-tRMaxvyhPm6GnMQw9OnJk5M3OCA00BQ8dzOiRCTbk/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAnAWGdeI_1GGmDAqv-vZjby5XqbL2ZujNz1vgwK_6cRI#DOI"
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.353yat",
    "key": "drugbank",
    "name": "DrugBank",
@@ -2427,6 +2551,19 @@
     "associations": [],
     "retrieved": "2026-10-05"
    }
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.wkggtx",
+   "key": "dryad",
+   "name": "Dryad Digital Repository",
+   "alternateName": [
+    "Dryad"
+   ],
+   "decision": "undecided",
+   "url": "http://datadryad.org/",
+   "fairsharingRecord": "FAIRsharing.wkggtx",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAPVIRd-OUn0OAtDAv2c_UtLck238zK3zL1dS3BTzF9qc/declaration; screen against I1-I5. Retrieved 2026-10-08."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c5b513",
@@ -2784,6 +2921,19 @@
    }
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.g593w1",
+   "key": "edam_bioimaging",
+   "name": "EDAM Bioimaging Ontology",
+   "alternateName": [
+    "EDAM-BIOIMAGING"
+   ],
+   "decision": "undecided",
+   "url": "https://github.com/edamontology/edam-bioimaging",
+   "fairsharingRecord": "FAIRsharing.g593w1",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RActkbKpUUZl9EtWhK7GulD6KUMegCy5W5MWohX-oJzoo/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
    "@id": "#edelweissdata",
    "key": "edelweissdata",
    "name": "EdelweissData",
@@ -2852,6 +3002,19 @@
    "note": "Research 5 Oct 2026 (medium confidence): The row had no date. EFSA Journal 23(11), November 2025; the DOI was registered 2025-11-13 (Crossref, OpenAlex). The panel adoption date was not checked because the Wiley and EFSA pages refuse automated requests; use it with dateBasis 'adoption' if preferred. The statement was prepared by EFSA's working group on effect models in environmental risk assessment. Added 'eco-toxicology' and 'computational and predictive toxicology', since it concerns mechanistic effect models for environmental risk assessment of pesticides. The creator was 'EFSA (EFSA Journal 2025)' and is now 'EFSA'. FAIRsharing: no record. Verified 5 Oct 2026: datePublished changed (EFSA's own page for the statement, archived on 13 Nov 2025, reads 'Published: 13 November 2025, Adopted: 29 October 2025' (https://web.archive.org/web/20251113112641/https://www.efsa.europa.eu/en/efsajournal/pub/9741). Under the rules, official adoption of guidance is an allowed earliest date, and it comes before the 2025-11-13 Crossref deposit.) Verified 5 Oct 2026: dateBasis changed (The row is the guidance itself (Policy: institution), and the corrected date is EFSA's adoption date of 29 Oct 2025 (https://web.archive.org/web/20251113112641/https://www.efsa.europa.eu/en/efsajournal/pub/9741). The data dictionary defines 'adoption' as the official adoption or publication of guidance.) Verified 5 Oct 2026: dateSource changed (Crossref and the Wiley DOI landing page show only the deposit and issue dates, and Wiley refuses scripted requests. The archived EFSA page shows the adoption date (29 Oct 2025).)"
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.mya1ff",
+   "key": "ega",
+   "name": "The European Genome-phenome Archive",
+   "alternateName": [
+    "EGA"
+   ],
+   "decision": "undecided",
+   "url": "https://ega-archive.org/",
+   "fairsharingRecord": "FAIRsharing.mya1ff",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAvLZpSWZUWHdXw_zGEVoU5WHoatBCjQsoea4R0NQIBDY/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
    "@id": "#elixir",
    "key": "elixir",
    "name": "ELIXIR",
@@ -2918,6 +3081,32 @@
    "url": "https://elixir-europe.org/communities/toxicology",
    "manuscript": "cited",
    "manuscriptEvidence": "III Table 1; III Data generation; III AOP; L64, L67, L105, L135"
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.dff3ef",
+   "key": "empiar",
+   "name": "Electron Microscopy Public Image Archive",
+   "alternateName": [
+    "EMPIAR"
+   ],
+   "decision": "undecided",
+   "url": "https://www.ebi.ac.uk/empiar/",
+   "fairsharingRecord": "FAIRsharing.dff3ef",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAWsGC0V-4Mh2q2Z1akhi3Bxt8mICbd4DzCQcJkyZwNXs/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.dj8nt8",
+   "key": "ena",
+   "name": "European Nucleotide Archive",
+   "alternateName": [
+    "ENA"
+   ],
+   "decision": "undecided",
+   "url": "http://www.ebi.ac.uk/ena",
+   "fairsharingRecord": "FAIRsharing.dj8nt8",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RALDg8eNc5pweUOSKpwV7oswGbh1x2cCpujmFTT3C6dtw/declaration; screen against I1-I5. Retrieved 2026-10-08."
   },
   {
    "@id": "#enanomapper",
@@ -4184,6 +4373,9 @@
    "fairsharingRecord": "FAIRsharing.2abjs5",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): Launched as BioSharing in 2011: McQuilton et al. 2016 (doi 10.1093/database/baw075) and Sansone et al. 2019 (doi 10.1038/s41587-019-0080-8) both give 2011. The web archive shows the BioSharing standards and policies catalogue live on 2011-06-05; biosharing.org was a blog in 2009-2010. FAIRsharing year 2011. dateSource changed from the 2019 paper to the 2016 paper, which states the launch year. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository).",
+   "fsr": [
+    "https://w3id.org/np/RAqEeg0TsBbCE6tdp3xdZifswbiUEOh8psfJ8LoD5zrDc#FS"
+   ],
    "fairsharing": {
     "id": 2521,
     "doi": "10.25504/FAIRsharing.2abjs5",
@@ -4322,6 +4514,19 @@
     "associations": [],
     "retrieved": "2026-10-05"
    }
+  },
+  {
+   "@id": "#ftp",
+   "key": "ftp",
+   "name": "File Transfer Protocol",
+   "alternateName": [
+    "FTP"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAQh-U4eNXDwYw0YPs_WZEaQ5UZ34Sp4rY0b46GAvJotQ/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RARv4EFw3iwjRn01xnpto4yzc15buTVcm2_q-8a3jLoZw#FTP"
+   ]
   },
   {
    "@id": "#fuji",
@@ -4583,6 +4788,16 @@
    "note": "Research 5 Oct 2026 (medium confidence): Ashburner et al., Nat Genet 25(1), May 2000 (Crossref issued 2000-05; PubMed 2000 May). The 2000 GO documentation says the collaboration began in summer 1998, which matches FAIRsharing year 1998 (project start). The earliest web captures (geneontology.org, Stanford GO pages) are from May-June 2000; any public release in 1999 is undocumented, hence medium confidence. FAIRsharing.6xq0ee (Standard/terminology_artefact, year 1998, ready) was found through DataCite/Bioregistry and confirmed with one lookup. Verified 5 Oct 2026: datePublished changed (SGD's NAR database paper (https://doi.org/10.1093/nar/28.1.77; received 1999-10-01, published 2000-01-01) already cites the public GO pages at http://genome-www.stanford.edu/GO and says SGD pages link to 'Gene Ontology controlled vocabulary terms'. Rubin et al., Science, March 2000 (PMC2754258), also points to geneontology.org, and the GO site footer reads 'copyright © 1999–2026'. GO was therefore public in 1999, before the May 2000 Nat Genet paper.) Verified 5 Oct 2026: dateBasis changed (The earliest documented event is public availability in 1999, earlier than the first describing paper (May 2000).) Verified 5 Oct 2026: dateSource changed (This SGD NAR 2000 paper (received 1999-10-01) documents that the GO web pages and GO term links were live in 1999.) Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.6xq0ee returns 'Gene Ontology' (GO), Standard/terminology_artefact, status ready, homepage http://www.geneontology.org, citing doi:10.1038/75556. It is clearly the same resource.)"
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.t2e1ss",
+   "key": "harvard_dataverse_repository",
+   "name": "Harvard Dataverse Repository",
+   "decision": "undecided",
+   "url": "https://dataverse.harvard.edu",
+   "fairsharingRecord": "FAIRsharing.t2e1ss",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA49CefioCY78hZnft8X7qprxM8xYcz5Cdfn-KkmH-Z2s/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.amcv1e",
    "key": "hgnc",
    "name": "HGNC gene symbols",
@@ -4608,6 +4823,34 @@
    "fairsharingRecord": "FAIRsharing.amcv1e",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): The human gene nomenclature guidelines (ISGN 1979) were presented at the 1979 Edinburgh Human Gene Mapping meeting and published in Cytogenet Cell Genet 25:96-116 (1979; PubMed 295268). Crossref gives only the 2010 digitisation date. The genenames.org 'About' page confirms 1979, and the FAIRsharing year is 1979. The FAIRsharing record 'HGNC Gene Symbols, Gene Names and IDs' (FAIRsharing.amcv1e) is a terminology artefact, so type changed from 'Standard: identifier schema'. DataCite also lists a separate HGNC database record, FAIRsharing.29we0s, which was not looked up. Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.amcv1e returns id 741 'HGNC Gene Symbols, Gene Names and IDs' (HGNC): Standard/terminology_artefact, homepage https://www.genenames.org/, year 1979. This matches the row's name, URL, type and date.)"
+  },
+  {
+   "@id": "#http",
+   "key": "http",
+   "name": "Hypertext Transfer Protocol",
+   "alternateName": [
+    "HTTP"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RABk2MwowDIwFn71b2LR7CazCQLNUiZLooAiBigGTHFXo/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAm6jl2f_ysCwqHyEEJjb7vdEnZXMwtNyIXSjsbNU3In8#HTTP"
+   ]
+  },
+  {
+   "@id": "#https",
+   "key": "https",
+   "name": "Hypertext Transfer Protocol Secure",
+   "alternateName": [
+    "HTTPS"
+   ],
+   "decision": "undecided",
+   "fairsharingRecord": "FAIRsharing.cd2f9e",
+   "fairsharingMatch": "to check",
+   "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAPK_PKpmeC6YCBA1nkPpqtF1aj2D9CPYREOA6CiBDeH4#declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAF1ANn-BCFop0OBMOC7S8NtG0y_xYhRX4tAu37XZVCo0#HTTPS"
+   ]
   },
   {
    "@id": "#iata",
@@ -4775,7 +5018,10 @@
    "manuscriptEvidence": "I Introduction; L7",
    "fairsharingRecord": "FAIRsharing.ddk9t9",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): The IUPAC project 2000-025-1-800 page (last updated 14 Apr 2005) says 'April 2005: Version 1 of InChI has now been released'. The SourceForge project was created 2005-04-16, and Heller et al. 2013 (doi:10.1186/1758-2946-5-7) give 'public introduction in 2005'. Earlier test versions (2002-2004, available on request) and a 2003 ICIC Nîmes conference paper came before the standard. I used the v1 release. FAIRsharing.ddk9t9 (Standard/identifier_schema, year 2005) was found through DataCite/Bioregistry and confirmed with one lookup. The latest software is v1.07 (2024). Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.ddk9t9 returns 'IUPAC International Chemical Identifier' (InChI), Standard/identifier_schema, status ready, homepage https://www.inchi-trust.org/. Name and homepage match.)"
+   "note": "Research 5 Oct 2026 (high confidence): The IUPAC project 2000-025-1-800 page (last updated 14 Apr 2005) says 'April 2005: Version 1 of InChI has now been released'. The SourceForge project was created 2005-04-16, and Heller et al. 2013 (doi:10.1186/1758-2946-5-7) give 'public introduction in 2005'. Earlier test versions (2002-2004, available on request) and a 2003 ICIC Nîmes conference paper came before the standard. I used the v1 release. FAIRsharing.ddk9t9 (Standard/identifier_schema, year 2005) was found through DataCite/Bioregistry and confirmed with one lookup. The latest software is v1.07 (2024). Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.ddk9t9 returns 'IUPAC International Chemical Identifier' (InChI), Standard/identifier_schema, status ready, homepage https://www.inchi-trust.org/. Name and homepage match.)",
+   "fsr": [
+    "http://purl.org/np/RAp2h5QufBE4kWgqbhwyajGHzvTN-foKe14pQYypDQKWk#InChI"
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9gqfpm",
@@ -4822,6 +5068,19 @@
     "associations": [],
     "retrieved": "2026-10-05"
    }
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.d05nwx",
+   "key": "intact",
+   "name": "IntAct molecular interaction database",
+   "alternateName": [
+    "IntAct"
+   ],
+   "decision": "undecided",
+   "url": "https://www.ebi.ac.uk/intact/home",
+   "fairsharingRecord": "FAIRsharing.d05nwx",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA26r-ccXnD92eAZxzQHc4RRK2KiHzTd5GJdtO-Nf5jng/declaration; screen against I1-I5. Retrieved 2026-10-08."
   },
   {
    "@id": "#intob",
@@ -5276,6 +5535,22 @@
    }
   },
   {
+   "@id": "#json_ld",
+   "key": "json_ld",
+   "name": "JavaScript Object Notation for Linking Data",
+   "alternateName": [
+    "JSON-LD"
+   ],
+   "decision": "undecided",
+   "url": "https://www.w3.org/TR/json-ld11/",
+   "fairsharingRecord": "FAIRsharing.8f9bbb",
+   "fairsharingMatch": "to check",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA4wpnAoiEF6yBvfdaHlxwWGJRQPpLEpN-UPQHlWwFDgs/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAQKjgd7Ug9xSo4J0REW_AHGOJyaF9-ydj60nunqQ0qVg#JSON-LD"
+   ]
+  },
+  {
    "@id": "#kherroubi",
    "key": "kherroubi",
    "name": "Best practices for computational model sharing (Kherroubi et al.)",
@@ -5389,6 +5664,19 @@
    "manuscriptEvidence": "III AOP-based mechanistic knowledge; L135, L389, L419"
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.91yrz6",
+   "key": "matrixdb",
+   "name": "Extracellular Matrix Interaction Database",
+   "alternateName": [
+    "MatrixDB"
+   ],
+   "decision": "undecided",
+   "url": "http://matrixdb.univ-lyon1.fr",
+   "fairsharingRecord": "FAIRsharing.91yrz6",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA9DuPRFo5utuSWPQBBjGcPlkj3HUsG_4jl3nx7cx6GBY/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.hxvt6c",
    "key": "mdl_molfile_format",
    "name": "MDL Molfile Format",
@@ -5422,6 +5710,29 @@
     "associations": [],
     "retrieved": "2026-10-05"
    }
+  },
+  {
+   "@id": "#mesh",
+   "key": "mesh",
+   "name": "Medical Subject Headings",
+   "alternateName": [
+    "MeSH"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM#MeSH"
+   ]
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.kkdpxe",
+   "key": "metabolights",
+   "name": "MetaboLights",
+   "decision": "undecided",
+   "url": "https://www.ebi.ac.uk/metabolights/",
+   "fairsharingRecord": "FAIRsharing.kkdpxe",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAjl_S-gwp6aniD-pFDcMuA4-6OwDw1OuaYFqqHxJinPk/declaration; screen against I1-I5. Retrieved 2026-10-08."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.32b10v",
@@ -5567,6 +5878,19 @@
    }
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.a55z32",
+   "key": "minseqe",
+   "name": "Minimal Information about a high throughput SEQuencing Experiment",
+   "alternateName": [
+    "MINSEQE"
+   ],
+   "decision": "undecided",
+   "url": "https://doi.org/10.5281/zenodo.5706412",
+   "fairsharingRecord": "FAIRsharing.a55z32",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAEfS0m4jZChoh8x10BosuHJcFy966Fr8xeTQ8rNRuLI4/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.ap169a",
    "key": "miriam",
    "name": "MIRIAM (Minimum Information Requested in the Annotation of biochemical Models)",
@@ -5614,6 +5938,16 @@
     "associations": [],
     "retrieved": "2026-10-05"
    }
+  },
+  {
+   "@id": "#mit_license",
+   "key": "mit_license",
+   "name": "MIT License",
+   "decision": "undecided",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA1kZtzg9KRtjmZkQrv1QLBwSenrs902pQjVl7YrwLokk/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RA24ysQcpWDzK6wHANkG_3F1HiTbgOO4ULjYxjaXDi8C4#MIT"
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e2b341",
@@ -6086,6 +6420,20 @@
    "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify."
   },
   {
+   "@id": "#oauth",
+   "key": "oauth",
+   "name": "Open Authorization",
+   "alternateName": [
+    "OAuth"
+   ],
+   "decision": "undecided",
+   "url": "https://oauth.net/2/",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAXVLv-amrdmaHX5peXygEvwsypgr9Y8_2i0lSijJsStc/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAbhCIJzwMFVkgwvrhsdjnpxtH58oLKoyxgj60DzkS-q4#OAuth"
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.284e1z",
    "key": "obi",
    "name": "Ontology for Biomedical Investigations (OBI)",
@@ -6409,6 +6757,17 @@
    }
   },
   {
+   "@id": "#open_data_commons_open_database",
+   "key": "open_data_commons_open_database",
+   "name": "Open Data Commons Open Database License",
+   "decision": "undecided",
+   "url": "https://opendatacommons.org/licenses/odbl/",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA2JNDITBax4q6wB58XKcBAiL9BBJBbaQmVtlmjexur-s/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RACnVJ6N84471y43_jMo2rkJi-gHG1TB4KFu8uqX9SqMk#ODbL"
+   ]
+  },
+  {
    "@id": "#openalex",
    "key": "openalex",
    "name": "OpenAlex",
@@ -6587,6 +6946,36 @@
    "manuscriptEvidence": "III Data generation (nano); L110"
   },
   {
+   "@id": "#orcid",
+   "key": "orcid",
+   "name": "Open Researcher and Contributor ID",
+   "alternateName": [
+    "ORCID"
+   ],
+   "decision": "undecided",
+   "url": "https://orcid.org/",
+   "fairsharingRecord": "FAIRsharing.nx58jg",
+   "fairsharingMatch": "to check",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAVl1raaW85ATpzspwV8C_jm__sZ3J6I3y1_j1RId7bRQ/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RA1MzU1MPio-mtLzm1P7zfTBSMnTNc2I8HLNARhPjpif8#ORCID"
+   ]
+  },
+  {
+   "@id": "#osdr",
+   "key": "osdr",
+   "name": "NASA Open Science Data Repository",
+   "alternateName": [
+    "OSDR"
+   ],
+   "decision": "undecided",
+   "url": "https://www.nasa.gov/osdr/",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAPCOv1L3XA9JrqwfIIsEjaE_9SZAaBDP7HeB2G_lfMKU/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "https://w3id.org/np/RANN2kj6N2WTWR-LCZmfa9PwfM4FdXpC6bDc0-Bbt2CeY#OSDR"
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.atygwy",
    "key": "owl",
    "name": "OWL (Web Ontology Language)",
@@ -6610,7 +6999,10 @@
    "manuscriptEvidence": "III Data generation (nano); L109",
    "fairsharingRecord": "FAIRsharing.atygwy",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): OWL became a W3C Recommendation on 2004-02-10; Working Drafts appeared from July 2002 (e.g. WD-owl-ref-20020729). OWL 2 became a Recommendation on 2009-10-27, with a second edition on 2012-12-11. FAIRsharing record FAIRsharing.atygwy describes OWL 2 (model/format, FAIRsharing year 2012). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.atygwy returns id 409 'Web Ontology Language' (abbreviation OWL 2): model_and_format, homepage https://www.w3.org/TR/owl2-overview. This is FAIRsharing's record for the OWL standard. OWL 2 is a version of the same language, and the row's https://www.w3.org/OWL/ covers both versions.)"
+   "note": "Research 5 Oct 2026 (high confidence): OWL became a W3C Recommendation on 2004-02-10; Working Drafts appeared from July 2002 (e.g. WD-owl-ref-20020729). OWL 2 became a Recommendation on 2009-10-27, with a second edition on 2012-12-11. FAIRsharing record FAIRsharing.atygwy describes OWL 2 (model/format, FAIRsharing year 2012). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.atygwy returns id 409 'Web Ontology Language' (abbreviation OWL 2): model_and_format, homepage https://www.w3.org/TR/owl2-overview. This is FAIRsharing's record for the OWL standard. OWL 2 is a version of the same language, and the row's https://www.w3.org/OWL/ covers both versions.)",
+   "fsr": [
+    "http://purl.org/np/RAIpnldLlIedp5J7Jcy8pt_X9_YpOez4rO-fHxZl0T96Y#OWL"
+   ]
   },
   {
    "@id": "#parc",
@@ -6710,6 +7102,22 @@
      "note": "Checked 5 Oct 2026: The PARC Toxicology FIP v0.1.0 nanopublication is typed fip:FAIR-Implementation-Profile and was generated by the FIP Wizard."
     }
    ]
+  },
+  {
+   "@id": "http://purl.org/np/RAoZsfUhNx4sYz-IXfsp1xPBH1-YgTGtHpp3BbMQtWHJg#PARCToxicology",
+   "key": "parctoxicology",
+   "name": "PARC Chemicals Toxicology Community",
+   "alternateName": [
+    "PARCToxicology"
+   ],
+   "decision": "undecided",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
+   ],
+   "url": "https://www.eu-parc.eu",
+   "note": "FAIR Implementation Community that declares PARC Toxicology FAIR Implementation Profile, from its FIC nanopublication. Retrieved 2026-10-08.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "fsrParent": "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
   },
   {
    "@id": "#pbk",
@@ -6892,6 +7300,19 @@
    }
   },
   {
+   "@id": "#pubchem_cid",
+   "key": "pubchem_cid",
+   "name": "PubChem Compound Identification",
+   "alternateName": [
+    "PubChem CID"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAKdiL1mjp3OMavCvO6J8_ltIRP7R_cxmSh_JMCTqduFg/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "https://w3id.org/np/RALGzv6X0tjUaQ--X_7HYv5L7w1P5AUQh_-hLDnrpBGSM#PubChemCID"
+   ]
+  },
+  {
    "@id": "#qaop",
    "key": "qaop",
    "name": "Quantitative AOP (qAOP) models",
@@ -6914,6 +7335,19 @@
    ],
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; L132"
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.PB6595",
+   "key": "qid",
+   "name": "Wikidata Identifier",
+   "alternateName": [
+    "QID"
+   ],
+   "decision": "undecided",
+   "url": "https://www.wikidata.org/wiki/Q43649390",
+   "fairsharingRecord": "FAIRsharing.PB6595",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RALmCvDh757WgfgtJ1GmQuXPuB7_wVOrUo5LGMbGFBxdQ/declaration; screen against I1-I5. Retrieved 2026-10-08."
   },
   {
    "@id": "#qsar",
@@ -7008,7 +7442,10 @@
    "manuscriptEvidence": "III AOP; V Challenges; L126, L129, L132, L138, L245",
    "fairsharingRecord": "FAIRsharing.p77ph9",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): The RDF Model and Syntax Specification became a W3C Recommendation on 1999-02-22. Public Working Drafts appeared from 1997 (e.g. WD-rdf-syntax-971002). RDF 1.1 became a Recommendation on 2014-02-25. FAIRsharing record FAIRsharing.p77ph9 points to RDF 1.1 Concepts (model/format, FAIRsharing year 2011). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.p77ph9 returns id 1047 'Resource Description Framework' (RDF): model_and_format, homepage https://www.w3.org/TR/rdf11-concepts/. It is the same standard (current version 1.1).)"
+   "note": "Research 5 Oct 2026 (high confidence): The RDF Model and Syntax Specification became a W3C Recommendation on 1999-02-22. Public Working Drafts appeared from 1997 (e.g. WD-rdf-syntax-971002). RDF 1.1 became a Recommendation on 2014-02-25. FAIRsharing record FAIRsharing.p77ph9 points to RDF 1.1 Concepts (model/format, FAIRsharing year 2011). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.p77ph9 returns id 1047 'Resource Description Framework' (RDF): model_and_format, homepage https://www.w3.org/TR/rdf11-concepts/. It is the same standard (current version 1.1).)",
+   "fsr": [
+    "http://purl.org/np/RAutRQwoS4d5eLq7eBV1xsnWZ2spDYH4xfhhRzOxSZdhs#RDF"
+   ]
   },
   {
    "@id": "#rdmkit",
@@ -7280,6 +7717,19 @@
    "manuscriptEvidence": "III Toxicogenomics; L167",
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (high confidence): The year 2022 is confirmed. Verheijen et al. (Regul Toxicol Pharmacol) went online 2022-03-02 according to Crossref and OpenAlex; Europe PMC gives 2022-03-03. Earlier code exists on GitHub without releases: MCTverheijen/R-ODAF created 2020-04-01 and R-ODAF/Main 2021-08-27. The Health Canada fork is actively developed (last push 2026-10-02). The creator was a citation and is now the organisations; the url was the DOI and is now the R-ODAF GitHub organisation. Added 'regulatory toxicology' because the framework was built for regulatory use of omics data. FAIRsharing: no record."
+  },
+  {
+   "@id": "#ror",
+   "key": "ror",
+   "name": "Research Organization Registry",
+   "alternateName": [
+    "ROR"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAhknXQZhXhF2F6PFH5-krSCeiq1bmHSgGrimuLCCq8nY/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAFP-uWPTN5u2kPR8pYeIgdbwyP1_KYZgoogYIv0Wp-fQ#ROR"
+   ]
   },
   {
    "@id": "#s2cie",
@@ -8470,6 +8920,22 @@
    ]
   },
   {
+   "@id": "#uberon",
+   "key": "uberon",
+   "name": "Uber Cross-Species Anatomy Ontology",
+   "alternateName": [
+    "UBERON"
+   ],
+   "decision": "undecided",
+   "url": "http://purl.obolibrary.org/obo/uberon.owl",
+   "fairsharingRecord": "FAIRsharing.4c0b6b",
+   "fairsharingMatch": "to check",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAkcKz_Pcfh6w0T_fnw-k3beH1piivsiSfMc3h0HdB25k/declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RAT8JraaK8NUg89sUA5I8lJd-FyRfDvaDadRRJm_oC_nU#UBERON"
+   ]
+  },
+  {
    "@id": "#umap",
    "key": "umap",
    "name": "UMAP (Uniform Manifold Approximation and Projection)",
@@ -8569,6 +9035,16 @@
    "manuscriptEvidence": "III Application – Regulatory toxicology (link list after L191); L197"
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.6s749p",
+   "key": "wikidata",
+   "name": "Wikidata",
+   "decision": "undecided",
+   "url": "http://wikidata.org/",
+   "fairsharingRecord": "FAIRsharing.6s749p",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAZeC5qqUMHl5x2M7bhYsTO52n5AphcnEVAe95KRJI3-s/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.1x53qk",
    "key": "wikipathways",
    "name": "WikiPathways",
@@ -8631,6 +9107,29 @@
    "creator": "Regulatory risk-assessment community (e.g. OECD, EFSA)",
    "manuscript": "named",
    "manuscriptEvidence": "I Introduction; II Applying F, A, I and R; III AOP-based mechanistic knowledge; L4, L24, L132"
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.07cf72",
+   "key": "workflowhub",
+   "name": "WorkflowHub",
+   "decision": "undecided",
+   "url": "https://workflowhub.eu/",
+   "fairsharingRecord": "FAIRsharing.07cf72",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAnfKwy5W6ZPGUUoSBlQBBdkGk-DZioaM2dsWhRuquGRI/declaration; screen against I1-I5. Retrieved 2026-10-08."
+  },
+  {
+   "@id": "#xmls",
+   "key": "xmls",
+   "name": "eXtensible Markup Language Schema",
+   "alternateName": [
+    "XMLS"
+   ],
+   "decision": "undecided",
+   "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RA22ykE1eXn7KWKrFx3o0re3zVTg9HFRCNMr7WL6x4IDc#declaration; screen against I1-I5. Retrieved 2026-10-08.",
+   "fsr": [
+    "http://purl.org/np/RA5E0NA_BAilxwHhZKQm-ItnFoxw3ateI8UFxZ0rs8N5Q#XML_Schema"
+   ]
   }
  ]
 }
