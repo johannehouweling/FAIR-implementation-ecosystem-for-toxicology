@@ -1,7 +1,8 @@
-name: FAIRsharing refresh
+name: Data refresh
 
 # Weekly: read the FAIRsharing Toxicology collection with the repository owner's FAIRsharing login (Actions secrets
-# FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and open a pull request when the dataset changed. Nothing is pushed to
+# FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and the toxicology FIPs' nanopublications, and open a pull request when
+# the dataset changed. Nothing is pushed to
 # main; the dashboard is redeployed after a person merges the pull request.
 
 on:
@@ -31,6 +32,8 @@ jobs:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
           FAIRSHARING_PASSWORD: ${{ secrets.FAIRSHARING_PASSWORD }}
         run: uv run fairtox fetch --report build/refresh.md
+      - name: Read the FIPs
+        run: uv run fairtox fip --apply
       # Pull requests opened with the workflow token do not trigger CI, so test here.
       - run: uv run python -m unittest discover -s tests
       - run: uv run fairtox validate
@@ -45,6 +48,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -c "$branch"
           git add data
-          git commit -m "FAIRsharing refresh ${day}"
+          git commit -m "chore(data): refresh ${day}"
           git push -u origin "$branch"
-          gh pr create --title "FAIRsharing refresh ${day}" --body-file build/refresh.md
+          gh pr create --title "Data refresh ${day}" --body-file build/refresh.md

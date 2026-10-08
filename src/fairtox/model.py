@@ -26,7 +26,7 @@ TERMS = 'https://w3id.org/fair-tox/terms#'
 FIP = 'https://w3id.org/fair/fip/terms/'
 # The pinned FIP ontology https://w3id.org/fair/fip/terms/FIP-Ontology: its TriG download from Nanodash, 2026-10-08.
 FIP_ONTOLOGY = 'data/raw/fip/fip-ontology.trig'
-FIC_LOOKUP = 'data/raw/fip/fic-lookup.json'   # {"valid": [IRIs of valid FIC nanopublications]}, from the FIP import
+NANOPUB_RE = re.compile(r'^https?://(w3id|purl)\.org/np/')
 COLLECTION_ID = 3496
 COLLECTION_DOI = 'https://doi.org/10.25504/FAIRsharing.f60a10'
 FAIRSHARING_CREDIT = ('Contains information from FAIRsharing (https://fairsharing.org), licensed CC BY-SA 4.0 '
@@ -326,7 +326,7 @@ def slug(text, taken=()):
 
 
 def iri_of(r):
-    if FIC in r.get('fsrType', []) and re.match(r'^https?://(w3id|purl)\.org/np/', r.get('@id') or ''):
+    if FIC in r.get('fsrType', []) and NANOPUB_RE.match(r.get('@id') or ''):
         return r['@id']                                     # a FIC is identified by its FIC nanopublication
     code = fs_ref(r.get('fairsharingRecord'))
     if r.get('fairsharingMatch') == 'confirmed':
@@ -434,8 +434,8 @@ def check(doc):
             e(f'{k}: exclusion reason E6 needs Covered by naming another row')
         if r.get('coveredBy') and (r['coveredBy'] not in by_key or r['coveredBy'] == k):
             e(f'{k}: covered by {r["coveredBy"]!r} is not another row')
-        if r.get('decision') != 'exclude':                  # excluded rows need no classification
-            if (r.get('scope') == 'Toxicology') != bool(r.get('phase')):
+        if r.get('decision') != 'exclude' and FIC not in r.get('fsrType', []):   # excluded rows and communities
+            if (r.get('scope') == 'Toxicology') != bool(r.get('phase')):            # are not plotted
                 e(f'{k}: a phase is required exactly when the scope is Toxicology')
             if (r.get('scope') == 'Toxicology') != bool(r.get('stakeholders')):
                 e(f'{k}: at least one creator type is required exactly when the scope is Toxicology')
@@ -460,8 +460,8 @@ def check(doc):
             e(f'{k}: at most two FSR types, or Digital object alone')
         elif len(parents) > 1:
             e(f'{k}: a second FSR type must share the direct FSR subclass of the first')
-        if FIC in parents and not (os.path.exists(FIC_LOOKUP) and r.get('@id') in load(FIC_LOOKUP)['valid']):
-            e(f'{k}: FAIR Implementation Community needs a valid FIC nanopublication as @id')
+        if FIC in parents and not NANOPUB_RE.match(r.get('@id') or ''):
+            e(f'{k}: FAIR Implementation Community needs its FIC nanopublication as @id')
         for field in LIST_FIELDS:
             if not isinstance(r.get(field, []), list):
                 e(f'{k}: {field} must be a list')

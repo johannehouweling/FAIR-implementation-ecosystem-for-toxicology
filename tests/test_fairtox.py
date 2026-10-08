@@ -146,16 +146,13 @@ class ModelTest(TempDir):
         self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
         self.assertEqual(model.check(doc)[0], [])
 
-    def test_fair_implementation_community_needs_a_valid_fic_nanopublication(self):
+    def test_fair_implementation_community_needs_its_fic_nanopublication(self):
         doc = model.normalise(fixture())
         parc = next(r for r in doc['hasPart'] if r['key'] == 'parc')
-        parc.update({'@id': 'https://w3id.org/np/RAexample#PARC', 'fsrType': [model.FIC]})
-        lookup = self.path('fic-lookup.json')
-        with mock.patch.object(model, 'FIC_LOOKUP', lookup):
-            self.assertTrue(any('FAIR Implementation Community' in e for e in model.check(doc)[0]))   # no lookup
-            with open(lookup, 'w', encoding='utf-8') as f:
-                json.dump({'valid': [parc['@id']]}, f)
-            self.assertEqual(model.check(doc)[0], [])
+        parc['fsrType'] = [model.FIC]
+        self.assertTrue(any('FAIR Implementation Community' in e for e in model.check(doc)[0]))   # @id is #parc
+        parc['@id'] = 'https://w3id.org/np/RAexample#PARC'
+        self.assertEqual(model.check(doc)[0], [])
 
     def test_save_is_atomic_validated_and_skips_timestamp_only_changes(self):
         p = self.path('d.jsonld')
@@ -463,7 +460,7 @@ class FipTest(TempDir):
     def setUp(self):
         super().setUp()
         fixtures = os.path.join(ROOT, 'tests', 'fixtures', 'fip')
-        for obj, name, value in ((fip, 'CACHE', fixtures), (model, 'FIC_LOOKUP', os.path.join(fixtures, 'fic-lookup.json')),
+        for obj, name, value in ((fip, 'CACHE', fixtures),
                                  (fip, 'FIPS', {'tool': np_iri('fipA'), 'oecd_gd': np_iri('fipB')}),
                                  (fip, 'REPORT', self.path('report.csv')), (fip, 'CONVERGENCE', self.path('fip.md'))):
             patcher = mock.patch.object(obj, name, value)

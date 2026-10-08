@@ -1,8 +1,8 @@
 """FIP import: the declarations of the toxicology FIPs, read through each FIP's declaration index (never by community).
 
-Every nanopublication read is cached as data/raw/fip/<id>.trig. The answers of the nanopub query service (invalidated
-nanopublications, the latest valid description of each declared resource, the valid FAIR Implementation Communities)
-and FAIRsharing look-ups are cached in data/raw/fip/validity.json, so `--offline` gives the same output from the cache.
+Every nanopublication read is kept in a local cache, build/fip/<id>.trig, with the answers of the nanopub query
+service (invalidated nanopublications, the latest valid description of each declared resource, the valid FAIR
+Implementation Communities) and FAIRsharing look-ups in build/fip/validity.json; `--offline` reads only that cache.
 """
 import csv
 import datetime as dt
@@ -24,7 +24,7 @@ from fairtox.cli import names_of
 
 FIPS = {'parcfip': 'https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E',
         'fairaop': 'https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc'}
-CACHE = 'data/raw/fip'
+CACHE = 'build/fip'
 QUERY = 'https://query.knowledgepixels.com/repo/full'
 REPORT = 'build/fip-match-report.csv'
 CONVERGENCE = 'docs/fip-convergence.md'
@@ -185,10 +185,8 @@ def read(offline=False):
             f['homepages'].update([x['home']] if x.get('home') else [])
         ans['fic'] = {k: {n: sorted(v) for n, v in f.items()} for k, f in sorted(fic.items())}
         os.makedirs(CACHE, exist_ok=True)
-        lookup = {'valid': list(ans['fic']), 'retrieved': ans['retrieved']}
-        for path, content in ((answers, ans), (model.FIC_LOOKUP, lookup)):
-            with open(path, 'w', encoding='utf-8') as out:
-                out.write(model.dumps(content))
+        with open(answers, 'w', encoding='utf-8') as out:
+            out.write(model.dumps(ans))
     return {'retrieved': ans['retrieved'], 'version': version, 'fips': fips, 'declarations': decls, 'fsrs': fsrs,
             'fic': ans['fic']}
 

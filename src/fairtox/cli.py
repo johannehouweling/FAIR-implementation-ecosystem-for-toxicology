@@ -215,7 +215,7 @@ def main(argv=None):
     s.add_argument('outdir')
     s.set_defaults(run=cmd_export)
     s = sub.add_parser('fip', help="read the toxicology FIPs' declarations and write the match report")
-    s.add_argument('--offline', action='store_true', help='read only the cache in data/raw/fip')
+    s.add_argument('--offline', action='store_true', help='read only the local cache in build/fip')
     s.add_argument('--report', action='store_true', help='also write the convergence table, docs/fip-convergence.md')
     s.add_argument('--apply', action='store_true', help='write the import into the dataset (after reviewing the report)')
     s.set_defaults(run=cmd_fip)
