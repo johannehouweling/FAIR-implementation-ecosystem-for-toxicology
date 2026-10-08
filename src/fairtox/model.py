@@ -171,8 +171,8 @@ ALLOWED = {
     'related_to': {('Database', 'Database'), ('Database', 'Standard'), ('Standard', 'Standard'),
                    ('Standard', 'Database'), ('Policy', 'Policy')},
 }
-# FIP ontology properties, used as is: a FIP row is declared-by its community, and each FIP Declaration imported into
-# it (dct:hasPart) declares-...-of a target. Not lineage and not enterable in FAIRsharing.
+# FIP ontology properties, used as is: a FIP row is declared-by its community, and each FIP Declaration added to it
+# when the site is built (dct:hasPart) declares-...-of a target. Not lineage and not enterable in FAIRsharing.
 FIP_PROPERTIES = {
     'declares-current-use-of': 'The FIP declares that its community uses the target.',
     'declares-planned-use-of': 'The FIP declares that its community plans to use the target.',
@@ -229,8 +229,8 @@ CONTEXT = {
                      'vocabularies', 'fairsharing']),
 }
 # Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn'
-# and 'principles' are derived, 'fairsharing' is fetched, 'fipDeclaration' and 'fsr' (a declared resource's IRIs in
-# the FIPs) are imported.
+# and 'principles' are derived, 'fairsharing' is fetched, 'fsr' (a declared resource's IRIs in the FIPs) is imported;
+# 'declared-by' and 'fipDeclaration' exist only in the built site.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
            'phase', 'span', 'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
@@ -340,7 +340,7 @@ def iri_of(r):
 
 def normalise(doc):
     """Derive @id, buildsOnFair and the FSR and FIP fields, order fields, sort resources and relations, keep relation
-    and declaration targets in step with @ids."""
+    targets in step with @ids."""
     old_ids = {r.get('@id'): r['key'] for r in doc['hasPart']}
     for r in doc['hasPart']:
         for f in CURATED:                                   # no stray spaces in curated text
@@ -361,11 +361,8 @@ def normalise(doc):
     for r in doc['hasPart']:
         for q in r.get('qualifiedRelation', []):
             q['relation'] = target(q['relation'])
-        if r.get('declared-by'):
-            r['declared-by'] = target(r['declared-by'])
         for d in r.get('fipDeclaration', []):
             for p in FIP_PROPERTIES.keys() & d.keys():
-                d[p] = target(d[p])
                 declared.setdefault(d[p], []).append((r['@id'], d.get('principle')))
     by_id = {r['@id']: r for r in doc['hasPart']}
     for r in doc['hasPart']:                                # derived: a toxicology resource building on FAIR

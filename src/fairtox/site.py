@@ -4,6 +4,7 @@ The public build (the default, deployed to GitHub Pages) holds the included reso
 The internal build (`--internal`, local only) holds every row and adds the curation view: the parts of the template
 marked <!--internal-->...<!--/internal--> or /*internal*/.../*/internal*/, which the public build strips.
 """
+import copy
 import csv
 import io
 import json
@@ -11,7 +12,7 @@ import re
 from importlib.resources import files
 from pathlib import Path
 
-from fairtox import model
+from fairtox import fip, model
 
 REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology'          # private
 # CI deploys the public build to this public repository, which serves it on GitHub Pages
@@ -95,7 +96,8 @@ def nodes_links(doc):
 
 def public(doc):
     """The dataset as published: included resources only, without curation fields, unconfirmed FAIRsharing records,
-    relation provenance or relations to resources that are not included; the curation vocabularies and sources go."""
+    relation provenance, or relations and FIP declarations to resources that are not included; the curation
+    vocabularies and sources go."""
     out = dict(doc)
     out['sources'] = {k: v for k, v in doc.get('sources', {}).items() if k not in ('manuscript', 'previous')}
     out['vocabularies'] = {k: v for k, v in doc.get('vocabularies', {}).items() if k not in PRIVATE_VOCABULARIES}
@@ -110,13 +112,12 @@ def public(doc):
         if r.get('fairsharingMatch') != 'confirmed':
             p.pop('fairsharingRecord', None)
             p.pop('fairsharing', None)
-        rels = [{'relation': q['relation'], 'hadRole': q['hadRole']} for q in r.get('qualifiedRelation', [])
-                if q['relation'] in ids]
-        if rels:
-            p['qualifiedRelation'] = rels
-        else:
-            p.pop('qualifiedRelation', None)
-        out['hasPart'].append(p)
+        p['qualifiedRelation'] = [{'relation': q['relation'], 'hadRole': q['hadRole']}
+                                  for q in r.get('qualifiedRelation', []) if q['relation'] in ids]
+        p['fipDeclaration'] = [d for d in r.get('fipDeclaration', []) if ids & {d.get(k) for k in model.FIP_PROPERTIES}]
+        p['declaredIn'] = [x for x in r.get('declaredIn', []) if x in ids]
+        p['declared-by'] = r.get('declared-by') if r.get('declared-by') in ids else None
+        out['hasPart'].append({k: v for k, v in p.items() if v not in (None, [])})
     return out
 
 
@@ -168,24 +169,26 @@ def _csv(fields, rows):
     return buf.getvalue()
 
 
-def build(doc, outdir, dataset_path=model.DATASET, internal=False):
+def build(doc, outdir, internal=False, offline=False):
     """Write index.html, the dataset and two CSV files into outdir: the public build, or with internal=True the
-    curation view of every row with a copy of the full dataset (never to be published)."""
+    curation view of every row with the full dataset (never to be published). Both add the FIP declarations, read
+    online or from the local cache, to a copy of the dataset, which is not saved."""
+    doc = model.normalise(fip.enrich(copy.deepcopy(doc), fip.read(offline)))
     nodes, links = nodes_links(doc)
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')
     if internal:
-        fields, rel_fields, dataset = NODE_FIELDS, RELATION_FIELDS, Path(dataset_path).read_text(encoding='utf-8')
+        fields, rel_fields = NODE_FIELDS, RELATION_FIELDS
     else:
         doc = public(doc)
         keep = {r['key'] for r in doc['hasPart']}
-        fields, rel_fields, dataset = PUBLIC_FIELDS, RELATION_FIELDS[:3], model.dumps(doc)
+        fields, rel_fields = PUBLIC_FIELDS, RELATION_FIELDS[:3]
         nodes = [{f: n[f] for f in fields} for n in nodes if n['key'] in keep]
         links = [{k: x[k] for k in ('src', 'dst', 'label', 'lineage')} for x in links
                  if x['src'] in keep and x['dst'] in keep]
         page = INTERNAL.sub('', page)
     page = page.replace('__SCHEMA__', _script_json(schema_org(doc)))
     page = page.replace('__DATA__', _script_json({'nodes': nodes, 'links': links, 'meta': page_meta(doc, internal)}))
-    out = {'index.html': page, 'fair-tox-ecosystem.jsonld': dataset, 'resources.csv': _csv(fields, nodes),
+    out = {'index.html': page, 'fair-tox-ecosystem.jsonld': model.dumps(doc), 'resources.csv': _csv(fields, nodes),
            'relations.csv': _csv(rel_fields, model.relation_rows(doc))}
     leaks = [name for name, text in out.items() if not internal and re.search('manuscript', text, re.I)]
     if leaks:   # a last guard: the public pages go live from CI

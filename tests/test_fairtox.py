@@ -48,6 +48,13 @@ class TempDir(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.dir = self.tmp.name
+        # FIP data comes from the fixtures of FipTest, never from the network; FIP reports go to this folder
+        for name, value in (('CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'fip')),
+                            ('FIPS', {'tool': np_iri('fipA'), 'oecd_gd': np_iri('fipB')}),
+                            ('REPORT', self.path('report.csv')), ('CONVERGENCE', self.path('fip.md'))):
+            patcher = mock.patch.object(fip, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -136,8 +143,8 @@ class ModelTest(TempDir):
         by['ctd']['fsrType'] = [model.DIGITAL_OBJECT]
         by['tool']['declared-by'] = '#parc'
         by['tool']['fipDeclaration'] = [{'@id': 'https://w3id.org/np/RAx', '@type': 'fip:FIP-Declaration',
-                                         'declares-current-use-of': '#exo', 'question': model.FIP + 'FIP-Question-I2-D',
-                                         'principle': 'I2'}]
+                                         'declares-current-use-of': 'https://doi.org/10.25504/FAIRsharing.6hna78',
+                                         'question': model.FIP + 'FIP-Question-I2-D', 'principle': 'I2'}]
         by = {r['key']: r for r in model.normalise(doc)['hasPart']}
         self.assertEqual((by['exo']['fsrCategory'], by['exo']['fsrParent']),
                          (model.FER, model.FIP + 'FAIR-Specification'))
@@ -334,7 +341,7 @@ class SiteTest(TempDir):
         p = self.path('d.jsonld')
         model.save(doc, p)
         out = self.path('internal' if internal else 'site')
-        counts = site.build(model.load(p), out, dataset_path=p, internal=internal)
+        counts = site.build(model.load(p), out, internal=internal, offline=True)
         return counts, {f: pathlib.Path(out, f).read_text(encoding='utf-8') for f in self.FILES}
 
     def test_public_build_holds_included_resources_only(self):
@@ -348,7 +355,7 @@ class SiteTest(TempDir):
         included = {'exo', 'ctd', 'oecd_gd'}
         self.assertEqual({x['key'] for x in data['nodes']}, included)
         self.assertEqual({x['src'] for x in data['links']}, {'exo'})
-        self.assertEqual(set(data['meta']['sources']), {'fairsharing'})
+        self.assertEqual(set(data['meta']['sources']), {'fairsharing', 'fip'})
         self.assertEqual(data['meta']['lanes'], model.LANES)
         self.assertIn('Toxicology infrastructure', html)
         schema = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1))
@@ -459,13 +466,6 @@ class FipTest(TempDir):
 
     def setUp(self):
         super().setUp()
-        fixtures = os.path.join(ROOT, 'tests', 'fixtures', 'fip')
-        for obj, name, value in ((fip, 'CACHE', fixtures),
-                                 (fip, 'FIPS', {'tool': np_iri('fipA'), 'oecd_gd': np_iri('fipB')}),
-                                 (fip, 'REPORT', self.path('report.csv')), (fip, 'CONVERGENCE', self.path('fip.md'))):
-            patcher = mock.patch.object(obj, name, value)
-            patcher.start()
-            self.addCleanup(patcher.stop)
         self.data = fip.read(offline=True)
 
     def test_index_walk_skips_invalidated_declarations_and_reads_the_latest_description(self):
@@ -491,10 +491,16 @@ class FipTest(TempDir):
         self.assertEqual(find(homepages=['https://ctdbase.org/'], names=['ExO']), ('ctd', 'homepage'))
         self.assertEqual(find(names=['ExO']), ('exo', 'name'))
         self.assertEqual(find(names=['Unknown']), (None, 'none'))
+        next(r for r in rows if r['key'] == 'tool')['@id'] = self.X   # the row is the declared resource
+        self.assertEqual(find(codes=['FAIRsharing.6hna78']), ('tool', 'fsr'))
         next(r for r in rows if r['key'] == 'ctd')['fsr'] = [self.X]   # linked by an earlier import
         self.assertEqual(find(codes=['FAIRsharing.6hna78']), ('ctd', 'fsr'))
 
-    def test_report_then_apply_twice_changes_nothing_the_second_time(self):
+    def curated(self):
+        doc = model.normalise(fixture())
+        return model.normalise(fip.curate(doc, self.data, fip.match(doc, self.data)))
+
+    def test_report_then_curate_twice_changes_nothing_the_second_time(self):
         doc = model.normalise(fixture())
         rows = fip.report(doc, self.data, fip.match(doc, self.data))
         self.assertEqual([(r['label'], r['key'], r['method']) for r in rows], [
@@ -503,24 +509,53 @@ class FipTest(TempDir):
             ('PARC | Partnership for testing', 'parc', 'name')])  # a valid FIC named like an E1 row: identity check
         with open(fip.REPORT, encoding='utf-8') as f:
             self.assertEqual(len(list(csv.DictReader(f))), 4)
-        one = model.normalise(fip.apply(doc, self.data, fip.match(doc, self.data)))
+        one = self.curated()
         self.assertEqual(model.check(one)[0], [])
         self.assertEqual([c[0] for c in model.diff(model.normalise(fixture()), one)], ['tox', 'wlic'])   # new rows
-        two = model.normalise(fip.apply(copy.deepcopy(one), self.data, fip.match(one, self.data)))
+        two = model.normalise(fip.curate(copy.deepcopy(one), self.data, fip.match(one, self.data)))
         self.assertEqual(model.dumps(two), model.dumps(one))
         by = {r['key']: r for r in one['hasPart']}
-        self.assertEqual((by['exo']['fsr'], by['exo']['declaredIn'], by['exo']['principles']),
-                         ([self.X], ['#oecd_gd', '#tool'], ['F1']))
+        self.assertEqual(by['exo']['fsr'], [self.X])
         self.assertEqual((by['wlic']['decision'], by['wlic']['alternateName'], by['wlic']['url'], by['wlic']['fsr']),
                          ('undecided', ['WLic'], 'https://w.example.org/licence', [self.W]))
         self.assertTrue(by['wlic']['note'].endswith('screen against I1-I5. Retrieved 2026-10-08.'))
+        self.assertEqual((by['tox']['@id'], by['tox']['fsrType']), (np_iri('ficA') + '#TOX', [model.FIC]))
+        # nothing imported is stored: no declarations, FIP sources or profiles
+        self.assertEqual([r['key'] for r in one['hasPart'] if {'declared-by', 'fipDeclaration'} & r.keys()], [])
+        self.assertEqual((one['sources'], one['isBasedOn']), ({}, [model.COLLECTION_DOI]))
+
+    def test_enrich_adds_the_declarations_with_targets_resolved_to_rows(self):
+        # before curation, W and the FIPs' community have no row, so they are left out
+        by = {r['key']: r for r in model.normalise(fip.enrich(model.normalise(fixture()), self.data))['hasPart']}
+        self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']], [by['exo']['@id']])
+        self.assertNotIn('declared-by', by['oecd_gd'])
+        doc = model.normalise(fip.enrich(self.curated(), self.data))
+        by = {r['key']: r for r in doc['hasPart']}
         fic = np_iri('ficA') + '#TOX'
-        self.assertEqual((by['tox']['@id'], by['tox']['fsrType'], by['tool']['declared-by']), (fic, [model.FIC], fic))
+        self.assertEqual((by['tool']['declared-by'], by['oecd_gd']['declared-by'], by['tox']['@id']), (fic, fic, fic))
         self.assertEqual(by['tool']['fipDeclaration'], [{
             '@id': np_iri('decA') + '/declaration', '@type': 'fip:FIP-Declaration',
             'declares-current-use-of': by['exo']['@id'], 'question': model.FIP + 'FIP-Question-F1-D', 'principle': 'F1',
             'considerations': 'Used for test data.'}])
-        self.assertEqual(one['sources']['fip']['oecd_gd']['declarations'], 2)
+        self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']],
+                         [by['wlic']['@id'], by['exo']['@id']])   # wlic through its fsr link
+        self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), (['#oecd_gd', '#tool'], ['F1']))
+        self.assertEqual({k: (s['retrieved'], s['declarations']) for k, s in doc['sources']['fip'].items()},
+                         {'tool': ('2026-10-08', 1), 'oecd_gd': ('2026-10-08', 2)})
+        self.assertEqual(doc['isBasedOn'], sorted([model.COLLECTION_DOI, np_iri('fipA') + '/fip',
+                                                   np_iri('fipB') + '#fip']))
+
+    def test_site_build_publishes_declarations_to_included_rows_only_and_saves_nothing(self):
+        doc, folder = self.curated(), pathlib.Path(ROOT, 'data')
+        state = lambda: (model.dumps(doc), {p: p.stat().st_mtime_ns for p in folder.rglob('*')})
+        before = state()
+        site.build(doc, self.path('site'), offline=True)
+        self.assertEqual(state(), before)   # a copy is enriched, and nothing under data/ is written
+        by = {r['key']: r for r in model.load(self.path('site/fair-tox-ecosystem.jsonld'))['hasPart']}
+        # oecd_gd also declares wlic, and is declared by tox: both undecided; tool, the other FIP, is undecided too
+        self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']], [by['exo']['@id']])
+        self.assertNotIn('declared-by', by['oecd_gd'])
+        self.assertEqual(by['exo']['declaredIn'], ['#oecd_gd'])
 
     def test_convergence_rows(self):
         fip.convergence(self.data)

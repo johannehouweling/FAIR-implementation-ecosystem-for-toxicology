@@ -3,6 +3,9 @@
 Every nanopublication read is kept in a local cache, build/fip/<id>.trig, with the answers of the nanopub query
 service (invalidated nanopublications, the latest valid description of each declared resource, the valid FAIR
 Implementation Communities) and FAIRsharing look-ups in build/fip/validity.json; `--offline` reads only that cache.
+
+The dataset stores only what is curated (`curate`): links to the declared resources and rows for new ones. The
+declarations themselves are added when the site is built (`enrich`), with their retrieval date.
 """
 import csv
 import datetime as dt
@@ -201,11 +204,12 @@ def same(r, homepages, names):
 
 
 def find(rows, iri, codes=(), homepages=(), names=()):
-    """The row a declared resource is and how it was found: linked by an earlier import (fsr), then FAIRsharing DOI or
-    record id (doi), homepage, name or alias (name, to be checked); (None, 'none') when it is not in the dataset."""
+    """The row a declared resource is and how it was found: its @id or a link stored by an earlier import (fsr), then
+    FAIRsharing DOI or record id (doi), homepage, name or alias (name, to be checked); (None, 'none') when it is not in
+    the dataset."""
     by_id, by_code = fairsharing._index({'hasPart': rows})
     for r in rows:
-        if iri in r.get('fsr', []):
+        if iri == r.get('@id') or iri in r.get('fsr', []):
             return r, 'fsr'
     for c in codes:
         r = by_id.get(int(c)) if c.isdigit() else by_code.get(c.lower())
@@ -259,15 +263,14 @@ def report(doc, data, matches):
     return out
 
 
-def apply(doc, data, matches):
-    """Write the import into the dataset, in place: fsr links on the matched rows, undecided rows for the others, the
-    declaring FICs, declared-by and the declarations on the FIP rows, sources.fip and isBasedOn. The links and
-    declarations are importer-owned and replaced wholesale, so a second import changes nothing."""
+def curate(doc, data, matches):
+    """What `fairtox fip --apply` saves, in place: fsr links on the matched rows, undecided rows for the declared
+    resources not in the dataset and for the declaring FICs without a row. The links are replaced wholesale, so a
+    second run changes nothing."""
     rows, date = doc['hasPart'], data['retrieved']
     by_key, taken = {r['key']: r for r in rows}, {r['key'] for r in rows}
     for r in rows:
         r.pop('fsr', None)
-    target = {}
     for iri, (r, how) in matches.items():
         f, r = data['fsrs'][iri], r and by_key[r['key']]
         if r is None:
@@ -284,7 +287,6 @@ def apply(doc, data, matches):
             rows.append(r)
         if iri != r['@id']:
             r['fsr'] = sorted(set(r.get('fsr', [])) | {iri})
-        target[iri] = r['@id']
     for key, f in data['fips'].items():
         fic = data['fic'].get(f['fic'])
         if fic and not any(r.get('@id') == f['fic'] for r in rows):
@@ -295,16 +297,27 @@ def apply(doc, data, matches):
                          'note': f"FAIR Implementation Community that declares {by_key[key]['name']}, from its FIC "
                                  f'nanopublication. Retrieved {date}.'})
             taken.add(rows[-1]['key'])
-        mine = sorted((x for x in data['declarations'] if x['fip'] == key and x['target']),
+    return doc
+
+
+def enrich(doc, data):
+    """For the site build, in memory: declared-by and the declarations on each FIP row, sources.fip and the profiles in
+    isBasedOn. A declaration whose target has no row is left out."""
+    by_key, ids = {r['key']: r for r in doc['hasPart']}, {r['@id'] for r in doc['hasPart']}
+    target = {iri: r['@id'] for iri, (r, how) in match(doc, data).items()
+              if r and how in ('fsr', 'doi')}           # curated links and DOIs only; name matches wait for review
+    for key, f in data['fips'].items():
+        mine = sorted((x for x in data['declarations'] if x['fip'] == key and x['target'] in target),
                       key=lambda x: (x['predicate'], target[x['target']], x['@id']))
-        by_key[key]['declared-by'] = f['fic']
+        if f['fic'] in ids:
+            by_key[key]['declared-by'] = f['fic']
         by_key[key]['fipDeclaration'] = [{k: v for k, v in {
             '@id': x['@id'], '@type': 'fip:FIP-Declaration', x['predicate']: target[x['target']],
             'question': x['question'], 'principle': x['principle'], 'considerations': x['considerations']}.items() if v}
             for x in mine]
     doc.setdefault('sources', {})['fip'] = {key: {
         'label': f['label'], 'profile': f['profile'], 'nanopub': f['nanopub'], 'index': f['index'], 'fic': f['fic'],
-        'created': f['created'], 'licence': f['licence'], 'retrieved': date,
+        'created': f['created'], 'licence': f['licence'], 'retrieved': data['retrieved'],
         'declarations': sum(1 for x in data['declarations'] if x['fip'] == key and x['target']),
         'noChoice': f['noChoice'], 'invalidated': f['invalidated'], 'ontology': data['version'], 'method': METHOD}
         for key, f in data['fips'].items()}

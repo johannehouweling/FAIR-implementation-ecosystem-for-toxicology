@@ -2,11 +2,14 @@ name: CI
 
 # Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
 # public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
+# The build reads the FIP declarations; a weekly run rebuilds main so the page has the current ones.
 
 on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    - cron: '41 6 * * 1'
   workflow_dispatch:
 
 permissions:

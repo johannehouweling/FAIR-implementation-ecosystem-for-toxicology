@@ -92,7 +92,7 @@ def cmd_ingest(a):
 
 def cmd_site(a):
     from fairtox import site
-    n, m = site.build(_load(), a.outdir, internal=a.internal)
+    n, m = site.build(_load(), a.outdir, internal=a.internal, offline=a.offline)
     print(f'{a.outdir}/index.html: {n} resources, {m} relations' + (' (internal curation view, never publish)' if a.internal else ''))
     return 0
 
@@ -126,7 +126,7 @@ def cmd_fip(a):
         print(f'{fip.CONVERGENCE} written')
     if a.apply:
         before = json.loads(json.dumps(doc))
-        changes = model.diff(before, model.normalise(fip.apply(doc, data, matches)))
+        changes = model.diff(before, model.normalise(fip.curate(doc, data, matches)))
         if model.save(doc):
             model.log_changes(changes, f"fip import {data['retrieved']}", 'FIP nanopublications',
                               dict.fromkeys((c[0] for c in changes), 'fairtox fip'))
@@ -210,14 +210,17 @@ def main(argv=None):
     s = sub.add_parser('site', help='build the static dashboard (the public page; --internal for the curation view)')
     s.add_argument('outdir')
     s.add_argument('--internal', action='store_true', help='every row with the curation view; local only, never publish')
+    s.add_argument('--offline', action='store_true', help='read the FIP declarations from the local cache in build/fip')
     s.set_defaults(run=cmd_site)
     s = sub.add_parser('export-fairsharing', help='write what could be added to FAIRsharing (nothing is posted)')
     s.add_argument('outdir')
     s.set_defaults(run=cmd_export)
-    s = sub.add_parser('fip', help="read the toxicology FIPs' declarations and write the match report")
+    s = sub.add_parser('fip', help="read the toxicology FIPs' declarations and write the match report; the "
+                                   'declarations are never stored: the site build reads them')
     s.add_argument('--offline', action='store_true', help='read only the local cache in build/fip')
     s.add_argument('--report', action='store_true', help='also write the convergence table, docs/fip-convergence.md')
-    s.add_argument('--apply', action='store_true', help='write the import into the dataset (after reviewing the report)')
+    s.add_argument('--apply', action='store_true', help='store links to the declared resources and undecided rows for '
+                                                        'new ones and their communities (after reviewing the report)')
     s.set_defaults(run=cmd_fip)
     s = sub.add_parser('draft-check', help='check manuscript line references against a draft export (read-only)')
     s.add_argument('draft')
