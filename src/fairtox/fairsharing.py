@@ -17,13 +17,11 @@ import os
 import re
 import time
 import urllib.error
-import urllib.request
 
-from fairtox import __version__, model
+from fairtox import model, web
 
 API = 'https://api.fairsharing.org'
 SITE = 'https://fairsharing.org'
-UA = f'fairtox/{__version__} (+https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology)'
 PAUSE = 0.25
 CACHE = 'build/fairsharing'
 RECORD_TYPE = {v[1]: k for k, v in model.TYPES.items() if v[1]}
@@ -36,38 +34,32 @@ FOLD = {'accepts': 'implements', 'outputs': 'implements', 'shares_data_with': 'r
         'shares_code_with': 'related_to'}
 
 
-class FairsharingError(RuntimeError):
+class FairsharingError(web.Unreadable):
     pass
 
 
 def _request(method, url, body=None, token=None):
-    headers = {'Accept': 'application/json', 'User-Agent': UA}
+    headers = {'Accept': 'application/json'}
     data = None
     if body is not None:
         data = json.dumps(body).encode()
         headers['Content-Type'] = 'application/json'
     if token:
         headers['Authorization'] = f'Bearer {token}'
-    for attempt in (1, 2):
-        try:
-            with urllib.request.urlopen(urllib.request.Request(url, data, headers, method=method), timeout=60) as resp:
-                if 'true' in (str(resp.headers.get('maintenance')).lower(), str(resp.headers.get('read-only')).lower()):
-                    raise FairsharingError('FAIRsharing is in maintenance or read-only mode; try again later.')
-                return json.load(resp)
-        except urllib.error.HTTPError as e:
-            reason = _reason(e)
-            if e.code == 401 and url.endswith('/users/sign_in'):
-                raise FairsharingError(f'FAIRsharing refused the sign-in ({reason}): check FAIRSHARING_LOGIN and '
-                                       'FAIRSHARING_PASSWORD (an ORCID account needs a FAIRsharing password).') from None
-            if e.code in (401, 403):
-                raise FairsharingError(f'signed in, but FAIRsharing refused {method} {url} '
-                                       f'(HTTP {e.code}: {reason}).') from None
-            if e.code in (429, 500, 502, 503, 504) and attempt == 1:
-                time.sleep(5)
-                continue
-            raise FairsharingError(f'{method} {url} answered HTTP {e.code} ({reason}).') from None
-        except urllib.error.URLError as e:
-            raise FairsharingError(f'{method} {url} failed: {e.reason}') from None
+    try:
+        answer, raw = web.fetch(url, headers, data, method, timeout=60)
+    except urllib.error.HTTPError as e:
+        reason = _reason(e)
+        if e.code == 401 and url.endswith('/users/sign_in'):
+            raise FairsharingError(f'FAIRsharing refused the sign-in ({reason}): check FAIRSHARING_LOGIN and '
+                                   'FAIRSHARING_PASSWORD (an ORCID account needs a FAIRsharing password).') from None
+        if e.code in (401, 403):
+            raise FairsharingError(f'signed in, but FAIRsharing refused {method} {url} '
+                                   f'(HTTP {e.code}: {reason}).') from None
+        raise FairsharingError(f'{method} {url} answered HTTP {e.code} ({reason}).') from None
+    if 'true' in (str(answer.get('maintenance')).lower(), str(answer.get('read-only')).lower()):
+        raise FairsharingError('FAIRsharing is in maintenance or read-only mode; try again later.')
+    return json.loads(raw)
 
 
 def _reason(error):

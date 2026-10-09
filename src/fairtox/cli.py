@@ -7,7 +7,7 @@ import os
 import re
 import sys
 
-from fairtox import __version__, model
+from fairtox import __version__, model, web
 
 
 def _load():
@@ -25,13 +25,9 @@ def cmd_validate(a):
 
 
 def _fairsharing(a):
-    """FAIRsharing, read with FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD or, with --offline, from the local cache. The
-    command stops when it cannot be read."""
+    """FAIRsharing, read with FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD or, with --offline, from the local cache."""
     from fairtox import fairsharing
-    try:
-        return fairsharing.read(os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD'), a.offline)
-    except fairsharing.FairsharingError as e:
-        sys.exit(f'FAIRsharing could not be read, so nothing was built or changed: {e}')
+    return fairsharing.read(os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD'), a.offline)
 
 
 def _enriched(a):
@@ -242,4 +238,7 @@ def main(argv=None):
     s.add_argument('draft')
     s.set_defaults(run=cmd_draft_check)
     a = p.parse_args(argv)
-    sys.exit(a.run(a))
+    try:
+        sys.exit(a.run(a))
+    except web.Unreadable as e:
+        sys.exit(f'Nothing was built or changed: {e}')

@@ -8,12 +8,13 @@ import pathlib
 import re
 import tempfile
 import unittest
+import urllib.error
 import warnings
 from unittest import mock
 
 from openpyxl import load_workbook
 
-from fairtox import __version__, cli, fairsharing, fip, model, sheet, site
+from fairtox import __version__, cli, fairsharing, fip, model, sheet, site, web
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -377,7 +378,7 @@ class FairsharingTest(TempDir):
                          ['fairsharing', '--apply']):
                 with self.assertRaises(SystemExit) as stop:
                     cli.main(argv)
-                self.assertIn('FAIRsharing could not be read', str(stop.exception.code))
+                self.assertIn('Nothing was built or changed: FAIRSHARING_LOGIN', str(stop.exception.code))
         self.assertEqual(os.listdir(self.dir), [])
 
     def test_submission_export(self):
@@ -390,6 +391,23 @@ class FairsharingTest(TempDir):
         self.assertEqual(set(ctd['metadata']) >= {'name', 'description', 'homepage', 'status'}, True)
         self.assertEqual(sub['collectionAdditions'][0]['key'], 'exo')
         self.assertEqual(sub['associations'], [])                                        # FAIRsharing evidence only
+
+
+class WebTest(unittest.TestCase):
+    def test_busy_servers_and_failed_connections_are_retried_other_errors_are_not(self):
+        answer = mock.MagicMock()
+        answer.__enter__.return_value.headers, answer.__enter__.return_value.read.return_value = {}, b'ok'
+        busy = urllib.error.HTTPError('u', 503, 'busy', {}, None)
+        with mock.patch('time.sleep'), mock.patch('urllib.request.urlopen', side_effect=[busy, TimeoutError(), answer]):
+            self.assertEqual(web.get('https://example.org', 'text/plain'), 'ok')
+        with mock.patch('time.sleep'), mock.patch('urllib.request.urlopen', side_effect=urllib.error.URLError('down')):
+            with self.assertRaisesRegex(web.Unreadable, 'could not be read: down'):
+                web.get('https://example.org', 'text/plain')
+        gone = urllib.error.HTTPError('u', 404, 'gone', {}, None)
+        with mock.patch('urllib.request.urlopen', side_effect=gone) as urlopen:
+            with self.assertRaisesRegex(web.Unreadable, 'answered HTTP 404'):
+                web.get('https://example.org', 'text/plain')
+            self.assertEqual(urlopen.call_count, 1)
 
 
 class SiteTest(TempDir):

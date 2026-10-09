@@ -17,7 +17,7 @@ import tempfile
 import rdflib
 from rdflib import DCTERMS, OWL, RDF, RDFS, SDO, SKOS, Literal, URIRef
 
-from fairtox import __version__
+from fairtox import __version__, web
 
 DATASET = 'data/fair-tox-ecosystem.jsonld'
 CHANGES = 'data/changes.csv'
@@ -354,10 +354,10 @@ def registry(r):
 def fip_ontology():
     """The FIP ontology as a graph: from the local cache, read from its IRI first when the cache has none."""
     if not os.path.exists(FIP_ONTOLOGY):
-        from . import fip                                   # its HTTP helper; fip imports this module
+        text = web.get(FIP, 'text/turtle')
         os.makedirs(os.path.dirname(FIP_ONTOLOGY), exist_ok=True)
         with open(FIP_ONTOLOGY, 'w', encoding='utf-8') as f:
-            f.write(fip._get(FIP, 'text/turtle'))
+            f.write(text)
     return rdflib.Graph().parse(FIP_ONTOLOGY, format='turtle')
 
 

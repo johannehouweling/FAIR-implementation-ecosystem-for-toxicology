@@ -14,15 +14,13 @@ import json
 import os
 import re
 import time
-import urllib.error
 import urllib.parse
-import urllib.request
 import warnings
 
 import rdflib
 from rdflib import DCTERMS, OWL, RDF, RDFS, SKOS, URIRef
 
-from fairtox import fairsharing, model
+from fairtox import fairsharing, model, web
 from fairtox.cli import names_of
 
 FIPS = {'parcfip': 'https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E',
@@ -50,22 +48,9 @@ ACTION = {'fsr': 'linked to {key}', 'doi': 'link to {key}', 'homepage': 'link to
           'name': 'link to {key} if it is the same resource', 'none': 'add as an undecided row'}
 
 
-def _get(url, accept, data=None):
-    """GET, or POST `data`, with retries and backoff on HTTP 429 and server errors."""
-    request = urllib.request.Request(url, data, {'Accept': accept, 'User-Agent': fairsharing.UA})
-    for wait in (5, 30, 120, None):
-        try:
-            with urllib.request.urlopen(request, timeout=120) as resp:
-                return resp.read().decode('utf-8')
-        except urllib.error.HTTPError as e:
-            if e.code not in (429, 500, 502, 503, 504) or wait is None:
-                raise RuntimeError(f'{url} answered HTTP {e.code}') from None
-            time.sleep(wait)
-
-
 def _select(query):
-    body = json.loads(_get(QUERY, 'application/sparql-results+json',
-                           urllib.parse.urlencode({'query': PREFIXES + query}).encode()))
+    body = json.loads(web.get(QUERY, 'application/sparql-results+json',
+                              urllib.parse.urlencode({'query': PREFIXES + query}).encode()))
     return [{k: v['value'] for k, v in b.items()} for b in body['results']['bindings']]
 
 
@@ -105,7 +90,7 @@ def nanopub(iri, offline=False):
     """A nanopublication's triples, from the cache; online, a missing one is fetched as TriG and cached first."""
     path = os.path.join(CACHE, re.search(r'/np/(RA[\w-]{43})', iri).group(1) + '.trig')
     if not offline and not os.path.exists(path):
-        text = _get(iri, 'application/trig')
+        text = web.get(iri, 'application/trig')
         os.makedirs(CACHE, exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:
             f.write(text)
