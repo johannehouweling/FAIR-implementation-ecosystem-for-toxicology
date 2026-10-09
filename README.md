@@ -7,7 +7,7 @@
 A curated dataset of the resources used in toxicology to make data and metadata findable, accessible, interoperable
 and reusable, with the code to curate it and to publish its dashboard. It underlies Figure 2 of the ELIXIR Toxicology
 Community paper on ten years of the FAIR principles in toxicology (in preparation). The dataset combines the
-resources named in the manuscript, the FAIRsharing Toxicology collection and the resources declared in two toxicology
+resources named in the paper, the FAIRsharing Toxicology collection and the resources declared in two toxicology
 FAIR Implementation Profiles (FIPs). For each resource it records when it was first published, its FAIRsharing type,
 its type in the FIP ontology, its toxicology life-cycle phase and span, its sub-domains and its relations to other
 resources.
@@ -20,7 +20,7 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
   as identifiers).
 - `data/changes.csv`: every change, with its date, process or curator, and source.
 - `docs/inclusion-criteria.md`: how resources were selected and classified.
-- `docs/data-dictionary.md`: fields, controlled vocabularies and own terms.
+- `docs/data-dictionary.md`: fields with their terms, and the controlled vocabularies.
 - `docs/fip-convergence.md`: the choices of the two FIPs per FIP question.
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
 - `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
@@ -33,7 +33,8 @@ with their retrieval date. FAIRsharing is read with the login in `.env` (see `.e
 nanopublications, and the FIP ontology from its IRI (`https://w3id.org/fair/fip/terms/`), once, into `build/fip`.
 `--offline` reads the local caches in `build/fairsharing` and `build/fip`, left by an earlier run, instead.
 
-CI tests every change, runs `fairtox validate --strict` and, on `main`, publishes the dashboard. A weekly workflow reads
+CI tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
+Discovery profile 1.1 (its SHACL rules, with pyshacl) and, on `main`, publishes the dashboard. A weekly workflow reads
 FAIRsharing and the FIPs and opens a pull request when there is something new to curate. Co-authors curate in a Google
 Sheet made with `fairtox sheet`; `fairtox ingest` reads it back with its checks and logs every change.
 
@@ -59,7 +60,10 @@ uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharin
 
 The code is licensed MIT ([LICENSE](LICENSE)). The dataset, documentation and dashboard are licensed CC BY-SA 4.0
 ([LICENSE-DATA](LICENSE-DATA)) because they contain information from [FAIRsharing](https://fairsharing.org), licensed
-CC BY-SA 4.0. The FIP declarations come from nanopublications licensed CC0, or as stated in each.
+CC BY-SA 4.0. The FIP declarations come from the nanopublications of the
+[PARC Toxicology FIP](https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E) and the
+[Reference AOP FIP](https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc), licensed CC0, or as stated in
+each.
 
 ## How to cite
 

@@ -5,6 +5,7 @@ The build, deployed to GitHub Pages, holds the included resources only, without 
 """
 import copy
 import csv
+import hashlib
 import io
 import json
 import re
@@ -18,9 +19,9 @@ REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-to
 PUBLIC_REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline'
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
-NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
+NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
                'type', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
-               'stakeholders', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
+               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
 # Curation fields and vocabularies that stay out of the build. Relations keep only their label: their evidence and
@@ -74,21 +75,22 @@ def nodes_links(doc):
     fsr = {**{k: v[0] for k, v in model.fsr_types().items()}, **CLASSES}   # IRI -> label
     for r in doc['hasPart']:
         fs = r.get('fairsharing') or {}
+        date, basis = model.first_date(r)
         nodes.append({
-            'key': r['key'], 'name': r['name'].strip(), 'label': label(r), 'abbr': abbr(r),
-            'aliases': r.get('alternateName', []), 'year': model._year(r),
-            'date': r.get('datePublished', ''), 'lane': model.lane(r), 'creatorLane': model.creator_lane(r),
+            'key': r['key'], 'identifier': r.get('identifier', ''), 'name': r['name'].strip(), 'label': label(r),
+            'abbr': abbr(r), 'aliases': r.get('alternateName', []), 'year': model._year(r),
+            'date': date, 'lane': model.lane(r), 'creatorLane': model.creator_lane(r),
             'phase': r.get('phase', ''), 'span': r.get('span', []), 'type': r.get('type', ''),
             'fsrType': [fsr.get(t, t) for t in r.get('fsrType', [])], 'fsrCategory': fsr.get(r.get('fsrCategory'), ''),
             'principles': r.get('principles', []), 'declaredIn': [key_of[f] for f in r.get('declaredIn', [])],
             'declaredBy': key_of.get(r.get('declared-by'), ''), 'registry': model.registry(r) or '',
-            'scope': r.get('scope', ''), 'stakeholders': r.get('stakeholders', []),
+            'scope': r.get('scope', ''), 'creatorType': r.get('creatorType', []),
             'buildsOnFair': bool(r.get('buildsOnFair')), 'subdomains': r.get('subdomains', []),
             # in the collection but not in the manuscript: hidden by one switch on the page
             'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
             'fairsharing': fairsharing_url(r), 'url': r.get('url', ''), 'creator': r.get('creator', ''),
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
-            'dateSource': r.get('dateSource', ''), 'dateBasis': r.get('dateBasis', ''),
+            'dateSource': r.get('dateSource', ''), 'dateBasis': basis,
         })
     links = [{'src': x['target'], 'dst': x['subject'], 'label': x['hadRole'], 'lineage': model.RELATIONS[x['hadRole']][1]}
              for x in model.relation_rows(doc)]
@@ -107,9 +109,6 @@ def public(doc):
     out = dict(doc)
     out['sources'] = {k: v for k, v in doc.get('sources', {}).items() if k not in ('manuscript', 'previous')}
     out['vocabularies'] = {k: v for k, v in doc.get('vocabularies', {}).items() if k not in PRIVATE_VOCABULARIES}
-    if 'subdomains' in out['vocabularies']:   # their definitions cite the manuscript's figure caption
-        out['vocabularies']['subdomains'] = {s: re.sub(r'\s*\([^)]*manuscript[^)]*\)', '', d)
-                                             for s, d in out['vocabularies']['subdomains'].items()}
     keep = [r for r in doc['hasPart'] if r.get('decision') == 'include']
     ids = {r['@id'] for r in keep}
     out['hasPart'] = []
@@ -123,6 +122,8 @@ def public(doc):
         p['fipDeclaration'] = [d for d in r.get('fipDeclaration', []) if ids & {d.get(k) for k in model.FIP_PROPERTIES}]
         p['declaredIn'] = [x for x in r.get('declaredIn', []) if x in ids]
         p['declared-by'] = r.get('declared-by') if r.get('declared-by') in ids else None
+        if p.get('maintained') == 'unknown':   # nothing is stated when the status could not be established
+            del p['maintained']
         out['hasPart'].append({k: v for k, v in p.items() if v not in (None, [])})
     return out
 
@@ -130,14 +131,20 @@ def public(doc):
 def page_meta(doc):
     return {
         'title': doc['name'], 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
-        'creator': doc.get('creator', ''), 'sources': doc.get('sources', {}), 'lanes': model.LANES,
+        'creator': doc['creator']['name'], 'sources': doc.get('sources', {}), 'lanes': model.LANES,
         'toxLanes': model.TOX_LANES, 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
         'communities': sorted(v[0] for v in model.fsr_types().values() if v[1] == model.FIC),   # never drawn
         'creatorLanes': list(model.CREATOR_LANE_DEF), 'creatorLaneDef': model.CREATOR_LANE_DEF,
         'subdomains': [[s, model.SUBDOMAIN_LANE[s]] for s in model.SUBDOMAINS],
         'relations': {k: {'id': v[0], 'lineage': v[1], 'definition': v[2]} for k, v in model.RELATIONS.items()},
         'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': PUBLIC_REPO, 'pages': PAGES,   # source is private
-        'doi': doc.get('identifier', ''), 'collection': model.COLLECTION_DOI,
+        # field -> term, for the data dictionary; the prefixes (full IRIs) are not fields
+        'terms': {f: model.term(f) for f in model.CONTEXT if f[0] != '@' and model.term(f)
+                  and not model.term(f).startswith(('http', '@'))},
+        # list -> value -> the name of its term of ours, the anchor where the term's IRI lands
+        'termAnchors': {name: {v: model.concept(name, v)[len(model.TERMS):] for v in model.VOCABULARIES[name]
+                               if v not in model.SAME.get(name, {})} for name in model.TERM_SETS},
+        'doi': doc.get('identifier', ''), 'collection': model.COLLECTION_DOI, 'fields': FIELDS,
     }
 
 
@@ -146,8 +153,8 @@ def schema_org(doc):
     d = {
         '@context': 'https://schema.org', '@type': 'Dataset', 'name': doc['name'], 'description': doc['description'],
         'url': PAGES, 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
-        'license': doc['license'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
-        'creator': {'@type': 'Organization', 'name': doc.get('creator', '')},
+        'license': doc['license']['@id'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
+        'creator': {'@type': 'Organization', 'name': doc['creator']['name']},
         'keywords': ['FAIR', 'toxicology', 'FAIR supporting resources', 'FAIRsharing', 'research data management'],
         'distribution': [
             {'@type': 'DataDownload', 'encodingFormat': 'application/ld+json',
@@ -159,6 +166,93 @@ def schema_org(doc):
     if doc.get('identifier'):
         d['identifier'] = doc['identifier']
     return d
+
+
+# The data dictionary, one entry per field or group of fields: names, definition, and the controlled list it takes.
+# The dashboard shows it, and the published dataset describes its fields with it (variableMeasured).
+FIELDS = [
+    ('key', 'Stable short identifier, used in the dashboard\'s links (#key) and in the CSV files.', None),
+    ('name', 'Full name.', None),
+    ('alternateName', 'Abbreviations and other names.', None),
+    ('identifier', 'Persistent identifier: the FIC nanopublication of a FAIR Implementation Community, else the '
+                   'FAIRsharing DOI, else https://w3id.org/fair-tox/dataset#key.', None),
+    ('type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not '
+             'register.', 'type'),
+    ('fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, one per resource, by the typing rule of the '
+                'criteria. IRIs in the JSON-LD, labels in resources.csv.', None),
+    ('fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource or FAIR Supporting Resource (any other FSR). The '
+                    'Class filter uses it; resources without a type always pass it.', None),
+    ('principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty '
+                   'when no FIP declares it.', None),
+    ('scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'),
+    ('phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.',
+     'phase'),
+    ('span', 'Every data life-cycle phase a toxicology resource acts on, its phase first.', None),
+    ('creatorType', 'Creator types: who made a toxicology resource; several may apply. In the layout by creator they '
+                     'set its lane (Made jointly for two or more).', 'creatorType'),
+    ('buildsOnFair', 'Derived: true for a toxicology resource first published in 2016 or later that implements, '
+                     'extends, profiles or recommends a generic resource. Its label is in italics.', None),
+    ('subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'),
+    ('datePublished, dateReleased, dateAdopted, dateCreated, date',
+     'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD, in the field of what the date refers to '
+     '(publication, release, adoption, FAIRsharing year, or not recorded). resources.csv gives it as date, with '
+     'dateBasis.', 'dateBasis'),
+    ('dateSource', 'DOI or URL of the source that shows the date.', None),
+    ('creator', 'Organisations that made the resource.', None),
+    ('url', 'Homepage.', None),
+    ('description', 'One to three sentences on what the resource is.', None),
+    ('maintained', 'Maintenance status.', 'maintained'),
+    ('fairsharingRecord', 'FAIRsharing record code or numeric id, in the JSON-LD.', None),
+    ('fsr', 'The IRIs under which the FIPs declare the resource, when they differ from its identifier.', None),
+    ('fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection '
+                       'that entered this dataset only through the collection. The switch of the same name hides these '
+                       'resources.', None),
+    ('qualifiedRelation, hadRole', 'Relations to other resources, read subject first ("CTD implements ExO"): '
+                                   'qualifiedRelation in the JSON-LD, subject, hadRole and target in relations.csv.',
+     'hadRole'),
+    ('declaredIn', 'Derived: the FIPs that declare the resource (their keys in resources.csv).', None),
+    ('fipDeclaration, declared-by', 'On a FIP, in the JSON-LD, read from its nanopublications (CC0) when the page is '
+     'built: its declarations, each a nanopublication (@id) that links a listed resource through one of the '
+     'properties below for a FIP question (question) and its principle; and declared-by, the FAIR Implementation '
+     'Community that declares the FIP (declaredBy, its key, in resources.csv). The FIP declarations switch draws the '
+     'declarations.', 'declaration'),
+]
+DEFINITION = {name: text for names, text, _ in FIELDS for name in names.split(', ')}
+
+
+# Published files the dataset lists as downloads: media type, and the standard each follows.
+DOWNLOADS = {'fair-tox-ecosystem.jsonld': ('application/ld+json', 'https://www.w3.org/TR/json-ld11/'),
+             'resources.csv': ('text/csv', 'https://www.rfc-editor.org/rfc/rfc4180'),
+             'relations.csv': ('text/csv', 'https://www.rfc-editor.org/rfc/rfc4180'),
+             'terms.ttl': ('text/turtle', 'https://www.w3.org/TR/turtle/')}
+CDIF = ['https://w3id.org/cdif/core/1.1', 'https://w3id.org/cdif/discovery/1.1']
+
+
+def discovery(doc, out):
+    """What the CDIF Discovery profile asks of the published dataset itself: its identifier (the Zenodo DOI once
+    deposited, else its w3id address), landing page, release date (CITATION.cff), the years its resources span, the
+    terms of its fields, its downloads with their checksums (the dataset file cannot carry its own), and the catalog
+    record that declares conformance to CDIF Core and Discovery 1.1."""
+    pid = doc.get('identifier') or model.BASE
+    released = re.search(r'^date-released: *(\S+)', Path('CITATION.cff').read_text(encoding='utf-8'), re.M)
+    years = sorted(filter(None, map(model._year, doc['hasPart'])))
+    return {
+        'identifier': {'@type': 'schema:PropertyValue', 'value': pid, 'url': pid,
+                       **({'propertyID': 'https://registry.identifiers.org/registry/doi'} if '//doi.org/' in pid else {})},
+        'url': PAGES, **({'datePublished': released.group(1)} if released else {}),
+        **({'temporalCoverage': f'{years[0]}/{years[-1]}'} if years else {}), 'wasDerivedFrom': doc['isBasedOn'],
+        'variableMeasured': [{'@type': 'schema:PropertyValue', 'name': f, 'propertyID': model.iri(model.term(f)),
+                              'description': DEFINITION[f]}
+                             for f in model.FIELD_ORDER if ':' in (model.term(f) or '')],
+        'distribution': [{'@type': 'schema:DataDownload', 'contentUrl': PAGES + name, 'encodingFormat': media,
+                          'conformsTo': spec, **({'checksum': {
+                              '@type': 'spdx:Checksum', 'algorithm': 'SHA-256',
+                              'checksumValue': hashlib.sha256(out[name].encode('utf-8')).hexdigest()}} if name in out else {})}
+                         for name, (media, spec) in DOWNLOADS.items()],
+        'subjectOf': {'@id': PAGES + 'fair-tox-ecosystem.jsonld', '@type': 'schema:Dataset',
+                      'additionalType': 'dcat:CatalogRecord', 'about': '', 'conformsTo': CDIF,
+                      'sdDatePublished': doc.get('dateModified', '')},
+    }
 
 
 def _script_json(value):
@@ -189,15 +283,16 @@ def build(doc, outdir, offline=False):
     links = [x for x in links if x['src'] in keep and x['dst'] in keep]
     declarations = [x for x in declarations if x['src'] in keep and x['dst'] in keep]
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')
-    terms = model.vocabulary(doc, PRIVATE + PRIVATE_VOCABULARIES)
+    terms = model.vocabulary(doc)
     jsonld = json.loads(terms.serialize(format='json-ld', context={p: str(ns) for p, ns in terms.namespaces()}))
     jsonld['@graph'].sort(key=lambda node: node['@id'])     # one order, so an unchanged build publishes nothing new
     page = page.replace('__SCHEMA__', _script_json(schema_org(doc)))
     page = page.replace('__DATA__', _script_json({'nodes': nodes, 'links': links, 'declarations': declarations,
                                                   'meta': page_meta(doc)}))
-    out = {'index.html': page, 'fair-tox-ecosystem.jsonld': model.dumps(doc), 'resources.csv': _csv(NODE_FIELDS, nodes),
+    out = {'index.html': page, 'resources.csv': _csv(NODE_FIELDS, nodes),
            'relations.csv': _csv(RELATION_FIELDS, model.relation_rows(doc)), 'terms.ttl': terms.serialize(format='turtle'),
            'terms.jsonld': model.dumps(jsonld), 'context.jsonld': model.dumps({'@context': model.CONTEXT})}
+    out['fair-tox-ecosystem.jsonld'] = model.dumps({**doc, **discovery(doc, out)})
     leaks = [name for name, text in out.items() if re.search('manuscript', text, re.I)]
     if leaks:   # a last guard: the public pages go live from CI
         raise ValueError(f'public build not written: {", ".join(leaks)} mention the manuscript')

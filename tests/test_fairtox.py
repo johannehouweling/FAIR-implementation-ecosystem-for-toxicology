@@ -24,21 +24,21 @@ def fixture():
         {'key': 'exo', 'name': 'Exposure Ontology', 'alternateName': ['ExO'], 'decision': 'include',
          'type': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration'],
-         'stakeholders': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
+         'creatorType': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
          'dateSource': 'https://doi.org/10.1021/es2033857', 'url': 'https://github.com/CTDbase/exposure-ontology',
          'manuscript': 'named', 'manuscriptEvidence': 'Data generation; L100', 'fairsharingRecord': 'FAIRsharing.6hna78',
          'fairsharingMatch': 'confirmed', 'maintained': 'active'},
         {'key': 'ctd', 'name': 'Comparative Toxicogenomics Database', 'alternateName': ['CTD'], 'decision': 'include',
          'type': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration', 'Regulatory assessment'],
-         'stakeholders': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
+         'creatorType': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
          'url': 'https://ctdbase.org', 'description': 'Curated chemical-gene-disease interactions.',
          'manuscript': 'absent', 'maintained': 'active',
          'qualifiedRelation': [{'relation': '#exo', 'hadRole': 'implements', 'evidence': 'FAIRsharing'}]},
         {'key': 'oecd_gd', 'name': 'OECD guidance on research data', 'decision': 'include', 'type': 'Policy: institution',
          'scope': 'Toxicology', 'phase': 'Regulatory assessment', 'span': ['Regulatory assessment'],
-         'stakeholders': ['Regulator'],
-         'datePublished': '2026', 'manuscript': 'cited',
+         'creatorType': ['Regulator'],
+         'date': '2026', 'manuscript': 'cited',
          'manuscriptEvidence': 'L190'},
         {'key': 'parc', 'name': 'PARC', 'decision': 'exclude', 'exclusionReason': 'E1', 'manuscript': 'named'},
         {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'type': 'Tool', 'scope': 'Generic'},
@@ -87,9 +87,9 @@ class ModelTest(TempDir):
             ('exo', 'datePublished', '2999', 'YYYY'),
             ('parc', 'exclusionReason', '', 'exclusion reason is required'),
             ('ctd', 'phase', '', 'phase is required'),
-            ('ctd', 'stakeholders', [], 'creator type is required'),
+            ('ctd', 'creatorType', [], 'creator type is required'),
             ('tool', 'phase', 'Data generation', 'phase is required'),
-            ('exo', 'stakeholders', ['Lab'], 'creator type'),
+            ('exo', 'creatorType', ['Lab'], 'creator type'),
             ('parc', 'exclusionReason', 'E6', 'E6 needs Covered by'),
             ('exo', 'subdomains', ['ecotox'], 'sub-domain'),
             ('exo', 'url', 'ctdbase.org', 'http(s) URL'),
@@ -120,8 +120,8 @@ class ModelTest(TempDir):
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
         for phase in model.PHASES:   # the toxicology lanes take the phase names
             self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': phase}), phase)
-        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator']}), 'Made by regulators')
-        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator', 'Wet-lab research']}),
+        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'creatorType': ['Regulator']}), 'Made by regulators')
+        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'creatorType': ['Regulator', 'Wet-lab research']}),
                          'Made jointly')
         self.assertEqual(model.creator_lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
 
@@ -161,6 +161,20 @@ class ModelTest(TempDir):
         self.assertTrue(any('FAIR Implementation Community' in e for e in model.check(doc)[0]))   # @id is #parc
         parc['@id'] = 'https://w3id.org/np/RAexample#PARC'
         self.assertEqual(model.check(doc)[0], [])
+
+    def test_a_date_is_stored_under_the_field_of_its_basis(self):
+        doc = fixture()
+        next(r for r in doc['hasPart'] if r['key'] == 'ctd')['dateBasis'] = 'release'
+        by = {r['key']: r for r in model.normalise(doc)['hasPart']}
+        self.assertEqual({k: {f: r[f] for f in model.DATE_FIELDS.values() if f in r} for k, r in by.items()}, {
+            'exo': {'datePublished': '2012-01'}, 'ctd': {'dateReleased': '2004'}, 'oecd_gd': {'date': '2026'},
+            'parc': {}, 'tool': {}})
+        self.assertFalse(any('dateBasis' in r for r in by.values()))
+        self.assertEqual([model.first_date(by[k]) for k in ('exo', 'ctd', 'oecd_gd', 'tool')],
+                         [('2012-01', 'publication'), ('2004', 'release'), ('2026', ''), ('', '')])
+        self.assertEqual(model._year(by['ctd']), 2004)
+        by['exo']['dateCreated'] = '2010'
+        self.assertTrue(any('one date' in e for e in model.check(doc)[0]))
 
     def test_save_is_atomic_validated_and_skips_timestamp_only_changes(self):
         p = self.path('d.jsonld')
@@ -213,6 +227,33 @@ class SheetTest(TempDir):
         self.assertEqual(problems, [])
         self.assertEqual(changes, [('ctd', 'datePublished', '2004', '2003'), ('ctd', 'reviewedBy', '', 'JH')])
         self.assertEqual(reviewers, {'ctd': 'JH'})
+
+    def test_date_basis_moves_the_date_to_its_field(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Date basis', 'ctd', 'release')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(problems, [])
+        self.assertEqual(changes, [('ctd', 'datePublished', '2004', ''), ('ctd', 'dateReleased', '', '2004')])
+
+    def test_identifier_column_and_terms_in_header_notes(self):
+        ws = load_workbook(self.build(model.normalise(fixture())))['Resources']
+        head = {c.value: c for c in ws[1]}
+        self.assertNotIn('Type', head)
+        row = next(c.row for c in ws['A'] if c.value == 'exo')
+        self.assertEqual(ws.cell(row=row, column=head['Identifier'].column).value,
+                         'https://doi.org/10.25504/FAIRsharing.6hna78')
+        for column, term in (('Homepage', 'schema:url'), ('FAIRsharing type', 'schema:additionalType'),
+                             (sheet.SPAN_HEAD['Data generation'], 'dcat:theme'), ('exposome', 'schema:about'),
+                             ('Date basis', 'dct:issued')):
+            self.assertIn(term, head[column].comment.text, column)
+
+    def test_columns_without_curator_information_are_folded(self):
+        ws = load_workbook(self.build(model.normalise(fixture())))['Resources']
+        for c in ws[1]:
+            dim = ws.column_dimensions[c.column_letter]
+            self.assertEqual((dim.outline_level, bool(dim.hidden)), (1, True) if c.value in sheet.FOLDED else (0, False),
+                             c.value)
 
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
@@ -349,10 +390,11 @@ class FairsharingTest(TempDir):
             'FAIRsharing association, not a relation here: newtox implements exo',
             'two-hop: newtox related_to FAIRsharing 7777 Other record'])
         new = next(r for r in doc['hasPart'] if r['key'] == 'newtox')
-        self.assertEqual((new['decision'], new['manuscript'], new['type'], new['datePublished'], new['dateBasis'],
+        self.assertEqual((new['decision'], new['manuscript'], new['type'], model.first_date(new),
                           new['fairsharingRecord'], new['fairsharingMatch']),
-                         ('undecided', 'absent', 'Database: repository', '2019', 'FAIRsharing year', 'FAIRsharing.zzz999',
-                          'confirmed'))
+                         ('undecided', 'absent', 'Database: repository', ('2019', 'FAIRsharing year'),
+                          'FAIRsharing.zzz999', 'confirmed'))
+        self.assertEqual(new['dateCreated'], '2019')
         self.assertEqual(model.check(doc)[0], [])
         self.assertEqual([r['key'] for r in doc['hasPart'] if 'fairsharing' in r], [])   # nothing read is stored
         once = model.dumps(doc)
@@ -468,7 +510,10 @@ class SiteTest(TempDir):
         dataset = json.loads(text['fair-tox-ecosystem.jsonld'])
         self.assertEqual(dataset['@context'], model.CONTEXT)
         self.assertEqual({r['key'] for r in dataset['hasPart']}, included)
-        self.assertEqual({r['key'] for r in csv.DictReader(io.StringIO(text['resources.csv']))}, included)
+        rows = {r['key']: r for r in csv.DictReader(io.StringIO(text['resources.csv']))}
+        self.assertEqual(set(rows), included)
+        self.assertEqual((rows['exo']['identifier'], rows['exo']['date'], rows['exo']['dateBasis']),
+                         ('https://doi.org/10.25504/FAIRsharing.6hna78', '2012-01', 'publication'))
         self.assertEqual([(r['subject'], r['hadRole'], r['target']) for r in csv.DictReader(io.StringIO(text['relations.csv']))],
                          [('ctd', 'implements', 'exo')])
 
@@ -486,14 +531,14 @@ class SiteTest(TempDir):
             'ctd': ('Data integration', 'Made jointly', False),
             'oecd_gd': ('Regulatory assessment', 'Made by regulators', True),
             'tool': ('Generic infrastructure', 'Generic infrastructure', False)})
-        self.assertEqual((nodes['ctd']['phase'], nodes['ctd']['stakeholders']),
+        self.assertEqual((nodes['ctd']['phase'], nodes['ctd']['creatorType']),
                          ('Data integration', ['Wet-lab research', 'In silico research']))
-        self.assertEqual((nodes['tool']['phase'], nodes['tool']['stakeholders']), ('', []))
+        self.assertEqual((nodes['tool']['phase'], nodes['tool']['creatorType']), ('', []))
         self.assertEqual(data['meta']['creatorLanes'], list(model.CREATOR_LANE_DEF))
         self.assertEqual(data['meta']['creatorLaneDef'], model.CREATOR_LANE_DEF)
-        self.assertLessEqual({'phase', 'stakeholders', 'creatorLane'}, set(data['meta']['vocab']))
+        self.assertLessEqual({'phase', 'creatorType', 'creatorLane'}, set(data['meta']['vocab']))
         rows = {r['key']: r for r in csv.DictReader(io.StringIO(text['resources.csv']))}
-        self.assertEqual((rows['ctd']['stakeholders'], rows['oecd_gd']['buildsOnFair'], rows['ctd']['buildsOnFair']),
+        self.assertEqual((rows['ctd']['creatorType'], rows['oecd_gd']['buildsOnFair'], rows['ctd']['buildsOnFair']),
                          ('Wet-lab research; In silico research', 'True', 'False'))
         # the two-option layout toggle, the creator lanes, and italics from buildsOnFair rather than the scope
         self.assertIn('<legend>Toxicology lanes</legend>', html)
@@ -534,30 +579,73 @@ class SiteTest(TempDir):
 
     def test_vocabulary_context_and_anchors_resolve_our_iris(self):
         import rdflib
-        from rdflib import OWL, RDF, SKOS
+        from rdflib import DCAT, DCTERMS, RDF, SKOS, Literal, URIRef
         self.enterContext(warnings.catch_warnings(action='ignore', category=DeprecationWarning))   # rdflib's own code
-        t = rdflib.Namespace(model.TERMS)
+        S, t, ds = model.SCHEMA, rdflib.Namespace(model.TERMS), rdflib.Namespace(model.BASE + '#')
         fields = {'@context': model.CONTEXT, **dict.fromkeys(model.CURATED + model.RELATION_ORDER, 'x')}
-        own = {p[len(model.TERMS):] for p in rdflib.Graph().parse(data=json.dumps(fields), format='json-ld')
-               .predicates() if p.startswith(model.TERMS)}         # the fields the context leaves to our terms
-        self.assertEqual(len(own), 14)
-        text, hidden = self.build()[1], {*site.PRIVATE, *site.PRIVATE_VOCABULARIES}   # without the curation terms
+        own = {p for p in rdflib.Graph().parse(data=json.dumps(fields), format='json-ld').predicates()
+               if p.startswith(model.TERMS)}
+        self.assertEqual(own, set())                           # every field is a schema.org, DCAT or FIP term, or none
+        doc = fixture()
+        by = {r['key']: r for r in doc['hasPart']}
+        by['ctd']['dateBasis'], by['oecd_gd']['maintained'] = 'release', 'unknown'
+        text = self.build(doc)[1]
         terms = rdflib.Graph().parse(data=text['terms.ttl'], format='turtle')
         self.assertEqual(set(terms), set(rdflib.Graph().parse(data=text['terms.jsonld'], format='json-ld')))
         self.assertEqual(json.loads(text['context.jsonld']), {'@context': model.CONTEXT})
+        self.assertEqual(set(terms.subjects(RDF.type, RDF.Property)), set())
         data = rdflib.Graph().parse(data=text['fair-tox-ecosystem.jsonld'], format='json-ld')
         used = {x for triple in data for x in triple if x.startswith(model.TERMS)}
-        self.assertLessEqual(used, set(terms.subjects()))      # every IRI of ours in the data is defined
-        props = {p[len(model.TERMS):] for p in terms.subjects(RDF.type, RDF.Property)}
-        self.assertEqual(props, own - hidden)
-        for name, values in model.VOCABULARIES.items():        # one concept per value, labelled with it
-            concepts = set(terms.subjects(SKOS.inScheme, t[name + '-values']))
-            labels = {str(terms.value(c, SKOS.prefLabel)) for c in concepts}
-            expected = (set(), 0) if name in hidden else (set(values), len(values))
-            self.assertEqual((labels, len(concepts)), expected, name)
-        html = text['index.html']                              # an anchor per term; a fragment opens its resource
-        for code in (*(f"['{name}', '" for name in props),
-                     """<dt id="${esc(f.split(',')[0])}">""", """<dt${v === 'hadRole' ? ` id="${esc(k)}"` : ''}>""",
+        self.assertLessEqual(used, set(terms.subjects(RDF.type, S.DefinedTerm)))   # every term of ours is defined
+        root, exo, ctd = URIRef(model.BASE), URIRef('https://doi.org/10.25504/FAIRsharing.6hna78'), ds.ctd
+        for triple in ((root, RDF.type, S.Dataset), (root, S.url, Literal(site.PAGES)),
+                       (exo, S.about, URIRef(model.NCIT_TOXICOLOGY)),        # FAIRsharing's subject
+                       (exo, S.about, URIRef('http://id.nlm.nih.gov/mesh/D000081413')),
+                       (ctd, DCAT.theme, t['phase-regulatory-assessment']),
+                       (ctd, model.SCHEMA.creator, URIRef('http://www.ebi.ac.uk/efo/EFO_0009742')),   # computational scientist
+                       (exo, S.creativeWorkStatus, t['maintained-active']),
+                       (exo, S.datePublished, Literal('2012-01')), (ctd, DCTERMS.issued, Literal('2004')),
+                       (ds.oecd_gd, DCTERMS.date, Literal('2026')),
+                       (exo, S.citation, URIRef('https://doi.org/10.1021/es2033857')),
+                       (exo, S.sameAs, URIRef('https://fairsharing.org/FAIRsharing.6hna78')),
+                       (exo, S.identifier, exo), (ctd, S.identifier, ctd), (exo, RDF.type, S.CreativeWork),
+                       (exo, S.url, Literal('https://github.com/CTDbase/exposure-ontology')),
+                       (exo, S.additionalType, Literal('Standard: terminology artefact'))):
+            self.assertIn(triple, data, triple)
+        self.assertIsNone(data.value(ds.oecd_gd, S.creativeWorkStatus))   # unknown: nothing is stated
+        for p in (S.about, DCAT.theme, S.creativeWorkStatus, DCAT.hadRole):   # controlled values are IRIs
+            self.assertTrue(all(isinstance(o, URIRef) for o in data.objects(None, p)), p)
+        record = data.value(root, S.subjectOf)                 # the catalog record of the CDIF Discovery profile
+        self.assertEqual(set(data.objects(record, DCTERMS.conformsTo)), set(map(URIRef, site.CDIF)))
+        self.assertEqual(data.value(record, S.about), root)
+        self.assertEqual(str(data.value(data.value(root, S.identifier), S.value)), model.BASE)
+        self.assertEqual(len(set(data.objects(root, S.distribution))), len(site.DOWNLOADS))
+        fields = set(data.objects(root, S.variableMeasured))          # each field with its term and description
+        self.assertTrue(fields and all(data.value(v, S.propertyID) and data.value(v, S.description) for v in fields))
+        sets = {name: t[name + '-values'] for name in model.TERM_SETS}
+        self.assertEqual(set(terms.subjects(RDF.type, S.DefinedTermSet)), set(sets.values()))
+        for name, s in sets.items():                           # a term of ours only where no outside concept exists
+            mine = set(terms.subjects(S.inDefinedTermSet, s))
+            self.assertEqual({str(terms.value(c, S.name)) for c in mine},
+                             set(model.VOCABULARIES[name]) - set(model.SAME.get(name, {})), name)
+            self.assertEqual(set(terms.objects(s, SKOS.hasTopConcept)), mine)   # the CDIF Concept Scheme profile
+            self.assertTrue(terms.value(s, SKOS.definition), name)
+            for c in mine:
+                self.assertEqual(set(terms.objects(c, RDF.type)), {S.DefinedTerm, SKOS.Concept})
+                self.assertTrue(terms.value(c, SKOS.definition), c)
+                self.assertIn((c, SKOS.inScheme, s), terms)
+        for triple in ((t['subdomains-regulatory-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
+                       (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements'))):
+            self.assertIn(triple, terms, triple)
+        html = text['index.html']                              # each field shows its term; a fragment opens its resource
+        meta = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))['meta']
+        self.assertEqual((meta['terms']['url'], meta['terms']['span'], meta['terms']['dateReleased']),
+                         ('schema:url', 'dcat:theme', 'dct:issued'))
+        anchors = {a for values in meta['termAnchors'].values() for a in values.values()}   # every term of ours
+        self.assertEqual(anchors, {str(c)[len(model.TERMS):] for c in terms.subjects(RDF.type, S.DefinedTerm)})
+        self.assertEqual((meta['termAnchors']['phase']['Data generation'], meta['termAnchors']['hadRole']['implements']),
+                         ('phase-data-generation', 'implements'))
+        for code in ("""<dt id="${esc(f.split(',')[0])}">""", """${(anchors[v] || {})[k] ? ` id="${esc(anchors[v][k])}"` : ''}""",
                      'if (Object.hasOwn(byKey, hash)) select(hash);'):
             self.assertIn(code, html, code)
 
@@ -682,6 +770,10 @@ class FipTest(TempDir):
         self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']], [by['exo']['@id']])
         self.assertNotIn('declared-by', by['oecd_gd'])
         self.assertEqual(by['exo']['declaredIn'], ['#oecd_gd'])
+        credit = model.load(self.path('site/fair-tox-ecosystem.jsonld'))['creditText']   # FAIRsharing, then the FIPs
+        self.assertTrue(credit.startswith(model.FAIRSHARING_CREDIT))
+        for iri in (np_iri('fipA'), np_iri('fipB')):
+            self.assertIn(iri, credit)
 
     def test_dashboard_shows_types_and_declarations_and_never_draws_communities(self):
         doc = self.curated()
@@ -758,12 +850,10 @@ class RepositoryTest(unittest.TestCase):
         self.assertNotIn('fairsharing', doc['sources'])                                  # building, never stored
         import rdflib
         g = rdflib.Graph().parse(data=json.dumps(doc), format='json-ld')
-        name = rdflib.URIRef('https://schema.org/name')
+        name = model.SCHEMA.name
         self.assertGreaterEqual(len(set(g.subjects(name, None))), len(doc['hasPart']))
-        own = {str(p)[len(model.TERMS):] for p in g.predicates() if str(p).startswith(model.TERMS)}
-        self.assertLessEqual(own, {'scope', 'phase', 'span', 'stakeholders', 'dateBasis', 'dateSource', 'decision',
-                                   'exclusionReason', 'coveredBy', 'manuscript', 'manuscriptEvidence',
-                                   'fairsharingRecord', 'fairsharingMatch', 'evidence'})   # all else is standard
+        own = {str(p) for p in g.predicates() if str(p).startswith(model.TERMS)}
+        self.assertEqual(own, set())                           # every field is a standard term, or out of the graph
 
 
 if __name__ == '__main__':
