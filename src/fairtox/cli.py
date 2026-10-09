@@ -67,8 +67,8 @@ def _report(lines, path, title):
 
 
 def cmd_sheet(a):
-    from fairtox import sheet
-    doc = _enriched(a)
+    from fairtox import fip, sheet
+    doc = fip.enrich(_enriched(a), fip.read(a.offline))
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     n, m = sheet.build(doc, a.out)
     print(f'{a.out}: {n} resources, {m} relations')
@@ -213,7 +213,8 @@ def main(argv=None):
     s.set_defaults(run=cmd_fairsharing)
     s = sub.add_parser('sheet', help='build the curation workbook')
     s.add_argument('out', help='path of the .xlsx to write')
-    s.add_argument('--offline', action='store_true', help='read FAIRsharing from the local cache in build/fairsharing')
+    s.add_argument('--offline', action='store_true', help='read FAIRsharing and the FIP declarations from the local '
+                                                          'caches in build/fairsharing and build/fip')
     s.set_defaults(run=cmd_sheet)
     s = sub.add_parser('ingest', help='read a curated workbook back into the dataset')
     s.add_argument('workbook')

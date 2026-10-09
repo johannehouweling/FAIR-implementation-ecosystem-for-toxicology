@@ -10,13 +10,27 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
-from fairtox import model
-from fairtox.site import CRITERIA
+from fairtox import fip, model, site
 
 SPARE = 50
 GREY = PatternFill('solid', fgColor='EDEDED')
 HEAD = PatternFill('solid', fgColor='D6DEE6')
 BOLD = Font(bold=True)
+FSR_LABEL = {**{k: v[0] for k, v in model.fsr_types().items()}, **site.CLASSES}   # IRI -> label, as on the dashboard
+FSR_IRI = {v: k for k, v in FSR_LABEL.items()}
+
+
+def _fsr_list():
+    """FSR type label -> its direct FSR subclass, category and IRI; grouped by direct FSR subclass, each group led by
+    the subclass itself, then Digital object."""
+    t = model.fsr_types()
+    group = lambda i: t[t[i][1]][0]
+    out = {t[i][0]: f'{group(i)}; {site.CLASSES[model.FER if t[i][2] else model.FSR]}; {i}'
+           for i in sorted(t, key=lambda i: (group(i).casefold(), i != t[i][1], t[i][0].casefold()))}
+    out[FSR_LABEL[model.DIGITAL_OBJECT]] = ('Not a FAIR Supporting Resource, such as a dataset or a model; '
+                                            + model.DIGITAL_OBJECT)
+    return out
+
 
 LISTS = {
     'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['type'],
@@ -24,11 +38,12 @@ LISTS = {
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
     'Relation': {k: v[2] for k, v in model.RELATIONS.items()}, 'Evidence': model.EVIDENCE,
     'Keep': {'keep': 'Keep this relation.', 'remove': 'Remove this relation.'},
-    'Mark': {'x': 'Applies.'},
+    'Mark': {'x': 'Applies.'}, 'FSR type': _fsr_list(), 'FIP relation': model.FIP_PROPERTIES,
 }
 CREATOR_HEAD = {s: f'Made by {s.lower()}' for s in model.STAKEHOLDER}
-# (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark,
-# and the grey kinds lane, fslink, static, version, which are computed and ignored on import.
+SPAN_HEAD = {p: f'Span: {p.lower()}' for p in model.PHASES}
+# (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark, creator,
+# span, and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
 RESOURCE_COLUMNS = [
     ('Key', 'key', 'key', 16, 'Stable identifier. Leave empty for a new row; a key is assigned on import.'),
     ('Name', 'name', 'text', 36, 'Full name of the resource.'),
@@ -39,14 +54,23 @@ RESOURCE_COLUMNS = [
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
     ('Type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
-    ('Scope', 'scope', 'list:Scope', 18, 'FAIR, Life Sciences or Toxicology.'),
+    ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, or Digital object for content such as a '
+     'dataset or a model. The Lists tab groups the types by direct FSR subclass.'),
+    ('Second FSR type', 'fsrType', 'list:FSR type', 20,
+     'Optional: a second type under the same direct FSR subclass as the first.'),
+    ('FAIR category', None, 'static', 16, 'Derived from FSR type.'),
+    ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
+    ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
+    ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
     ('Phase', 'phase', 'list:Phase', 26,
      'The phase it acts on; the earliest when several. Only for scope Toxicology; it sets the lane.'),
+    *[(SPAN_HEAD[p], p, 'span', 11, f'Mark x when a toxicology resource acts on {p.lower()}. The earliest phase '
+       'marked is the Phase.') for p in model.PHASES],
     ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
     ('Builds on FAIR', None, 'static', 10,
-     'Derived from the Relations tab: implements, extends, profiles or recommends a FAIR resource.'),
+     'Derived from the Relations tab: implements, extends, profiles or recommends a Generic resource.'),
     *[(s, s, 'mark', 11, f'Mark x when the resource belongs to {s}. Several sub-domains may apply.')
       for s in model.SUBDOMAINS],
     ('First published', 'datePublished', 'date', 14,
@@ -78,6 +102,8 @@ RELATION_COLUMNS = [
     ('Reads as', None, 'reads', 60, 'Computed.'),
     ('Evidence', 'evidence', 'list:Evidence', 13, 'Where the relation is stated.'),
     ('Source', 'source', 'text', 34, 'Line numbers, DOI or URL.'),
+    ('Question', 'question', 'static', 10, 'FIP rows: the FIP question the declaration answers.'),
+    ('Use', 'use', 'static', 12, 'FIP rows: current use, planned use, planned development or planned replacement.'),
     ('Keep', None, 'list:Keep', 9, 'Set to remove to drop the relation.'),
     ('Enterable in FAIRsharing', None, 'static', 14, 'Whether FAIRsharing allows this label between these types.'),
     ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the relation.'),
@@ -85,7 +111,8 @@ RELATION_COLUMNS = [
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
 INSTRUCTIONS = [
-    'Edit only the white columns. Grey columns are computed and ignored when the sheet is read back.',
+    'Edit only the white cells. Grey columns, and the grey rows on the Relations tab, are computed or read from '
+    'FAIRsharing and the FIPs when the sheet is made, and are ignored when it is read back.',
     'Never delete a row. To drop a resource, set Decision to exclude and choose an Exclusion reason.',
     'Add new resources at the bottom of the Resources tab and leave Key empty; a key is assigned on import.',
     'Mark each sub-domain that applies with x. A resource can belong to several.',
@@ -93,22 +120,32 @@ INSTRUCTIONS = [
     'Put the DOI or web page that shows the date in Date source.',
     'Phase is the phase a toxicology resource acts on and sets its lane: Data generation, Data integration or '
     'Regulatory assessment. When it acts on several, choose the earliest at which it must be applied. Choose by what '
-    'the resource is used for, not by who made it.',
+    'the resource is used for, not by who made it. Mark x under Span for every phase it acts on; the earliest one '
+    'marked is the Phase.',
+    'FSR type is the type of the resource in the FIP ontology; the Lists tab groups the types by direct FSR subclass. '
+    'When a toxicology FIP declares the resource, use the type its FIP description gives; otherwise choose by the role '
+    'that makes it FAIR-relevant here, and choose Digital object for content such as a dataset or a model. A Second '
+    'FSR type must be under the same direct FSR subclass. FAIR category, Principles and Declared in follow.',
+    'FAIR Implementation Community is only for a community identified by its FIC nanopublication; any other community '
+    'stays excluded as E1.',
     'Mark x in each "Made by" column that describes who created a toxicology resource; several may apply. '
     'The dashboard can also arrange the toxicology lanes by creator.',
-    'Builds on FAIR is derived: a toxicology resource that implements, extends, profiles or recommends a FAIR '
+    'Builds on FAIR is derived: a toxicology resource that implements, extends, profiles or recommends a Generic '
     'resource on the Relations tab.',
     'Relations read from left to right, for example "CTD implements ExO". Set Keep to remove to drop one; '
-    'add new ones at the bottom of the Relations tab.',
+    'add new ones at the bottom of the Relations tab. The grey rows are the declarations of the toxicology FIPs, read '
+    'from their nanopublications when the sheet is made; they are read-only.',
     'Put your initials in Reviewed by when you have checked a row.',
     'When you are done, tell Jente. The sheet is downloaded as .xlsx and read back with all checks; '
     'any problems come back as a list of cells.',
 ]
 CRITERIA_TEXT = [
-    'I1 It is a resource, not an organisation, project, community, event or publication.',
+    'I1 It is a resource, not an organisation, project, community, event or publication, except a FAIR Implementation '
+    'Community identified by its FIC nanopublication.',
     'I2 It is named and identifiable (homepage or DOI).',
     'I3 It is or was publicly available.',
-    'I4 Its use in toxicology is documented: in the manuscript or in the FAIRsharing Toxicology collection.',
+    'I4 Its use in toxicology is documented: in the manuscript, in the FAIRsharing Toxicology collection or in a '
+    'toxicology FIP.',
     'I5 It makes data or metadata findable, accessible, interoperable or reusable.',
 ]
 
@@ -117,20 +154,22 @@ def _lists_columns():
     return {name: get_column_letter(i + 1) for i, name in enumerate(LISTS)}
 
 
-def _validation(ws, kind, letter, first, last, keys_range):
+def _validation(ws, kind, letter, rows, keys_range):
     if kind.startswith('list:'):
         name = kind[5:]
         col = _lists_columns()[name]
         formula = f'=Lists!${col}$2:${col}${1 + len(LISTS[name])}'
     elif kind == 'keys':
         formula = keys_range
-    elif kind in ('mark', 'creator'):
+    elif kind in ('mark', 'creator', 'span'):
         formula = '"x"'
     else:
         return
     dv = DataValidation(type='list', formula1=formula, allow_blank=True, showErrorMessage=True, errorStyle='stop',
                         errorTitle='Not an allowed value', error='Choose a value from the list.')
-    dv.add(f'{letter}{first}:{letter}{last}')
+    for first, last in rows:
+        if first <= last:
+            dv.add(f'{letter}{first}:{letter}{last}')
     ws.add_data_validation(dv)
 
 
@@ -151,7 +190,8 @@ def _sort_key(r):
 
 
 def build(doc, path):
-    """Write the curation workbook for the dataset with FAIRsharing added (fairsharing.enrich)."""
+    """Write the curation workbook for the dataset with FAIRsharing and the FIP declarations added (fairsharing.enrich,
+    fip.enrich)."""
     doc = model.normalise(copy.deepcopy(doc))
     _, warnings = model.check(doc)
     warn = {}
@@ -160,6 +200,16 @@ def build(doc, path):
     rows = sorted(doc['hasPart'], key=_sort_key)
     rels = model.relation_rows(doc)
     by_key = {r['key']: r for r in doc['hasPart']}
+    key_of = {r['@id']: r['key'] for r in doc['hasPart']}
+    fips = sorted(({'subject': r['key'], 'hadRole': p, 'target': key_of.get(d[p], d[p]), 'evidence': 'FIP',
+                    'source': d['@id'], 'question': fip._q(d['question']),
+                    'use': p.removeprefix('declares-').removesuffix('-of').replace('-', ' ')}
+                   for r in doc['hasPart'] for d in r.get('fipDeclaration', [])
+                   for p in model.FIP_PROPERTIES.keys() & d.keys()),
+                  key=lambda x: (x['subject'], x['target'], x['question']))
+    declared = {}                                           # declared resource key -> FIP key -> questions
+    for x in fips:
+        declared.setdefault(x['target'], {}).setdefault(x['subject'], set()).add(x['question'])
     wb = Workbook()
     ins = wb.active
     ins.title = 'Instructions'
@@ -183,7 +233,7 @@ def build(doc, path):
                          ('Lanes', [f'{k}: {v}' for k, v in model.LANE_DEF.items()]),
                          ('Include a resource when all of these hold', CRITERIA_TEXT),
                          ('Exclusion reasons', [f'{k} {v}' for k, v in model.EXCLUSION.items()]),
-                         ('Full criteria', [CRITERIA])):
+                         ('Full criteria', [site.CRITERIA])):
         ins.cell(row=line, column=1, value=title).font = BOLD
         for text in items:
             ins.cell(row=line, column=2, value=text).alignment = Alignment(wrap_text=True)
@@ -241,6 +291,18 @@ def build(doc, path):
                 c.value = 'x' if field in r.get('subdomains', []) else None
             elif kind == 'creator':
                 c.value = 'x' if field in r.get('stakeholders', []) else None
+            elif kind == 'span':
+                c.value = 'x' if field in r.get('span', []) else None
+            elif field == 'fsrType':
+                types = [FSR_LABEL.get(t, t) for t in r.get('fsrType', [])] + [None, None]
+                c.value = types[head == 'Second FSR type']
+            elif head == 'FAIR category':
+                c.value = FSR_LABEL.get(r.get('fsrCategory'))
+            elif head == 'Principles':
+                c.value = ', '.join(r.get('principles', [])) or None
+            elif head == 'Declared in':
+                c.value = '; '.join(f'{site.label(by_key[k])} ({", ".join(sorted(q))})'
+                                    for k, q in declared.get(r['key'], {}).items()) or None
             elif head == 'Builds on FAIR':
                 c.value = 'yes' if r.get('buildsOnFair') else None
             elif kind == 'aliases':
@@ -258,18 +320,20 @@ def build(doc, path):
             elif field:
                 c.value = r.get(field) or None
     for i, (head, field, kind, *_) in enumerate(RESOURCE_COLUMNS, 1):
-        _validation(res, kind, get_column_letter(i), 2, last, keys_range)
+        _validation(res, kind, get_column_letter(i), [(2, last)], keys_range)
     res.freeze_panes = 'C2'
     res.auto_filter.ref = f'A1:{get_column_letter(len(RESOURCE_COLUMNS))}{last}'
 
-    # Relations
+    # Relations: the curated ones, the FIP declarations (grey, read-only), then empty rows for new ones
     _header(rel, RELATION_COLUMNS)
-    rlast = 1 + len(rels) + SPARE
+    lines = rels + fips
+    rlast = 1 + len(lines) + SPARE
     for n in range(2, rlast + 1):
-        x = rels[n - 2] if n - 2 < len(rels) else None
+        x = lines[n - 2] if n - 2 < len(lines) else None
+        fixed = x is not None and x['hadRole'] in model.FIP_PROPERTIES
         for i, (head, field, kind, *_) in enumerate(RELATION_COLUMNS, 1):
             c = rel.cell(row=n, column=i)
-            if kind in GREY_KINDS:
+            if kind in GREY_KINDS or fixed:
                 c.fill = GREY
             if kind == 'reads':
                 c.value = (f'=IF(OR(A{n}="",C{n}=""),"",IFERROR(VLOOKUP(A{n},Resources!$A:$B,2,FALSE),A{n})&" "&'
@@ -277,15 +341,15 @@ def build(doc, path):
                 continue
             if x is None:
                 continue
-            if head == 'Keep':
+            if head == 'Keep' and not fixed:
                 c.value = 'keep'
-            elif head == 'Enterable in FAIRsharing':
+            elif head == 'Enterable in FAIRsharing' and not fixed:
                 pair = (model.registry(by_key[x['subject']]), model.registry(by_key[x['target']]))
                 c.value = 'yes' if pair in model.ALLOWED.get(x['hadRole'], set()) else 'no'
             elif field:
                 c.value = x.get(field) or None
-    for i, (head, field, kind, *_) in enumerate(RELATION_COLUMNS, 1):
-        _validation(rel, kind, get_column_letter(i), 2, rlast, keys_range)
+    for i, (head, field, kind, *_) in enumerate(RELATION_COLUMNS, 1):   # not on the FIP rows
+        _validation(rel, kind, get_column_letter(i), [(2, 1 + len(rels)), (2 + len(lines), rlast)], keys_range)
     rel.freeze_panes = 'A2'
     rel.auto_filter.ref = f'A1:{get_column_letter(len(RELATION_COLUMNS))}{rlast}'
 
@@ -295,10 +359,13 @@ def build(doc, path):
         c.font = BOLD
     used = {'manuscript': 'Resources named in the manuscript, their manuscript status and line references.',
             'fairsharing': 'Members of the FAIRsharing Toxicology collection and FAIRsharing record data.',
-            'previous': 'Earlier evidence for dates, DOIs and FAIRsharing records, to be verified.'}
+            'previous': 'Earlier evidence for dates, DOIs and FAIRsharing records, to be verified.',
+            'fip': 'FIP declarations: the grey rows on the Relations tab, and Principles and Declared in.'}
     for name, s in doc.get('sources', {}).items():
-        details = '; '.join(f'{k}: {v}' for k, v in s.items()) if isinstance(s, dict) else str(s)
-        src.append([name, details, used.get(name, '')])
+        for title, v in ({f'{name} {k}': v for k, v in s.items()} if name == 'fip' else {name: s}).items():  # per FIP
+            details = '; '.join(f'{k}: {", ".join(x) if isinstance(x, list) else x}' for k, x in v.items()) \
+                if isinstance(v, dict) else str(v)
+            src.append([title, details, used.get(name, '')])
     src.column_dimensions['A'].width = 16
     src.column_dimensions['B'].width = 100
     src.column_dimensions['C'].width = 70
@@ -361,7 +428,7 @@ def ingest(doc, path, force=False):
         version = _text(val.get('Row version'))
         parsed, bad = {}, False
         for h, field, kind, *_ in RESOURCE_COLUMNS:
-            if not field or kind in ('key', 'mark', 'creator'):
+            if not field or kind in ('key', 'mark', 'creator', 'span'):
                 continue
             v = val.get(h)
             if kind == 'aliases':
@@ -377,14 +444,19 @@ def ingest(doc, path, force=False):
                 if t and t not in LISTS[kind[5:]]:
                     problem('Resources', where[h], h, v, f'{t!r} is not one of the allowed values')
                     bad = True
-                parsed[field] = t
+                if field == 'fsrType':                      # FSR type and Second FSR type, back to IRIs
+                    parsed.setdefault(field, []).extend([FSR_IRI[t]] if t in LISTS['FSR type'] else [])
+                else:
+                    parsed[field] = t
             elif field in ('url', 'dateSource'):
                 parsed[field] = _url(v)
             else:
                 parsed[field] = _text(v)
         parsed['subdomains'] = [s for s in model.SUBDOMAINS if _text(val.get(s)).lower() == 'x']
         parsed['stakeholders'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() == 'x']
-        for mark in list(model.SUBDOMAINS) + list(CREATOR_HEAD.values()):
+        parsed['span'] = [p for p in model.PHASES if _text(val.get(SPAN_HEAD[p])).lower() == 'x']
+        parsed['fsrType'] = list(dict.fromkeys(parsed['fsrType']))
+        for mark in list(model.SUBDOMAINS) + list(CREATOR_HEAD.values()) + list(SPAN_HEAD.values()):
             t = _text(val.get(mark)).lower()
             if t and t != 'x':
                 problem('Resources', where.get(mark, ''), mark, val.get(mark), 'mark with x or leave it empty')
@@ -439,7 +511,7 @@ def ingest(doc, path, force=False):
         n = cells[0].row
         val = {h: cells[i].value for h, i in head.items() if i < len(cells)}
         subject, label, target = (_text(val.get(h)) for h in ('Resource', 'Relation', 'Target'))
-        if not (subject or label or target):
+        if not (subject or label or target) or label in model.FIP_PROPERTIES:   # FIP rows are read-only
             continue
         bad = False
         for h, v, ok in (('Resource', subject, subject in by_key), ('Relation', label, label in model.RELATIONS),

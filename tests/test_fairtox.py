@@ -194,8 +194,9 @@ class SheetTest(TempDir):
         ws = wb[tab]
         head = {c.value: c.column for c in ws[1]}
         row = next(c.row for c in ws['A'] if c.value == key)
-        ws.cell(row=row, column=head[column], value=value)
+        cell = ws.cell(row=row, column=head[column], value=value).coordinate
         wb.save(p)
+        return cell
 
     def test_round_trip_without_edits_changes_nothing(self):
         doc = model.normalise(fixture())
@@ -215,13 +216,41 @@ class SheetTest(TempDir):
 
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
-        p = self.build(doc)
-        self.edit(p, 'Scope', 'ctd', 'Toxicologie')
-        new, _, problems, _, _ = sheet.ingest(doc, p)
-        self.assertIsNone(new)
-        self.assertEqual(problems[0]['sheet'], 'Resources')
-        self.assertRegex(problems[0]['cell'], r'^[A-Z]+\d+$')
-        self.assertIn('allowed values', problems[0]['problem'])
+        for column, value in (('Scope', 'Toxicologie'), ('Second FSR type', 'Databank')):
+            p = self.build(doc)
+            cell = self.edit(p, column, 'ctd', value)
+            new, _, problems, _, _ = sheet.ingest(doc, p)
+            self.assertIsNone(new)
+            self.assertEqual([(x['sheet'], x['cell'], x['column']) for x in problems], [('Resources', cell, column)])
+            self.assertIn('allowed values', problems[0]['problem'])
+
+    def test_fsr_types_span_and_read_only_fip_rows(self):
+        doc = model.normalise(fixture())
+        by = {r['key']: r for r in doc['hasPart']}
+        by['exo']['fsrType'] = [model.FIP + 'Structured-vocabulary', model.FIP + 'Crosswalk']
+        by['ctd']['fsrType'] = [model.DIGITAL_OBJECT]
+        p = self.build(fip.enrich(copy.deepcopy(doc), fip.read(offline=True)))   # tool and oecd_gd declare exo
+        wb = load_workbook(p)
+        tab = lambda name: [dict(zip([c.value for c in wb[name][1]], r))
+                            for r in wb[name].iter_rows(min_row=2, values_only=True) if r[0]]
+        exo = next(r for r in tab('Resources') if r['Key'] == 'exo')
+        self.assertEqual([exo[h] for h in ('FSR type', 'Second FSR type', 'FAIR category', 'Principles', 'Declared in',
+                                           *sheet.SPAN_HEAD.values())],
+                         ['Structured vocabulary', 'Crosswalk', 'FAIR-Enabling Resource', 'F1',
+                          'OECD guidance on research data (F1-D); A FAIR tool (F1-D)', None, 'x', None])
+        self.assertEqual([(x['Resource'], x['Relation'], x['Target'], x['Question'], x['Use'])
+                          for x in tab('Relations') if x['Evidence'] == 'FIP'],
+                         [('oecd_gd', 'declares-current-use-of', 'exo', 'F1-D', 'current use'),
+                          ('tool', 'declares-current-use-of', 'exo', 'F1-D', 'current use')])
+        self.assertEqual(sheet.ingest(doc, p)[1:3], ([], []))                  # no changes, no problems
+        self.edit(p, 'Target', 'tool', 'ctd', tab='Relations')                 # a FIP row: ignored
+        self.edit(p, 'FSR type', 'ctd', 'Registry')
+        self.edit(p, 'Span: regulatory assessment', 'exo', 'x')
+        self.assertEqual(sheet.ingest(doc, p)[1:3], ([
+            ('ctd', 'fsrType', model.DIGITAL_OBJECT, model.FIP + 'Registry'),
+            ('exo', 'span', 'Data integration', 'Data integration; Regulatory assessment')], []))
+        by['exo']['fsrType'] = [model.FIP + 'Structured-vocabulary']           # changed after the sheet was made
+        self.assertIn('changed in the dataset', sheet.ingest(doc, p)[2][0]['problem'])
 
     def test_stale_row_is_refused_unless_forced(self):
         doc = model.normalise(fixture())
