@@ -115,9 +115,8 @@ def nanopub(iri, offline=False):
 
 @functools.cache
 def ontology():
-    """FIP question -> FAIR principle (such as F1) in the pinned FIP ontology, and the ontology's version label."""
-    g = _graph(model.FIP_ONTOLOGY)
-    version = _clean(g.value(g.value(None, RDF.type, NPX.NanopubIndex), RDFS.label))
+    """FIP question -> FAIR principle (such as F1) in the FIP ontology, and the ontology's version label."""
+    g, version = model.fip_ontology(), model.fip_ontology_version()
     return {str(q): str(p).rsplit('/', 1)[-1] for q, p in g.subject_objects(F['refers-to-principle'])}, version
 
 

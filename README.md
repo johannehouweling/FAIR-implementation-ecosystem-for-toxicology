@@ -19,7 +19,6 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 - `data/fair-tox-ecosystem.jsonld`: the dataset (JSON-LD with schema.org, DCAT and the FIP ontology; FAIRsharing DOIs
   as identifiers).
 - `data/changes.csv`: every curated change, with date, curator and source.
-- `data/raw/fip/fip-ontology.trig`: the pinned FIP ontology.
 - `docs/inclusion-criteria.md`: how resources were selected and classified.
 - `docs/data-dictionary.md`: fields, controlled vocabularies and own terms.
 - `docs/fip-convergence.md`: the choices of the two FIPs per FIP question.
@@ -30,7 +29,7 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 The dataset stores only what is curated. FAIRsharing record data are read when the dashboard, the curation sheet or
 the FAIRsharing export is built, and the FIP declarations when the dashboard or the sheet is built; both are published
 with their retrieval date. FAIRsharing is read with the login in `.env` (see `.env.example`), the FIPs from their
-nanopublications. `--offline` reads the local caches in `build/fairsharing` and `build/fip`, left by an earlier run,
+nanopublications, and the FIP ontology from its IRI (`https://w3id.org/fair/fip/terms/`), once, into `build/fip`. `--offline` reads the local caches in `build/fairsharing` and `build/fip`, left by an earlier run,
 instead.
 
 ## Commands

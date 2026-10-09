@@ -12,7 +12,8 @@
   resource takes the earliest phase it acts on, and every phase it acts on is recorded as its span.
 - FAIR Implementation Communities are kept only when a FIC nanopublication identifies them, and are listed but not
   drawn.
-- FAIRsharing records are read when the dashboard and the sheet are built; the dataset stores only what is curated.
+- FAIRsharing records and the FIP ontology are read when the dashboard and the sheet are built; the dataset stores
+  only what is curated.
 - The JSON-LD uses schema.org, DCTERMS, DCAT, SKOS, PAV and the FIP ontology. The 14 own terms are published as
   `terms.ttl`, `terms.jsonld` and `context.jsonld`, for `https://w3id.org/fair-tox/`.
 - Dashboard: a Class filter, a FIP declarations switch and filter, toxicology lanes by phase or by creator, and links

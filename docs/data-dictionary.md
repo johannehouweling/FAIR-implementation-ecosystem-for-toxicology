@@ -38,7 +38,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `bu
 | `exclusionReason` | Exclusion reason | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by | Key of the row that covers this one (exclusion reason E6). |
 | `type` | Type | FAIRsharing registry and record type, or Tool (list below). |
-| `fsrType` | FSR type | FAIR Supporting Resource (FSR) type: one class of the pinned FIP ontology, from those the typing rule uses (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
+| `fsrType` | FSR type | FAIR Supporting Resource (FSR) type: one class of the FIP ontology, from those the typing rule uses (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
 | `scope` | Scope | What the resource was made for (list below). |
 | `phase` | Phase | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. |
 | `span` | one "Span" column per phase | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
@@ -131,7 +131,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 
 ### FSR type (`fsrType`)
 
-One type per resource, from the 27 classes the typing rule uses (inclusion criteria, section 6) among the 57 under `fip:FAIR-Supporting-Resource` in the pinned FIP ontology (`data/raw/fip/fip-ontology.trig`, version 20260227), stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`. `fsrCategory` is FAIR-Enabling Resource when the type is marked FER, else FAIR Supporting Resource. The curation sheet's Lists tab groups the types by direct FSR subclass, with each type's IRI.
+One type per resource, from the 27 classes the typing rule uses (inclusion criteria, section 6) among the 57 under `fip:FAIR-Supporting-Resource` in the FIP ontology (read from `https://w3id.org/fair/fip/terms/`, checked against version 20260227), stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`. `fsrCategory` is FAIR-Enabling Resource when the type is marked FER, else FAIR Supporting Resource. The curation sheet's Lists tab groups the types by direct FSR subclass, with each type's IRI.
 
 | Direct FSR subclass | Types offered |
 |---|---|

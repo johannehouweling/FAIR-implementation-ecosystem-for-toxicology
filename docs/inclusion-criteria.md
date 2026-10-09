@@ -6,8 +6,8 @@ row in the dataset: every screened candidate keeps its row, with its decision an
 ## 1. Terminology
 
 The terms follow the typology of FAIR Supporting Resources of Magagna et al. 2024 (*Ontological Analysis of FAIR
-Supporting Resources*, CEUR-WS Vol-3882) and the FIP ontology (`https://w3id.org/fair/fip/terms/`; the version used,
-20260227, is pinned in `data/raw/fip/fip-ontology.trig`).
+Supporting Resources*, CEUR-WS Vol-3882) and the FIP ontology (`https://w3id.org/fair/fip/terms/`, read from that address; the types were checked
+against version 20260227, and validation warns when the ontology moves on).
 
 - A **FAIR Supporting Resource (FSR)** is any resource that supports FAIR implementation.
 - A **FAIR-Enabling Resource (FER)** is an FSR that is essential to the operationalisation of the FAIR principles: a
@@ -174,7 +174,7 @@ Each excluded row carries exactly one code.
 | 8 Oct 2026 | The phases become Data generation, Data integration and Regulatory assessment, defined by the data life cycle. A toxicology resource takes the earliest phase it acts on, and every phase it acts on is recorded as its span; the lanes follow. This replaces the phase by main intended use. | Jente Houweling |
 | 8 Oct 2026 | FAIR Implementation Communities are recognised mechanically: a community is kept, typed FAIR Implementation Community, only when a valid FIC nanopublication identifies it, and is listed but not drawn. Curators check only that a nanopublication is the same community, never whether a community is a FIC; every other community stays E1. | Jente Houweling |
 | 8 Oct 2026 | The JSON-LD context maps the fields to schema.org, DCTERMS, DCAT, SKOS, PAV and the FIP ontology; only 14 core terms and the class Digital object are the dataset's own (`https://w3id.org/fair-tox/terms#`). | Jente Houweling |
-| 9 Oct 2026 | FAIRsharing record data and the FIP declarations are read when the dashboard and the curation sheet are built, and published with their retrieval date. The dataset stores only what is curated. | Jente Houweling |
+| 9 Oct 2026 | FAIRsharing record data, the FIP declarations and the FIP ontology are read when the dashboard and the curation sheet are built, and published with their retrieval date. The dataset stores only what is curated. | Jente Houweling |
 | 9 Oct 2026 | Typing is simplified: every resource is an FSR with one type from the FIP ontology, chosen by the kind of resource, the type a FIP gives coming first. A database that indexes and serves records under stable identifiers is a registry, as in FIPs; the own class Digital object and second types are dropped, and the curation sheet offers only the 27 types the rule uses. | Jente Houweling |
 
 ## 9. Limitations

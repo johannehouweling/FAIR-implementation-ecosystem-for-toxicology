@@ -138,8 +138,8 @@ class ModelTest(TempDir):
 
     def test_fsr_and_fip_fields_are_derived(self):
         types = model.fsr_types()
-        self.assertEqual((len(types), sum(t[2] for t in types.values())), (57, 20))   # FSR types, of which FER
         self.assertLessEqual(set(model.FSR_OFFERED), set(types))
+        self.assertEqual([types[model.FIP + t][2] for t in ('Registry', 'Metadata-schema', 'Editor')], [True, True, False])
         doc = fixture()
         by = {r['key']: r for r in doc['hasPart']}
         by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.FIP + 'Editor']

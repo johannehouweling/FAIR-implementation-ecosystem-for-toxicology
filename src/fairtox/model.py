@@ -13,7 +13,6 @@ import json
 import os
 import re
 import tempfile
-import warnings
 
 import rdflib
 from rdflib import DCTERMS, OWL, RDF, RDFS, SDO, SKOS, Literal, URIRef
@@ -25,8 +24,10 @@ CHANGES = 'data/changes.csv'
 BASE = 'https://w3id.org/fair-tox/dataset'
 TERMS = 'https://w3id.org/fair-tox/terms#'
 FIP = 'https://w3id.org/fair/fip/terms/'
-# The pinned FIP ontology https://w3id.org/fair/fip/terms/FIP-Ontology: its TriG download from Nanodash, 2026-10-08.
-FIP_ONTOLOGY = 'data/raw/fip/fip-ontology.trig'
+# The FIP ontology, read from its IRI as Turtle (served by Nanodash) and kept in the local cache. The types were
+# checked against FIP_ONTOLOGY_VERSION; check() warns when the ontology has moved on.
+FIP_ONTOLOGY = 'build/fip/fip-ontology.ttl'
+FIP_ONTOLOGY_VERSION = 'FIP Ontology version 20260227'
 NANOPUB_RE = re.compile(r'^https?://(w3id|purl)\.org/np/')
 COLLECTION_ID = 3496
 COLLECTION_DOI = 'https://doi.org/10.25504/FAIRsharing.f60a10'
@@ -189,7 +190,7 @@ EVIDENCE = {
     'curator': 'Added by a curator.',
     'FIP': 'Declared in a FAIR Implementation Profile.',
 }
-# FSR type (fsrType): one class under FAIR Supporting Resource in the pinned FIP ontology (see fsr_types), from those
+# FSR type (fsrType): one class under FAIR Supporting Resource in the FIP ontology (see fsr_types), from those
 # the typing rule uses (docs/inclusion-criteria.md, section 6).
 FSR, FER, FIC = FIP + 'FAIR-Supporting-Resource', FIP + 'FAIR-Enabling-Resource', FIP + 'FAIR-Implementation-Community'
 FSR_OFFERED = [FIP + t for t in (
@@ -350,18 +351,32 @@ def registry(r):
 
 
 @functools.cache
+def fip_ontology():
+    """The FIP ontology as a graph: from the local cache, read from its IRI first when the cache has none."""
+    if not os.path.exists(FIP_ONTOLOGY):
+        from . import fip                                   # its HTTP helper; fip imports this module
+        os.makedirs(os.path.dirname(FIP_ONTOLOGY), exist_ok=True)
+        with open(FIP_ONTOLOGY, 'w', encoding='utf-8') as f:
+            f.write(fip._get(FIP, 'text/turtle'))
+    return rdflib.Graph().parse(FIP_ONTOLOGY, format='turtle')
+
+
+def fip_ontology_version():
+    g = fip_ontology()
+    return str(g.value(g.value(None, DCTERMS.isVersionOf, URIRef(FIP + 'FIP-Ontology')), RDFS.label))
+
+
+@functools.cache
 def fsr_types():
-    """Every class under FAIR Supporting Resource in the pinned FIP ontology: IRI -> (label, direct FSR subclass, FER).
+    """Every class under FAIR Supporting Resource in the FIP ontology: IRI -> (label, direct FSR subclass, FER).
     FAIR-Enabling Resource does not count as a direct FSR subclass here: an FER type keeps its other one, such as
     FAIR specification."""
     sub, fsr, fer = rdflib.RDFS.subClassOf, rdflib.URIRef(FSR), rdflib.URIRef(FER)
-    out = {}
-    with warnings.catch_warnings(action='ignore', category=DeprecationWarning):   # rdflib 7 warns about its own code
-        g = rdflib.Dataset(default_union=True).parse(FIP_ONTOLOGY, format='trig')
-        direct = set(g.subjects(sub, fsr)) - {fer}
-        for c in set(g.transitive_subjects(sub, fsr)) - {fsr}:
-            up = set(g.transitive_objects(c, sub)) - {c}
-            out[str(c)] = (str(g.value(c, rdflib.RDFS.label)), str(next(iter(up & direct), c)), c == fer or fer in up)
+    g, out = fip_ontology(), {}
+    direct = set(g.subjects(sub, fsr)) - {fer}
+    for c in set(g.transitive_subjects(sub, fsr)) - {fsr}:
+        up = set(g.transitive_objects(c, sub)) - {c}
+        out[str(c)] = (str(g.value(c, rdflib.RDFS.label)), str(next(iter(up & direct), c)), c == fer or fer in up)
     return out
 
 
@@ -460,6 +475,9 @@ def _ordered(r):
 def check(doc):
     """Return (errors, warnings). Errors block a save; warnings fail only `fairtox validate --strict`."""
     errors, warnings = [], []
+    if fip_ontology_version() != FIP_ONTOLOGY_VERSION:
+        warnings.append(f'the FIP ontology is now {fip_ontology_version()!r}; the types were checked against '
+                        f'{FIP_ONTOLOGY_VERSION!r}')
     rs = doc.get('hasPart', [])
     keys = [r.get('key') for r in rs]
     by_key = {r.get('key'): r for r in rs}
