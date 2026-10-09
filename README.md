@@ -44,7 +44,6 @@ uv run fairtox fip                                             # FIP match repor
 uv run --env-file .env fairtox sheet build/curation.xlsx       # curation workbook, edited as a Google Sheet
 uv run fairtox ingest curated.xlsx                             # read the edited sheet back, checked and logged
 uv run --env-file .env fairtox site build/site                 # dashboard, published dataset, CSV files and vocabulary
-uv run --env-file .env fairtox site --internal build/internal  # curation view with every row; local only, never publish
 uv run --env-file .env fairtox export-fairsharing build/       # what could be added to FAIRsharing; nothing is posted
 uv run fairtox draft-check draft.txt                           # check manuscript line references against a later draft
 ```

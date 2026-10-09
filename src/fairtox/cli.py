@@ -98,8 +98,8 @@ def cmd_ingest(a):
 
 def cmd_site(a):
     from fairtox import site
-    n, m = site.build(_enriched(a), a.outdir, internal=a.internal, offline=a.offline)
-    print(f'{a.outdir}/index.html: {n} resources, {m} relations' + (' (internal curation view, never publish)' if a.internal else ''))
+    n, m = site.build(_enriched(a), a.outdir, offline=a.offline)
+    print(f'{a.outdir}/index.html: {n} resources, {m} relations')
     return 0
 
 
@@ -217,9 +217,8 @@ def main(argv=None):
     s.add_argument('--force', action='store_true', help='apply rows that changed in the dataset after the sheet was made')
     s.add_argument('--round', default='curation', help='name of the curation round for the change log')
     s.set_defaults(run=cmd_ingest)
-    s = sub.add_parser('site', help='build the static dashboard (the public page; --internal for the curation view)')
+    s = sub.add_parser('site', help='build the static dashboard')
     s.add_argument('outdir')
-    s.add_argument('--internal', action='store_true', help='every row with the curation view; local only, never publish')
     s.add_argument('--offline', action='store_true', help='read FAIRsharing and the FIP declarations from the local '
                                                           'caches in build/fairsharing and build/fip')
     s.set_defaults(run=cmd_site)

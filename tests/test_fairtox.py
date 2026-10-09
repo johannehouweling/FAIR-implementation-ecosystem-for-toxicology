@@ -414,15 +414,15 @@ class SiteTest(TempDir):
     FILES = ('index.html', 'fair-tox-ecosystem.jsonld', 'resources.csv', 'relations.csv', 'terms.ttl', 'terms.jsonld',
              'context.jsonld')
 
-    def build(self, internal=False, doc=None):
+    def build(self, doc=None):
         doc = doc or fixture()
         doc['sources'] = {'manuscript': {'name': 'ELIXIR Toxicology Community paper, draft (8)'},
                           'previous': {'name': 'inventory'}}
         p = self.path('d.jsonld')
         model.save(doc, p)
-        out = self.path('internal' if internal else 'site')
+        out = self.path('site')
         doc = fairsharing.enrich(model.load(p), fairsharing.read(None, None, offline=True))
-        counts = site.build(doc, out, internal=internal, offline=True)
+        counts = site.build(doc, out, offline=True)
         return counts, {f: pathlib.Path(out, f).read_text(encoding='utf-8') for f in self.FILES}
 
     def test_public_build_holds_included_resources_only(self):
@@ -496,29 +496,21 @@ class SiteTest(TempDir):
         self.assertIn('<input type="checkbox" id="t-coll" checked>', html)
         self.assertIn("(!n.fromCollection || $('t-coll').checked)", html)
 
-    def test_internal_build_keeps_every_row_and_the_curation_view(self):
-        counts, text = self.build(internal=True)
-        self.assertEqual(counts, (5, 1))
-        self.assertIn('FAIRsharing vs manuscript', text['index.html'])
-        self.assertIn('Internal curation view. Not for publication.', text['index.html'])
-        self.assertIn('"decision": "exclude"', text['fair-tox-ecosystem.jsonld'])
-
-    def test_both_builds_follow_the_journal_figure_rules(self):
+    def test_build_follows_the_journal_figure_rules(self):
         # Scientific Data: white only, one sans-serif face, sentence-case labels, the 183 mm export, a data dictionary
-        for internal in (False, True):
-            html = self.build(internal)[1]['index.html']
-            self.assertNotIn('prefers-color-scheme', html)
-            self.assertNotIn('data-theme', html)
-            self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
-            for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Data integration',
-                         'Regulatory assessment', 'Toxicology infrastructure', 'Year first published',
-                         'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
-                         'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
-                         'life-cycle phase they act on (the earliest, if several)', "row('Phase'", "row('Span'",
-                         "{t: 'Span'", "{t: 'FSR type'", 'FIP declarations', 'Declared in a toxicology FIP',
-                         'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
-                         *model.CREATOR_LANE_DEF):
-                self.assertIn(text, html, (internal, text))
+        html = self.build()[1]['index.html']
+        self.assertNotIn('prefers-color-scheme', html)
+        self.assertNotIn('data-theme', html)
+        self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
+        for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Data integration',
+                     'Regulatory assessment', 'Toxicology infrastructure', 'Year first published',
+                     'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
+                     'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
+                     'life-cycle phase they act on (the earliest, if several)', "row('Phase'", "row('Span'",
+                     "{t: 'Span'", "{t: 'FSR type'", 'FIP declarations', 'Declared in a toxicology FIP',
+                     'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
+                     *model.CREATOR_LANE_DEF):
+            self.assertIn(text, html, text)
 
     def test_vocabulary_context_and_anchors_resolve_our_iris(self):
         import rdflib
@@ -529,26 +521,25 @@ class SiteTest(TempDir):
         own = {p[len(model.TERMS):] for p in rdflib.Graph().parse(data=json.dumps(fields), format='json-ld')
                .predicates() if p.startswith(model.TERMS)}         # the fields the context leaves to our terms
         self.assertEqual(len(own), 14)
-        for internal in (False, True):                             # the public build leaves out the curation terms
-            text, hidden = self.build(internal)[1], set() if internal else {*site.PRIVATE, *site.PRIVATE_VOCABULARIES}
-            terms = rdflib.Graph().parse(data=text['terms.ttl'], format='turtle')
-            self.assertEqual(set(terms), set(rdflib.Graph().parse(data=text['terms.jsonld'], format='json-ld')))
-            self.assertEqual(json.loads(text['context.jsonld']), {'@context': model.CONTEXT})
-            data = rdflib.Graph().parse(data=text['fair-tox-ecosystem.jsonld'], format='json-ld')
-            used = {x for triple in data for x in triple if x.startswith(model.TERMS)}
-            self.assertLessEqual(used, set(terms.subjects()))      # every IRI of ours in the data is defined
-            props = {p[len(model.TERMS):] for p in terms.subjects(RDF.type, RDF.Property)}
-            self.assertEqual(props, own - hidden)
-            for name, values in model.VOCABULARIES.items():        # one concept per value, labelled with it
-                concepts = set(terms.subjects(SKOS.inScheme, t[name + '-values']))
-                labels = {str(terms.value(c, SKOS.prefLabel)) for c in concepts}
-                expected = (set(), 0) if name in hidden else (set(values), len(values))
-                self.assertEqual((labels, len(concepts)), expected, name)
-            html = text['index.html']                              # an anchor per term; a fragment opens its resource
-            for code in (*(f"['{name}', '" for name in props),
-                         """<dt id="${esc(f.split(',')[0])}">""", """<dt${v === 'hadRole' ? ` id="${esc(k)}"` : ''}>""",
-                         'if (Object.hasOwn(byKey, hash)) select(hash);'):
-                self.assertIn(code, html, (internal, code))
+        text, hidden = self.build()[1], {*site.PRIVATE, *site.PRIVATE_VOCABULARIES}   # without the curation terms
+        terms = rdflib.Graph().parse(data=text['terms.ttl'], format='turtle')
+        self.assertEqual(set(terms), set(rdflib.Graph().parse(data=text['terms.jsonld'], format='json-ld')))
+        self.assertEqual(json.loads(text['context.jsonld']), {'@context': model.CONTEXT})
+        data = rdflib.Graph().parse(data=text['fair-tox-ecosystem.jsonld'], format='json-ld')
+        used = {x for triple in data for x in triple if x.startswith(model.TERMS)}
+        self.assertLessEqual(used, set(terms.subjects()))      # every IRI of ours in the data is defined
+        props = {p[len(model.TERMS):] for p in terms.subjects(RDF.type, RDF.Property)}
+        self.assertEqual(props, own - hidden)
+        for name, values in model.VOCABULARIES.items():        # one concept per value, labelled with it
+            concepts = set(terms.subjects(SKOS.inScheme, t[name + '-values']))
+            labels = {str(terms.value(c, SKOS.prefLabel)) for c in concepts}
+            expected = (set(), 0) if name in hidden else (set(values), len(values))
+            self.assertEqual((labels, len(concepts)), expected, name)
+        html = text['index.html']                              # an anchor per term; a fragment opens its resource
+        for code in (*(f"['{name}', '" for name in props),
+                     """<dt id="${esc(f.split(',')[0])}">""", """<dt${v === 'hadRole' ? ` id="${esc(k)}"` : ''}>""",
+                     'if (Object.hasOwn(byKey, hash)) select(hash);'):
+            self.assertIn(code, html, code)
 
 
 class LabelTest(unittest.TestCase):
@@ -676,14 +667,11 @@ class FipTest(TempDir):
         doc = self.curated()
         by = {r['key']: r for r in doc['hasPart']}
         by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.FIP + 'Editor']
-        pages = []
-        for internal in (False, True):
-            built = fairsharing.enrich(copy.deepcopy(doc), fairsharing.read(None, None, offline=True))
-            site.build(built, self.path(str(internal)), internal=internal, offline=True)
-            html = pathlib.Path(self.path(str(internal)), 'index.html').read_text(encoding='utf-8')
-            data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
-            pages.append((html, data, {n['key']: n for n in data['nodes']}))
-        html, data, nodes = pages[0]
+        built = fairsharing.enrich(copy.deepcopy(doc), fairsharing.read(None, None, offline=True))
+        site.build(built, self.path('site'), offline=True)
+        html = pathlib.Path(self.path('site'), 'index.html').read_text(encoding='utf-8')
+        data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
+        nodes = {n['key']: n for n in data['nodes']}
         self.assertEqual([(nodes[k]['fsrType'], nodes[k]['fsrCategory']) for k in ('exo', 'ctd')],
                          [(['Structured vocabulary'], 'FAIR-Enabling Resource'), (['Editor'], 'FAIR Supporting Resource')])
         self.assertEqual((nodes['exo']['principles'], nodes['exo']['declaredIn'], nodes['oecd_gd']['declaredBy']),
@@ -699,10 +687,11 @@ class FipTest(TempDir):
                      'n.fsrType.some(t => META.communities.includes(t))',
                      "=> dated(n) && laneNames().includes(laneOf(n)) && !community(n);"):
             self.assertIn(code, html)
-        _, data, nodes = pages[1]
+        nodes, _, declarations = site.nodes_links(model.normalise(fip.enrich(built, fip.read(offline=True))))
+        nodes = {n['key']: n for n in nodes}   # every row, before the build leaves out what is not included
         self.assertEqual((nodes['oecd_gd']['declaredBy'], nodes['tox']['fsrType']),
                          ('tox', ['FAIR Implementation Community']))
-        self.assertEqual(len(data['declarations']), 3)   # tool and oecd_gd declare exo, oecd_gd declares wlic
+        self.assertEqual(len(declarations), 3)   # tool and oecd_gd declare exo, oecd_gd declares wlic
 
     def test_convergence_rows(self):
         fip.convergence(self.data)

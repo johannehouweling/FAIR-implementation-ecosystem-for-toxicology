@@ -155,9 +155,7 @@ Each excluded row carries exactly one code.
    verification, relation check, phase proposal, review, migration) and source.
 4. **Curation.** Co-authors review every row in the curation Sheet. Disagreements are discussed and settled by the
    corresponding authors; the outcome and the reviewer's initials are recorded in the row and in `data/changes.csv`.
-5. **Release.** A version is released when `fairtox validate --strict` passes. The curation view of the dashboard
-   (`fairtox site --internal`) shows the selection flow (candidates per source, excluded per reason, undecided,
-   included), computed from the dataset.
+5. **Release.** A version is released when `fairtox validate --strict` passes; CI runs it on every change.
 
 ## 8. Decision record
 

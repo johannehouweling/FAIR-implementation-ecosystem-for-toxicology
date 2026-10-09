@@ -55,8 +55,8 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `bu
 | `url` | Homepage | Main web address. |
 | `description` | Description | One to three sentences; needed to register the resource in FAIRsharing. |
 | `maintained` | Maintained | Maintenance status (list below). |
-| `manuscript` | In manuscript | Whether and how the manuscript names it (list below). Internal only. |
-| `manuscriptEvidence` | Manuscript evidence | Section and line numbers in the frozen manuscript draft. Internal only. |
+| `manuscript` | In manuscript | Whether and how the manuscript names it (list below). Not published. |
+| `manuscriptEvidence` | Manuscript evidence | Section and line numbers in the frozen manuscript draft. Not published. |
 | `fairsharingRecord` | FAIRsharing record | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI. |
 | `fairsharingMatch` | FAIRsharing match | Whether that record is this resource (list below). |
 | `reviewedBy` | Reviewed by | Initials of the curator who checked the row. |
