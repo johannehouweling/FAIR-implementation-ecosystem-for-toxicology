@@ -34,8 +34,7 @@ PRIVATE_VOCABULARIES = ('decision', 'exclusionReason', 'manuscript', 'fairsharin
 PUBLIC_FIELDS = [f for f in NODE_FIELDS if f not in PRIVATE and f != 'inCollection']
 INTERNAL = re.compile(r'(?:<!--|/\*)internal(?:-->|\*/).*?(?:<!--|/\*)/internal(?:-->|\*/)', re.S)
 # fsrCategory IRI -> label: one box each in the Class filter
-CLASSES = {model.FER: 'FAIR-Enabling Resource', model.FSR: 'FAIR Supporting Resource',
-           model.DIGITAL_OBJECT: 'Digital object'}
+CLASSES = {model.FER: 'FAIR-Enabling Resource', model.FSR: 'FAIR Supporting Resource'}
 
 
 NOT_A_NAME = re.compile(r'^[a-z]+\d+[a-z]?$|^Issue #|FAIRsharing\.')   # citation keys, issue numbers, record codes

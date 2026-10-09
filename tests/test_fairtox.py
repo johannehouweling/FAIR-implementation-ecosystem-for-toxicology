@@ -94,8 +94,8 @@ class ModelTest(TempDir):
             ('exo', 'url', 'ctdbase.org', 'http(s) URL'),
             ('exo', 'span', ['Data generation', 'Data integration'], 'earliest phase'),
             ('ctd', 'span', [], 'earliest phase'),
-            ('exo', 'fsrType', [model.FIP + 'Structured-vocabulary', model.FIP + 'Registry'], 'direct FSR subclass'),
-            ('exo', 'fsrType', [model.DIGITAL_OBJECT, model.FIP + 'Structured-vocabulary'], 'Digital object alone'),
+            ('exo', 'fsrType', [model.FIP + 'Structured-vocabulary', model.FIP + 'Registry'], 'one FSR type'),
+            ('exo', 'fsrType', [model.FIP + 'Crosswalk'], 'not an allowed value'),   # not one the typing rule uses
         ]
         for key, field, value, message in cases:
             doc = fixture()
@@ -139,18 +139,16 @@ class ModelTest(TempDir):
     def test_fsr_and_fip_fields_are_derived(self):
         types = model.fsr_types()
         self.assertEqual((len(types), sum(t[2] for t in types.values())), (57, 20))   # FSR types, of which FER
+        self.assertLessEqual(set(model.FSR_OFFERED), set(types))
         doc = fixture()
         by = {r['key']: r for r in doc['hasPart']}
-        by['exo']['fsrType'] = [model.FIP + 'Structured-vocabulary', model.FIP + 'Crosswalk']   # both specifications
-        by['ctd']['fsrType'] = [model.DIGITAL_OBJECT]
+        by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.FIP + 'Editor']
         by['tool']['declared-by'] = '#parc'
         by['tool']['fipDeclaration'] = [{'@id': 'https://w3id.org/np/RAx', '@type': 'fip:FIP-Declaration',
                                          'declares-current-use-of': 'https://doi.org/10.25504/FAIRsharing.6hna78',
                                          'question': model.FIP + 'FIP-Question-I2-D', 'principle': 'I2'}]
         by = {r['key']: r for r in model.normalise(doc)['hasPart']}
-        self.assertEqual((by['exo']['fsrCategory'], by['exo']['fsrParent']),
-                         (model.FER, model.FIP + 'FAIR-Specification'))
-        self.assertEqual((by['ctd']['fsrCategory'], 'fsrParent' in by['ctd']), (model.DIGITAL_OBJECT, False))
+        self.assertEqual((by['exo']['fsrCategory'], by['ctd']['fsrCategory']), (model.FER, model.FSR))
         self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), (['#tool'], ['I2']))
         self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
         self.assertEqual(model.check(doc)[0], [])
@@ -217,7 +215,7 @@ class SheetTest(TempDir):
 
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
-        for column, value in (('Scope', 'Toxicologie'), ('Second FSR type', 'Databank')):
+        for column, value in (('Scope', 'Toxicologie'), ('FSR type', 'Databank')):
             p = self.build(doc)
             cell = self.edit(p, column, 'ctd', value)
             new, _, problems, _, _ = sheet.ingest(doc, p)
@@ -228,16 +226,14 @@ class SheetTest(TempDir):
     def test_fsr_types_span_and_read_only_fip_rows(self):
         doc = model.normalise(fixture())
         by = {r['key']: r for r in doc['hasPart']}
-        by['exo']['fsrType'] = [model.FIP + 'Structured-vocabulary', model.FIP + 'Crosswalk']
-        by['ctd']['fsrType'] = [model.DIGITAL_OBJECT]
+        by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.FIP + 'Editor']
         p = self.build(fip.enrich(copy.deepcopy(doc), fip.read(offline=True)))   # tool and oecd_gd declare exo
         wb = load_workbook(p)
         tab = lambda name: [dict(zip([c.value for c in wb[name][1]], r))
                             for r in wb[name].iter_rows(min_row=2, values_only=True) if r[0]]
         exo = next(r for r in tab('Resources') if r['Key'] == 'exo')
-        self.assertEqual([exo[h] for h in ('FSR type', 'Second FSR type', 'FAIR category', 'Principles', 'Declared in',
-                                           *sheet.SPAN_HEAD.values())],
-                         ['Structured vocabulary', 'Crosswalk', 'FAIR-Enabling Resource', 'F1',
+        self.assertEqual([exo[h] for h in ('FSR type', 'Class', 'Principles', 'Declared in', *sheet.SPAN_HEAD.values())],
+                         ['Structured vocabulary', 'FAIR-Enabling Resource', 'F1',
                           'OECD guidance on research data (F1-D); A FAIR tool (F1-D)', None, 'x', None])
         self.assertEqual([(x['Resource'], x['Relation'], x['Target'], x['Question'], x['Use'])
                           for x in tab('Relations') if x['Evidence'] == 'FIP'],
@@ -248,9 +244,9 @@ class SheetTest(TempDir):
         self.edit(p, 'FSR type', 'ctd', 'Registry')
         self.edit(p, 'Span: regulatory assessment', 'exo', 'x')
         self.assertEqual(sheet.ingest(doc, p)[1:3], ([
-            ('ctd', 'fsrType', model.DIGITAL_OBJECT, model.FIP + 'Registry'),
+            ('ctd', 'fsrType', model.FIP + 'Editor', model.FIP + 'Registry'),
             ('exo', 'span', 'Data integration', 'Data integration; Regulatory assessment')], []))
-        by['exo']['fsrType'] = [model.FIP + 'Structured-vocabulary']           # changed after the sheet was made
+        by['exo']['fsrType'] = [model.FIP + 'Semantic-model']                  # changed after the sheet was made
         self.assertIn('changed in the dataset', sheet.ingest(doc, p)[2][0]['problem'])
 
     def test_stale_row_is_refused_unless_forced(self):
@@ -524,14 +520,13 @@ class SiteTest(TempDir):
             self.assertLessEqual(used, set(terms.subjects()))      # every IRI of ours in the data is defined
             props = {p[len(model.TERMS):] for p in terms.subjects(RDF.type, RDF.Property)}
             self.assertEqual(props, own - hidden)
-            self.assertIn((t.DigitalObject, RDF.type, OWL.Class), terms)
             for name, values in model.VOCABULARIES.items():        # one concept per value, labelled with it
                 concepts = set(terms.subjects(SKOS.inScheme, t[name + '-values']))
                 labels = {str(terms.value(c, SKOS.prefLabel)) for c in concepts}
                 expected = (set(), 0) if name in hidden else (set(values), len(values))
                 self.assertEqual((labels, len(concepts)), expected, name)
             html = text['index.html']                              # an anchor per term; a fragment opens its resource
-            for code in (*(f"['{name}', '" for name in props | {'DigitalObject'}),
+            for code in (*(f"['{name}', '" for name in props),
                          """<dt id="${esc(f.split(',')[0])}">""", """<dt${v === 'hadRole' ? ` id="${esc(k)}"` : ''}>""",
                          'if (Object.hasOwn(byKey, hash)) select(hash);'):
                 self.assertIn(code, html, (internal, code))
@@ -661,7 +656,7 @@ class FipTest(TempDir):
     def test_dashboard_shows_types_and_declarations_and_never_draws_communities(self):
         doc = self.curated()
         by = {r['key']: r for r in doc['hasPart']}
-        by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.DIGITAL_OBJECT]
+        by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.FIP + 'Editor']
         pages = []
         for internal in (False, True):
             built = fairsharing.enrich(copy.deepcopy(doc), fairsharing.read(None, None, offline=True))
@@ -671,13 +666,13 @@ class FipTest(TempDir):
             pages.append((html, data, {n['key']: n for n in data['nodes']}))
         html, data, nodes = pages[0]
         self.assertEqual([(nodes[k]['fsrType'], nodes[k]['fsrCategory']) for k in ('exo', 'ctd')],
-                         [(['Structured vocabulary'], 'FAIR-Enabling Resource'), (['Digital object'], 'Digital object')])
+                         [(['Structured vocabulary'], 'FAIR-Enabling Resource'), (['Editor'], 'FAIR Supporting Resource')])
         self.assertEqual((nodes['exo']['principles'], nodes['exo']['declaredIn'], nodes['oecd_gd']['declaredBy']),
                          (['F1'], ['oecd_gd'], ''))   # its community, tox, is not included
         self.assertEqual(data['declarations'], [{'src': 'oecd_gd', 'dst': 'exo',
                                                  'q': [['F1-D', np_iri('decD') + '/declaration']]}])
         self.assertEqual((data['meta']['classes'], data['meta']['communities']),
-                         (['FAIR-Enabling Resource', 'FAIR Supporting Resource', 'Digital object'],
+                         (['FAIR-Enabling Resource', 'FAIR Supporting Resource'],
                           ['Emerging community', 'FAIR Implementation Community', 'Mature community']))
         # the Class filter; the FIP switches, off on load, the lines never in the export; communities never drawn
         for code in ('(!n.fsrCategory || state.cls.has(n.fsrCategory))', '<input type="checkbox" id="t-fip">',

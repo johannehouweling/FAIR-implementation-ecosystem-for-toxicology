@@ -212,11 +212,11 @@ tr.out th, tr.out td { color: var(--ink-2); }
     <div class="cols">
     <div>
       <h3>What is listed</h3>
-      <p>Standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable, each typed as a FAIR-Enabling Resource, another FAIR Supporting Resource or a digital object. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the list but not in the figure.</p>
+      <p>Standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the list but not in the figure.</p>
       <h3>Where the resources come from</h3>
       <p>The <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and curation by the ELIXIR Toxicology Community. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata and the declarations of the toxicology FAIR Implementation Profiles (FIPs) are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
       <h3>FSR types and FIP declarations</h3>
-      <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource, other FAIR Supporting Resource, or digital object, which is not an FSR. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource list its declarations, with links to their nanopublications.</p>
+      <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource or other FAIR Supporting Resource, one type per resource. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource list its declarations, with links to their nanopublications.</p>
     </div>
     <div>
       <h3>Lanes</h3>
@@ -809,11 +809,10 @@ const FIELDS = [
   ['name', 'Full name.'],
   ['alternateName', 'Abbreviations and other names.'],
   ['type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not register.', 'type'],
-  ['fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, at most two under one parent class, or Digital ' +
-    'object for a resource that is not an FSR, such as a dataset or a model. IRIs in the JSON-LD, labels in resources.csv.'],
-  ['DigitalObject', 'The class of the FSR type Digital object: a resource that is not a FAIR Supporting Resource.'],
-  ['fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource, FAIR Supporting Resource (any other FSR) or ' +
-    'Digital object. The Class filter uses it; resources without a type always pass it.'],
+  ['fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, one per resource, by the typing rule of the ' +
+    'criteria. IRIs in the JSON-LD, labels in resources.csv.'],
+  ['fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource or FAIR Supporting Resource (any other FSR). The ' +
+    'Class filter uses it; resources without a type always pass it.'],
   ['principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty ' +
     'when no FIP declares it.'],
   ['scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'],

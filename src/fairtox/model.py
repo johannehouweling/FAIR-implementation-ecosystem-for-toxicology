@@ -188,10 +188,17 @@ EVIDENCE = {
     'curator': 'Added by a curator.',
     'FIP': 'Declared in a FAIR Implementation Profile.',
 }
-# FSR types (fsrType): every class under FAIR Supporting Resource in the pinned FIP ontology (see fsr_types), or our
-# own value Digital object for a resource that is not a FAIR Supporting Resource, such as a dataset or a model.
+# FSR type (fsrType): one class under FAIR Supporting Resource in the pinned FIP ontology (see fsr_types), from those
+# the typing rule uses (docs/inclusion-criteria.md, section 6).
 FSR, FER, FIC = FIP + 'FAIR-Supporting-Resource', FIP + 'FAIR-Enabling-Resource', FIP + 'FAIR-Implementation-Community'
-DIGITAL_OBJECT = TERMS + 'DigitalObject'
+FSR_OFFERED = [FIP + t for t in (
+    'Data-usage-license', 'FAIR-Practice', 'FAIR-Interpretation', 'FAIR-Implementation-Community',
+    'Authentication-and-authorization-service', 'Domain-Specific-Registry', 'Editor', 'FAIR-Analysis-Service',
+    'FAIR-Enrichment-Service', 'FAIR-Publishing-Service', 'FAIR-Supporting-Software', 'FAIR-Visualization-Service',
+    'Generalist-Registry', 'Identifier-service', 'Integration-Service', 'Registry', 'Validation-Service',
+    'Communication-protocol', 'FAIR-Assessment-Specification', 'FAIR-Implementation-Profile',
+    'Knowledge-representation-language', 'Metadata-schema', 'Provenance-model', 'Reference-FAIR-Implementation-Profile',
+    'Semantic-model', 'Structured-vocabulary', 'FAIR-Training-Material')]
 
 VOCABULARIES = {
     'decision': DECISION, 'exclusionReason': EXCLUSION, 'type': {k: v[3] for k, v in TYPES.items()},
@@ -226,10 +233,10 @@ CONTEXT = {
     'fsr': {'@id': 'skos:exactMatch', '@type': '@id', '@container': '@set'},
     # Kept in the file for people and the dashboard, but not part of the graph: derived fields, the sources and
     # vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
-    **dict.fromkeys(['buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn', 'principles', 'principle', 'sources',
-                     'vocabularies', 'fairsharing']),
+    **dict.fromkeys(['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'principle', 'sources', 'vocabularies',
+                     'fairsharing']),
 }
-# Our own terms, under TERMS: the fields the context leaves to @vocab, and the class DigitalObject (label, definition).
+# Our own terms, under TERMS: the fields the context leaves to @vocab (label, definition).
 OWN_TERMS = {
     'scope': ('scope', 'What the resource was made for: generic, life-science or toxicology infrastructure.'),
     'phase': ('phase', 'For a toxicology resource: the data life-cycle phase it acts on; when it acts on several, the '
@@ -247,25 +254,22 @@ OWN_TERMS = {
                                                 'DOI.'),
     'fairsharingMatch': ('FAIRsharing match', 'Whether that FAIRsharing record is this resource.'),
     'evidence': ('evidence', 'Where a relation is stated.'),
-    'DigitalObject': ('Digital object', 'A resource that is not a FAIR Supporting Resource, such as a dataset or a '
-                                        'model.'),
 }
 # Links of our terms to FIP, schema.org and DCTERMS terms, where one exists. A relation label (hadRole) names its
 # concept: terms#implements.
 TERM_LINKS = [
-    ('DigitalObject', OWL.disjointWith, URIRef(FSR)), ('DigitalObject', RDFS.subClassOf, SDO.CreativeWork),
     ('dateSource', RDFS.subPropertyOf, SDO.subjectOf), ('implements', SKOS.closeMatch, DCTERMS.conformsTo),
     ('profiles', SKOS.closeMatch, DCTERMS.conformsTo), ('extends', SKOS.closeMatch, SDO.isBasedOn),
     ('deprecates', SKOS.closeMatch, DCTERMS.replaces), ('related_to', SKOS.closeMatch, DCTERMS.relation),
 ]
-# Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn'
-# and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
+# Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'declaredIn' and
+# 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
            'phase', 'span', 'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
            'reviewedBy', 'note']
-FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn', 'principles', 'fsr',
+FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'fsr',
                                    'qualifiedRelation', 'declared-by', 'fipDeclaration', 'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
 LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders', 'fsrType', 'span'}
@@ -279,7 +283,7 @@ def new_document(resources=()):
         '@context': CONTEXT, '@id': '', '@type': 'schema:Dataset',
         'name': 'FAIR implementation ecosystem for toxicology',
         'description': 'Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling '
-                       'Resource, another FAIR Supporting Resource or a digital object, curated '
+                       'Resource or another FAIR Supporting Resource, curated '
                        'by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with '
                        'first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.',
         'version': __version__, 'dateModified': '', 'license': 'https://creativecommons.org/licenses/by-sa/4.0/',
@@ -302,7 +306,7 @@ def vocabulary(doc, hidden=()):
           (head, OWL.versionInfo, Literal(doc['version'])), (head, DCTERMS.license, URIRef(doc['license']))]
     for name, (label, definition) in OWN_TERMS.items():
         if name not in hidden:
-            g += [(t[name], RDF.type, OWL.Class if name == 'DigitalObject' else RDF.Property),
+            g += [(t[name], RDF.type, RDF.Property),
                   (t[name], RDFS.label, Literal(label)), (t[name], SKOS.definition, Literal(definition))]
     for name, values in doc['vocabularies'].items():
         scheme = t[name + '-values']
@@ -430,11 +434,7 @@ def normalise(doc):
         else:
             r.pop('buildsOnFair', None)
         types = [fsr_types()[t] for t in r.get('fsrType', []) if t in fsr_types()]
-        r['fsrParent'] = types[0][1] if types else ''
-        if types:                                           # an FER when either type is one
-            r['fsrCategory'] = FER if any(t[2] for t in types) else FSR
-        else:
-            r['fsrCategory'] = DIGITAL_OBJECT if r.get('fsrType') == [DIGITAL_OBJECT] else ''
+        r['fsrCategory'] = (FER if types[0][2] else FSR) if types else ''
         r['declaredIn'] = sorted({fip for fip, _ in declared.get(r['@id'], [])})
         r['principles'] = sorted({p for _, p in declared.get(r['@id'], []) if p})
     doc['hasPart'] = sorted((_ordered(r) for r in doc['hasPart']), key=lambda r: r['key'])
@@ -505,15 +505,12 @@ def check(doc):
         if (span or r.get('phase')) and next((p for p in PHASES if p in span), None) != r.get('phase'):
             e(f'{k}: the span must contain the phase as its earliest phase')
         types = r.get('fsrType') or []
-        parents = {fsr_types()[t][1] for t in types if t in fsr_types()}
         for t in types:
-            if t not in fsr_types() and t != DIGITAL_OBJECT:
+            if t not in FSR_OFFERED:
                 e(f'{k}: FSR type {t!r} is not an allowed value')
-        if len(types) > 2 or (DIGITAL_OBJECT in types and len(types) > 1):
-            e(f'{k}: at most two FSR types, or Digital object alone')
-        elif len(parents) > 1:
-            e(f'{k}: a second FSR type must share the direct FSR subclass of the first')
-        if FIC in parents and not NANOPUB_RE.match(r.get('@id') or ''):
+        if len(types) > 1:
+            e(f'{k}: one FSR type only')
+        if FIC in types and not NANOPUB_RE.match(r.get('@id') or ''):
             e(f'{k}: FAIR Implementation Community needs its FIC nanopublication as @id')
         for field in LIST_FIELDS:
             if not isinstance(r.get(field, []), list):

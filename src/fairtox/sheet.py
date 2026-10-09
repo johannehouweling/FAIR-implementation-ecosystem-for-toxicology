@@ -21,15 +21,12 @@ FSR_IRI = {v: k for k, v in FSR_LABEL.items()}
 
 
 def _fsr_list():
-    """FSR type label -> its direct FSR subclass, category and IRI; grouped by direct FSR subclass, each group led by
-    the subclass itself, then Digital object."""
+    """FSR type label -> its direct FSR subclass, category and IRI, for the types offered; grouped by direct FSR
+    subclass."""
     t = model.fsr_types()
     group = lambda i: t[t[i][1]][0]
-    out = {t[i][0]: f'{group(i)}; {site.CLASSES[model.FER if t[i][2] else model.FSR]}; {i}'
-           for i in sorted(t, key=lambda i: (group(i).casefold(), i != t[i][1], t[i][0].casefold()))}
-    out[FSR_LABEL[model.DIGITAL_OBJECT]] = ('Not a FAIR Supporting Resource, such as a dataset or a model; '
-                                            + model.DIGITAL_OBJECT)
-    return out
+    return {t[i][0]: f'{group(i)}; {site.CLASSES[model.FER if t[i][2] else model.FSR]}; {i}'
+            for i in sorted(model.FSR_OFFERED, key=lambda i: (group(i).casefold(), t[i][0].casefold()))}
 
 
 LISTS = {
@@ -54,11 +51,9 @@ RESOURCE_COLUMNS = [
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
     ('Type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
-    ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, or Digital object for content such as a '
-     'dataset or a model. The Lists tab groups the types by direct FSR subclass.'),
-    ('Second FSR type', 'fsrType', 'list:FSR type', 20,
-     'Optional: a second type under the same direct FSR subclass as the first.'),
-    ('FAIR category', None, 'static', 16, 'Derived from FSR type.'),
+    ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, by the typing rule on the Instructions tab. '
+     'The Lists tab groups the types by direct FSR subclass.'),
+    ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
     ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
     ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
@@ -122,10 +117,12 @@ INSTRUCTIONS = [
     'Regulatory assessment. When it acts on several, choose the earliest at which it must be applied. Choose by what '
     'the resource is used for, not by who made it. Mark x under Span for every phase it acts on; the earliest one '
     'marked is the Phase.',
-    'FSR type is the type of the resource in the FIP ontology; the Lists tab groups the types by direct FSR subclass. '
-    'When a toxicology FIP declares the resource, use the type its FIP description gives; otherwise choose by the role '
-    'that makes it FAIR-relevant here, and choose Digital object for content such as a dataset or a model. A Second '
-    'FSR type must be under the same direct FSR subclass. FAIR category, Principles and Declared in follow.',
+    'FSR type is the one type of the resource in the FIP ontology; the Lists tab groups the types by direct FSR '
+    'subclass. When a toxicology FIP declares the resource, use the type its FIP description gives. Otherwise a '
+    'database is a Domain-specific or Generalist registry; an identifier scheme an Identifier service; a terminology or '
+    'ontology a Structured vocabulary or Semantic model; a reporting guideline, model or format a Metadata schema or '
+    'Knowledge representation language; a licence a Data usage license; guidance a FAIR practice; a tool its service '
+    'type; training FAIR training material. Class, Principles and Declared in follow.',
     'FAIR Implementation Community is only for a community identified by its FIC nanopublication; any other community '
     'stays excluded as E1.',
     'Mark x in each "Made by" column that describes who created a toxicology resource; several may apply. '
@@ -294,9 +291,8 @@ def build(doc, path):
             elif kind == 'span':
                 c.value = 'x' if field in r.get('span', []) else None
             elif field == 'fsrType':
-                types = [FSR_LABEL.get(t, t) for t in r.get('fsrType', [])] + [None, None]
-                c.value = types[head == 'Second FSR type']
-            elif head == 'FAIR category':
+                c.value = next((FSR_LABEL.get(t, t) for t in r.get('fsrType', [])), None)
+            elif head == 'Class':
                 c.value = FSR_LABEL.get(r.get('fsrCategory'))
             elif head == 'Principles':
                 c.value = ', '.join(r.get('principles', [])) or None
@@ -444,8 +440,8 @@ def ingest(doc, path, force=False):
                 if t and t not in LISTS[kind[5:]]:
                     problem('Resources', where[h], h, v, f'{t!r} is not one of the allowed values')
                     bad = True
-                if field == 'fsrType':                      # FSR type and Second FSR type, back to IRIs
-                    parsed.setdefault(field, []).extend([FSR_IRI[t]] if t in LISTS['FSR type'] else [])
+                if field == 'fsrType':                      # FSR type, back to its IRI
+                    parsed[field] = [FSR_IRI[t]] if t in LISTS['FSR type'] else []
                 else:
                     parsed[field] = t
             elif field in ('url', 'dateSource'):
