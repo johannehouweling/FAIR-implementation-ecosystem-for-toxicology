@@ -4,7 +4,6 @@ import collections
 import csv
 import json
 import os
-import re
 import sys
 
 from fairtox import __version__, model, web
@@ -140,59 +139,6 @@ def cmd_fip(a):
     return 0
 
 
-def lines_of(evidence):
-    """Line numbers in a manuscript evidence text such as 'AOP section; L117, L126-129, [ag] L391'."""
-    out = set()
-    for a, b in re.findall(r'L(\d+)(?:\s*[-–]\s*L?(\d+))?', evidence or ''):
-        out.update(range(int(a), int(b or a) + 1))
-    return out
-
-
-def names_of(r):
-    """A resource's name and aliases, plus the parts of 'Long name (ABBR)'."""
-    out = set()
-    for n in [r['name']] + r.get('alternateName', []):
-        out.add(n)
-        m = re.match(r'^(.*?)\s*\(([^)]+)\)\s*$', n)
-        if m:
-            out.update({m.group(1).strip(), m.group(2).strip()})
-    return {n for n in out if len(n) >= 2}
-
-
-def mentions(text, names):
-    """Line numbers (1-based) where any of the names occurs as a word; short names are matched case-sensitively."""
-    hits = set()
-    for name in names:
-        flags = 0 if len(name) <= 5 else re.IGNORECASE
-        pattern = re.compile(r'(?<![\w-])' + re.escape(name) + r'(?![\w-])', flags)
-        hits.update(i for i, line in enumerate(text, 1) if pattern.search(line))
-    return hits
-
-
-def cmd_draft_check(a):
-    with open(a.draft, encoding='utf-8') as f:
-        text = f.read().splitlines()
-    lines_wrong, described, newly_named = [], [], []
-    for r in _load()['hasPart']:
-        found = mentions(text, names_of(r))
-        cited = lines_of(r.get('manuscriptEvidence'))
-        if r.get('manuscript', 'absent') != 'absent':
-            if not found:
-                described.append(r['key'])
-            elif not cited or cited - found:
-                lines_wrong.append(f"{r['key']}: cited at {sorted(cited)}, name found at {sorted(found)[:10]}")
-        elif found and r.get('decision') != 'exclude':
-            newly_named.append(f"{r['key']}: marked absent, but named at lines {sorted(found)[:10]}")
-    for title, items in (('Check the line numbers (the name occurs, but not at every cited line)', lines_wrong),
-                         ('Marked absent but named in this draft', newly_named)):
-        print(f'{title}: {len(items)}')
-        for item in items:
-            print('  ' + item)
-    print(f'Described rather than named, so not checked by name: {len(described)}')
-    print('  ' + ', '.join(described))
-    return 0
-
-
 def main(argv=None):
     p = argparse.ArgumentParser(prog='fairtox', description=__doc__)
     p.add_argument('--version', action='version', version=__version__)
@@ -233,9 +179,6 @@ def main(argv=None):
     s.add_argument('--apply', action='store_true', help='store links to the declared resources and undecided rows for '
                                                         'new ones and their communities (after reviewing the report)')
     s.set_defaults(run=cmd_fip)
-    s = sub.add_parser('draft-check', help='check manuscript line references against a draft export (read-only)')
-    s.add_argument('draft')
-    s.set_defaults(run=cmd_draft_check)
     a = p.parse_args(argv)
     try:
         sys.exit(a.run(a))

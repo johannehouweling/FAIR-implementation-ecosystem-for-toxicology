@@ -21,7 +21,6 @@ import rdflib
 from rdflib import DCTERMS, OWL, RDF, RDFS, SKOS, URIRef
 
 from fairtox import fairsharing, model, web
-from fairtox.cli import names_of
 
 FIPS = {'parcfip': 'https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E',
         'fairaop': 'https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc'}
@@ -65,6 +64,17 @@ def _clean(text):
 def _q(question):
     """Short name of a FIP question: F1-D, or S-F1-Persistency-Policy for a supporting question."""
     return question.rsplit('/', 1)[-1].replace('FIP-', '').replace('Question-', '')
+
+
+def names_of(r):
+    """A resource's name and aliases, plus the parts of 'Long name (ABBR)'."""
+    out = set()
+    for n in [r['name']] + r.get('alternateName', []):
+        out.add(n)
+        m = re.match(r'^(.*?)\s*\(([^)]+)\)\s*$', n)
+        if m:
+            out.update({m.group(1).strip(), m.group(2).strip()})
+    return {n for n in out if len(n) >= 2}
 
 
 def _named(labels, fallback):

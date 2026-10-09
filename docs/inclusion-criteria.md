@@ -177,8 +177,7 @@ Each excluded row carries exactly one code.
 
 ## 9. Limitations
 
-- The manuscript is a draft; line references refer to the frozen version, and later drafts may name other resources
-  (`fairtox draft-check` reports the differences).
+- The manuscript is a draft; line references refer to the frozen version, and later drafts may name other resources.
 - The FAIRsharing collection is curated by its maintainers and changes over time; the retrieval date is published
   with the dashboard and the dataset.
 - First-publication dates depend on what is documented; some can only be bounded.

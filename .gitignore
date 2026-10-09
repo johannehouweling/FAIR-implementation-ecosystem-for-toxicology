@@ -8,3 +8,6 @@ __pycache__/
 # generated: site, curation workbooks, exports, reports
 build/
 *.xlsx
+
+# local tools that are not part of the published package
+local/

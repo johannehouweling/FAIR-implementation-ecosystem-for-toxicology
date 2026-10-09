@@ -45,7 +45,6 @@ uv run --env-file .env fairtox sheet build/curation.xlsx       # curation workbo
 uv run fairtox ingest curated.xlsx                             # read the edited sheet back, checked and logged
 uv run --env-file .env fairtox site build/site                 # dashboard, published dataset, CSV files and vocabulary
 uv run --env-file .env fairtox export-fairsharing build/       # what could be added to FAIRsharing; nothing is posted
-uv run fairtox draft-check draft.txt                           # check manuscript line references against a later draft
 ```
 
 `fairsharing`, `fip`, `sheet`, `site` and `export-fairsharing` take `--offline`; `fip --report` writes
