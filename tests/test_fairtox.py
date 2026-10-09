@@ -235,10 +235,11 @@ class SheetTest(TempDir):
         self.assertEqual([exo[h] for h in ('FSR type', 'Class', 'Principles', 'Declared in', *sheet.SPAN_HEAD.values())],
                          ['Structured vocabulary', 'FAIR-Enabling Resource', 'F1',
                           'OECD guidance on research data (F1-D); A FAIR tool (F1-D)', None, 'x', None])
-        self.assertEqual([(x['Resource'], x['Relation'], x['Target'], x['Question'], x['Use'])
+        self.assertEqual([(x['Resource'], x['Relation'], x['Target'], x['Vocabulary'], x['Question'], x['Use'])
                           for x in tab('Relations') if x['Evidence'] == 'FIP'],
-                         [('oecd_gd', 'declares-current-use-of', 'exo', 'F1-D', 'current use'),
-                          ('tool', 'declares-current-use-of', 'exo', 'F1-D', 'current use')])
+                         [('oecd_gd', 'declares-current-use-of', 'exo', 'FIP ontology', 'F1-D', 'current use'),
+                          ('tool', 'declares-current-use-of', 'exo', 'FIP ontology', 'F1-D', 'current use')])
+        self.assertEqual({x['Vocabulary'] for x in tab('Relations') if x['Evidence'] != 'FIP'}, {'FAIRsharing'})
         self.assertEqual(sheet.ingest(doc, p)[1:3], ([], []))                  # no changes, no problems
         self.edit(p, 'Target', 'tool', 'ctd', tab='Relations')                 # a FIP row: ignored
         self.edit(p, 'FSR type', 'ctd', 'Registry')

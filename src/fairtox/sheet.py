@@ -92,8 +92,11 @@ RESOURCE_COLUMNS = [
 ]
 RELATION_COLUMNS = [
     ('Resource', 'subject', 'keys', 16, 'Key of the resource that builds on or relates to the target.'),
-    ('Relation', 'hadRole', 'list:Relation', 14, 'FAIRsharing relation label. Read: Resource relation Target.'),
+    ('Relation', 'hadRole', 'list:Relation', 14, 'FAIRsharing relation label; on a grey row, a FIP ontology property. '
+     'Read: Resource relation Target.'),
     ('Target', 'target', 'keys', 16, 'Key of the earlier or related resource.'),
+    ('Vocabulary', None, 'static', 12, 'Where the label comes from: FAIRsharing for a curated relation, the FIP '
+     'ontology for a FIP declaration.'),
     ('Reads as', None, 'reads', 60, 'Computed.'),
     ('Evidence', 'evidence', 'list:Evidence', 13, 'Where the relation is stated.'),
     ('Source', 'source', 'text', 34, 'Line numbers, DOI or URL.'),
@@ -131,7 +134,7 @@ INSTRUCTIONS = [
     'resource on the Relations tab.',
     'Relations read from left to right, for example "CTD implements ExO". Set Keep to remove to drop one; '
     'add new ones at the bottom of the Relations tab. The grey rows are the declarations of the toxicology FIPs, read '
-    'from their nanopublications when the sheet is made; they are read-only.',
+    'from their nanopublications when the sheet is made; they are read-only. Vocabulary says which is which.',
     'Put your initials in Reviewed by when you have checked a row.',
     'When you are done, tell Jente. The sheet is downloaded as .xlsx and read back with all checks; '
     'any problems come back as a list of cells.',
@@ -342,6 +345,8 @@ def build(doc, path):
             elif head == 'Enterable in FAIRsharing' and not fixed:
                 pair = (model.registry(by_key[x['subject']]), model.registry(by_key[x['target']]))
                 c.value = 'yes' if pair in model.ALLOWED.get(x['hadRole'], set()) else 'no'
+            elif head == 'Vocabulary':
+                c.value = 'FIP ontology' if fixed else 'FAIRsharing'
             elif field:
                 c.value = x.get(field) or None
     for i, (head, field, kind, *_) in enumerate(RELATION_COLUMNS, 1):   # not on the FIP rows
