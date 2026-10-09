@@ -1,0 +1,52 @@
+{
+ "retrieved": "2026-10-09",
+ "members": [
+  512,
+  9999
+ ],
+ "records": [
+  {
+   "id": 512,
+   "doi": "10.25504/FAIRsharing.6hna78",
+   "name": "Exposure Ontology",
+   "abbreviation": "ExO",
+   "registry": "Standard",
+   "recordType": "terminology_artefact",
+   "status": "ready",
+   "yearCreation": 2015,
+   "homepage": "https://github.com/CTDbase/exposure-ontology",
+   "description": null,
+   "subjects": [],
+   "domains": [],
+   "associations": []
+  },
+  {
+   "id": 9999,
+   "doi": "10.25504/FAIRsharing.zzz999",
+   "name": "New Tox Database",
+   "abbreviation": "NewTox",
+   "registry": "Database",
+   "recordType": "repository",
+   "status": "ready",
+   "yearCreation": 2019,
+   "homepage": "https://newtox.example.org",
+   "description": "Example.",
+   "subjects": [],
+   "domains": [],
+   "associations": [
+    {
+     "other": 512,
+     "otherName": "Exposure Ontology",
+     "label": "accepts",
+     "outgoing": true
+    },
+    {
+     "other": 7777,
+     "otherName": "Other record",
+     "label": "related_to",
+     "outgoing": true
+    }
+   ]
+  }
+ ]
+}

@@ -13,22 +13,18 @@ wheels = [
 
 [[package]]
 name = "fairtox"
-version = "0.1.0"
+version = "0.2.0"
 source = { editable = "." }
 dependencies = [
     { name = "openpyxl" },
-]
-
-[package.dev-dependencies]
-dev = [
     { name = "rdflib" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "openpyxl", specifier = ">=3.1,<4" }]
-
-[package.metadata.requires-dev]
-dev = [{ name = "rdflib", specifier = ">=7,<8" }]
+requires-dist = [
+    { name = "openpyxl", specifier = ">=3.1,<4" },
+    { name = "rdflib", specifier = ">=7,<8" },
+]
 
 [[package]]
 name = "openpyxl"

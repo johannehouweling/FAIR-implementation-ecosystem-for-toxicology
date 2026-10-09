@@ -1,26 +1,23 @@
 [project]
 name = "fairtox"
-version = "0.1.0"
-description = "FAIR implementation ecosystem for toxicology: a curated dataset of FAIR-enabling resources, its curation round trip and dashboard"
+version = "0.2.0"
+description = "FAIR implementation ecosystem for toxicology: a curated dataset of standards, databases, policies and tools, its curation round trip and dashboard"
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE", "LICENSE-DATA"]
 authors = [
     { name = "Jente Houweling", email = "jente.houweling@rivm.nl" }
 ]
-keywords = ["FAIR", "toxicology", "FAIRsharing", "FAIR-enabling resources", "research data management"]
+keywords = ["FAIR", "toxicology", "FAIRsharing", "FAIR supporting resources", "research data management"]
 requires-python = ">=3.12"
-dependencies = ["openpyxl>=3.1,<4"]
+dependencies = ["openpyxl>=3.1,<4", "rdflib>=7,<8"]
 
 [project.urls]
 Repository = "https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology"
-Dashboard = "https://johannehouweling.github.io/FAIR-implementation-ecosystem-for-toxicology/"
+Dashboard = "https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/"
 
 [project.scripts]
 fairtox = "fairtox.cli:main"
-
-[dependency-groups]
-dev = ["rdflib>=7,<8"]
 
 [build-system]
 requires = ["uv_build>=0.10.4,<0.11.0"]

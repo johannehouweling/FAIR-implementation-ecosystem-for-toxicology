@@ -7,18 +7,28 @@ where the commands are run.
 import copy
 import csv
 import datetime as dt
+import functools
 import hashlib
 import json
 import os
 import re
 import tempfile
 
-from fairtox import __version__
+import rdflib
+from rdflib import DCTERMS, OWL, RDF, RDFS, SDO, SKOS, Literal, URIRef
+
+from fairtox import __version__, web
 
 DATASET = 'data/fair-tox-ecosystem.jsonld'
 CHANGES = 'data/changes.csv'
 BASE = 'https://w3id.org/fair-tox/dataset'
 TERMS = 'https://w3id.org/fair-tox/terms#'
+FIP = 'https://w3id.org/fair/fip/terms/'
+# The FIP ontology, read from its IRI as Turtle (served by Nanodash) and kept in the local cache. The types were
+# checked against FIP_ONTOLOGY_VERSION; check() warns when the ontology has moved on.
+FIP_ONTOLOGY = 'build/fip/fip-ontology.ttl'
+FIP_ONTOLOGY_VERSION = 'FIP Ontology version 20260227'
+NANOPUB_RE = re.compile(r'^https?://(w3id|purl)\.org/np/')
 COLLECTION_ID = 3496
 COLLECTION_DOI = 'https://doi.org/10.25504/FAIRsharing.f60a10'
 FAIRSHARING_CREDIT = ('Contains information from FAIRsharing (https://fairsharing.org), licensed CC BY-SA 4.0 '
@@ -33,7 +43,8 @@ DECISION = {
 }
 EXCLUSION = {
     'E1': 'Organisation, project, initiative, consortium, community or event; its named product is listed instead.',
-    'E2': 'Principle, framework or concept without a reusable artefact, or a publication only.',
+    'E2': 'Principle, framework, method or approach, or a publication only, rather than a resource that '
+          'can be used directly; a standard, database, policy or tool that puts it into practice is listed instead.',
     'E3': 'Unnamed or not identifiable (no homepage or DOI).',
     'E4': 'Never publicly available.',
     'E5': 'No documented toxicology use.',
@@ -61,12 +72,12 @@ TYPES = {
     'Policy: project': ('Policy', 'project', 13, 'Policy or guidance issued by a project.'),
     'Policy: institution': ('Policy', 'institution', 14,
                             'Policy or guidance issued by an institution or agency, such as OECD guidance.'),
-    'Collection': ('Collection', 'collection', 15, 'Curated collection of FAIR-enabling resources.'),
+    'Collection': ('Collection', 'collection', 15, 'Curated collection of standards, databases and policies.'),
     'Tool': ('Tool', None, None, 'Software or service; FAIRsharing does not register these.'),
 }
 SCOPE = {
     'Generic': 'Infrastructure not specific to a research domain, including FAIR resources such as the FIP.',
-    'Life Sciences': 'Generic life-science infrastructure that toxicology uses.',
+    'Life Sciences': 'Life-science infrastructure, not specific to toxicology, that toxicology uses.',
     'Toxicology': 'Made for toxicology, including toxicology instances of generic resources.',
 }
 # Who created a toxicology resource; several may apply. Information, plotted as an alternative lane layout.
@@ -76,18 +87,22 @@ STAKEHOLDER = {
                           'stewards.',
     'Regulator': 'Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA.',
 }
-# The lifecycle phase of a toxicology resource: its main intended use (curated directly).
+# The lifecycle phase of a toxicology resource: the phase it acts on; if several, the earliest at which it must be
+# applied. Every phase it acts on is recorded as its span.
 PHASES = {
-    'Data Generation': 'Mainly used to generate, record or describe experimental toxicology data.',
-    'Data Integration': 'Mainly used to combine, curate, link, model or analyse toxicology data and knowledge.',
-    'Application (Regulatory Use)': 'Mainly used to prepare, submit, assess or publish data for regulatory decisions.',
+    'Data generation': 'Planning, producing and depositing primary records: datasets, protocols, method descriptions '
+                       'and the publications reporting them.',
+    'Data integration': 'Integrating and synthesising those records into secondary resources and evidence: curated '
+                        'databases, knowledge bases, ontologies, pathway networks and models.',
+    'Regulatory assessment': 'Assessing records and secondary resources for reliability and relevance in a regulatory '
+                             'context and integrating them into weight of evidence and decisions.',
 }
 LANE_DEF = {
     'Generic infrastructure': 'Resources not specific to a research domain.',
-    'Life Sciences infrastructure': 'Generic life-science resources that toxicology uses.',
-    'Data Generation': 'Toxicology resources mainly used to generate and describe data.',
-    'Tools & Integration': 'Toxicology resources mainly used to integrate, model and analyse data.',
-    'Application (regulatory)': 'Toxicology resources mainly used in regulatory decisions.',
+    'Life sciences infrastructure': 'Life-science resources, not specific to toxicology, that toxicology uses.',
+    'Data generation': 'Toxicology resources whose phase, the earliest they act on, is data generation.',
+    'Data integration': 'Toxicology resources whose phase, the earliest they act on, is data integration.',
+    'Regulatory assessment': 'Toxicology resources whose phase, the earliest they act on, is regulatory assessment.',
 }
 LANES = list(LANE_DEF)
 TOX_LANES = LANES[2:]
@@ -100,7 +115,7 @@ CREATOR_LANE_DEF = {
     'Made jointly': 'Toxicology resources made by two or more creator types together.',
 }
 CREATOR_LANE_OF = dict(zip(STAKEHOLDER, CREATOR_LANE_DEF))
-# Relation labels that make a toxicology resource count as building on FAIR when they point to a FAIR resource.
+# Relation labels that make a toxicology resource count as building on FAIR when they point to a Generic resource.
 BUILDS_ON = ('implements', 'extends', 'profiles', 'recommends')
 FAIR_PUBLISHED = 2016   # the FAIR guiding principles: only later resources can build on FAIR
 SUBDOMAINS = {
@@ -114,7 +129,7 @@ SUBDOMAINS = {
     'regulatory toxicology': 'Application.',
 }
 # The lane each sub-domain belongs to in the manuscript (Figure 2 caption): used to group the dashboard filters.
-SUBDOMAIN_LANE = {s: ('Data Generation' if i < 4 else 'Tools & Integration' if i < 7 else 'Application (regulatory)')
+SUBDOMAIN_LANE = {s: ('Data generation' if i < 4 else 'Data integration' if i < 7 else 'Regulatory assessment')
                   for i, s in enumerate(SUBDOMAINS)}
 DATE_BASIS = {
     'publication': 'Online publication of the paper that first describes the resource.',
@@ -159,18 +174,40 @@ ALLOWED = {
     'related_to': {('Database', 'Database'), ('Database', 'Standard'), ('Standard', 'Standard'),
                    ('Standard', 'Database'), ('Policy', 'Policy')},
 }
+# FIP ontology properties, used as is: a FIP row is declared-by its community, and each FIP Declaration added to it
+# when the site is built (dct:hasPart) declares-...-of a target. Not lineage and not enterable in FAIRsharing.
+FIP_PROPERTIES = {
+    'declares-current-use-of': 'The FIP declares that its community uses the target.',
+    'declares-planned-use-of': 'The FIP declares that its community plans to use the target.',
+    'declares-planned-development-of': 'The FIP declares that its community plans to develop the target.',
+    'declares-planned-replacement-of': 'The FIP declares that its community plans to replace the target.',
+    'declared-by': 'The FIP is declared by the target, a FAIR Implementation Community.',
+}
 EVIDENCE = {
     'manuscript': 'Stated in the manuscript.',
     'FAIRsharing': 'Asserted by FAIRsharing.',
     'literature': 'Stated in the literature or on the resource website.',
     'curator': 'Added by a curator.',
+    'FIP': 'Declared in a FAIR Implementation Profile.',
 }
+# FSR type (fsrType): one class under FAIR Supporting Resource in the FIP ontology (see fsr_types), from those
+# the typing rule uses (docs/inclusion-criteria.md, section 6).
+FSR, FER, FIC = FIP + 'FAIR-Supporting-Resource', FIP + 'FAIR-Enabling-Resource', FIP + 'FAIR-Implementation-Community'
+FSR_OFFERED = [FIP + t for t in (
+    'Data-usage-license', 'FAIR-Practice', 'FAIR-Interpretation', 'FAIR-Implementation-Community',
+    'Authentication-and-authorization-service', 'Domain-Specific-Registry', 'Editor', 'FAIR-Analysis-Service',
+    'FAIR-Enrichment-Service', 'FAIR-Publishing-Service', 'FAIR-Supporting-Software', 'FAIR-Visualization-Service',
+    'Generalist-Registry', 'Identifier-service', 'Integration-Service', 'Registry', 'Validation-Service',
+    'Communication-protocol', 'FAIR-Assessment-Specification', 'FAIR-Implementation-Profile',
+    'Knowledge-representation-language', 'Metadata-schema', 'Provenance-model', 'Reference-FAIR-Implementation-Profile',
+    'Semantic-model', 'Structured-vocabulary', 'FAIR-Training-Material')]
 
 VOCABULARIES = {
     'decision': DECISION, 'exclusionReason': EXCLUSION, 'type': {k: v[3] for k, v in TYPES.items()},
     'scope': SCOPE, 'phase': PHASES, 'stakeholders': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
     'subdomains': SUBDOMAINS, 'dateBasis': DATE_BASIS, 'maintained': MAINTAINED, 'manuscript': MANUSCRIPT,
-    'fairsharingMatch': MATCH, 'hadRole': {k: v[2] for k, v in RELATIONS.items()}, 'evidence': EVIDENCE,
+    'fairsharingMatch': MATCH, 'hadRole': {k: v[2] for k, v in RELATIONS.items()}, 'declaration': FIP_PROPERTIES,
+    'evidence': EVIDENCE,
 }
 
 # ---- JSON-LD shape ---------------------------------------------------------------------------------------------------
@@ -178,24 +215,66 @@ VOCABULARIES = {
 CONTEXT = {
     '@base': BASE, '@vocab': TERMS,
     'schema': 'https://schema.org/', 'dcat': 'http://www.w3.org/ns/dcat#', 'dct': 'http://purl.org/dc/terms/',
+    'skos': 'http://www.w3.org/2004/02/skos/core#', 'pav': 'http://purl.org/pav/',
+    'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'fip': FIP,
     'name': 'schema:name', 'alternateName': {'@id': 'schema:alternateName', '@container': '@set'},
     'description': 'schema:description', 'url': {'@id': 'schema:url', '@type': '@id'},
     'datePublished': 'schema:datePublished', 'creator': 'schema:creator', 'version': 'schema:version',
     'dateModified': 'schema:dateModified', 'license': {'@id': 'schema:license', '@type': '@id'},
     'creditText': 'schema:creditText', 'isBasedOn': {'@id': 'schema:isBasedOn', '@type': '@id'},
     'hasPart': {'@id': 'schema:hasPart', '@container': '@set'},
-    'subdomains': {'@container': '@set'}, 'stakeholders': {'@container': '@set'}, 'dateSource': {'@type': '@id'},
+    'key': 'dct:identifier', 'type': 'dct:type', 'subdomains': {'@id': 'dct:subject', '@container': '@set'},
+    'maintained': 'schema:creativeWorkStatus', 'reviewedBy': 'pav:curatedBy', 'note': 'skos:editorialNote',
+    'source': 'dct:source', 'fsrType': {'@id': 'rdf:type', '@type': '@id', '@container': '@set'},
+    'stakeholders': {'@container': '@set'}, 'span': {'@container': '@set'}, 'dateSource': {'@type': '@id'},
     'qualifiedRelation': {'@id': 'dcat:qualifiedRelation', '@container': '@set'},
     'relation': {'@id': 'dct:relation', '@type': '@id'}, 'hadRole': {'@id': 'dcat:hadRole', '@type': '@vocab'},
-    'sources': {'@type': '@json'}, 'vocabularies': {'@type': '@json'}, 'fairsharing': {'@type': '@json'},
+    'fipDeclaration': {'@id': 'dct:hasPart', '@container': '@set'},
+    'question': {'@id': 'fip:refers-to-question', '@type': '@id'}, 'considerations': 'fip:considerations',
+    **{p: {'@id': 'fip:' + p, '@type': '@id'} for p in FIP_PROPERTIES},
+    'fsr': {'@id': 'skos:exactMatch', '@type': '@id', '@container': '@set'},
+    # Kept in the file for people and the dashboard, but not part of the graph: derived fields, the sources and
+    # vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
+    **dict.fromkeys(['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'principle', 'sources', 'vocabularies',
+                     'fairsharing']),
 }
-# Curated fields, in file order; edited in the Sheet. '@id' and 'buildsOnFair' are derived, 'fairsharing' is fetched.
-CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'scope', 'phase',
-           'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url', 'description',
-           'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch', 'reviewedBy', 'note']
-FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'qualifiedRelation', 'fairsharing']
+# Our own terms, under TERMS: the fields the context leaves to @vocab (label, definition).
+OWN_TERMS = {
+    'scope': ('scope', 'What the resource was made for: generic, life-science or toxicology infrastructure.'),
+    'phase': ('phase', 'For a toxicology resource: the data life-cycle phase it acts on; when it acts on several, the '
+                       'earliest at which it must be applied.'),
+    'span': ('span', 'For a toxicology resource: every data life-cycle phase it acts on, starting with its phase.'),
+    'stakeholders': ('creator types', 'For a toxicology resource: who made it; several may apply.'),
+    'dateBasis': ('date basis', 'What the first-published date refers to.'),
+    'dateSource': ('date source', 'DOI or URL of the source that shows the first-published date.'),
+    'decision': ('decision', 'Screening decision.'),
+    'exclusionReason': ('exclusion reason', 'Why the resource is screened out.'),
+    'coveredBy': ('covered by', 'Key of the row that covers this one (exclusion reason E6).'),
+    'manuscript': ('in manuscript', 'Whether and how the manuscript names the resource.'),
+    'manuscriptEvidence': ('manuscript evidence', 'Section and line numbers in the frozen manuscript draft.'),
+    'fairsharingRecord': ('FAIRsharing record', 'FAIRsharing record code, or the numeric id of a record without a '
+                                                'DOI.'),
+    'fairsharingMatch': ('FAIRsharing match', 'Whether that FAIRsharing record is this resource.'),
+    'evidence': ('evidence', 'Where a relation is stated.'),
+}
+# Links of our terms to FIP, schema.org and DCTERMS terms, where one exists. A relation label (hadRole) names its
+# concept: terms#implements.
+TERM_LINKS = [
+    ('dateSource', RDFS.subPropertyOf, SDO.subjectOf), ('implements', SKOS.closeMatch, DCTERMS.conformsTo),
+    ('profiles', SKOS.closeMatch, DCTERMS.conformsTo), ('extends', SKOS.closeMatch, SDO.isBasedOn),
+    ('deprecates', SKOS.closeMatch, DCTERMS.replaces), ('related_to', SKOS.closeMatch, DCTERMS.relation),
+]
+# Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'declaredIn' and
+# 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
+# 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
+CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
+           'phase', 'span', 'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url',
+           'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
+           'reviewedBy', 'note']
+FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'fsr',
+                                   'qualifiedRelation', 'declared-by', 'fipDeclaration', 'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
-LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders'}
+LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders', 'fsrType', 'span'}
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
 DATE_RE = re.compile(r'^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$')
 FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
@@ -205,7 +284,8 @@ def new_document(resources=()):
     return {
         '@context': CONTEXT, '@id': '', '@type': 'schema:Dataset',
         'name': 'FAIR implementation ecosystem for toxicology',
-        'description': 'FAIR-enabling resources used in toxicology (standards, databases, policies and tools), curated '
+        'description': 'Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling '
+                       'Resource or another FAIR Supporting Resource, curated '
                        'by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with '
                        'first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.',
         'version': __version__, 'dateModified': '', 'license': 'https://creativecommons.org/licenses/by-sa/4.0/',
@@ -214,15 +294,44 @@ def new_document(resources=()):
     }
 
 
+def vocabulary(doc, hidden=()):
+    """Our terms as RDF, for terms.ttl and terms.jsonld: OWN_TERMS except `hidden`, and each of the document's
+    vocabularies as a SKOS concept scheme <name>-values. A concept's prefLabel is the stored value; a relation label
+    is an IRI in the data and names its concept (implements), any other value's concept is <name>-<value>
+    (phase-data-generation)."""
+    t, head = rdflib.Namespace(TERMS), URIRef(TERMS[:-1])
+    g = rdflib.Graph(bind_namespaces='none')
+    for prefix, ns in (('terms', TERMS), ('fip', FIP), ('schema', SDO), ('dct', DCTERMS), ('skos', SKOS),
+                       ('rdf', RDF), ('rdfs', RDFS), ('owl', OWL)):
+        g.bind(prefix, ns)
+    g += [(head, RDF.type, OWL.Ontology), (head, RDFS.label, Literal(f"Terms of the {doc['name']}")),
+          (head, OWL.versionInfo, Literal(doc['version'])), (head, DCTERMS.license, URIRef(doc['license']))]
+    for name, (label, definition) in OWN_TERMS.items():
+        if name not in hidden:
+            g += [(t[name], RDF.type, RDF.Property),
+                  (t[name], RDFS.label, Literal(label)), (t[name], SKOS.definition, Literal(definition))]
+    for name, values in doc['vocabularies'].items():
+        scheme = t[name + '-values']
+        g += [(scheme, RDF.type, SKOS.ConceptScheme), (scheme, RDFS.label, Literal(name + ' values'))]
+        for value, definition in values.items():
+            c = t[value] if name == 'hadRole' else t[f"{name}-{re.sub('[^a-z0-9]+', '-', value.lower()).strip('-')}"]
+            g += [(c, RDF.type, SKOS.Concept), (c, SKOS.inScheme, scheme), (c, SKOS.prefLabel, Literal(value)),
+                  (c, SKOS.definition, Literal(definition))]
+            if name == 'declaration':                       # the FIP ontology's own property
+                g.add((c, SKOS.exactMatch, URIRef(FIP + value)))
+    g += [(t[s], p, o) for s, p, o in TERM_LINKS if (t[s], None, None) in g]
+    return g
+
+
 # ---- derived values --------------------------------------------------------------------------------------------------
 
 def lane(r):
-    """Dashboard lane by intended use (display only, never stored): generic and life-science resources have
+    """Dashboard lane by phase (display only, never stored): generic and life-science resources have
     their own lanes; a toxicology resource sits in the lane of its phase."""
     if r.get('scope') == 'Generic':
         return 'Generic infrastructure'
     if r.get('scope') == 'Life Sciences':
-        return 'Life Sciences infrastructure'
+        return 'Life sciences infrastructure'
     return LANE_OF_PHASE.get(r.get('phase'), '')
 
 
@@ -239,6 +348,36 @@ def creator_lane(r):
 def registry(r):
     t = TYPES.get(r.get('type'))
     return t[0] if t else None
+
+
+@functools.cache
+def fip_ontology():
+    """The FIP ontology as a graph: from the local cache, read from its IRI first when the cache has none."""
+    if not os.path.exists(FIP_ONTOLOGY):
+        text = web.get(FIP, 'text/turtle')
+        os.makedirs(os.path.dirname(FIP_ONTOLOGY), exist_ok=True)
+        with open(FIP_ONTOLOGY, 'w', encoding='utf-8') as f:
+            f.write(text)
+    return rdflib.Graph().parse(FIP_ONTOLOGY, format='turtle')
+
+
+def fip_ontology_version():
+    g = fip_ontology()
+    return str(g.value(g.value(None, DCTERMS.isVersionOf, URIRef(FIP + 'FIP-Ontology')), RDFS.label))
+
+
+@functools.cache
+def fsr_types():
+    """Every class under FAIR Supporting Resource in the FIP ontology: IRI -> (label, direct FSR subclass, FER).
+    FAIR-Enabling Resource does not count as a direct FSR subclass here: an FER type keeps its other one, such as
+    FAIR specification."""
+    sub, fsr, fer = rdflib.RDFS.subClassOf, rdflib.URIRef(FSR), rdflib.URIRef(FER)
+    g, out = fip_ontology(), {}
+    direct = set(g.subjects(sub, fsr)) - {fer}
+    for c in set(g.transitive_subjects(sub, fsr)) - {fsr}:
+        up = set(g.transitive_objects(c, sub)) - {c}
+        out[str(c)] = (str(g.value(c, rdflib.RDFS.label)), str(next(iter(up & direct), c)), c == fer or fer in up)
+    return out
 
 
 def fs_ref(value):
@@ -267,18 +406,17 @@ def slug(text, taken=()):
 
 
 def iri_of(r):
+    if FIC in r.get('fsrType', []) and NANOPUB_RE.match(r.get('@id') or ''):
+        return r['@id']                                     # a FIC is identified by its FIC nanopublication
     code = fs_ref(r.get('fairsharingRecord'))
-    if r.get('fairsharingMatch') == 'confirmed':
-        if code.startswith('FAIRsharing.'):
-            return 'https://doi.org/10.25504/' + code
-        doi = (r.get('fairsharing') or {}).get('doi')
-        if doi:
-            return 'https://doi.org/' + doi
+    if r.get('fairsharingMatch') == 'confirmed' and code.startswith('FAIRsharing.'):
+        return 'https://doi.org/10.25504/' + code
     return '#' + r['key']
 
 
 def normalise(doc):
-    """Derive @id and phase, order fields, sort resources and relations, keep relation targets in step with @ids."""
+    """Derive @id, buildsOnFair and the FSR and FIP fields, order fields, sort resources and relations, keep relation
+    targets in step with @ids."""
     old_ids = {r.get('@id'): r['key'] for r in doc['hasPart']}
     for r in doc['hasPart']:
         for f in CURATED:                                   # no stray spaces in curated text
@@ -286,7 +424,7 @@ def normalise(doc):
                 r[f] = r[f].strip()
             elif isinstance(r.get(f), list):
                 r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
-        for f, vocab in (('subdomains', SUBDOMAINS), ('stakeholders', STAKEHOLDER)):
+        for f, vocab in (('subdomains', SUBDOMAINS), ('stakeholders', STAKEHOLDER), ('span', PHASES)):
             if r.get(f):                                    # one canonical order, so round trips are exact
                 known = [x for x in vocab if x in r[f]]
                 r[f] = known + [x for x in r[f] if x not in vocab]
@@ -294,10 +432,14 @@ def normalise(doc):
             r['fairsharingRecord'] = fs_ref(r['fairsharingRecord'])
         r['@id'] = iri_of(r)
     new_ids = {r['key']: r['@id'] for r in doc['hasPart']}
+    target = lambda v: new_ids.get(old_ids.get(v, v.lstrip('#')), v)
+    declared = {}                                           # target @id -> [(FIP @id, principle)]
     for r in doc['hasPart']:
         for q in r.get('qualifiedRelation', []):
-            key = old_ids.get(q['relation'], q['relation'].lstrip('#'))
-            q['relation'] = new_ids.get(key, q['relation'])
+            q['relation'] = target(q['relation'])
+        for d in r.get('fipDeclaration', []):
+            for p in FIP_PROPERTIES.keys() & d.keys():
+                declared.setdefault(d[p], []).append((r['@id'], d.get('principle')))
     by_id = {r['@id']: r for r in doc['hasPart']}
     for r in doc['hasPart']:                                # derived: a toxicology resource building on FAIR
         fair = r.get('scope') == 'Toxicology' and (_year(r) or 0) >= FAIR_PUBLISHED and any(
@@ -307,7 +449,12 @@ def normalise(doc):
             r['buildsOnFair'] = True
         else:
             r.pop('buildsOnFair', None)
+        types = [fsr_types()[t] for t in r.get('fsrType', []) if t in fsr_types()]
+        r['fsrCategory'] = (FER if types[0][2] else FSR) if types else ''
+        r['declaredIn'] = sorted({fip for fip, _ in declared.get(r['@id'], [])})
+        r['principles'] = sorted({p for _, p in declared.get(r['@id'], []) if p})
     doc['hasPart'] = sorted((_ordered(r) for r in doc['hasPart']), key=lambda r: r['key'])
+    doc['@context'] = CONTEXT
     doc['vocabularies'] = VOCABULARIES
     doc['version'] = __version__
     doc['description'] = new_document()['description']
@@ -328,6 +475,9 @@ def _ordered(r):
 def check(doc):
     """Return (errors, warnings). Errors block a save; warnings fail only `fairtox validate --strict`."""
     errors, warnings = [], []
+    if fip_ontology_version() != FIP_ONTOLOGY_VERSION:
+        warnings.append(f'the FIP ontology is now {fip_ontology_version()!r}; the types were checked against '
+                        f'{FIP_ONTOLOGY_VERSION!r}')
     rs = doc.get('hasPart', [])
     keys = [r.get('key') for r in rs]
     by_key = {r.get('key'): r for r in rs}
@@ -356,8 +506,8 @@ def check(doc):
             e(f'{k}: exclusion reason E6 needs Covered by naming another row')
         if r.get('coveredBy') and (r['coveredBy'] not in by_key or r['coveredBy'] == k):
             e(f'{k}: covered by {r["coveredBy"]!r} is not another row')
-        if r.get('decision') != 'exclude':                  # excluded rows need no classification
-            if (r.get('scope') == 'Toxicology') != bool(r.get('phase')):
+        if r.get('decision') != 'exclude' and FIC not in r.get('fsrType', []):   # excluded rows and communities
+            if (r.get('scope') == 'Toxicology') != bool(r.get('phase')):            # are not plotted
                 e(f'{k}: a phase is required exactly when the scope is Toxicology')
             if (r.get('scope') == 'Toxicology') != bool(r.get('stakeholders')):
                 e(f'{k}: at least one creator type is required exactly when the scope is Toxicology')
@@ -367,6 +517,20 @@ def check(doc):
         for s in r.get('subdomains', []):
             if s not in SUBDOMAINS:
                 e(f'{k}: sub-domain {s!r} is not an allowed value')
+        span = r.get('span') or []
+        for s in span:
+            if s not in PHASES:
+                e(f'{k}: span {s!r} is not a phase')
+        if (span or r.get('phase')) and next((p for p in PHASES if p in span), None) != r.get('phase'):
+            e(f'{k}: the span must contain the phase as its earliest phase')
+        types = r.get('fsrType') or []
+        for t in types:
+            if t not in FSR_OFFERED:
+                e(f'{k}: FSR type {t!r} is not an allowed value')
+        if len(types) > 1:
+            e(f'{k}: one FSR type only')
+        if FIC in types and not NANOPUB_RE.match(r.get('@id') or ''):
+            e(f'{k}: FAIR Implementation Community needs its FIC nanopublication as @id')
         for field in LIST_FIELDS:
             if not isinstance(r.get(field, []), list):
                 e(f'{k}: {field} must be a list')
@@ -402,20 +566,14 @@ def check(doc):
             if role in RELATIONS and RELATIONS[role][1] and q.get('evidence') != 'FAIRsharing' and \
                     _year(r) and _year(t) and _year(r) < _year(t):
                 warnings.append(f'{k}: {role} {t["key"]} points to a resource first published later')
-            if role in ALLOWED and (registry(r), registry(t)) not in ALLOWED[role]:
-                warnings.append(f'{k}: {role} {t["key"]} cannot be entered in FAIRsharing '
-                                f'({registry(r)} to {registry(t)})')
         if r.get('decision') == 'include':
-            missing = [f for f in ('datePublished', 'dateSource', 'url', 'type', 'scope') if not r.get(f)]
+            missing = [f for f in ('datePublished', 'dateSource', 'url', 'type', 'fsrType', 'scope') if not r.get(f)]
             if r.get('fairsharingMatch') != 'confirmed' and not r.get('description'):
                 missing.append('description')
             if missing:
                 warnings.append(f'{k}: included but missing {", ".join(missing)}')
-        fy = (r.get('fairsharing') or {}).get('yearCreation')
-        if isinstance(fy, int) and _year(r) and abs(fy - _year(r)) > 1:
-            warnings.append(f'{k}: first published {_year(r)}, FAIRsharing year of creation {fy}')
-        if r.get('fairsharingMatch') == 'to check':
-            warnings.append(f'{k}: FAIRsharing match still to check')
+            if r.get('fairsharingMatch') == 'to check':
+                warnings.append(f'{k}: FAIRsharing match still to check')
     return errors, warnings
 
 
@@ -436,14 +594,9 @@ def dumps(doc):
 
 
 def _stable(doc):
-    """The document without the fields that change on every run, to decide whether a save changes anything."""
+    """The document without dateModified, to decide whether a save changes anything."""
     d = copy.deepcopy(doc)
     d.pop('dateModified', None)
-    for s in d.get('sources', {}).values():
-        if isinstance(s, dict):
-            s.pop('retrieved', None)
-    for r in d.get('hasPart', []):
-        (r.get('fairsharing') or {}).pop('retrieved', None)
     return d
 
 

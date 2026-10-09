@@ -1,5 +1,10 @@
-"""FAIRsharing: sign in, pull the Toxicology collection (3496) and linked records, merge them into the dataset,
-propose matches for manuscript resources, and write the submission export.
+"""FAIRsharing: the Toxicology collection (3496) and the records of the dataset's rows, and the submission export.
+
+Every read is kept in a local cache, build/fairsharing/records.json; `--offline` reads only that cache.
+
+The dataset stores only what is curated (`curate`): new collection members, as undecided rows or proposed matches.
+Record data, collection membership and associations are added when the site, the sheet or the submission export is
+built (`enrich`), with their retrieval date.
 
 FAIRsharing data are CC BY-SA 4.0 (credited in the dataset header and on the dashboard). Bulk data come only through
 the signed-in REST API, as FAIRsharing asks; the public record JSON is used for single look-ups. Credentials come from
@@ -12,14 +17,13 @@ import os
 import re
 import time
 import urllib.error
-import urllib.request
 
-from fairtox import __version__, model
+from fairtox import model, web
 
 API = 'https://api.fairsharing.org'
 SITE = 'https://fairsharing.org'
-UA = f'fairtox/{__version__} (+https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology)'
 PAUSE = 0.25
+CACHE = 'build/fairsharing'
 RECORD_TYPE = {v[1]: k for k, v in model.TYPES.items() if v[1]}
 MAINTAINED = {'ready': 'active', 'deprecated': 'discontinued', 'in_development': 'in development',
               'uncertain': 'unknown'}
@@ -30,38 +34,32 @@ FOLD = {'accepts': 'implements', 'outputs': 'implements', 'shares_data_with': 'r
         'shares_code_with': 'related_to'}
 
 
-class FairsharingError(RuntimeError):
+class FairsharingError(web.Unreadable):
     pass
 
 
 def _request(method, url, body=None, token=None):
-    headers = {'Accept': 'application/json', 'User-Agent': UA}
+    headers = {'Accept': 'application/json'}
     data = None
     if body is not None:
         data = json.dumps(body).encode()
         headers['Content-Type'] = 'application/json'
     if token:
         headers['Authorization'] = f'Bearer {token}'
-    for attempt in (1, 2):
-        try:
-            with urllib.request.urlopen(urllib.request.Request(url, data, headers, method=method), timeout=60) as resp:
-                if 'true' in (str(resp.headers.get('maintenance')).lower(), str(resp.headers.get('read-only')).lower()):
-                    raise FairsharingError('FAIRsharing is in maintenance or read-only mode; try again later.')
-                return json.load(resp)
-        except urllib.error.HTTPError as e:
-            reason = _reason(e)
-            if e.code == 401 and url.endswith('/users/sign_in'):
-                raise FairsharingError(f'FAIRsharing refused the sign-in ({reason}): check FAIRSHARING_LOGIN and '
-                                       'FAIRSHARING_PASSWORD (an ORCID account needs a FAIRsharing password).') from None
-            if e.code in (401, 403):
-                raise FairsharingError(f'signed in, but FAIRsharing refused {method} {url} '
-                                       f'(HTTP {e.code}: {reason}).') from None
-            if e.code in (429, 500, 502, 503, 504) and attempt == 1:
-                time.sleep(5)
-                continue
-            raise FairsharingError(f'{method} {url} answered HTTP {e.code} ({reason}).') from None
-        except urllib.error.URLError as e:
-            raise FairsharingError(f'{method} {url} failed: {e.reason}') from None
+    try:
+        answer, raw = web.fetch(url, headers, data, method, timeout=60)
+    except urllib.error.HTTPError as e:
+        reason = _reason(e)
+        if e.code == 401 and url.endswith('/users/sign_in'):
+            raise FairsharingError(f'FAIRsharing refused the sign-in ({reason}): check FAIRSHARING_LOGIN and '
+                                   'FAIRSHARING_PASSWORD (an ORCID account needs a FAIRsharing password).') from None
+        if e.code in (401, 403):
+            raise FairsharingError(f'signed in, but FAIRsharing refused {method} {url} '
+                                   f'(HTTP {e.code}: {reason}).') from None
+        raise FairsharingError(f'{method} {url} answered HTTP {e.code} ({reason}).') from None
+    if 'true' in (str(answer.get('maintenance')).lower(), str(answer.get('read-only')).lower()):
+        raise FairsharingError('FAIRsharing is in maintenance or read-only mode; try again later.')
+    return json.loads(raw)
 
 
 def _reason(error):
@@ -149,7 +147,7 @@ def slim(raw):
 
 
 def block(rec, members, today):
-    """The `fairsharing` block stored on a resource (never curated)."""
+    """The `fairsharing` block that `enrich` adds to a resource."""
     keep = ('id', 'doi', 'name', 'abbreviation', 'registry', 'recordType', 'status', 'yearCreation', 'homepage')
     out = {k: rec[k] for k in keep if rec.get(k) not in (None, '')}
     out['inCollection'] = rec['id'] in members
@@ -168,18 +166,14 @@ def norm_name(s):
 
 
 def _index(doc):
+    """Rows by FAIRsharing record id and by lower-case FAIRsharing.xxx code, from fairsharingRecord and @id."""
     by_id, by_code = {}, {}
     for r in doc['hasPart']:
-        fs = r.get('fairsharing') or {}
-        ref = model.fs_ref(r.get('fairsharingRecord'))
-        if fs.get('id'):
-            by_id[int(fs['id'])] = r
-        if ref.isdigit():
-            by_id[int(ref)] = r
-        if ref.startswith('FAIRsharing.'):
-            by_code[ref.lower()] = r
-        if fs.get('doi'):
-            by_code[fs['doi'].split('/')[-1].lower()] = r
+        for ref in map(model.fs_ref, (r.get('fairsharingRecord'), r.get('@id'))):
+            if ref.isdigit():
+                by_id[int(ref)] = r
+            if ref.startswith('FAIRsharing.'):
+                by_code[ref.lower()] = r
     return by_id, by_code
 
 
@@ -206,32 +200,60 @@ def propose(r, records):
     return None, ''
 
 
-def merge(doc, records, members, today=None):
-    """Write FAIRsharing data into the dataset in place and return report lines. Curated fields are only filled for
-    new rows; a resource's `fairsharing` block is replaced; FAIRsharing associations between dataset resources become
-    relations with evidence FAIRsharing."""
-    today = today or dt.date.today().isoformat()
-    report = []
-    unmatched = []
-    for rec in records:
-        r = find(doc, rec)
-        if r is None:
-            unmatched.append(rec)
-            continue
-        was = (r.get('fairsharing') or {}).get('inCollection')
-        r['fairsharing'] = block(rec, members, today)
-        if was and not r['fairsharing']['inCollection']:
-            report.append(f"{r['key']}: no longer in the collection")
-    # members not yet in the dataset: propose a match to an existing row, else add a new row
+def read(login, password, offline=False):
+    """The collection members and the records of the collection and of every row with a FAIRsharing record, read
+    signed in and cached; offline, only the cache is read."""
+    path = os.path.join(CACHE, 'records.json')
+    if offline:
+        if not os.path.exists(path):
+            raise FairsharingError(f'{path} is missing: read FAIRsharing once without --offline.')
+        return model.load(path)
+    if not (login and password):
+        raise FairsharingError('FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD are not set (locally: uv run --env-file '
+                               '.env fairtox ...); --offline reads the local cache.')
+    jwt, records = sign_in(login, password), {}
+
+    def get(rid):
+        records[rid] = slim(record(rid, jwt))
+        time.sleep(PAUSE)
+
+    get(model.COLLECTION_ID)
+    members = sorted({a['other'] for a in records[model.COLLECTION_ID]['associations']
+                      if a['outgoing'] and a['label'] == 'collects'})
+    if not members:
+        raise FairsharingError('no collection members found in the collection record; the REST field names may '
+                               'differ: adapt slim().')
+    refs = {model.fs_ref(r.get('fairsharingRecord')) for r in model.load()['hasPart']}
+    for rid in sorted((set(members) | {int(x) for x in refs if x.isdigit()}) - set(records)):
+        get(rid)
+    known = {model.fs_ref(x['doi']) for x in records.values()}
+    for code in sorted(x for x in refs if x.startswith('FAIRsharing.') and x not in known):
+        rid = slim(lookup(code))['id']   # the public record JSON gives the record id behind a code
+        time.sleep(PAUSE)
+        if rid not in records:
+            get(rid)
+    data = {'retrieved': dt.date.today().isoformat(), 'members': members,
+            'records': [records[k] for k in sorted(records)]}
+    os.makedirs(CACHE, exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(model.dumps(data))
+    return data
+
+
+def curate(doc, data):
+    """What `fairtox fairsharing --apply` saves, in place: a collection member without a row is proposed for an open
+    row with the same homepage or name (to check), or else added as an undecided row; a second run changes nothing.
+    Returns the report: these changes, FAIRsharing associations that are not relations here (two-hop when the other
+    record has no row), and first-publication years more than a year from FAIRsharing's year of creation."""
+    report, members = [], set(data['members'])
     open_rows = [r for r in doc['hasPart'] if not r.get('fairsharingMatch')]
-    for rec in unmatched:
-        if rec['id'] not in members:
+    for rec in data['records']:
+        if rec['id'] not in members or find(doc, rec) is not None:
             continue
+        code = (rec.get('doi') or '').split('/')[-1] or str(rec['id'])
         hit = next((r for r in open_rows if propose(r, [rec])[0]), None)
         if hit is not None:
-            hit['fairsharingRecord'] = (rec.get('doi') or '').split('/')[-1] or str(rec['id'])
-            hit['fairsharingMatch'] = 'to check'
-            hit['fairsharing'] = block(rec, members, today)
+            hit.update(fairsharingRecord=code, fairsharingMatch='to check')
             open_rows.remove(hit)
             report.append(f"proposed match: {hit['key']} = FAIRsharing {rec['id']} {rec['name']} "
                           f"({propose(hit, [rec])[1]})")
@@ -241,115 +263,74 @@ def merge(doc, records, members, today=None):
                'decision': 'undecided', 'type': RECORD_TYPE.get(rec.get('recordType'), ''),
                'url': rec.get('homepage') or '', 'description': rec.get('description') or '',
                'maintained': MAINTAINED.get(rec.get('status'), 'unknown'), 'manuscript': 'absent',
-               'fairsharingRecord': (rec.get('doi') or '').split('/')[-1] or str(rec['id']),
-               'fairsharingMatch': 'confirmed', 'fairsharing': block(rec, members, today),
-               'note': f'Added from the FAIRsharing Toxicology collection on {today}.'}
+               'fairsharingRecord': code, 'fairsharingMatch': 'confirmed',
+               'note': f"Added from the FAIRsharing Toxicology collection on {data['retrieved']}."}
         if rec.get('yearCreation'):
             row.update(datePublished=str(rec['yearCreation']), dateBasis='FAIRsharing year',
                        dateSource='https://doi.org/' + rec['doi'] if rec.get('doi') else f"{SITE}/{rec['id']}")
         doc['hasPart'].append(row)
         report.append(f"new collection member: {key} ({rec['name']})")
-    # associations between dataset resources
     model.normalise(doc)
-    for rec in records:
-        subject = find(doc, rec)
+    by_id = {x['id']: x for x in data['records']}
+    linked = lambda r: {q['relation'] for q in r.get('qualifiedRelation', [])}
+    for rec in data['records']:
+        r = find(doc, rec)
+        if r is None:
+            continue
+        year, fy = model._year(r), rec.get('yearCreation')
+        if year and fy and abs(fy - year) > 1:
+            report.append(f"{r['key']}: first published {year}, FAIRsharing year of creation {fy}")
         for a in rec['associations']:
             label = FOLD.get(a['label'], a['label'])
             if not a['outgoing'] or label not in model.RELATIONS:
                 continue
-            target = find(doc, {'id': a['other']})
-            if subject is None or target is None:
-                if subject is not None and a['label'] != 'collects':
-                    report.append(f"two-hop: {subject['key']} {a['label']} FAIRsharing {a['other']} {a['otherName']}")
-                continue
-            linked = {q['relation'] for q in subject.get('qualifiedRelation', [])}
-            back = {q['relation'] for q in target.get('qualifiedRelation', [])}
-            if target['@id'] in linked or subject['@id'] in back or target is subject:
-                continue
-            subject.setdefault('qualifiedRelation', []).append({
-                'relation': target['@id'], 'hadRole': label, 'evidence': 'FAIRsharing',
-                'source': f"https://fairsharing.org/{rec['id']}" + (f" ({a['label']})" if label != a['label'] else '')})
-            report.append(f"new relation: {subject['key']} {label} {target['key']}")
+            t = find(doc, by_id.get(a['other'], {'id': a['other']}))
+            if t is None:
+                report.append(f"two-hop: {r['key']} {a['label']} FAIRsharing {a['other']} {a['otherName']}")
+            elif t is not r and t['@id'] not in linked(r) and r['@id'] not in linked(t):
+                report.append(f"FAIRsharing association, not a relation here: {r['key']} {label} {t['key']}")
     return report
 
 
-def fetch(doc, login, password, dry_run=None, today=None, log=print, sample=None):
-    """Sign in, read the collection and every relevant record, merge. Returns report lines."""
-    today = today or dt.date.today().isoformat()
-    jwt = sign_in(login, password)
-    raw = record(model.COLLECTION_ID, jwt)
-    if dry_run:
-        attrs = (raw.get('data') or {}).get('attributes') or raw
-        log('collection record keys: ' + ', '.join(sorted(attrs)))
-        for key in ('linked_records', 'linking_records', 'record_associations', 'reverse_record_associations'):
-            if isinstance(attrs.get(key), list):
-                log(f'{key}: {len(attrs[key])} items; first two: '
-                    + json.dumps(attrs[key][:2], ensure_ascii=False)[:1500])
-    coll = slim(raw)
-    members = {a['other'] for a in coll['associations'] if a['outgoing'] and a['label'] == 'collects'}
-    if not members:
-        if not dry_run:
-            raise FairsharingError('No collection members found in the collection record; the REST field names may '
-                                   'differ. Run with --dry-run 3 and adapt slim().')
-        log('no collection members recognised yet; continuing with records from the dataset')
-    ids = set(members)
-    for r in doc['hasPart']:
-        fs, ref = r.get('fairsharing') or {}, model.fs_ref(r.get('fairsharingRecord'))
-        if fs.get('id'):
-            ids.add(int(fs['id']))
-        elif ref.isdigit():
-            ids.add(int(ref))
-        elif ref.startswith('FAIRsharing.'):
-            ids.add(slim(lookup(ref))['id'])
-            time.sleep(PAUSE)
-    ids = (list(sample) if sample else sorted(ids)[:dry_run]) if dry_run else sorted(ids)
-    records = []
-    for rid in ids:
-        raw = record(rid, jwt)
-        records.append(slim(raw))
-        if dry_run:
-            attrs = (raw.get('data') or {}).get('attributes') or raw
-            log(f'record {rid} keys: ' + ', '.join(sorted(attrs)))
-            for key in ('linked_records', 'linking_records'):
-                items = attrs.get(key) if isinstance(attrs.get(key), list) else []
-                log(f'  {key}: {len(items)} items; first two: ' + json.dumps(items[:2], ensure_ascii=False)[:800])
-            log('  ' + json.dumps({k: v for k, v in records[-1].items() if k != 'description'}, ensure_ascii=False)[:800])
-        time.sleep(PAUSE)
-    if dry_run:
-        return [f'dry run: {len(members)} collection members; nothing written']
-    report = merge(doc, records, members, today)
-    doc.setdefault('sources', {})['fairsharing'] = {
-        'collection': model.COLLECTION_DOI, 'members': len(members), 'method': 'FAIRsharing REST API',
-        'retrieved': dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}
-    return [f'{len(records)} FAIRsharing records read; {len(members)} collection members'] + report
+def enrich(doc, data):
+    """For the site, the sheet and the submission export, in memory: the `fairsharing` block of each row whose record
+    was read, and sources.fairsharing with the retrieval date."""
+    members = set(data['members'])
+    for rec in data['records']:
+        r = find(doc, rec)
+        if r is not None:
+            r['fairsharing'] = block(rec, members, data['retrieved'])
+    doc.setdefault('sources', {})['fairsharing'] = {'retrieved': data['retrieved'], 'members': len(members)}
+    return doc
 
 
 # ---- submission export -----------------------------------------------------------------------------------------------
 
 def submission(doc):
-    """What could be added to FAIRsharing: new records (in the API create shape), associations FAIRsharing does not
-    hold yet, records to add to the collection, and resources FAIRsharing does not register. Nothing is posted."""
+    """What could be added to FAIRsharing, from a document with FAIRsharing added (`enrich`), in the shapes of its API.
+    Only what FAIRsharing accepts and the curators have checked is proposed: new records for included resources that
+    FAIRsharing was checked not to hold; associations it allows between these record types and does not hold yet,
+    between records that exist or are proposed here, with published evidence; and records to add to the collection.
+    Everything else is held back with the reason. Nothing is posted: FAIRsharing approves a new record only once its
+    subjects, domains, species, countries and organisations are filled in."""
     rs = {r['key']: r for r in doc['hasPart'] if r.get('decision') == 'include'}
+    out = {'records': [], 'associations': [], 'collectionAdditions': [], 'heldBack': []}
     ref = {}
     for k, r in rs.items():
-        code = model.fs_ref(r.get('fairsharingRecord'))
-        ref[k] = (f'new: {k}' if r.get('fairsharingMatch') != 'confirmed' or not code else
-                  r['@id'] if not r['@id'].startswith('#') else f'{SITE}/{code}')
-    out = {'records': [], 'incomplete': [], 'associations': [], 'collectionAdditions': [], 'notRegistrable': []}
-    for k, r in rs.items():
-        t = model.TYPES.get(r.get('type'))
-        if r.get('fairsharingMatch') == 'confirmed':
+        t, code = model.TYPES.get(r.get('type')), model.fs_ref(r.get('fairsharingRecord'))
+        if r.get('fairsharingMatch') == 'confirmed' and code:
+            ref[k] = r['@id'] if not r['@id'].startswith('#') else f'{SITE}/{code}'
             if not (r.get('fairsharing') or {}).get('inCollection'):
-                out['collectionAdditions'].append({'key': k, 'name': r['name'], 'record': r['@id']})
-            continue
-        if not t or t[0] == 'Tool':
-            out['notRegistrable'].append({'key': k, 'name': r['name'], 'type': r.get('type', ''),
-                                          'suggestion': 'bio.tools (software) or FAIRassist (FAIR assessment tools)'})
+                out['collectionAdditions'].append({'key': k, 'name': r['name'], 'record': ref[k]})
             continue
         missing = [f for f in ('name', 'description', 'url') if not r.get(f)]
-        if missing:
-            out['incomplete'].append({'key': k, 'name': r['name'], 'missing': missing})
+        reason = ('FAIRsharing not yet checked for a record of it' if r.get('fairsharingMatch') != 'no record' else
+                  'software: bio.tools, or FAIRassist for FAIR assessment tools' if not t or t[0] == 'Tool' else
+                  'missing ' + ', '.join(missing) if missing else '')
+        if reason:
+            out['heldBack'].append({'item': k, 'name': r['name'], 'reason': reason})
             continue
+        ref[k] = f'new: {k}'
         metadata = {'name': r['name'], 'homepage': r['url'], 'description': r['description'],
                     'status': STATUS.get(r.get('maintained'), 'uncertain')}
         if r.get('alternateName'):
@@ -360,16 +341,23 @@ def submission(doc):
                                'for_the_form': {'type': r['type'], 'organisations': r.get('creator', ''),
                                                 'publication': r.get('dateSource', '')}})
     for x in model.relation_rows(doc):
-        if x['subject'] not in rs or x['target'] not in rs or x['evidence'] == 'FAIRsharing':
+        s, t = x['subject'], x['target']
+        if s not in rs or t not in rs or x['evidence'] == 'FAIRsharing':
             continue
-        held = (rs[x['subject']].get('fairsharing') or {}).get('associations', [])
-        if [x['hadRole'], (rs[x['target']].get('fairsharing') or {}).get('id')] in held:
+        ids = [(rs[k].get('fairsharing') or {}).get('id') for k in (s, t)]
+        if [x['hadRole'], ids[1]] in (rs[s].get('fairsharing') or {}).get('associations', []):
             continue
-        a, b = model.registry(rs[x['subject']]), model.registry(rs[x['target']])
-        out['associations'].append({
-            'subject': ref[x['subject']], 'relation': x['hadRole'], 'relation_id': model.RELATIONS[x['hadRole']][0],
-            'target': ref[x['target']], 'enterable': (a, b) in model.ALLOWED.get(x['hadRole'], set()),
-            'evidence': x['evidence'], 'source': x['source']})
+        reason = ('FAIRsharing does not allow this label between these record types'
+                  if (model.registry(rs[s]), model.registry(rs[t])) not in model.ALLOWED.get(x['hadRole'], set()) else
+                  'not every end is in FAIRsharing or proposed here' if s not in ref or t not in ref else
+                  'the only evidence is the unpublished manuscript' if x['evidence'] == 'manuscript' else '')
+        if reason:
+            out['heldBack'].append({'item': f"{s} {x['hadRole']} {t}", 'reason': reason})
+            continue
+        out['associations'].append({'record': ref[s], 'record_id': ids[0], 'relation': x['hadRole'],
+                                    'linked_record': ref[t], 'linked_record_id': ids[1],
+                                    'record_assoc_label_id': model.RELATIONS[x['hadRole']][0],
+                                    'evidence': x['evidence'], 'source': x['source']})
     return out
 
 
@@ -385,9 +373,8 @@ def write_submission(doc, outdir):
         'New records': [{'key': x['key'], **x['fairsharing_record']['metadata'],
                          'record_type_id': x['fairsharing_record']['record_type_id'], **x['for_the_form']}
                         for x in sub['records']],
-        'Incomplete': [{**x, 'missing': ', '.join(x['missing'])} for x in sub['incomplete']],
         'Associations': sub['associations'], 'Add to collection': sub['collectionAdditions'],
-        'Not registrable': sub['notRegistrable'],
+        'Held back': sub['heldBack'],
     }
     for title, rows in flat.items():
         ws = wb.create_sheet(title)

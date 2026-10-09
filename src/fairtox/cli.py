@@ -1,12 +1,12 @@
 """Command line: `uv run fairtox <command>`. Run from the repository root."""
 import argparse
+import collections
 import csv
 import json
 import os
-import re
 import sys
 
-from fairtox import __version__, model
+from fairtox import __version__, model, web
 
 
 def _load():
@@ -23,27 +23,32 @@ def cmd_validate(a):
     return 1 if errors or (a.strict and warnings) else 0
 
 
-def cmd_fetch(a):
+def _fairsharing(a):
+    """FAIRsharing, read with FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD or, with --offline, from the local cache."""
     from fairtox import fairsharing
-    login, password = os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD')
-    if not login or not password:
-        print('FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD are not set; nothing fetched. '
-              'Locally: uv run --env-file .env fairtox fetch')
-        return 0
-    doc = _load() if os.path.exists(model.DATASET) else model.new_document()
+    return fairsharing.read(os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD'), a.offline)
+
+
+def _enriched(a):
+    """The dataset with FAIRsharing added in memory, for the site, the sheet and the submission export."""
+    from fairtox import fairsharing
+    data = _fairsharing(a)
+    return fairsharing.enrich(_load(), data)
+
+
+def cmd_fairsharing(a):
+    from fairtox import fairsharing
+    data, doc = _fairsharing(a), _load()
     before = json.loads(json.dumps(doc))
-    try:
-        sample = [int(x) for x in a.ids.split(',')] if a.ids else None
-        report = fairsharing.fetch(doc, login, password, dry_run=a.dry_run or (len(sample) if sample else None),
-                                   sample=sample)
-    except fairsharing.FairsharingError as e:
-        print('FAIRsharing:', e)
-        return 1
-    if not (a.dry_run or a.ids):
-        changes = model.diff(before, model.normalise(doc))
+    lines = fairsharing.curate(doc, data)
+    changes = model.diff(before, model.normalise(doc))
+    _report([f"{len(data['records'])} FAIRsharing records read on {data['retrieved']}; {len(data['members'])} "
+             'collection members'] + lines, a.report, 'FAIRsharing')
+    if a.apply:
         if model.save(doc):
-            model.log_changes(changes, 'FAIRsharing refresh', 'FAIRsharing REST API')
-    _report(report, a.report, 'FAIRsharing refresh')
+            model.log_changes(changes, f"fairsharing import {data['retrieved']}", 'FAIRsharing Toxicology collection',
+                              dict.fromkeys((c[0] for c in changes), 'fairtox fairsharing'))
+        print(f'{len(changes)} changes applied and logged in {model.CHANGES}')
     return 0
 
 
@@ -57,9 +62,10 @@ def _report(lines, path, title):
 
 
 def cmd_sheet(a):
-    from fairtox import sheet
+    from fairtox import fip, sheet
+    doc = fip.enrich(_enriched(a), fip.read(a.offline))
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-    n, m = sheet.build(_load(), a.out)
+    n, m = sheet.build(doc, a.out)
     print(f'{a.out}: {n} resources, {m} relations')
     return 0
 
@@ -91,68 +97,45 @@ def cmd_ingest(a):
 
 def cmd_site(a):
     from fairtox import site
-    n, m = site.build(_load(), a.outdir, internal=a.internal)
-    print(f'{a.outdir}/index.html: {n} resources, {m} relations' + (' (internal curation view, never publish)' if a.internal else ''))
+    n, m = site.build(_enriched(a), a.outdir, offline=a.offline)
+    print(f'{a.outdir}/index.html: {n} resources, {m} relations')
     return 0
 
 
 def cmd_export(a):
     from fairtox import fairsharing
-    counts = fairsharing.write_submission(_load(), a.outdir)
+    counts = fairsharing.write_submission(_enriched(a), a.outdir)
     print(f'{a.outdir}/fairsharing-submission.json and .xlsx: ' + ', '.join(f'{k} {v}' for k, v in counts.items()))
     return 0
 
 
-def lines_of(evidence):
-    """Line numbers in a manuscript evidence text such as 'AOP section; L117, L126-129, [ag] L391'."""
-    out = set()
-    for a, b in re.findall(r'L(\d+)(?:\s*[-–]\s*L?(\d+))?', evidence or ''):
-        out.update(range(int(a), int(b or a) + 1))
-    return out
-
-
-def names_of(r):
-    """A resource's name and aliases, plus the parts of 'Long name (ABBR)'."""
-    out = set()
-    for n in [r['name']] + r.get('alternateName', []):
-        out.add(n)
-        m = re.match(r'^(.*?)\s*\(([^)]+)\)\s*$', n)
-        if m:
-            out.update({m.group(1).strip(), m.group(2).strip()})
-    return {n for n in out if len(n) >= 2}
-
-
-def mentions(text, names):
-    """Line numbers (1-based) where any of the names occurs as a word; short names are matched case-sensitively."""
-    hits = set()
-    for name in names:
-        flags = 0 if len(name) <= 5 else re.IGNORECASE
-        pattern = re.compile(r'(?<![\w-])' + re.escape(name) + r'(?![\w-])', flags)
-        hits.update(i for i, line in enumerate(text, 1) if pattern.search(line))
-    return hits
-
-
-def cmd_draft_check(a):
-    with open(a.draft, encoding='utf-8') as f:
-        text = f.read().splitlines()
-    lines_wrong, described, newly_named = [], [], []
-    for r in _load()['hasPart']:
-        found = mentions(text, names_of(r))
-        cited = lines_of(r.get('manuscriptEvidence'))
-        if r.get('manuscript', 'absent') != 'absent':
-            if not found:
-                described.append(r['key'])
-            elif not cited or cited - found:
-                lines_wrong.append(f"{r['key']}: cited at {sorted(cited)}, name found at {sorted(found)[:10]}")
-        elif found and r.get('decision') != 'exclude':
-            newly_named.append(f"{r['key']}: marked absent, but named at lines {sorted(found)[:10]}")
-    for title, items in (('Check the line numbers (the name occurs, but not at every cited line)', lines_wrong),
-                         ('Marked absent but named in this draft', newly_named)):
-        print(f'{title}: {len(items)}')
-        for item in items:
-            print('  ' + item)
-    print(f'Described rather than named, so not checked by name: {len(described)}')
-    print('  ' + ', '.join(described))
+def cmd_fip(a):
+    from fairtox import fip
+    data = fip.read(offline=a.offline)
+    doc = _load()
+    matches = fip.match(doc, data)
+    rows = fip.report(doc, data, matches)
+    for key, f in data['fips'].items():
+        n = sum(1 for x in data['declarations'] if x['fip'] == key and x['target'])
+        print(f"{f['label']}: {n} declarations, {len(f['noChoice'])} no choice, "
+              f"{f['invalidated']} invalidated and skipped")
+    methods = collections.Counter(how for _, how in matches.values())
+    print(f'{len(matches)} declared resources, matched by ' + ', '.join(f'{k} {v}' for k, v in sorted(methods.items())))
+    e1 = {r['key'] for r in doc['hasPart'] if r.get('exclusionReason') == 'E1'}
+    hits = [r for r in rows if r['kind'] == 'FAIR-Implementation-Community' and r['key'] in e1]
+    print(f"{len(data['fic'])} valid FAIR Implementation Communities; {len(hits)} match rows excluded as E1 "
+          '(identity check)')
+    print(f'{fip.REPORT}: {len(rows)} rows')
+    if a.report:
+        fip.convergence(data)
+        print(f'{fip.CONVERGENCE} written')
+    if a.apply:
+        before = json.loads(json.dumps(doc))
+        changes = model.diff(before, model.normalise(fip.curate(doc, data, matches)))
+        if model.save(doc):
+            model.log_changes(changes, f"fip import {data['retrieved']}", 'FIP nanopublications',
+                              dict.fromkeys((c[0] for c in changes), 'fairtox fip'))
+        print(f'{len(changes)} changes applied and logged in {model.CHANGES}')
     return 0
 
 
@@ -163,28 +146,41 @@ def main(argv=None):
     s = sub.add_parser('validate', help='check the dataset')
     s.add_argument('--strict', action='store_true', help='fail on warnings too')
     s.set_defaults(run=cmd_validate)
-    s = sub.add_parser('fetch', help='pull the FAIRsharing Toxicology collection and linked records')
-    s.add_argument('--dry-run', type=int, metavar='N', help='read N records and print their fields; write nothing')
-    s.add_argument('--report', metavar='FILE', help='append the report to a markdown file')
-    s.add_argument('--ids', metavar='ID,ID', help='dry run on these FAIRsharing record ids')
-    s.set_defaults(run=cmd_fetch)
+    s = sub.add_parser('fairsharing', help='read the FAIRsharing Toxicology collection and report its new members; '
+                                           'FAIRsharing record data are never stored: the builds read them')
+    s.add_argument('--offline', action='store_true', help='read only the local cache in build/fairsharing')
+    s.add_argument('--report', metavar='FILE', help='also append the report to a markdown file')
+    s.add_argument('--apply', action='store_true', help='store new collection members as undecided rows or proposed '
+                                                        'matches (after reviewing the report)')
+    s.set_defaults(run=cmd_fairsharing)
     s = sub.add_parser('sheet', help='build the curation workbook')
     s.add_argument('out', help='path of the .xlsx to write')
+    s.add_argument('--offline', action='store_true', help='read FAIRsharing and the FIP declarations from the local '
+                                                          'caches in build/fairsharing and build/fip')
     s.set_defaults(run=cmd_sheet)
     s = sub.add_parser('ingest', help='read a curated workbook back into the dataset')
     s.add_argument('workbook')
     s.add_argument('--force', action='store_true', help='apply rows that changed in the dataset after the sheet was made')
     s.add_argument('--round', default='curation', help='name of the curation round for the change log')
     s.set_defaults(run=cmd_ingest)
-    s = sub.add_parser('site', help='build the static dashboard (the public page; --internal for the curation view)')
+    s = sub.add_parser('site', help='build the static dashboard')
     s.add_argument('outdir')
-    s.add_argument('--internal', action='store_true', help='every row with the curation view; local only, never publish')
+    s.add_argument('--offline', action='store_true', help='read FAIRsharing and the FIP declarations from the local '
+                                                          'caches in build/fairsharing and build/fip')
     s.set_defaults(run=cmd_site)
     s = sub.add_parser('export-fairsharing', help='write what could be added to FAIRsharing (nothing is posted)')
     s.add_argument('outdir')
+    s.add_argument('--offline', action='store_true', help='read FAIRsharing from the local cache in build/fairsharing')
     s.set_defaults(run=cmd_export)
-    s = sub.add_parser('draft-check', help='check manuscript line references against a draft export (read-only)')
-    s.add_argument('draft')
-    s.set_defaults(run=cmd_draft_check)
+    s = sub.add_parser('fip', help="read the toxicology FIPs' declarations and write the match report; the "
+                                   'declarations are never stored: the site build reads them')
+    s.add_argument('--offline', action='store_true', help='read only the local cache in build/fip')
+    s.add_argument('--report', action='store_true', help='also write the convergence table, docs/fip-convergence.md')
+    s.add_argument('--apply', action='store_true', help='store links to the declared resources and undecided rows for '
+                                                        'new ones and their communities (after reviewing the report)')
+    s.set_defaults(run=cmd_fip)
     a = p.parse_args(argv)
-    sys.exit(a.run(a))
+    try:
+        sys.exit(a.run(a))
+    except web.Unreadable as e:
+        sys.exit(f'Nothing was built or changed: {e}')

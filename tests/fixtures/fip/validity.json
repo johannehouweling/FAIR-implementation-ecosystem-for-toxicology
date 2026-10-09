@@ -1,0 +1,28 @@
+{
+ "retrieved": "2026-10-08",
+ "query": "https://query.knowledgepixels.com/repo/full",
+ "invalidated": [
+  "https://w3id.org/np/RAdecC000000000000000000000000000000000000000"
+ ],
+ "descriptions": {
+  "http://purl.org/np/RAfsrW000000000000000000000000000000000000000#W": "http://purl.org/np/RAfsrW000000000000000000000000000000000000000",
+  "http://purl.org/np/RAfsrX000000000000000000000000000000000000000#X": "https://w3id.org/np/RAfsrXtwo000000000000000000000000000000000000"
+ },
+ "fairsharing": {},
+ "fic": {
+  "https://w3id.org/np/RAficA000000000000000000000000000000000000000#TOX": {
+   "labels": [
+    "TOX | Toxicology Community"
+   ],
+   "homepages": [
+    "https://tox.example.org"
+   ]
+  },
+  "https://w3id.org/np/RAficB000000000000000000000000000000000000000#PARC": {
+   "labels": [
+    "PARC | Partnership for testing"
+   ],
+   "homepages": []
+  }
+ }
+}

@@ -1,9 +1,9 @@
-"""Build the static dashboard: index.html with the data embedded, plus the dataset and CSV downloads.
+"""Build the static dashboard: index.html with the data embedded, plus the dataset and CSV downloads, and the
+vocabulary (terms.ttl, terms.jsonld) and JSON-LD context (context.jsonld) that the dataset's own IRIs resolve to.
 
-The public build (the default, deployed to GitHub Pages) holds the included resources only, without curation fields.
-The internal build (`--internal`, local only) holds every row and adds the curation view: the parts of the template
-marked <!--internal-->...<!--/internal--> or /*internal*/.../*/internal*/, which the public build strips.
+The build, deployed to GitHub Pages, holds the included resources only, without curation fields.
 """
+import copy
 import csv
 import io
 import json
@@ -11,25 +11,25 @@ import re
 from importlib.resources import files
 from pathlib import Path
 
-from fairtox import model
+from fairtox import fip, model
 
 REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology'          # private
 # CI deploys the public build to this public repository, which serves it on GitHub Pages
 PUBLIC_REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline'
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
-NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'type',
-               'registry', 'scope', 'stakeholders', 'buildsOnFair', 'subdomains', 'decision', 'exclusionReason',
-               'coveredBy', 'manuscript', 'manuscriptEvidence', 'inCollection', 'fromCollection', 'fairsharing', 'url', 'creator',
+NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
+               'type', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
+               'stakeholders', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
-RELATION_FIELDS = ['subject', 'hadRole', 'target', 'evidence', 'source', 'reviewedBy', 'note']
-# Curation fields and vocabularies that stay out of the public build. Relations keep only their label: their evidence
-# and source cite the manuscript draft. inCollection serves the curation panel only.
+RELATION_FIELDS = ['subject', 'hadRole', 'target']
+# Curation fields and vocabularies that stay out of the build. Relations keep only their label: their evidence and
+# source cite the manuscript draft.
 PRIVATE = ('decision', 'exclusionReason', 'coveredBy', 'manuscript', 'manuscriptEvidence', 'reviewedBy', 'note',
            'fairsharingMatch')
 PRIVATE_VOCABULARIES = ('decision', 'exclusionReason', 'manuscript', 'fairsharingMatch', 'evidence')
-PUBLIC_FIELDS = [f for f in NODE_FIELDS if f not in PRIVATE and f != 'inCollection']
-INTERNAL = re.compile(r'(?:<!--|/\*)internal(?:-->|\*/).*?(?:<!--|/\*)/internal(?:-->|\*/)', re.S)
+# fsrCategory IRI -> label: one box each in the Class filter
+CLASSES = {model.FER: 'FAIR-Enabling Resource', model.FSR: 'FAIR Supporting Resource'}
 
 
 NOT_A_NAME = re.compile(r'^[a-z]+\d+[a-z]?$|^Issue #|FAIRsharing\.')   # citation keys, issue numbers, record codes
@@ -68,34 +68,42 @@ def fairsharing_url(r):
 
 def nodes_links(doc):
     """Flatten the dataset for the page. Links run from the earlier resource (src, the relation's target) to the
-    one that builds on it (dst, the relation's subject), so "CTD implements ExO" is drawn ExO -> CTD."""
-    nodes = []
+    one that builds on it (dst, the relation's subject), so "CTD implements ExO" is drawn ExO -> CTD. Declarations run
+    from a FIP (src) to a resource it declares (dst), with each question and its declaration nanopublication (q)."""
+    nodes, key_of = [], {r['@id']: r['key'] for r in doc['hasPart']}
+    fsr = {**{k: v[0] for k, v in model.fsr_types().items()}, **CLASSES}   # IRI -> label
     for r in doc['hasPart']:
         fs = r.get('fairsharing') or {}
         nodes.append({
             'key': r['key'], 'name': r['name'].strip(), 'label': label(r), 'abbr': abbr(r),
             'aliases': r.get('alternateName', []), 'year': model._year(r),
             'date': r.get('datePublished', ''), 'lane': model.lane(r), 'creatorLane': model.creator_lane(r),
-            'phase': r.get('phase', ''), 'type': r.get('type', ''), 'registry': model.registry(r) or '',
+            'phase': r.get('phase', ''), 'span': r.get('span', []), 'type': r.get('type', ''),
+            'fsrType': [fsr.get(t, t) for t in r.get('fsrType', [])], 'fsrCategory': fsr.get(r.get('fsrCategory'), ''),
+            'principles': r.get('principles', []), 'declaredIn': [key_of[f] for f in r.get('declaredIn', [])],
+            'declaredBy': key_of.get(r.get('declared-by'), ''), 'registry': model.registry(r) or '',
             'scope': r.get('scope', ''), 'stakeholders': r.get('stakeholders', []),
             'buildsOnFair': bool(r.get('buildsOnFair')), 'subdomains': r.get('subdomains', []),
-            'decision': r.get('decision', 'undecided'), 'exclusionReason': r.get('exclusionReason', ''),
-            'coveredBy': r.get('coveredBy', ''), 'manuscript': r.get('manuscript', 'absent'),
-            'manuscriptEvidence': r.get('manuscriptEvidence', ''), 'inCollection': bool(fs.get('inCollection')),
             # in the collection but not in the manuscript: hidden by one switch on the page
             'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
             'fairsharing': fairsharing_url(r), 'url': r.get('url', ''), 'creator': r.get('creator', ''),
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
             'dateSource': r.get('dateSource', ''), 'dateBasis': r.get('dateBasis', ''),
         })
-    links = [{'src': x['target'], 'dst': x['subject'], 'label': x['hadRole'], 'lineage': model.RELATIONS[x['hadRole']][1],
-              'evidence': x['evidence'], 'source': x['source'], 'note': x['note']} for x in model.relation_rows(doc)]
-    return nodes, links
+    links = [{'src': x['target'], 'dst': x['subject'], 'label': x['hadRole'], 'lineage': model.RELATIONS[x['hadRole']][1]}
+             for x in model.relation_rows(doc)]
+    declared = {}
+    for r in doc['hasPart']:
+        for d in r.get('fipDeclaration', []):
+            for p in model.FIP_PROPERTIES.keys() & d.keys():
+                declared.setdefault((r['key'], key_of[d[p]]), []).append([fip._q(d['question']), d['@id']])
+    return nodes, links, [{'src': s, 'dst': t, 'q': sorted(q)} for (s, t), q in sorted(declared.items())]
 
 
 def public(doc):
     """The dataset as published: included resources only, without curation fields, unconfirmed FAIRsharing records,
-    relation provenance or relations to resources that are not included; the curation vocabularies and sources go."""
+    relation provenance, or relations and FIP declarations to resources that are not included; the curation
+    vocabularies and sources go."""
     out = dict(doc)
     out['sources'] = {k: v for k, v in doc.get('sources', {}).items() if k not in ('manuscript', 'previous')}
     out['vocabularies'] = {k: v for k, v in doc.get('vocabularies', {}).items() if k not in PRIVATE_VOCABULARIES}
@@ -110,28 +118,26 @@ def public(doc):
         if r.get('fairsharingMatch') != 'confirmed':
             p.pop('fairsharingRecord', None)
             p.pop('fairsharing', None)
-        rels = [{'relation': q['relation'], 'hadRole': q['hadRole']} for q in r.get('qualifiedRelation', [])
-                if q['relation'] in ids]
-        if rels:
-            p['qualifiedRelation'] = rels
-        else:
-            p.pop('qualifiedRelation', None)
-        out['hasPart'].append(p)
+        p['qualifiedRelation'] = [{'relation': q['relation'], 'hadRole': q['hadRole']}
+                                  for q in r.get('qualifiedRelation', []) if q['relation'] in ids]
+        p['fipDeclaration'] = [d for d in r.get('fipDeclaration', []) if ids & {d.get(k) for k in model.FIP_PROPERTIES}]
+        p['declaredIn'] = [x for x in r.get('declaredIn', []) if x in ids]
+        p['declared-by'] = r.get('declared-by') if r.get('declared-by') in ids else None
+        out['hasPart'].append({k: v for k, v in p.items() if v not in (None, [])})
     return out
 
 
-def page_meta(doc, internal=False):
+def page_meta(doc):
     return {
         'title': doc['name'], 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
         'creator': doc.get('creator', ''), 'sources': doc.get('sources', {}), 'lanes': model.LANES,
-        'toxLanes': model.TOX_LANES, 'laneDef': model.LANE_DEF,
+        'toxLanes': model.TOX_LANES, 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
+        'communities': sorted(v[0] for v in model.fsr_types().values() if v[1] == model.FIC),   # never drawn
         'creatorLanes': list(model.CREATOR_LANE_DEF), 'creatorLaneDef': model.CREATOR_LANE_DEF,
         'subdomains': [[s, model.SUBDOMAIN_LANE[s]] for s in model.SUBDOMAINS],
         'relations': {k: {'id': v[0], 'lineage': v[1], 'definition': v[2]} for k, v in model.RELATIONS.items()},
-        'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': REPO if internal else PUBLIC_REPO, 'pages': PAGES,
-        'publicRepo': PUBLIC_REPO,   # cited in both builds: the source repository is private
+        'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': PUBLIC_REPO, 'pages': PAGES,   # source is private
         'doi': doc.get('identifier', ''), 'collection': model.COLLECTION_DOI,
-        **({'criteria': CRITERIA} if internal else {}),
     }
 
 
@@ -142,7 +148,7 @@ def schema_org(doc):
         'url': PAGES, 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
         'license': doc['license'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
         'creator': {'@type': 'Organization', 'name': doc.get('creator', '')},
-        'keywords': ['FAIR', 'toxicology', 'FAIR-enabling resources', 'FAIRsharing', 'research data management'],
+        'keywords': ['FAIR', 'toxicology', 'FAIR supporting resources', 'FAIRsharing', 'research data management'],
         'distribution': [
             {'@type': 'DataDownload', 'encodingFormat': 'application/ld+json',
              'contentUrl': PAGES + 'fair-tox-ecosystem.jsonld'},
@@ -168,26 +174,31 @@ def _csv(fields, rows):
     return buf.getvalue()
 
 
-def build(doc, outdir, dataset_path=model.DATASET, internal=False):
-    """Write index.html, the dataset and two CSV files into outdir: the public build, or with internal=True the
-    curation view of every row with a copy of the full dataset (never to be published)."""
-    nodes, links = nodes_links(doc)
+def build(doc, outdir, offline=False):
+    """Write index.html, the dataset, two CSV files, the vocabulary and the context into outdir from the dataset with
+    FAIRsharing added (fairsharing.enrich). The FIP declarations, read online or from the local cache, are added to a
+    copy of the dataset, which is not saved."""
+    doc = model.normalise(fip.enrich(copy.deepcopy(doc), fip.read(offline)))
+    nodes, links, declarations = nodes_links(doc)
+    doc = public(doc)
+    keep = {r['key'] for r in doc['hasPart']}
+    nodes = [n for n in nodes if n['key'] in keep]
+    for n in nodes:   # as in public(): FIPs and communities that are not included are left out
+        n['declaredIn'] = [k for k in n['declaredIn'] if k in keep]
+        n['declaredBy'] = n['declaredBy'] if n['declaredBy'] in keep else ''
+    links = [x for x in links if x['src'] in keep and x['dst'] in keep]
+    declarations = [x for x in declarations if x['src'] in keep and x['dst'] in keep]
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')
-    if internal:
-        fields, rel_fields, dataset = NODE_FIELDS, RELATION_FIELDS, Path(dataset_path).read_text(encoding='utf-8')
-    else:
-        doc = public(doc)
-        keep = {r['key'] for r in doc['hasPart']}
-        fields, rel_fields, dataset = PUBLIC_FIELDS, RELATION_FIELDS[:3], model.dumps(doc)
-        nodes = [{f: n[f] for f in fields} for n in nodes if n['key'] in keep]
-        links = [{k: x[k] for k in ('src', 'dst', 'label', 'lineage')} for x in links
-                 if x['src'] in keep and x['dst'] in keep]
-        page = INTERNAL.sub('', page)
+    terms = model.vocabulary(doc, PRIVATE + PRIVATE_VOCABULARIES)
+    jsonld = json.loads(terms.serialize(format='json-ld', context={p: str(ns) for p, ns in terms.namespaces()}))
+    jsonld['@graph'].sort(key=lambda node: node['@id'])     # one order, so an unchanged build publishes nothing new
     page = page.replace('__SCHEMA__', _script_json(schema_org(doc)))
-    page = page.replace('__DATA__', _script_json({'nodes': nodes, 'links': links, 'meta': page_meta(doc, internal)}))
-    out = {'index.html': page, 'fair-tox-ecosystem.jsonld': dataset, 'resources.csv': _csv(fields, nodes),
-           'relations.csv': _csv(rel_fields, model.relation_rows(doc))}
-    leaks = [name for name, text in out.items() if not internal and re.search('manuscript', text, re.I)]
+    page = page.replace('__DATA__', _script_json({'nodes': nodes, 'links': links, 'declarations': declarations,
+                                                  'meta': page_meta(doc)}))
+    out = {'index.html': page, 'fair-tox-ecosystem.jsonld': model.dumps(doc), 'resources.csv': _csv(NODE_FIELDS, nodes),
+           'relations.csv': _csv(RELATION_FIELDS, model.relation_rows(doc)), 'terms.ttl': terms.serialize(format='turtle'),
+           'terms.jsonld': model.dumps(jsonld), 'context.jsonld': model.dumps({'@context': model.CONTEXT})}
+    leaks = [name for name, text in out.items() if re.search('manuscript', text, re.I)]
     if leaks:   # a last guard: the public pages go live from CI
         raise ValueError(f'public build not written: {", ".join(leaks)} mention the manuscript')
     Path(outdir).mkdir(parents=True, exist_ok=True)
