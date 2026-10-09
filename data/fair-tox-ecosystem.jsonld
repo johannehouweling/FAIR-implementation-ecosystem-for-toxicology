@@ -3902,6 +3902,10 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
+   "datePublished": "2023-01-30",
+   "dateSource": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk",
+   "url": "https://forum.aopwiki.org/showthread.php?tid=197",
+   "description": "Community that implements the FAIR principles for adverse outcome pathways. It was initiated within the CIAO project and involves the GO FAIR Foundation, the Joint Research Centre of the European Commission, the US Environmental Protection Agency, research and non-profit institutes, and companies.",
    "manuscript": "named",
    "manuscriptEvidence": "III AOP; L135",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
@@ -6719,8 +6723,11 @@
     "AOP-based mechanistic knowledge",
     "computational and predictive toxicology"
    ],
+   "datePublished": "2023-01-19",
+   "dateSource": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M",
    "creator": "EU Horizon Europe partnership",
    "url": "https://www.eu-parc.eu",
+   "description": "EU public-public partnership that develops regulatory risk assessment of chemicals and brings novel assessment methods and next-generation risk assessment tools into regulatory practice.",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; III Data generation; III AOP; III Computational; L60, L112, L135, L158, L399",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
