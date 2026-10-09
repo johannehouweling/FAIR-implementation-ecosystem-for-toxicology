@@ -316,6 +316,10 @@ def enrich(doc, data):
         'noChoice': f['noChoice'], 'invalidated': f['invalidated'], 'ontology': data['version'], 'method': METHOD}
         for key, f in data['fips'].items()}
     doc['isBasedOn'] = sorted(set(doc.get('isBasedOn', [])) | {f['profile'] for f in data['fips'].values()})
+    if data['fips']:
+        doc['creditText'] = (f"{model.FAIRSHARING_CREDIT} FIP declarations come from the nanopublications of "
+                             + ' and '.join(f"{f['label'].strip()} ({f['nanopub']})" for f in data['fips'].values())
+                             + ', licensed CC0, or as stated in each.')
     return doc
 
 

@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased
+
+- Terms: every field in the graph is a schema.org term, else a DCAT term, and the FIP ontology's for FSR types and
+  FIP declarations; the dataset defines no properties of its own. Controlled values are IRIs: outside concepts where
+  one exists (FAIRsharing's subject terms for the scopes, MeSH and NCIT for four sub-domains, ADMS for in development),
+  else 19 defined terms of the dataset (`schema:DefinedTerm` and `skos:Concept`) in `terms.ttl`. Phases and creator
+  types are DCAT themes. Derived and curation fields stay out of the graph: the context has no `@vocab`.
+- Dates are stored under the property of what they refer to: `datePublished`, `dateReleased` (`dct:issued`),
+  `dateAdopted` (`dct:dateAccepted`), `dateCreated`, or `date` when no basis is recorded. The curation sheet keeps
+  First published and Date basis.
+- Each resource states its persistent identifier (`identifier`) and homepage (`url`). The curation sheet shows the
+  identifier, its Type column is now FAIRsharing type, and each header note names the column's term.
+- The dashboard's data dictionary shows each field's term and has an anchor for each term of the dataset; the
+  published credit names the nanopublications of the two FIPs.
+
 ## 0.2.0 (2026-10-09)
 
 - FAIR Implementation Profiles: the declarations of the PARC Toxicology FIP and the Reference AOP FIP are read from

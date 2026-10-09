@@ -1,14 +1,17 @@
 {
  "@context": {
+  "@version": 1.1,
   "@base": "https://w3id.org/fair-tox/dataset",
-  "@vocab": "https://w3id.org/fair-tox/terms#",
   "schema": "https://schema.org/",
   "dcat": "http://www.w3.org/ns/dcat#",
   "dct": "http://purl.org/dc/terms/",
   "skos": "http://www.w3.org/2004/02/skos/core#",
-  "pav": "http://purl.org/pav/",
   "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
   "fip": "https://w3id.org/fair/fip/terms/",
+  "identifier": {
+   "@id": "schema:identifier",
+   "@type": "@id"
+  },
   "name": "schema:name",
   "alternateName": {
    "@id": "schema:alternateName",
@@ -19,7 +22,6 @@
    "@id": "schema:url",
    "@type": "@id"
   },
-  "datePublished": "schema:datePublished",
   "creator": "schema:creator",
   "version": "schema:version",
   "dateModified": "schema:dateModified",
@@ -37,28 +39,81 @@
    "@container": "@set"
   },
   "key": "dct:identifier",
-  "type": "dct:type",
-  "subdomains": {
-   "@id": "dct:subject",
-   "@container": "@set"
-  },
-  "maintained": "schema:creativeWorkStatus",
-  "reviewedBy": "pav:curatedBy",
-  "note": "skos:editorialNote",
-  "source": "dct:source",
+  "type": "schema:additionalType",
   "fsrType": {
    "@id": "rdf:type",
    "@type": "@id",
    "@container": "@set"
   },
-  "stakeholders": {
-   "@container": "@set"
+  "scope": {
+   "@id": "schema:about",
+   "@type": "@vocab",
+   "@context": {
+    "Generic": "http://www.fairsharing.org/ontology/subject/SRAO_0000401",
+    "Life Sciences": "http://aims.fao.org/aos/agrovoc/c_4318",
+    "Toxicology": "http://purl.obolibrary.org/obo/NCIT_C17206"
+   }
+  },
+  "subdomains": {
+   "@id": "schema:about",
+   "@type": "@vocab",
+   "@container": "@set",
+   "@context": {
+    "in vitro toxicology": "https://w3id.org/fair-tox/terms#subdomains-in-vitro-toxicology",
+    "nanotoxicology": "https://w3id.org/fair-tox/terms#subdomains-nanotoxicology",
+    "exposome": "http://id.nlm.nih.gov/mesh/D000081413",
+    "eco-toxicology": "http://id.nlm.nih.gov/mesh/D054750",
+    "toxicogenomics": "http://purl.obolibrary.org/obo/NCIT_C20179",
+    "AOP-based mechanistic knowledge": "http://id.nlm.nih.gov/mesh/D000073931",
+    "computational and predictive toxicology": "https://w3id.org/fair-tox/terms#subdomains-computational-and-predictive-toxicology",
+    "regulatory toxicology": "https://w3id.org/fair-tox/terms#subdomains-regulatory-toxicology"
+   }
   },
   "span": {
-   "@container": "@set"
+   "@id": "dcat:theme",
+   "@type": "@vocab",
+   "@container": "@set",
+   "@context": {
+    "Data generation": "https://w3id.org/fair-tox/terms#phase-data-generation",
+    "Data integration": "https://w3id.org/fair-tox/terms#phase-data-integration",
+    "Regulatory assessment": "https://w3id.org/fair-tox/terms#phase-regulatory-assessment"
+   }
   },
+  "stakeholders": {
+   "@id": "dcat:theme",
+   "@type": "@vocab",
+   "@container": "@set",
+   "@context": {
+    "Wet-lab research": "https://w3id.org/fair-tox/terms#stakeholders-wet-lab-research",
+    "In silico research": "https://w3id.org/fair-tox/terms#stakeholders-in-silico-research",
+    "Regulator": "https://w3id.org/fair-tox/terms#stakeholders-regulator"
+   }
+  },
+  "maintained": {
+   "@id": "schema:creativeWorkStatus",
+   "@type": "@vocab",
+   "@context": {
+    "active": "https://w3id.org/fair-tox/terms#maintained-active",
+    "discontinued": "https://w3id.org/fair-tox/terms#maintained-discontinued",
+    "in development": "http://purl.org/adms/status/UnderDevelopment",
+    "unknown": "https://w3id.org/fair-tox/terms#maintained-unknown"
+   }
+  },
+  "datePublished": "schema:datePublished",
+  "dateReleased": "dct:issued",
+  "dateAdopted": "dct:dateAccepted",
+  "dateCreated": "schema:dateCreated",
+  "date": "dct:date",
   "dateSource": {
+   "@id": "schema:subjectOf",
    "@type": "@id"
+  },
+  "fairsharingRecord": {
+   "@id": "schema:sameAs",
+   "@type": "@vocab",
+   "@context": {
+    "@vocab": "https://fairsharing.org/"
+   }
   },
   "qualifiedRelation": {
    "@id": "dcat:qualifiedRelation",
@@ -70,10 +125,18 @@
   },
   "hadRole": {
    "@id": "dcat:hadRole",
-   "@type": "@vocab"
+   "@type": "@vocab",
+   "@context": {
+    "implements": "https://w3id.org/fair-tox/terms#implements",
+    "extends": "https://w3id.org/fair-tox/terms#extends",
+    "profiles": "https://w3id.org/fair-tox/terms#profiles",
+    "recommends": "https://w3id.org/fair-tox/terms#recommends",
+    "deprecates": "https://w3id.org/fair-tox/terms#deprecates",
+    "related_to": "https://w3id.org/fair-tox/terms#related_to"
+   }
   },
   "fipDeclaration": {
-   "@id": "dct:hasPart",
+   "@id": "schema:hasPart",
    "@container": "@set"
   },
   "question": {
@@ -105,15 +168,7 @@
    "@id": "skos:exactMatch",
    "@type": "@id",
    "@container": "@set"
-  },
-  "buildsOnFair": null,
-  "fsrCategory": null,
-  "declaredIn": null,
-  "principles": null,
-  "principle": null,
-  "sources": null,
-  "vocabularies": null,
-  "fairsharing": null
+  }
  },
  "@id": "",
  "@type": "schema:Dataset",
@@ -261,6 +316,7 @@
  "hasPart": [
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.73888a",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.73888a",
    "key": "agritox",
    "name": "AGRITOX",
    "decision": "include",
@@ -280,8 +336,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "1986",
-   "dateBasis": "release",
+   "dateReleased": "1986",
    "dateSource": "https://www.data.gouv.fr/datasets/base-de-donnees-agritox",
    "creator": "INRA; ANSES",
    "url": "https://www.data.gouv.fr/fr/datasets/base-de-donnees-agritox/",
@@ -295,6 +350,7 @@
   },
   {
    "@id": "#ai4fair",
+   "identifier": "https://w3id.org/fair-tox/dataset#ai4fair",
    "key": "ai4fair",
    "name": "AI-for-FAIR (F(AI)R)",
    "alternateName": [
@@ -310,6 +366,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.79e002",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.79e002",
    "key": "aicis",
    "name": "Australian Industrial Chemicals Introduction Scheme",
    "alternateName": [
@@ -331,8 +388,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2020-07-01",
-   "dateBasis": "release",
+   "dateReleased": "2020-07-01",
    "dateSource": "https://web.archive.org/web/20200701123743/https://www.industrialchemicals.gov.au/",
    "creator": "AICIS (Australian Government)",
    "url": "https://services.industrialchemicals.gov.au",
@@ -346,6 +402,7 @@
   },
   {
    "@id": "#ammar_mi",
+   "identifier": "https://w3id.org/fair-tox/dataset#ammar_mi",
    "key": "ammar_mi",
    "name": "Nanosafety FAIR maturity indicators (Ammar et al.)",
    "alternateName": [
@@ -371,7 +428,6 @@
     "nanotoxicology"
    ],
    "datePublished": "2022-07-05",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.26434/chemrxiv-2022-l8vk8",
    "creator": "Maastricht University (BiGCaT)",
    "url": "https://github.com/NSDRA/nsdra-maturity-indicators",
@@ -385,6 +441,7 @@
   },
   {
    "@id": "#annot_guidelines",
+   "identifier": "https://w3id.org/fair-tox/dataset#annot_guidelines",
    "key": "annot_guidelines",
    "name": "Community annotation guidelines for computational models",
    "decision": "exclude",
@@ -399,6 +456,7 @@
   },
   {
    "@id": "#aop_datafusion",
+   "identifier": "https://w3id.org/fair-tox/dataset#aop_datafusion",
    "key": "aop_datafusion",
    "name": "AOP data-fusion pipelines",
    "decision": "exclude",
@@ -420,6 +478,7 @@
   },
   {
    "@id": "#aop_ec",
+   "identifier": "https://w3id.org/fair-tox/dataset#aop_ec",
    "key": "aop_ec",
    "name": "Event Components (structured Key Event annotation)",
    "alternateName": [
@@ -442,7 +501,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2017-12",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1089/aivt.2017.0017",
    "creator": "US EPA; EC JRC",
    "url": "https://aopwiki.org/sub_events",
@@ -455,6 +513,7 @@
   },
   {
    "@id": "#aop_wiki_id",
+   "identifier": "https://w3id.org/fair-tox/dataset#aop_wiki_id",
    "key": "aop_wiki_id",
    "name": "Adverse Outcome Pathways Wiki Identifier",
    "alternateName": [
@@ -482,6 +541,7 @@
   },
   {
    "@id": "#aopdb",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopdb",
    "key": "aopdb",
    "name": "AOP-DB (Adverse Outcome Pathway Database)",
    "alternateName": [
@@ -505,7 +565,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2018-02-14",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1016/j.taap.2018.02.006",
    "creator": "US EPA",
    "url": "https://aopdb.epa.gov",
@@ -527,6 +586,7 @@
   },
   {
    "@id": "#aopdb_v2",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopdb_v2",
    "key": "aopdb_v2",
    "name": "AOP-DB 2021 update (version 2)",
    "alternateName": [
@@ -550,8 +610,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2021-03-11",
-   "dateBasis": "release",
+   "dateReleased": "2021-03-11",
    "dateSource": "https://doi.org/10.6084/m9.figshare.c.5335553.v1",
    "creator": "US EPA",
    "url": "https://doi.org/10.23719/1522396",
@@ -564,6 +623,7 @@
   },
   {
    "@id": "#aopdbrdf",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopdbrdf",
    "key": "aopdbrdf",
    "name": "AOP-DB RDF",
    "alternateName": [
@@ -587,7 +647,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2022-02-14",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.3389/ftox.2022.803983",
    "creator": "US EPA; Maastricht University (BiGCaT)",
    "url": "https://aopdb.rdf.bigcat-bioinformatics.org/sparql",
@@ -616,6 +675,7 @@
   },
   {
    "@id": "#aopfw",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopfw",
    "key": "aopfw",
    "name": "Adverse Outcome Pathway (AOP) framework",
    "alternateName": [
@@ -637,7 +697,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2010",
+   "date": "2010",
    "dateSource": "https://doi.org/10.1002/etc.34",
    "creator": "Ankley et al. 2010; OECD",
    "maintained": "active",
@@ -647,6 +707,7 @@
   },
   {
    "@id": "#aophelp",
+   "identifier": "https://w3id.org/fair-tox/dataset#aophelp",
    "key": "aophelp",
    "name": "AOP-helpFinder",
    "alternateName": [
@@ -669,7 +730,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2019-04-17",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1289/EHP4200",
    "creator": "Universite Paris Cite / Inserm",
    "url": "https://aop-helpfinder.u-paris-sciences.fr/",
@@ -683,6 +743,7 @@
   },
   {
    "@id": "#aophelp_2025",
+   "identifier": "https://w3id.org/fair-tox/dataset#aophelp_2025",
    "key": "aophelp_2025",
    "name": "AOP-helpFinder 3.0",
    "alternateName": [
@@ -705,8 +766,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2024-11-15",
-   "dateBasis": "release",
+   "dateReleased": "2024-11-15",
    "dateSource": "https://github.com/systox1124/AOP-helpFinder/releases/tag/v3",
    "creator": "Universite Paris Cite / Inserm",
    "url": "https://aop-helpfinder-v3.u-paris-sciences.fr/",
@@ -720,6 +780,7 @@
   },
   {
    "@id": "#aopkb",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopkb",
    "key": "aopkb",
    "name": "OECD Adverse Outcome Pathway Knowledge Base (AOP-KB)",
    "alternateName": [
@@ -743,8 +804,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2014",
-   "dateBasis": "release",
+   "dateReleased": "2014",
    "dateSource": "https://doi.org/10.5620/eht.e2018002",
    "creator": "OECD (with US EPA, EC JRC and US Army ERDC)",
    "url": "https://aopkb.oecd.org",
@@ -760,6 +820,7 @@
   },
   {
    "@id": "#aoplink",
+   "identifier": "https://w3id.org/fair-tox/dataset#aoplink",
    "key": "aoplink",
    "name": "AOPLink",
    "decision": "exclude",
@@ -776,7 +837,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2019",
+   "date": "2019",
    "dateSource": "https://openrisknet.org/e-infrastructure/development/case-studies/case-study-aoplink/",
    "creator": "OpenRiskNet consortium",
    "url": "https://openrisknet.org/e-infrastructure/development/case-studies/case-study-aoplink/",
@@ -787,6 +848,7 @@
   },
   {
    "@id": "#aopnet",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopnet",
    "key": "aopnet",
    "name": "AOP-networkFinder",
    "alternateName": [
@@ -808,8 +870,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2024-04-25",
-   "dateBasis": "release",
+   "dateReleased": "2024-04-25",
    "dateSource": "https://github.com/folkehelseinstituttet/AOPnetworkFinder_v1/releases/tag/v1.0.0",
    "creator": "Norwegian Institute of Public Health (FHI); University of Oslo",
    "url": "https://aop-networkfinder.no/",
@@ -832,6 +893,7 @@
   },
   {
    "@id": "#aopo",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopo",
    "key": "aopo",
    "name": "AOP Ontology (AOPO)",
    "alternateName": [
@@ -853,8 +915,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2015-11-04",
-   "dateBasis": "release",
+   "dateReleased": "2015-11-04",
    "dateSource": "https://doi.org/10.5281/zenodo.33226",
    "creator": "US Army ERDC (L. Burgoon)",
    "url": "https://github.com/DataSciBurgoon/aop-ontology",
@@ -876,6 +937,7 @@
   },
   {
    "@id": "#aoproadmap",
+   "identifier": "https://w3id.org/fair-tox/dataset#aoproadmap",
    "key": "aoproadmap",
    "name": "FAIR AOP roadmap (2025)",
    "alternateName": [
@@ -889,7 +951,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2025",
+   "date": "2025",
    "dateSource": "https://doi.org/10.1016/j.comtox.2025.100368",
    "creator": "Mortensen et al. 2025",
    "url": "https://doi.org/10.1016/j.comtox.2025.100368",
@@ -900,6 +962,7 @@
   },
   {
    "@id": "#aopwiki",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopwiki",
    "key": "aopwiki",
    "name": "AOP-Wiki",
    "alternateName": [
@@ -923,8 +986,7 @@
     "AOP-based mechanistic knowledge",
     "computational and predictive toxicology"
    ],
-   "datePublished": "2014-09-28",
-   "dateBasis": "release",
+   "dateReleased": "2014-09-28",
    "dateSource": "https://web.archive.org/web/20150924160559/https://aopkb.org/aopwiki/index.php/Release_Notes",
    "creator": "OECD (with US EPA and EC JRC)",
    "url": "https://aopwiki.org",
@@ -949,6 +1011,7 @@
   },
   {
    "@id": "#aopwikirdf",
+   "identifier": "https://w3id.org/fair-tox/dataset#aopwikirdf",
    "key": "aopwikirdf",
    "name": "AOP-Wiki RDF",
    "alternateName": [
@@ -970,8 +1033,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2019-04-30",
-   "dateBasis": "release",
+   "dateReleased": "2019-04-30",
    "dateSource": "https://doi.org/10.5281/zenodo.2654857",
    "creator": "Maastricht University (BiGCaT)",
    "url": "https://aopwiki.rdf.bigcat-bioinformatics.org",
@@ -1007,6 +1069,7 @@
   },
   {
    "@id": "#apvma_cr",
+   "identifier": "https://w3id.org/fair-tox/dataset#apvma_cr",
    "key": "apvma_cr",
    "name": "The Australian Pesticides and Veterinary Medicines Authority (APVMA) database of completed chemical reviews",
    "alternateName": [
@@ -1028,8 +1091,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1995",
-   "dateBasis": "FAIRsharing year",
+   "dateCreated": "1995",
    "dateSource": "https://fairsharing.org/5630",
    "creator": "APVMA",
    "url": "https://www.apvma.gov.au/regulation/chemical-review",
@@ -1043,6 +1105,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c54ywe",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.c54ywe",
    "key": "arachnoserver",
    "name": "ArachnoServer: Spider toxin database",
    "alternateName": [
@@ -1053,7 +1116,6 @@
    "type": "Database: knowledgebase",
    "scope": "Life Sciences",
    "datePublished": "2009-08-13",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1186/1471-2164-10-375",
    "creator": "University of Queensland (IMB); QFAB",
    "url": "https://arachnoserver.org/",
@@ -1066,6 +1128,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6k0kwd",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.6k0kwd",
    "key": "arrayexpress",
    "name": "ArrayExpress",
    "decision": "include",
@@ -1077,8 +1140,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2002-02",
-   "dateBasis": "release",
+   "dateReleased": "2002-02",
    "dateSource": "https://doi.org/10.1093/nar/gkg091",
    "creator": "EMBL-EBI",
    "url": "https://www.ebi.ac.uk/biostudies/arrayexpress/",
@@ -1092,6 +1154,7 @@
   },
   {
    "@id": "#arraytrack",
+   "identifier": "https://w3id.org/fair-tox/dataset#arraytrack",
    "key": "arraytrack",
    "name": "ArrayTrack",
    "alternateName": [
@@ -1116,7 +1179,6 @@
     "toxicogenomics"
    ],
    "datePublished": "2003-11",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1289/ehp.6497",
    "creator": "US FDA NCTR",
    "url": "https://www.fda.gov/science-research/bioinformatics-tools/arraytracktm-hca-pca-standalone-package-powerful-data-exploring-tools",
@@ -1139,6 +1201,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.mye76w",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.mye76w",
    "key": "bao",
    "name": "BioAssay Ontology (BAO)",
    "alternateName": [
@@ -1155,8 +1218,7 @@
     "in vitro toxicology",
     "nanotoxicology"
    ],
-   "datePublished": "2010-09-17",
-   "dateBasis": "release",
+   "dateReleased": "2010-09-17",
    "dateSource": "https://web.archive.org/web/20110703074549/http://bioportal.bioontology.org/ontologies/1533",
    "creator": "University of Miami",
    "url": "https://bioassayontology.org",
@@ -1171,6 +1233,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.paz6mh",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.paz6mh",
    "key": "biomodels",
    "name": "BioModels",
    "decision": "include",
@@ -1182,8 +1245,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2005-04-11",
-   "dateBasis": "release",
+   "dateReleased": "2005-04-11",
    "dateSource": "https://web.archive.org/web/20050414044700/http://www.ebi.ac.uk/biomodels/",
    "creator": "EMBL-EBI",
    "url": "https://www.biomodels.org/",
@@ -1207,6 +1269,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.82f7b4",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.82f7b4",
    "key": "bioschemas_chemicalsubstance",
    "name": "Bioschemas ChemicalSubstance Profile",
    "decision": "include",
@@ -1215,8 +1278,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2018-12-07",
-   "dateBasis": "release",
+   "dateReleased": "2018-12-07",
    "dateSource": "https://bioschemas.org/profiles/ChemicalSubstance/0.1-DRAFT-2018_12_07",
    "creator": "Bioschemas community (ELIXIR)",
    "url": "https://bioschemas.org/profiles/ChemicalSubstance/0.4-RELEASE",
@@ -1230,6 +1292,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.991d4e",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.991d4e",
    "key": "bioschemas_computationaltool",
    "name": "Bioschemas ComputationalTool Profile",
    "decision": "include",
@@ -1238,8 +1301,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2019-11-26",
-   "dateBasis": "release",
+   "dateReleased": "2019-11-26",
    "dateSource": "https://bioschemas.org/profiles/ComputationalTool/0.5-DRAFT",
    "creator": "Bioschemas community (ELIXIR)",
    "url": "https://bioschemas.org/profiles/ComputationalTool/1.0-RELEASE",
@@ -1253,6 +1315,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e457b5",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.e457b5",
    "key": "bioschemas_computationalworkflow",
    "name": "Bioschemas ComputationalWorkflow Profile",
    "decision": "include",
@@ -1261,8 +1324,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2019-02-08",
-   "dateBasis": "release",
+   "dateReleased": "2019-02-08",
    "dateSource": "https://bioschemas.org/profiles/ComputationalWorkflow/0.1-DRAFT-2019_02_08",
    "creator": "Bioschemas community (ELIXIR)",
    "url": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE",
@@ -1276,6 +1338,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.20sbr9",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.20sbr9",
    "key": "bioschemas_dataset_profile",
    "name": "Bioschemas Dataset Profile",
    "decision": "include",
@@ -1284,8 +1347,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2017",
-   "dateBasis": "release",
+   "dateReleased": "2017",
    "dateSource": "https://github.com/BioSchemas/bioschemas.github.io/commit/c9d53fa1a32a1296eb6eebbc29a7dd06ef3a5ccf",
    "creator": "Bioschemas community (ELIXIR)",
    "url": "https://bioschemas.org/profiles/Dataset/",
@@ -1299,6 +1361,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a847f0",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.a847f0",
    "key": "bioschemas_deploys",
    "name": "Bioschemas Deploys",
    "decision": "undecided",
@@ -1318,6 +1381,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ccaad2",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ccaad2",
    "key": "bioschemas_molecularentity",
    "name": "Bioschemas MolecularEntity Profile",
    "decision": "include",
@@ -1326,8 +1390,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2018-11-14",
-   "dateBasis": "release",
+   "dateReleased": "2018-11-14",
    "dateSource": "https://bioschemas.org/profiles/MolecularEntity/0.2-DRAFT-2018_11_14",
    "creator": "Bioschemas community (ELIXIR)",
    "url": "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE",
@@ -1341,6 +1404,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f3a3ca",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.f3a3ca",
    "key": "bioschemas_sample_profile",
    "name": "Bioschemas Sample Profile",
    "decision": "include",
@@ -1349,8 +1413,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2017",
-   "dateBasis": "release",
+   "dateReleased": "2017",
    "dateSource": "https://github.com/BioSchemas/bioschemas.github.io/commit/cfa46b2c2c",
    "creator": "Bioschemas community (ELIXIR)",
    "url": "https://bioschemas.org/profiles/Sample/0.2-RELEASE-2018_11_10",
@@ -1364,6 +1427,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
    "key": "biosd",
    "name": "BioSamples",
    "alternateName": [
@@ -1378,8 +1442,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2011",
-   "dateBasis": "release",
+   "dateReleased": "2011",
    "dateSource": "http://web.archive.org/web/20111009081118/http://www.ebi.ac.uk:80/biosamples/",
    "creator": "EMBL-EBI",
    "url": "https://www.ebi.ac.uk/biosamples/",
@@ -1396,6 +1459,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.mtjvme",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.mtjvme",
    "key": "biostudies",
    "name": "BioStudies",
    "alternateName": [
@@ -1412,7 +1476,6 @@
     "toxicogenomics"
    ],
    "datePublished": "2015-12-23",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.15252/msb.20156658",
    "creator": "EMBL-EBI",
    "url": "https://www.ebi.ac.uk/biostudies/",
@@ -1427,6 +1490,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f37bb6",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.f37bb6",
    "key": "biu",
    "name": "Biocides in the environment",
    "alternateName": [
@@ -1449,8 +1513,7 @@
     "exposome",
     "eco-toxicology"
    ],
-   "datePublished": "2023",
-   "dateBasis": "release",
+   "dateReleased": "2023",
    "dateSource": "https://web.archive.org/web/20230607160355/https://recherche.chemikalieninfo.de/biu",
    "creator": "German Environment Agency (UBA)",
    "url": "https://recherche.chemikalieninfo.de/biu",
@@ -1464,6 +1527,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.68a369",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.68a369",
    "key": "blood_exposome_db",
    "name": "The Blood Exposome Database",
    "alternateName": [
@@ -1486,7 +1550,6 @@
     "exposome"
    ],
    "datePublished": "2019-09-26",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1289/EHP4713",
    "creator": "UC Davis (West Coast Metabolomics Center)",
    "url": "https://bloodexposome.org/",
@@ -1500,6 +1563,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e5c86e",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.e5c86e",
    "key": "cas_common_chemistry",
    "name": "Chemical Abstracts Service Common Chemistry",
    "alternateName": [
@@ -1519,6 +1583,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.r7Kwy7",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.r7Kwy7",
    "key": "cas_rn",
    "name": "CAS Registry Number",
    "alternateName": [
@@ -1533,8 +1598,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1965",
-   "dateBasis": "release",
+   "dateReleased": "1965",
    "dateSource": "https://www.cas.org/cas-data/cas-registry",
    "creator": "CAS (Chemical Abstracts Service), American Chemical Society",
    "url": "https://www.cas.org/cas-data/cas-registry",
@@ -1548,6 +1612,7 @@
   },
   {
    "@id": "#cc_by_4_0",
+   "identifier": "https://w3id.org/fair-tox/dataset#cc_by_4_0",
    "key": "cc_by_4_0",
    "name": "Attribution 4.0 International",
    "alternateName": [
@@ -1567,6 +1632,7 @@
   },
   {
    "@id": "#cc_by_sa_4_0",
+   "identifier": "https://w3id.org/fair-tox/dataset#cc_by_sa_4_0",
    "key": "cc_by_sa_4_0",
    "name": "Attribution-ShareAlike 4.0 International",
    "alternateName": [
@@ -1586,6 +1652,7 @@
   },
   {
    "@id": "#cdisc",
+   "identifier": "https://w3id.org/fair-tox/dataset#cdisc",
    "key": "cdisc",
    "name": "CDISC (Clinical Data Interchange Standards Consortium)",
    "alternateName": [
@@ -1604,6 +1671,7 @@
   },
   {
    "@id": "#cerif",
+   "identifier": "https://w3id.org/fair-tox/dataset#cerif",
    "key": "cerif",
    "name": "Common European Research Information Format",
    "alternateName": [
@@ -1625,6 +1693,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.750d23",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.750d23",
    "key": "cesar",
    "name": "Canada’s Existing Substances Assessment Repository",
    "alternateName": [
@@ -1646,8 +1715,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2009-02-05",
-   "dateBasis": "release",
+   "dateReleased": "2009-02-05",
    "dateSource": "https://www.echemportal.org/echemportal/content/news",
    "creator": "Environment and Climate Change Canada; Health Canada",
    "url": "https://www.canada.ca/en/health-canada/services/chemical-substances.html",
@@ -1661,6 +1729,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.62qk8w",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.62qk8w",
    "key": "chebi",
    "name": "ChEBI (Chemical Entities of Biological Interest)",
    "alternateName": [
@@ -1676,8 +1745,7 @@
     "nanotoxicology",
     "computational and predictive toxicology"
    ],
-   "datePublished": "2004-07-21",
-   "dateBasis": "release",
+   "dateReleased": "2004-07-21",
    "dateSource": "https://doi.org/10.1093/nar/gkm791",
    "creator": "EMBL-EBI",
    "url": "https://www.ebi.ac.uk/chebi/",
@@ -1695,6 +1763,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.m3jtpg",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.m3jtpg",
    "key": "chembl",
    "name": "ChEMBL",
    "alternateName": [
@@ -1709,8 +1778,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2009-10-28",
-   "dateBasis": "release",
+   "dateReleased": "2009-10-28",
    "dateSource": "https://chembl.blogspot.com/2009/10/chembl-database-web-interface-and-data.html",
    "creator": "EMBL-EBI",
    "url": "https://www.ebi.ac.uk/chembl",
@@ -1727,6 +1795,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b5a070",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.b5a070",
    "key": "cheminfo",
    "name": "ChemInfo",
    "decision": "include",
@@ -1746,8 +1815,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2019",
-   "dateBasis": "release",
+   "dateReleased": "2019",
    "dateSource": "http://web.archive.org/web/20190821200437/https://gsbl.de/",
    "creator": "German federal and Länder authorities (ChemInfo cooperation, UBA)",
    "url": "https://recherche.chemikalieninfo.de/",
@@ -1761,6 +1829,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.96f3gm",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.96f3gm",
    "key": "chemspider",
    "name": "ChemSpider",
    "alternateName": [
@@ -1772,8 +1841,7 @@
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2007-03",
-   "dateBasis": "release",
+   "dateReleased": "2007-03",
    "dateSource": "https://en.wikipedia.org/wiki/ChemSpider",
    "creator": "ChemZoo; Royal Society of Chemistry",
    "url": "https://www.chemspider.com/",
@@ -1787,6 +1855,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.j9y503",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.j9y503",
    "key": "cl",
    "name": "Cell Ontology (CL)",
    "alternateName": [
@@ -1801,8 +1870,7 @@
    "subdomains": [
     "nanotoxicology"
    ],
-   "datePublished": "2003",
-   "dateBasis": "release",
+   "dateReleased": "2003",
    "dateSource": "https://web.archive.org/web/20030925190936/http://obo.sourceforge.net/ontologies.js",
    "creator": "Cell Ontology community (OBO Foundry); originally Univ. of Edinburgh, Carnegie Institution, Univ. of Cambridge",
    "url": "https://obophenotype.github.io/cell-ontology/",
@@ -1817,6 +1885,7 @@
   },
   {
    "@id": "#combine",
+   "identifier": "https://w3id.org/fair-tox/dataset#combine",
    "key": "combine",
    "name": "COMBINE (Computational Modeling in Biology Network)",
    "alternateName": [
@@ -1835,6 +1904,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ad3f2b",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ad3f2b",
    "key": "combine_coll",
    "name": "COMBINE FAIRsharing collection",
    "alternateName": [
@@ -1850,8 +1920,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2016-02-16",
-   "dateBasis": "release",
+   "dateReleased": "2016-02-16",
    "dateSource": "https://web.archive.org/web/20190823150934/https://fairsharing.org/collection/ComputationalModelingCOMBINE",
    "creator": "COMBINE (with FAIRsharing)",
    "url": "https://fairsharing.org/FAIRsharing.ad3f2b",
@@ -1866,6 +1935,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.tfj7gt",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.tfj7gt",
    "key": "comptox",
    "name": "EPA CompTox Chemicals Dashboard",
    "decision": "include",
@@ -1887,8 +1957,7 @@
     "exposome",
     "computational and predictive toxicology"
    ],
-   "datePublished": "2016-04",
-   "dateBasis": "release",
+   "dateReleased": "2016-04",
    "dateSource": "https://doi.org/10.1186/s13321-017-0247-6",
    "creator": "US EPA",
    "url": "https://comptox.epa.gov/dashboard",
@@ -1902,6 +1971,7 @@
   },
   {
    "@id": "#cookbook",
+   "identifier": "https://w3id.org/fair-tox/dataset#cookbook",
    "key": "cookbook",
    "name": "FAIR Cookbook",
    "alternateName": [
@@ -1914,8 +1984,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Training-Material"
    ],
    "scope": "Generic",
-   "datePublished": "2020",
-   "dateBasis": "release",
+   "dateReleased": "2020",
    "dateSource": "https://doi.org/10.1038/s41597-023-02166-3",
    "creator": "FAIRplus / ELIXIR",
    "url": "https://faircookbook.elixir-europe.org",
@@ -1929,6 +1998,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.522e02",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.522e02",
    "key": "cosing",
    "name": "Cosmetic ingredient database",
    "alternateName": [
@@ -1950,8 +2020,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2008-05",
-   "dateBasis": "release",
+   "dateReleased": "2008-05",
    "dateSource": "https://web.archive.org/web/20081217150446/http://ec.europa.eu/enterprise/cosmetics/new.xml",
    "creator": "European Commission (DG GROW)",
    "url": "https://ec.europa.eu/growth/tools-databases/cosing/",
@@ -1965,6 +2034,7 @@
   },
   {
    "@id": "#cred",
+   "identifier": "https://w3id.org/fair-tox/dataset#cred",
    "key": "cred",
    "name": "CRED (Criteria for Reporting and Evaluating ecotoxicity Data)",
    "alternateName": [
@@ -1990,7 +2060,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2015-09-24",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1002/etc.3259",
    "creator": "Swiss Ecotox Centre; RIVM; Stockholm University",
    "url": "https://www.ecotoxcentre.ch/projects/risk-assessment/cred-criteria-for-reporting-and-evaluating-ecotoxicity-data",
@@ -2003,6 +2072,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.dcsw6j",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.dcsw6j",
    "key": "ctcae",
    "name": "Common Terminology Criteria for Adverse Events",
    "alternateName": [
@@ -2013,7 +2083,6 @@
    "type": "Standard: terminology artefact",
    "scope": "Life Sciences",
    "datePublished": "2003",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1016/S1053-4296(03)00031-6",
    "creator": "US National Cancer Institute (CTEP)",
    "url": "https://dctd.cancer.gov/research/ctep-trials/trial-development",
@@ -2026,6 +2095,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.h3tjtr",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.h3tjtr",
    "key": "ctd",
    "name": "Comparative Toxicogenomics Database",
    "alternateName": [
@@ -2049,7 +2119,6 @@
     "toxicogenomics"
    ],
    "datePublished": "2003-02-13",
-   "dateBasis": "publication",
    "dateSource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1241500/",
    "creator": "MDI Biological Laboratory; NC State University",
    "url": "https://ctdbase.org/",
@@ -2063,6 +2132,7 @@
   },
   {
    "@id": "#cure",
+   "identifier": "https://w3id.org/fair-tox/dataset#cure",
    "key": "cure",
    "name": "CURE principles for computational models",
    "alternateName": [
@@ -2077,7 +2147,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2026",
+   "date": "2026",
    "dateSource": "https://doi.org/10.1038/s41540-026-00651-0",
    "maintained": "unknown",
    "manuscript": "cited",
@@ -2086,6 +2156,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.bca16f",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.bca16f",
    "key": "danish_q_sar_database",
    "name": "Danish (Q)SAR Database",
    "decision": "include",
@@ -2107,8 +2178,7 @@
     "computational and predictive toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2006-04",
-   "dateBasis": "release",
+   "dateReleased": "2006-04",
    "dateSource": "http://web.archive.org/web/20070502164010/http://ecb.jrc.it:80/whatsnew/content1.php?ANNEE=2006",
    "creator": "DTU National Food Institute (first version from the Danish EPA QSAR group, with ECB support)",
    "url": "https://qsar.food.dtu.dk/",
@@ -2122,6 +2192,7 @@
   },
   {
    "@id": "#datacite_metadata_scheme",
+   "identifier": "https://w3id.org/fair-tox/dataset#datacite_metadata_scheme",
    "key": "datacite_metadata_scheme",
    "name": "DataCite Metadata Scheme",
    "decision": "undecided",
@@ -2140,6 +2211,7 @@
   },
   {
    "@id": "#datacure",
+   "identifier": "https://w3id.org/fair-tox/dataset#datacure",
    "key": "datacure",
    "name": "DataCure",
    "decision": "exclude",
@@ -2157,7 +2229,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "2018-11-07",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.5281/zenodo.1479127",
    "creator": "OpenRiskNet consortium",
    "url": "https://openrisknet.org/e-infrastructure/development/case-studies/case-study-datacure/",
@@ -2170,6 +2241,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.z1ars2",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.z1ars2",
    "key": "dbeth",
    "name": "Database of Bacterial Exotoxins for Human",
    "alternateName": [
@@ -2180,7 +2252,6 @@
    "type": "Database: knowledgebase",
    "scope": "Life Sciences",
    "datePublished": "2011-11-17",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1093/nar/gkr942",
    "creator": "CSIR-Indian Institute of Chemical Biology",
    "url": "http://www.hpppi.iicb.res.in/btox/",
@@ -2193,6 +2264,7 @@
   },
   {
    "@id": "#dc_data_explorer",
+   "identifier": "https://w3id.org/fair-tox/dataset#dc_data_explorer",
    "key": "dc_data_explorer",
    "name": "DC Data Explorer",
    "decision": "include",
@@ -2212,8 +2284,7 @@
     "in vitro toxicology",
     "toxicogenomics"
    ],
-   "datePublished": "2017-07-12",
-   "dateBasis": "release",
+   "dateReleased": "2017-07-12",
    "dateSource": "https://doi.org/10.5281/zenodo.831444",
    "creator": "Douglas Connect (now Edelweiss Connect)",
    "url": "https://data.douglasconnect.com/",
@@ -2227,6 +2298,7 @@
   },
   {
    "@id": "#dixa",
+   "identifier": "https://w3id.org/fair-tox/dataset#dixa",
    "key": "dixa",
    "name": "diXa data infrastructure for chemical safety assessment",
    "alternateName": [
@@ -2252,8 +2324,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2014",
-   "dateBasis": "release",
+   "dateReleased": "2014",
    "dateSource": "https://web.archive.org/web/20140207104020/http://www.dixa-fp7.eu/",
    "creator": "diXa consortium (Maastricht University, EMBL-EBI)",
    "url": "https://doi.org/10.1093/bioinformatics/btu827",
@@ -2282,6 +2353,7 @@
   },
   {
    "@id": "#dixa_project",
+   "identifier": "https://w3id.org/fair-tox/dataset#dixa_project",
    "key": "dixa_project",
    "name": "diXa (FP7 project)",
    "alternateName": [
@@ -2307,6 +2379,7 @@
   },
   {
    "@id": "#dnt_negref",
+   "identifier": "https://w3id.org/fair-tox/dataset#dnt_negref",
    "key": "dnt_negref",
    "name": "Developmental neurotoxicity NAM negative reference chemical set",
    "alternateName": [
@@ -2331,6 +2404,7 @@
   },
   {
    "@id": "#doi",
+   "identifier": "https://w3id.org/fair-tox/dataset#doi",
    "key": "doi",
    "name": "Digital Object Identifier",
    "alternateName": [
@@ -2353,6 +2427,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.353yat",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.353yat",
    "key": "drugbank",
    "name": "DrugBank",
    "decision": "include",
@@ -2364,8 +2439,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2002",
-   "dateBasis": "release",
+   "dateReleased": "2002",
    "dateSource": "https://web.archive.org/web/20021209185751/http://www.drugbank.ca/",
    "creator": "University of Alberta (Wishart lab); OMx Personal Health Analytics",
    "url": "https://go.drugbank.com/",
@@ -2379,6 +2453,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.wkggtx",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.wkggtx",
    "key": "dryad",
    "name": "Dryad Digital Repository",
    "alternateName": [
@@ -2398,6 +2473,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c5b513",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.c5b513",
    "key": "dsld",
    "name": "Dietary Supplement Label Database",
    "alternateName": [
@@ -2412,8 +2488,7 @@
    "subdomains": [
     "exposome"
    ],
-   "datePublished": "2013",
-   "dateBasis": "release",
+   "dateReleased": "2013",
    "dateSource": "https://doi.org/10.1016/j.jfca.2021.104058",
    "creator": "NIH Office of Dietary Supplements (ODS) and National Library of Medicine (NLM)",
    "url": "https://dsld.od.nih.gov/",
@@ -2427,6 +2502,7 @@
   },
   {
    "@id": "#ec_inventory",
+   "identifier": "https://w3id.org/fair-tox/dataset#ec_inventory",
    "key": "ec_inventory",
    "name": "EC Inventory",
    "decision": "include",
@@ -2445,8 +2521,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1990-06-15",
-   "dateBasis": "release",
+   "dateReleased": "1990-06-15",
    "dateSource": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:51990XC0615(01)",
    "creator": "European Commission (JRC); ECHA",
    "url": "https://echa.europa.eu/information-on-chemicals/ec-inventory",
@@ -2460,6 +2535,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.60ef2d",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.60ef2d",
    "key": "echa_bpr",
    "name": "ECHA Biocidal Products Regulation",
    "alternateName": [
@@ -2481,8 +2557,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2013-09",
-   "dateBasis": "release",
+   "dateReleased": "2013-09",
    "dateSource": "https://web.archive.org/web/20130906170546/http://echa.europa.eu/web/guest/information-on-chemicals/biocidal-active-substances",
    "creator": "ECHA",
    "url": "https://echa.europa.eu/information-on-chemicals/biocidal-active-substances",
@@ -2496,6 +2571,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ab25e3",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ab25e3",
    "key": "echa_chem_reach",
    "name": "ECHA CHEM - Registration, Evaluation, Authorisation and Restriction of Chemicals Regulation",
    "alternateName": [
@@ -2517,8 +2593,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2024-01-30",
-   "dateBasis": "release",
+   "dateReleased": "2024-01-30",
    "dateSource": "https://echa.europa.eu/-/echa-launches-new-chemicals-database",
    "creator": "ECHA",
    "url": "https://chem.echa.europa.eu/",
@@ -2532,6 +2607,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4782f1",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.4782f1",
    "key": "echa_clp",
    "name": "ECHA Classification, Labelling and Packaging",
    "alternateName": [
@@ -2553,8 +2629,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2012-02-13",
-   "dateBasis": "release",
+   "dateReleased": "2012-02-13",
    "dateSource": "https://echa.europa.eu/web/guest/view-article/-/journal_content/07005f81-abf1-4081-973b-6c7c526c39df",
    "creator": "ECHA",
    "url": "https://echa.europa.eu/web/guest/information-on-chemicals/cl-inventory-database",
@@ -2568,6 +2643,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.25fbf6",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.25fbf6",
    "key": "echemportal",
    "name": "OECD eChemPortal",
    "decision": "include",
@@ -2586,8 +2662,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2007-06-13",
-   "dateBasis": "release",
+   "dateReleased": "2007-06-13",
    "dateSource": "https://www.echemportal.org/echemportal/content/news",
    "creator": "OECD",
    "url": "https://www.echemportal.org/echemportal/",
@@ -2610,6 +2685,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4b2234",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.4b2234",
    "key": "ecotox",
    "name": "ECOTOXicology Knowledgebase",
    "alternateName": [
@@ -2633,8 +2709,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "1996",
-   "dateBasis": "release",
+   "dateReleased": "1996",
    "dateSource": "https://ntrl.ntis.gov/NTRL/dashboard/searchResults/titleDetail/PB97500318.xhtml",
    "creator": "US EPA",
    "url": "https://cfpub.epa.gov/ecotox/",
@@ -2648,6 +2723,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.560f4e",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.560f4e",
    "key": "ectothes",
    "name": "Ecotoxicology thesaurus",
    "decision": "include",
@@ -2666,8 +2742,7 @@
    "subdomains": [
     "eco-toxicology"
    ],
-   "datePublished": "2017-11-21",
-   "dateBasis": "release",
+   "dateReleased": "2017-11-21",
    "dateSource": "https://loterre.istex.fr/3WV/en/",
    "creator": "INIST-CNRS",
    "url": "https://loterre.istex.fr/3WV/en/",
@@ -2681,6 +2756,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.g593w1",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.g593w1",
    "key": "edam_bioimaging",
    "name": "EDAM Bioimaging Ontology",
    "alternateName": [
@@ -2700,6 +2776,7 @@
   },
   {
    "@id": "#edelweissdata",
+   "identifier": "https://w3id.org/fair-tox/dataset#edelweissdata",
    "key": "edelweissdata",
    "name": "EdelweissData",
    "alternateName": [
@@ -2721,8 +2798,7 @@
    "subdomains": [
     "in vitro toxicology"
    ],
-   "datePublished": "2019-03-09",
-   "dateBasis": "release",
+   "dateReleased": "2019-03-09",
    "dateSource": "https://web.archive.org/web/20190718024857/https://www.edelweissconnect.com/blog/edelweissdata",
    "creator": "Edelweiss Connect",
    "url": "https://edelweissdata.com/",
@@ -2736,6 +2812,7 @@
   },
   {
    "@id": "#efsa_fairmem",
+   "identifier": "https://w3id.org/fair-tox/dataset#efsa_fairmem",
    "key": "efsa_fairmem",
    "name": "EFSA statement on the interpretation of FAIR principles for mechanistic effect models in the regulatory environmental risk assessment of pesticides",
    "alternateName": [
@@ -2763,8 +2840,7 @@
     "computational and predictive toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2025-10-29",
-   "dateBasis": "adoption",
+   "dateAdopted": "2025-10-29",
    "dateSource": "https://web.archive.org/web/20251113112641/https://www.efsa.europa.eu/en/efsajournal/pub/9741",
    "creator": "EFSA",
    "url": "https://doi.org/10.2903/j.efsa.2025.9741",
@@ -2778,6 +2854,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.mya1ff",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.mya1ff",
    "key": "ega",
    "name": "The European Genome-phenome Archive",
    "alternateName": [
@@ -2797,6 +2874,7 @@
   },
   {
    "@id": "#elixir",
+   "identifier": "https://w3id.org/fair-tox/dataset#elixir",
    "key": "elixir",
    "name": "ELIXIR",
    "decision": "exclude",
@@ -2809,6 +2887,7 @@
   },
   {
    "@id": "#elixir_depdb",
+   "identifier": "https://w3id.org/fair-tox/dataset#elixir_depdb",
    "key": "elixir_depdb",
    "name": "ELIXIR Deposition Databases",
    "alternateName": [
@@ -2820,8 +2899,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2017-07",
-   "dateBasis": "adoption",
+   "dateAdopted": "2017-07",
    "dateSource": "https://web.archive.org/web/20170725133703/https://www.elixir-europe.org/platforms/data/elixir-deposition-databases",
    "creator": "ELIXIR",
    "url": "https://elixir-europe.org/platforms/data/elixir-deposition-databases",
@@ -2834,6 +2912,7 @@
   },
   {
    "@id": "#elixir_tox_fips",
+   "identifier": "https://w3id.org/fair-tox/dataset#elixir_tox_fips",
    "key": "elixir_tox_fips",
    "name": "ELIXIR toxicology FAIR Implementation Profiles",
    "alternateName": [
@@ -2849,6 +2928,7 @@
   },
   {
    "@id": "#elixirtox",
+   "identifier": "https://w3id.org/fair-tox/dataset#elixirtox",
    "key": "elixirtox",
    "name": "ELIXIR Toxicology Community",
    "alternateName": [
@@ -2869,6 +2949,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.dff3ef",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.dff3ef",
    "key": "empiar",
    "name": "Electron Microscopy Public Image Archive",
    "alternateName": [
@@ -2888,6 +2969,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.dj8nt8",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.dj8nt8",
    "key": "ena",
    "name": "European Nucleotide Archive",
    "alternateName": [
@@ -2907,6 +2989,7 @@
   },
   {
    "@id": "#enanomapper",
+   "identifier": "https://w3id.org/fair-tox/dataset#enanomapper",
    "key": "enanomapper",
    "name": "eNanoMapper (FP7 project)",
    "alternateName": [
@@ -2933,6 +3016,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.r18yt0",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.r18yt0",
    "key": "enm_db",
    "name": "eNanoMapper database",
    "decision": "include",
@@ -2953,7 +3037,6 @@
     "nanotoxicology"
    ],
    "datePublished": "2014-11",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1109/BIBM.2014.6999367",
    "creator": "eNanoMapper consortium (Ideaconsult)",
    "url": "https://data.enanomapper.net",
@@ -2991,6 +3074,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2gpf81",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.2gpf81",
    "key": "enm_ont",
    "name": "eNanoMapper ontology",
    "decision": "include",
@@ -3010,8 +3094,7 @@
    "subdomains": [
     "nanotoxicology"
    ],
-   "datePublished": "2014",
-   "dateBasis": "release",
+   "dateReleased": "2014",
    "dateSource": "https://github.com/enanomapper/ontologies/tree/v0.1",
    "creator": "eNanoMapper consortium (EMBL-EBI, Maastricht University)",
    "url": "https://github.com/enanomapper/ontologies",
@@ -3056,6 +3139,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fx0mw7",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.fx0mw7",
    "key": "ensembl",
    "name": "Ensembl",
    "decision": "include",
@@ -3067,8 +3151,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2000-07",
-   "dateBasis": "release",
+   "dateReleased": "2000-07",
    "dateSource": "https://web.archive.org/web/20150109165257/http://www.ensembl.org/info/about/index.html",
    "creator": "EMBL-EBI and Wellcome Sanger Institute",
    "url": "https://www.ensembl.org/",
@@ -3082,6 +3165,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.azqskx",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.azqskx",
    "key": "envo",
    "name": "Environment Ontology",
    "alternateName": [
@@ -3097,8 +3181,7 @@
     "exposome",
     "eco-toxicology"
    ],
-   "datePublished": "2007",
-   "dateBasis": "release",
+   "dateReleased": "2007",
    "dateSource": "https://doi.org/10.1038/nbt1346",
    "creator": "EnvO Consortium (from the Genomic Standards Consortium)",
    "url": "http://environmentontology.org/",
@@ -3112,6 +3195,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.eca652",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.eca652",
    "key": "epa_aquatic_life_benchmarks",
    "name": "EPA Aquatic Life Benchmarks",
    "decision": "include",
@@ -3131,8 +3215,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2008",
-   "dateBasis": "release",
+   "dateReleased": "2008",
    "dateSource": "http://web.archive.org/web/20080116111035/http://www.epa.gov/oppefed1/ecorisk_ders/aquatic_life_benchmark.htm",
    "creator": "US EPA (Office of Pesticide Programs)",
    "url": "https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/aquatic-life-benchmarks-and-ecological-risk#benchmarks",
@@ -3146,6 +3229,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4a5271",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.4a5271",
    "key": "epa_chemview",
    "name": "EPA ChemView",
    "decision": "include",
@@ -3164,8 +3248,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2013",
-   "dateBasis": "release",
+   "dateReleased": "2013",
    "dateSource": "https://web.archive.org/web/20130912141247/http://java.epa.gov/chemview",
    "creator": "US EPA (Office of Chemical Safety and Pollution Prevention)",
    "url": "https://chemview.epa.gov/chemview/",
@@ -3179,6 +3262,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e1124d",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.e1124d",
    "key": "epa_integrated_risk_information",
    "name": "EPA Integrated Risk Information System",
    "alternateName": [
@@ -3200,8 +3284,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1988",
-   "dateBasis": "release",
+   "dateReleased": "1988",
    "dateSource": "https://www.epa.gov/system/files/other-files/2022-02/iris-timeline-11-2020_update.json",
    "creator": "US EPA",
    "url": "https://www.epa.gov/iris",
@@ -3215,6 +3298,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d4074e",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.d4074e",
    "key": "epa_substance_registry_services",
    "name": "EPA Substance Registry Services",
    "decision": "include",
@@ -3234,8 +3318,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2001",
-   "dateBasis": "release",
+   "dateReleased": "2001",
    "dateSource": "http://web.archive.org/web/20010502191556/http://www.epa.gov:80/srs/index.htm",
    "creator": "US EPA",
    "url": "https://cdxapps.epa.gov/oms-substance-registry-services/search",
@@ -3249,6 +3332,7 @@
   },
   {
    "@id": "#epicrdb",
+   "identifier": "https://w3id.org/fair-tox/dataset#epicrdb",
    "key": "epicrdb",
    "name": "Chromium Epigenomics Toxicology",
    "alternateName": [
@@ -3272,8 +3356,7 @@
     "in vitro toxicology",
     "toxicogenomics"
    ],
-   "datePublished": "2020",
-   "dateBasis": "FAIRsharing year",
+   "dateCreated": "2020",
    "dateSource": "https://fairsharing.org/2973",
    "creator": "University of Cincinnati (Puga laboratory)",
    "url": "http://eh4.uc.edu/chromium/",
@@ -3287,6 +3370,7 @@
   },
   {
    "@id": "#etox",
+   "identifier": "https://w3id.org/fair-tox/dataset#etox",
    "key": "etox",
    "name": "eTOX (IMI project)",
    "alternateName": [
@@ -3309,6 +3393,7 @@
   },
   {
    "@id": "#etransafe",
+   "identifier": "https://w3id.org/fair-tox/dataset#etransafe",
    "key": "etransafe",
    "name": "eTRANSAFE Knowledge Hub",
    "alternateName": [
@@ -3333,7 +3418,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2021-03-08",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.3390/ph14030237",
    "creator": "eTRANSAFE consortium (IMI2)",
    "url": "https://doi.org/10.3390/ph14030237",
@@ -3355,6 +3439,7 @@
   },
   {
    "@id": "#etransafe_datasharing",
+   "identifier": "https://w3id.org/fair-tox/dataset#etransafe_datasharing",
    "key": "etransafe_datasharing",
    "name": "eTRANSAFE FAIR data-sharing guidelines",
    "decision": "exclude",
@@ -3378,6 +3463,7 @@
   },
   {
    "@id": "#etransafe_modelverif",
+   "identifier": "https://w3id.org/fair-tox/dataset#etransafe_modelverif",
    "key": "etransafe_modelverif",
    "name": "eTRANSAFE model verification guidelines",
    "decision": "exclude",
@@ -3401,6 +3487,7 @@
   },
   {
    "@id": "#etransafe_project",
+   "identifier": "https://w3id.org/fair-tox/dataset#etransafe_project",
    "key": "etransafe_project",
    "name": "eTRANSAFE (IMI2 project)",
    "alternateName": [
@@ -3427,6 +3514,7 @@
   },
   {
    "@id": "#etransafe_repro",
+   "identifier": "https://w3id.org/fair-tox/dataset#etransafe_repro",
    "key": "etransafe_repro",
    "name": "eTRANSAFE guidelines for research reproducibility, FAIR data sharing and model verification",
    "alternateName": [
@@ -3451,7 +3539,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2022-03-07",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.12688/f1000research.74024.1",
    "creator": "eTRANSAFE consortium (IMI2)",
    "url": "https://doi.org/10.12688/f1000research.74024.1",
@@ -3464,6 +3551,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b5c52c",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.b5c52c",
    "key": "euon",
    "name": "European Union Observatory for Nanomaterials",
    "alternateName": [
@@ -3486,8 +3574,7 @@
     "nanotoxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2017-06-14",
-   "dateBasis": "release",
+   "dateReleased": "2017-06-14",
    "dateSource": "https://echa.europa.eu/-/eu-observatory-for-nanomaterials-launched",
    "creator": "ECHA (for the European Commission)",
    "url": "https://euon.echa.europa.eu/",
@@ -3501,6 +3588,7 @@
   },
   {
    "@id": "#europepmc",
+   "identifier": "https://w3id.org/fair-tox/dataset#europepmc",
    "key": "europepmc",
    "name": "Europe PMC",
    "alternateName": [
@@ -3517,6 +3605,7 @@
   },
   {
    "@id": "#eutoxrisk",
+   "identifier": "https://w3id.org/fair-tox/dataset#eutoxrisk",
    "key": "eutoxrisk",
    "name": "EU-ToxRisk (H2020 project)",
    "alternateName": [
@@ -3544,6 +3633,7 @@
   },
   {
    "@id": "#eutr_ki",
+   "identifier": "https://w3id.org/fair-tox/dataset#eutr_ki",
    "key": "eutr_ki",
    "name": "EU-ToxRisk Knowledge Portal (knowledge infrastructure)",
    "alternateName": [
@@ -3570,7 +3660,6 @@
     "in vitro toxicology"
    ],
    "datePublished": "2020-07-06",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1007/s00204-020-02802-6",
    "creator": "EU-ToxRisk consortium (Edelweiss Connect)",
    "url": "https://doi.org/10.1016/j.tiv.2024.105903",
@@ -3592,6 +3681,7 @@
   },
   {
    "@id": "#eutr_methods",
+   "identifier": "https://w3id.org/fair-tox/dataset#eutr_methods",
    "key": "eutr_methods",
    "name": "EU-ToxRisk Methods Database",
    "alternateName": [
@@ -3618,6 +3708,7 @@
   },
   {
    "@id": "#eutr_notebooks",
+   "identifier": "https://w3id.org/fair-tox/dataset#eutr_notebooks",
    "key": "eutr_notebooks",
    "name": "EU-ToxRisk executable web notebooks",
    "alternateName": [
@@ -3644,6 +3735,7 @@
   },
   {
    "@id": "#exner_metadata",
+   "identifier": "https://w3id.org/fair-tox/dataset#exner_metadata",
    "key": "exner_metadata",
    "name": "Workflow-based metadata capture for nanosafety (Exner et al. 2023)",
    "alternateName": [
@@ -3671,6 +3763,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6hna78",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.6hna78",
    "key": "exo",
    "name": "Exposure Ontology",
    "alternateName": [
@@ -3693,8 +3786,7 @@
    "subdomains": [
     "exposome"
    ],
-   "datePublished": "2011",
-   "dateBasis": "release",
+   "dateReleased": "2011",
    "dateSource": "http://web.archive.org/web/20120205103448/http://ctdbase.org/reports/CTD_exposure_ontology.obo",
    "creator": "CTD team (NC State University) and US EPA",
    "url": "https://github.com/CTDbase/exposure-ontology",
@@ -3708,6 +3800,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
    "key": "expexplorer",
    "name": "Exposome Explorer",
    "decision": "include",
@@ -3729,7 +3822,6 @@
     "exposome"
    ],
    "datePublished": "2016-10-24",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1093/nar/gkw980",
    "creator": "IARC (WHO)",
    "url": "https://exposome-explorer.iarc.fr/",
@@ -3743,6 +3835,7 @@
   },
   {
    "@id": "#exposome",
+   "identifier": "https://w3id.org/fair-tox/dataset#exposome",
    "key": "exposome",
    "name": "Exposome (conceptual framework)",
    "alternateName": [
@@ -3762,6 +3855,7 @@
   },
   {
    "@id": "#exposome_sharing",
+   "identifier": "https://w3id.org/fair-tox/dataset#exposome_sharing",
    "key": "exposome_sharing",
    "name": "Proposals for sharing exposome and biotransformation data",
    "decision": "exclude",
@@ -3783,6 +3877,7 @@
   },
   {
    "@id": "#f2f",
+   "identifier": "https://w3id.org/fair-tox/dataset#f2f",
    "key": "f2f",
    "name": "ELIXIR Toxicology F2F meeting",
    "alternateName": [
@@ -3798,6 +3893,7 @@
   },
   {
    "@id": "#fair4ai",
+   "identifier": "https://w3id.org/fair-tox/dataset#fair4ai",
    "key": "fair4ai",
    "name": "FAIR-for-AI",
    "alternateName": [
@@ -3812,6 +3908,7 @@
   },
   {
    "@id": "#fair4chem",
+   "identifier": "https://w3id.org/fair-tox/dataset#fair4chem",
    "key": "fair4chem",
    "name": "FAIR for chemicals",
    "decision": "exclude",
@@ -3823,6 +3920,7 @@
   },
   {
    "@id": "#fairaop",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairaop",
    "key": "fairaop",
    "name": "Reference AOP FAIR Implementation Profile",
    "alternateName": [
@@ -3846,8 +3944,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2025-07-14",
-   "dateBasis": "release",
+   "dateReleased": "2025-07-14",
    "dateSource": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
    "creator": "FAIR-AOPs community (GO FAIR Foundation, EC JRC, US EPA)",
    "url": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
@@ -3871,6 +3968,7 @@
   },
   {
    "@id": "#fairaop_case",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairaop_case",
    "key": "fairaop_case",
    "name": "Why adverse outcome pathways need to be FAIR (Wittwehr et al. 2023)",
    "alternateName": [
@@ -3891,6 +3989,7 @@
   },
   {
    "@id": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk#FAIR-AOPs",
+   "identifier": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk#FAIR-AOPs",
    "key": "fairaop_cluster",
    "name": "FAIR AOP Cluster",
    "decision": "include",
@@ -3902,7 +4001,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2023-01-30",
+   "date": "2023-01-30",
    "dateSource": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk",
    "url": "https://forum.aopwiki.org/showthread.php?tid=197",
    "description": "Community that implements the FAIR principles for adverse outcome pathways. It was initiated within the CIAO project and involves the GO FAIR Foundation, the Joint Research Centre of the European Commission, the US Environmental Protection Agency, research and non-profit institutes, and companies.",
@@ -3912,6 +4011,7 @@
   },
   {
    "@id": "#fairbydesign",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairbydesign",
    "key": "fairbydesign",
    "name": "FAIR by design",
    "alternateName": [
@@ -3927,6 +4027,7 @@
   },
   {
    "@id": "#fairconnect",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairconnect",
    "key": "fairconnect",
    "name": "FAIR Connect",
    "alternateName": [
@@ -3938,8 +4039,7 @@
     "https://w3id.org/fair/fip/terms/Registry"
    ],
    "scope": "Generic",
-   "datePublished": "2022",
-   "dateBasis": "release",
+   "dateReleased": "2022",
    "dateSource": "https://web.archive.org/web/20221025092955/https://fairconnect.pro/",
    "creator": "GO FAIR Foundation and IOS Press (now Sage), with CODATA, DTL and Health-RI",
    "url": "https://fairconnect.pro",
@@ -3953,6 +4053,7 @@
   },
   {
    "@id": "#fairlite",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairlite",
    "key": "fairlite",
    "name": "FAIR Lite principles for computational toxicology models",
    "alternateName": [
@@ -3966,7 +4067,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2025",
+   "date": "2025",
    "dateSource": "https://doi.org/10.14573/altex.2502021",
    "creator": "Cronin et al. 2025",
    "url": "https://doi.org/10.14573/altex.2502021",
@@ -3977,6 +4078,7 @@
   },
   {
    "@id": "#fairmodels",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairmodels",
    "key": "fairmodels",
    "name": "FAIR recommendations for in silico predictive toxicology models (Cronin et al., 18 recommendations)",
    "alternateName": [
@@ -3990,7 +4092,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2023",
+   "date": "2023",
    "dateSource": "https://doi.org/10.1016/j.yrtph.2023.105385",
    "creator": "Cronin et al. 2023",
    "url": "https://doi.org/10.1016/j.yrtph.2023.105385",
@@ -4001,6 +4103,7 @@
   },
   {
    "@id": "#fairplus",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairplus",
    "key": "fairplus",
    "name": "FAIRplus (IMI project)",
    "alternateName": [
@@ -4017,6 +4120,7 @@
   },
   {
    "@id": "#fairplus_etox_recipes",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairplus_etox_recipes",
    "key": "fairplus_etox_recipes",
    "name": "FAIRplus FAIRification recipes from the eTOX work",
    "decision": "exclude",
@@ -4030,6 +4134,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.WWI10U",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.WWI10U",
    "key": "fairprinc",
    "name": "FAIR Guiding Principles",
    "alternateName": [
@@ -4043,7 +4148,7 @@
    "exclusionReason": "E2",
    "type": "Standard: principle",
    "scope": "Generic",
-   "datePublished": "2016",
+   "date": "2016",
    "dateSource": "https://doi.org/10.1038/sdata.2016.18",
    "creator": "FORCE11 (Wilkinson et al. 2016)",
    "url": "https://doi.org/10.1038/sdata.2016.18",
@@ -4056,6 +4161,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2abjs5",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.2abjs5",
    "key": "fairsharing",
    "name": "FAIRsharing",
    "alternateName": [
@@ -4067,8 +4173,7 @@
     "https://w3id.org/fair/fip/terms/Registry"
    ],
    "scope": "Generic",
-   "datePublished": "2011",
-   "dateBasis": "release",
+   "dateReleased": "2011",
    "dateSource": "https://doi.org/10.1093/database/baw075",
    "creator": "University of Oxford (FAIRsharing team)",
    "url": "https://fairsharing.org",
@@ -4086,6 +4191,7 @@
   },
   {
    "@id": "#fics",
+   "identifier": "https://w3id.org/fair-tox/dataset#fics",
    "key": "fics",
    "name": "FAIR Implementation Communities (FICs)",
    "alternateName": [
@@ -4100,6 +4206,7 @@
   },
   {
    "@id": "#fip_wizard",
+   "identifier": "https://w3id.org/fair-tox/dataset#fip_wizard",
    "key": "fip_wizard",
    "name": "FIP Wizard",
    "alternateName": [
@@ -4114,8 +4221,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2020",
-   "dateBasis": "release",
+   "dateReleased": "2020",
    "dateSource": "https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4",
    "creator": "GO FAIR Foundation / Data Stewardship Wizard team (CTU Prague)",
    "url": "https://fip.fair-wizard.com",
@@ -4129,6 +4235,7 @@
   },
   {
    "@id": "#fipmatrix",
+   "identifier": "https://w3id.org/fair-tox/dataset#fipmatrix",
    "key": "fipmatrix",
    "name": "FIP Matrix tool",
    "alternateName": [
@@ -4141,8 +4248,7 @@
     "https://w3id.org/fair/fip/terms/Editor"
    ],
    "scope": "Generic",
-   "datePublished": "2019-01",
-   "dateBasis": "release",
+   "dateReleased": "2019-01",
    "dateSource": "http://web.archive.org/web/20240425011817/https://www.go-fair.org/today/FAIR-matrix/",
    "creator": "GO FAIR",
    "url": "https://doi.org/10.1162/dint_a_00038",
@@ -4155,6 +4261,7 @@
   },
   {
    "@id": "#fipwiz",
+   "identifier": "https://w3id.org/fair-tox/dataset#fipwiz",
    "key": "fipwiz",
    "name": "FAIR Implementation Profile (FIP)",
    "alternateName": [
@@ -4168,8 +4275,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
    "scope": "Generic",
-   "datePublished": "2020",
-   "dateBasis": "release",
+   "dateReleased": "2020",
    "dateSource": "https://web.archive.org/web/20200811221637/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/",
    "creator": "GO FAIR Foundation",
    "url": "https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/",
@@ -4182,6 +4288,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c7bb32",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.c7bb32",
    "key": "food_and_feed_information_portal",
    "name": "Food and Feed Information Portal Database",
    "decision": "include",
@@ -4200,8 +4307,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2022",
-   "dateBasis": "release",
+   "dateReleased": "2022",
    "dateSource": "http://web.archive.org/web/20221220225012/https://ec.europa.eu/food/food-feed-portal/",
    "creator": "European Commission (DG SANTE)",
    "url": "https://ec.europa.eu/food/food-feed-portal/screen/home",
@@ -4215,6 +4321,7 @@
   },
   {
    "@id": "#ftp",
+   "identifier": "https://w3id.org/fair-tox/dataset#ftp",
    "key": "ftp",
    "name": "File Transfer Protocol",
    "alternateName": [
@@ -4234,6 +4341,7 @@
   },
   {
    "@id": "#fuji",
+   "identifier": "https://w3id.org/fair-tox/dataset#fuji",
    "key": "fuji",
    "name": "F-UJI",
    "alternateName": [
@@ -4246,8 +4354,7 @@
     "https://w3id.org/fair/fip/terms/Validation-Service"
    ],
    "scope": "Generic",
-   "datePublished": "2020-10-02",
-   "dateBasis": "release",
+   "dateReleased": "2020-10-02",
    "dateSource": "https://doi.org/10.5281/zenodo.4063720",
    "creator": "PANGAEA (FAIRsFAIR)",
    "url": "https://www.f-uji.net",
@@ -4261,6 +4368,7 @@
   },
   {
    "@id": "#funder_policies",
+   "identifier": "https://w3id.org/fair-tox/dataset#funder_policies",
    "key": "funder_policies",
    "name": "Public funder FAIR data policies",
    "alternateName": [
@@ -4278,6 +4386,7 @@
   },
   {
    "@id": "#gd211",
+   "identifier": "https://w3id.org/fair-tox/dataset#gd211",
    "key": "gd211",
    "name": "OECD Guidance Document 211 (describing non-guideline in vitro test methods)",
    "alternateName": [
@@ -4302,8 +4411,7 @@
     "in vitro toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2014",
-   "dateBasis": "adoption",
+   "dateAdopted": "2014",
    "dateSource": "https://one.oecd.org/document/ENV/JM/MONO(2014)35/en/pdf",
    "creator": "OECD",
    "url": "https://www.oecd.org/en/publications/guidance-document-for-describing-non-guideline-in-vitro-test-methods_9789264274730-en.html",
@@ -4316,6 +4424,7 @@
   },
   {
    "@id": "#gd417",
+   "identifier": "https://w3id.org/fair-tox/dataset#gd417",
    "key": "gd417",
    "name": "OECD Guidance Document on the Generation, Reporting and Use of Research Data for Regulatory Assessments",
    "alternateName": [
@@ -4339,8 +4448,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2025-12-03",
-   "dateBasis": "adoption",
+   "dateAdopted": "2025-12-03",
    "dateSource": "https://doi.org/10.1787/8d49ec1d-en",
    "creator": "OECD",
    "url": "https://www.oecd.org/en/publications/guidance-document-on-the-generation-reporting-and-use-of-research-data-for-regulatory-assessments_8d49ec1d-en.html",
@@ -4353,6 +4461,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.5hc8vt",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.5hc8vt",
    "key": "geo",
    "name": "Gene Expression Omnibus (GEO)",
    "alternateName": [
@@ -4367,8 +4476,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2000-07-25",
-   "dateBasis": "release",
+   "dateReleased": "2000-07-25",
    "dateSource": "https://web.archive.org/web/20000815073701/http://www.ncbi.nlm.nih.gov/geo/info/news.cgi",
    "creator": "NCBI",
    "url": "https://www.ncbi.nlm.nih.gov/geo/",
@@ -4383,6 +4491,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c8f1cd",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.c8f1cd",
    "key": "ghs_j",
    "name": "NITE Japan-GHS",
    "alternateName": [
@@ -4404,8 +4513,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2020-12-14",
-   "dateBasis": "release",
+   "dateReleased": "2020-12-14",
    "dateSource": "https://www.chem-info.nite.go.jp/chem/ghs/ghs_nite_info_old.html",
    "creator": "NITE (National Institute of Technology and Evaluation, Japan)",
    "url": "https://www.chem-info.nite.go.jp/chem/english/ghs/ghs_nite_download_e.html",
@@ -4419,6 +4527,7 @@
   },
   {
    "@id": "#givimp",
+   "identifier": "https://w3id.org/fair-tox/dataset#givimp",
    "key": "givimp",
    "name": "GIVIMP (OECD Guidance Document on Good In Vitro Method Practices)",
    "alternateName": [
@@ -4438,7 +4547,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2018",
+   "date": "2018",
    "dateSource": "https://doi.org/10.1787/9789264304796-en",
    "creator": "OECD",
    "url": "https://doi.org/10.1787/9789264304796-en",
@@ -4449,6 +4558,7 @@
   },
   {
    "@id": "#glp",
+   "identifier": "https://w3id.org/fair-tox/dataset#glp",
    "key": "glp",
    "name": "Good Laboratory Practice (OECD Principles of GLP)",
    "alternateName": [
@@ -4475,6 +4585,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6xq0ee",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.6xq0ee",
    "key": "go",
    "name": "Gene Ontology (GO)",
    "alternateName": [
@@ -4489,8 +4600,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "1999",
-   "dateBasis": "release",
+   "dateReleased": "1999",
    "dateSource": "https://doi.org/10.1093/nar/28.1.77",
    "creator": "Gene Ontology Consortium",
    "url": "https://geneontology.org",
@@ -4505,6 +4615,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.t2e1ss",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.t2e1ss",
    "key": "harvard_dataverse_repository",
    "name": "Harvard Dataverse Repository",
    "decision": "undecided",
@@ -4521,6 +4632,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.amcv1e",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.amcv1e",
    "key": "hgnc",
    "name": "HGNC gene symbols",
    "alternateName": [
@@ -4537,7 +4649,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "1979",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1159/000131404",
    "creator": "HUGO Gene Nomenclature Committee",
    "url": "https://www.genenames.org",
@@ -4552,6 +4663,7 @@
   },
   {
    "@id": "#http",
+   "identifier": "https://w3id.org/fair-tox/dataset#http",
    "key": "http",
    "name": "Hypertext Transfer Protocol",
    "alternateName": [
@@ -4571,6 +4683,7 @@
   },
   {
    "@id": "#https",
+   "identifier": "https://w3id.org/fair-tox/dataset#https",
    "key": "https",
    "name": "Hypertext Transfer Protocol Secure",
    "alternateName": [
@@ -4592,6 +4705,7 @@
   },
   {
    "@id": "#iata",
+   "identifier": "https://w3id.org/fair-tox/dataset#iata",
    "key": "iata",
    "name": "Integrated Approaches to Testing and Assessment (IATA)",
    "alternateName": [
@@ -4619,6 +4733,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d6e8fa",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.d6e8fa",
    "key": "icscs",
    "name": "ILO-WHO International Chemical Safety Cards",
    "alternateName": [
@@ -4640,8 +4755,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1989",
-   "dateBasis": "release",
+   "dateReleased": "1989",
    "dateSource": "https://pubmed.ncbi.nlm.nih.gov/2489435/",
    "creator": "ILO and WHO (IPCS), with the European Commission",
    "url": "https://www.ilo.org/resource/other/ilo-who-international-chemical-safety-cards-icscs",
@@ -4655,6 +4769,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2b0d92",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.2b0d92",
    "key": "identifiersorg",
    "name": "Identifiers.org",
    "alternateName": [
@@ -4669,8 +4784,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2011-07",
-   "dateBasis": "release",
+   "dateReleased": "2011-07",
    "dateSource": "https://web.archive.org/web/20120727025443/http://identifiers.org/news",
    "creator": "EMBL-EBI",
    "url": "https://identifiers.org",
@@ -4685,6 +4799,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.801285",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.801285",
    "key": "igs",
    "name": "IGS - Public Informationssystem für gefährliche Stoffe",
    "alternateName": [
@@ -4706,8 +4821,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2000",
-   "dateBasis": "release",
+   "dateReleased": "2000",
    "dateSource": "https://web.archive.org/web/20000916034110/http://www.lua.nrw.de/igsstat/startigs.htm",
    "creator": "LANUK NRW (formerly LANUV / Landesumweltamt NRW), Germany",
    "url": "https://igsvtu.lanuk.nrw.de/en/home/",
@@ -4721,6 +4835,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ddk9t9",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ddk9t9",
    "key": "inchi",
    "name": "InChI (IUPAC International Chemical Identifier)",
    "alternateName": [
@@ -4733,8 +4848,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2005-04",
-   "dateBasis": "release",
+   "dateReleased": "2005-04",
    "dateSource": "https://web.archive.org/web/20051013062429/http://www.iupac.org/projects/2000/2000-025-1-800.html",
    "creator": "IUPAC / NIST / InChI Trust",
    "url": "https://www.inchi-trust.org",
@@ -4752,6 +4866,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9gqfpm",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.9gqfpm",
    "key": "inhand",
    "name": "International Harmonization of Nomenclature and Diagnostic criteria",
    "alternateName": [
@@ -4774,7 +4889,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2009-12",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1177/0192623309353423",
    "creator": "STP, ESTP, BSTP and JSTP (INHAND initiative)",
    "url": "https://www.goreni.org/",
@@ -4788,6 +4902,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d05nwx",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.d05nwx",
    "key": "intact",
    "name": "IntAct molecular interaction database",
    "alternateName": [
@@ -4807,6 +4922,7 @@
   },
   {
    "@id": "#intob",
+   "identifier": "https://w3id.org/fair-tox/dataset#intob",
    "key": "intob",
    "name": "Integrated Effect Database for Toxicological Observations (INTOB)",
    "alternateName": [
@@ -4832,7 +4948,6 @@
     "eco-toxicology"
    ],
    "datePublished": "2024-10-15",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1101/2024.10.11.617795",
    "creator": "UFZ Helmholtz Centre for Environmental Research (marketed by GREENBAY Software GmbH)",
    "url": "https://intob.app",
@@ -4846,6 +4961,7 @@
   },
   {
    "@id": "#intoxicom",
+   "identifier": "https://w3id.org/fair-tox/dataset#intoxicom",
    "key": "intoxicom",
    "name": "INTOXICOM (ELIXIR Toxicology implementation study)",
    "alternateName": [
@@ -4861,6 +4977,7 @@
   },
   {
    "@id": "#intoxicom_ws",
+   "identifier": "https://w3id.org/fair-tox/dataset#intoxicom_ws",
    "key": "intoxicom_ws",
    "name": "INTOXICOM workshops 1-5",
    "alternateName": [
@@ -4879,6 +4996,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.667115",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.667115",
    "key": "ipchem",
    "name": "Information Platform for Chemical Monitoring",
    "alternateName": [
@@ -4903,8 +5021,7 @@
     "exposome",
     "regulatory toxicology"
    ],
-   "datePublished": "2015",
-   "dateBasis": "release",
+   "dateReleased": "2015",
    "dateSource": "https://web.archive.org/web/20151219144109/https://ipchem.jrc.ec.europa.eu/RDSIdiscovery/ipchem/index.html",
    "creator": "European Commission Joint Research Centre (JRC)",
    "url": "https://ipchem.jrc.ec.europa.eu/",
@@ -4918,6 +5035,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fc4807",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.fc4807",
    "key": "ipcs_inchem",
    "name": "Internationally Peer Reviewed Chemical Safety Information",
    "alternateName": [
@@ -4939,8 +5057,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1997",
-   "dateBasis": "release",
+   "dateReleased": "1997",
    "dateSource": "http://web.archive.org/web/19970511011327/http://www.ccohs.ca:80/ccohs/releases/inchem.html",
    "creator": "WHO IPCS and CCOHS",
    "url": "https://www.inchem.org/",
@@ -4954,6 +5071,7 @@
   },
   {
    "@id": "#isa_ext",
+   "identifier": "https://w3id.org/fair-tox/dataset#isa_ext",
    "key": "isa_ext",
    "name": "ISA extensions for toxicogenomics, environmental exposure and nanotoxicology",
    "decision": "exclude",
@@ -4970,6 +5088,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.yhLgTV",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.yhLgTV",
    "key": "isajson",
    "name": "ISA-JSON",
    "alternateName": [
@@ -4984,8 +5103,7 @@
    "subdomains": [
     "in vitro toxicology"
    ],
-   "datePublished": "2016-02-29",
-   "dateBasis": "release",
+   "dateReleased": "2016-02-29",
    "dateSource": "https://github.com/ISA-tools/isa-api/releases/tag/v0.1",
    "creator": "ISA team, University of Oxford",
    "url": "https://isa-specs.readthedocs.io/en/latest/isajson.html",
@@ -5000,6 +5118,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.53gp75",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.53gp75",
    "key": "isatab",
    "name": "ISA framework (Investigation-Study-Assay; ISA-Tab)",
    "alternateName": [
@@ -5021,7 +5140,6 @@
     "toxicogenomics"
    ],
    "datePublished": "2008",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1089/omi.2008.0019",
    "creator": "ISA team (EMBL-EBI, later University of Oxford)",
    "url": "https://isa-tools.org",
@@ -5036,6 +5154,7 @@
   },
   {
    "@id": "#iuclid",
+   "identifier": "https://w3id.org/fair-tox/dataset#iuclid",
    "key": "iuclid",
    "name": "IUCLID (International Uniform Chemical Information Database)",
    "alternateName": [
@@ -5057,8 +5176,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1993",
-   "dateBasis": "release",
+   "dateReleased": "1993",
    "dateSource": "https://web.archive.org/web/20090913001123/http://iuclid.eu/index.php?fuseaction=home.development",
    "creator": "European Commission JRC (ECB); since 2008 ECHA with OECD",
    "url": "https://iuclid6.echa.europa.eu",
@@ -5081,6 +5199,7 @@
   },
   {
    "@id": "#iupac",
+   "identifier": "https://w3id.org/fair-tox/dataset#iupac",
    "key": "iupac",
    "name": "IUPAC (International Union of Pure and Applied Chemistry)",
    "alternateName": [
@@ -5096,6 +5215,7 @@
   },
   {
    "@id": "#iupac_immunotox",
+   "identifier": "https://w3id.org/fair-tox/dataset#iupac_immunotox",
    "key": "iupac_immunotox",
    "name": "IUPAC Glossary of terms used in immunotoxicology (IUPAC Recommendations 2012)",
    "alternateName": [
@@ -5115,7 +5235,6 @@
     "Wet-lab research"
    ],
    "datePublished": "2012-02-16",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1351/pac-rec-11-06-03",
    "creator": "IUPAC",
    "url": "https://doi.org/10.1351/pac-rec-11-06-03",
@@ -5128,6 +5247,7 @@
   },
   {
    "@id": "#iupac_toxgloss",
+   "identifier": "https://w3id.org/fair-tox/dataset#iupac_toxgloss",
    "key": "iupac_toxgloss",
    "name": "IUPAC Glossary of terms used in toxicology, 2nd edition (IUPAC Recommendations 2007)",
    "alternateName": [
@@ -5150,7 +5270,6 @@
     "Wet-lab research"
    ],
    "datePublished": "2007-07",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1351/pac200779071153",
    "creator": "IUPAC",
    "url": "https://doi.org/10.1351/pac200779071153",
@@ -5163,6 +5282,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.39044c",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.39044c",
    "key": "j_check",
    "name": "Japan Chemicals Collaborative Knowledge database",
    "alternateName": [
@@ -5185,8 +5305,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2008",
-   "dateBasis": "release",
+   "dateReleased": "2008",
    "dateSource": "http://web.archive.org/web/20080607012424/http://www.safe.nite.go.jp:80/jcheck/pages/jsp/index.jsp",
    "creator": "NITE with MHLW, METI and MOE (Japan)",
    "url": "https://www.nite.go.jp/chem/jcheck/top.action?request_locale=en",
@@ -5200,6 +5319,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.3b78e1",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.3b78e1",
    "key": "jecdb",
    "name": "Japan Existing Chemical Database",
    "alternateName": [
@@ -5221,8 +5341,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "1998",
-   "dateBasis": "release",
+   "dateReleased": "1998",
    "dateSource": "http://web.archive.org/web/19981202050410/http://wwwdb.mhw.go.jp:80/ginc/cgi-bin/db1_ls2.pl",
    "creator": "NIHS (MHLW), Japan",
    "url": "https://dra4.nihs.go.jp/mhlw_data/jsp/SearchPageENG.jsp",
@@ -5236,6 +5355,7 @@
   },
   {
    "@id": "#json_ld",
+   "identifier": "https://w3id.org/fair-tox/dataset#json_ld",
    "key": "json_ld",
    "name": "JavaScript Object Notation for Linking Data",
    "alternateName": [
@@ -5258,6 +5378,7 @@
   },
   {
    "@id": "#kherroubi",
+   "identifier": "https://w3id.org/fair-tox/dataset#kherroubi",
    "key": "kherroubi",
    "name": "Best practices for computational model sharing (Kherroubi et al.)",
    "alternateName": [
@@ -5277,6 +5398,7 @@
   },
   {
    "@id": "#klimisch",
+   "identifier": "https://w3id.org/fair-tox/dataset#klimisch",
    "key": "klimisch",
    "name": "Klimisch reliability scoring",
    "alternateName": [
@@ -5304,6 +5426,7 @@
   },
   {
    "@id": "#maqc",
+   "identifier": "https://w3id.org/fair-tox/dataset#maqc",
    "key": "maqc",
    "name": "MAQC (MicroArray Quality Control project)",
    "alternateName": [
@@ -5316,7 +5439,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2006",
+   "date": "2006",
    "dateSource": "https://doi.org/10.1038/nbt1239",
    "creator": "US FDA-led consortium",
    "maintained": "active",
@@ -5326,6 +5449,7 @@
   },
   {
    "@id": "#mars",
+   "identifier": "https://w3id.org/fair-tox/dataset#mars",
    "key": "mars",
    "name": "MARS (Multi-omics Adapter for Repository Submissions)",
    "alternateName": [
@@ -5341,8 +5465,7 @@
     "in vitro toxicology",
     "toxicogenomics"
    ],
-   "datePublished": "2023",
-   "dateBasis": "release",
+   "dateReleased": "2023",
    "dateSource": "https://github.com/elixir-europe/MARS/commits/main",
    "creator": "ELIXIR (BioHackathon Europe; ELIXIR Data Platform)",
    "url": "https://elixir-europe.github.io/MARS/",
@@ -5355,6 +5478,7 @@
   },
   {
    "@id": "#martens2023elixir",
+   "identifier": "https://w3id.org/fair-tox/dataset#martens2023elixir",
    "key": "martens2023elixir",
    "name": "ELIXIR and Toxicology: a community in development (Martens et al. 2023)",
    "alternateName": [
@@ -5375,6 +5499,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.91yrz6",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.91yrz6",
    "key": "matrixdb",
    "name": "Extracellular Matrix Interaction Database",
    "alternateName": [
@@ -5394,6 +5519,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.hxvt6c",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.hxvt6c",
    "key": "mdl_molfile_format",
    "name": "MDL Molfile Format",
    "decision": "include",
@@ -5406,7 +5532,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "1992-05",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1021/ci00007a012",
    "creator": "MDL Information Systems (now Dassault Systemes BIOVIA)",
    "url": "https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf",
@@ -5420,6 +5545,7 @@
   },
   {
    "@id": "#mesh",
+   "identifier": "https://w3id.org/fair-tox/dataset#mesh",
    "key": "mesh",
    "name": "Medical Subject Headings",
    "alternateName": [
@@ -5439,6 +5565,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.kkdpxe",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.kkdpxe",
    "key": "metabolights",
    "name": "MetaboLights",
    "decision": "undecided",
@@ -5455,6 +5582,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.32b10v",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.32b10v",
    "key": "miame",
    "name": "MIAME (Minimum Information About a Microarray Experiment)",
    "alternateName": [
@@ -5470,8 +5598,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2000-11-17",
-   "dateBasis": "adoption",
+   "dateAdopted": "2000-11-17",
    "dateSource": "https://web.archive.org/web/20010220163059/http://www.mged.org/Annotations-wg/index.html",
    "creator": "FGED (MGED) Society",
    "url": "https://www.fged.org/projects/miame/",
@@ -5486,6 +5613,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
    "key": "miametox",
    "name": "Minimum Information about an array-based toxicogenomics experiment",
    "alternateName": [
@@ -5508,8 +5636,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2003",
-   "dateBasis": "release",
+   "dateReleased": "2003",
    "dateSource": "https://doi.org/10.1289/ehp.6497",
    "creator": "ILSI HESI; EMBL-EBI; NIEHS (MGED)",
    "url": "https://doi.org/10.1289/ehp.6697",
@@ -5532,6 +5659,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.wYScsE",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.wYScsE",
    "key": "miate",
    "name": "Minimum Information about Animal Toxicology Experiments",
    "alternateName": [
@@ -5553,8 +5681,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2019-11-06",
-   "dateBasis": "release",
+   "dateReleased": "2019-11-06",
    "dateSource": "https://github.com/zacharewskilab/MIATE/commits/master/",
    "creator": "Michigan State University (Zacharewski lab)",
    "url": "https://github.com/zacharewskilab/MIATE",
@@ -5568,6 +5695,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a55z32",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.a55z32",
    "key": "minseqe",
    "name": "Minimal Information about a high throughput SEQuencing Experiment",
    "alternateName": [
@@ -5587,6 +5715,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ap169a",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ap169a",
    "key": "miriam",
    "name": "MIRIAM (Minimum Information Requested in the Annotation of biochemical Models)",
    "alternateName": [
@@ -5602,7 +5731,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "2005-12-06",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1038/nbt1156",
    "creator": "BioModels.net / COMBINE",
    "url": "https://doi.org/10.1038/nbt1156",
@@ -5626,6 +5754,7 @@
   },
   {
    "@id": "#mit_license",
+   "identifier": "https://w3id.org/fair-tox/dataset#mit_license",
    "key": "mit_license",
    "name": "MIT License",
    "decision": "undecided",
@@ -5642,6 +5771,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e2b341",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.e2b341",
    "key": "mitnano",
    "name": "Minimum Information Table for the Safety of Engineered Nanomaterials",
    "alternateName": [
@@ -5665,7 +5795,6 @@
     "nanotoxicology"
    ],
    "datePublished": "2022-01-05",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1186/s12989-021-00442-x",
    "creator": "Leibniz institutes (INM, IUF, IfADo, IWT, FIZ Karlsruhe)",
    "url": "https://doi.org/10.1186/s12989-021-00442-x",
@@ -5679,6 +5808,7 @@
   },
   {
    "@id": "#nams",
+   "identifier": "https://w3id.org/fair-tox/dataset#nams",
    "key": "nams",
    "name": "New Approach Methodologies (NAMs)",
    "alternateName": [
@@ -5706,6 +5836,7 @@
   },
   {
    "@id": "#nanoaop",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanoaop",
    "key": "nanoaop",
    "name": "Nanomaterial physicochemical data integrated with AOP knowledge in RDF",
    "alternateName": [
@@ -5731,8 +5862,7 @@
     "nanotoxicology",
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2023-06-23",
-   "dateBasis": "release",
+   "dateReleased": "2023-06-23",
    "dateSource": "https://doi.org/10.5281/zenodo.8076364",
    "creator": "Maastricht University (BiGCaT)",
    "url": "https://nanosafety.rdf.bigcat-bioinformatics.org",
@@ -5761,6 +5891,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9e23f2",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.9e23f2",
    "key": "nanocommons",
    "name": "NanoCommons Knowledge Base",
    "alternateName": [
@@ -5784,8 +5915,7 @@
    "subdomains": [
     "nanotoxicology"
    ],
-   "datePublished": "2019",
-   "dateBasis": "release",
+   "dateReleased": "2019",
    "dateSource": "https://doi.org/10.3389/fphy.2023.1271842",
    "creator": "NanoCommons consortium (Biomax Informatics)",
    "url": "https://ssl.biomax.de/nanocommons/",
@@ -5816,6 +5946,7 @@
   },
   {
    "@id": "#nanocommons_meta",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_meta",
    "key": "nanocommons_meta",
    "name": "NanoCommons metadata stewardship tools and services",
    "decision": "exclude",
@@ -5838,6 +5969,7 @@
   },
   {
    "@id": "#nanocommons_onto",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_onto",
    "key": "nanocommons_onto",
    "name": "NanoCommons ontology services",
    "decision": "exclude",
@@ -5860,6 +5992,7 @@
   },
   {
    "@id": "#nanocommons_project",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_project",
    "key": "nanocommons_project",
    "name": "NanoCommons (H2020 project)",
    "alternateName": [
@@ -5886,6 +6019,7 @@
   },
   {
    "@id": "#nanocommons_services",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_services",
    "key": "nanocommons_services",
    "name": "NanoCommons interoperability services, computational workflows and cloud-based analysis environments",
    "alternateName": [
@@ -5916,6 +6050,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a6dcff",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.a6dcff",
    "key": "nanopub",
    "name": "Nanopublication",
    "alternateName": [
@@ -5931,7 +6066,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2009-10-20",
-   "dateBasis": "publication",
    "dateSource": "https://ceur-ws.org/Vol-523/",
    "creator": "Concept Web Alliance / NBIC",
    "url": "https://nanopub.net",
@@ -5946,6 +6080,7 @@
   },
   {
    "@id": "#nanosafety_cluster",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanosafety_cluster",
    "key": "nanosafety_cluster",
    "name": "EU NanoSafety Cluster",
    "alternateName": [
@@ -5973,6 +6108,7 @@
   },
   {
    "@id": "#negdata_opinion",
+   "identifier": "https://w3id.org/fair-tox/dataset#negdata_opinion",
    "key": "negdata_opinion",
    "name": "Regulatory Forum Opinion Piece: The Value of Publishing Negative Scientific Study Data",
    "decision": "exclude",
@@ -5992,6 +6128,7 @@
   },
   {
    "@id": "#nem",
+   "identifier": "https://w3id.org/fair-tox/dataset#nem",
    "key": "nem",
    "name": "NEM (unresolved acronym)",
    "alternateName": [
@@ -6006,6 +6143,7 @@
   },
   {
    "@id": "#noeffect_repo",
+   "identifier": "https://w3id.org/fair-tox/dataset#noeffect_repo",
    "key": "noeffect_repo",
    "name": "Proposed peer-reviewed FAIR repository of no-effect data",
    "decision": "exclude",
@@ -6024,6 +6162,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9ATgeT",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.9ATgeT",
    "key": "norman_susdat",
    "name": "NORMAN Substance Database",
    "alternateName": [
@@ -6048,8 +6187,7 @@
     "exposome",
     "eco-toxicology"
    ],
-   "datePublished": "2017",
-   "dateBasis": "release",
+   "dateReleased": "2017",
    "dateSource": "https://web.archive.org/web/20170625051616/http://www.norman-network.com/datatable/",
    "creator": "NORMAN Association",
    "url": "https://www.norman-network.com/nds/susdat/",
@@ -6063,6 +6201,7 @@
   },
   {
    "@id": "#nsc",
+   "identifier": "https://w3id.org/fair-tox/dataset#nsc",
    "key": "nsc",
    "name": "NanoSafety Cluster recommendations for metadata and minimum information",
    "alternateName": [
@@ -6082,7 +6221,7 @@
    "subdomains": [
     "nanotoxicology"
    ],
-   "datePublished": "2010",
+   "date": "2010",
    "dateSource": "https://nsc-community.eu/",
    "creator": "EU NanoSafety Cluster",
    "url": "https://nsc-community.eu/",
@@ -6093,6 +6232,7 @@
   },
   {
    "@id": "#oauth",
+   "identifier": "https://w3id.org/fair-tox/dataset#oauth",
    "key": "oauth",
    "name": "Open Authorization",
    "alternateName": [
@@ -6113,6 +6253,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.284e1z",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.284e1z",
    "key": "obi",
    "name": "Ontology for Biomedical Investigations (OBI)",
    "alternateName": [
@@ -6128,7 +6269,6 @@
     "nanotoxicology"
    ],
    "datePublished": "2006",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1089/omi.2006.10.199",
    "creator": "OBI Consortium",
    "url": "https://obi-ontology.org",
@@ -6143,6 +6283,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.847069",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.847069",
    "key": "obo",
    "name": "OBO Foundry ontologies",
    "alternateName": [
@@ -6155,8 +6296,7 @@
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2006",
-   "dateBasis": "release",
+   "dateReleased": "2006",
    "dateSource": "https://web.archive.org/web/20060502183936/http://obofoundry.org/",
    "creator": "OBO Foundry",
    "url": "https://obofoundry.org",
@@ -6171,6 +6311,7 @@
   },
   {
    "@id": "#oecd",
+   "identifier": "https://w3id.org/fair-tox/dataset#oecd",
    "key": "oecd",
    "name": "OECD (Organisation for Economic Co-operation and Development)",
    "alternateName": [
@@ -6197,6 +6338,7 @@
   },
   {
    "@id": "#oecd_aop_prog",
+   "identifier": "https://w3id.org/fair-tox/dataset#oecd_aop_prog",
    "key": "oecd_aop_prog",
    "name": "OECD AOP programme",
    "alternateName": [
@@ -6222,6 +6364,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ced127",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ced127",
    "key": "oecd_existing_chemicals_database",
    "name": "OECD Existing Chemicals Database",
    "decision": "include",
@@ -6240,8 +6383,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2002",
-   "dateBasis": "release",
+   "dateReleased": "2002",
    "dateSource": "http://web.archive.org/web/20021016020615/http://cs3-hq.oecd.org:80/scripts/hpv/",
    "creator": "OECD",
    "url": "https://hpvchemicals.oecd.org/",
@@ -6255,6 +6397,7 @@
   },
   {
    "@id": "#oecd_tg",
+   "identifier": "https://w3id.org/fair-tox/dataset#oecd_tg",
    "key": "oecd_tg",
    "name": "OECD Test Guidelines",
    "alternateName": [
@@ -6281,6 +6424,7 @@
   },
   {
    "@id": "#oht",
+   "identifier": "https://w3id.org/fair-tox/dataset#oht",
    "key": "oht",
    "name": "OECD Harmonised Templates (OHTs)",
    "alternateName": [
@@ -6303,8 +6447,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2006-03",
-   "dateBasis": "release",
+   "dateReleased": "2006-03",
    "dateSource": "https://web.archive.org/web/20121201174145/http://www.oecd.org/ehs/templates/developmentofoecdharmonisedtemplates.htm",
    "creator": "OECD",
    "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/harmonised-templates.html",
@@ -6317,6 +6460,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.27tnee",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.27tnee",
    "key": "omex",
    "name": "OMEX (COMBINE archive format)",
    "alternateName": [
@@ -6332,8 +6476,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2014-09-15",
-   "dateBasis": "release",
+   "dateReleased": "2014-09-15",
    "dateSource": "https://github.com/combine-org/combine-specifications/blob/main/specifications/omex.md",
    "creator": "COMBINE",
    "url": "https://co.mbine.org/standards/omex",
@@ -6357,6 +6500,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.41af40",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.41af40",
    "key": "oorf",
    "name": "OECD Omics Reporting Framework (OORF)",
    "alternateName": [
@@ -6383,7 +6527,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2021-07-29",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1016/j.yrtph.2021.105020",
    "creator": "OECD",
    "url": "https://www.oecd.org/en/publications/oecd-omics-reporting-framework-oorf-guidance-on-reporting-elements-for-the-regulatory-use-of-omics-data-from-laboratory-based-toxicology-studies_6bb2e6ce-en.html",
@@ -6407,6 +6550,7 @@
   },
   {
    "@id": "#open_data_commons_open_database",
+   "identifier": "https://w3id.org/fair-tox/dataset#open_data_commons_open_database",
    "key": "open_data_commons_open_database",
    "name": "Open Data Commons Open Database License",
    "decision": "undecided",
@@ -6424,6 +6568,7 @@
   },
   {
    "@id": "#openalex",
+   "identifier": "https://w3id.org/fair-tox/dataset#openalex",
    "key": "openalex",
    "name": "OpenAlex",
    "alternateName": [
@@ -6440,6 +6585,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.80d69d",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.80d69d",
    "key": "openfoodtox",
    "name": "EFSA OpenFoodTox",
    "alternateName": [
@@ -6462,7 +6608,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2017-01-18",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.2903/j.efsa.2017.e15011",
    "creator": "EFSA",
    "url": "https://www.efsa.europa.eu/en/data-report/chemical-hazards-database-openfoodtox",
@@ -6476,6 +6621,7 @@
   },
   {
    "@id": "#openrisknet",
+   "identifier": "https://w3id.org/fair-tox/dataset#openrisknet",
    "key": "openrisknet",
    "name": "OpenRiskNet e-infrastructure",
    "alternateName": [
@@ -6499,7 +6645,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "2017-07-12",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.5281/zenodo.831444",
    "creator": "OpenRiskNet consortium",
    "url": "https://openrisknet.org",
@@ -6513,6 +6658,7 @@
   },
   {
    "@id": "#openrisknet_project",
+   "identifier": "https://w3id.org/fair-tox/dataset#openrisknet_project",
    "key": "openrisknet_project",
    "name": "OpenRiskNet (H2020 project)",
    "alternateName": [
@@ -6538,6 +6684,7 @@
   },
   {
    "@id": "#opentox",
+   "identifier": "https://w3id.org/fair-tox/dataset#opentox",
    "key": "opentox",
    "name": "OpenTox data model (API)",
    "alternateName": [
@@ -6561,8 +6708,7 @@
     "nanotoxicology",
     "computational and predictive toxicology"
    ],
-   "datePublished": "2009",
-   "dateBasis": "release",
+   "dateReleased": "2009",
    "dateSource": "https://web.archive.org/web/20091027110619/http://www.opentox.org:80/dev/apis",
    "creator": "OpenTox consortium (Douglas Connect)",
    "url": "https://doi.org/10.1186/1758-2946-2-7",
@@ -6575,6 +6721,7 @@
   },
   {
    "@id": "#opentox_project",
+   "identifier": "https://w3id.org/fair-tox/dataset#opentox_project",
    "key": "opentox_project",
    "name": "OpenTox (FP7 project)",
    "alternateName": [
@@ -6600,6 +6747,7 @@
   },
   {
    "@id": "#orcid",
+   "identifier": "https://w3id.org/fair-tox/dataset#orcid",
    "key": "orcid",
    "name": "Open Researcher and Contributor ID",
    "alternateName": [
@@ -6622,6 +6770,7 @@
   },
   {
    "@id": "#osdr",
+   "identifier": "https://w3id.org/fair-tox/dataset#osdr",
    "key": "osdr",
    "name": "NASA Open Science Data Repository",
    "alternateName": [
@@ -6642,6 +6791,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.atygwy",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.atygwy",
    "key": "owl",
    "name": "OWL (Web Ontology Language)",
    "alternateName": [
@@ -6656,8 +6806,7 @@
    "subdomains": [
     "nanotoxicology"
    ],
-   "datePublished": "2004-02-10",
-   "dateBasis": "adoption",
+   "dateAdopted": "2004-02-10",
    "dateSource": "https://www.w3.org/TR/2004/REC-owl-features-20040210/",
    "creator": "W3C",
    "url": "https://www.w3.org/OWL/",
@@ -6675,6 +6824,7 @@
   },
   {
    "@id": "#parc",
+   "identifier": "https://w3id.org/fair-tox/dataset#parc",
    "key": "parc",
    "name": "PARC FAIR data strategy",
    "alternateName": [
@@ -6691,7 +6841,7 @@
    "stakeholders": [
     "Regulator"
    ],
-   "datePublished": "2023",
+   "date": "2023",
    "dateSource": "https://doi.org/10.5281/zenodo.15005810",
    "creator": "PARC",
    "maintained": "active",
@@ -6701,6 +6851,7 @@
   },
   {
    "@id": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M#PARC",
+   "identifier": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M#PARC",
    "key": "parc_partnership",
    "name": "European Partnership for the Assessment of Risks from Chemicals (PARC)",
    "alternateName": [
@@ -6723,7 +6874,7 @@
     "AOP-based mechanistic knowledge",
     "computational and predictive toxicology"
    ],
-   "datePublished": "2023-01-19",
+   "date": "2023-01-19",
    "dateSource": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M",
    "creator": "EU Horizon Europe partnership",
    "url": "https://www.eu-parc.eu",
@@ -6734,6 +6885,7 @@
   },
   {
    "@id": "#parcfip",
+   "identifier": "https://w3id.org/fair-tox/dataset#parcfip",
    "key": "parcfip",
    "name": "PARC Toxicology FAIR Implementation Profile",
    "alternateName": [
@@ -6755,8 +6907,7 @@
     "In silico research",
     "Regulator"
    ],
-   "datePublished": "2026-09-07",
-   "dateBasis": "release",
+   "dateReleased": "2026-09-07",
    "dateSource": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
    "creator": "PARC (Chemicals Toxicology Community)",
    "url": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
@@ -6780,6 +6931,7 @@
   },
   {
    "@id": "http://purl.org/np/RAoZsfUhNx4sYz-IXfsp1xPBH1-YgTGtHpp3BbMQtWHJg#PARCToxicology",
+   "identifier": "http://purl.org/np/RAoZsfUhNx4sYz-IXfsp1xPBH1-YgTGtHpp3BbMQtWHJg#PARCToxicology",
    "key": "parctoxicology",
    "name": "PARC Chemicals Toxicology Community",
    "alternateName": [
@@ -6795,6 +6947,7 @@
   },
   {
    "@id": "#pbk",
+   "identifier": "https://w3id.org/fair-tox/dataset#pbk",
    "key": "pbk",
    "name": "PARC exchange standard for FAIR PBK models",
    "alternateName": [
@@ -6819,7 +6972,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "2026-06",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1016/j.comtox.2026.100426",
    "creator": "PARC (European Partnership for the Assessment of Risks from Chemicals)",
    "url": "https://fair-pbk.github.io/fair-pbk-standard/",
@@ -6841,6 +6993,7 @@
   },
   {
    "@id": "#pbk_models",
+   "identifier": "https://w3id.org/fair-tox/dataset#pbk_models",
    "key": "pbk_models",
    "name": "Physiologically based kinetic (PBK) models",
    "alternateName": [
@@ -6867,6 +7020,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b71e74",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.b71e74",
    "key": "portail_substances_chimiques_psc",
    "name": "INERIS - Chemical Substances Portal",
    "alternateName": [
@@ -6889,8 +7043,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2009",
-   "dateBasis": "release",
+   "dateReleased": "2009",
    "dateSource": "https://web.archive.org/web/20091227082216/http://www.ineris.fr/substances/fr/content/sitemap",
    "creator": "INERIS (French National Institute for Industrial Environment and Risks)",
    "url": "https://substances.ineris.fr/",
@@ -6904,6 +7057,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4ndncv",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.4ndncv",
    "key": "pro",
    "name": "Protein Ontology (PRO)",
    "alternateName": [
@@ -6919,7 +7073,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2006-11-10",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1145/1183535.1183544",
    "creator": "PRO Consortium (Protein Information Resource: Georgetown University / University of Delaware)",
    "url": "https://proconsortium.org",
@@ -6934,6 +7087,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.qt3w7z",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.qt3w7z",
    "key": "pubchem",
    "name": "PubChem",
    "alternateName": [
@@ -6949,8 +7103,7 @@
     "in vitro toxicology",
     "computational and predictive toxicology"
    ],
-   "datePublished": "2004",
-   "dateBasis": "release",
+   "dateReleased": "2004",
    "dateSource": "https://doi.org/10.1093/nar/gkv951",
    "creator": "NCBI, US National Library of Medicine (NIH)",
    "url": "https://pubchem.ncbi.nlm.nih.gov/",
@@ -6964,6 +7117,7 @@
   },
   {
    "@id": "#pubchem_cid",
+   "identifier": "https://w3id.org/fair-tox/dataset#pubchem_cid",
    "key": "pubchem_cid",
    "name": "PubChem Compound Identification",
    "alternateName": [
@@ -6983,6 +7137,7 @@
   },
   {
    "@id": "#qaop",
+   "identifier": "https://w3id.org/fair-tox/dataset#qaop",
    "key": "qaop",
    "name": "Quantitative AOP (qAOP) models",
    "alternateName": [
@@ -7007,6 +7162,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.PB6595",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.PB6595",
    "key": "qid",
    "name": "Wikidata Identifier",
    "alternateName": [
@@ -7026,6 +7182,7 @@
   },
   {
    "@id": "#qsar",
+   "identifier": "https://w3id.org/fair-tox/dataset#qsar",
    "key": "qsar",
    "name": "Quantitative structure–activity relationship (QSAR) models",
    "alternateName": [
@@ -7055,6 +7212,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ad3e10",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ad3e10",
    "key": "qsardb",
    "name": "QSAR DataBase",
    "alternateName": [
@@ -7069,8 +7227,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2012-05-14",
-   "dateBasis": "release",
+   "dateReleased": "2012-05-14",
    "dateSource": "https://qsardb.org/repository/handle/10967/4",
    "creator": "University of Tartu (Institute of Chemistry)",
    "url": "https://qsardb.org/",
@@ -7084,6 +7241,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.p77ph9",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.p77ph9",
    "key": "rdf",
    "name": "RDF (Resource Description Framework)",
    "alternateName": [
@@ -7099,8 +7257,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "1999-02-22",
-   "dateBasis": "adoption",
+   "dateAdopted": "1999-02-22",
    "dateSource": "https://www.w3.org/TR/1999/REC-rdf-syntax-19990222/",
    "creator": "W3C",
    "url": "https://www.w3.org/RDF/",
@@ -7118,6 +7275,7 @@
   },
   {
    "@id": "#rdmkit",
+   "identifier": "https://w3id.org/fair-tox/dataset#rdmkit",
    "key": "rdmkit",
    "name": "RDMkit",
    "alternateName": [
@@ -7129,8 +7287,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "scope": "Generic",
-   "datePublished": "2021-03-31",
-   "dateBasis": "release",
+   "dateReleased": "2021-03-31",
    "dateSource": "https://doi.org/10.5281/zenodo.5110072",
    "creator": "ELIXIR",
    "url": "https://rdmkit.elixir-europe.org",
@@ -7144,6 +7301,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.acbc28",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.acbc28",
    "key": "rdmtox",
    "name": "RDMkit toxicology page",
    "alternateName": [
@@ -7169,8 +7327,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2021-10-20",
-   "dateBasis": "release",
+   "dateReleased": "2021-10-20",
    "dateSource": "https://github.com/elixir-europe/rdmkit/pull/714",
    "creator": "ELIXIR Toxicology Community",
    "url": "https://rdmkit.elixir-europe.org/toxicology_data",
@@ -7195,6 +7352,7 @@
   },
   {
    "@id": "#readacross",
+   "identifier": "https://w3id.org/fair-tox/dataset#readacross",
    "key": "readacross",
    "name": "Grouping and read-across",
    "alternateName": [
@@ -7221,6 +7379,7 @@
   },
   {
    "@id": "#recipe_aop",
+   "identifier": "https://w3id.org/fair-tox/dataset#recipe_aop",
    "key": "recipe_aop",
    "name": "FAIR Cookbook recipe: Annotating AOP Key Events with ontology terms",
    "alternateName": [
@@ -7244,7 +7403,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2024-11-05",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.37044/osf.io/un2rw",
    "creator": "ELIXIR Toxicology Community (INTOXICOM)",
    "url": "https://github.com/FAIRplus/the-fair-cookbook/issues/668",
@@ -7268,6 +7426,7 @@
   },
   {
    "@id": "#recipe_bao",
+   "identifier": "https://w3id.org/fair-tox/dataset#recipe_bao",
    "key": "recipe_bao",
    "name": "FAIR Cookbook recipe: Metadata for cell-based assays using Bioassay Ontology (BAO)",
    "alternateName": [
@@ -7290,7 +7449,6 @@
     "in vitro toxicology"
    ],
    "datePublished": "2024-11-05",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.37044/osf.io/un2rw",
    "creator": "ELIXIR Toxicology Community (INTOXICOM)",
    "url": "https://github.com/FAIRplus/the-fair-cookbook/issues/666",
@@ -7321,6 +7479,7 @@
   },
   {
    "@id": "#rodaf",
+   "identifier": "https://w3id.org/fair-tox/dataset#rodaf",
    "key": "rodaf",
    "name": "R-ODAF (Omics Data Analysis Framework for Regulatory application)",
    "alternateName": [
@@ -7346,7 +7505,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2022-03-02",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1016/j.yrtph.2022.105143",
    "creator": "Maastricht University; Health Canada (Cefic LRI C4 project)",
    "url": "https://github.com/R-ODAF",
@@ -7360,6 +7518,7 @@
   },
   {
    "@id": "#ror",
+   "identifier": "https://w3id.org/fair-tox/dataset#ror",
    "key": "ror",
    "name": "Research Organization Registry",
    "alternateName": [
@@ -7379,6 +7538,7 @@
   },
   {
    "@id": "#s2cie",
+   "identifier": "https://w3id.org/fair-tox/dataset#s2cie",
    "key": "s2cie",
    "name": "S2CIE (semantic, syntactic, and context-based information extraction)",
    "alternateName": [
@@ -7403,7 +7563,6 @@
     "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2024-09",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1016/j.toxlet.2024.07.368",
    "creator": "Universitat Rovira i Virgili (IISPV)",
    "url": "https://dev.s2cie.insilicohub.org/",
@@ -7417,6 +7576,7 @@
   },
   {
    "@id": "#sbd",
+   "identifier": "https://w3id.org/fair-tox/dataset#sbd",
    "key": "sbd",
    "name": "Safety by design",
    "alternateName": [
@@ -7441,6 +7601,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9qv71f",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.9qv71f",
    "key": "sbml",
    "name": "Systems Biology Markup Language (SBML)",
    "alternateName": [
@@ -7455,8 +7616,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2001-03-02",
-   "dateBasis": "release",
+   "dateReleased": "2001-03-02",
    "dateSource": "https://sbml.org/documents/specifications/level-1/",
    "creator": "SBML community (COMBINE); originated at Caltech (ERATO Kitano project)",
    "url": "https://sbml.org",
@@ -7471,6 +7631,7 @@
   },
   {
    "@id": "#science_friction",
+   "identifier": "https://w3id.org/fair-tox/dataset#science_friction",
    "key": "science_friction",
    "name": "Science friction (Edwards et al. 2011)",
    "alternateName": [
@@ -7488,6 +7649,7 @@
   },
   {
    "@id": "#scirap",
+   "identifier": "https://w3id.org/fair-tox/dataset#scirap",
    "key": "scirap",
    "name": "SciRAP (Science in Risk Assessment and Policy)",
    "alternateName": [
@@ -7512,8 +7674,7 @@
     "eco-toxicology",
     "regulatory toxicology"
    ],
-   "datePublished": "2013",
-   "dateBasis": "release",
+   "dateReleased": "2013",
    "dateSource": "http://web.archive.org/web/20130814223111/http://scirap.org",
    "creator": "Karolinska Institutet; Stockholm University",
    "url": "https://www.scirap.org",
@@ -7526,6 +7687,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6f7m6j",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.6f7m6j",
    "key": "sedml",
    "name": "SED-ML (Simulation Experiment Description Markup Language)",
    "alternateName": [
@@ -7541,7 +7703,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "2008",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1007/978-3-540-88562-7_15",
    "creator": "SED-ML community (COMBINE); initiated at EMBL-EBI",
    "url": "https://sed-ml.org",
@@ -7565,6 +7726,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.7z842d",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.7z842d",
    "key": "send",
    "name": "SEND (Standard for Exchange of Nonclinical Data)",
    "alternateName": [
@@ -7591,8 +7753,7 @@
    "subdomains": [
     "regulatory toxicology"
    ],
-   "datePublished": "2004",
-   "dateBasis": "release",
+   "dateReleased": "2004",
    "dateSource": "https://web.archive.org/web/20040519003134/http://www.cdisc.org:80/models/send/v1.4/index.html",
    "creator": "CDISC",
    "url": "https://www.cdisc.org/standards/foundational/send",
@@ -7607,6 +7768,7 @@
   },
   {
    "@id": "#seqc",
+   "identifier": "https://w3id.org/fair-tox/dataset#seqc",
    "key": "seqc",
    "name": "SEQC (Sequencing Quality Control project)",
    "alternateName": [
@@ -7619,7 +7781,7 @@
    "subdomains": [
     "toxicogenomics"
    ],
-   "datePublished": "2014",
+   "date": "2014",
    "dateSource": "https://doi.org/10.1038/nbt.2957",
    "creator": "US FDA-led consortium",
    "maintained": "active",
@@ -7629,6 +7791,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.qv4b3c",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.qv4b3c",
    "key": "smiles",
    "name": "Simplified Molecular Input Line Entry Specification Format",
    "alternateName": [
@@ -7644,7 +7807,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "1987-08",
-   "dateBasis": "publication",
    "dateSource": "https://nepis.epa.gov/Exe/ZyPDF.cgi/2000CAUR.PDF?Dockey=2000CAUR.PDF",
    "creator": "David Weininger (US EPA Duluth) and Daylight Chemical Information Systems; OpenSMILES by the Blue Obelisk community",
    "url": "http://opensmiles.org/opensmiles.html",
@@ -7658,6 +7820,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.87ccfd",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.87ccfd",
    "key": "sparql",
    "name": "SPARQL",
    "alternateName": [
@@ -7672,8 +7835,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2008-01-15",
-   "dateBasis": "adoption",
+   "dateAdopted": "2008-01-15",
    "dateSource": "https://www.w3.org/TR/2008/REC-rdf-sparql-query-20080115/",
    "creator": "W3C",
    "url": "https://www.w3.org/TR/sparql11-query/",
@@ -7688,6 +7850,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.5fee61",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.5fee61",
    "key": "spin",
    "name": "Substances in Preparations In the Nordic countries SPIN",
    "alternateName": [
@@ -7710,8 +7873,7 @@
     "exposome",
     "regulatory toxicology"
    ],
-   "datePublished": "2000",
-   "dateBasis": "FAIRsharing year",
+   "dateCreated": "2000",
    "dateSource": "https://doi.org/10.25504/FAIRsharing.5fee61",
    "creator": "Nordic Council of Ministers (Chemicals Group) with the product registers of Norway, Sweden, Denmark and Finland",
    "url": "http://spin2000.net/",
@@ -7725,6 +7887,7 @@
   },
   {
    "@id": "#spreadsheet_harmon",
+   "identifier": "https://w3id.org/fair-tox/dataset#spreadsheet_harmon",
    "key": "spreadsheet_harmon",
    "name": "Proposals to harmonise spreadsheets for chemicals and bioassay data",
    "decision": "exclude",
@@ -7746,6 +7909,7 @@
   },
   {
    "@id": "#suppl_formats",
+   "identifier": "https://w3id.org/fair-tox/dataset#suppl_formats",
    "key": "suppl_formats",
    "name": "Structured metadata formats for toxicology publication supplemental files",
    "decision": "exclude",
@@ -7764,6 +7928,7 @@
   },
   {
    "@id": "#suppl_rules",
+   "identifier": "https://w3id.org/fair-tox/dataset#suppl_rules",
    "key": "suppl_rules",
    "name": "10 rules for supplemental files",
    "decision": "exclude",
@@ -7782,6 +7947,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.psn0h2",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.psn0h2",
    "key": "t3db",
    "name": "Toxin and Toxin Target Database",
    "alternateName": [
@@ -7805,7 +7971,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "2009-11-06",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1093/nar/gkp934",
    "creator": "University of Alberta (Wishart group)",
    "url": "https://www.t3db.ca/",
@@ -7819,6 +7984,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.jgbxr",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.jgbxr",
    "key": "tbc",
    "name": "Tox Biology Checklist",
    "alternateName": [
@@ -7843,7 +8009,6 @@
     "toxicogenomics"
    ],
    "datePublished": "2007-04-17",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1093/toxsci/kfm090",
    "creator": "NIEHS-led working group (with US EPA and US FDA NCTR)",
    "url": "https://doi.org/10.1093/toxsci/kfm090",
@@ -7857,6 +8022,7 @@
   },
   {
    "@id": "#temowl",
+   "identifier": "https://w3id.org/fair-tox/dataset#temowl",
    "key": "temowl",
    "name": "TeMOwl",
    "decision": "include",
@@ -7865,8 +8031,7 @@
     "https://w3id.org/fair/fip/terms/Integration-Service"
    ],
    "scope": "Life Sciences",
-   "datePublished": "2019",
-   "dateBasis": "release",
+   "dateReleased": "2019",
    "dateSource": "https://web.archive.org/web/20191208160125/https://openrisknet.org/e-infrastructure/services/163/",
    "creator": "Fraunhofer SCAI",
    "url": "https://openrisknet.org/e-infrastructure/services/163/",
@@ -7880,6 +8045,7 @@
   },
   {
    "@id": "#tg236",
+   "identifier": "https://w3id.org/fair-tox/dataset#tg236",
    "key": "tg236",
    "name": "OECD Test Guideline 236 (Fish Embryo Acute Toxicity test)",
    "alternateName": [
@@ -7900,7 +8066,7 @@
     "in vitro toxicology",
     "eco-toxicology"
    ],
-   "datePublished": "2013",
+   "date": "2013",
    "dateSource": "https://doi.org/10.1787/9789264203709-en",
    "creator": "OECD",
    "maintained": "active",
@@ -7910,6 +8076,7 @@
   },
   {
    "@id": "#tggates",
+   "identifier": "https://w3id.org/fair-tox/dataset#tggates",
    "key": "tggates",
    "name": "Open Toxicogenomics Project-Genomics Assisted Toxicity Evaluation system",
    "alternateName": [
@@ -7935,8 +8102,7 @@
     "in vitro toxicology",
     "toxicogenomics"
    ],
-   "datePublished": "2011-02-25",
-   "dateBasis": "release",
+   "dateReleased": "2011-02-25",
    "dateSource": "https://dbarchive.biosciencedbc.jp/en/open-tggates/desc.html",
    "creator": "Japanese Toxicogenomics Project (NIBIO/NIBIOHN, NIHS and 15 pharmaceutical companies)",
    "url": "https://dbarchive.biosciencedbc.jp/en/open-tggates/desc.html",
@@ -7950,6 +8116,7 @@
   },
   {
    "@id": "#threers",
+   "identifier": "https://w3id.org/fair-tox/dataset#threers",
    "key": "threers",
    "name": "3Rs (Replacement, Reduction, Refinement)",
    "alternateName": [
@@ -7965,6 +8132,7 @@
   },
   {
    "@id": "#tox21",
+   "identifier": "https://w3id.org/fair-tox/dataset#tox21",
    "key": "tox21",
    "name": "Tox21",
    "alternateName": [
@@ -7991,6 +8159,7 @@
   },
   {
    "@id": "#toxcast",
+   "identifier": "https://w3id.org/fair-tox/dataset#toxcast",
    "key": "toxcast",
    "name": "ToxCast",
    "alternateName": [
@@ -8016,6 +8185,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f60a10",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.f60a10",
    "key": "toxcoll",
    "name": "ELIXIR Toxicology FAIRsharing collection",
    "alternateName": [
@@ -8037,8 +8207,7 @@
    "stakeholders": [
     "In silico research"
    ],
-   "datePublished": "2020-06-09",
-   "dateBasis": "release",
+   "dateReleased": "2020-06-09",
    "dateSource": "https://fairsharing.org/3496",
    "creator": "ELIXIR Toxicology Community",
    "url": "https://fairsharing.org/3496",
@@ -8063,6 +8232,7 @@
   },
   {
    "@id": "#toxdataexplorer",
+   "identifier": "https://w3id.org/fair-tox/dataset#toxdataexplorer",
    "key": "toxdataexplorer",
    "name": "ToxDataExplorer",
    "decision": "exclude",
@@ -8086,6 +8256,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.emw61v",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.emw61v",
    "key": "toxml",
    "name": "Toxicology Data Markup Language",
    "alternateName": [
@@ -8107,8 +8278,7 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "datePublished": "2006",
-   "dateBasis": "release",
+   "dateReleased": "2006",
    "dateSource": "http://web.archive.org/web/20060320041511/http://www.leadscope.com/toxml.php",
    "creator": "Leadscope; Lhasa Limited",
    "url": "https://doi.org/10.1080/1062936X.2013.783506",
@@ -8122,6 +8292,7 @@
   },
   {
    "@id": "#toxrtool",
+   "identifier": "https://w3id.org/fair-tox/dataset#toxrtool",
    "key": "toxrtool",
    "name": "ToxRTool (Toxicological data Reliability assessment Tool)",
    "alternateName": [
@@ -8145,7 +8316,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2009-05-27",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1016/j.toxlet.2009.05.013",
    "creator": "EC JRC (ECVAM); FoBiG",
    "url": "https://doi.org/10.1016/j.toxlet.2009.05.013",
@@ -8158,6 +8328,7 @@
   },
   {
    "@id": "#toxtemp",
+   "identifier": "https://w3id.org/fair-tox/dataset#toxtemp",
    "key": "toxtemp",
    "name": "ToxTemp",
    "decision": "include",
@@ -8180,7 +8351,6 @@
     "regulatory toxicology"
    ],
    "datePublished": "2019-10",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.14573/altex.1909271",
    "creator": "University of Konstanz (EU-ToxRisk)",
    "url": "https://doi.org/10.14573/altex.1909271",
@@ -8202,6 +8372,7 @@
   },
   {
    "@id": "#uberon",
+   "identifier": "https://w3id.org/fair-tox/dataset#uberon",
    "key": "uberon",
    "name": "Uber Cross-Species Anatomy Ontology",
    "alternateName": [
@@ -8224,6 +8395,7 @@
   },
   {
    "@id": "#umap",
+   "identifier": "https://w3id.org/fair-tox/dataset#umap",
    "key": "umap",
    "name": "UMAP (Uniform Manifold Approximation and Projection)",
    "alternateName": [
@@ -8241,6 +8413,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.s1ne3g",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.s1ne3g",
    "key": "uniprot",
    "name": "UniProt",
    "decision": "include",
@@ -8253,7 +8426,6 @@
     "computational and predictive toxicology"
    ],
    "datePublished": "2003-12",
-   "dateBasis": "publication",
    "dateSource": "https://doi.org/10.1093/nar/gkh131",
    "creator": "UniProt Consortium (EMBL-EBI, SIB, PIR)",
    "url": "https://www.uniprot.org",
@@ -8268,6 +8440,7 @@
   },
   {
    "@id": "#usepa",
+   "identifier": "https://w3id.org/fair-tox/dataset#usepa",
    "key": "usepa",
    "name": "US Environmental Protection Agency (US EPA)",
    "alternateName": [
@@ -8293,6 +8466,7 @@
   },
   {
    "@id": "#wellfair",
+   "identifier": "https://w3id.org/fair-tox/dataset#wellfair",
    "key": "wellfair",
    "name": "WellFAIR research ecosystem (Petit-Demoulière & Huzard 2026)",
    "alternateName": [
@@ -8313,6 +8487,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6s749p",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.6s749p",
    "key": "wikidata",
    "name": "Wikidata",
    "decision": "undecided",
@@ -8329,6 +8504,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.1x53qk",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.1x53qk",
    "key": "wikipathways",
    "name": "WikiPathways",
    "decision": "include",
@@ -8340,8 +8516,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
-   "datePublished": "2007",
-   "dateBasis": "release",
+   "dateReleased": "2007",
    "dateSource": "https://doi.org/10.1093/nar/gkad960",
    "creator": "Gladstone Institutes / Maastricht University (BiGCaT)",
    "url": "https://www.wikipathways.org",
@@ -8356,6 +8531,7 @@
   },
   {
    "@id": "#woe",
+   "identifier": "https://w3id.org/fair-tox/dataset#woe",
    "key": "woe",
    "name": "Weight-of-evidence (WoE) assessment",
    "alternateName": [
@@ -8383,6 +8559,7 @@
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.07cf72",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.07cf72",
    "key": "workflowhub",
    "name": "WorkflowHub",
    "decision": "undecided",
@@ -8399,6 +8576,7 @@
   },
   {
    "@id": "#xmls",
+   "identifier": "https://w3id.org/fair-tox/dataset#xmls",
    "key": "xmls",
    "name": "eXtensible Markup Language Schema",
    "alternateName": [

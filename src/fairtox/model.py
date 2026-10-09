@@ -212,67 +212,100 @@ VOCABULARIES = {
 
 # ---- JSON-LD shape ---------------------------------------------------------------------------------------------------
 
+# Controlled values that are outside concepts: the graph uses their IRIs and the dataset defines no term for them.
+NCIT_TOXICOLOGY = 'http://purl.obolibrary.org/obo/NCIT_C17206'
+SAME = {
+    'scope': {'Generic': 'http://www.fairsharing.org/ontology/subject/SRAO_0000401',   # FAIRsharing's subjects
+              'Life Sciences': 'http://aims.fao.org/aos/agrovoc/c_4318', 'Toxicology': NCIT_TOXICOLOGY},
+    'subdomains': {'eco-toxicology': 'http://id.nlm.nih.gov/mesh/D054750',
+                   'exposome': 'http://id.nlm.nih.gov/mesh/D000081413',
+                   'toxicogenomics': 'http://purl.obolibrary.org/obo/NCIT_C20179',
+                   'AOP-based mechanistic knowledge': 'http://id.nlm.nih.gov/mesh/D000073931'},
+    'maintained': {'in development': 'http://purl.org/adms/status/UnderDevelopment'},
+}
+# Lists whose values are IRIs in the graph and have defined terms of ours where SAME has none.
+TERM_SETS = ('phase', 'stakeholders', 'subdomains', 'maintained', 'hadRole')
+# A date is stored under the property of what it refers to, its basis (DataCite's date types Issued, Accepted and
+# Created, as crosswalked to schema.org and DCTERMS; publication and release, both Issued, are told apart by schema.org's
+# date of first publication and DCAT's release date); a date of unrecorded basis is a dct:date. The sheet shows each
+# date as First published with its Date basis.
+DATE_FIELDS = {'publication': 'datePublished', 'release': 'dateReleased', 'adoption': 'dateAdopted',
+               'FAIRsharing year': 'dateCreated', '': 'date'}
+
+
+def concept(name, value):
+    """The IRI of a value of the list `name`: its outside concept, else a term of ours. A relation label names its
+    term (terms#implements); any other value's term is <list>-<value> (terms#phase-data-generation)."""
+    if value in SAME.get(name, {}):
+        return SAME[name][value]
+    if name == 'hadRole':
+        return TERMS + value
+    return f"{TERMS}{name}-{re.sub('[^a-z0-9]+', '-', value.lower()).strip('-')}"
+
+
+def _values(term, name, vocab, **entry):
+    """A context entry whose stored values expand to their concepts (a JSON-LD 1.1 property-scoped context)."""
+    return {'@id': term, '@type': '@vocab', **entry, '@context': {v: concept(name, v) for v in vocab}}
+
+
+# Every field the graph holds has an entry. There is no @vocab, so the others stay out of the graph: derived fields
+# (phase is the earliest phase of the span; principles follow from the declarations), the curation fields, the sources
+# and vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
 CONTEXT = {
-    '@base': BASE, '@vocab': TERMS,
+    '@version': 1.1, '@base': BASE,
     'schema': 'https://schema.org/', 'dcat': 'http://www.w3.org/ns/dcat#', 'dct': 'http://purl.org/dc/terms/',
-    'skos': 'http://www.w3.org/2004/02/skos/core#', 'pav': 'http://purl.org/pav/',
-    'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'fip': FIP,
+    'skos': 'http://www.w3.org/2004/02/skos/core#', 'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'fip': FIP,
+    'identifier': {'@id': 'schema:identifier', '@type': '@id'},
     'name': 'schema:name', 'alternateName': {'@id': 'schema:alternateName', '@container': '@set'},
     'description': 'schema:description', 'url': {'@id': 'schema:url', '@type': '@id'},
-    'datePublished': 'schema:datePublished', 'creator': 'schema:creator', 'version': 'schema:version',
+    'creator': 'schema:creator', 'version': 'schema:version',
     'dateModified': 'schema:dateModified', 'license': {'@id': 'schema:license', '@type': '@id'},
     'creditText': 'schema:creditText', 'isBasedOn': {'@id': 'schema:isBasedOn', '@type': '@id'},
     'hasPart': {'@id': 'schema:hasPart', '@container': '@set'},
-    'key': 'dct:identifier', 'type': 'dct:type', 'subdomains': {'@id': 'dct:subject', '@container': '@set'},
-    'maintained': 'schema:creativeWorkStatus', 'reviewedBy': 'pav:curatedBy', 'note': 'skos:editorialNote',
-    'source': 'dct:source', 'fsrType': {'@id': 'rdf:type', '@type': '@id', '@container': '@set'},
-    'stakeholders': {'@container': '@set'}, 'span': {'@container': '@set'}, 'dateSource': {'@type': '@id'},
+    'key': 'dct:identifier', 'type': 'schema:additionalType',
+    'fsrType': {'@id': 'rdf:type', '@type': '@id', '@container': '@set'},
+    'scope': _values('schema:about', 'scope', SCOPE),
+    'subdomains': _values('schema:about', 'subdomains', SUBDOMAINS, **{'@container': '@set'}),
+    'span': _values('dcat:theme', 'phase', PHASES, **{'@container': '@set'}),
+    'stakeholders': _values('dcat:theme', 'stakeholders', STAKEHOLDER, **{'@container': '@set'}),
+    'maintained': _values('schema:creativeWorkStatus', 'maintained', MAINTAINED),
+    'datePublished': 'schema:datePublished', 'dateReleased': 'dct:issued', 'dateAdopted': 'dct:dateAccepted',
+    'dateCreated': 'schema:dateCreated', 'date': 'dct:date',
+    'dateSource': {'@id': 'schema:subjectOf', '@type': '@id'},
+    'fairsharingRecord': {'@id': 'schema:sameAs', '@type': '@vocab', '@context': {'@vocab': 'https://fairsharing.org/'}},
     'qualifiedRelation': {'@id': 'dcat:qualifiedRelation', '@container': '@set'},
-    'relation': {'@id': 'dct:relation', '@type': '@id'}, 'hadRole': {'@id': 'dcat:hadRole', '@type': '@vocab'},
-    'fipDeclaration': {'@id': 'dct:hasPart', '@container': '@set'},
+    'relation': {'@id': 'dct:relation', '@type': '@id'},
+    'hadRole': _values('dcat:hadRole', 'hadRole', RELATIONS),
+    'fipDeclaration': {'@id': 'schema:hasPart', '@container': '@set'},
     'question': {'@id': 'fip:refers-to-question', '@type': '@id'}, 'considerations': 'fip:considerations',
     **{p: {'@id': 'fip:' + p, '@type': '@id'} for p in FIP_PROPERTIES},
     'fsr': {'@id': 'skos:exactMatch', '@type': '@id', '@container': '@set'},
-    # Kept in the file for people and the dashboard, but not part of the graph: derived fields, the sources and
-    # vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
-    **dict.fromkeys(['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'principle', 'sources', 'vocabularies',
-                     'fairsharing']),
 }
-# Our own terms, under TERMS: the fields the context leaves to @vocab (label, definition).
-OWN_TERMS = {
-    'scope': ('scope', 'What the resource was made for: generic, life-science or toxicology infrastructure.'),
-    'phase': ('phase', 'For a toxicology resource: the data life-cycle phase it acts on; when it acts on several, the '
-                       'earliest at which it must be applied.'),
-    'span': ('span', 'For a toxicology resource: every data life-cycle phase it acts on, starting with its phase.'),
-    'stakeholders': ('creator types', 'For a toxicology resource: who made it; several may apply.'),
-    'dateBasis': ('date basis', 'What the first-published date refers to.'),
-    'dateSource': ('date source', 'DOI or URL of the source that shows the first-published date.'),
-    'decision': ('decision', 'Screening decision.'),
-    'exclusionReason': ('exclusion reason', 'Why the resource is screened out.'),
-    'coveredBy': ('covered by', 'Key of the row that covers this one (exclusion reason E6).'),
-    'manuscript': ('in manuscript', 'Whether and how the manuscript names the resource.'),
-    'manuscriptEvidence': ('manuscript evidence', 'Section and line numbers in the frozen manuscript draft.'),
-    'fairsharingRecord': ('FAIRsharing record', 'FAIRsharing record code, or the numeric id of a record without a '
-                                                'DOI.'),
-    'fairsharingMatch': ('FAIRsharing match', 'Whether that FAIRsharing record is this resource.'),
-    'evidence': ('evidence', 'Where a relation is stated.'),
-}
-# Links of our terms to FIP, schema.org and DCTERMS terms, where one exists. A relation label (hadRole) names its
-# concept: terms#implements.
+# Links of our terms to outside terms, where one is close: (list, value, SKOS mapping property, outside term).
 TERM_LINKS = [
-    ('dateSource', RDFS.subPropertyOf, SDO.subjectOf), ('implements', SKOS.closeMatch, DCTERMS.conformsTo),
-    ('profiles', SKOS.closeMatch, DCTERMS.conformsTo), ('extends', SKOS.closeMatch, SDO.isBasedOn),
-    ('deprecates', SKOS.closeMatch, DCTERMS.replaces), ('related_to', SKOS.closeMatch, DCTERMS.relation),
+    ('hadRole', 'implements', SKOS.closeMatch, URIRef(FIP + 'implements')),
+    ('hadRole', 'implements', SKOS.closeMatch, DCTERMS.conformsTo),
+    ('hadRole', 'profiles', SKOS.closeMatch, DCTERMS.conformsTo), ('hadRole', 'extends', SKOS.closeMatch, SDO.isBasedOn),
+    ('hadRole', 'deprecates', SKOS.closeMatch, DCTERMS.replaces),
+    ('hadRole', 'related_to', SKOS.closeMatch, DCTERMS.relation),
+    ('maintained', 'discontinued', SKOS.closeMatch, URIRef('http://purl.org/adms/status/Deprecated')),
+    *[('subdomains', s, SKOS.broadMatch, URIRef(NCIT_TOXICOLOGY)) for s in SUBDOMAINS if s not in SAME['subdomains']],
 ]
-# Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'declaredIn' and
-# 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
+
+
+def term(field):
+    """The term a field maps to, as the context writes it (schema:url); None for a field out of the graph."""
+    entry = CONTEXT.get(field)
+    return entry.get('@id') if isinstance(entry, dict) else entry
+# Curated fields, in file order; edited in the Sheet. '@id', 'identifier', 'buildsOnFair', 'fsrCategory', 'declaredIn'
+# and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
-           'phase', 'span', 'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url',
+           'phase', 'span', 'stakeholders', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
            'reviewedBy', 'note']
-FIELD_ORDER = ['@id'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'fsr',
-                                   'qualifiedRelation', 'declared-by', 'fipDeclaration', 'fairsharing']
+FIELD_ORDER = ['@id', 'identifier'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'fsr',
+                                                 'qualifiedRelation', 'declared-by', 'fipDeclaration', 'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
 LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders', 'fsrType', 'span'}
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
@@ -294,11 +327,10 @@ def new_document(resources=()):
     }
 
 
-def vocabulary(doc, hidden=()):
-    """Our terms as RDF, for terms.ttl and terms.jsonld: OWN_TERMS except `hidden`, and each of the document's
-    vocabularies as a SKOS concept scheme <name>-values. A concept's prefLabel is the stored value; a relation label
-    is an IRI in the data and names its concept (implements), any other value's concept is <name>-<value>
-    (phase-data-generation)."""
+def vocabulary(doc):
+    """Our terms as RDF, for terms.ttl and terms.jsonld: each list in TERM_SETS as a schema:DefinedTermSet and
+    skos:ConceptScheme <list>-values, with a term (schema:DefinedTerm and skos:Concept, named by concept()) for each
+    value that has no outside concept. Its name is the stored value; its definition comes from the document."""
     t, head = rdflib.Namespace(TERMS), URIRef(TERMS[:-1])
     g = rdflib.Graph(bind_namespaces='none')
     for prefix, ns in (('terms', TERMS), ('fip', FIP), ('schema', SDO), ('dct', DCTERMS), ('skos', SKOS),
@@ -306,20 +338,17 @@ def vocabulary(doc, hidden=()):
         g.bind(prefix, ns)
     g += [(head, RDF.type, OWL.Ontology), (head, RDFS.label, Literal(f"Terms of the {doc['name']}")),
           (head, OWL.versionInfo, Literal(doc['version'])), (head, DCTERMS.license, URIRef(doc['license']))]
-    for name, (label, definition) in OWN_TERMS.items():
-        if name not in hidden:
-            g += [(t[name], RDF.type, RDF.Property),
-                  (t[name], RDFS.label, Literal(label)), (t[name], SKOS.definition, Literal(definition))]
-    for name, values in doc['vocabularies'].items():
-        scheme = t[name + '-values']
-        g += [(scheme, RDF.type, SKOS.ConceptScheme), (scheme, RDFS.label, Literal(name + ' values'))]
-        for value, definition in values.items():
-            c = t[value] if name == 'hadRole' else t[f"{name}-{re.sub('[^a-z0-9]+', '-', value.lower()).strip('-')}"]
-            g += [(c, RDF.type, SKOS.Concept), (c, SKOS.inScheme, scheme), (c, SKOS.prefLabel, Literal(value)),
-                  (c, SKOS.definition, Literal(definition))]
-            if name == 'declaration':                       # the FIP ontology's own property
-                g.add((c, SKOS.exactMatch, URIRef(FIP + value)))
-    g += [(t[s], p, o) for s, p, o in TERM_LINKS if (t[s], None, None) in g]
+    for name in TERM_SETS:
+        s = t[name + '-values']
+        g += [(s, RDF.type, SDO.DefinedTermSet), (s, RDF.type, SKOS.ConceptScheme),
+              (s, SDO.name, Literal(name + ' values')), (s, SKOS.prefLabel, Literal(name + ' values'))]
+        for value, definition in doc['vocabularies'][name].items():
+            if value not in SAME.get(name, {}):
+                c = URIRef(concept(name, value))
+                g += [(c, RDF.type, SDO.DefinedTerm), (c, RDF.type, SKOS.Concept), (c, SDO.name, Literal(value)),
+                      (c, SKOS.prefLabel, Literal(value)), (c, SDO.description, Literal(definition)),
+                      (c, SDO.termCode, Literal(c[len(TERMS):])), (c, SDO.inDefinedTermSet, s), (c, SKOS.inScheme, s)]
+    g += [(URIRef(concept(name, value)), p, o) for name, value, p, o in TERM_LINKS]
     return g
 
 
@@ -430,7 +459,14 @@ def normalise(doc):
                 r[f] = known + [x for x in r[f] if x not in vocab]
         if r.get('fairsharingRecord'):
             r['fairsharingRecord'] = fs_ref(r['fairsharingRecord'])
+        if 'dateBasis' in r and (r['dateBasis'] or '') in DATE_FIELDS:   # a date as the sheet and the imports give
+            date, basis = r.pop('datePublished', ''), r.pop('dateBasis') or ''   # it: first published, date basis
+            for f in DATE_FIELDS.values():
+                r.pop(f, None)
+            if date:
+                r[DATE_FIELDS[basis]] = date
         r['@id'] = iri_of(r)
+        r['identifier'] = r['@id'] if r['@id'].startswith('http') else BASE + r['@id']
     new_ids = {r['key']: r['@id'] for r in doc['hasPart']}
     target = lambda v: new_ids.get(old_ids.get(v, v.lstrip('#')), v)
     declared = {}                                           # target @id -> [(FIP @id, principle)]
@@ -534,7 +570,10 @@ def check(doc):
         for field in LIST_FIELDS:
             if not isinstance(r.get(field, []), list):
                 e(f'{k}: {field} must be a list')
-        d = r.get('datePublished')
+        dates = [f for f in DATE_FIELDS.values() if r.get(f)]
+        if len(dates) > 1:
+            e(f'{k}: one date only, under the field of its basis, not {", ".join(dates)}')
+        d = first_date(r)[0]
         if d:
             m = DATE_RE.match(str(d))
             try:
@@ -567,7 +606,8 @@ def check(doc):
                     _year(r) and _year(t) and _year(r) < _year(t):
                 warnings.append(f'{k}: {role} {t["key"]} points to a resource first published later')
         if r.get('decision') == 'include':
-            missing = [f for f in ('datePublished', 'dateSource', 'url', 'type', 'fsrType', 'scope') if not r.get(f)]
+            missing = (['first published'] if not first_date(r)[0] else []) + \
+                [f for f in ('dateSource', 'url', 'type', 'fsrType', 'scope') if not r.get(f)]
             if r.get('fairsharingMatch') != 'confirmed' and not r.get('description'):
                 missing.append('description')
             if missing:
@@ -577,8 +617,13 @@ def check(doc):
     return errors, warnings
 
 
+def first_date(r):
+    """(date, basis): when the resource first became public, and what that date refers to; ('', '') when unknown."""
+    return next(((r[f], basis) for basis, f in DATE_FIELDS.items() if r.get(f)), ('', ''))
+
+
 def _year(r):
-    m = DATE_RE.match(str(r.get('datePublished') or ''))
+    m = DATE_RE.match(str(first_date(r)[0]))
     return int(m.group(1)) if m else None
 
 

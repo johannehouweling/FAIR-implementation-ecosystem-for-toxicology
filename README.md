@@ -20,7 +20,7 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
   as identifiers).
 - `data/changes.csv`: every change, with its date, process or curator, and source.
 - `docs/inclusion-criteria.md`: how resources were selected and classified.
-- `docs/data-dictionary.md`: fields, controlled vocabularies and own terms.
+- `docs/data-dictionary.md`: fields with their terms, and the controlled vocabularies.
 - `docs/fip-convergence.md`: the choices of the two FIPs per FIP question.
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
 - `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
@@ -59,7 +59,10 @@ uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharin
 
 The code is licensed MIT ([LICENSE](LICENSE)). The dataset, documentation and dashboard are licensed CC BY-SA 4.0
 ([LICENSE-DATA](LICENSE-DATA)) because they contain information from [FAIRsharing](https://fairsharing.org), licensed
-CC BY-SA 4.0. The FIP declarations come from nanopublications licensed CC0, or as stated in each.
+CC BY-SA 4.0. The FIP declarations come from the nanopublications of the
+[PARC Toxicology FIP](https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E) and the
+[Reference AOP FIP](https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc), licensed CC0, or as stated in
+each.
 
 ## How to cite
 

@@ -50,7 +50,7 @@ RESOURCE_COLUMNS = [
     ('Covered by', 'coveredBy', 'keys', 14, 'For exclusion reason E6: the key of the row that covers this one.'),
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
-    ('Type', 'type', 'list:Type', 32, 'FAIRsharing resource type'),
+    ('FAIRsharing type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, by the typing rule on the Instructions tab. '
      'The Lists tab groups the types by direct FSR subclass.'),
     ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
@@ -70,9 +70,12 @@ RESOURCE_COLUMNS = [
       for s in model.SUBDOMAINS],
     ('First published', 'datePublished', 'date', 14,
      'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'),
-    ('Date basis', 'dateBasis', 'list:Date basis', 16, 'What the date refers to.'),
+    ('Date basis', 'dateBasis', 'list:Date basis', 16, 'What the date refers to. It decides the term of the date: '
+     + '; '.join(f'{basis or "none"}, {model.term(field)}' for basis, field in model.DATE_FIELDS.items()) + '.'),
     ('Date source', 'dateSource', 'text', 32, 'DOI or web page that shows the date.'),
     ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
+    ('Identifier', None, 'static', 34, 'Computed persistent identifier: the FIC nanopublication, else the '
+     'FAIRsharing DOI, else the dataset IRI. Term: schema:identifier.'),
     ('Homepage', 'url', 'text', 32, 'Main web address.'),
     ('Description', 'description', 'text', 50, 'One to three sentences. Needed to register it in FAIRsharing.'),
     ('Maintained', 'maintained', 'list:Maintained', 14, 'active, discontinued, in development or unknown.'),
@@ -108,6 +111,7 @@ RELATION_COLUMNS = [
     ('Note', 'note', 'text', 40, ''),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
+MARK_FIELD = {'mark': 'subdomains', 'creator': 'stakeholders', 'span': 'span'}   # one column per value of these
 INSTRUCTIONS = [
     'Edit only the white cells. Grey columns, and the grey rows on the Relations tab, are computed or read from '
     'FAIRsharing and the FIPs when the sheet is made, and are ignored when it is read back.',
@@ -172,10 +176,12 @@ def _validation(ws, kind, letter, rows, keys_range):
 
 
 def _header(ws, columns):
-    for i, (head, _, kind, width, note) in enumerate(columns, 1):
+    for i, (head, field, kind, width, note) in enumerate(columns, 1):
         c = ws.cell(row=1, column=i, value=head)
         c.font, c.fill = BOLD, HEAD
         c.alignment = Alignment(wrap_text=True, vertical='top')
+        term = model.term(MARK_FIELD.get(kind, field)) if field not in model.DATE_FIELDS.values() else None
+        note = f'{note} Term: {term}.'.strip() if term else note   # a date's term follows its basis
         if note:
             c.comment = Comment(note, 'fairtox')
         ws.column_dimensions[get_column_letter(i)].width = width
@@ -306,6 +312,10 @@ def build(doc, path):
                 c.value = '; '.join(r.get('alternateName', [])) or None
             elif kind == 'version':
                 c.value = model.row_hash(r)
+            elif field in ('datePublished', 'dateBasis'):   # the date and its basis, whichever field holds it
+                c.value = model.first_date(r)[field == 'dateBasis'] or None
+            elif head == 'Identifier':
+                c.value = r.get('identifier')
             elif head == 'In FAIRsharing collection':
                 c.value = ('yes' if fs.get('inCollection') else 'no') if fs else None
             elif head == 'FAIRsharing year':
@@ -488,7 +498,9 @@ def ingest(doc, path, force=False):
             rows[key] = {'key': key, **parsed}
             new['hasPart'].append(rows[key])
         else:
-            changed = any(model._text(old.get(f)) != model._text(parsed.get(f)) for f in parsed)
+            date, basis = model.first_date(old)                  # the sheet's form of the date
+            seen_as = {**old, 'datePublished': date, 'dateBasis': basis}
+            changed = any(model._text(seen_as.get(f)) != model._text(parsed.get(f)) for f in parsed)
             if changed and version and version != current.get(key) and not force:
                 problem('Resources', where['Key'], 'Key', key,
                         'this row changed in the dataset after the sheet was made; make a new sheet or re-check it')

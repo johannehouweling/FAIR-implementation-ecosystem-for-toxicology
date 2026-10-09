@@ -18,7 +18,7 @@ REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-to
 PUBLIC_REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline'
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
-NODE_FIELDS = ['key', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
+NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
                'type', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
                'stakeholders', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
@@ -74,10 +74,11 @@ def nodes_links(doc):
     fsr = {**{k: v[0] for k, v in model.fsr_types().items()}, **CLASSES}   # IRI -> label
     for r in doc['hasPart']:
         fs = r.get('fairsharing') or {}
+        date, basis = model.first_date(r)
         nodes.append({
-            'key': r['key'], 'name': r['name'].strip(), 'label': label(r), 'abbr': abbr(r),
-            'aliases': r.get('alternateName', []), 'year': model._year(r),
-            'date': r.get('datePublished', ''), 'lane': model.lane(r), 'creatorLane': model.creator_lane(r),
+            'key': r['key'], 'identifier': r.get('identifier', ''), 'name': r['name'].strip(), 'label': label(r),
+            'abbr': abbr(r), 'aliases': r.get('alternateName', []), 'year': model._year(r),
+            'date': date, 'lane': model.lane(r), 'creatorLane': model.creator_lane(r),
             'phase': r.get('phase', ''), 'span': r.get('span', []), 'type': r.get('type', ''),
             'fsrType': [fsr.get(t, t) for t in r.get('fsrType', [])], 'fsrCategory': fsr.get(r.get('fsrCategory'), ''),
             'principles': r.get('principles', []), 'declaredIn': [key_of[f] for f in r.get('declaredIn', [])],
@@ -88,7 +89,7 @@ def nodes_links(doc):
             'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
             'fairsharing': fairsharing_url(r), 'url': r.get('url', ''), 'creator': r.get('creator', ''),
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
-            'dateSource': r.get('dateSource', ''), 'dateBasis': r.get('dateBasis', ''),
+            'dateSource': r.get('dateSource', ''), 'dateBasis': basis,
         })
     links = [{'src': x['target'], 'dst': x['subject'], 'label': x['hadRole'], 'lineage': model.RELATIONS[x['hadRole']][1]}
              for x in model.relation_rows(doc)]
@@ -137,6 +138,12 @@ def page_meta(doc):
         'subdomains': [[s, model.SUBDOMAIN_LANE[s]] for s in model.SUBDOMAINS],
         'relations': {k: {'id': v[0], 'lineage': v[1], 'definition': v[2]} for k, v in model.RELATIONS.items()},
         'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': PUBLIC_REPO, 'pages': PAGES,   # source is private
+        # field -> term, for the data dictionary; the prefixes (full IRIs) are not fields
+        'terms': {f: model.term(f) for f in model.CONTEXT if f[0] != '@' and model.term(f)
+                  and not model.term(f).startswith('http')},
+        # list -> value -> the name of its term of ours, the anchor where the term's IRI lands
+        'termAnchors': {name: {v: model.concept(name, v)[len(model.TERMS):] for v in model.VOCABULARIES[name]
+                               if v not in model.SAME.get(name, {})} for name in model.TERM_SETS},
         'doi': doc.get('identifier', ''), 'collection': model.COLLECTION_DOI,
     }
 
@@ -189,7 +196,7 @@ def build(doc, outdir, offline=False):
     links = [x for x in links if x['src'] in keep and x['dst'] in keep]
     declarations = [x for x in declarations if x['src'] in keep and x['dst'] in keep]
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')
-    terms = model.vocabulary(doc, PRIVATE + PRIVATE_VOCABULARIES)
+    terms = model.vocabulary(doc)
     jsonld = json.loads(terms.serialize(format='json-ld', context={p: str(ns) for p, ns in terms.namespaces()}))
     jsonld['@graph'].sort(key=lambda node: node['@id'])     # one order, so an unchanged build publishes nothing new
     page = page.replace('__SCHEMA__', _script_json(schema_org(doc)))

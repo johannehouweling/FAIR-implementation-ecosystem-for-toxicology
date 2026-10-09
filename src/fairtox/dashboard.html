@@ -186,7 +186,7 @@ button.btn:hover { border-color: var(--ink); }
     </div>
     <details class="dict">
       <summary><h3>Data dictionary</h3></summary>
-      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by phase and by creator), registry (the FAIRsharing registry of the type), fairsharing (the FAIRsharing record) and fromCollection (defined below).</p>
+      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. Each field names its term in schema.org, DCAT or the FIP ontology, and each controlled value is an outside concept or a term of the dataset (terms.ttl). resources.csv has the same fields, with aliases for alternateName and date and dateBasis for the date fields, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by phase and by creator), registry (the FAIRsharing registry of the type), fairsharing (the FAIRsharing record) and fromCollection (defined below).</p>
       <dl id="dict"></dl>
     </details>
   </section>
@@ -696,11 +696,14 @@ function header() {
   if (isUrl(META.collection)) $('coll').href = META.collection;
 }
 
-// The data dictionary: each field with a one-line definition, and the allowed values of the controlled ones. Each term
-// has an anchor, its name, where https://w3id.org/fair-tox/terms#span lands; so has each relation label (#implements).
+// The data dictionary: each field with a one-line definition and its term, and the allowed values of the controlled
+// ones. Each field has an anchor, its name; each value that is a term of the dataset has an anchor, the term's name,
+// where its IRI lands (https://w3id.org/fair-tox/terms#phase-data-generation, #implements).
 const FIELDS = [
   ['name', 'Full name.'],
   ['alternateName', 'Abbreviations and other names.'],
+  ['identifier', 'Persistent identifier: the FIC nanopublication of a FAIR Implementation Community, else the ' +
+    'FAIRsharing DOI, else https://w3id.org/fair-tox/dataset#key.'],
   ['type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not register.', 'type'],
   ['fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, one per resource, by the typing rule of the ' +
     'criteria. IRIs in the JSON-LD, labels in resources.csv.'],
@@ -717,8 +720,9 @@ const FIELDS = [
     'recommends a generic resource. ' +
     'Its label is in italics.'],
   ['subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'],
-  ['datePublished', 'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'],
-  ['dateBasis', 'What that date refers to.', 'dateBasis'],
+  ['datePublished, dateReleased, dateAdopted, dateCreated, date', 'When the resource first became public: YYYY, ' +
+    'YYYY-MM or YYYY-MM-DD, in the field of what the date refers to (publication, release, adoption, FAIRsharing year, ' +
+    'or not recorded). resources.csv gives it as date, with dateBasis.', 'dateBasis'],
   ['dateSource', 'DOI or URL of the source that shows the date.'],
   ['creator', 'Organisations that made the resource.'],
   ['url', 'Homepage.'],
@@ -727,7 +731,7 @@ const FIELDS = [
   ['fairsharingRecord', 'FAIRsharing record code or numeric id, in the JSON-LD.'],
   ['fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection that ' +
     'entered this dataset only through the collection. The switch of the same name hides these resources.'],
-  ['relations', 'Relations to other resources, read subject first ("CTD implements ExO"): qualifiedRelation in the JSON-LD, ' +
+  ['qualifiedRelation, hadRole', 'Relations to other resources, read subject first ("CTD implements ExO"): qualifiedRelation in the JSON-LD, ' +
     'subject, hadRole and target in relations.csv.', 'hadRole'],
   ['declaredIn', 'Derived: the FIPs that declare the resource (their keys in resources.csv).'],
   ['fipDeclaration, declared-by', 'On a FIP, in the JSON-LD, read from its nanopublications (CC0) when the page is ' +
@@ -737,9 +741,11 @@ const FIELDS = [
     'declaration'],
 ];
 function dictionary() {
-  const vocab = META.vocab || {};
-  $('dict').innerHTML = FIELDS.map(([f, def, v]) => `<dt id="${esc(f.split(',')[0])}">${esc(f)}</dt><dd>${esc(def)}` + (vocab[v] ?
-    `<dl>${Object.entries(vocab[v]).map(([k, d]) => `<dt${v === 'hadRole' ? ` id="${esc(k)}"` : ''}>${esc(k)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') + '</dd>').join('');
+  const vocab = META.vocab || {}, terms = META.terms || {}, anchors = META.termAnchors || {};
+  const term = f => { const t = f.split(', ').map(x => terms[x]).filter(Boolean);
+    return t.length ? ` ${t.length > 1 ? 'Terms' : 'Term'}: ${t.join(', ')}.` : ''; };
+  $('dict').innerHTML = FIELDS.map(([f, def, v]) => `<dt id="${esc(f.split(',')[0])}">${esc(f)}</dt><dd>${esc(def + term(f))}` + (vocab[v] ?
+    `<dl>${Object.entries(vocab[v]).map(([k, d]) => `<dt${(anchors[v] || {})[k] ? ` id="${esc(anchors[v][k])}"` : ''}>${esc(k)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') + '</dd>').join('');
 }
 
 function addChip(parent, text, on, before = null) {
@@ -800,7 +806,7 @@ function render() {
 }
 header(); dictionary(); render();
 // The fragment opens its resource (https://w3id.org/fair-tox/dataset#ctd) or its term in the data dictionary
-// (https://w3id.org/fair-tox/terms#span); any other fragment does nothing.
+// (https://w3id.org/fair-tox/terms#phase-data-generation); any other fragment does nothing.
 const hash = location.hash.slice(1), term = $(hash);
 if (Object.hasOwn(byKey, hash)) select(hash);
 else if (term && $('dict').contains(term)) { term.closest('details').open = true; term.scrollIntoView(); }
