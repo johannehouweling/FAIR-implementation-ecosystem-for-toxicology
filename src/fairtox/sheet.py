@@ -30,7 +30,7 @@ def _fsr_list():
 
 
 LISTS = {
-    'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['type'],
+    'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['fairsharingType'],
     'Scope': model.SCOPE, 'Phase': model.PHASES, 'Date basis': model.DATE_BASIS,
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
     'Relation': {k: v[2] for k, v in model.RELATIONS.items()}, 'Evidence': model.EVIDENCE,
@@ -50,7 +50,7 @@ RESOURCE_COLUMNS = [
     ('Covered by', 'coveredBy', 'keys', 14, 'For exclusion reason E6: the key of the row that covers this one.'),
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
-    ('FAIRsharing type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
+    ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, by the typing rule on the Instructions tab. '
      'The Lists tab groups the types by direct FSR subclass.'),
     ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
@@ -182,7 +182,8 @@ def _header(ws, columns):
         c = ws.cell(row=1, column=i, value=head)
         c.font, c.fill = BOLD, HEAD
         c.alignment = Alignment(wrap_text=True, vertical='top')
-        term = model.term(MARK_FIELD.get(kind, field)) if field not in model.DATE_FIELDS.values() else None
+        field = {**MARK_FIELD, 'creator': 'qualifiedAttribution'}.get(kind, field)   # creator types: as published
+        term = model.term(field) if field not in model.DATE_FIELDS.values() else None
         note = f'{note} Term: {term}.'.strip() if term else note   # a date's term follows its basis
         if note:
             c.comment = Comment(note, 'fairtox')

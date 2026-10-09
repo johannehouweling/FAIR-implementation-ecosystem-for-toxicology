@@ -260,7 +260,7 @@ def curate(doc, data):
             continue
         key = model.slug(rec.get('abbreviation') or rec['name'], {r['key'] for r in doc['hasPart']})
         row = {'key': key, 'name': rec['name'], 'alternateName': [rec['abbreviation']] if rec.get('abbreviation') else [],
-               'decision': 'undecided', 'type': RECORD_TYPE.get(rec.get('recordType'), ''),
+               'decision': 'undecided', 'fairsharingType': RECORD_TYPE.get(rec.get('recordType'), ''),
                'url': rec.get('homepage') or '', 'description': rec.get('description') or '',
                'maintained': MAINTAINED.get(rec.get('status'), 'unknown'), 'manuscript': 'absent',
                'fairsharingRecord': code, 'fairsharingMatch': 'confirmed',
@@ -317,9 +317,9 @@ def submission(doc):
     out = {'records': [], 'associations': [], 'collectionAdditions': [], 'heldBack': []}
     ref = {}
     for k, r in rs.items():
-        t, code = model.TYPES.get(r.get('type')), model.fs_ref(r.get('fairsharingRecord'))
+        t, code = model.TYPES.get(r.get('fairsharingType')), model.fs_ref(r.get('fairsharingRecord'))
         if r.get('fairsharingMatch') == 'confirmed' and code:
-            ref[k] = r['@id'] if not r['@id'].startswith('#') else f'{SITE}/{code}'
+            ref[k] = r['@id'] if not r['@id'].startswith(model.BASE) else f'{SITE}/{code}'
             if not (r.get('fairsharing') or {}).get('inCollection'):
                 out['collectionAdditions'].append({'key': k, 'name': r['name'], 'record': ref[k]})
             continue
@@ -338,7 +338,7 @@ def submission(doc):
         if model._year(r):
             metadata['year_creation'] = model._year(r)
         out['records'].append({'key': k, 'fairsharing_record': {'metadata': metadata, 'record_type_id': t[2]},
-                               'for_the_form': {'type': r['type'], 'organisations': r.get('creator', ''),
+                               'for_the_form': {'type': r['fairsharingType'], 'organisations': r.get('creator', ''),
                                                 'publication': r.get('dateSource', '')}})
     for x in model.relation_rows(doc):
         s, t = x['subject'], x['target']

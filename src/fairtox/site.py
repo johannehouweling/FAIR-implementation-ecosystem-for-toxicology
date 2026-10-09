@@ -20,7 +20,7 @@ PUBLIC_REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
 NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
-               'type', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
+               'fairsharingType', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
                'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
@@ -80,7 +80,7 @@ def nodes_links(doc):
             'key': r['key'], 'identifier': r.get('identifier', ''), 'name': r['name'].strip(), 'label': label(r),
             'abbr': abbr(r), 'aliases': r.get('alternateName', []), 'year': model._year(r),
             'date': date, 'lane': model.lane(r), 'creatorLane': model.creator_lane(r),
-            'phase': r.get('phase', ''), 'span': r.get('span', []), 'type': r.get('type', ''),
+            'phase': r.get('phase', ''), 'span': r.get('span', []), 'fairsharingType': r.get('fairsharingType', ''),
             'fsrType': [fsr.get(t, t) for t in r.get('fsrType', [])], 'fsrCategory': fsr.get(r.get('fsrCategory'), ''),
             'principles': r.get('principles', []), 'declaredIn': [key_of[f] for f in r.get('declaredIn', [])],
             'declaredBy': key_of.get(r.get('declared-by'), ''), 'registry': model.registry(r) or '',
@@ -176,8 +176,8 @@ FIELDS = [
     ('alternateName', 'Abbreviations and other names.', None),
     ('identifier', 'Persistent identifier: the FIC nanopublication of a FAIR Implementation Community, else the '
                    'FAIRsharing DOI, else https://w3id.org/fair-tox/dataset#key.', None),
-    ('type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not '
-             'register.', 'type'),
+    ('fairsharingType', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing '
+                        'does not register.', 'fairsharingType'),
     ('fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, one per resource, by the typing rule of the '
                 'criteria. IRIs in the JSON-LD, labels in resources.csv.', None),
     ('fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource or FAIR Supporting Resource (any other FSR). The '
@@ -188,8 +188,9 @@ FIELDS = [
     ('phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.',
      'phase'),
     ('span', 'Every data life-cycle phase a toxicology resource acts on, its phase first.', None),
-    ('creatorType', 'Creator types: who made a toxicology resource; several may apply. In the layout by creator they '
-                     'set its lane (Made jointly for two or more).', 'creatorType'),
+    ('creatorType, qualifiedAttribution', 'Creator types: who made a toxicology resource; several may apply. In the '
+     'layout by creator they set its lane (Made jointly for two or more). In the JSON-LD each is a qualified '
+     'attribution whose role (hadRole) is the kind of creator.', 'creatorType'),
     ('buildsOnFair', 'Derived: true for a toxicology resource first published in 2016 or later that implements, '
                      'extends, profiles or recommends a generic resource. Its label is in italics.', None),
     ('subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'),
@@ -250,7 +251,8 @@ def discovery(doc, out):
                               'checksumValue': hashlib.sha256(out[name].encode('utf-8')).hexdigest()}} if name in out else {})}
                          for name, (media, spec) in DOWNLOADS.items()],
         'subjectOf': {'@id': PAGES + 'fair-tox-ecosystem.jsonld', '@type': 'schema:Dataset',
-                      'additionalType': 'dcat:CatalogRecord', 'about': '', 'conformsTo': CDIF,
+                      'additionalType': 'dcat:CatalogRecord', 'about': model.BASE, 'conformsTo': CDIF,
+                      'maintainer': doc['creator'],
                       'sdDatePublished': doc.get('dateModified', '')},
     }
 

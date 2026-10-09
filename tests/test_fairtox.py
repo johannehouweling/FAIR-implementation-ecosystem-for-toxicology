@@ -22,26 +22,26 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def fixture():
     rs = [
         {'key': 'exo', 'name': 'Exposure Ontology', 'alternateName': ['ExO'], 'decision': 'include',
-         'type': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data integration',
+         'fairsharingType': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration'],
          'creatorType': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
          'dateSource': 'https://doi.org/10.1021/es2033857', 'url': 'https://github.com/CTDbase/exposure-ontology',
          'manuscript': 'named', 'manuscriptEvidence': 'Data generation; L100', 'fairsharingRecord': 'FAIRsharing.6hna78',
          'fairsharingMatch': 'confirmed', 'maintained': 'active'},
         {'key': 'ctd', 'name': 'Comparative Toxicogenomics Database', 'alternateName': ['CTD'], 'decision': 'include',
-         'type': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data integration',
+         'fairsharingType': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration', 'Regulatory assessment'],
          'creatorType': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
          'url': 'https://ctdbase.org', 'description': 'Curated chemical-gene-disease interactions.',
          'manuscript': 'absent', 'maintained': 'active',
          'qualifiedRelation': [{'relation': '#exo', 'hadRole': 'implements', 'evidence': 'FAIRsharing'}]},
-        {'key': 'oecd_gd', 'name': 'OECD guidance on research data', 'decision': 'include', 'type': 'Policy: institution',
+        {'key': 'oecd_gd', 'name': 'OECD guidance on research data', 'decision': 'include', 'fairsharingType': 'Policy: institution',
          'scope': 'Toxicology', 'phase': 'Regulatory assessment', 'span': ['Regulatory assessment'],
          'creatorType': ['Regulator'],
          'date': '2026', 'manuscript': 'cited',
          'manuscriptEvidence': 'L190'},
         {'key': 'parc', 'name': 'PARC', 'decision': 'exclude', 'exclusionReason': 'E1', 'manuscript': 'named'},
-        {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'type': 'Tool', 'scope': 'Generic'},
+        {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'fairsharingType': 'Tool', 'scope': 'Generic'},
     ]
     return model.new_document(rs)
 
@@ -137,6 +137,19 @@ class ModelTest(TempDir):
         next(r for r in doc['hasPart'] if r['key'] == 'exo')['datePublished'] = '2012'   # before the FAIR principles
         self.assertNotIn('buildsOnFair', next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo'))
 
+    def test_every_controlled_field_is_checked(self):
+        for field, value in (('fairsharingType', 'Databank'), ('scope', 'Toxicologie'), ('maintained', 'alive')):
+            doc = model.normalise(fixture())
+            doc['hasPart'][0][field] = value
+            self.assertTrue(any(repr(value) in e for e in model.check(doc)[0]), field)
+
+    def test_ids_are_absolute_without_base(self):
+        doc = model.normalise(fixture())                    # a context loaded by URL may not set @base
+        self.assertNotIn('@base', model.CONTEXT)
+        self.assertEqual(doc['@id'], model.BASE)
+        self.assertEqual({r['key']: r['@id'] for r in doc['hasPart']}['oecd_gd'], model.BASE + '#oecd_gd')
+        self.assertTrue(all(q['relation'].startswith('https://') for r in doc['hasPart'] for q in r.get('qualifiedRelation', [])))
+
     def test_fsr_and_fip_fields_are_derived(self):
         types = model.fsr_types()
         self.assertLessEqual(set(model.FSR_OFFERED), set(types))
@@ -150,7 +163,7 @@ class ModelTest(TempDir):
                                          'question': model.FIP + 'FIP-Question-I2-D', 'principle': 'I2'}]
         by = {r['key']: r for r in model.normalise(doc)['hasPart']}
         self.assertEqual((by['exo']['fsrCategory'], by['ctd']['fsrCategory']), (model.FER, model.FSR))
-        self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), (['#tool'], ['I2']))
+        self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), ([by['tool']['@id']], ['I2']))
         self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
         self.assertEqual(model.check(doc)[0], [])
 
@@ -390,7 +403,7 @@ class FairsharingTest(TempDir):
             'FAIRsharing association, not a relation here: newtox implements exo',
             'two-hop: newtox related_to FAIRsharing 7777 Other record'])
         new = next(r for r in doc['hasPart'] if r['key'] == 'newtox')
-        self.assertEqual((new['decision'], new['manuscript'], new['type'], model.first_date(new),
+        self.assertEqual((new['decision'], new['manuscript'], new['fairsharingType'], model.first_date(new),
                           new['fairsharingRecord'], new['fairsharingMatch']),
                          ('undecided', 'absent', 'Database: repository', ('2019', 'FAIRsharing year'),
                           'FAIRsharing.zzz999', 'confirmed'))
@@ -430,7 +443,7 @@ class FairsharingTest(TempDir):
         by['ctd']['qualifiedRelation'].append({'relation': by['exo']['@id'], 'hadRole': 'related_to',
                                                'evidence': 'literature'})
         by['oecd_gd']['qualifiedRelation'] = [
-            {'relation': '#ctd', 'hadRole': 'recommends', 'evidence': 'literature'},
+            {'relation': by['ctd']['@id'], 'hadRole': 'recommends', 'evidence': 'literature'},
             {'relation': by['exo']['@id'], 'hadRole': 'recommends', 'evidence': 'manuscript'},
             {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'}]   # not for a policy
         read = lambda: fairsharing.submission(fairsharing.enrich(copy.deepcopy(doc), dict(self.data, members=[9999])))
@@ -579,7 +592,7 @@ class SiteTest(TempDir):
 
     def test_vocabulary_context_and_anchors_resolve_our_iris(self):
         import rdflib
-        from rdflib import DCAT, DCTERMS, RDF, SKOS, Literal, URIRef
+        from rdflib import DCAT, DCTERMS, PROV, RDF, SKOS, Literal, URIRef
         self.enterContext(warnings.catch_warnings(action='ignore', category=DeprecationWarning))   # rdflib's own code
         S, t, ds = model.SCHEMA, rdflib.Namespace(model.TERMS), rdflib.Namespace(model.BASE + '#')
         fields = {'@context': model.CONTEXT, **dict.fromkeys(model.CURATED + model.RELATION_ORDER, 'x')}
@@ -602,7 +615,6 @@ class SiteTest(TempDir):
                        (exo, S.about, URIRef(model.NCIT_TOXICOLOGY)),        # FAIRsharing's subject
                        (exo, S.about, URIRef('http://id.nlm.nih.gov/mesh/D000081413')),
                        (ctd, DCAT.theme, t['phase-regulatory-assessment']),
-                       (ctd, model.SCHEMA.creator, URIRef('http://www.ebi.ac.uk/efo/EFO_0009742')),   # computational scientist
                        (exo, S.creativeWorkStatus, t['maintained-active']),
                        (exo, S.datePublished, Literal('2012-01')), (ctd, DCTERMS.issued, Literal('2004')),
                        (ds.oecd_gd, DCTERMS.date, Literal('2026')),
@@ -617,6 +629,10 @@ class SiteTest(TempDir):
             self.assertTrue(all(isinstance(o, URIRef) for o in data.objects(None, p)), p)
         record = data.value(root, S.subjectOf)                 # the catalog record of the CDIF Discovery profile
         self.assertEqual(set(data.objects(record, DCTERMS.conformsTo)), set(map(URIRef, site.CDIF)))
+        self.assertEqual(data.value(data.value(record, S.maintainer), S.name), Literal(model.CREATOR['name']))
+        attributions = set(data.objects(ctd, PROV.qualifiedAttribution))   # creator types, as qualified attributions
+        self.assertEqual({data.value(a, RDF.type) for a in attributions}, {PROV.Attribution})
+        self.assertIn(URIRef('http://www.ebi.ac.uk/efo/EFO_0009742'), {data.value(a, DCAT.hadRole) for a in attributions})
         self.assertEqual(data.value(record, S.about), root)
         self.assertEqual(str(data.value(data.value(root, S.identifier), S.value)), model.BASE)
         self.assertEqual(len(set(data.objects(root, S.distribution))), len(site.DOWNLOADS))
@@ -750,8 +766,9 @@ class FipTest(TempDir):
             'declares-current-use-of': by['exo']['@id'], 'question': model.FIP + 'FIP-Question-F1-D', 'principle': 'F1',
             'considerations': 'Used for test data.'}])
         self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']],
-                         [by['wlic']['@id'], by['exo']['@id']])   # wlic through its fsr link
-        self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), (['#oecd_gd', '#tool'], ['F1']))
+                         sorted([by['wlic']['@id'], by['exo']['@id']]))   # wlic through its fsr link
+        self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']),
+                         ([by['oecd_gd']['@id'], by['tool']['@id']], ['F1']))
         self.assertEqual({k: (s['retrieved'], s['declarations']) for k, s in doc['sources']['fip'].items()},
                          {'tool': ('2026-10-08', 1), 'oecd_gd': ('2026-10-08', 2)})
         self.assertEqual(doc['isBasedOn'], sorted([model.COLLECTION_DOI, np_iri('fipA') + '/fip',
@@ -769,7 +786,7 @@ class FipTest(TempDir):
         # oecd_gd also declares wlic, and is declared by tox: both undecided; tool, the other FIP, is undecided too
         self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']], [by['exo']['@id']])
         self.assertNotIn('declared-by', by['oecd_gd'])
-        self.assertEqual(by['exo']['declaredIn'], ['#oecd_gd'])
+        self.assertEqual(by['exo']['declaredIn'], [by['oecd_gd']['@id']])
         credit = model.load(self.path('site/fair-tox-ecosystem.jsonld'))['creditText']   # FAIRsharing, then the FIPs
         self.assertTrue(credit.startswith(model.FAIRSHARING_CREDIT))
         for iri in (np_iri('fipA'), np_iri('fipB')):

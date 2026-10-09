@@ -9,10 +9,13 @@
   each linked to its closest outside concepts. Derived and curation fields stay out of the graph.
 - CDIF: the published dataset conforms to CODATA's CDIF Discovery profile 1.1, checked in CI with CODATA's SHACL
   rules, and its term lists to the CDIF Concept Scheme profile 1.1. The dataset states its identifier, landing page,
-  release date, temporal coverage, sources, fields with their terms, and downloads with checksums; its creator is the
-  ELIXIR Toxicology Community within ELIXIR (ROR), its licence a labelled link and its keywords defined terms.
-- Resources: each states its persistent identifier and homepage and has a schema.org type. The creator types
-  (`creatorType`, formerly `stakeholders`) are `schema:creator`, next to the creator names. Dates are stored under the
+  release date, temporal coverage, sources, fields with their terms, and downloads with checksums; its creator, and the
+  maintainer of its catalog record, is the ELIXIR Toxicology Community within ELIXIR (ROR), its licence a labelled link
+  and its keywords defined terms.
+- Resources: each states its persistent identifier, written in full (the context sets no `@base`), and homepage and
+  has a schema.org type. The creator types (`creatorType`, formerly `stakeholders`) are qualified attributions
+  (`prov:qualifiedAttribution` with `dcat:hadRole`); the FAIRsharing type is `fairsharingType` (formerly `type`); the
+  IRIs under which the FIPs declare a resource are `schema:sameAs`. Dates are stored under the
   property of what they refer to, after DataCite's date types; the date source is `schema:citation`. An unknown
   maintenance status is not published.
 - Curation sheet: the Type column is now FAIRsharing type, a computed Identifier column is added, each header note
