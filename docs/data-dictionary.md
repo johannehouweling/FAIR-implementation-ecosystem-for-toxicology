@@ -68,15 +68,15 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `bu
 
 ## Lanes
 
-The dashboard lane is derived and not stored. Scope Generic gives Generic infrastructure and scope Life Sciences gives Life Sciences infrastructure. A toxicology resource sits in the lane named after its phase; the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure. FAIR Implementation Communities are listed but not drawn.
+The dashboard lane is derived and not stored. Scope Generic gives Generic infrastructure and scope Life Sciences gives Life sciences infrastructure. A toxicology resource sits in the lane named after its phase; the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure. FAIR Implementation Communities are listed but not drawn.
 
 | Lane (by phase) | Meaning |
 |---|---|
 | Generic infrastructure | Resources not specific to a research domain. |
-| Life Sciences infrastructure | Generic life-science resources that toxicology uses. |
-| Data generation | Toxicology resources in the data generation phase. |
-| Data integration | Toxicology resources in the data integration phase. |
-| Regulatory assessment | Toxicology resources in the regulatory assessment phase. |
+| Life sciences infrastructure | Life-science resources, not specific to toxicology, that toxicology uses. |
+| Data generation | Toxicology resources whose phase, the earliest they act on, is data generation. |
+| Data integration | Toxicology resources whose phase, the earliest they act on, is data integration. |
+| Regulatory assessment | Toxicology resources whose phase, the earliest they act on, is regulatory assessment. |
 
 | Lane (by creator) | Meaning |
 |---|---|
@@ -100,7 +100,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 | Value | Meaning |
 |---|---|
 | E1 | Organisation, project, initiative, consortium, community or event; its named product is listed instead. |
-| E2 | Principle, framework or concept without a reusable artefact, or a publication only. |
+| E2 | Principle, framework, method or approach, or a publication only, rather than a resource that can be used directly; a standard, database, policy or tool that puts it into practice is listed instead. |
 | E3 | Unnamed or not identifiable (no homepage or DOI). |
 | E4 | Never publicly available. |
 | E5 | No documented toxicology use. |
@@ -147,7 +147,7 @@ One type per resource, from the 27 classes the typing rule uses (inclusion crite
 | Value | Meaning |
 |---|---|
 | Generic | Infrastructure not specific to a research domain, including FAIR resources such as the FIP. |
-| Life Sciences | Generic life-science infrastructure that toxicology uses. |
+| Life Sciences | Life-science infrastructure, not specific to toxicology, that toxicology uses. |
 | Toxicology | Made for toxicology, including toxicology instances of generic resources. |
 
 ### Phase (`phase`)

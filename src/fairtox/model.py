@@ -42,7 +42,8 @@ DECISION = {
 }
 EXCLUSION = {
     'E1': 'Organisation, project, initiative, consortium, community or event; its named product is listed instead.',
-    'E2': 'Principle, framework or concept without a reusable artefact, or a publication only.',
+    'E2': 'Principle, framework, method or approach, or a publication only, rather than a resource that '
+          'can be used directly; a standard, database, policy or tool that puts it into practice is listed instead.',
     'E3': 'Unnamed or not identifiable (no homepage or DOI).',
     'E4': 'Never publicly available.',
     'E5': 'No documented toxicology use.',
@@ -75,7 +76,7 @@ TYPES = {
 }
 SCOPE = {
     'Generic': 'Infrastructure not specific to a research domain, including FAIR resources such as the FIP.',
-    'Life Sciences': 'Generic life-science infrastructure that toxicology uses.',
+    'Life Sciences': 'Life-science infrastructure, not specific to toxicology, that toxicology uses.',
     'Toxicology': 'Made for toxicology, including toxicology instances of generic resources.',
 }
 # Who created a toxicology resource; several may apply. Information, plotted as an alternative lane layout.
@@ -97,10 +98,10 @@ PHASES = {
 }
 LANE_DEF = {
     'Generic infrastructure': 'Resources not specific to a research domain.',
-    'Life Sciences infrastructure': 'Generic life-science resources that toxicology uses.',
-    'Data generation': 'Toxicology resources in the data generation phase.',
-    'Data integration': 'Toxicology resources in the data integration phase.',
-    'Regulatory assessment': 'Toxicology resources in the regulatory assessment phase.',
+    'Life sciences infrastructure': 'Life-science resources, not specific to toxicology, that toxicology uses.',
+    'Data generation': 'Toxicology resources whose phase, the earliest they act on, is data generation.',
+    'Data integration': 'Toxicology resources whose phase, the earliest they act on, is data integration.',
+    'Regulatory assessment': 'Toxicology resources whose phase, the earliest they act on, is regulatory assessment.',
 }
 LANES = list(LANE_DEF)
 TOX_LANES = LANES[2:]
@@ -329,7 +330,7 @@ def lane(r):
     if r.get('scope') == 'Generic':
         return 'Generic infrastructure'
     if r.get('scope') == 'Life Sciences':
-        return 'Life Sciences infrastructure'
+        return 'Life sciences infrastructure'
     return LANE_OF_PHASE.get(r.get('phase'), '')
 
 

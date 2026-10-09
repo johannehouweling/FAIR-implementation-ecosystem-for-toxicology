@@ -116,13 +116,13 @@ class ModelTest(TempDir):
 
     def test_lane_rules(self):
         self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')
-        self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life Sciences infrastructure')
+        self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
         for phase in model.PHASES:   # the toxicology lanes take the phase names
             self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': phase}), phase)
         self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator']}), 'Made by regulators')
         self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator', 'Wet-lab research']}),
                          'Made jointly')
-        self.assertEqual(model.creator_lane({'scope': 'Life Sciences'}), 'Life Sciences infrastructure')
+        self.assertEqual(model.creator_lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
 
     def test_building_on_fair_is_derived_from_a_builds_on_relation(self):
         doc = fixture()
@@ -496,7 +496,7 @@ class SiteTest(TempDir):
                          'Regulatory assessment', 'Toxicology infrastructure', 'Year first published',
                          'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
                          'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
-                         'life-cycle phase it acts on (the earliest, if several)', "row('Phase'", "row('Span'",
+                         'life-cycle phase they act on (the earliest, if several)', "row('Phase'", "row('Span'",
                          "{t: 'Span'", "{t: 'FSR type'", 'FIP declarations', 'Declared in a toxicology FIP',
                          'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
                          *model.CREATOR_LANE_DEF):

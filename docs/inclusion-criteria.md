@@ -58,7 +58,7 @@ Each excluded row carries exactly one code.
 | Code | Reason | Examples from the manuscript |
 |---|---|---|
 | E1 | Organisation, project, initiative, consortium, community or event, unless a registered FAIR Implementation Community (FIC) nanopublication identifies it (section 5). Its named product is listed as its own row. | EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus |
-| E2 | Principle, framework or concept without a reusable artefact, or a publication only. | The FAIR principles (shown as the 2016 line in the figure), the AOP framework, IATA |
+| E2 | Principle, framework, method or approach, or a publication only, rather than a resource that can be used directly; a standard, database, policy or tool that puts it into practice is listed instead. | The FAIR principles (shown as the 2016 line in the figure), the AOP framework, IATA |
 | E3 | Unnamed or not identifiable. | Services or pipelines mentioned in passing without a name |
 | E4 | Never publicly available. | A resource that cannot be found online and has no archived release |
 | E5 | No documented use in toxicology. | A generic resource named only outside a toxicology context |
@@ -117,7 +117,7 @@ Each excluded row carries exactly one code.
   organisations are named in Creator.
 - **Building on FAIR** is derived, not chosen: a toxicology resource builds on FAIR when it was first published in
   2016 or later and implements, extends, profiles or recommends a generic resource, such as a toxicology FAIR Implementation Profile building on the FIP.
-- **Lanes.** The dashboard places Generic resources in Generic infrastructure, Life Sciences resources in Life Sciences
+- **Lanes.** The dashboard places Generic resources in Generic infrastructure, Life Sciences resources in Life sciences
   infrastructure, and toxicology resources in the lane of their phase (Data generation, Data integration, Regulatory
   assessment), which together form the toxicology infrastructure. The toxicology lanes can also be arranged by creator
   type, with one lane for resources made jointly. FAIR Implementation Communities are listed but not drawn.

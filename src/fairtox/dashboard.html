@@ -152,7 +152,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
 <div class="page">
   <header>
     <h1 id="title">FAIR implementation ecosystem for toxicology</h1>
-    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published, in the lane of the data life-cycle phase it acts on (the earliest, if several) or, when the lanes are arranged by creator, of who made it. Lines show which resources build on others.</p>
+    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published: generic and life-science resources in a lane each, toxicology resources in the lane of the data life-cycle phase they act on (the earliest, if several) or, when the lanes are arranged by creator, of who made them. Lines show which resources build on others.</p>
     <p class="meta" id="meta"></p>
   </header>
 
@@ -220,7 +220,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
     </div>
     <div>
       <h3>Lanes</h3>
-      <p>Generic FAIR and life-science resources have a lane each. The toxicology lanes, together the toxicology infrastructure, arrange toxicology resources by the data life-cycle phase they act on, the earliest if several (the span lists them all), or, with Toxicology lanes set to Creator, by who made them.</p>
+      <p>Generic and life-science resources have a lane each. The toxicology lanes, together the toxicology infrastructure, arrange toxicology resources by the data life-cycle phase they act on, the earliest if several (the span lists them all), or, with Toxicology lanes set to Creator, by who made them.</p>
       <dl id="lane-defs"></dl>
     </div>
     <div>
@@ -275,9 +275,6 @@ const isUrl = s => /^https?:\/\//.test(s || '');
 const link = (href, text) => isUrl(href) ? `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(text)}</a>` : esc(text);
 const plural = (k, one, many) => `${k} ${k === 1 ? one : many}`;
 const words = s => String(s).replace(/_/g, ' ');
-// Lanes are shown in sentence case; the data keep their stored values, which the filters use.
-const SHOW = {'Life Sciences infrastructure': 'Life sciences infrastructure'};
-const show = v => SHOW[v] || v;
 const capital = s => s.charAt(0).toUpperCase() + s.slice(1);
 
 const byKey = Object.fromEntries(NODES.map(n => [n.key, n]));
@@ -288,7 +285,7 @@ const TYPES = [['standard', 'Standard'], ['database', 'Database or collection'],
 const italic = n => n.buildsOnFair === true;
 const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
 const label = n => short(n) + dagger(n);
-const laneText = n => show(n.phase || n.lane) || '—';   // toxicology resources show their phase
+const laneText = n => n.phase || n.lane || '—';   // toxicology resources show their phase
 // creator types in sentence case: "In silico research, regulator"
 const made = n => capital((n.stakeholders || []).map(s => s.charAt(0).toLowerCase() + s.slice(1)).join(', '));
 // The toxicology lanes are arranged by phase (lane) or by creator (creatorLane); the generic lanes stay.
@@ -565,7 +562,7 @@ function figure(G, svg) {
     /*/internal*/
     if (!G.print) el('circle', {cx: n.x, cy: n.y, r: 12, fill: 'transparent'}, g);
   }
-  for (const b of lanes) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, show(b.lane), {'font-weight': bold}, svg, bold + ' ');
+  for (const b of lanes) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, b.lane, {'font-weight': bold}, svg, bold + ' ');
   const tox = lanes.filter(b => TOX.has(b.lane));
   if (tox.length) {  // together, the toxicology lanes are toxicology infrastructure
     const y0 = tox[0].y0, y1 = tox[tox.length - 1].y1, mid = (y0 + y1) / 2, x = G.M - 8 * u;
@@ -630,7 +627,7 @@ function draw() {  // the screen figure
   fig.dataset.links = nLinks;
   fig.dataset.overlaps = overlaps(fig);
   fig.setAttribute('aria-label', `Timeline of ${plural(shown.length, 'resource', 'resources')} for toxicology, ${Y0} to ${Y1 - 1}, ` +
-    `in ${plural(lanes.length, 'lane', 'lanes')} (${lanes.map(b => show(b.lane)).join(', ')}), with ${plural(nLinks, 'relation', 'relations')} drawn. ` +
+    `in ${plural(lanes.length, 'lane', 'lanes')} (${lanes.map(b => b.lane).join(', ')}), with ${plural(nLinks, 'relation', 'relations')} drawn. ` +
     'The list below gives the same resources.');
   notes();
   paint();
@@ -706,7 +703,7 @@ function details(n) {
     '<dl>' + row('Type', esc(n.type)) + row('FSR type', esc(n.fsrType.join(', '))) +
       row('Class', n.fsrCategory !== n.fsrType.join() && esc(n.fsrCategory)) + row('Principles', esc(n.principles.join(', '))) +
       row('Declarations', fip && `${fip.declarations}, of which ${own} to resources in this dataset`) +
-      row('Lane', !TOX.has(n.lane) && esc(show(n.lane))) + row('Phase', esc(show(n.phase))) + row('Span', esc(n.span.join(', '))) +
+      row('Lane', !TOX.has(n.lane) && esc(n.lane)) + row('Phase', esc(n.phase)) + row('Span', esc(n.span.join(', '))) +
       row('Made by', esc(made(n))) + row('Builds on FAIR', italic(n) && 'Yes') + row('Sub-domains', esc(n.subdomains.join(', '))) +
       row('First published', date) + row('Creator', esc(n.creator)) + row('Status', status) + '</dl>',
     urls.length && `<p class="links">${urls.join(' · ')}</p>`,
@@ -799,7 +796,7 @@ function header() {
   $('cite').innerHTML = `${esc(META.creator)}. ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`;
   $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
   const def = {...META.laneDef, ...META.creatorLaneDef};
-  $('lane-defs').innerHTML = [...META.lanes, ...META.creatorLanes].map(l => `<dt>${esc(show(l))}</dt><dd>${esc(def[l])}</dd>`).join('');
+  $('lane-defs').innerHTML = [...META.lanes, ...META.creatorLanes].map(l => `<dt>${esc(l)}</dt><dd>${esc(def[l])}</dd>`).join('');
   if (isUrl(META.collection)) $('coll').href = META.collection;
 }
 
@@ -864,13 +861,13 @@ function addChip(parent, text, on, before = null) {
   return l;
 }
 for (const lane of [...META.lanes, ...META.creatorLanes])
-  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), show(lane), on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox')).dataset.lane = lane;
+  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), lane, on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox')).dataset.lane = lane;
 for (const c of META.classes) addChip($('f-class'), c, on => on ? state.cls.add(c) : state.cls.delete(c));
 for (const lane of META.lanes) {
   const subs = META.subdomains.filter(s => s[1] === lane);
   if (!subs.length) continue;
   const g = document.createElement('optgroup');
-  g.label = show(lane);
+  g.label = lane;
   for (const [s] of subs) g.append(new Option(capital(s), s));
   $('f-sub').append(g);
 }

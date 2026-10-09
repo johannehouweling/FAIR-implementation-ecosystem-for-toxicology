@@ -277,7 +277,7 @@ def build(doc, path):
             if kind == 'lane':
                 s, k = f'{col_of["Scope"]}{n}', f'{col_of["Phase"]}{n}'
                 c.value = (f'=IF({s}="Generic","Generic infrastructure",'
-                           f'IF({s}="Life Sciences","Life Sciences infrastructure",IF({s}="Toxicology",{k}&"","")))')
+                           f'IF({s}="Life Sciences","Life sciences infrastructure",IF({s}="Toxicology",{k}&"","")))')
                 continue
             if kind == 'fslink':
                 f = f'{col_of["FAIRsharing record"]}{n}'
