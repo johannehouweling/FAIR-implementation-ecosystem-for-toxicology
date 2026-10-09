@@ -9,5 +9,6 @@ __pycache__/
 build/
 *.xlsx
 
-# local tools that are not part of the published package
+# local tools and notes that are not part of the published package
 local/
+CLAUDE.md
