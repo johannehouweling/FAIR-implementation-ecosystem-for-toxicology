@@ -18,10 +18,11 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 
 - `data/fair-tox-ecosystem.jsonld`: the dataset (JSON-LD with schema.org, DCAT and the FIP ontology; FAIRsharing DOIs
   as identifiers).
-- `data/changes.csv`: every curated change, with date, curator and source.
+- `data/changes.csv`: every change, with its date, process or curator, and source.
 - `docs/inclusion-criteria.md`: how resources were selected and classified.
 - `docs/data-dictionary.md`: fields, controlled vocabularies and own terms.
 - `docs/fip-convergence.md`: the choices of the two FIPs per FIP question.
+- `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
 - `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
 
 ## Data flow
@@ -29,8 +30,12 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 The dataset stores only what is curated. FAIRsharing record data are read when the dashboard, the curation sheet or
 the FAIRsharing export is built, and the FIP declarations when the dashboard or the sheet is built; both are published
 with their retrieval date. FAIRsharing is read with the login in `.env` (see `.env.example`), the FIPs from their
-nanopublications, and the FIP ontology from its IRI (`https://w3id.org/fair/fip/terms/`), once, into `build/fip`. `--offline` reads the local caches in `build/fairsharing` and `build/fip`, left by an earlier run,
-instead.
+nanopublications, and the FIP ontology from its IRI (`https://w3id.org/fair/fip/terms/`), once, into `build/fip`.
+`--offline` reads the local caches in `build/fairsharing` and `build/fip`, left by an earlier run, instead.
+
+CI tests every change, runs `fairtox validate --strict` and, on `main`, publishes the dashboard. A weekly workflow reads
+FAIRsharing and the FIPs and opens a pull request when there is something new to curate. Co-authors curate in a Google
+Sheet made with `fairtox sheet`; `fairtox ingest` reads it back with its checks and logs every change.
 
 ## Commands
 
@@ -38,13 +43,13 @@ Requires [uv](https://docs.astral.sh/uv/). Run from the repository root.
 
 ```bash
 uv sync
-uv run fairtox validate                                        # check the dataset; --strict fails on warnings too
+uv run fairtox validate                                        # check; --strict, used by CI, also fails on warnings
 uv run --env-file .env fairtox fairsharing                     # new FAIRsharing collection members; --apply stores them
 uv run fairtox fip                                             # FIP match report; --apply stores links and new rows
 uv run --env-file .env fairtox sheet build/curation.xlsx       # curation workbook, edited as a Google Sheet
 uv run fairtox ingest curated.xlsx                             # read the edited sheet back, checked and logged
 uv run --env-file .env fairtox site build/site                 # dashboard, published dataset, CSV files and vocabulary
-uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharing could take, with what is held back and why; nothing is posted
+uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharing would accept; nothing is posted
 ```
 
 `fairsharing`, `fip`, `sheet`, `site` and `export-fairsharing` take `--offline`; `fip --report` writes
