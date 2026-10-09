@@ -406,7 +406,7 @@ class SiteTest(TempDir):
         self.assertEqual([(r['subject'], r['hadRole'], r['target']) for r in csv.DictReader(io.StringIO(text['relations.csv']))],
                          [('ctd', 'implements', 'exo')])
 
-    def test_lanes_by_intended_use_or_by_creator(self):
+    def test_lanes_by_phase_or_by_creator(self):
         doc = fixture()
         next(r for r in doc['hasPart'] if r['key'] == 'tool')['decision'] = 'include'
         next(r for r in doc['hasPart'] if r['key'] == 'oecd_gd')['qualifiedRelation'] = [
@@ -432,12 +432,12 @@ class SiteTest(TempDir):
         # the two-option layout toggle, the creator lanes, and italics from buildsOnFair rather than the scope
         self.assertIn('<legend>Toxicology lanes</legend>', html)
         self.assertEqual(len(re.findall(r'<input type="radio" name="mode"', html)), 2)
-        for name in ('Intended use', 'Creator', *model.CREATOR_LANE_DEF):
+        for name in ('checked> Phase</label>', 'Creator', *model.CREATOR_LANE_DEF):
             self.assertIn(name, html)
         self.assertRegex(html, r'const italic = n => n\.buildsOnFair\b')
         self.assertIn('label: toxicology resource building on FAIR', html)
-        for name, t in text.items():   # no single stakeholder field is left
-            self.assertNotRegex(t, r'(?i)\bstakeholder\b', name)
+        for name, t in text.items():   # no single stakeholder field is left, and no "intended use" or "main use"
+            self.assertNotRegex(t, r'(?i)\bstakeholder\b|intended use|main use', name)
             self.assertNotIn('Toxicology building on FAIR', t, name)
 
     def test_collection_switch_hides_collection_members_the_manuscript_does_not_name(self):
@@ -467,7 +467,10 @@ class SiteTest(TempDir):
             for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Data integration',
                          'Regulatory assessment', 'Toxicology infrastructure', 'Year first published',
                          'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
-                         'as required by the FAIRsharing data they include', 'Toxicology lanes', 'Intended use',
+                         'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
+                         'life-cycle phase it acts on (the earliest, if several)', "row('Phase'", "row('Span'",
+                         "{t: 'Span'", "{t: 'FSR type'", 'FIP declarations', 'Declared in a toxicology FIP',
+                         'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
                          *model.CREATOR_LANE_DEF):
                 self.assertIn(text, html, (internal, text))
 
@@ -592,6 +595,38 @@ class FipTest(TempDir):
         self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']], [by['exo']['@id']])
         self.assertNotIn('declared-by', by['oecd_gd'])
         self.assertEqual(by['exo']['declaredIn'], ['#oecd_gd'])
+
+    def test_dashboard_shows_types_and_declarations_and_never_draws_communities(self):
+        doc = self.curated()
+        by = {r['key']: r for r in doc['hasPart']}
+        by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.DIGITAL_OBJECT]
+        pages = []
+        for internal in (False, True):
+            built = fairsharing.enrich(copy.deepcopy(doc), fairsharing.read(None, None, offline=True))
+            site.build(built, self.path(str(internal)), internal=internal, offline=True)
+            html = pathlib.Path(self.path(str(internal)), 'index.html').read_text(encoding='utf-8')
+            data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
+            pages.append((html, data, {n['key']: n for n in data['nodes']}))
+        html, data, nodes = pages[0]
+        self.assertEqual([(nodes[k]['fsrType'], nodes[k]['fsrCategory']) for k in ('exo', 'ctd')],
+                         [(['Structured vocabulary'], 'FAIR-Enabling Resource'), (['Digital object'], 'Digital object')])
+        self.assertEqual((nodes['exo']['principles'], nodes['exo']['declaredIn'], nodes['oecd_gd']['declaredBy']),
+                         (['F1'], ['oecd_gd'], ''))   # its community, tox, is not included
+        self.assertEqual(data['declarations'], [{'src': 'oecd_gd', 'dst': 'exo',
+                                                 'q': [['F1-D', np_iri('decD') + '/declaration']]}])
+        self.assertEqual((data['meta']['classes'], data['meta']['communities']),
+                         (['FAIR-Enabling Resource', 'FAIR Supporting Resource', 'Digital object'],
+                          ['Emerging community', 'FAIR Implementation Community', 'Mature community']))
+        # the Class filter; the FIP switches, off on load, the lines never in the export; communities never drawn
+        for code in ('(!n.fsrCategory || state.cls.has(n.fsrCategory))', '<input type="checkbox" id="t-fip">',
+                     "const fipOn = !G.print && $('t-fip').checked", '<input type="checkbox" id="t-declared">',
+                     'n.fsrType.some(t => META.communities.includes(t))',
+                     "=> dated(n) && laneNames().includes(laneOf(n)) && !community(n);"):
+            self.assertIn(code, html)
+        _, data, nodes = pages[1]
+        self.assertEqual((nodes['oecd_gd']['declaredBy'], nodes['tox']['fsrType']),
+                         ('tox', ['FAIR Implementation Community']))
+        self.assertEqual(len(data['declarations']), 3)   # tool and oecd_gd declare exo, oecd_gd declares wlic
 
     def test_convergence_rows(self):
         fip.convergence(self.data)

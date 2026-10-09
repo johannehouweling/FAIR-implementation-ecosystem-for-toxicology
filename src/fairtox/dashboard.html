@@ -152,17 +152,20 @@ tr.out th, tr.out td { color: var(--ink-2); }
 <div class="page">
   <header>
     <h1 id="title">FAIR implementation ecosystem for toxicology</h1>
-    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published, in the lane of its main use in toxicology (or of who made it, when the lanes are arranged by creator). Lines show which resources build on others.</p>
+    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published, in the lane of the data life-cycle phase it acts on (the earliest, if several) or, when the lanes are arranged by creator, of who made it. Lines show which resources build on others.</p>
     <p class="meta" id="meta"></p>
   </header>
 
   <div class="controls" role="search" aria-label="Search and filter the resources">
     <input id="q" type="search" placeholder="Search resources" aria-label="Search resources by name, alias or description" autocomplete="off" spellcheck="false">
-    <fieldset id="f-mode" class="tox"><legend>Toxicology lanes</legend><label class="chip"><input type="radio" name="mode" checked> Intended use</label><label class="chip"><input type="radio" name="mode" id="by-creator"> Creator</label></fieldset>
+    <fieldset id="f-mode" class="tox"><legend>Toxicology lanes</legend><label class="chip"><input type="radio" name="mode" checked> Phase</label><label class="chip"><input type="radio" name="mode" id="by-creator"> Creator</label></fieldset>
     <select id="f-type" aria-label="Type"><option value="">All types</option><option>Standard</option><option>Database</option><option>Policy</option><option>Collection</option><option>Tool</option></select>
     <select id="f-sub" aria-label="Sub-domain"><option value="">All sub-domains</option></select>
     <label class="chip"><input type="checkbox" id="t-links" checked> Relations</label>
+    <label class="chip"><input type="checkbox" id="t-fip"> FIP declarations</label>
     <label class="chip"><input type="checkbox" id="t-coll" checked> Added from the FAIRsharing Toxicology collection</label>
+    <label class="chip"><input type="checkbox" id="t-declared"> Declared in a toxicology FIP</label>
+    <fieldset id="f-class" class="tox"><legend>Class</legend></fieldset>
     <!-- the lane chips change with the layout, so they come after the controls that do not -->
     <fieldset id="f-lanes"><legend class="sr">Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology infrastructure</legend></fieldset></fieldset>
     <!--internal-->
@@ -209,13 +212,15 @@ tr.out th, tr.out td { color: var(--ink-2); }
     <div class="cols">
     <div>
       <h3>What is listed</h3>
-      <p>FAIR-enabling resources: standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable. Projects, initiatives and communities are not listed themselves, only the resources they made.</p>
+      <p>FAIR-enabling resources: standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the list but not in the figure.</p>
       <h3>Where the resources come from</h3>
-      <p>The <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and curation by the ELIXIR Toxicology Community. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools.</p>
+      <p>The <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and curation by the ELIXIR Toxicology Community. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata and the declarations of the toxicology FAIR Implementation Profiles (FIPs) are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
+      <h3>FSR types and FIP declarations</h3>
+      <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource, other FAIR Supporting Resource, or digital object, which is not an FSR. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource list its declarations, with links to their nanopublications.</p>
     </div>
     <div>
       <h3>Lanes</h3>
-      <p>Generic FAIR and life-science resources have a lane each. The toxicology lanes, together the toxicology infrastructure, arrange toxicology resources by their main intended use or, with Toxicology lanes set to Creator, by who made them.</p>
+      <p>Generic FAIR and life-science resources have a lane each. The toxicology lanes, together the toxicology infrastructure, arrange toxicology resources by the data life-cycle phase they act on, the earliest if several (the span lists them all), or, with Toxicology lanes set to Creator, by who made them.</p>
       <dl id="lane-defs"></dl>
     </div>
     <div>
@@ -227,7 +232,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
     </div>
     <details class="dict">
       <summary><h3>Data dictionary</h3></summary>
-      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by main intended use and by creator), registry (the FAIRsharing registry of the type), fairsharing (the FAIRsharing record) and fromCollection (defined below).</p>
+      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. resources.csv has the same fields, with aliases for alternateName and date for datePublished, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by phase and by creator), registry (the FAIRsharing registry of the type), fairsharing (the FAIRsharing record) and fromCollection (defined below).</p>
       <dl id="dict"></dl>
     </details>
   </section>
@@ -261,7 +266,8 @@ tr.out th, tr.out td { color: var(--ink-2); }
 <script>
 const $ = id => document.getElementById(id);
 const DATA = JSON.parse($('data').textContent);
-const META = DATA.meta, NODES = DATA.nodes, LINKS = DATA.links;
+const META = DATA.meta, NODES = DATA.nodes, LINKS = DATA.links, DECLS = DATA.declarations;
+const FIPS = (META.sources || {}).fip || {};
 const NS = 'http://www.w3.org/2000/svg';
 const fig = $('fig');
 const esc = s => String(s ?? '').replace(/[&<>"']/g, ch => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[ch]));
@@ -282,16 +288,18 @@ const TYPES = [['standard', 'Standard'], ['database', 'Database or collection'],
 const italic = n => n.buildsOnFair === true;
 const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
 const label = n => short(n) + dagger(n);
-const laneText = n => show(n.phase || n.lane) || '—';   // toxicology resources show their main use
+const laneText = n => show(n.phase || n.lane) || '—';   // toxicology resources show their phase
 // creator types in sentence case: "In silico research, regulator"
 const made = n => capital((n.stakeholders || []).map(s => s.charAt(0).toLowerCase() + s.slice(1)).join(', '));
-// The toxicology lanes are arranged by main intended use (lane) or by creator (creatorLane); the generic lanes stay.
+// The toxicology lanes are arranged by phase (lane) or by creator (creatorLane); the generic lanes stay.
 const byCreator = () => $('by-creator').checked;
 const laneOf = n => byCreator() ? n.creatorLane : n.lane;
 const GENERIC = META.lanes.filter(l => !META.toxLanes.includes(l));
 const laneNames = () => byCreator() ? [...GENERIC, ...META.creatorLanes] : META.lanes;
 const dated = n => Number.isInteger(n.year);
-const placed = n => dated(n) && laneNames().includes(laneOf(n));
+const community = n => n.fsrType.some(t => META.communities.includes(t));   // listed, never drawn
+const placed = n => dated(n) && laneNames().includes(laneOf(n)) && !community(n);
+const declared = n => DECLS.some(d => d.dst === n.key || d.src === n.key);   // declared, or a FIP that declares
 const TOX = new Set([...META.toxLanes, ...META.creatorLanes]);
 const byName = (a, b) => a.name.localeCompare(b.name);
 const laneIndex = n => { const i = META.lanes.indexOf(n.lane); return i < 0 ? META.lanes.length : i; };
@@ -360,14 +368,18 @@ const curation = n => {
 };
 /*/internal*/
 
-const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), type: '', sub: '', q: [], sel: null, col: 3, dir: 1};
+const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), cls: new Set(META.classes), type: '', sub: '', q: [], sel: null, col: 3, dir: 1};
+// resources without an FSR type pass the Class filter
 const passes = n => (!laneOf(n) || state.lanes.has(laneOf(n))) && (!state.type || n.registry === state.type) &&
-  (!state.sub || n.subdomains.includes(state.sub)) && (!n.fromCollection || $('t-coll').checked) /*internal*/ && curated(n) /*/internal*/;
+  (!state.sub || n.subdomains.includes(state.sub)) && (!n.fromCollection || $('t-coll').checked) &&
+  (!n.fsrCategory || state.cls.has(n.fsrCategory)) && (!$('t-declared').checked || declared(n)) /*internal*/ && curated(n) /*/internal*/;
 const matches = n => state.q.every(w => hay[n.key].includes(w));
 const offText = ns => {  // why some resources are listed but not drawn
-  const u = ns.filter(n => !dated(n)).length, l = ns.filter(n => dated(n) && !placed(n)).length;
-  const parts = [u && `${plural(u, 'resource has', 'resources have')} no known date`, l && `${plural(l, 'resource has', 'resources have')} no lane`].filter(Boolean);
-  return parts.length ? `${parts.join(' and ')}; ${u + l === 1 ? 'it is' : 'they are'} in the list but not in the figure.` : '';
+  const c = ns.filter(community).length, rest = ns.filter(n => !community(n));
+  const u = rest.filter(n => !dated(n)).length, l = rest.filter(n => dated(n) && !placed(n)).length;
+  const parts = [u && `${plural(u, 'resource has', 'resources have')} no known date`, l && `${plural(l, 'resource has', 'resources have')} no lane`,
+    c && plural(c, 'resource is a FAIR Implementation Community', 'resources are FAIR Implementation Communities')].filter(Boolean);
+  return parts.length ? `${parts.join(', ').replace(/, (?=[^,]*$)/, ' and ')}; ${u + l + c === 1 ? 'it is' : 'they are'} in the list but not in the figure.` : '';
 };
 
 // Stacking: the fewest tracks a lane needs so that no labels overlap (first fit by left edge), then a few sweeps in
@@ -524,6 +536,12 @@ function figure(G, svg) {
     /*/internal*/
     nLinks++;
   }
+  // FIP declarations, on screen only and when switched on: dotted lines from each FIP to the resources it declares
+  const fipOn = !G.print && $('t-fip').checked, dots = {fill: 'none', stroke: C.edge, 'stroke-width': 1.3, 'stroke-dasharray': '0 3', 'stroke-linecap': 'round'};
+  if (fipOn) for (const d of DECLS) {
+    const s = byKey[d.src], t = byKey[d.dst];
+    if (s.shown && t.shown) el('path', {d: `M${s.x} ${s.y}L${t.x} ${t.y}`, class: 'edge', 'data-src': d.src, 'data-dst': d.dst, ...dots}, gLinks);
+  }
   const gNodes = el('g', {}, svg);
   for (const b of lanes) for (const n of b.nodes) {
     const k = kind(n), col = C[k];
@@ -585,6 +603,7 @@ function figure(G, svg) {
     'label: toxicology resource building on FAIR');
   item(28 * u, sample(true), 'Points to the resource that builds on the other');
   item(28 * u, sample(false), 'Related');
+  if (fipOn) item(28 * u, (x, y) => el('path', {d: `M${x} ${y}H${x + 28 * u}`, ...dots}, svg), 'Declared in a FIP');
   /*internal*/
   if (!G.print) {
     row();
@@ -637,7 +656,7 @@ function notes() {
 // Search dims the resources that do not match; a selection dims all but the selected resource and its neighbours.
 function paint() {
   const sel = state.sel, near = new Set(sel ? [sel] : []);
-  if (sel) for (const l of LINKS) { if (l.src === sel) near.add(l.dst); if (l.dst === sel) near.add(l.src); }
+  if (sel) for (const l of $('t-fip').checked ? [...LINKS, ...DECLS] : LINKS) { if (l.src === sel) near.add(l.dst); if (l.dst === sel) near.add(l.src); }
   const lit = k => matches(byKey[k]) && (!sel || near.has(k));
   fig.querySelectorAll('.node').forEach(g => {
     g.classList.toggle('dim', !lit(g.dataset.key));
@@ -679,14 +698,20 @@ function details(n) {
   const urls = [isUrl(n.url) && link(n.url, 'Homepage'), n.fairsharing && link(n.fairsharing, 'FAIRsharing record')].filter(Boolean);
   const date = n.date ? esc(n.date) + (isUrl(n.dateSource) ? ` · ${link(n.dateSource, 'source')}` : '') + (basis ? `<div class="m">${esc(basis)}</div>` : '')
     : '<span class="m">not known</span>';
+  const fip = FIPS[n.key], own = DECLS.filter(d => d.src === n.key).reduce((k, d) => k + d.q.length, 0);
   return [
     `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(n.name)}${dagger(n)}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>`,
     n.abbr && `<p class="m">${esc(n.abbr)}</p>`,
     n.description && `<p>${esc(n.description)}</p>`,
-    '<dl>' + row('Type', esc(n.type)) + row('Lane', !TOX.has(n.lane) && esc(show(n.lane))) + row('Main use', esc(show(n.phase))) +
+    '<dl>' + row('Type', esc(n.type)) + row('FSR type', esc(n.fsrType.join(', '))) +
+      row('Class', n.fsrCategory !== n.fsrType.join() && esc(n.fsrCategory)) + row('Principles', esc(n.principles.join(', '))) +
+      row('Declarations', fip && `${fip.declarations}, of which ${own} to resources in this dataset`) +
+      row('Lane', !TOX.has(n.lane) && esc(show(n.lane))) + row('Phase', esc(show(n.phase))) + row('Span', esc(n.span.join(', '))) +
       row('Made by', esc(made(n))) + row('Builds on FAIR', italic(n) && 'Yes') + row('Sub-domains', esc(n.subdomains.join(', '))) +
       row('First published', date) + row('Creator', esc(n.creator)) + row('Status', status) + '</dl>',
     urls.length && `<p class="links">${urls.join(' · ')}</p>`,
+    list('Declared in', DECLS.filter(d => d.dst === n.key).map(d => `<li>${esc(short(byKey[d.src]))}: ${d.q.map(([q, np]) => link(np, q)).join(', ')}</li>`)),
+    list('Declared by', n.declaredBy ? [item(n.declaredBy)] : []),
     list('Builds on', LINKS.filter(l => l.lineage && l.dst === n.key).map(l => item(l.src, words(l.label)))),
     list('Built on by', LINKS.filter(l => l.lineage && l.src === n.key).map(l => item(l.dst, '', words(l.label) + ' it'))),
     list('Related to', LINKS.filter(l => !l.lineage && (l.src === n.key || l.dst === n.key)).map(l => item(l.src === n.key ? l.dst : l.src))),
@@ -722,8 +747,10 @@ const COLS = [
   {t: 'First published', v: n => n.date, c: n => n.date ? link(n.dateSource, n.date) : '<span class="m">—</span>'},
   {t: 'Type', v: n => n.type, c: n => esc(n.type) || '<span class="m">—</span>'},
   {t: 'Phase or lane', v: n => `${laneIndex(n)} ${n.date || '9999'}`, c: n => esc(laneText(n))},
+  {t: 'Span', v: n => n.span.join(', '), c: n => esc(n.span.join(', ')) || '<span class="m">—</span>'},
   {t: 'Made by', by: 'creator type', v: made, c: n => esc(made(n)) || '<span class="m">—</span>'},
   {t: 'Sub-domains', v: n => n.subdomains.join(', '), c: n => esc(n.subdomains.join(', ')) || '<span class="m">—</span>'},
+  {t: 'FSR type', v: n => n.fsrType.join(', '), c: n => esc(n.fsrType.join(', ')) || '<span class="m">—</span>'},
   {t: 'FAIRsharing', v: n => n.fairsharing && n.name, c: n => n.fairsharing ? link(n.fairsharing, 'record') : '<span class="m">—</span>'},
 ];
 let rowAttr = () => '';
@@ -756,11 +783,15 @@ function table() {
 
 function header() {
   document.title = $('title').textContent = META.title;
-  const fs = (META.sources || {}).fairsharing;
+  const fs = (META.sources || {}).fairsharing, fip = Object.values(FIPS)[0] || {};
   $('meta').innerHTML = [plural(NODES.length, 'resource', 'resources'), `version <span class="num">${esc(META.version)}</span>`,
     META.dateModified && `last updated <span class="num">${esc(META.dateModified)}</span>`,
-    fs && fs.retrieved && `FAIRsharing data retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`
+    fs && fs.retrieved && `FAIRsharing data retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`,
+    fip.retrieved && `FIP declarations retrieved <span class="num">${esc(fip.retrieved)}</span>`
     /*internal*/, msSource() /*/internal*/].filter(Boolean).join(' · ');
+  $('fs-read').textContent = String((fs || {}).retrieved || '').slice(0, 10);
+  $('fip-read').textContent = fip.retrieved || '';
+  $('onto').textContent = fip.ontology || '';
   // the journal's data citation: Authors. Title, version. Repository URL (year).
   const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '';
   const [where, url] = doi ? ['Zenodo', doi] : ['GitHub', META.publicRepo];
@@ -777,8 +808,15 @@ const FIELDS = [
   ['name', 'Full name.'],
   ['alternateName', 'Abbreviations and other names.'],
   ['type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not register.', 'type'],
+  ['fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, at most two under one parent class, or Digital ' +
+    'object for a resource that is not an FSR, such as a dataset or a model. IRIs in the JSON-LD, labels in resources.csv.'],
+  ['fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource, FAIR Supporting Resource (any other FSR) or ' +
+    'Digital object. The Class filter uses it; resources without a type always pass it.'],
+  ['principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty ' +
+    'when no FIP declares it.'],
   ['scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'],
-  ['phase', 'Main intended use of a toxicology resource, which sets its lane.', 'phase'],
+  ['phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.', 'phase'],
+  ['span', 'Every data life-cycle phase a toxicology resource acts on, its phase first.'],
   ['stakeholders', 'Creator types: who made a toxicology resource; several may apply. In the layout by creator they set ' +
     'its lane (Made jointly for two or more).', 'stakeholders'],
   ['buildsOnFair', 'Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or ' +
@@ -796,6 +834,12 @@ const FIELDS = [
     'entered this dataset only through the collection. The switch of the same name hides these resources.'],
   ['relations', 'Relations to other resources, read subject first ("CTD implements ExO"): qualifiedRelation in the JSON-LD, ' +
     'subject, hadRole and target in relations.csv.', 'hadRole'],
+  ['declaredIn', 'Derived: the FIPs that declare the resource (their keys in resources.csv).'],
+  ['fipDeclaration, declared-by', 'On a FIP, in the JSON-LD, read from its nanopublications (CC0) when the page is ' +
+    'built: its declarations, each a nanopublication (@id) that links a listed resource through one of the properties ' +
+    'below for a FIP question (question) and its principle; and declared-by, the FAIR Implementation Community that ' +
+    'declares the FIP (declaredBy, its key, in resources.csv). The FIP declarations switch draws the declarations.',
+    'declaration'],
 ];
 /*internal*/
 FIELDS.push(['decision', 'Screening decision.', 'decision'], ['exclusionReason', 'Why a resource is screened out.', 'exclusionReason'],
@@ -819,6 +863,7 @@ function addChip(parent, text, on, before = null) {
 }
 for (const lane of [...META.lanes, ...META.creatorLanes])
   addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), show(lane), on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox')).dataset.lane = lane;
+for (const c of META.classes) addChip($('f-class'), c, on => on ? state.cls.add(c) : state.cls.delete(c));
 for (const lane of META.lanes) {
   const subs = META.subdomains.filter(s => s[1] === lane);
   if (!subs.length) continue;
@@ -829,8 +874,7 @@ for (const lane of META.lanes) {
 }
 $('f-type').addEventListener('change', ev => { state.type = ev.target.value; render(); });
 $('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; render(); });
-$('t-links').addEventListener('change', render);
-$('t-coll').addEventListener('change', render);
+['t-links', 't-fip', 't-coll', 't-declared'].forEach(id => $(id).addEventListener('change', render));
 $('f-mode').addEventListener('change', render);
 $('q').addEventListener('input', ev => { state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean); paint(); table(); notes(); });
 
