@@ -221,7 +221,7 @@ WIKIDATA = 'http://www.wikidata.org/entity/'
 SAME = {
     'scope': {'Generic': 'http://www.fairsharing.org/ontology/subject/SRAO_0000401',   # FAIRsharing's subjects
               'Life Sciences': 'http://aims.fao.org/aos/agrovoc/c_4318', 'Toxicology': NCIT_TOXICOLOGY},
-    'subdomains': {'nanotoxicology': IUPAC + '15908', 'eco-toxicology': MESH + 'D054750',
+    'subdomains': {'in vitro toxicology': WIKIDATA + 'Q6013136', 'nanotoxicology': IUPAC + '15908', 'eco-toxicology': MESH + 'D054750',
                    'exposome': MESH + 'D000081413', 'toxicogenomics': 'http://purl.obolibrary.org/obo/NCIT_C20179',
                    'AOP-based mechanistic knowledge': MESH + 'D000073931',
                    'computational and predictive toxicology': IUPAC + '15583'},
@@ -320,7 +320,6 @@ TERM_LINKS = [
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, EDAM + 'topic_3394'),   # regulatory affairs
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, T4FS + '0000507'),      # data quality
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, IUPAC + '16194'),       # weight-of-evidence for toxicity
-    ('subdomains', 'in vitro toxicology', SKOS.closeMatch, WIKIDATA + 'Q6013136'),
     ('subdomains', 'regulatory toxicology', SKOS.relatedMatch, WIKIDATA + 'Q2448782'),   # regulatory science
     *[('subdomains', s, SKOS.broadMatch, o) for s in ('in vitro toxicology', 'regulatory toxicology')
       for o in (NCIT_TOXICOLOGY, IUPAC + 'T06417')],

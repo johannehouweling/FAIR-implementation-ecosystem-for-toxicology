@@ -8,8 +8,6 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 - A resource with a confirmed FAIRsharing record is identified by the record DOI, for example `https://doi.org/10.25504/FAIRsharing.6hna78`, as in the FIP Wizard and the two toxicology FIPs. This follows the FIP ontology, for which a FAIR Supporting Resource has an identifier that resolves to machine-readable metadata about it; FAIRsharing notes that its DOI identifies its record rather than the resource itself.
 - Any other resource is identified by `#<key>` relative to `https://w3id.org/fair-tox/dataset`. These identifiers are provisional until the resource is registered in FAIRsharing or the namespace is registered at w3id.org.
 - Each resource also states its identifier as `identifier`, and its homepage as `url`.
-- schema.org is written `http://schema.org/`, as in schema.org's own JSON-LD context, CDIF and the FIP templates.
-- Every field in the RDF graph uses a term of schema.org, else of DCAT (with the DCTERMS and SKOS terms DCAT uses), and of the FIP ontology (`https://w3id.org/fair/fip/terms/`) for FSR types and FIP declarations; the dataset defines no properties of its own. Controlled values are outside concepts or the dataset's own defined terms, under `https://w3id.org/fair-tox/terms#` (`terms:` below; see Terms).
 
 ## Dataset header
 
@@ -19,7 +17,7 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | `version` | Semantic version, the same as the software and CITATION.cff. A minor version marks a curation round. |
 | `dateModified` | Date of the last change to the content. |
 | `inLanguage` | `en`. |
-| `license` | CC BY-SA 4.0, required because the dataset contains FAIRsharing data, as a labelled link (name and URL). |
+| `license` | CC BY-SA 4.0 (name and URL), required because the dataset contains FAIRsharing data. |
 | `creator` | The ELIXIR Toxicology Community, an organisation within ELIXIR (ROR `https://ror.org/044rwnt51`). |
 | `keywords` | Defined terms: Toxicology (NCIT), FAIR Supporting Resource and FAIR Implementation Profile (FIP ontology), Data management (EDAM). |
 | `creditText` | Attribution to FAIRsharing; the published dataset adds the nanopublications of the two FIPs. |
@@ -28,7 +26,18 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | `vocabularies` | Every controlled list with its definitions, so the file can be read on its own. |
 | `hasPart` | The resources. |
 
-The published dataset adds what the CDIF Discovery profile 1.1 (CODATA) asks of a dataset: `identifier` (a `schema:PropertyValue`: the Zenodo DOI once deposited, until then `https://w3id.org/fair-tox/dataset`), `url` (the dashboard), `datePublished` (`date-released` in CITATION.cff), `temporalCoverage` (the years the resources were first published, such as `1965/2026`), `wasDerivedFrom` (`prov:wasDerivedFrom`, the sources in `isBasedOn`), `variableMeasured` (each field with its term), `distribution` (the JSON-LD, the two CSV files and `terms.ttl`, each with its media type, the standard it follows and, except the dataset file itself, a SHA-256 checksum) and `subjectOf`, the catalog record (`dcat:CatalogRecord`) that declares conformance to `https://w3id.org/cdif/core/1.1` and `https://w3id.org/cdif/discovery/1.1`. CI checks every build with CODATA's own SHACL rules for the profile.
+The published dataset also has the fields that CODATA's CDIF Discovery profile 1.1 asks of a dataset; CI checks every build with CODATA's SHACL rules for the profile.
+
+| Field | Meaning |
+|---|---|
+| `identifier` | Persistent identifier, as a `schema:PropertyValue`: the Zenodo DOI once deposited, until then `https://w3id.org/fair-tox/dataset`. |
+| `url` | The dashboard. |
+| `datePublished` | Release date (`date-released` in CITATION.cff). |
+| `temporalCoverage` | Years in which the resources were first published, such as `1965/2026`. |
+| `wasDerivedFrom` | The sources in `isBasedOn` (`prov:wasDerivedFrom`). |
+| `variableMeasured` | Each resource field with its term and definition. |
+| `distribution` | The JSON-LD file, the two CSV files and `terms.ttl`, each with its media type, the standard it follows and, except the dataset file itself, a SHA-256 checksum. |
+| `subjectOf` | The catalog record (`dcat:CatalogRecord`), which declares conformance to CDIF Core 1.1 and CDIF Discovery 1.1. |
 
 ## Resource fields
 
@@ -45,10 +54,10 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `decision` | Decision |  | Screening decision (list below). |
 | `exclusionReason` | Exclusion reason |  | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by |  | Key of the row that covers this one (exclusion reason E6). |
-| `type` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text: FAIRsharing publishes no IRIs for them. |
+| `type` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text. |
 | `fsrType` | FSR type | `rdf:type` | FAIR Supporting Resource (FSR) type: one class of the FIP ontology, from those the typing rule uses (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
 | `scope` | Scope | `schema:about` | What the resource was made for (list below). |
-| `phase` | Phase |  | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. It is the earliest phase of `span`, so the graph does not repeat it. |
+| `phase` | Phase |  | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. Not in the graph: it is the earliest phase of `span`. |
 | `span` | one "Span" column per phase | `dcat:theme` | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
 | `stakeholders` | one "Made by" column per creator type | `dcat:theme` | For toxicology resources: who created it; several may apply (list below). Required for included and undecided toxicology resources. |
 | `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
@@ -57,11 +66,11 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `fsr` |  | `skos:exactMatch` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | one column per sub-domain | `schema:about` | Sub-domains that apply (list below). |
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
-| `dateSource` | Date source | `schema:citation` | DOI or URL that shows the date; CDIF keeps `schema:subjectOf` for the catalog record. |
+| `dateSource` | Date source | `schema:citation` | DOI or URL that shows the date. |
 | `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information. |
-| `url` | Homepage | `schema:url` | Main web address, as text, as CDIF requires. |
+| `url` | Homepage | `schema:url` | Main web address. |
 | `description` | Description | `schema:description` | One to three sentences; needed to register the resource in FAIRsharing. |
-| `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); the published dataset states none when it is unknown. |
+| `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |
 | `manuscriptEvidence` | Manuscript evidence |  | Section and line numbers in the frozen manuscript draft. Not published. |
 | `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. |
@@ -177,11 +186,11 @@ The IRIs are FAIRsharing's subject terms.
 
 ### Sub-domains (`subdomains`)
 
-Two sub-domains are entries of the IUPAC Gold Book, which holds the IUPAC glossary of terms used in toxicology (in the dataset). A sub-domain without an outside concept is a term of the dataset, `skos:broadMatch` NCIT and IUPAC Toxicology.
+The group is the part of the toxicology life cycle under which the figure lists the sub-domain. Two sub-domains are entries of the IUPAC Gold Book, which holds the IUPAC glossary of terms used in toxicology. Regulatory toxicology, for which no concept exists, is a term of the dataset; it and in vitro toxicology are `skos:broadMatch` NCIT and IUPAC Toxicology.
 
-| Value | Meaning | IRI |
+| Value | Group | IRI |
 |---|---|---|
-| in vitro toxicology | Data generation (manuscript Figure 2 caption and section III). | `terms:subdomains-in-vitro-toxicology`, `skos:closeMatch` Wikidata In vitro toxicology |
+| in vitro toxicology | Data generation. | [Wikidata Q6013136](http://www.wikidata.org/entity/Q6013136) In vitro toxicology |
 | nanotoxicology | Data generation. | [IUPAC 10.1351/goldbook.15908](https://doi.org/10.1351/goldbook.15908) nanotoxicology |
 | exposome | Data generation. | [MeSH D000081413](http://id.nlm.nih.gov/mesh/D000081413) Exposome |
 | eco-toxicology | Data generation. | [MeSH D054750](http://id.nlm.nih.gov/mesh/D054750) Ecotoxicology, `skos:exactMatch` IUPAC ecotoxicology |
@@ -209,7 +218,7 @@ The basis decides the field, and so the term, that holds the date, following Dat
 | active | Maintained and available. | `terms:maintained-active`, `skos:closeMatch` EU distribution status Ongoing |
 | discontinued | No longer maintained or available (shown with a dagger). | [EU dataset status DISCONT](http://publications.europa.eu/resource/authority/dataset-status/DISCONT) |
 | in development | Not yet released in a stable form. | [ADMS UnderDevelopment](http://purl.org/adms/status/UnderDevelopment) |
-| unknown | Status could not be established. | none: the published dataset states no status; the stored file uses [NCIT_C17998](http://purl.obolibrary.org/obo/NCIT_C17998) Unknown |
+| unknown | Status could not be established. | Not published; [NCIT_C17998](http://purl.obolibrary.org/obo/NCIT_C17998) Unknown in the stored file. |
 
 ### In manuscript (`manuscript`)
 
@@ -287,7 +296,9 @@ Read through each FIP's declaration index from the nanopublications of the two t
 
 ## Terms
 
-The JSON-LD context (JSON-LD 1.1) maps each field to its term (Resource fields) and, through property-scoped contexts, each controlled value to its IRI, so the stored file and the sheet keep readable values. A value is an outside concept where one exists: FAIRsharing's subject terms for the scopes; MeSH, NCIT and the IUPAC Gold Book for six sub-domains; EFO and SIO for the creator types; the ADMS and EU status lists for in development and discontinued. The other 12 values are the dataset's own terms, under `https://w3id.org/fair-tox/terms#`: the three phases, two sub-domains, one maintenance status and FAIRsharing's six relation labels. The dataset defines no properties.
+Every field in the RDF graph uses a term of schema.org, written `http://schema.org/` as in schema.org's own JSON-LD context, else of DCAT (with the DCTERMS and SKOS terms DCAT uses), and of the FIP ontology (`https://w3id.org/fair/fip/terms/`) for FSR types and FIP declarations. The dataset defines no properties of its own.
+
+The JSON-LD context (JSON-LD 1.1) maps each field to its term (Resource fields) and, through property-scoped contexts, each controlled value to its IRI, so the stored file and the sheet keep readable values. A value is an outside concept where one exists: FAIRsharing's subject terms for the scopes; MeSH, NCIT, the IUPAC Gold Book and Wikidata for seven sub-domains; EFO and SIO for the creator types; the ADMS and EU status lists for in development and discontinued. The other 11 values are the dataset's own terms, under `https://w3id.org/fair-tox/terms#`: the three phases, one sub-domain, one maintenance status and FAIRsharing's six relation labels. The dataset defines no properties.
 
 Each list with terms of the dataset (phase, sub-domains, maintained, relation labels) is a `schema:DefinedTermSet` and a `skos:ConceptScheme` of the CDIF Concept Scheme profile 1.1, such as `terms:phase-values`, with a definition and its terms as top concepts. Each term is a `schema:DefinedTerm` and `skos:Concept` in its set, named by the stored value and defined by its definition above; a relation label names its term (`terms:implements`), any other value's term is `<list>-<value>` (`terms:phase-data-generation`). Each term links to the closest outside concepts:
 
@@ -296,7 +307,7 @@ Each list with terms of the dataset (phase, sub-domains, maintained, relation la
 | Data generation | `skos:closeMatch` Terms4FAIRskills data production, EDAM Data acquisition |
 | Data integration | `skos:closeMatch` Terms4FAIRskills data integration, EDAM Data integration and warehousing |
 | Regulatory assessment | `skos:relatedMatch` MeSH Risk Assessment, EDAM Regulatory affairs, Terms4FAIRskills data quality, IUPAC weight-of-evidence for toxicity |
-| in vitro toxicology, regulatory toxicology | as in Sub-domains; both `skos:broadMatch` NCIT and IUPAC Toxicology |
+| regulatory toxicology | `skos:broadMatch` NCIT and IUPAC Toxicology; `skos:relatedMatch` Wikidata regulatory science |
 | active | `skos:closeMatch` EU distribution status Ongoing |
 | implements | `skos:closeMatch` `fip:implements`, SIO is implementation of, `dct:conformsTo` |
 | profiles | `skos:exactMatch` W3C PROF `prof:isProfileOf`; `skos:broadMatch` `dct:conformsTo` |

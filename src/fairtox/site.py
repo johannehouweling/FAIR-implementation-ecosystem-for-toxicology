@@ -147,7 +147,7 @@ def page_meta(doc):
         # list -> value -> the name of its term of ours, the anchor where the term's IRI lands
         'termAnchors': {name: {v: model.concept(name, v)[len(model.TERMS):] for v in model.VOCABULARIES[name]
                                if v not in model.SAME.get(name, {})} for name in model.TERM_SETS},
-        'doi': doc.get('identifier', ''), 'collection': model.COLLECTION_DOI,
+        'doi': doc.get('identifier', ''), 'collection': model.COLLECTION_DOI, 'fields': FIELDS,
     }
 
 
@@ -171,6 +171,58 @@ def schema_org(doc):
     return d
 
 
+# The data dictionary, one entry per field or group of fields: names, definition, and the controlled list it takes.
+# The dashboard shows it, and the published dataset describes its fields with it (variableMeasured).
+FIELDS = [
+    ('key', 'Stable short identifier, used in the dashboard\'s links (#key) and in the CSV files.', None),
+    ('name', 'Full name.', None),
+    ('alternateName', 'Abbreviations and other names.', None),
+    ('identifier', 'Persistent identifier: the FIC nanopublication of a FAIR Implementation Community, else the '
+                   'FAIRsharing DOI, else https://w3id.org/fair-tox/dataset#key.', None),
+    ('type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not '
+             'register.', 'type'),
+    ('fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, one per resource, by the typing rule of the '
+                'criteria. IRIs in the JSON-LD, labels in resources.csv.', None),
+    ('fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource or FAIR Supporting Resource (any other FSR). The '
+                    'Class filter uses it; resources without a type always pass it.', None),
+    ('principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty '
+                   'when no FIP declares it.', None),
+    ('scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'),
+    ('phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.',
+     'phase'),
+    ('span', 'Every data life-cycle phase a toxicology resource acts on, its phase first.', None),
+    ('stakeholders', 'Creator types: who made a toxicology resource; several may apply. In the layout by creator they '
+                     'set its lane (Made jointly for two or more).', 'stakeholders'),
+    ('buildsOnFair', 'Derived: true for a toxicology resource first published in 2016 or later that implements, '
+                     'extends, profiles or recommends a generic resource. Its label is in italics.', None),
+    ('subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'),
+    ('datePublished, dateReleased, dateAdopted, dateCreated, date',
+     'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD, in the field of what the date refers to '
+     '(publication, release, adoption, FAIRsharing year, or not recorded). resources.csv gives it as date, with '
+     'dateBasis.', 'dateBasis'),
+    ('dateSource', 'DOI or URL of the source that shows the date.', None),
+    ('creator', 'Organisations that made the resource.', None),
+    ('url', 'Homepage.', None),
+    ('description', 'One to three sentences on what the resource is.', None),
+    ('maintained', 'Maintenance status.', 'maintained'),
+    ('fairsharingRecord', 'FAIRsharing record code or numeric id, in the JSON-LD.', None),
+    ('fsr', 'The IRIs under which the FIPs declare the resource, when they differ from its identifier.', None),
+    ('fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection '
+                       'that entered this dataset only through the collection. The switch of the same name hides these '
+                       'resources.', None),
+    ('qualifiedRelation, hadRole', 'Relations to other resources, read subject first ("CTD implements ExO"): '
+                                   'qualifiedRelation in the JSON-LD, subject, hadRole and target in relations.csv.',
+     'hadRole'),
+    ('declaredIn', 'Derived: the FIPs that declare the resource (their keys in resources.csv).', None),
+    ('fipDeclaration, declared-by', 'On a FIP, in the JSON-LD, read from its nanopublications (CC0) when the page is '
+     'built: its declarations, each a nanopublication (@id) that links a listed resource through one of the '
+     'properties below for a FIP question (question) and its principle; and declared-by, the FAIR Implementation '
+     'Community that declares the FIP (declaredBy, its key, in resources.csv). The FIP declarations switch draws the '
+     'declarations.', 'declaration'),
+]
+DEFINITION = {name: text for names, text, _ in FIELDS for name in names.split(', ')}
+
+
 # Published files the dataset lists as downloads: media type, and the standard each follows.
 DOWNLOADS = {'fair-tox-ecosystem.jsonld': ('application/ld+json', 'https://www.w3.org/TR/json-ld11/'),
              'resources.csv': ('text/csv', 'https://www.rfc-editor.org/rfc/rfc4180'),
@@ -192,7 +244,8 @@ def discovery(doc, out):
                        **({'propertyID': 'https://registry.identifiers.org/registry/doi'} if '//doi.org/' in pid else {})},
         'url': PAGES, **({'datePublished': released.group(1)} if released else {}),
         **({'temporalCoverage': f'{years[0]}/{years[-1]}'} if years else {}), 'wasDerivedFrom': doc['isBasedOn'],
-        'variableMeasured': [{'@type': 'schema:PropertyValue', 'name': f, 'propertyID': model.iri(model.term(f))}
+        'variableMeasured': [{'@type': 'schema:PropertyValue', 'name': f, 'propertyID': model.iri(model.term(f)),
+                              'description': DEFINITION[f]}
                              for f in model.FIELD_ORDER if ':' in (model.term(f) or '')],
         'distribution': [{'@type': 'schema:DataDownload', 'contentUrl': PAGES + name, 'encodingFormat': media,
                           'conformsTo': spec, **({'checksum': {

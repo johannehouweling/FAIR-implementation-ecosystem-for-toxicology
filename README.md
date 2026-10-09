@@ -7,7 +7,7 @@
 A curated dataset of the resources used in toxicology to make data and metadata findable, accessible, interoperable
 and reusable, with the code to curate it and to publish its dashboard. It underlies Figure 2 of the ELIXIR Toxicology
 Community paper on ten years of the FAIR principles in toxicology (in preparation). The dataset combines the
-resources named in the manuscript, the FAIRsharing Toxicology collection and the resources declared in two toxicology
+resources named in the paper, the FAIRsharing Toxicology collection and the resources declared in two toxicology
 FAIR Implementation Profiles (FIPs). For each resource it records when it was first published, its FAIRsharing type,
 its type in the FIP ontology, its toxicology life-cycle phase and span, its sub-domains and its relations to other
 resources.

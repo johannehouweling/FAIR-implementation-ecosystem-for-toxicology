@@ -2,27 +2,22 @@
 
 ## Unreleased
 
-- Terms: every field in the graph is a schema.org term, else a DCAT term, and the FIP ontology's for FSR types and
-  FIP declarations; the dataset defines no properties of its own. Controlled values are IRIs: outside concepts where
-  one exists (FAIRsharing's subject terms for the scopes, MeSH and NCIT for four sub-domains, ADMS for in development),
-  else defined terms of the dataset (`schema:DefinedTerm` and `skos:Concept`) in `terms.ttl`. Phases and creator
-  types are DCAT themes. Derived and curation fields stay out of the graph: the context has no `@vocab`.
-- Dates are stored under the property of what they refer to: `datePublished`, `dateReleased` (`dct:issued`),
-  `dateAdopted` (`dct:dateAccepted`), `dateCreated`, or `date` when no basis is recorded. The curation sheet keeps
-  First published and Date basis.
-- Each resource states its persistent identifier (`identifier`) and homepage (`url`). The curation sheet shows the
-  identifier, its Type column is now FAIRsharing type, and each header note names the column's term.
-- The dashboard's data dictionary shows each field's term and has an anchor for each term of the dataset; the
-  published credit names the nanopublications of the two FIPs.
+- Terms: every field in the graph is a schema.org term (written `http://schema.org/`), else a DCAT term, and a FIP
+  ontology term for FSR types and FIP declarations; the dataset defines no properties of its own. Controlled values
+  are IRIs of established concepts where one exists (FAIRsharing's subject terms, the IUPAC Gold Book, MeSH, NCIT, EFO,
+  SIO, Wikidata, and the ADMS and EU status lists). The 11 values without one are defined terms of the dataset in `terms.ttl`,
+  each linked to its closest outside concepts. Derived and curation fields stay out of the graph.
 - CDIF: the published dataset conforms to CODATA's CDIF Discovery profile 1.1, checked in CI with CODATA's SHACL
-  rules. schema.org is written `http://schema.org/`; the dataset states its identifier, landing page, release date,
-  temporal coverage, sources, the terms of its fields and its downloads with checksums, and a catalog record declares
-  conformance. Resources get a schema.org type, the date source is `schema:citation`, homepages are text, the
-  creator is the ELIXIR Toxicology Community within ELIXIR (ROR), the licence a labelled link, and keywords defined
-  terms. The term lists follow the CDIF Concept Scheme profile 1.1.
-- Fewer own terms (19 to 12): IUPAC Gold Book entries for nanotoxicology and computational toxicology, EFO and SIO
-  concepts for the creator types, the EU status "discontinued"; an unknown status is not published. The remaining
-  terms link to Terms4FAIRskills, EDAM, MeSH, IUPAC, Wikidata, W3C PROF, CiTO and SIO.
+  rules, and its term lists to the CDIF Concept Scheme profile 1.1. The dataset states its identifier, landing page,
+  release date, temporal coverage, sources, fields with their terms, and downloads with checksums; its creator is the
+  ELIXIR Toxicology Community within ELIXIR (ROR), its licence a labelled link and its keywords defined terms.
+- Resources: each states its persistent identifier and homepage and has a schema.org type. Dates are stored under the
+  property of what they refer to, after DataCite's date types; the date source is `schema:citation`. An unknown
+  maintenance status is not published.
+- Curation sheet: the Type column is now FAIRsharing type, a computed Identifier column is added, and each header note
+  names the column's term.
+- Dashboard: the data dictionary shows each field's term and has an anchor for each term of the dataset. The published
+  credit names the nanopublications of the two FIPs.
 
 ## 0.2.0 (2026-10-09)
 

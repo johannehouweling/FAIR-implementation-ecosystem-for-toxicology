@@ -613,6 +613,8 @@ class SiteTest(TempDir):
         self.assertEqual(data.value(record, S.about), root)
         self.assertEqual(str(data.value(data.value(root, S.identifier), S.value)), model.BASE)
         self.assertEqual(len(set(data.objects(root, S.distribution))), len(site.DOWNLOADS))
+        fields = set(data.objects(root, S.variableMeasured))          # each field with its term and description
+        self.assertTrue(fields and all(data.value(v, S.propertyID) and data.value(v, S.description) for v in fields))
         sets = {name: t[name + '-values'] for name in model.TERM_SETS}
         self.assertEqual(set(terms.subjects(RDF.type, S.DefinedTermSet)), set(sets.values()))
         for name, s in sets.items():                           # a term of ours only where no outside concept exists
@@ -625,7 +627,7 @@ class SiteTest(TempDir):
                 self.assertEqual(set(terms.objects(c, RDF.type)), {S.DefinedTerm, SKOS.Concept})
                 self.assertTrue(terms.value(c, SKOS.definition), c)
                 self.assertIn((c, SKOS.inScheme, s), terms)
-        for triple in ((t['subdomains-in-vitro-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
+        for triple in ((t['subdomains-regulatory-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
                        (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements'))):
             self.assertIn(triple, terms, triple)
         html = text['index.html']                              # each field shows its term; a fragment opens its resource
