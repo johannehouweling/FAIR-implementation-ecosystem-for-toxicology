@@ -566,17 +566,14 @@ def check(doc):
             if role in RELATIONS and RELATIONS[role][1] and q.get('evidence') != 'FAIRsharing' and \
                     _year(r) and _year(t) and _year(r) < _year(t):
                 warnings.append(f'{k}: {role} {t["key"]} points to a resource first published later')
-            if role in ALLOWED and (registry(r), registry(t)) not in ALLOWED[role]:
-                warnings.append(f'{k}: {role} {t["key"]} cannot be entered in FAIRsharing '
-                                f'({registry(r)} to {registry(t)})')
         if r.get('decision') == 'include':
             missing = [f for f in ('datePublished', 'dateSource', 'url', 'type', 'fsrType', 'scope') if not r.get(f)]
             if r.get('fairsharingMatch') != 'confirmed' and not r.get('description'):
                 missing.append('description')
             if missing:
                 warnings.append(f'{k}: included but missing {", ".join(missing)}')
-        if r.get('fairsharingMatch') == 'to check':
-            warnings.append(f'{k}: FAIRsharing match still to check')
+            if r.get('fairsharingMatch') == 'to check':
+                warnings.append(f'{k}: FAIRsharing match still to check')
     return errors, warnings
 
 
