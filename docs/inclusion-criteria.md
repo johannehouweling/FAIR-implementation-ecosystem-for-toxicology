@@ -13,13 +13,10 @@ Supporting Resources*, CEUR-WS Vol-3882) and the FIP ontology (`https://w3id.org
 - A **FAIR-Enabling Resource (FER)** is an FSR that is essential to the operationalisation of the FAIR principles: a
   service, a specification or a data policy, such as an identifier service, a registry, a metadata schema or a
   structured vocabulary.
-- A **digital object** is content, such as a dataset, a knowledge base or a model, rather than a resource that
-  supports FAIR implementation. The FIP ontology has a Digital Object Type but no class for digital objects
-  themselves, so the dataset uses its own class, Digital object, which is not an FSR.
 
 The dataset lists standards, databases, policies and guidance, collections, and tools or services that make data or
-metadata findable, accessible, interoperable or reusable, each typed as an FER, another FSR or a digital object
-(section 6). Their FAIRsharing types follow the FAIRsharing registries (standards, databases, policies, collections)
+metadata findable, accessible, interoperable or reusable, each typed as an FER or another FSR (section
+6). Their FAIRsharing types follow the FAIRsharing registries (standards, databases, policies, collections)
 and their record types; software and services, which FAIRsharing does not register, are recorded as Tool. Initiatives,
 projects and communities are not resources: they appear only through the resources they produced, except FAIR
 Implementation Communities (E1).
@@ -98,13 +95,16 @@ Each excluded row carries exactly one code.
 
 - **Scope** says what a resource was made for: Generic (infrastructure not specific to a research domain, including
   FAIR resources such as FAIRsharing and the FIP), Life Sciences (life-science infrastructure) or Toxicology.
-- **FSR type.** Each resource gets a type from the FIP ontology, or Digital object. When a toxicology FIP declares the
-  resource, the type comes from the FIP's own description of it (if that gives several, the one that fits the question
-  it is declared for). Otherwise the role that makes the resource FAIR-relevant here decides, and content is a digital
-  object. A second type is allowed only under the same direct FSR subclass, such as FAIR specification or FAIR
-  Supporting Technology (FAIR Supporting Service in Magagna et al. 2024). The category (FAIR-Enabling Resource, other
-  FAIR Supporting Resource or digital object) follows from the type. FAIR principles are assigned only through the FIP
-  questions a resource is declared for, so a resource that no FIP declares has none.
+- **FSR type.** Each resource gets one type from the FIP ontology. When a toxicology FIP declares the resource, the
+  type comes from the FIP's own description of it (if that gives several, the one that fits the question it is
+  declared for). Otherwise the kind of resource decides: a database, including a portal or a report repository, is a
+  Domain-specific or Generalist registry, as databases are in FIPs; an identifier scheme is an Identifier service; a
+  terminology or ontology a Structured vocabulary or Semantic model; a reporting guideline, model or format a Metadata
+  schema or Knowledge representation language; a licence a Data usage license; guidance, including regulatory
+  guidance, a FAIR practice (a FAIR interpretation for a statement on the FAIR principles); a tool or service its
+  service type, such as Editor or Validation service; training FAIR training material. The class (FAIR-Enabling
+  Resource or other FAIR Supporting Resource) follows from the type. FAIR principles are assigned only through the
+  FIP questions a resource is declared for, so a resource that no FIP declares has none.
 - **Phase.** A toxicology resource's phase is the data life-cycle phase it acts on, whoever made it: Data generation
   (planning, producing and depositing primary records: datasets, protocols, method descriptions and the publications
   reporting them), Data integration (integrating and synthesising those records into secondary resources and evidence:
@@ -175,6 +175,7 @@ Each excluded row carries exactly one code.
 | 8 Oct 2026 | FAIR Implementation Communities are recognised mechanically: a community is kept, typed FAIR Implementation Community, only when a valid FIC nanopublication identifies it, and is listed but not drawn. Curators check only that a nanopublication is the same community, never whether a community is a FIC; every other community stays E1. | Jente Houweling |
 | 8 Oct 2026 | The JSON-LD context maps the fields to schema.org, DCTERMS, DCAT, SKOS, PAV and the FIP ontology; only 14 core terms and the class Digital object are the dataset's own (`https://w3id.org/fair-tox/terms#`). | Jente Houweling |
 | 9 Oct 2026 | FAIRsharing record data and the FIP declarations are read when the dashboard and the curation sheet are built, and published with their retrieval date. The dataset stores only what is curated. | Jente Houweling |
+| 9 Oct 2026 | Typing is simplified: every resource is an FSR with one type from the FIP ontology, chosen by the kind of resource, the type a FIP gives coming first. A database that indexes and serves records under stable identifiers is a registry, as in FIPs; the own class Digital object and second types are dropped, and the curation sheet offers only the 27 types the rule uses. | Jente Houweling |
 
 ## 9. Limitations
 

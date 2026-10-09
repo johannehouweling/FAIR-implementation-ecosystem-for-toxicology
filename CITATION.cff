@@ -3,7 +3,7 @@ message: If you use this dataset or its code, please cite it as below.
 type: dataset
 title: FAIR implementation ecosystem for toxicology
 abstract: >-
-  A curated dataset of the standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource, another FAIR Supporting Resource or a digital object.
+  A curated dataset of the standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource.
   It combines the resources named in the
   ELIXIR Toxicology Community paper on ten years of the FAIR principles with the FAIRsharing Toxicology
   collection, records when each resource was first published, its FAIRsharing type, lifecycle phase,

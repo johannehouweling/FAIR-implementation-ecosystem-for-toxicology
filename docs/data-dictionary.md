@@ -7,7 +7,7 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 - A FAIR Implementation Community is identified by its FIC nanopublication, for example `http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk#FAIR-AOPs`.
 - A resource with a confirmed FAIRsharing record is identified by the record DOI, for example `https://doi.org/10.25504/FAIRsharing.6hna78`.
 - Any other resource is identified by `#<key>` relative to `https://w3id.org/fair-tox/dataset`. These identifiers are provisional until the resource is registered in FAIRsharing or the namespace is registered at w3id.org.
-- Fields use terms of schema.org, DCTERMS, DCAT, SKOS, PAV and the FIP ontology (`https://w3id.org/fair/fip/terms/`). The 14 fields without a standard term, and the class Digital object, are the dataset's own, under `https://w3id.org/fair-tox/terms#` (see Own terms).
+- Fields use terms of schema.org, DCTERMS, DCAT, SKOS, PAV and the FIP ontology (`https://w3id.org/fair/fip/terms/`). The 14 fields without a standard term are the dataset's own, under `https://w3id.org/fair-tox/terms#` (see Own terms).
 
 ## Dataset header
 
@@ -26,7 +26,7 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 
 ## Resource fields
 
-Curated fields are edited in the curation sheet; the column is given. `@id`, `buildsOnFair`, `fsrCategory` and `fsrParent` are derived on every save; `declaredIn`, `principles`, `fipDeclaration`, `declared-by` and `fairsharing` are added at build time and never stored. The JSON-LD context keeps `buildsOnFair`, `fsrCategory`, `fsrParent`, `declaredIn`, `principles` and `fairsharing` out of the RDF graph: they are there for people and the dashboard.
+Curated fields are edited in the curation sheet; the column is given. `@id`, `buildsOnFair` and `fsrCategory` are derived on every save; `declaredIn`, `principles`, `fipDeclaration`, `declared-by` and `fairsharing` are added at build time and never stored. The JSON-LD context keeps `buildsOnFair`, `fsrCategory`, `declaredIn`, `principles` and `fairsharing` out of the RDF graph: they are there for people and the dashboard.
 
 | Field | Sheet column | Content |
 |---|---|---|
@@ -38,13 +38,13 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `bu
 | `exclusionReason` | Exclusion reason | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by | Key of the row that covers this one (exclusion reason E6). |
 | `type` | Type | FAIRsharing registry and record type, or Tool (list below). |
-| `fsrType` | FSR type, Second FSR type | FAIR Supporting Resource (FSR) type: one or two classes of the pinned FIP ontology, the second under the same direct FSR subclass, or Digital object (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
+| `fsrType` | FSR type | FAIR Supporting Resource (FSR) type: one class of the pinned FIP ontology, from those the typing rule uses (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
 | `scope` | Scope | What the resource was made for (list below). |
 | `phase` | Phase | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. |
 | `span` | one "Span" column per phase | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
 | `stakeholders` | one "Made by" column per creator type | For toxicology resources: who created it; several may apply (list below). Required for included and undecided toxicology resources. |
 | `buildsOnFair` | Builds on FAIR | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
-| `fsrCategory`, `fsrParent` | FAIR category | Derived from `fsrType`: the category (FAIR-Enabling Resource when a type is one, else FAIR Supporting Resource, or Digital object) and the direct FSR subclass (list below). |
+| `fsrCategory` | Class | Derived from `fsrType`: FAIR-Enabling Resource when the type is one, else FAIR Supporting Resource. |
 | `declaredIn`, `principles` | Declared in, Principles | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
 | `fsr` |  | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id` (`skos:exactMatch`). Replaced on each import. |
 | `subdomains` | one column per sub-domain | Sub-domains that apply (list below). |
@@ -131,23 +131,16 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 
 ### FSR type (`fsrType`)
 
-The 57 classes under `fip:FAIR-Supporting-Resource` in the pinned FIP ontology (`data/raw/fip/fip-ontology.trig`, version 20260227), stored as their IRIs, such as `https://w3id.org/fair/fip/terms/Registry`; and Digital object (`https://w3id.org/fair-tox/terms#DigitalObject`), our own class for a resource that is not an FSR, such as a dataset or a model. Each type belongs to one direct FSR subclass (`fsrParent`), which is itself a type; an FER type is grouped under its other direct FSR subclass, such as FAIR specification. `fsrCategory` is FAIR-Enabling Resource when a type is marked FER, else FAIR Supporting Resource, or Digital object. The Lists tab of the curation sheet gives each type's IRI.
+One type per resource, from the 27 classes the typing rule uses (inclusion criteria, section 6) among the 57 under `fip:FAIR-Supporting-Resource` in the pinned FIP ontology (`data/raw/fip/fip-ontology.trig`, version 20260227), stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`. `fsrCategory` is FAIR-Enabling Resource when the type is marked FER, else FAIR Supporting Resource. The curation sheet's Lists tab groups the types by direct FSR subclass, with each type's IRI.
 
-| Direct FSR subclass | Other types under it |
+| Direct FSR subclass | Types offered |
 |---|---|
-| Available FAIR Supporting Resource | Available FAIR-Enabling Resource (FER) |
-| FAIR Data Policy | Data usage license (FER); FAIR practice; Metadata preservation policy (FER); Persistency Policy (FER) |
-| FAIR data steward professional profile | - |
-| FAIR data stewardship event | - |
-| FAIR data stewardship plan template | - |
-| FAIR Declaration | FAIR case study; FAIR interpretation; FAIR Qualifcation Criteria; FIP Declaration; FIP No-Choice Declaration; FSR Declaration; SIP Declaration |
-| FAIR Implementation Community | Emerging community; Mature community |
-| FAIR specification | Communication protocol (FER); Crosswalk; FAIR Assessment Specification; FAIR Implementation Profile (FER); Knowledge representation language (FER); Metadata schema (FER); Metadata-data linking schema (FER); Open Digital Rights Language Specification; Provenance model (FER); Reference FAIR Implementation Profile (FER); Semantic model (FER); Structured vocabulary (FER) |
-| FAIR Supporting Resource to be developed | FAIR-Enabling Resource to be Developed (FER) |
-| FAIR Supporting Technology | Authentication and authorization service (FER); Domain-specific registry (FER); Editor; FAIR Analysis Service; FAIR Enrichment Service; FAIR Publishing Service; FAIR Representation Service; FAIR Supporting Software; FAIR Visualization Service; FAIRification Workflow; Generalist registry (FER); Identifier service (FER); Integration Service; Provenance tracking service; Registry (FER); Validation service; Web-API |
-| FAIR training material | - |
-| FAIR-Enabling Resource (FER) | - |
-| Semantic Interoperability Profile | - |
+| FAIR Data Policy | Data usage license (FER); FAIR practice |
+| FAIR Declaration | FAIR interpretation |
+| FAIR Implementation Community | FAIR Implementation Community |
+| FAIR specification | Communication protocol (FER); FAIR Assessment Specification; FAIR Implementation Profile (FER); Knowledge representation language (FER); Metadata schema (FER); Provenance model (FER); Reference FAIR Implementation Profile (FER); Semantic model (FER); Structured vocabulary (FER) |
+| FAIR Supporting Technology | Authentication and authorization service (FER); Domain-specific registry (FER); Editor; FAIR Analysis Service; FAIR Enrichment Service; FAIR Publishing Service; FAIR Supporting Software; FAIR Visualization Service; Generalist registry (FER); Identifier service (FER); Integration Service; Registry (FER); Validation service |
+| FAIR training material | FAIR training material |
 
 ### Scope (`scope`)
 
@@ -279,7 +272,7 @@ Read through each FIP's declaration index from the nanopublications of the two t
 
 ## Own terms
 
-The dataset's own terms, under `https://w3id.org/fair-tox/terms#`, are 14 fields (`scope`, `phase`, `span`, `stakeholders`, `dateBasis`, `dateSource`, `decision`, `exclusionReason`, `coveredBy`, `manuscript`, `manuscriptEvidence`, `fairsharingRecord`, `fairsharingMatch`, `evidence`) and the class `DigitalObject`. Each controlled list is a SKOS concept scheme, such as `terms#phase-values`, with one concept per value labelled with the stored value, such as `terms#phase-data-generation`; a relation label is its own concept, such as `terms#implements`. Where an existing term fits, the vocabulary links to it: Digital object is a subclass of `schema:CreativeWork` and disjoint with `fip:FAIR-Supporting-Resource`, `dateSource` is a subproperty of `schema:subjectOf`, five relation labels are close matches of DCTERMS or schema.org properties, and each FIP property value is an exact match of its `fip:` property.
+The dataset's own terms, under `https://w3id.org/fair-tox/terms#`, are 14 fields (`scope`, `phase`, `span`, `stakeholders`, `dateBasis`, `dateSource`, `decision`, `exclusionReason`, `coveredBy`, `manuscript`, `manuscriptEvidence`, `fairsharingRecord`, `fairsharingMatch`, `evidence`). Each controlled list is a SKOS concept scheme, such as `terms#phase-values`, with one concept per value labelled with the stored value, such as `terms#phase-data-generation`; a relation label is its own concept, such as `terms#implements`. Where an existing term fits, the vocabulary links to it: `dateSource` is a subproperty of `schema:subjectOf`, five relation labels are close matches of DCTERMS or schema.org properties, and each FIP property value is an exact match of its `fip:` property.
 
 `fairtox site <outdir>` writes the vocabulary as `terms.ttl` and `terms.jsonld`, and the JSON-LD context as `context.jsonld`, next to the dashboard's `index.html`; CI publishes them with the dashboard. The public build leaves out the curation terms (`decision`, `exclusionReason`, `coveredBy`, `manuscript`, `manuscriptEvidence`, `fairsharingMatch`, `evidence`) and their lists. In the dashboard's data dictionary each own term and relation label has an anchor (`#span`, `#implements`), and a resource's `#key` opens that resource (`#ctd`).
 
