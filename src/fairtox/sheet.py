@@ -50,7 +50,7 @@ RESOURCE_COLUMNS = [
     ('Covered by', 'coveredBy', 'keys', 14, 'For exclusion reason E6: the key of the row that covers this one.'),
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
-    ('Type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
+    ('Type', 'type', 'list:Type', 32, 'FAIRsharing resource type'),
     ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, by the typing rule on the Instructions tab. '
      'The Lists tab groups the types by direct FSR subclass.'),
     ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
@@ -136,8 +136,6 @@ INSTRUCTIONS = [
     'add new ones at the bottom of the Relations tab. The grey rows are the declarations of the toxicology FIPs, read '
     'from their nanopublications when the sheet is made; they are read-only. Vocabulary says which is which.',
     'Put your initials in Reviewed by when you have checked a row.',
-    'When you are done, tell Jente. The sheet is downloaded as .xlsx and read back with all checks; '
-    'any problems come back as a list of cells.',
 ]
 CRITERIA_TEXT = [
     'I1 It is a resource, not an organisation, project, community, event or publication, except a FAIR Implementation '
