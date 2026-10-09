@@ -2,12 +2,14 @@
  "@context": {
   "@version": 1.1,
   "@base": "https://w3id.org/fair-tox/dataset",
-  "schema": "https://schema.org/",
+  "schema": "http://schema.org/",
   "dcat": "http://www.w3.org/ns/dcat#",
   "dct": "http://purl.org/dc/terms/",
   "skos": "http://www.w3.org/2004/02/skos/core#",
   "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
   "fip": "https://w3id.org/fair/fip/terms/",
+  "prov": "http://www.w3.org/ns/prov#",
+  "spdx": "http://spdx.org/rdf/terms#",
   "identifier": {
    "@id": "schema:identifier",
    "@type": "@id"
@@ -18,12 +20,10 @@
    "@container": "@set"
   },
   "description": "schema:description",
-  "url": {
-   "@id": "schema:url",
-   "@type": "@id"
-  },
+  "url": "schema:url",
   "creator": "schema:creator",
   "version": "schema:version",
+  "inLanguage": "schema:inLanguage",
   "dateModified": "schema:dateModified",
   "license": {
    "@id": "schema:license",
@@ -34,10 +34,59 @@
    "@id": "schema:isBasedOn",
    "@type": "@id"
   },
+  "wasDerivedFrom": {
+   "@id": "prov:wasDerivedFrom",
+   "@type": "@id"
+  },
+  "keywords": {
+   "@id": "schema:keywords",
+   "@container": "@set"
+  },
+  "parentOrganization": {
+   "@id": "schema:parentOrganization",
+   "@type": "@id"
+  },
+  "temporalCoverage": "schema:temporalCoverage",
+  "variableMeasured": {
+   "@id": "schema:variableMeasured",
+   "@container": "@set"
+  },
+  "propertyID": {
+   "@id": "schema:propertyID",
+   "@type": "@id"
+  },
+  "value": "schema:value",
+  "distribution": {
+   "@id": "schema:distribution",
+   "@container": "@set"
+  },
+  "contentUrl": "schema:contentUrl",
+  "encodingFormat": "schema:encodingFormat",
+  "conformsTo": {
+   "@id": "dct:conformsTo",
+   "@type": "@id"
+  },
+  "checksum": "spdx:checksum",
+  "algorithm": {
+   "@id": "spdx:algorithm",
+   "@type": "@id"
+  },
+  "checksumValue": "spdx:checksumValue",
+  "subjectOf": "schema:subjectOf",
+  "about": {
+   "@id": "schema:about",
+   "@type": "@id"
+  },
+  "additionalType": {
+   "@id": "schema:additionalType",
+   "@type": "@id"
+  },
+  "sdDatePublished": "schema:sdDatePublished",
   "hasPart": {
    "@id": "schema:hasPart",
    "@container": "@set"
   },
+  "schemaType": "@type",
   "key": "dct:identifier",
   "type": "schema:additionalType",
   "fsrType": {
@@ -60,12 +109,12 @@
    "@container": "@set",
    "@context": {
     "in vitro toxicology": "https://w3id.org/fair-tox/terms#subdomains-in-vitro-toxicology",
-    "nanotoxicology": "https://w3id.org/fair-tox/terms#subdomains-nanotoxicology",
+    "nanotoxicology": "https://doi.org/10.1351/goldbook.15908",
     "exposome": "http://id.nlm.nih.gov/mesh/D000081413",
     "eco-toxicology": "http://id.nlm.nih.gov/mesh/D054750",
     "toxicogenomics": "http://purl.obolibrary.org/obo/NCIT_C20179",
     "AOP-based mechanistic knowledge": "http://id.nlm.nih.gov/mesh/D000073931",
-    "computational and predictive toxicology": "https://w3id.org/fair-tox/terms#subdomains-computational-and-predictive-toxicology",
+    "computational and predictive toxicology": "https://doi.org/10.1351/goldbook.15583",
     "regulatory toxicology": "https://w3id.org/fair-tox/terms#subdomains-regulatory-toxicology"
    }
   },
@@ -84,9 +133,9 @@
    "@type": "@vocab",
    "@container": "@set",
    "@context": {
-    "Wet-lab research": "https://w3id.org/fair-tox/terms#stakeholders-wet-lab-research",
-    "In silico research": "https://w3id.org/fair-tox/terms#stakeholders-in-silico-research",
-    "Regulator": "https://w3id.org/fair-tox/terms#stakeholders-regulator"
+    "Wet-lab research": "http://www.ebi.ac.uk/efo/EFO_0009741",
+    "In silico research": "http://www.ebi.ac.uk/efo/EFO_0009742",
+    "Regulator": "http://semanticscience.org/resource/SIO_000619"
    }
   },
   "maintained": {
@@ -94,9 +143,9 @@
    "@type": "@vocab",
    "@context": {
     "active": "https://w3id.org/fair-tox/terms#maintained-active",
-    "discontinued": "https://w3id.org/fair-tox/terms#maintained-discontinued",
+    "discontinued": "http://publications.europa.eu/resource/authority/dataset-status/DISCONT",
     "in development": "http://purl.org/adms/status/UnderDevelopment",
-    "unknown": "https://w3id.org/fair-tox/terms#maintained-unknown"
+    "unknown": "http://purl.obolibrary.org/obo/NCIT_C17998"
    }
   },
   "datePublished": "schema:datePublished",
@@ -105,7 +154,7 @@
   "dateCreated": "schema:dateCreated",
   "date": "dct:date",
   "dateSource": {
-   "@id": "schema:subjectOf",
+   "@id": "schema:citation",
    "@type": "@id"
   },
   "fairsharingRecord": {
@@ -176,8 +225,22 @@
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.2.0",
  "dateModified": "2026-10-09",
- "license": "https://creativecommons.org/licenses/by-sa/4.0/",
- "creator": "ELIXIR Toxicology Community",
+ "license": {
+  "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
+  "@type": "schema:CreativeWork",
+  "name": "CC BY-SA 4.0",
+  "url": "https://creativecommons.org/licenses/by-sa/4.0/"
+ },
+ "creator": {
+  "@type": "schema:Organization",
+  "name": "ELIXIR Toxicology Community",
+  "url": "https://elixir-europe.org/communities/toxicology",
+  "parentOrganization": {
+   "@id": "https://ror.org/044rwnt51",
+   "@type": "schema:Organization",
+   "name": "ELIXIR"
+  }
+ },
  "creditText": "Contains information from FAIRsharing (https://fairsharing.org), licensed CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).",
  "isBasedOn": [
   "https://doi.org/10.25504/FAIRsharing.f60a10"
@@ -317,6 +380,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.73888a",
    "identifier": "https://doi.org/10.25504/FAIRsharing.73888a",
+   "schemaType": "schema:CreativeWork",
    "key": "agritox",
    "name": "AGRITOX",
    "decision": "include",
@@ -351,6 +415,7 @@
   {
    "@id": "#ai4fair",
    "identifier": "https://w3id.org/fair-tox/dataset#ai4fair",
+   "schemaType": "schema:CreativeWork",
    "key": "ai4fair",
    "name": "AI-for-FAIR (F(AI)R)",
    "alternateName": [
@@ -367,6 +432,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.79e002",
    "identifier": "https://doi.org/10.25504/FAIRsharing.79e002",
+   "schemaType": "schema:CreativeWork",
    "key": "aicis",
    "name": "Australian Industrial Chemicals Introduction Scheme",
    "alternateName": [
@@ -403,6 +469,7 @@
   {
    "@id": "#ammar_mi",
    "identifier": "https://w3id.org/fair-tox/dataset#ammar_mi",
+   "schemaType": "schema:CreativeWork",
    "key": "ammar_mi",
    "name": "Nanosafety FAIR maturity indicators (Ammar et al.)",
    "alternateName": [
@@ -442,6 +509,7 @@
   {
    "@id": "#annot_guidelines",
    "identifier": "https://w3id.org/fair-tox/dataset#annot_guidelines",
+   "schemaType": "schema:CreativeWork",
    "key": "annot_guidelines",
    "name": "Community annotation guidelines for computational models",
    "decision": "exclude",
@@ -457,6 +525,7 @@
   {
    "@id": "#aop_datafusion",
    "identifier": "https://w3id.org/fair-tox/dataset#aop_datafusion",
+   "schemaType": "schema:SoftwareApplication",
    "key": "aop_datafusion",
    "name": "AOP data-fusion pipelines",
    "decision": "exclude",
@@ -479,6 +548,7 @@
   {
    "@id": "#aop_ec",
    "identifier": "https://w3id.org/fair-tox/dataset#aop_ec",
+   "schemaType": "schema:CreativeWork",
    "key": "aop_ec",
    "name": "Event Components (structured Key Event annotation)",
    "alternateName": [
@@ -514,6 +584,7 @@
   {
    "@id": "#aop_wiki_id",
    "identifier": "https://w3id.org/fair-tox/dataset#aop_wiki_id",
+   "schemaType": "schema:CreativeWork",
    "key": "aop_wiki_id",
    "name": "Adverse Outcome Pathways Wiki Identifier",
    "alternateName": [
@@ -542,6 +613,7 @@
   {
    "@id": "#aopdb",
    "identifier": "https://w3id.org/fair-tox/dataset#aopdb",
+   "schemaType": "schema:CreativeWork",
    "key": "aopdb",
    "name": "AOP-DB (Adverse Outcome Pathway Database)",
    "alternateName": [
@@ -587,6 +659,7 @@
   {
    "@id": "#aopdb_v2",
    "identifier": "https://w3id.org/fair-tox/dataset#aopdb_v2",
+   "schemaType": "schema:CreativeWork",
    "key": "aopdb_v2",
    "name": "AOP-DB 2021 update (version 2)",
    "alternateName": [
@@ -624,6 +697,7 @@
   {
    "@id": "#aopdbrdf",
    "identifier": "https://w3id.org/fair-tox/dataset#aopdbrdf",
+   "schemaType": "schema:CreativeWork",
    "key": "aopdbrdf",
    "name": "AOP-DB RDF",
    "alternateName": [
@@ -676,6 +750,7 @@
   {
    "@id": "#aopfw",
    "identifier": "https://w3id.org/fair-tox/dataset#aopfw",
+   "schemaType": "schema:CreativeWork",
    "key": "aopfw",
    "name": "Adverse Outcome Pathway (AOP) framework",
    "alternateName": [
@@ -708,6 +783,7 @@
   {
    "@id": "#aophelp",
    "identifier": "https://w3id.org/fair-tox/dataset#aophelp",
+   "schemaType": "schema:SoftwareApplication",
    "key": "aophelp",
    "name": "AOP-helpFinder",
    "alternateName": [
@@ -744,6 +820,7 @@
   {
    "@id": "#aophelp_2025",
    "identifier": "https://w3id.org/fair-tox/dataset#aophelp_2025",
+   "schemaType": "schema:SoftwareApplication",
    "key": "aophelp_2025",
    "name": "AOP-helpFinder 3.0",
    "alternateName": [
@@ -781,6 +858,7 @@
   {
    "@id": "#aopkb",
    "identifier": "https://w3id.org/fair-tox/dataset#aopkb",
+   "schemaType": "schema:CreativeWork",
    "key": "aopkb",
    "name": "OECD Adverse Outcome Pathway Knowledge Base (AOP-KB)",
    "alternateName": [
@@ -821,6 +899,7 @@
   {
    "@id": "#aoplink",
    "identifier": "https://w3id.org/fair-tox/dataset#aoplink",
+   "schemaType": "schema:CreativeWork",
    "key": "aoplink",
    "name": "AOPLink",
    "decision": "exclude",
@@ -849,6 +928,7 @@
   {
    "@id": "#aopnet",
    "identifier": "https://w3id.org/fair-tox/dataset#aopnet",
+   "schemaType": "schema:SoftwareApplication",
    "key": "aopnet",
    "name": "AOP-networkFinder",
    "alternateName": [
@@ -894,6 +974,7 @@
   {
    "@id": "#aopo",
    "identifier": "https://w3id.org/fair-tox/dataset#aopo",
+   "schemaType": "schema:CreativeWork",
    "key": "aopo",
    "name": "AOP Ontology (AOPO)",
    "alternateName": [
@@ -938,6 +1019,7 @@
   {
    "@id": "#aoproadmap",
    "identifier": "https://w3id.org/fair-tox/dataset#aoproadmap",
+   "schemaType": "schema:CreativeWork",
    "key": "aoproadmap",
    "name": "FAIR AOP roadmap (2025)",
    "alternateName": [
@@ -963,6 +1045,7 @@
   {
    "@id": "#aopwiki",
    "identifier": "https://w3id.org/fair-tox/dataset#aopwiki",
+   "schemaType": "schema:CreativeWork",
    "key": "aopwiki",
    "name": "AOP-Wiki",
    "alternateName": [
@@ -1012,6 +1095,7 @@
   {
    "@id": "#aopwikirdf",
    "identifier": "https://w3id.org/fair-tox/dataset#aopwikirdf",
+   "schemaType": "schema:CreativeWork",
    "key": "aopwikirdf",
    "name": "AOP-Wiki RDF",
    "alternateName": [
@@ -1070,6 +1154,7 @@
   {
    "@id": "#apvma_cr",
    "identifier": "https://w3id.org/fair-tox/dataset#apvma_cr",
+   "schemaType": "schema:CreativeWork",
    "key": "apvma_cr",
    "name": "The Australian Pesticides and Veterinary Medicines Authority (APVMA) database of completed chemical reviews",
    "alternateName": [
@@ -1106,6 +1191,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c54ywe",
    "identifier": "https://doi.org/10.25504/FAIRsharing.c54ywe",
+   "schemaType": "schema:CreativeWork",
    "key": "arachnoserver",
    "name": "ArachnoServer: Spider toxin database",
    "alternateName": [
@@ -1129,6 +1215,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6k0kwd",
    "identifier": "https://doi.org/10.25504/FAIRsharing.6k0kwd",
+   "schemaType": "schema:CreativeWork",
    "key": "arrayexpress",
    "name": "ArrayExpress",
    "decision": "include",
@@ -1155,6 +1242,7 @@
   {
    "@id": "#arraytrack",
    "identifier": "https://w3id.org/fair-tox/dataset#arraytrack",
+   "schemaType": "schema:SoftwareApplication",
    "key": "arraytrack",
    "name": "ArrayTrack",
    "alternateName": [
@@ -1202,6 +1290,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.mye76w",
    "identifier": "https://doi.org/10.25504/FAIRsharing.mye76w",
+   "schemaType": "schema:CreativeWork",
    "key": "bao",
    "name": "BioAssay Ontology (BAO)",
    "alternateName": [
@@ -1234,6 +1323,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.paz6mh",
    "identifier": "https://doi.org/10.25504/FAIRsharing.paz6mh",
+   "schemaType": "schema:CreativeWork",
    "key": "biomodels",
    "name": "BioModels",
    "decision": "include",
@@ -1270,6 +1360,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.82f7b4",
    "identifier": "https://doi.org/10.25504/FAIRsharing.82f7b4",
+   "schemaType": "schema:CreativeWork",
    "key": "bioschemas_chemicalsubstance",
    "name": "Bioschemas ChemicalSubstance Profile",
    "decision": "include",
@@ -1293,6 +1384,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.991d4e",
    "identifier": "https://doi.org/10.25504/FAIRsharing.991d4e",
+   "schemaType": "schema:CreativeWork",
    "key": "bioschemas_computationaltool",
    "name": "Bioschemas ComputationalTool Profile",
    "decision": "include",
@@ -1316,6 +1408,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e457b5",
    "identifier": "https://doi.org/10.25504/FAIRsharing.e457b5",
+   "schemaType": "schema:CreativeWork",
    "key": "bioschemas_computationalworkflow",
    "name": "Bioschemas ComputationalWorkflow Profile",
    "decision": "include",
@@ -1339,6 +1432,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.20sbr9",
    "identifier": "https://doi.org/10.25504/FAIRsharing.20sbr9",
+   "schemaType": "schema:CreativeWork",
    "key": "bioschemas_dataset_profile",
    "name": "Bioschemas Dataset Profile",
    "decision": "include",
@@ -1362,6 +1456,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a847f0",
    "identifier": "https://doi.org/10.25504/FAIRsharing.a847f0",
+   "schemaType": "schema:CreativeWork",
    "key": "bioschemas_deploys",
    "name": "Bioschemas Deploys",
    "decision": "undecided",
@@ -1382,6 +1477,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ccaad2",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ccaad2",
+   "schemaType": "schema:CreativeWork",
    "key": "bioschemas_molecularentity",
    "name": "Bioschemas MolecularEntity Profile",
    "decision": "include",
@@ -1405,6 +1501,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f3a3ca",
    "identifier": "https://doi.org/10.25504/FAIRsharing.f3a3ca",
+   "schemaType": "schema:CreativeWork",
    "key": "bioschemas_sample_profile",
    "name": "Bioschemas Sample Profile",
    "decision": "include",
@@ -1428,6 +1525,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
+   "schemaType": "schema:CreativeWork",
    "key": "biosd",
    "name": "BioSamples",
    "alternateName": [
@@ -1460,6 +1558,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.mtjvme",
    "identifier": "https://doi.org/10.25504/FAIRsharing.mtjvme",
+   "schemaType": "schema:CreativeWork",
    "key": "biostudies",
    "name": "BioStudies",
    "alternateName": [
@@ -1491,6 +1590,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f37bb6",
    "identifier": "https://doi.org/10.25504/FAIRsharing.f37bb6",
+   "schemaType": "schema:CreativeWork",
    "key": "biu",
    "name": "Biocides in the environment",
    "alternateName": [
@@ -1528,6 +1628,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.68a369",
    "identifier": "https://doi.org/10.25504/FAIRsharing.68a369",
+   "schemaType": "schema:CreativeWork",
    "key": "blood_exposome_db",
    "name": "The Blood Exposome Database",
    "alternateName": [
@@ -1564,6 +1665,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e5c86e",
    "identifier": "https://doi.org/10.25504/FAIRsharing.e5c86e",
+   "schemaType": "schema:CreativeWork",
    "key": "cas_common_chemistry",
    "name": "Chemical Abstracts Service Common Chemistry",
    "alternateName": [
@@ -1584,6 +1686,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.r7Kwy7",
    "identifier": "https://doi.org/10.25504/FAIRsharing.r7Kwy7",
+   "schemaType": "schema:CreativeWork",
    "key": "cas_rn",
    "name": "CAS Registry Number",
    "alternateName": [
@@ -1613,6 +1716,7 @@
   {
    "@id": "#cc_by_4_0",
    "identifier": "https://w3id.org/fair-tox/dataset#cc_by_4_0",
+   "schemaType": "schema:CreativeWork",
    "key": "cc_by_4_0",
    "name": "Attribution 4.0 International",
    "alternateName": [
@@ -1633,6 +1737,7 @@
   {
    "@id": "#cc_by_sa_4_0",
    "identifier": "https://w3id.org/fair-tox/dataset#cc_by_sa_4_0",
+   "schemaType": "schema:CreativeWork",
    "key": "cc_by_sa_4_0",
    "name": "Attribution-ShareAlike 4.0 International",
    "alternateName": [
@@ -1653,6 +1758,7 @@
   {
    "@id": "#cdisc",
    "identifier": "https://w3id.org/fair-tox/dataset#cdisc",
+   "schemaType": "schema:CreativeWork",
    "key": "cdisc",
    "name": "CDISC (Clinical Data Interchange Standards Consortium)",
    "alternateName": [
@@ -1672,6 +1778,7 @@
   {
    "@id": "#cerif",
    "identifier": "https://w3id.org/fair-tox/dataset#cerif",
+   "schemaType": "schema:CreativeWork",
    "key": "cerif",
    "name": "Common European Research Information Format",
    "alternateName": [
@@ -1694,6 +1801,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.750d23",
    "identifier": "https://doi.org/10.25504/FAIRsharing.750d23",
+   "schemaType": "schema:CreativeWork",
    "key": "cesar",
    "name": "Canada’s Existing Substances Assessment Repository",
    "alternateName": [
@@ -1730,6 +1838,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.62qk8w",
    "identifier": "https://doi.org/10.25504/FAIRsharing.62qk8w",
+   "schemaType": "schema:CreativeWork",
    "key": "chebi",
    "name": "ChEBI (Chemical Entities of Biological Interest)",
    "alternateName": [
@@ -1764,6 +1873,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.m3jtpg",
    "identifier": "https://doi.org/10.25504/FAIRsharing.m3jtpg",
+   "schemaType": "schema:CreativeWork",
    "key": "chembl",
    "name": "ChEMBL",
    "alternateName": [
@@ -1796,6 +1906,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b5a070",
    "identifier": "https://doi.org/10.25504/FAIRsharing.b5a070",
+   "schemaType": "schema:CreativeWork",
    "key": "cheminfo",
    "name": "ChemInfo",
    "decision": "include",
@@ -1830,6 +1941,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.96f3gm",
    "identifier": "https://doi.org/10.25504/FAIRsharing.96f3gm",
+   "schemaType": "schema:CreativeWork",
    "key": "chemspider",
    "name": "ChemSpider",
    "alternateName": [
@@ -1856,6 +1968,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.j9y503",
    "identifier": "https://doi.org/10.25504/FAIRsharing.j9y503",
+   "schemaType": "schema:CreativeWork",
    "key": "cl",
    "name": "Cell Ontology (CL)",
    "alternateName": [
@@ -1886,6 +1999,7 @@
   {
    "@id": "#combine",
    "identifier": "https://w3id.org/fair-tox/dataset#combine",
+   "schemaType": "schema:CreativeWork",
    "key": "combine",
    "name": "COMBINE (Computational Modeling in Biology Network)",
    "alternateName": [
@@ -1905,6 +2019,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ad3f2b",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ad3f2b",
+   "schemaType": "schema:CreativeWork",
    "key": "combine_coll",
    "name": "COMBINE FAIRsharing collection",
    "alternateName": [
@@ -1936,6 +2051,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.tfj7gt",
    "identifier": "https://doi.org/10.25504/FAIRsharing.tfj7gt",
+   "schemaType": "schema:CreativeWork",
    "key": "comptox",
    "name": "EPA CompTox Chemicals Dashboard",
    "decision": "include",
@@ -1972,6 +2088,7 @@
   {
    "@id": "#cookbook",
    "identifier": "https://w3id.org/fair-tox/dataset#cookbook",
+   "schemaType": "schema:SoftwareApplication",
    "key": "cookbook",
    "name": "FAIR Cookbook",
    "alternateName": [
@@ -1999,6 +2116,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.522e02",
    "identifier": "https://doi.org/10.25504/FAIRsharing.522e02",
+   "schemaType": "schema:CreativeWork",
    "key": "cosing",
    "name": "Cosmetic ingredient database",
    "alternateName": [
@@ -2035,6 +2153,7 @@
   {
    "@id": "#cred",
    "identifier": "https://w3id.org/fair-tox/dataset#cred",
+   "schemaType": "schema:CreativeWork",
    "key": "cred",
    "name": "CRED (Criteria for Reporting and Evaluating ecotoxicity Data)",
    "alternateName": [
@@ -2073,6 +2192,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.dcsw6j",
    "identifier": "https://doi.org/10.25504/FAIRsharing.dcsw6j",
+   "schemaType": "schema:CreativeWork",
    "key": "ctcae",
    "name": "Common Terminology Criteria for Adverse Events",
    "alternateName": [
@@ -2096,6 +2216,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.h3tjtr",
    "identifier": "https://doi.org/10.25504/FAIRsharing.h3tjtr",
+   "schemaType": "schema:CreativeWork",
    "key": "ctd",
    "name": "Comparative Toxicogenomics Database",
    "alternateName": [
@@ -2133,6 +2254,7 @@
   {
    "@id": "#cure",
    "identifier": "https://w3id.org/fair-tox/dataset#cure",
+   "schemaType": "schema:CreativeWork",
    "key": "cure",
    "name": "CURE principles for computational models",
    "alternateName": [
@@ -2157,6 +2279,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.bca16f",
    "identifier": "https://doi.org/10.25504/FAIRsharing.bca16f",
+   "schemaType": "schema:CreativeWork",
    "key": "danish_q_sar_database",
    "name": "Danish (Q)SAR Database",
    "decision": "include",
@@ -2193,6 +2316,7 @@
   {
    "@id": "#datacite_metadata_scheme",
    "identifier": "https://w3id.org/fair-tox/dataset#datacite_metadata_scheme",
+   "schemaType": "schema:CreativeWork",
    "key": "datacite_metadata_scheme",
    "name": "DataCite Metadata Scheme",
    "decision": "undecided",
@@ -2212,6 +2336,7 @@
   {
    "@id": "#datacure",
    "identifier": "https://w3id.org/fair-tox/dataset#datacure",
+   "schemaType": "schema:SoftwareApplication",
    "key": "datacure",
    "name": "DataCure",
    "decision": "exclude",
@@ -2242,6 +2367,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.z1ars2",
    "identifier": "https://doi.org/10.25504/FAIRsharing.z1ars2",
+   "schemaType": "schema:CreativeWork",
    "key": "dbeth",
    "name": "Database of Bacterial Exotoxins for Human",
    "alternateName": [
@@ -2265,6 +2391,7 @@
   {
    "@id": "#dc_data_explorer",
    "identifier": "https://w3id.org/fair-tox/dataset#dc_data_explorer",
+   "schemaType": "schema:SoftwareApplication",
    "key": "dc_data_explorer",
    "name": "DC Data Explorer",
    "decision": "include",
@@ -2299,6 +2426,7 @@
   {
    "@id": "#dixa",
    "identifier": "https://w3id.org/fair-tox/dataset#dixa",
+   "schemaType": "schema:CreativeWork",
    "key": "dixa",
    "name": "diXa data infrastructure for chemical safety assessment",
    "alternateName": [
@@ -2354,6 +2482,7 @@
   {
    "@id": "#dixa_project",
    "identifier": "https://w3id.org/fair-tox/dataset#dixa_project",
+   "schemaType": "schema:CreativeWork",
    "key": "dixa_project",
    "name": "diXa (FP7 project)",
    "alternateName": [
@@ -2380,6 +2509,7 @@
   {
    "@id": "#dnt_negref",
    "identifier": "https://w3id.org/fair-tox/dataset#dnt_negref",
+   "schemaType": "schema:CreativeWork",
    "key": "dnt_negref",
    "name": "Developmental neurotoxicity NAM negative reference chemical set",
    "alternateName": [
@@ -2405,6 +2535,7 @@
   {
    "@id": "#doi",
    "identifier": "https://w3id.org/fair-tox/dataset#doi",
+   "schemaType": "schema:CreativeWork",
    "key": "doi",
    "name": "Digital Object Identifier",
    "alternateName": [
@@ -2428,6 +2559,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.353yat",
    "identifier": "https://doi.org/10.25504/FAIRsharing.353yat",
+   "schemaType": "schema:CreativeWork",
    "key": "drugbank",
    "name": "DrugBank",
    "decision": "include",
@@ -2454,6 +2586,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.wkggtx",
    "identifier": "https://doi.org/10.25504/FAIRsharing.wkggtx",
+   "schemaType": "schema:CreativeWork",
    "key": "dryad",
    "name": "Dryad Digital Repository",
    "alternateName": [
@@ -2474,6 +2607,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c5b513",
    "identifier": "https://doi.org/10.25504/FAIRsharing.c5b513",
+   "schemaType": "schema:CreativeWork",
    "key": "dsld",
    "name": "Dietary Supplement Label Database",
    "alternateName": [
@@ -2503,6 +2637,7 @@
   {
    "@id": "#ec_inventory",
    "identifier": "https://w3id.org/fair-tox/dataset#ec_inventory",
+   "schemaType": "schema:CreativeWork",
    "key": "ec_inventory",
    "name": "EC Inventory",
    "decision": "include",
@@ -2536,6 +2671,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.60ef2d",
    "identifier": "https://doi.org/10.25504/FAIRsharing.60ef2d",
+   "schemaType": "schema:CreativeWork",
    "key": "echa_bpr",
    "name": "ECHA Biocidal Products Regulation",
    "alternateName": [
@@ -2572,6 +2708,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ab25e3",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ab25e3",
+   "schemaType": "schema:CreativeWork",
    "key": "echa_chem_reach",
    "name": "ECHA CHEM - Registration, Evaluation, Authorisation and Restriction of Chemicals Regulation",
    "alternateName": [
@@ -2608,6 +2745,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4782f1",
    "identifier": "https://doi.org/10.25504/FAIRsharing.4782f1",
+   "schemaType": "schema:CreativeWork",
    "key": "echa_clp",
    "name": "ECHA Classification, Labelling and Packaging",
    "alternateName": [
@@ -2644,6 +2782,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.25fbf6",
    "identifier": "https://doi.org/10.25504/FAIRsharing.25fbf6",
+   "schemaType": "schema:CreativeWork",
    "key": "echemportal",
    "name": "OECD eChemPortal",
    "decision": "include",
@@ -2686,6 +2825,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4b2234",
    "identifier": "https://doi.org/10.25504/FAIRsharing.4b2234",
+   "schemaType": "schema:CreativeWork",
    "key": "ecotox",
    "name": "ECOTOXicology Knowledgebase",
    "alternateName": [
@@ -2724,6 +2864,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.560f4e",
    "identifier": "https://doi.org/10.25504/FAIRsharing.560f4e",
+   "schemaType": "schema:CreativeWork",
    "key": "ectothes",
    "name": "Ecotoxicology thesaurus",
    "decision": "include",
@@ -2757,6 +2898,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.g593w1",
    "identifier": "https://doi.org/10.25504/FAIRsharing.g593w1",
+   "schemaType": "schema:CreativeWork",
    "key": "edam_bioimaging",
    "name": "EDAM Bioimaging Ontology",
    "alternateName": [
@@ -2777,6 +2919,7 @@
   {
    "@id": "#edelweissdata",
    "identifier": "https://w3id.org/fair-tox/dataset#edelweissdata",
+   "schemaType": "schema:SoftwareApplication",
    "key": "edelweissdata",
    "name": "EdelweissData",
    "alternateName": [
@@ -2813,6 +2956,7 @@
   {
    "@id": "#efsa_fairmem",
    "identifier": "https://w3id.org/fair-tox/dataset#efsa_fairmem",
+   "schemaType": "schema:CreativeWork",
    "key": "efsa_fairmem",
    "name": "EFSA statement on the interpretation of FAIR principles for mechanistic effect models in the regulatory environmental risk assessment of pesticides",
    "alternateName": [
@@ -2855,6 +2999,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.mya1ff",
    "identifier": "https://doi.org/10.25504/FAIRsharing.mya1ff",
+   "schemaType": "schema:CreativeWork",
    "key": "ega",
    "name": "The European Genome-phenome Archive",
    "alternateName": [
@@ -2875,6 +3020,7 @@
   {
    "@id": "#elixir",
    "identifier": "https://w3id.org/fair-tox/dataset#elixir",
+   "schemaType": "schema:CreativeWork",
    "key": "elixir",
    "name": "ELIXIR",
    "decision": "exclude",
@@ -2888,6 +3034,7 @@
   {
    "@id": "#elixir_depdb",
    "identifier": "https://w3id.org/fair-tox/dataset#elixir_depdb",
+   "schemaType": "schema:CreativeWork",
    "key": "elixir_depdb",
    "name": "ELIXIR Deposition Databases",
    "alternateName": [
@@ -2913,6 +3060,7 @@
   {
    "@id": "#elixir_tox_fips",
    "identifier": "https://w3id.org/fair-tox/dataset#elixir_tox_fips",
+   "schemaType": "schema:CreativeWork",
    "key": "elixir_tox_fips",
    "name": "ELIXIR toxicology FAIR Implementation Profiles",
    "alternateName": [
@@ -2929,6 +3077,7 @@
   {
    "@id": "#elixirtox",
    "identifier": "https://w3id.org/fair-tox/dataset#elixirtox",
+   "schemaType": "schema:CreativeWork",
    "key": "elixirtox",
    "name": "ELIXIR Toxicology Community",
    "alternateName": [
@@ -2950,6 +3099,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.dff3ef",
    "identifier": "https://doi.org/10.25504/FAIRsharing.dff3ef",
+   "schemaType": "schema:CreativeWork",
    "key": "empiar",
    "name": "Electron Microscopy Public Image Archive",
    "alternateName": [
@@ -2970,6 +3120,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.dj8nt8",
    "identifier": "https://doi.org/10.25504/FAIRsharing.dj8nt8",
+   "schemaType": "schema:CreativeWork",
    "key": "ena",
    "name": "European Nucleotide Archive",
    "alternateName": [
@@ -2990,6 +3141,7 @@
   {
    "@id": "#enanomapper",
    "identifier": "https://w3id.org/fair-tox/dataset#enanomapper",
+   "schemaType": "schema:CreativeWork",
    "key": "enanomapper",
    "name": "eNanoMapper (FP7 project)",
    "alternateName": [
@@ -3017,6 +3169,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.r18yt0",
    "identifier": "https://doi.org/10.25504/FAIRsharing.r18yt0",
+   "schemaType": "schema:CreativeWork",
    "key": "enm_db",
    "name": "eNanoMapper database",
    "decision": "include",
@@ -3075,6 +3228,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2gpf81",
    "identifier": "https://doi.org/10.25504/FAIRsharing.2gpf81",
+   "schemaType": "schema:CreativeWork",
    "key": "enm_ont",
    "name": "eNanoMapper ontology",
    "decision": "include",
@@ -3140,6 +3294,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fx0mw7",
    "identifier": "https://doi.org/10.25504/FAIRsharing.fx0mw7",
+   "schemaType": "schema:CreativeWork",
    "key": "ensembl",
    "name": "Ensembl",
    "decision": "include",
@@ -3166,6 +3321,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.azqskx",
    "identifier": "https://doi.org/10.25504/FAIRsharing.azqskx",
+   "schemaType": "schema:CreativeWork",
    "key": "envo",
    "name": "Environment Ontology",
    "alternateName": [
@@ -3196,6 +3352,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.eca652",
    "identifier": "https://doi.org/10.25504/FAIRsharing.eca652",
+   "schemaType": "schema:CreativeWork",
    "key": "epa_aquatic_life_benchmarks",
    "name": "EPA Aquatic Life Benchmarks",
    "decision": "include",
@@ -3230,6 +3387,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4a5271",
    "identifier": "https://doi.org/10.25504/FAIRsharing.4a5271",
+   "schemaType": "schema:CreativeWork",
    "key": "epa_chemview",
    "name": "EPA ChemView",
    "decision": "include",
@@ -3263,6 +3421,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e1124d",
    "identifier": "https://doi.org/10.25504/FAIRsharing.e1124d",
+   "schemaType": "schema:CreativeWork",
    "key": "epa_integrated_risk_information",
    "name": "EPA Integrated Risk Information System",
    "alternateName": [
@@ -3299,6 +3458,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d4074e",
    "identifier": "https://doi.org/10.25504/FAIRsharing.d4074e",
+   "schemaType": "schema:CreativeWork",
    "key": "epa_substance_registry_services",
    "name": "EPA Substance Registry Services",
    "decision": "include",
@@ -3333,6 +3493,7 @@
   {
    "@id": "#epicrdb",
    "identifier": "https://w3id.org/fair-tox/dataset#epicrdb",
+   "schemaType": "schema:CreativeWork",
    "key": "epicrdb",
    "name": "Chromium Epigenomics Toxicology",
    "alternateName": [
@@ -3371,6 +3532,7 @@
   {
    "@id": "#etox",
    "identifier": "https://w3id.org/fair-tox/dataset#etox",
+   "schemaType": "schema:CreativeWork",
    "key": "etox",
    "name": "eTOX (IMI project)",
    "alternateName": [
@@ -3394,6 +3556,7 @@
   {
    "@id": "#etransafe",
    "identifier": "https://w3id.org/fair-tox/dataset#etransafe",
+   "schemaType": "schema:CreativeWork",
    "key": "etransafe",
    "name": "eTRANSAFE Knowledge Hub",
    "alternateName": [
@@ -3440,6 +3603,7 @@
   {
    "@id": "#etransafe_datasharing",
    "identifier": "https://w3id.org/fair-tox/dataset#etransafe_datasharing",
+   "schemaType": "schema:CreativeWork",
    "key": "etransafe_datasharing",
    "name": "eTRANSAFE FAIR data-sharing guidelines",
    "decision": "exclude",
@@ -3464,6 +3628,7 @@
   {
    "@id": "#etransafe_modelverif",
    "identifier": "https://w3id.org/fair-tox/dataset#etransafe_modelverif",
+   "schemaType": "schema:CreativeWork",
    "key": "etransafe_modelverif",
    "name": "eTRANSAFE model verification guidelines",
    "decision": "exclude",
@@ -3488,6 +3653,7 @@
   {
    "@id": "#etransafe_project",
    "identifier": "https://w3id.org/fair-tox/dataset#etransafe_project",
+   "schemaType": "schema:CreativeWork",
    "key": "etransafe_project",
    "name": "eTRANSAFE (IMI2 project)",
    "alternateName": [
@@ -3515,6 +3681,7 @@
   {
    "@id": "#etransafe_repro",
    "identifier": "https://w3id.org/fair-tox/dataset#etransafe_repro",
+   "schemaType": "schema:CreativeWork",
    "key": "etransafe_repro",
    "name": "eTRANSAFE guidelines for research reproducibility, FAIR data sharing and model verification",
    "alternateName": [
@@ -3552,6 +3719,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b5c52c",
    "identifier": "https://doi.org/10.25504/FAIRsharing.b5c52c",
+   "schemaType": "schema:CreativeWork",
    "key": "euon",
    "name": "European Union Observatory for Nanomaterials",
    "alternateName": [
@@ -3589,6 +3757,7 @@
   {
    "@id": "#europepmc",
    "identifier": "https://w3id.org/fair-tox/dataset#europepmc",
+   "schemaType": "schema:CreativeWork",
    "key": "europepmc",
    "name": "Europe PMC",
    "alternateName": [
@@ -3606,6 +3775,7 @@
   {
    "@id": "#eutoxrisk",
    "identifier": "https://w3id.org/fair-tox/dataset#eutoxrisk",
+   "schemaType": "schema:CreativeWork",
    "key": "eutoxrisk",
    "name": "EU-ToxRisk (H2020 project)",
    "alternateName": [
@@ -3634,6 +3804,7 @@
   {
    "@id": "#eutr_ki",
    "identifier": "https://w3id.org/fair-tox/dataset#eutr_ki",
+   "schemaType": "schema:CreativeWork",
    "key": "eutr_ki",
    "name": "EU-ToxRisk Knowledge Portal (knowledge infrastructure)",
    "alternateName": [
@@ -3682,6 +3853,7 @@
   {
    "@id": "#eutr_methods",
    "identifier": "https://w3id.org/fair-tox/dataset#eutr_methods",
+   "schemaType": "schema:CreativeWork",
    "key": "eutr_methods",
    "name": "EU-ToxRisk Methods Database",
    "alternateName": [
@@ -3709,6 +3881,7 @@
   {
    "@id": "#eutr_notebooks",
    "identifier": "https://w3id.org/fair-tox/dataset#eutr_notebooks",
+   "schemaType": "schema:SoftwareApplication",
    "key": "eutr_notebooks",
    "name": "EU-ToxRisk executable web notebooks",
    "alternateName": [
@@ -3736,6 +3909,7 @@
   {
    "@id": "#exner_metadata",
    "identifier": "https://w3id.org/fair-tox/dataset#exner_metadata",
+   "schemaType": "schema:CreativeWork",
    "key": "exner_metadata",
    "name": "Workflow-based metadata capture for nanosafety (Exner et al. 2023)",
    "alternateName": [
@@ -3764,6 +3938,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6hna78",
    "identifier": "https://doi.org/10.25504/FAIRsharing.6hna78",
+   "schemaType": "schema:CreativeWork",
    "key": "exo",
    "name": "Exposure Ontology",
    "alternateName": [
@@ -3801,6 +3976,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
    "identifier": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
+   "schemaType": "schema:CreativeWork",
    "key": "expexplorer",
    "name": "Exposome Explorer",
    "decision": "include",
@@ -3836,6 +4012,7 @@
   {
    "@id": "#exposome",
    "identifier": "https://w3id.org/fair-tox/dataset#exposome",
+   "schemaType": "schema:CreativeWork",
    "key": "exposome",
    "name": "Exposome (conceptual framework)",
    "alternateName": [
@@ -3856,6 +4033,7 @@
   {
    "@id": "#exposome_sharing",
    "identifier": "https://w3id.org/fair-tox/dataset#exposome_sharing",
+   "schemaType": "schema:CreativeWork",
    "key": "exposome_sharing",
    "name": "Proposals for sharing exposome and biotransformation data",
    "decision": "exclude",
@@ -3878,6 +4056,7 @@
   {
    "@id": "#f2f",
    "identifier": "https://w3id.org/fair-tox/dataset#f2f",
+   "schemaType": "schema:CreativeWork",
    "key": "f2f",
    "name": "ELIXIR Toxicology F2F meeting",
    "alternateName": [
@@ -3894,6 +4073,7 @@
   {
    "@id": "#fair4ai",
    "identifier": "https://w3id.org/fair-tox/dataset#fair4ai",
+   "schemaType": "schema:CreativeWork",
    "key": "fair4ai",
    "name": "FAIR-for-AI",
    "alternateName": [
@@ -3909,6 +4089,7 @@
   {
    "@id": "#fair4chem",
    "identifier": "https://w3id.org/fair-tox/dataset#fair4chem",
+   "schemaType": "schema:CreativeWork",
    "key": "fair4chem",
    "name": "FAIR for chemicals",
    "decision": "exclude",
@@ -3921,6 +4102,7 @@
   {
    "@id": "#fairaop",
    "identifier": "https://w3id.org/fair-tox/dataset#fairaop",
+   "schemaType": "schema:CreativeWork",
    "key": "fairaop",
    "name": "Reference AOP FAIR Implementation Profile",
    "alternateName": [
@@ -3969,6 +4151,7 @@
   {
    "@id": "#fairaop_case",
    "identifier": "https://w3id.org/fair-tox/dataset#fairaop_case",
+   "schemaType": "schema:CreativeWork",
    "key": "fairaop_case",
    "name": "Why adverse outcome pathways need to be FAIR (Wittwehr et al. 2023)",
    "alternateName": [
@@ -3990,6 +4173,7 @@
   {
    "@id": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk#FAIR-AOPs",
    "identifier": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk#FAIR-AOPs",
+   "schemaType": "schema:CreativeWork",
    "key": "fairaop_cluster",
    "name": "FAIR AOP Cluster",
    "decision": "include",
@@ -4012,6 +4196,7 @@
   {
    "@id": "#fairbydesign",
    "identifier": "https://w3id.org/fair-tox/dataset#fairbydesign",
+   "schemaType": "schema:CreativeWork",
    "key": "fairbydesign",
    "name": "FAIR by design",
    "alternateName": [
@@ -4028,6 +4213,7 @@
   {
    "@id": "#fairconnect",
    "identifier": "https://w3id.org/fair-tox/dataset#fairconnect",
+   "schemaType": "schema:SoftwareApplication",
    "key": "fairconnect",
    "name": "FAIR Connect",
    "alternateName": [
@@ -4054,6 +4240,7 @@
   {
    "@id": "#fairlite",
    "identifier": "https://w3id.org/fair-tox/dataset#fairlite",
+   "schemaType": "schema:CreativeWork",
    "key": "fairlite",
    "name": "FAIR Lite principles for computational toxicology models",
    "alternateName": [
@@ -4079,6 +4266,7 @@
   {
    "@id": "#fairmodels",
    "identifier": "https://w3id.org/fair-tox/dataset#fairmodels",
+   "schemaType": "schema:CreativeWork",
    "key": "fairmodels",
    "name": "FAIR recommendations for in silico predictive toxicology models (Cronin et al., 18 recommendations)",
    "alternateName": [
@@ -4104,6 +4292,7 @@
   {
    "@id": "#fairplus",
    "identifier": "https://w3id.org/fair-tox/dataset#fairplus",
+   "schemaType": "schema:CreativeWork",
    "key": "fairplus",
    "name": "FAIRplus (IMI project)",
    "alternateName": [
@@ -4121,6 +4310,7 @@
   {
    "@id": "#fairplus_etox_recipes",
    "identifier": "https://w3id.org/fair-tox/dataset#fairplus_etox_recipes",
+   "schemaType": "schema:SoftwareApplication",
    "key": "fairplus_etox_recipes",
    "name": "FAIRplus FAIRification recipes from the eTOX work",
    "decision": "exclude",
@@ -4135,6 +4325,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.WWI10U",
    "identifier": "https://doi.org/10.25504/FAIRsharing.WWI10U",
+   "schemaType": "schema:CreativeWork",
    "key": "fairprinc",
    "name": "FAIR Guiding Principles",
    "alternateName": [
@@ -4162,6 +4353,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2abjs5",
    "identifier": "https://doi.org/10.25504/FAIRsharing.2abjs5",
+   "schemaType": "schema:CreativeWork",
    "key": "fairsharing",
    "name": "FAIRsharing",
    "alternateName": [
@@ -4192,6 +4384,7 @@
   {
    "@id": "#fics",
    "identifier": "https://w3id.org/fair-tox/dataset#fics",
+   "schemaType": "schema:CreativeWork",
    "key": "fics",
    "name": "FAIR Implementation Communities (FICs)",
    "alternateName": [
@@ -4207,6 +4400,7 @@
   {
    "@id": "#fip_wizard",
    "identifier": "https://w3id.org/fair-tox/dataset#fip_wizard",
+   "schemaType": "schema:SoftwareApplication",
    "key": "fip_wizard",
    "name": "FIP Wizard",
    "alternateName": [
@@ -4236,6 +4430,7 @@
   {
    "@id": "#fipmatrix",
    "identifier": "https://w3id.org/fair-tox/dataset#fipmatrix",
+   "schemaType": "schema:SoftwareApplication",
    "key": "fipmatrix",
    "name": "FIP Matrix tool",
    "alternateName": [
@@ -4262,6 +4457,7 @@
   {
    "@id": "#fipwiz",
    "identifier": "https://w3id.org/fair-tox/dataset#fipwiz",
+   "schemaType": "schema:CreativeWork",
    "key": "fipwiz",
    "name": "FAIR Implementation Profile (FIP)",
    "alternateName": [
@@ -4289,6 +4485,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c7bb32",
    "identifier": "https://doi.org/10.25504/FAIRsharing.c7bb32",
+   "schemaType": "schema:CreativeWork",
    "key": "food_and_feed_information_portal",
    "name": "Food and Feed Information Portal Database",
    "decision": "include",
@@ -4322,6 +4519,7 @@
   {
    "@id": "#ftp",
    "identifier": "https://w3id.org/fair-tox/dataset#ftp",
+   "schemaType": "schema:CreativeWork",
    "key": "ftp",
    "name": "File Transfer Protocol",
    "alternateName": [
@@ -4342,6 +4540,7 @@
   {
    "@id": "#fuji",
    "identifier": "https://w3id.org/fair-tox/dataset#fuji",
+   "schemaType": "schema:SoftwareApplication",
    "key": "fuji",
    "name": "F-UJI",
    "alternateName": [
@@ -4369,6 +4568,7 @@
   {
    "@id": "#funder_policies",
    "identifier": "https://w3id.org/fair-tox/dataset#funder_policies",
+   "schemaType": "schema:CreativeWork",
    "key": "funder_policies",
    "name": "Public funder FAIR data policies",
    "alternateName": [
@@ -4387,6 +4587,7 @@
   {
    "@id": "#gd211",
    "identifier": "https://w3id.org/fair-tox/dataset#gd211",
+   "schemaType": "schema:CreativeWork",
    "key": "gd211",
    "name": "OECD Guidance Document 211 (describing non-guideline in vitro test methods)",
    "alternateName": [
@@ -4425,6 +4626,7 @@
   {
    "@id": "#gd417",
    "identifier": "https://w3id.org/fair-tox/dataset#gd417",
+   "schemaType": "schema:CreativeWork",
    "key": "gd417",
    "name": "OECD Guidance Document on the Generation, Reporting and Use of Research Data for Regulatory Assessments",
    "alternateName": [
@@ -4462,6 +4664,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.5hc8vt",
    "identifier": "https://doi.org/10.25504/FAIRsharing.5hc8vt",
+   "schemaType": "schema:CreativeWork",
    "key": "geo",
    "name": "Gene Expression Omnibus (GEO)",
    "alternateName": [
@@ -4492,6 +4695,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c8f1cd",
    "identifier": "https://doi.org/10.25504/FAIRsharing.c8f1cd",
+   "schemaType": "schema:CreativeWork",
    "key": "ghs_j",
    "name": "NITE Japan-GHS",
    "alternateName": [
@@ -4528,6 +4732,7 @@
   {
    "@id": "#givimp",
    "identifier": "https://w3id.org/fair-tox/dataset#givimp",
+   "schemaType": "schema:CreativeWork",
    "key": "givimp",
    "name": "GIVIMP (OECD Guidance Document on Good In Vitro Method Practices)",
    "alternateName": [
@@ -4559,6 +4764,7 @@
   {
    "@id": "#glp",
    "identifier": "https://w3id.org/fair-tox/dataset#glp",
+   "schemaType": "schema:CreativeWork",
    "key": "glp",
    "name": "Good Laboratory Practice (OECD Principles of GLP)",
    "alternateName": [
@@ -4586,6 +4792,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6xq0ee",
    "identifier": "https://doi.org/10.25504/FAIRsharing.6xq0ee",
+   "schemaType": "schema:CreativeWork",
    "key": "go",
    "name": "Gene Ontology (GO)",
    "alternateName": [
@@ -4616,6 +4823,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.t2e1ss",
    "identifier": "https://doi.org/10.25504/FAIRsharing.t2e1ss",
+   "schemaType": "schema:CreativeWork",
    "key": "harvard_dataverse_repository",
    "name": "Harvard Dataverse Repository",
    "decision": "undecided",
@@ -4633,6 +4841,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.amcv1e",
    "identifier": "https://doi.org/10.25504/FAIRsharing.amcv1e",
+   "schemaType": "schema:CreativeWork",
    "key": "hgnc",
    "name": "HGNC gene symbols",
    "alternateName": [
@@ -4664,6 +4873,7 @@
   {
    "@id": "#http",
    "identifier": "https://w3id.org/fair-tox/dataset#http",
+   "schemaType": "schema:CreativeWork",
    "key": "http",
    "name": "Hypertext Transfer Protocol",
    "alternateName": [
@@ -4684,6 +4894,7 @@
   {
    "@id": "#https",
    "identifier": "https://w3id.org/fair-tox/dataset#https",
+   "schemaType": "schema:CreativeWork",
    "key": "https",
    "name": "Hypertext Transfer Protocol Secure",
    "alternateName": [
@@ -4706,6 +4917,7 @@
   {
    "@id": "#iata",
    "identifier": "https://w3id.org/fair-tox/dataset#iata",
+   "schemaType": "schema:CreativeWork",
    "key": "iata",
    "name": "Integrated Approaches to Testing and Assessment (IATA)",
    "alternateName": [
@@ -4734,6 +4946,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d6e8fa",
    "identifier": "https://doi.org/10.25504/FAIRsharing.d6e8fa",
+   "schemaType": "schema:CreativeWork",
    "key": "icscs",
    "name": "ILO-WHO International Chemical Safety Cards",
    "alternateName": [
@@ -4770,6 +4983,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2b0d92",
    "identifier": "https://doi.org/10.25504/FAIRsharing.2b0d92",
+   "schemaType": "schema:CreativeWork",
    "key": "identifiersorg",
    "name": "Identifiers.org",
    "alternateName": [
@@ -4800,6 +5014,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.801285",
    "identifier": "https://doi.org/10.25504/FAIRsharing.801285",
+   "schemaType": "schema:CreativeWork",
    "key": "igs",
    "name": "IGS - Public Informationssystem für gefährliche Stoffe",
    "alternateName": [
@@ -4836,6 +5051,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ddk9t9",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ddk9t9",
+   "schemaType": "schema:CreativeWork",
    "key": "inchi",
    "name": "InChI (IUPAC International Chemical Identifier)",
    "alternateName": [
@@ -4867,6 +5083,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9gqfpm",
    "identifier": "https://doi.org/10.25504/FAIRsharing.9gqfpm",
+   "schemaType": "schema:CreativeWork",
    "key": "inhand",
    "name": "International Harmonization of Nomenclature and Diagnostic criteria",
    "alternateName": [
@@ -4903,6 +5120,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d05nwx",
    "identifier": "https://doi.org/10.25504/FAIRsharing.d05nwx",
+   "schemaType": "schema:CreativeWork",
    "key": "intact",
    "name": "IntAct molecular interaction database",
    "alternateName": [
@@ -4923,6 +5141,7 @@
   {
    "@id": "#intob",
    "identifier": "https://w3id.org/fair-tox/dataset#intob",
+   "schemaType": "schema:SoftwareApplication",
    "key": "intob",
    "name": "Integrated Effect Database for Toxicological Observations (INTOB)",
    "alternateName": [
@@ -4962,6 +5181,7 @@
   {
    "@id": "#intoxicom",
    "identifier": "https://w3id.org/fair-tox/dataset#intoxicom",
+   "schemaType": "schema:CreativeWork",
    "key": "intoxicom",
    "name": "INTOXICOM (ELIXIR Toxicology implementation study)",
    "alternateName": [
@@ -4978,6 +5198,7 @@
   {
    "@id": "#intoxicom_ws",
    "identifier": "https://w3id.org/fair-tox/dataset#intoxicom_ws",
+   "schemaType": "schema:CreativeWork",
    "key": "intoxicom_ws",
    "name": "INTOXICOM workshops 1-5",
    "alternateName": [
@@ -4997,6 +5218,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.667115",
    "identifier": "https://doi.org/10.25504/FAIRsharing.667115",
+   "schemaType": "schema:CreativeWork",
    "key": "ipchem",
    "name": "Information Platform for Chemical Monitoring",
    "alternateName": [
@@ -5036,6 +5258,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fc4807",
    "identifier": "https://doi.org/10.25504/FAIRsharing.fc4807",
+   "schemaType": "schema:CreativeWork",
    "key": "ipcs_inchem",
    "name": "Internationally Peer Reviewed Chemical Safety Information",
    "alternateName": [
@@ -5072,6 +5295,7 @@
   {
    "@id": "#isa_ext",
    "identifier": "https://w3id.org/fair-tox/dataset#isa_ext",
+   "schemaType": "schema:CreativeWork",
    "key": "isa_ext",
    "name": "ISA extensions for toxicogenomics, environmental exposure and nanotoxicology",
    "decision": "exclude",
@@ -5089,6 +5313,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.yhLgTV",
    "identifier": "https://doi.org/10.25504/FAIRsharing.yhLgTV",
+   "schemaType": "schema:CreativeWork",
    "key": "isajson",
    "name": "ISA-JSON",
    "alternateName": [
@@ -5119,6 +5344,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.53gp75",
    "identifier": "https://doi.org/10.25504/FAIRsharing.53gp75",
+   "schemaType": "schema:CreativeWork",
    "key": "isatab",
    "name": "ISA framework (Investigation-Study-Assay; ISA-Tab)",
    "alternateName": [
@@ -5155,6 +5381,7 @@
   {
    "@id": "#iuclid",
    "identifier": "https://w3id.org/fair-tox/dataset#iuclid",
+   "schemaType": "schema:SoftwareApplication",
    "key": "iuclid",
    "name": "IUCLID (International Uniform Chemical Information Database)",
    "alternateName": [
@@ -5200,6 +5427,7 @@
   {
    "@id": "#iupac",
    "identifier": "https://w3id.org/fair-tox/dataset#iupac",
+   "schemaType": "schema:CreativeWork",
    "key": "iupac",
    "name": "IUPAC (International Union of Pure and Applied Chemistry)",
    "alternateName": [
@@ -5216,6 +5444,7 @@
   {
    "@id": "#iupac_immunotox",
    "identifier": "https://w3id.org/fair-tox/dataset#iupac_immunotox",
+   "schemaType": "schema:CreativeWork",
    "key": "iupac_immunotox",
    "name": "IUPAC Glossary of terms used in immunotoxicology (IUPAC Recommendations 2012)",
    "alternateName": [
@@ -5248,6 +5477,7 @@
   {
    "@id": "#iupac_toxgloss",
    "identifier": "https://w3id.org/fair-tox/dataset#iupac_toxgloss",
+   "schemaType": "schema:CreativeWork",
    "key": "iupac_toxgloss",
    "name": "IUPAC Glossary of terms used in toxicology, 2nd edition (IUPAC Recommendations 2007)",
    "alternateName": [
@@ -5283,6 +5513,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.39044c",
    "identifier": "https://doi.org/10.25504/FAIRsharing.39044c",
+   "schemaType": "schema:CreativeWork",
    "key": "j_check",
    "name": "Japan Chemicals Collaborative Knowledge database",
    "alternateName": [
@@ -5320,6 +5551,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.3b78e1",
    "identifier": "https://doi.org/10.25504/FAIRsharing.3b78e1",
+   "schemaType": "schema:CreativeWork",
    "key": "jecdb",
    "name": "Japan Existing Chemical Database",
    "alternateName": [
@@ -5356,6 +5588,7 @@
   {
    "@id": "#json_ld",
    "identifier": "https://w3id.org/fair-tox/dataset#json_ld",
+   "schemaType": "schema:CreativeWork",
    "key": "json_ld",
    "name": "JavaScript Object Notation for Linking Data",
    "alternateName": [
@@ -5379,6 +5612,7 @@
   {
    "@id": "#kherroubi",
    "identifier": "https://w3id.org/fair-tox/dataset#kherroubi",
+   "schemaType": "schema:CreativeWork",
    "key": "kherroubi",
    "name": "Best practices for computational model sharing (Kherroubi et al.)",
    "alternateName": [
@@ -5399,6 +5633,7 @@
   {
    "@id": "#klimisch",
    "identifier": "https://w3id.org/fair-tox/dataset#klimisch",
+   "schemaType": "schema:CreativeWork",
    "key": "klimisch",
    "name": "Klimisch reliability scoring",
    "alternateName": [
@@ -5427,6 +5662,7 @@
   {
    "@id": "#maqc",
    "identifier": "https://w3id.org/fair-tox/dataset#maqc",
+   "schemaType": "schema:CreativeWork",
    "key": "maqc",
    "name": "MAQC (MicroArray Quality Control project)",
    "alternateName": [
@@ -5450,6 +5686,7 @@
   {
    "@id": "#mars",
    "identifier": "https://w3id.org/fair-tox/dataset#mars",
+   "schemaType": "schema:SoftwareApplication",
    "key": "mars",
    "name": "MARS (Multi-omics Adapter for Repository Submissions)",
    "alternateName": [
@@ -5479,6 +5716,7 @@
   {
    "@id": "#martens2023elixir",
    "identifier": "https://w3id.org/fair-tox/dataset#martens2023elixir",
+   "schemaType": "schema:CreativeWork",
    "key": "martens2023elixir",
    "name": "ELIXIR and Toxicology: a community in development (Martens et al. 2023)",
    "alternateName": [
@@ -5500,6 +5738,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.91yrz6",
    "identifier": "https://doi.org/10.25504/FAIRsharing.91yrz6",
+   "schemaType": "schema:CreativeWork",
    "key": "matrixdb",
    "name": "Extracellular Matrix Interaction Database",
    "alternateName": [
@@ -5520,6 +5759,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.hxvt6c",
    "identifier": "https://doi.org/10.25504/FAIRsharing.hxvt6c",
+   "schemaType": "schema:CreativeWork",
    "key": "mdl_molfile_format",
    "name": "MDL Molfile Format",
    "decision": "include",
@@ -5546,6 +5786,7 @@
   {
    "@id": "#mesh",
    "identifier": "https://w3id.org/fair-tox/dataset#mesh",
+   "schemaType": "schema:CreativeWork",
    "key": "mesh",
    "name": "Medical Subject Headings",
    "alternateName": [
@@ -5566,6 +5807,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.kkdpxe",
    "identifier": "https://doi.org/10.25504/FAIRsharing.kkdpxe",
+   "schemaType": "schema:CreativeWork",
    "key": "metabolights",
    "name": "MetaboLights",
    "decision": "undecided",
@@ -5583,6 +5825,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.32b10v",
    "identifier": "https://doi.org/10.25504/FAIRsharing.32b10v",
+   "schemaType": "schema:CreativeWork",
    "key": "miame",
    "name": "MIAME (Minimum Information About a Microarray Experiment)",
    "alternateName": [
@@ -5614,6 +5857,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
    "identifier": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
+   "schemaType": "schema:CreativeWork",
    "key": "miametox",
    "name": "Minimum Information about an array-based toxicogenomics experiment",
    "alternateName": [
@@ -5660,6 +5904,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.wYScsE",
    "identifier": "https://doi.org/10.25504/FAIRsharing.wYScsE",
+   "schemaType": "schema:CreativeWork",
    "key": "miate",
    "name": "Minimum Information about Animal Toxicology Experiments",
    "alternateName": [
@@ -5696,6 +5941,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a55z32",
    "identifier": "https://doi.org/10.25504/FAIRsharing.a55z32",
+   "schemaType": "schema:CreativeWork",
    "key": "minseqe",
    "name": "Minimal Information about a high throughput SEQuencing Experiment",
    "alternateName": [
@@ -5716,6 +5962,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ap169a",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ap169a",
+   "schemaType": "schema:CreativeWork",
    "key": "miriam",
    "name": "MIRIAM (Minimum Information Requested in the Annotation of biochemical Models)",
    "alternateName": [
@@ -5755,6 +6002,7 @@
   {
    "@id": "#mit_license",
    "identifier": "https://w3id.org/fair-tox/dataset#mit_license",
+   "schemaType": "schema:CreativeWork",
    "key": "mit_license",
    "name": "MIT License",
    "decision": "undecided",
@@ -5772,6 +6020,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e2b341",
    "identifier": "https://doi.org/10.25504/FAIRsharing.e2b341",
+   "schemaType": "schema:CreativeWork",
    "key": "mitnano",
    "name": "Minimum Information Table for the Safety of Engineered Nanomaterials",
    "alternateName": [
@@ -5809,6 +6058,7 @@
   {
    "@id": "#nams",
    "identifier": "https://w3id.org/fair-tox/dataset#nams",
+   "schemaType": "schema:CreativeWork",
    "key": "nams",
    "name": "New Approach Methodologies (NAMs)",
    "alternateName": [
@@ -5837,6 +6087,7 @@
   {
    "@id": "#nanoaop",
    "identifier": "https://w3id.org/fair-tox/dataset#nanoaop",
+   "schemaType": "schema:CreativeWork",
    "key": "nanoaop",
    "name": "Nanomaterial physicochemical data integrated with AOP knowledge in RDF",
    "alternateName": [
@@ -5892,6 +6143,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9e23f2",
    "identifier": "https://doi.org/10.25504/FAIRsharing.9e23f2",
+   "schemaType": "schema:CreativeWork",
    "key": "nanocommons",
    "name": "NanoCommons Knowledge Base",
    "alternateName": [
@@ -5947,6 +6199,7 @@
   {
    "@id": "#nanocommons_meta",
    "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_meta",
+   "schemaType": "schema:SoftwareApplication",
    "key": "nanocommons_meta",
    "name": "NanoCommons metadata stewardship tools and services",
    "decision": "exclude",
@@ -5970,6 +6223,7 @@
   {
    "@id": "#nanocommons_onto",
    "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_onto",
+   "schemaType": "schema:SoftwareApplication",
    "key": "nanocommons_onto",
    "name": "NanoCommons ontology services",
    "decision": "exclude",
@@ -5993,6 +6247,7 @@
   {
    "@id": "#nanocommons_project",
    "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_project",
+   "schemaType": "schema:CreativeWork",
    "key": "nanocommons_project",
    "name": "NanoCommons (H2020 project)",
    "alternateName": [
@@ -6020,6 +6275,7 @@
   {
    "@id": "#nanocommons_services",
    "identifier": "https://w3id.org/fair-tox/dataset#nanocommons_services",
+   "schemaType": "schema:SoftwareApplication",
    "key": "nanocommons_services",
    "name": "NanoCommons interoperability services, computational workflows and cloud-based analysis environments",
    "alternateName": [
@@ -6051,6 +6307,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a6dcff",
    "identifier": "https://doi.org/10.25504/FAIRsharing.a6dcff",
+   "schemaType": "schema:CreativeWork",
    "key": "nanopub",
    "name": "Nanopublication",
    "alternateName": [
@@ -6081,6 +6338,7 @@
   {
    "@id": "#nanosafety_cluster",
    "identifier": "https://w3id.org/fair-tox/dataset#nanosafety_cluster",
+   "schemaType": "schema:CreativeWork",
    "key": "nanosafety_cluster",
    "name": "EU NanoSafety Cluster",
    "alternateName": [
@@ -6109,6 +6367,7 @@
   {
    "@id": "#negdata_opinion",
    "identifier": "https://w3id.org/fair-tox/dataset#negdata_opinion",
+   "schemaType": "schema:CreativeWork",
    "key": "negdata_opinion",
    "name": "Regulatory Forum Opinion Piece: The Value of Publishing Negative Scientific Study Data",
    "decision": "exclude",
@@ -6129,6 +6388,7 @@
   {
    "@id": "#nem",
    "identifier": "https://w3id.org/fair-tox/dataset#nem",
+   "schemaType": "schema:CreativeWork",
    "key": "nem",
    "name": "NEM (unresolved acronym)",
    "alternateName": [
@@ -6144,6 +6404,7 @@
   {
    "@id": "#noeffect_repo",
    "identifier": "https://w3id.org/fair-tox/dataset#noeffect_repo",
+   "schemaType": "schema:CreativeWork",
    "key": "noeffect_repo",
    "name": "Proposed peer-reviewed FAIR repository of no-effect data",
    "decision": "exclude",
@@ -6163,6 +6424,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9ATgeT",
    "identifier": "https://doi.org/10.25504/FAIRsharing.9ATgeT",
+   "schemaType": "schema:CreativeWork",
    "key": "norman_susdat",
    "name": "NORMAN Substance Database",
    "alternateName": [
@@ -6202,6 +6464,7 @@
   {
    "@id": "#nsc",
    "identifier": "https://w3id.org/fair-tox/dataset#nsc",
+   "schemaType": "schema:CreativeWork",
    "key": "nsc",
    "name": "NanoSafety Cluster recommendations for metadata and minimum information",
    "alternateName": [
@@ -6233,6 +6496,7 @@
   {
    "@id": "#oauth",
    "identifier": "https://w3id.org/fair-tox/dataset#oauth",
+   "schemaType": "schema:CreativeWork",
    "key": "oauth",
    "name": "Open Authorization",
    "alternateName": [
@@ -6254,6 +6518,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.284e1z",
    "identifier": "https://doi.org/10.25504/FAIRsharing.284e1z",
+   "schemaType": "schema:CreativeWork",
    "key": "obi",
    "name": "Ontology for Biomedical Investigations (OBI)",
    "alternateName": [
@@ -6284,6 +6549,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.847069",
    "identifier": "https://doi.org/10.25504/FAIRsharing.847069",
+   "schemaType": "schema:CreativeWork",
    "key": "obo",
    "name": "OBO Foundry ontologies",
    "alternateName": [
@@ -6312,6 +6578,7 @@
   {
    "@id": "#oecd",
    "identifier": "https://w3id.org/fair-tox/dataset#oecd",
+   "schemaType": "schema:CreativeWork",
    "key": "oecd",
    "name": "OECD (Organisation for Economic Co-operation and Development)",
    "alternateName": [
@@ -6339,6 +6606,7 @@
   {
    "@id": "#oecd_aop_prog",
    "identifier": "https://w3id.org/fair-tox/dataset#oecd_aop_prog",
+   "schemaType": "schema:CreativeWork",
    "key": "oecd_aop_prog",
    "name": "OECD AOP programme",
    "alternateName": [
@@ -6365,6 +6633,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ced127",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ced127",
+   "schemaType": "schema:CreativeWork",
    "key": "oecd_existing_chemicals_database",
    "name": "OECD Existing Chemicals Database",
    "decision": "include",
@@ -6398,6 +6667,7 @@
   {
    "@id": "#oecd_tg",
    "identifier": "https://w3id.org/fair-tox/dataset#oecd_tg",
+   "schemaType": "schema:CreativeWork",
    "key": "oecd_tg",
    "name": "OECD Test Guidelines",
    "alternateName": [
@@ -6425,6 +6695,7 @@
   {
    "@id": "#oht",
    "identifier": "https://w3id.org/fair-tox/dataset#oht",
+   "schemaType": "schema:CreativeWork",
    "key": "oht",
    "name": "OECD Harmonised Templates (OHTs)",
    "alternateName": [
@@ -6461,6 +6732,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.27tnee",
    "identifier": "https://doi.org/10.25504/FAIRsharing.27tnee",
+   "schemaType": "schema:CreativeWork",
    "key": "omex",
    "name": "OMEX (COMBINE archive format)",
    "alternateName": [
@@ -6501,6 +6773,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.41af40",
    "identifier": "https://doi.org/10.25504/FAIRsharing.41af40",
+   "schemaType": "schema:CreativeWork",
    "key": "oorf",
    "name": "OECD Omics Reporting Framework (OORF)",
    "alternateName": [
@@ -6551,6 +6824,7 @@
   {
    "@id": "#open_data_commons_open_database",
    "identifier": "https://w3id.org/fair-tox/dataset#open_data_commons_open_database",
+   "schemaType": "schema:CreativeWork",
    "key": "open_data_commons_open_database",
    "name": "Open Data Commons Open Database License",
    "decision": "undecided",
@@ -6569,6 +6843,7 @@
   {
    "@id": "#openalex",
    "identifier": "https://w3id.org/fair-tox/dataset#openalex",
+   "schemaType": "schema:CreativeWork",
    "key": "openalex",
    "name": "OpenAlex",
    "alternateName": [
@@ -6586,6 +6861,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.80d69d",
    "identifier": "https://doi.org/10.25504/FAIRsharing.80d69d",
+   "schemaType": "schema:CreativeWork",
    "key": "openfoodtox",
    "name": "EFSA OpenFoodTox",
    "alternateName": [
@@ -6622,6 +6898,7 @@
   {
    "@id": "#openrisknet",
    "identifier": "https://w3id.org/fair-tox/dataset#openrisknet",
+   "schemaType": "schema:SoftwareApplication",
    "key": "openrisknet",
    "name": "OpenRiskNet e-infrastructure",
    "alternateName": [
@@ -6659,6 +6936,7 @@
   {
    "@id": "#openrisknet_project",
    "identifier": "https://w3id.org/fair-tox/dataset#openrisknet_project",
+   "schemaType": "schema:CreativeWork",
    "key": "openrisknet_project",
    "name": "OpenRiskNet (H2020 project)",
    "alternateName": [
@@ -6685,6 +6963,7 @@
   {
    "@id": "#opentox",
    "identifier": "https://w3id.org/fair-tox/dataset#opentox",
+   "schemaType": "schema:CreativeWork",
    "key": "opentox",
    "name": "OpenTox data model (API)",
    "alternateName": [
@@ -6722,6 +7001,7 @@
   {
    "@id": "#opentox_project",
    "identifier": "https://w3id.org/fair-tox/dataset#opentox_project",
+   "schemaType": "schema:CreativeWork",
    "key": "opentox_project",
    "name": "OpenTox (FP7 project)",
    "alternateName": [
@@ -6748,6 +7028,7 @@
   {
    "@id": "#orcid",
    "identifier": "https://w3id.org/fair-tox/dataset#orcid",
+   "schemaType": "schema:CreativeWork",
    "key": "orcid",
    "name": "Open Researcher and Contributor ID",
    "alternateName": [
@@ -6771,6 +7052,7 @@
   {
    "@id": "#osdr",
    "identifier": "https://w3id.org/fair-tox/dataset#osdr",
+   "schemaType": "schema:CreativeWork",
    "key": "osdr",
    "name": "NASA Open Science Data Repository",
    "alternateName": [
@@ -6792,6 +7074,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.atygwy",
    "identifier": "https://doi.org/10.25504/FAIRsharing.atygwy",
+   "schemaType": "schema:CreativeWork",
    "key": "owl",
    "name": "OWL (Web Ontology Language)",
    "alternateName": [
@@ -6825,6 +7108,7 @@
   {
    "@id": "#parc",
    "identifier": "https://w3id.org/fair-tox/dataset#parc",
+   "schemaType": "schema:CreativeWork",
    "key": "parc",
    "name": "PARC FAIR data strategy",
    "alternateName": [
@@ -6852,6 +7136,7 @@
   {
    "@id": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M#PARC",
    "identifier": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M#PARC",
+   "schemaType": "schema:CreativeWork",
    "key": "parc_partnership",
    "name": "European Partnership for the Assessment of Risks from Chemicals (PARC)",
    "alternateName": [
@@ -6886,6 +7171,7 @@
   {
    "@id": "#parcfip",
    "identifier": "https://w3id.org/fair-tox/dataset#parcfip",
+   "schemaType": "schema:CreativeWork",
    "key": "parcfip",
    "name": "PARC Toxicology FAIR Implementation Profile",
    "alternateName": [
@@ -6932,6 +7218,7 @@
   {
    "@id": "http://purl.org/np/RAoZsfUhNx4sYz-IXfsp1xPBH1-YgTGtHpp3BbMQtWHJg#PARCToxicology",
    "identifier": "http://purl.org/np/RAoZsfUhNx4sYz-IXfsp1xPBH1-YgTGtHpp3BbMQtWHJg#PARCToxicology",
+   "schemaType": "schema:CreativeWork",
    "key": "parctoxicology",
    "name": "PARC Chemicals Toxicology Community",
    "alternateName": [
@@ -6948,6 +7235,7 @@
   {
    "@id": "#pbk",
    "identifier": "https://w3id.org/fair-tox/dataset#pbk",
+   "schemaType": "schema:CreativeWork",
    "key": "pbk",
    "name": "PARC exchange standard for FAIR PBK models",
    "alternateName": [
@@ -6994,6 +7282,7 @@
   {
    "@id": "#pbk_models",
    "identifier": "https://w3id.org/fair-tox/dataset#pbk_models",
+   "schemaType": "schema:SoftwareApplication",
    "key": "pbk_models",
    "name": "Physiologically based kinetic (PBK) models",
    "alternateName": [
@@ -7021,6 +7310,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b71e74",
    "identifier": "https://doi.org/10.25504/FAIRsharing.b71e74",
+   "schemaType": "schema:CreativeWork",
    "key": "portail_substances_chimiques_psc",
    "name": "INERIS - Chemical Substances Portal",
    "alternateName": [
@@ -7058,6 +7348,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4ndncv",
    "identifier": "https://doi.org/10.25504/FAIRsharing.4ndncv",
+   "schemaType": "schema:CreativeWork",
    "key": "pro",
    "name": "Protein Ontology (PRO)",
    "alternateName": [
@@ -7088,6 +7379,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.qt3w7z",
    "identifier": "https://doi.org/10.25504/FAIRsharing.qt3w7z",
+   "schemaType": "schema:CreativeWork",
    "key": "pubchem",
    "name": "PubChem",
    "alternateName": [
@@ -7118,6 +7410,7 @@
   {
    "@id": "#pubchem_cid",
    "identifier": "https://w3id.org/fair-tox/dataset#pubchem_cid",
+   "schemaType": "schema:CreativeWork",
    "key": "pubchem_cid",
    "name": "PubChem Compound Identification",
    "alternateName": [
@@ -7138,6 +7431,7 @@
   {
    "@id": "#qaop",
    "identifier": "https://w3id.org/fair-tox/dataset#qaop",
+   "schemaType": "schema:CreativeWork",
    "key": "qaop",
    "name": "Quantitative AOP (qAOP) models",
    "alternateName": [
@@ -7163,6 +7457,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.PB6595",
    "identifier": "https://doi.org/10.25504/FAIRsharing.PB6595",
+   "schemaType": "schema:CreativeWork",
    "key": "qid",
    "name": "Wikidata Identifier",
    "alternateName": [
@@ -7183,6 +7478,7 @@
   {
    "@id": "#qsar",
    "identifier": "https://w3id.org/fair-tox/dataset#qsar",
+   "schemaType": "schema:SoftwareApplication",
    "key": "qsar",
    "name": "Quantitative structure–activity relationship (QSAR) models",
    "alternateName": [
@@ -7213,6 +7509,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ad3e10",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ad3e10",
+   "schemaType": "schema:CreativeWork",
    "key": "qsardb",
    "name": "QSAR DataBase",
    "alternateName": [
@@ -7242,6 +7539,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.p77ph9",
    "identifier": "https://doi.org/10.25504/FAIRsharing.p77ph9",
+   "schemaType": "schema:CreativeWork",
    "key": "rdf",
    "name": "RDF (Resource Description Framework)",
    "alternateName": [
@@ -7276,6 +7574,7 @@
   {
    "@id": "#rdmkit",
    "identifier": "https://w3id.org/fair-tox/dataset#rdmkit",
+   "schemaType": "schema:SoftwareApplication",
    "key": "rdmkit",
    "name": "RDMkit",
    "alternateName": [
@@ -7302,6 +7601,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.acbc28",
    "identifier": "https://doi.org/10.25504/FAIRsharing.acbc28",
+   "schemaType": "schema:CreativeWork",
    "key": "rdmtox",
    "name": "RDMkit toxicology page",
    "alternateName": [
@@ -7353,6 +7653,7 @@
   {
    "@id": "#readacross",
    "identifier": "https://w3id.org/fair-tox/dataset#readacross",
+   "schemaType": "schema:CreativeWork",
    "key": "readacross",
    "name": "Grouping and read-across",
    "alternateName": [
@@ -7380,6 +7681,7 @@
   {
    "@id": "#recipe_aop",
    "identifier": "https://w3id.org/fair-tox/dataset#recipe_aop",
+   "schemaType": "schema:SoftwareApplication",
    "key": "recipe_aop",
    "name": "FAIR Cookbook recipe: Annotating AOP Key Events with ontology terms",
    "alternateName": [
@@ -7427,6 +7729,7 @@
   {
    "@id": "#recipe_bao",
    "identifier": "https://w3id.org/fair-tox/dataset#recipe_bao",
+   "schemaType": "schema:SoftwareApplication",
    "key": "recipe_bao",
    "name": "FAIR Cookbook recipe: Metadata for cell-based assays using Bioassay Ontology (BAO)",
    "alternateName": [
@@ -7480,6 +7783,7 @@
   {
    "@id": "#rodaf",
    "identifier": "https://w3id.org/fair-tox/dataset#rodaf",
+   "schemaType": "schema:SoftwareApplication",
    "key": "rodaf",
    "name": "R-ODAF (Omics Data Analysis Framework for Regulatory application)",
    "alternateName": [
@@ -7519,6 +7823,7 @@
   {
    "@id": "#ror",
    "identifier": "https://w3id.org/fair-tox/dataset#ror",
+   "schemaType": "schema:CreativeWork",
    "key": "ror",
    "name": "Research Organization Registry",
    "alternateName": [
@@ -7539,6 +7844,7 @@
   {
    "@id": "#s2cie",
    "identifier": "https://w3id.org/fair-tox/dataset#s2cie",
+   "schemaType": "schema:SoftwareApplication",
    "key": "s2cie",
    "name": "S2CIE (semantic, syntactic, and context-based information extraction)",
    "alternateName": [
@@ -7577,6 +7883,7 @@
   {
    "@id": "#sbd",
    "identifier": "https://w3id.org/fair-tox/dataset#sbd",
+   "schemaType": "schema:CreativeWork",
    "key": "sbd",
    "name": "Safety by design",
    "alternateName": [
@@ -7602,6 +7909,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9qv71f",
    "identifier": "https://doi.org/10.25504/FAIRsharing.9qv71f",
+   "schemaType": "schema:CreativeWork",
    "key": "sbml",
    "name": "Systems Biology Markup Language (SBML)",
    "alternateName": [
@@ -7632,6 +7940,7 @@
   {
    "@id": "#science_friction",
    "identifier": "https://w3id.org/fair-tox/dataset#science_friction",
+   "schemaType": "schema:CreativeWork",
    "key": "science_friction",
    "name": "Science friction (Edwards et al. 2011)",
    "alternateName": [
@@ -7650,6 +7959,7 @@
   {
    "@id": "#scirap",
    "identifier": "https://w3id.org/fair-tox/dataset#scirap",
+   "schemaType": "schema:SoftwareApplication",
    "key": "scirap",
    "name": "SciRAP (Science in Risk Assessment and Policy)",
    "alternateName": [
@@ -7688,6 +7998,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6f7m6j",
    "identifier": "https://doi.org/10.25504/FAIRsharing.6f7m6j",
+   "schemaType": "schema:CreativeWork",
    "key": "sedml",
    "name": "SED-ML (Simulation Experiment Description Markup Language)",
    "alternateName": [
@@ -7727,6 +8038,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.7z842d",
    "identifier": "https://doi.org/10.25504/FAIRsharing.7z842d",
+   "schemaType": "schema:CreativeWork",
    "key": "send",
    "name": "SEND (Standard for Exchange of Nonclinical Data)",
    "alternateName": [
@@ -7769,6 +8081,7 @@
   {
    "@id": "#seqc",
    "identifier": "https://w3id.org/fair-tox/dataset#seqc",
+   "schemaType": "schema:CreativeWork",
    "key": "seqc",
    "name": "SEQC (Sequencing Quality Control project)",
    "alternateName": [
@@ -7792,6 +8105,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.qv4b3c",
    "identifier": "https://doi.org/10.25504/FAIRsharing.qv4b3c",
+   "schemaType": "schema:CreativeWork",
    "key": "smiles",
    "name": "Simplified Molecular Input Line Entry Specification Format",
    "alternateName": [
@@ -7821,6 +8135,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.87ccfd",
    "identifier": "https://doi.org/10.25504/FAIRsharing.87ccfd",
+   "schemaType": "schema:CreativeWork",
    "key": "sparql",
    "name": "SPARQL",
    "alternateName": [
@@ -7851,6 +8166,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.5fee61",
    "identifier": "https://doi.org/10.25504/FAIRsharing.5fee61",
+   "schemaType": "schema:CreativeWork",
    "key": "spin",
    "name": "Substances in Preparations In the Nordic countries SPIN",
    "alternateName": [
@@ -7888,6 +8204,7 @@
   {
    "@id": "#spreadsheet_harmon",
    "identifier": "https://w3id.org/fair-tox/dataset#spreadsheet_harmon",
+   "schemaType": "schema:CreativeWork",
    "key": "spreadsheet_harmon",
    "name": "Proposals to harmonise spreadsheets for chemicals and bioassay data",
    "decision": "exclude",
@@ -7910,6 +8227,7 @@
   {
    "@id": "#suppl_formats",
    "identifier": "https://w3id.org/fair-tox/dataset#suppl_formats",
+   "schemaType": "schema:CreativeWork",
    "key": "suppl_formats",
    "name": "Structured metadata formats for toxicology publication supplemental files",
    "decision": "exclude",
@@ -7929,6 +8247,7 @@
   {
    "@id": "#suppl_rules",
    "identifier": "https://w3id.org/fair-tox/dataset#suppl_rules",
+   "schemaType": "schema:CreativeWork",
    "key": "suppl_rules",
    "name": "10 rules for supplemental files",
    "decision": "exclude",
@@ -7948,6 +8267,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.psn0h2",
    "identifier": "https://doi.org/10.25504/FAIRsharing.psn0h2",
+   "schemaType": "schema:CreativeWork",
    "key": "t3db",
    "name": "Toxin and Toxin Target Database",
    "alternateName": [
@@ -7985,6 +8305,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.jgbxr",
    "identifier": "https://doi.org/10.25504/FAIRsharing.jgbxr",
+   "schemaType": "schema:CreativeWork",
    "key": "tbc",
    "name": "Tox Biology Checklist",
    "alternateName": [
@@ -8023,6 +8344,7 @@
   {
    "@id": "#temowl",
    "identifier": "https://w3id.org/fair-tox/dataset#temowl",
+   "schemaType": "schema:SoftwareApplication",
    "key": "temowl",
    "name": "TeMOwl",
    "decision": "include",
@@ -8046,6 +8368,7 @@
   {
    "@id": "#tg236",
    "identifier": "https://w3id.org/fair-tox/dataset#tg236",
+   "schemaType": "schema:CreativeWork",
    "key": "tg236",
    "name": "OECD Test Guideline 236 (Fish Embryo Acute Toxicity test)",
    "alternateName": [
@@ -8077,6 +8400,7 @@
   {
    "@id": "#tggates",
    "identifier": "https://w3id.org/fair-tox/dataset#tggates",
+   "schemaType": "schema:CreativeWork",
    "key": "tggates",
    "name": "Open Toxicogenomics Project-Genomics Assisted Toxicity Evaluation system",
    "alternateName": [
@@ -8117,6 +8441,7 @@
   {
    "@id": "#threers",
    "identifier": "https://w3id.org/fair-tox/dataset#threers",
+   "schemaType": "schema:CreativeWork",
    "key": "threers",
    "name": "3Rs (Replacement, Reduction, Refinement)",
    "alternateName": [
@@ -8133,6 +8458,7 @@
   {
    "@id": "#tox21",
    "identifier": "https://w3id.org/fair-tox/dataset#tox21",
+   "schemaType": "schema:CreativeWork",
    "key": "tox21",
    "name": "Tox21",
    "alternateName": [
@@ -8160,6 +8486,7 @@
   {
    "@id": "#toxcast",
    "identifier": "https://w3id.org/fair-tox/dataset#toxcast",
+   "schemaType": "schema:CreativeWork",
    "key": "toxcast",
    "name": "ToxCast",
    "alternateName": [
@@ -8186,6 +8513,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f60a10",
    "identifier": "https://doi.org/10.25504/FAIRsharing.f60a10",
+   "schemaType": "schema:CreativeWork",
    "key": "toxcoll",
    "name": "ELIXIR Toxicology FAIRsharing collection",
    "alternateName": [
@@ -8233,6 +8561,7 @@
   {
    "@id": "#toxdataexplorer",
    "identifier": "https://w3id.org/fair-tox/dataset#toxdataexplorer",
+   "schemaType": "schema:CreativeWork",
    "key": "toxdataexplorer",
    "name": "ToxDataExplorer",
    "decision": "exclude",
@@ -8257,6 +8586,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.emw61v",
    "identifier": "https://doi.org/10.25504/FAIRsharing.emw61v",
+   "schemaType": "schema:CreativeWork",
    "key": "toxml",
    "name": "Toxicology Data Markup Language",
    "alternateName": [
@@ -8293,6 +8623,7 @@
   {
    "@id": "#toxrtool",
    "identifier": "https://w3id.org/fair-tox/dataset#toxrtool",
+   "schemaType": "schema:SoftwareApplication",
    "key": "toxrtool",
    "name": "ToxRTool (Toxicological data Reliability assessment Tool)",
    "alternateName": [
@@ -8329,6 +8660,7 @@
   {
    "@id": "#toxtemp",
    "identifier": "https://w3id.org/fair-tox/dataset#toxtemp",
+   "schemaType": "schema:CreativeWork",
    "key": "toxtemp",
    "name": "ToxTemp",
    "decision": "include",
@@ -8373,6 +8705,7 @@
   {
    "@id": "#uberon",
    "identifier": "https://w3id.org/fair-tox/dataset#uberon",
+   "schemaType": "schema:CreativeWork",
    "key": "uberon",
    "name": "Uber Cross-Species Anatomy Ontology",
    "alternateName": [
@@ -8396,6 +8729,7 @@
   {
    "@id": "#umap",
    "identifier": "https://w3id.org/fair-tox/dataset#umap",
+   "schemaType": "schema:SoftwareApplication",
    "key": "umap",
    "name": "UMAP (Uniform Manifold Approximation and Projection)",
    "alternateName": [
@@ -8414,6 +8748,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.s1ne3g",
    "identifier": "https://doi.org/10.25504/FAIRsharing.s1ne3g",
+   "schemaType": "schema:CreativeWork",
    "key": "uniprot",
    "name": "UniProt",
    "decision": "include",
@@ -8441,6 +8776,7 @@
   {
    "@id": "#usepa",
    "identifier": "https://w3id.org/fair-tox/dataset#usepa",
+   "schemaType": "schema:CreativeWork",
    "key": "usepa",
    "name": "US Environmental Protection Agency (US EPA)",
    "alternateName": [
@@ -8467,6 +8803,7 @@
   {
    "@id": "#wellfair",
    "identifier": "https://w3id.org/fair-tox/dataset#wellfair",
+   "schemaType": "schema:CreativeWork",
    "key": "wellfair",
    "name": "WellFAIR research ecosystem (Petit-Demoulière & Huzard 2026)",
    "alternateName": [
@@ -8488,6 +8825,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6s749p",
    "identifier": "https://doi.org/10.25504/FAIRsharing.6s749p",
+   "schemaType": "schema:CreativeWork",
    "key": "wikidata",
    "name": "Wikidata",
    "decision": "undecided",
@@ -8505,6 +8843,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.1x53qk",
    "identifier": "https://doi.org/10.25504/FAIRsharing.1x53qk",
+   "schemaType": "schema:CreativeWork",
    "key": "wikipathways",
    "name": "WikiPathways",
    "decision": "include",
@@ -8532,6 +8871,7 @@
   {
    "@id": "#woe",
    "identifier": "https://w3id.org/fair-tox/dataset#woe",
+   "schemaType": "schema:CreativeWork",
    "key": "woe",
    "name": "Weight-of-evidence (WoE) assessment",
    "alternateName": [
@@ -8560,6 +8900,7 @@
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.07cf72",
    "identifier": "https://doi.org/10.25504/FAIRsharing.07cf72",
+   "schemaType": "schema:CreativeWork",
    "key": "workflowhub",
    "name": "WorkflowHub",
    "decision": "undecided",
@@ -8577,6 +8918,7 @@
   {
    "@id": "#xmls",
    "identifier": "https://w3id.org/fair-tox/dataset#xmls",
+   "schemaType": "schema:CreativeWork",
    "key": "xmls",
    "name": "eXtensible Markup Language Schema",
    "alternateName": [
@@ -8593,6 +8935,33 @@
    "fsr": [
     "http://purl.org/np/RA5E0NA_BAilxwHhZKQm-ItnFoxw3ateI8UFxZ0rs8N5Q#XML_Schema"
    ]
+  }
+ ],
+ "inLanguage": "en",
+ "keywords": [
+  {
+   "@id": "http://purl.obolibrary.org/obo/NCIT_C17206",
+   "@type": "schema:DefinedTerm",
+   "name": "Toxicology",
+   "identifier": "http://purl.obolibrary.org/obo/NCIT_C17206"
+  },
+  {
+   "@id": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "@type": "schema:DefinedTerm",
+   "name": "FAIR Supporting Resource",
+   "identifier": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+  },
+  {
+   "@id": "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile",
+   "@type": "schema:DefinedTerm",
+   "name": "FAIR Implementation Profile",
+   "identifier": "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
+  },
+  {
+   "@id": "http://edamontology.org/topic_3071",
+   "@type": "schema:DefinedTerm",
+   "name": "Data management",
+   "identifier": "http://edamontology.org/topic_3071"
   }
  ]
 }

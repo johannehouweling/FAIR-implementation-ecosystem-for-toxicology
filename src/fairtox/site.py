@@ -5,6 +5,7 @@ The build, deployed to GitHub Pages, holds the included resources only, without 
 """
 import copy
 import csv
+import hashlib
 import io
 import json
 import re
@@ -124,6 +125,8 @@ def public(doc):
         p['fipDeclaration'] = [d for d in r.get('fipDeclaration', []) if ids & {d.get(k) for k in model.FIP_PROPERTIES}]
         p['declaredIn'] = [x for x in r.get('declaredIn', []) if x in ids]
         p['declared-by'] = r.get('declared-by') if r.get('declared-by') in ids else None
+        if p.get('maintained') == 'unknown':   # nothing is stated when the status could not be established
+            del p['maintained']
         out['hasPart'].append({k: v for k, v in p.items() if v not in (None, [])})
     return out
 
@@ -131,7 +134,7 @@ def public(doc):
 def page_meta(doc):
     return {
         'title': doc['name'], 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
-        'creator': doc.get('creator', ''), 'sources': doc.get('sources', {}), 'lanes': model.LANES,
+        'creator': doc['creator']['name'], 'sources': doc.get('sources', {}), 'lanes': model.LANES,
         'toxLanes': model.TOX_LANES, 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
         'communities': sorted(v[0] for v in model.fsr_types().values() if v[1] == model.FIC),   # never drawn
         'creatorLanes': list(model.CREATOR_LANE_DEF), 'creatorLaneDef': model.CREATOR_LANE_DEF,
@@ -140,7 +143,7 @@ def page_meta(doc):
         'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': PUBLIC_REPO, 'pages': PAGES,   # source is private
         # field -> term, for the data dictionary; the prefixes (full IRIs) are not fields
         'terms': {f: model.term(f) for f in model.CONTEXT if f[0] != '@' and model.term(f)
-                  and not model.term(f).startswith('http')},
+                  and not model.term(f).startswith(('http', '@'))},
         # list -> value -> the name of its term of ours, the anchor where the term's IRI lands
         'termAnchors': {name: {v: model.concept(name, v)[len(model.TERMS):] for v in model.VOCABULARIES[name]
                                if v not in model.SAME.get(name, {})} for name in model.TERM_SETS},
@@ -153,8 +156,8 @@ def schema_org(doc):
     d = {
         '@context': 'https://schema.org', '@type': 'Dataset', 'name': doc['name'], 'description': doc['description'],
         'url': PAGES, 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
-        'license': doc['license'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
-        'creator': {'@type': 'Organization', 'name': doc.get('creator', '')},
+        'license': doc['license']['@id'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
+        'creator': {'@type': 'Organization', 'name': doc['creator']['name']},
         'keywords': ['FAIR', 'toxicology', 'FAIR supporting resources', 'FAIRsharing', 'research data management'],
         'distribution': [
             {'@type': 'DataDownload', 'encodingFormat': 'application/ld+json',
@@ -166,6 +169,40 @@ def schema_org(doc):
     if doc.get('identifier'):
         d['identifier'] = doc['identifier']
     return d
+
+
+# Published files the dataset lists as downloads: media type, and the standard each follows.
+DOWNLOADS = {'fair-tox-ecosystem.jsonld': ('application/ld+json', 'https://www.w3.org/TR/json-ld11/'),
+             'resources.csv': ('text/csv', 'https://www.rfc-editor.org/rfc/rfc4180'),
+             'relations.csv': ('text/csv', 'https://www.rfc-editor.org/rfc/rfc4180'),
+             'terms.ttl': ('text/turtle', 'https://www.w3.org/TR/turtle/')}
+CDIF = ['https://w3id.org/cdif/core/1.1', 'https://w3id.org/cdif/discovery/1.1']
+
+
+def discovery(doc, out):
+    """What the CDIF Discovery profile asks of the published dataset itself: its identifier (the Zenodo DOI once
+    deposited, else its w3id address), landing page, release date (CITATION.cff), the years its resources span, the
+    terms of its fields, its downloads with their checksums (the dataset file cannot carry its own), and the catalog
+    record that declares conformance to CDIF Core and Discovery 1.1."""
+    pid = doc.get('identifier') or model.BASE
+    released = re.search(r'^date-released: *(\S+)', Path('CITATION.cff').read_text(encoding='utf-8'), re.M)
+    years = sorted(filter(None, map(model._year, doc['hasPart'])))
+    return {
+        'identifier': {'@type': 'schema:PropertyValue', 'value': pid, 'url': pid,
+                       **({'propertyID': 'https://registry.identifiers.org/registry/doi'} if '//doi.org/' in pid else {})},
+        'url': PAGES, **({'datePublished': released.group(1)} if released else {}),
+        **({'temporalCoverage': f'{years[0]}/{years[-1]}'} if years else {}), 'wasDerivedFrom': doc['isBasedOn'],
+        'variableMeasured': [{'@type': 'schema:PropertyValue', 'name': f, 'propertyID': model.iri(model.term(f))}
+                             for f in model.FIELD_ORDER if ':' in (model.term(f) or '')],
+        'distribution': [{'@type': 'schema:DataDownload', 'contentUrl': PAGES + name, 'encodingFormat': media,
+                          'conformsTo': spec, **({'checksum': {
+                              '@type': 'spdx:Checksum', 'algorithm': 'SHA-256',
+                              'checksumValue': hashlib.sha256(out[name].encode('utf-8')).hexdigest()}} if name in out else {})}
+                         for name, (media, spec) in DOWNLOADS.items()],
+        'subjectOf': {'@id': PAGES + 'fair-tox-ecosystem.jsonld', '@type': 'schema:Dataset',
+                      'additionalType': 'dcat:CatalogRecord', 'about': '', 'conformsTo': CDIF,
+                      'sdDatePublished': doc.get('dateModified', '')},
+    }
 
 
 def _script_json(value):
@@ -202,9 +239,10 @@ def build(doc, outdir, offline=False):
     page = page.replace('__SCHEMA__', _script_json(schema_org(doc)))
     page = page.replace('__DATA__', _script_json({'nodes': nodes, 'links': links, 'declarations': declarations,
                                                   'meta': page_meta(doc)}))
-    out = {'index.html': page, 'fair-tox-ecosystem.jsonld': model.dumps(doc), 'resources.csv': _csv(NODE_FIELDS, nodes),
+    out = {'index.html': page, 'resources.csv': _csv(NODE_FIELDS, nodes),
            'relations.csv': _csv(RELATION_FIELDS, model.relation_rows(doc)), 'terms.ttl': terms.serialize(format='turtle'),
            'terms.jsonld': model.dumps(jsonld), 'context.jsonld': model.dumps({'@context': model.CONTEXT})}
+    out['fair-tox-ecosystem.jsonld'] = model.dumps({**doc, **discovery(doc, out)})
     leaks = [name for name, text in out.items() if re.search('manuscript', text, re.I)]
     if leaks:   # a last guard: the public pages go live from CI
         raise ValueError(f'public build not written: {", ".join(leaks)} mention the manuscript')

@@ -5,7 +5,7 @@
 - Terms: every field in the graph is a schema.org term, else a DCAT term, and the FIP ontology's for FSR types and
   FIP declarations; the dataset defines no properties of its own. Controlled values are IRIs: outside concepts where
   one exists (FAIRsharing's subject terms for the scopes, MeSH and NCIT for four sub-domains, ADMS for in development),
-  else 19 defined terms of the dataset (`schema:DefinedTerm` and `skos:Concept`) in `terms.ttl`. Phases and creator
+  else defined terms of the dataset (`schema:DefinedTerm` and `skos:Concept`) in `terms.ttl`. Phases and creator
   types are DCAT themes. Derived and curation fields stay out of the graph: the context has no `@vocab`.
 - Dates are stored under the property of what they refer to: `datePublished`, `dateReleased` (`dct:issued`),
   `dateAdopted` (`dct:dateAccepted`), `dateCreated`, or `date` when no basis is recorded. The curation sheet keeps
@@ -14,6 +14,15 @@
   identifier, its Type column is now FAIRsharing type, and each header note names the column's term.
 - The dashboard's data dictionary shows each field's term and has an anchor for each term of the dataset; the
   published credit names the nanopublications of the two FIPs.
+- CDIF: the published dataset conforms to CODATA's CDIF Discovery profile 1.1, checked in CI with CODATA's SHACL
+  rules. schema.org is written `http://schema.org/`; the dataset states its identifier, landing page, release date,
+  temporal coverage, sources, the terms of its fields and its downloads with checksums, and a catalog record declares
+  conformance. Resources get a schema.org type, the date source is `schema:citation`, homepages are text, the
+  creator is the ELIXIR Toxicology Community within ELIXIR (ROR), the licence a labelled link, and keywords defined
+  terms. The term lists follow the CDIF Concept Scheme profile 1.1.
+- Fewer own terms (19 to 12): IUPAC Gold Book entries for nanotoxicology and computational toxicology, EFO and SIO
+  concepts for the creator types, the EU status "discontinued"; an unknown status is not published. The remaining
+  terms link to Terms4FAIRskills, EDAM, MeSH, IUPAC, Wikidata, W3C PROF, CiTO and SIO.
 
 ## 0.2.0 (2026-10-09)
 

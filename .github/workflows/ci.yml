@@ -36,6 +36,12 @@ jobs:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
           FAIRSHARING_PASSWORD: ${{ secrets.FAIRSHARING_PASSWORD }}
         run: uv run fairtox site build/site
+      - name: Check the dataset against the CDIF Discovery profile 1.1
+        # CODATA's own SHACL shapes (doc-corediscovery v1.1.1, pinned by commit); warnings are recommendations
+        run: >-
+          uvx --from pyshacl==0.40.1 pyshacl --advanced --allow-warnings --data-file-format json-ld
+          --shacl https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/doc-corediscovery/a50ccb0c1fe5bef7d1a34f66fdd3affa24590d8d/discoveryDocRules.shacl
+          build/site/fair-tox-ecosystem.jsonld
       - name: Check out the public dashboard repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

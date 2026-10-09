@@ -15,7 +15,7 @@ import re
 import tempfile
 
 import rdflib
-from rdflib import DCTERMS, OWL, RDF, RDFS, SDO, SKOS, Literal, URIRef
+from rdflib import DCTERMS, OWL, RDF, RDFS, SKOS, Literal, URIRef
 
 from fairtox import __version__, web
 
@@ -212,19 +212,33 @@ VOCABULARIES = {
 
 # ---- JSON-LD shape ---------------------------------------------------------------------------------------------------
 
+SCHEMA = rdflib.Namespace('http://schema.org/')   # as schema.org's own JSON-LD context and CDIF write it
 # Controlled values that are outside concepts: the graph uses their IRIs and the dataset defines no term for them.
 NCIT_TOXICOLOGY = 'http://purl.obolibrary.org/obo/NCIT_C17206'
+IUPAC = 'https://doi.org/10.1351/goldbook.'   # IUPAC Gold Book, which holds the IUPAC glossary of terms used in toxicology
+T4FS, EDAM, MESH = 'http://purl.obolibrary.org/obo/T4FS_', 'http://edamontology.org/', 'http://id.nlm.nih.gov/mesh/'
+WIKIDATA = 'http://www.wikidata.org/entity/'
 SAME = {
     'scope': {'Generic': 'http://www.fairsharing.org/ontology/subject/SRAO_0000401',   # FAIRsharing's subjects
               'Life Sciences': 'http://aims.fao.org/aos/agrovoc/c_4318', 'Toxicology': NCIT_TOXICOLOGY},
-    'subdomains': {'eco-toxicology': 'http://id.nlm.nih.gov/mesh/D054750',
-                   'exposome': 'http://id.nlm.nih.gov/mesh/D000081413',
-                   'toxicogenomics': 'http://purl.obolibrary.org/obo/NCIT_C20179',
-                   'AOP-based mechanistic knowledge': 'http://id.nlm.nih.gov/mesh/D000073931'},
-    'maintained': {'in development': 'http://purl.org/adms/status/UnderDevelopment'},
+    'subdomains': {'nanotoxicology': IUPAC + '15908', 'eco-toxicology': MESH + 'D054750',
+                   'exposome': MESH + 'D000081413', 'toxicogenomics': 'http://purl.obolibrary.org/obo/NCIT_C20179',
+                   'AOP-based mechanistic knowledge': MESH + 'D000073931',
+                   'computational and predictive toxicology': IUPAC + '15583'},
+    'stakeholders': {'Wet-lab research': 'http://www.ebi.ac.uk/efo/EFO_0009741',       # experimental scientist
+                     'In silico research': 'http://www.ebi.ac.uk/efo/EFO_0009742',     # computational scientist
+                     'Regulator': 'http://semanticscience.org/resource/SIO_000619'},   # regulatory authority
+    'maintained': {'in development': 'http://purl.org/adms/status/UnderDevelopment',
+                   'discontinued': 'http://publications.europa.eu/resource/authority/dataset-status/DISCONT',
+                   'unknown': 'http://purl.obolibrary.org/obo/NCIT_C17998'},   # left out of the published dataset
 }
-# Lists whose values are IRIs in the graph and have defined terms of ours where SAME has none.
-TERM_SETS = ('phase', 'stakeholders', 'subdomains', 'maintained', 'hadRole')
+# Lists with values that have no outside concept, and so terms of ours, each list a concept scheme with this definition.
+TERM_SETS = {
+    'phase': 'Data life-cycle phases that a toxicology resource acts on.',
+    'subdomains': 'Toxicology sub-domains that a resource serves, where no outside concept exists.',
+    'maintained': 'Maintenance statuses of a resource, where no outside concept exists.',
+    'hadRole': "FAIRsharing's labels for relations between records, read subject first.",
+}
 # A date is stored under the property of what it refers to, its basis (DataCite's date types Issued, Accepted and
 # Created, as crosswalked to schema.org and DCTERMS; publication and release, both Issued, are told apart by schema.org's
 # date of first publication and DCAT's release date); a date of unrecorded basis is a dct:date. The sheet shows each
@@ -253,16 +267,30 @@ def _values(term, name, vocab, **entry):
 # and vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
 CONTEXT = {
     '@version': 1.1, '@base': BASE,
-    'schema': 'https://schema.org/', 'dcat': 'http://www.w3.org/ns/dcat#', 'dct': 'http://purl.org/dc/terms/',
+    'schema': str(SCHEMA), 'dcat': 'http://www.w3.org/ns/dcat#', 'dct': 'http://purl.org/dc/terms/',
     'skos': 'http://www.w3.org/2004/02/skos/core#', 'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'fip': FIP,
+    'prov': 'http://www.w3.org/ns/prov#', 'spdx': 'http://spdx.org/rdf/terms#',
     'identifier': {'@id': 'schema:identifier', '@type': '@id'},
     'name': 'schema:name', 'alternateName': {'@id': 'schema:alternateName', '@container': '@set'},
-    'description': 'schema:description', 'url': {'@id': 'schema:url', '@type': '@id'},
-    'creator': 'schema:creator', 'version': 'schema:version',
+    'description': 'schema:description', 'url': 'schema:url',   # text, as CDIF requires
+    'creator': 'schema:creator', 'version': 'schema:version', 'inLanguage': 'schema:inLanguage',
     'dateModified': 'schema:dateModified', 'license': {'@id': 'schema:license', '@type': '@id'},
     'creditText': 'schema:creditText', 'isBasedOn': {'@id': 'schema:isBasedOn', '@type': '@id'},
+    'wasDerivedFrom': {'@id': 'prov:wasDerivedFrom', '@type': '@id'},
+    'keywords': {'@id': 'schema:keywords', '@container': '@set'},
+    'parentOrganization': {'@id': 'schema:parentOrganization', '@type': '@id'},
+    'temporalCoverage': 'schema:temporalCoverage',
+    'variableMeasured': {'@id': 'schema:variableMeasured', '@container': '@set'},
+    'propertyID': {'@id': 'schema:propertyID', '@type': '@id'}, 'value': 'schema:value',
+    'distribution': {'@id': 'schema:distribution', '@container': '@set'},
+    'contentUrl': 'schema:contentUrl', 'encodingFormat': 'schema:encodingFormat',
+    'conformsTo': {'@id': 'dct:conformsTo', '@type': '@id'},
+    'checksum': 'spdx:checksum', 'algorithm': 'spdx:algorithm',
+    'checksumValue': 'spdx:checksumValue',
+    'subjectOf': 'schema:subjectOf', 'about': {'@id': 'schema:about', '@type': '@id'},   # the catalog record
+    'additionalType': {'@id': 'schema:additionalType', '@type': '@id'}, 'sdDatePublished': 'schema:sdDatePublished',
     'hasPart': {'@id': 'schema:hasPart', '@container': '@set'},
-    'key': 'dct:identifier', 'type': 'schema:additionalType',
+    'schemaType': '@type', 'key': 'dct:identifier', 'type': 'schema:additionalType',
     'fsrType': {'@id': 'rdf:type', '@type': '@id', '@container': '@set'},
     'scope': _values('schema:about', 'scope', SCOPE),
     'subdomains': _values('schema:about', 'subdomains', SUBDOMAINS, **{'@container': '@set'}),
@@ -271,7 +299,7 @@ CONTEXT = {
     'maintained': _values('schema:creativeWorkStatus', 'maintained', MAINTAINED),
     'datePublished': 'schema:datePublished', 'dateReleased': 'dct:issued', 'dateAdopted': 'dct:dateAccepted',
     'dateCreated': 'schema:dateCreated', 'date': 'dct:date',
-    'dateSource': {'@id': 'schema:subjectOf', '@type': '@id'},
+    'dateSource': {'@id': 'schema:citation', '@type': '@id'},   # CDIF keeps subjectOf for the catalog record
     'fairsharingRecord': {'@id': 'schema:sameAs', '@type': '@vocab', '@context': {'@vocab': 'https://fairsharing.org/'}},
     'qualifiedRelation': {'@id': 'dcat:qualifiedRelation', '@container': '@set'},
     'relation': {'@id': 'dct:relation', '@type': '@id'},
@@ -281,15 +309,36 @@ CONTEXT = {
     **{p: {'@id': 'fip:' + p, '@type': '@id'} for p in FIP_PROPERTIES},
     'fsr': {'@id': 'skos:exactMatch', '@type': '@id', '@container': '@set'},
 }
-# Links of our terms to outside terms, where one is close: (list, value, SKOS mapping property, outside term).
+# Links from a value's concept to outside concepts: (list, value, SKOS mapping property, outside concept). Some link
+# an outside concept the dataset uses to another one, such as the IUPAC entry of a MeSH concept.
 TERM_LINKS = [
-    ('hadRole', 'implements', SKOS.closeMatch, URIRef(FIP + 'implements')),
+    ('phase', 'Data generation', SKOS.closeMatch, T4FS + '0000108'),              # data production
+    ('phase', 'Data generation', SKOS.closeMatch, EDAM + 'topic_3077'),           # data acquisition
+    ('phase', 'Data integration', SKOS.closeMatch, T4FS + '0000487'),             # data integration
+    ('phase', 'Data integration', SKOS.closeMatch, EDAM + 'topic_3366'),          # data integration and warehousing
+    ('phase', 'Regulatory assessment', SKOS.relatedMatch, MESH + 'D018570'),      # risk assessment
+    ('phase', 'Regulatory assessment', SKOS.relatedMatch, EDAM + 'topic_3394'),   # regulatory affairs
+    ('phase', 'Regulatory assessment', SKOS.relatedMatch, T4FS + '0000507'),      # data quality
+    ('phase', 'Regulatory assessment', SKOS.relatedMatch, IUPAC + '16194'),       # weight-of-evidence for toxicity
+    ('subdomains', 'in vitro toxicology', SKOS.closeMatch, WIKIDATA + 'Q6013136'),
+    ('subdomains', 'regulatory toxicology', SKOS.relatedMatch, WIKIDATA + 'Q2448782'),   # regulatory science
+    *[('subdomains', s, SKOS.broadMatch, o) for s in ('in vitro toxicology', 'regulatory toxicology')
+      for o in (NCIT_TOXICOLOGY, IUPAC + 'T06417')],
+    ('subdomains', 'eco-toxicology', SKOS.exactMatch, IUPAC + '14399'),
+    ('subdomains', 'toxicogenomics', SKOS.exactMatch, IUPAC + '16156'),
+    ('stakeholders', 'Regulator', SKOS.closeMatch, 'http://purl.obolibrary.org/obo/OBI_0000450'),   # regulatory agency
+    ('maintained', 'active', SKOS.closeMatch,
+     'http://publications.europa.eu/resource/authority/distribution-status/ONGOING'),
+    ('hadRole', 'implements', SKOS.closeMatch, FIP + 'implements'),
+    ('hadRole', 'implements', SKOS.closeMatch, 'http://semanticscience.org/resource/SIO_000233'),
     ('hadRole', 'implements', SKOS.closeMatch, DCTERMS.conformsTo),
-    ('hadRole', 'profiles', SKOS.closeMatch, DCTERMS.conformsTo), ('hadRole', 'extends', SKOS.closeMatch, SDO.isBasedOn),
-    ('hadRole', 'deprecates', SKOS.closeMatch, DCTERMS.replaces),
-    ('hadRole', 'related_to', SKOS.closeMatch, DCTERMS.relation),
-    ('maintained', 'discontinued', SKOS.closeMatch, URIRef('http://purl.org/adms/status/Deprecated')),
-    *[('subdomains', s, SKOS.broadMatch, URIRef(NCIT_TOXICOLOGY)) for s in SUBDOMAINS if s not in SAME['subdomains']],
+    ('hadRole', 'profiles', SKOS.exactMatch, 'http://www.w3.org/ns/dx/prof/isProfileOf'),
+    ('hadRole', 'profiles', SKOS.broadMatch, DCTERMS.conformsTo),
+    ('hadRole', 'extends', SKOS.closeMatch, 'http://purl.org/spar/cito/extends'),
+    ('hadRole', 'extends', SKOS.broadMatch, SCHEMA.isBasedOn),
+    ('hadRole', 'deprecates', SKOS.exactMatch, DCTERMS.replaces),
+    ('hadRole', 'related_to', SKOS.exactMatch, DCTERMS.relation),
+    ('hadRole', 'recommends', SKOS.broadMatch, DCTERMS.relation),
 ]
 
 
@@ -297,15 +346,24 @@ def term(field):
     """The term a field maps to, as the context writes it (schema:url); None for a field out of the graph."""
     entry = CONTEXT.get(field)
     return entry.get('@id') if isinstance(entry, dict) else entry
-# Curated fields, in file order; edited in the Sheet. '@id', 'identifier', 'buildsOnFair', 'fsrCategory', 'declaredIn'
-# and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
+
+
+def iri(curie):
+    """A compact IRI of the context (schema:url) in full."""
+    prefix, _, local = curie.partition(':')
+    return CONTEXT[prefix] + local
+
+
+# Curated fields, in file order; edited in the Sheet. '@id', 'identifier', 'schemaType', 'buildsOnFair', 'fsrCategory',
+# 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
            'phase', 'span', 'stakeholders', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
            'reviewedBy', 'note']
-FIELD_ORDER = ['@id', 'identifier'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles', 'fsr',
-                                                 'qualifiedRelation', 'declared-by', 'fipDeclaration', 'fairsharing']
+FIELD_ORDER = ['@id', 'identifier', 'schemaType'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles',
+                                                               'fsr', 'qualifiedRelation', 'declared-by', 'fipDeclaration',
+                                                               'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
 LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders', 'fsrType', 'span'}
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
@@ -321,10 +379,22 @@ def new_document(resources=()):
                        'Resource or another FAIR Supporting Resource, curated '
                        'by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with '
                        'first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.',
-        'version': __version__, 'dateModified': '', 'license': 'https://creativecommons.org/licenses/by-sa/4.0/',
-        'creator': 'ELIXIR Toxicology Community', 'creditText': FAIRSHARING_CREDIT, 'isBasedOn': [COLLECTION_DOI],
+        'version': __version__, 'dateModified': '', 'inLanguage': 'en', 'license': LICENSE, 'creator': CREATOR,
+        'keywords': KEYWORDS, 'creditText': FAIRSHARING_CREDIT, 'isBasedOn': [COLLECTION_DOI],
         'sources': {}, 'vocabularies': VOCABULARIES, 'hasPart': list(resources),
     }
+
+
+# The dataset header that does not change between saves (normalise() keeps it current).
+LICENSE = {'@id': 'https://creativecommons.org/licenses/by-sa/4.0/', '@type': 'schema:CreativeWork', 'name': 'CC BY-SA 4.0',
+           'url': 'https://creativecommons.org/licenses/by-sa/4.0/'}
+CREATOR = {'@type': 'schema:Organization', 'name': 'ELIXIR Toxicology Community',
+           'url': 'https://elixir-europe.org/communities/toxicology',
+           'parentOrganization': {'@id': 'https://ror.org/044rwnt51', '@type': 'schema:Organization', 'name': 'ELIXIR'}}
+KEYWORDS = [{'@id': i, '@type': 'schema:DefinedTerm', 'name': n, 'identifier': i} for n, i in (
+    ('Toxicology', NCIT_TOXICOLOGY), ('FAIR Supporting Resource', FSR),
+    ('FAIR Implementation Profile', FIP + 'FAIR-Implementation-Profile'), ('Data management', EDAM + 'topic_3071'))]
+HEADER = ('description', 'inLanguage', 'license', 'creator', 'keywords')
 
 
 def vocabulary(doc):
@@ -333,22 +403,24 @@ def vocabulary(doc):
     value that has no outside concept. Its name is the stored value; its definition comes from the document."""
     t, head = rdflib.Namespace(TERMS), URIRef(TERMS[:-1])
     g = rdflib.Graph(bind_namespaces='none')
-    for prefix, ns in (('terms', TERMS), ('fip', FIP), ('schema', SDO), ('dct', DCTERMS), ('skos', SKOS),
+    for prefix, ns in (('terms', TERMS), ('fip', FIP), ('schema', SCHEMA), ('dct', DCTERMS), ('skos', SKOS),
                        ('rdf', RDF), ('rdfs', RDFS), ('owl', OWL)):
         g.bind(prefix, ns)
     g += [(head, RDF.type, OWL.Ontology), (head, RDFS.label, Literal(f"Terms of the {doc['name']}")),
-          (head, OWL.versionInfo, Literal(doc['version'])), (head, DCTERMS.license, URIRef(doc['license']))]
-    for name in TERM_SETS:
+          (head, OWL.versionInfo, Literal(doc['version'])), (head, DCTERMS.license, URIRef(LICENSE['@id']))]
+    for name, about in TERM_SETS.items():           # each a concept scheme of the CDIF Concept Scheme profile
         s = t[name + '-values']
-        g += [(s, RDF.type, SDO.DefinedTermSet), (s, RDF.type, SKOS.ConceptScheme),
-              (s, SDO.name, Literal(name + ' values')), (s, SKOS.prefLabel, Literal(name + ' values'))]
+        g += [(s, RDF.type, SCHEMA.DefinedTermSet), (s, RDF.type, SKOS.ConceptScheme), (s, SCHEMA.name, Literal(name + ' values')),
+              (s, SKOS.prefLabel, Literal(name + ' values')), (s, SKOS.definition, Literal(about)),
+              (s, DCTERMS.conformsTo, URIRef('https://w3id.org/cdif/conceptscheme/1.1'))]
         for value, definition in doc['vocabularies'][name].items():
             if value not in SAME.get(name, {}):
                 c = URIRef(concept(name, value))
-                g += [(c, RDF.type, SDO.DefinedTerm), (c, RDF.type, SKOS.Concept), (c, SDO.name, Literal(value)),
-                      (c, SKOS.prefLabel, Literal(value)), (c, SDO.description, Literal(definition)),
-                      (c, SDO.termCode, Literal(c[len(TERMS):])), (c, SDO.inDefinedTermSet, s), (c, SKOS.inScheme, s)]
-    g += [(URIRef(concept(name, value)), p, o) for name, value, p, o in TERM_LINKS]
+                g += [(c, RDF.type, SCHEMA.DefinedTerm), (c, RDF.type, SKOS.Concept), (c, SCHEMA.name, Literal(value)),
+                      (c, SKOS.prefLabel, Literal(value)), (c, SCHEMA.description, Literal(definition)),
+                      (c, SKOS.definition, Literal(definition)), (c, SCHEMA.termCode, Literal(c[len(TERMS):])),
+                      (c, SCHEMA.inDefinedTermSet, s), (c, SKOS.inScheme, s), (s, SKOS.hasTopConcept, c)]
+    g += [(URIRef(concept(name, value)), p, URIRef(o)) for name, value, p, o in TERM_LINKS]
     return g
 
 
@@ -467,6 +539,7 @@ def normalise(doc):
                 r[DATE_FIELDS[basis]] = date
         r['@id'] = iri_of(r)
         r['identifier'] = r['@id'] if r['@id'].startswith('http') else BASE + r['@id']
+        r['schemaType'] = 'schema:SoftwareApplication' if r.get('type') == 'Tool' else 'schema:CreativeWork'
     new_ids = {r['key']: r['@id'] for r in doc['hasPart']}
     target = lambda v: new_ids.get(old_ids.get(v, v.lstrip('#')), v)
     declared = {}                                           # target @id -> [(FIP @id, principle)]
@@ -493,7 +566,7 @@ def normalise(doc):
     doc['@context'] = CONTEXT
     doc['vocabularies'] = VOCABULARIES
     doc['version'] = __version__
-    doc['description'] = new_document()['description']
+    doc.update({k: new_document()[k] for k in HEADER})
     return doc
 
 

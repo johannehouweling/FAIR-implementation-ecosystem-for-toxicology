@@ -572,15 +572,16 @@ class SiteTest(TempDir):
 
     def test_vocabulary_context_and_anchors_resolve_our_iris(self):
         import rdflib
-        from rdflib import DCAT, DCTERMS, RDF, SDO, SKOS, Literal, URIRef
+        from rdflib import DCAT, DCTERMS, RDF, SKOS, Literal, URIRef
         self.enterContext(warnings.catch_warnings(action='ignore', category=DeprecationWarning))   # rdflib's own code
-        t, ds = rdflib.Namespace(model.TERMS), rdflib.Namespace(model.BASE + '#')
+        S, t, ds = model.SCHEMA, rdflib.Namespace(model.TERMS), rdflib.Namespace(model.BASE + '#')
         fields = {'@context': model.CONTEXT, **dict.fromkeys(model.CURATED + model.RELATION_ORDER, 'x')}
         own = {p for p in rdflib.Graph().parse(data=json.dumps(fields), format='json-ld').predicates()
                if p.startswith(model.TERMS)}
         self.assertEqual(own, set())                           # every field is a schema.org, DCAT or FIP term, or none
         doc = fixture()
-        next(r for r in doc['hasPart'] if r['key'] == 'ctd')['dateBasis'] = 'release'
+        by = {r['key']: r for r in doc['hasPart']}
+        by['ctd']['dateBasis'], by['oecd_gd']['maintained'] = 'release', 'unknown'
         text = self.build(doc)[1]
         terms = rdflib.Graph().parse(data=text['terms.ttl'], format='turtle')
         self.assertEqual(set(terms), set(rdflib.Graph().parse(data=text['terms.jsonld'], format='json-ld')))
@@ -588,34 +589,43 @@ class SiteTest(TempDir):
         self.assertEqual(set(terms.subjects(RDF.type, RDF.Property)), set())
         data = rdflib.Graph().parse(data=text['fair-tox-ecosystem.jsonld'], format='json-ld')
         used = {x for triple in data for x in triple if x.startswith(model.TERMS)}
-        self.assertLessEqual(used, set(terms.subjects(RDF.type, SDO.DefinedTerm)))   # every term of ours is defined
-        exo, ctd = URIRef('https://doi.org/10.25504/FAIRsharing.6hna78'), ds.ctd
-        self.assertIn((URIRef(model.BASE), RDF.type, SDO.Dataset), data)
-        for triple in ((exo, SDO.about, URIRef('http://purl.obolibrary.org/obo/NCIT_C17206')),   # FAIRsharing's subject
-                       (exo, SDO.about, URIRef('http://id.nlm.nih.gov/mesh/D000081413')),
+        self.assertLessEqual(used, set(terms.subjects(RDF.type, S.DefinedTerm)))   # every term of ours is defined
+        root, exo, ctd = URIRef(model.BASE), URIRef('https://doi.org/10.25504/FAIRsharing.6hna78'), ds.ctd
+        for triple in ((root, RDF.type, S.Dataset), (root, S.url, Literal(site.PAGES)),
+                       (exo, S.about, URIRef(model.NCIT_TOXICOLOGY)),        # FAIRsharing's subject
+                       (exo, S.about, URIRef('http://id.nlm.nih.gov/mesh/D000081413')),
                        (ctd, DCAT.theme, t['phase-regulatory-assessment']),
-                       (ctd, DCAT.theme, t['stakeholders-in-silico-research']),
-                       (exo, SDO.creativeWorkStatus, t['maintained-active']),
-                       (exo, SDO.datePublished, Literal('2012-01')), (ctd, DCTERMS.issued, Literal('2004')),
+                       (ctd, DCAT.theme, URIRef('http://www.ebi.ac.uk/efo/EFO_0009742')),   # computational scientist
+                       (exo, S.creativeWorkStatus, t['maintained-active']),
+                       (exo, S.datePublished, Literal('2012-01')), (ctd, DCTERMS.issued, Literal('2004')),
                        (ds.oecd_gd, DCTERMS.date, Literal('2026')),
-                       (exo, SDO.subjectOf, URIRef('https://doi.org/10.1021/es2033857')),
-                       (exo, SDO.sameAs, URIRef('https://fairsharing.org/FAIRsharing.6hna78')),
-                       (exo, SDO.identifier, exo), (ctd, SDO.identifier, ctd),
-                       (exo, SDO.url, URIRef('https://github.com/CTDbase/exposure-ontology')),
-                       (exo, SDO.additionalType, Literal('Standard: terminology artefact'))):
+                       (exo, S.citation, URIRef('https://doi.org/10.1021/es2033857')),
+                       (exo, S.sameAs, URIRef('https://fairsharing.org/FAIRsharing.6hna78')),
+                       (exo, S.identifier, exo), (ctd, S.identifier, ctd), (exo, RDF.type, S.CreativeWork),
+                       (exo, S.url, Literal('https://github.com/CTDbase/exposure-ontology')),
+                       (exo, S.additionalType, Literal('Standard: terminology artefact'))):
             self.assertIn(triple, data, triple)
-        for p in (SDO.about, DCAT.theme, SDO.creativeWorkStatus, DCAT.hadRole):   # controlled values are IRIs
+        self.assertIsNone(data.value(ds.oecd_gd, S.creativeWorkStatus))   # unknown: nothing is stated
+        for p in (S.about, DCAT.theme, S.creativeWorkStatus, DCAT.hadRole):   # controlled values are IRIs
             self.assertTrue(all(isinstance(o, URIRef) for o in data.objects(None, p)), p)
-        sets = {name: t[name + '-values'] for name in ('phase', 'stakeholders', 'subdomains', 'maintained', 'hadRole')}
-        self.assertEqual(set(terms.subjects(RDF.type, SDO.DefinedTermSet)), set(sets.values()))
+        record = data.value(root, S.subjectOf)                 # the catalog record of the CDIF Discovery profile
+        self.assertEqual(set(data.objects(record, DCTERMS.conformsTo)), set(map(URIRef, site.CDIF)))
+        self.assertEqual(data.value(record, S.about), root)
+        self.assertEqual(str(data.value(data.value(root, S.identifier), S.value)), model.BASE)
+        self.assertEqual(len(set(data.objects(root, S.distribution))), len(site.DOWNLOADS))
+        sets = {name: t[name + '-values'] for name in model.TERM_SETS}
+        self.assertEqual(set(terms.subjects(RDF.type, S.DefinedTermSet)), set(sets.values()))
         for name, s in sets.items():                           # a term of ours only where no outside concept exists
-            mine = set(terms.subjects(SDO.inDefinedTermSet, s))
-            self.assertEqual({str(terms.value(c, SDO.name)) for c in mine},
+            mine = set(terms.subjects(S.inDefinedTermSet, s))
+            self.assertEqual({str(terms.value(c, S.name)) for c in mine},
                              set(model.VOCABULARIES[name]) - set(model.SAME.get(name, {})), name)
+            self.assertEqual(set(terms.objects(s, SKOS.hasTopConcept)), mine)   # the CDIF Concept Scheme profile
+            self.assertTrue(terms.value(s, SKOS.definition), name)
             for c in mine:
-                self.assertEqual(set(terms.objects(c, RDF.type)), {SDO.DefinedTerm, SKOS.Concept})
+                self.assertEqual(set(terms.objects(c, RDF.type)), {S.DefinedTerm, SKOS.Concept})
+                self.assertTrue(terms.value(c, SKOS.definition), c)
                 self.assertIn((c, SKOS.inScheme, s), terms)
-        for triple in ((t['subdomains-nanotoxicology'], SKOS.broadMatch, URIRef('http://purl.obolibrary.org/obo/NCIT_C17206')),
+        for triple in ((t['subdomains-in-vitro-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
                        (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements'))):
             self.assertIn(triple, terms, triple)
         html = text['index.html']                              # each field shows its term; a fragment opens its resource
@@ -623,7 +633,7 @@ class SiteTest(TempDir):
         self.assertEqual((meta['terms']['url'], meta['terms']['span'], meta['terms']['dateReleased']),
                          ('schema:url', 'dcat:theme', 'dct:issued'))
         anchors = {a for values in meta['termAnchors'].values() for a in values.values()}   # every term of ours
-        self.assertEqual(anchors, {str(c)[len(model.TERMS):] for c in terms.subjects(RDF.type, SDO.DefinedTerm)})
+        self.assertEqual(anchors, {str(c)[len(model.TERMS):] for c in terms.subjects(RDF.type, S.DefinedTerm)})
         self.assertEqual((meta['termAnchors']['phase']['Data generation'], meta['termAnchors']['hadRole']['implements']),
                          ('phase-data-generation', 'implements'))
         for code in ("""<dt id="${esc(f.split(',')[0])}">""", """${(anchors[v] || {})[k] ? ` id="${esc(anchors[v][k])}"` : ''}""",
@@ -831,7 +841,7 @@ class RepositoryTest(unittest.TestCase):
         self.assertNotIn('fairsharing', doc['sources'])                                  # building, never stored
         import rdflib
         g = rdflib.Graph().parse(data=json.dumps(doc), format='json-ld')
-        name = rdflib.URIRef('https://schema.org/name')
+        name = model.SCHEMA.name
         self.assertGreaterEqual(len(set(g.subjects(name, None))), len(doc['hasPart']))
         own = {str(p) for p in g.predicates() if str(p).startswith(model.TERMS)}
         self.assertEqual(own, set())                           # every field is a standard term, or out of the graph
