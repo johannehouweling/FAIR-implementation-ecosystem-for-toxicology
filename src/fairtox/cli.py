@@ -24,27 +24,36 @@ def cmd_validate(a):
     return 1 if errors or (a.strict and warnings) else 0
 
 
-def cmd_fetch(a):
+def _fairsharing(a):
+    """FAIRsharing, read with FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD or, with --offline, from the local cache. The
+    command stops when it cannot be read."""
     from fairtox import fairsharing
-    login, password = os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD')
-    if not login or not password:
-        print('FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD are not set; nothing fetched. '
-              'Locally: uv run --env-file .env fairtox fetch')
-        return 0
-    doc = _load() if os.path.exists(model.DATASET) else model.new_document()
-    before = json.loads(json.dumps(doc))
     try:
-        sample = [int(x) for x in a.ids.split(',')] if a.ids else None
-        report = fairsharing.fetch(doc, login, password, dry_run=a.dry_run or (len(sample) if sample else None),
-                                   sample=sample)
+        return fairsharing.read(os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD'), a.offline)
     except fairsharing.FairsharingError as e:
-        print('FAIRsharing:', e)
-        return 1
-    if not (a.dry_run or a.ids):
-        changes = model.diff(before, model.normalise(doc))
+        sys.exit(f'FAIRsharing could not be read, so nothing was built or changed: {e}')
+
+
+def _enriched(a):
+    """The dataset with FAIRsharing added in memory, for the site, the sheet and the submission export."""
+    from fairtox import fairsharing
+    data = _fairsharing(a)
+    return fairsharing.enrich(_load(), data)
+
+
+def cmd_fairsharing(a):
+    from fairtox import fairsharing
+    data, doc = _fairsharing(a), _load()
+    before = json.loads(json.dumps(doc))
+    lines = fairsharing.curate(doc, data)
+    changes = model.diff(before, model.normalise(doc))
+    _report([f"{len(data['records'])} FAIRsharing records read on {data['retrieved']}; {len(data['members'])} "
+             'collection members'] + lines, a.report, 'FAIRsharing')
+    if a.apply:
         if model.save(doc):
-            model.log_changes(changes, 'FAIRsharing refresh', 'FAIRsharing REST API')
-    _report(report, a.report, 'FAIRsharing refresh')
+            model.log_changes(changes, f"fairsharing import {data['retrieved']}", 'FAIRsharing Toxicology collection',
+                              dict.fromkeys((c[0] for c in changes), 'fairtox fairsharing'))
+        print(f'{len(changes)} changes applied and logged in {model.CHANGES}')
     return 0
 
 
@@ -59,8 +68,9 @@ def _report(lines, path, title):
 
 def cmd_sheet(a):
     from fairtox import sheet
+    doc = _enriched(a)
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-    n, m = sheet.build(_load(), a.out)
+    n, m = sheet.build(doc, a.out)
     print(f'{a.out}: {n} resources, {m} relations')
     return 0
 
@@ -92,14 +102,14 @@ def cmd_ingest(a):
 
 def cmd_site(a):
     from fairtox import site
-    n, m = site.build(_load(), a.outdir, internal=a.internal, offline=a.offline)
+    n, m = site.build(_enriched(a), a.outdir, internal=a.internal, offline=a.offline)
     print(f'{a.outdir}/index.html: {n} resources, {m} relations' + (' (internal curation view, never publish)' if a.internal else ''))
     return 0
 
 
 def cmd_export(a):
     from fairtox import fairsharing
-    counts = fairsharing.write_submission(_load(), a.outdir)
+    counts = fairsharing.write_submission(_enriched(a), a.outdir)
     print(f'{a.outdir}/fairsharing-submission.json and .xlsx: ' + ', '.join(f'{k} {v}' for k, v in counts.items()))
     return 0
 
@@ -194,13 +204,16 @@ def main(argv=None):
     s = sub.add_parser('validate', help='check the dataset')
     s.add_argument('--strict', action='store_true', help='fail on warnings too')
     s.set_defaults(run=cmd_validate)
-    s = sub.add_parser('fetch', help='pull the FAIRsharing Toxicology collection and linked records')
-    s.add_argument('--dry-run', type=int, metavar='N', help='read N records and print their fields; write nothing')
-    s.add_argument('--report', metavar='FILE', help='append the report to a markdown file')
-    s.add_argument('--ids', metavar='ID,ID', help='dry run on these FAIRsharing record ids')
-    s.set_defaults(run=cmd_fetch)
+    s = sub.add_parser('fairsharing', help='read the FAIRsharing Toxicology collection and report its new members; '
+                                           'FAIRsharing record data are never stored: the builds read them')
+    s.add_argument('--offline', action='store_true', help='read only the local cache in build/fairsharing')
+    s.add_argument('--report', metavar='FILE', help='also append the report to a markdown file')
+    s.add_argument('--apply', action='store_true', help='store new collection members as undecided rows or proposed '
+                                                        'matches (after reviewing the report)')
+    s.set_defaults(run=cmd_fairsharing)
     s = sub.add_parser('sheet', help='build the curation workbook')
     s.add_argument('out', help='path of the .xlsx to write')
+    s.add_argument('--offline', action='store_true', help='read FAIRsharing from the local cache in build/fairsharing')
     s.set_defaults(run=cmd_sheet)
     s = sub.add_parser('ingest', help='read a curated workbook back into the dataset')
     s.add_argument('workbook')
@@ -210,10 +223,12 @@ def main(argv=None):
     s = sub.add_parser('site', help='build the static dashboard (the public page; --internal for the curation view)')
     s.add_argument('outdir')
     s.add_argument('--internal', action='store_true', help='every row with the curation view; local only, never publish')
-    s.add_argument('--offline', action='store_true', help='read the FIP declarations from the local cache in build/fip')
+    s.add_argument('--offline', action='store_true', help='read FAIRsharing and the FIP declarations from the local '
+                                                          'caches in build/fairsharing and build/fip')
     s.set_defaults(run=cmd_site)
     s = sub.add_parser('export-fairsharing', help='write what could be added to FAIRsharing (nothing is posted)')
     s.add_argument('outdir')
+    s.add_argument('--offline', action='store_true', help='read FAIRsharing from the local cache in build/fairsharing')
     s.set_defaults(run=cmd_export)
     s = sub.add_parser('fip', help="read the toxicology FIPs' declarations and write the match report; the "
                                    'declarations are never stored: the site build reads them')

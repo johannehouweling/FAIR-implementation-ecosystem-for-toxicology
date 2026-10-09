@@ -139,12 +139,6 @@
    "name": "FAIR_tox inventory and audit",
    "date": "2026-10-02",
    "use": "evidence only, to verify"
-  },
-  "fairsharing": {
-   "collection": "https://doi.org/10.25504/FAIRsharing.f60a10",
-   "members": 74,
-   "method": "FAIRsharing REST API",
-   "retrieved": "2026-10-05T11:50:51Z"
   }
  },
  "vocabularies": {
@@ -294,20 +288,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.73888a",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The producer page (ANSES on data.gouv.fr) says INRA created AGRITOX in 1986, matching the FAIRsharing year. That is a creation year; online availability is documented only from the first web capture on inra.fr/agritox (2001-07-22). Linked from eChemPortal since 2011-03-09. agritox.anses.fr no longer resolves; data are now published as open files on data.gouv.fr (last update 2026-06-10). Stakeholder Regulator: the data were validated by official assessment bodies and ANSES maintains it, although INRA is a research institute.",
-   "fairsharing": {
-    "id": 5629,
-    "doi": "10.25504/FAIRsharing.73888a",
-    "name": "AGRITOX",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 1986,
-    "homepage": "https://www.data.gouv.fr/fr/datasets/base-de-donnees-agritox/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The producer page (ANSES on data.gouv.fr) says INRA created AGRITOX in 1986, matching the FAIRsharing year. That is a creation year; online availability is documented only from the first web capture on inra.fr/agritox (2001-07-22). Linked from eChemPortal since 2011-03-09. agritox.anses.fr no longer resolves; data are now published as open files on data.gouv.fr (last update 2026-06-10). Stakeholder Regulator: the data were validated by official assessment bodies and ANSES maintains it, although INRA is a research institute."
   },
   {
    "@id": "#ai4fair",
@@ -354,21 +335,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.79e002",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Included as AICIS's database (the 'AICIS Database Search Portal', called 'AICIS assessments' in eChemPortal) rather than the regulator itself, because FAIRsharing registers it as a knowledgebase; consider renaming the row. AICIS started on 1 July 2020, and the Wayback capture of that day shows its site already offering inventory and assessment search. The services portal itself is first captured 2022-10-05. FAIRsharing year 2020 agrees.",
-   "fairsharing": {
-    "id": 5642,
-    "doi": "10.25504/FAIRsharing.79e002",
-    "name": "Australian Industrial Chemicals Introduction Scheme ",
-    "abbreviation": "AICIS",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2020,
-    "homepage": "https://services.industrialchemicals.gov.au",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Included as AICIS's database (the 'AICIS Database Search Portal', called 'AICIS assessments' in eChemPortal) rather than the regulator itself, because FAIRsharing registers it as a knowledgebase; consider renaming the row. AICIS started on 1 July 2020, and the Wayback capture of that day shows its site already offering inventory and assessment search. The services portal itself is first captured 2022-10-05. FAIRsharing year 2020 agrees."
   },
   {
    "@id": "#ammar_mi",
@@ -998,20 +965,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "5630",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. No release date for the database was found, so the FAIRsharing year 1995 is kept. It matches the start of the APVMA (then NRA) chemical review programme under the National Registration Scheme in March 1995 (archived APVMA page https://web.archive.org/web/2008/http://www.apvma.gov.au/chemrev/chemrev2.shtml). Review pages are captured on nra.gov.au from 2001-07, and the reviews are searchable in eChemPortal since 2013-08-21. The site times out from here but was captured live (200) on 2026-06-06.",
-   "fairsharing": {
-    "id": 5630,
-    "name": "The Australian Pesticides and Veterinary Medicines Authority (APVMA) database of completed chemical reviews ",
-    "abbreviation": "APVMA-CR",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 1995,
-    "homepage": "https://www.apvma.gov.au/regulation/chemical-review",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. No release date for the database was found, so the FAIRsharing year 1995 is kept. It matches the start of the APVMA (then NRA) chemical review programme under the National Registration Scheme in March 1995 (archived APVMA page https://web.archive.org/web/2008/http://www.apvma.gov.au/chemrev/chemrev2.shtml). Review pages are captured on nra.gov.au from 2001-07, and the reviews are searchable in eChemPortal since 2013-08-21. The site times out from here but was captured live (200) on 2026-06-06."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c54ywe",
@@ -1034,21 +988,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.c54ywe",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Excluded E7: spider-venom toxinology is outside chemical toxicology. Date is the first paper (Wood et al., BMC Genomics, published 2009-08-13; Europe PMC/PubMed). The FAIRsharing year 2008 is not supported: the earliest web capture is from 2011. Homepage changed: arachnoserver.qfab.org no longer resolves, and the site is live at arachnoserver.org.",
-   "fairsharing": {
-    "id": 2037,
-    "doi": "10.25504/FAIRsharing.c54ywe",
-    "name": "ArachnoServer: Spider toxin database",
-    "abbreviation": "ArachnoServer",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2008,
-    "homepage": "https://arachnoserver.qfab.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Excluded E7: spider-venom toxinology is outside chemical toxicology. Date is the first paper (Wood et al., BMC Genomics, published 2009-08-13; Europe PMC/PubMed). The FAIRsharing year 2008 is not supported: the earliest web capture is from 2011. Homepage changed: arachnoserver.qfab.org no longer resolves, and the site is live at arachnoserver.org."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6k0kwd",
@@ -1070,20 +1010,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.6k0kwd",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Brazma et al., NAR 2003 (issue 2003-01-01), states that ArrayExpress has accepted data submissions since February 2002 (verified in the PMC full text). FAIRsharing year 2003 is the year of that paper, so the date is corrected to 2002-02. Homepage returned 200 on 2026-10-05. Kept as its own row although it is now hosted in BioStudies, because it keeps its own name, accessions, submission tool and FAIRsharing record. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 1845,
-    "doi": "10.25504/FAIRsharing.6k0kwd",
-    "name": "ArrayExpress",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2003,
-    "homepage": "https://www.ebi.ac.uk/biostudies/arrayexpress/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Brazma et al., NAR 2003 (issue 2003-01-01), states that ArrayExpress has accepted data submissions since February 2002 (verified in the PMC full text). FAIRsharing year 2003 is the year of that paper, so the date is corrected to 2002-02. Homepage returned 200 on 2026-10-05. Kept as its own row although it is now hosted in BioStudies, because it keeps its own name, accessions, submission tool and FAIRsharing record. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#arraytrack",
@@ -1152,21 +1079,7 @@
    "manuscriptEvidence": "III Table 1; III Data generation (nano); L67, L109",
    "fairsharingRecord": "FAIRsharing.mye76w",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (medium confidence): The describing paper is Visser et al., BMC Bioinformatics, online 2011-06-24. Schürer et al., J Biomol Screen, April 2011 (doi:10.1177/1087057111400191) already used BAO. bioassayontology.org linked BAO on NCBO BioPortal by 2011-02-03 (web capture), while the May 2010 site and wiki were login-only. I kept year precision because the public BioPortal release may be late 2010. FAIRsharing year 2009 is the NHGRI grant/project start. Releases continue on GitHub (BAO 2.8.19, 2026). URL changed to https. Verified 5 Oct 2026: datePublished changed (The archived NCBO BioPortal BAO page (https://web.archive.org/web/20110703074549/http://bioportal.bioontology.org/ontologies/1533) lists version 0.9.461 with release date 09/17/2010 and a public download link. Its BioPortal id is 44531, the exact version that Visser et al. 2011 cite as 'available online at the NCBO bioportal http://bioportal.bioontology.org/ontologies/44531'. BAO was therefore public in Sept 2010, before both 2011 papers.) Verified 5 Oct 2026: dateBasis changed (The earliest date is now the first public BioPortal release (v0.9.461, 2010-09-17), not the June 2011 paper.) Verified 5 Oct 2026: dateSource changed (This capture's 'Versions' table shows 0.9.461 released 09/17/2010.)",
-   "fairsharing": {
-    "id": 874,
-    "doi": "10.25504/FAIRsharing.mye76w",
-    "name": "BioAssay Ontology",
-    "abbreviation": "BAO",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2009,
-    "homepage": "http://bioassayontology.org/bioassayontology/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (medium confidence): The describing paper is Visser et al., BMC Bioinformatics, online 2011-06-24. Schürer et al., J Biomol Screen, April 2011 (doi:10.1177/1087057111400191) already used BAO. bioassayontology.org linked BAO on NCBO BioPortal by 2011-02-03 (web capture), while the May 2010 site and wiki were login-only. I kept year precision because the public BioPortal release may be late 2010. FAIRsharing year 2009 is the NHGRI grant/project start. Releases continue on GitHub (BAO 2.8.19, 2026). URL changed to https. Verified 5 Oct 2026: datePublished changed (The archived NCBO BioPortal BAO page (https://web.archive.org/web/20110703074549/http://bioportal.bioontology.org/ontologies/1533) lists version 0.9.461 with release date 09/17/2010 and a public download link. Its BioPortal id is 44531, the exact version that Visser et al. 2011 cite as 'available online at the NCBO bioportal http://bioportal.bioontology.org/ontologies/44531'. BAO was therefore public in Sept 2010, before both 2011 papers.) Verified 5 Oct 2026: dateBasis changed (The earliest date is now the first public BioPortal release (v0.9.461, 2010-09-17), not the June 2011 paper.) Verified 5 Oct 2026: dateSource changed (This capture's 'Versions' table shows 0.9.461 released 09/17/2010.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.paz6mh",
@@ -1198,21 +1111,7 @@
      "source": "https://doi.org/10.1093/nar/gkj092",
      "note": "Checked 5 Oct 2026: BioModels curates and distributes its models in SBML, which its founding paper names as the format for retrieving models."
     }
-   ],
-   "fairsharing": {
-    "id": 1846,
-    "doi": "10.25504/FAIRsharing.paz6mh",
-    "name": "BioModels",
-    "abbreviation": "BioModels",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2005,
-    "homepage": "https://www.ebi.ac.uk/biomodels/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.82f7b4",
@@ -1231,20 +1130,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.82f7b4",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2020 confirmed and refined: 0.4-RELEASE, which the profile calls its first release, has version_date 2020-04-07 in the Bioschemas site source. Earlier public drafts: 0.1-DRAFT-2018_12_07, 0.2-DRAFT-2019_06_11 and 0.3-DRAFT-2019_11_11. A 0.5-DRAFT is in progress. Use 2018-12-07 if the first draft should count. Verified 5 Oct 2026: datePublished changed (The earliest public availability is the first public draft, 0.1-DRAFT-2018_12_07. It is still served at https://bioschemas.org/profiles/ChemicalSubstance/0.1-DRAFT-2018_12_07 ('Version: 07 December 2018'), and the site source gives version_date 20181207. 0.4-RELEASE (2020-04-07) is only the first stable release. The sibling rows bioschemas_dataset_profile, bioschemas_sample_profile and bioschemas_molecularentity are all dated to their first public draft, the first version in the profile's own folder.) Verified 5 Oct 2026: dateSource changed (Source for the first public draft dated 2018-12-07 (see datePublished).)",
-   "fairsharing": {
-    "id": 3584,
-    "doi": "10.25504/FAIRsharing.82f7b4",
-    "name": "Bioschemas ChemicalSubstance Profile",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2020,
-    "homepage": "https://bioschemas.org/profiles/ChemicalSubstance/0.4-RELEASE",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2020 confirmed and refined: 0.4-RELEASE, which the profile calls its first release, has version_date 2020-04-07 in the Bioschemas site source. Earlier public drafts: 0.1-DRAFT-2018_12_07, 0.2-DRAFT-2019_06_11 and 0.3-DRAFT-2019_11_11. A 0.5-DRAFT is in progress. Use 2018-12-07 if the first draft should count. Verified 5 Oct 2026: datePublished changed (The earliest public availability is the first public draft, 0.1-DRAFT-2018_12_07. It is still served at https://bioschemas.org/profiles/ChemicalSubstance/0.1-DRAFT-2018_12_07 ('Version: 07 December 2018'), and the site source gives version_date 20181207. 0.4-RELEASE (2020-04-07) is only the first stable release. The sibling rows bioschemas_dataset_profile, bioschemas_sample_profile and bioschemas_molecularentity are all dated to their first public draft, the first version in the profile's own folder.) Verified 5 Oct 2026: dateSource changed (Source for the first public draft dated 2018-12-07 (see datePublished).)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.991d4e",
@@ -1263,20 +1149,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.991d4e",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2021 confirmed and refined: 1.0-RELEASE has version_date 2021-10-11 in the Bioschemas site source. It was preceded by public drafts 0.4-DRAFT-2019_07_19, 0.5-DRAFT (2019-11-26) and 0.6-DRAFT (2021-07-07), which continue the earlier Bioschemas Tool profile. A 1.1-DRAFT is in progress. Verified 5 Oct 2026: datePublished changed (The first public version under the ComputationalTool name and folder is 0.5-DRAFT, version_date 20191126 (https://bioschemas.org/profiles/ComputationalTool/0.5-DRAFT, 'Version: 26 November 2019'). 1.0-RELEASE (2021-10-11) is only the first stable release. This follows the molecularentity precedent (first draft under its own name). If the renamed predecessor should count, the 'Tool' profile drafts go back to 0.2-DRAFT-2018_08_21 (https://bioschemas.org/profiles/Tool/0.2-DRAFT-2018_08_21); ComputationalTool/0.4-DRAFT-2019_07_19 redirects there.) Verified 5 Oct 2026: dateSource changed (Source for the first public draft under this name, dated 2019-11-26 (see datePublished).)",
-   "fairsharing": {
-    "id": 3608,
-    "doi": "10.25504/FAIRsharing.991d4e",
-    "name": "Bioschemas ComputationalTool Profile",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2021,
-    "homepage": "https://bioschemas.org/profiles/ComputationalTool/1.0-RELEASE",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2021 confirmed and refined: 1.0-RELEASE has version_date 2021-10-11 in the Bioschemas site source. It was preceded by public drafts 0.4-DRAFT-2019_07_19, 0.5-DRAFT (2019-11-26) and 0.6-DRAFT (2021-07-07), which continue the earlier Bioschemas Tool profile. A 1.1-DRAFT is in progress. Verified 5 Oct 2026: datePublished changed (The first public version under the ComputationalTool name and folder is 0.5-DRAFT, version_date 20191126 (https://bioschemas.org/profiles/ComputationalTool/0.5-DRAFT, 'Version: 26 November 2019'). 1.0-RELEASE (2021-10-11) is only the first stable release. This follows the molecularentity precedent (first draft under its own name). If the renamed predecessor should count, the 'Tool' profile drafts go back to 0.2-DRAFT-2018_08_21 (https://bioschemas.org/profiles/Tool/0.2-DRAFT-2018_08_21); ComputationalTool/0.4-DRAFT-2019_07_19 redirects there.) Verified 5 Oct 2026: dateSource changed (Source for the first public draft under this name, dated 2019-11-26 (see datePublished).)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e457b5",
@@ -1295,20 +1168,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.e457b5",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2021 confirmed and refined: 1.0-RELEASE has version_date 2021-03-09 in the Bioschemas site source. Public drafts ran from 0.1-DRAFT-2019_02_08 to 0.5-DRAFT-2020_07_21. A 1.1-DRAFT is in progress. Verified 5 Oct 2026: datePublished changed (The first public draft, 0.1-DRAFT-2019_02_08 (then titled 'Workflow', in the same ComputationalWorkflow folder and version line), is served at https://bioschemas.org/profiles/ComputationalWorkflow/0.1-DRAFT-2019_02_08 ('Version: 08 February 2019'; version_date 20190208). 1.0-RELEASE (2021-03-09) is only the first stable release. Dating to the first public draft matches the other Bioschemas rows (dataset, sample, molecularentity).) Verified 5 Oct 2026: dateSource changed (Source for the first public draft dated 2019-02-08 (see datePublished).)",
-   "fairsharing": {
-    "id": 3585,
-    "doi": "10.25504/FAIRsharing.e457b5",
-    "name": "Bioschemas ComputationalWorkflow Profile",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2021,
-    "homepage": "https://bioschemas.org/profiles/ComputationalWorkflow/1.0-RELEASE",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2021 confirmed and refined: 1.0-RELEASE has version_date 2021-03-09 in the Bioschemas site source. Public drafts ran from 0.1-DRAFT-2019_02_08 to 0.5-DRAFT-2020_07_21. A 1.1-DRAFT is in progress. Verified 5 Oct 2026: datePublished changed (The first public draft, 0.1-DRAFT-2019_02_08 (then titled 'Workflow', in the same ComputationalWorkflow folder and version line), is served at https://bioschemas.org/profiles/ComputationalWorkflow/0.1-DRAFT-2019_02_08 ('Version: 08 February 2019'; version_date 20190208). 1.0-RELEASE (2021-03-09) is only the first stable release. Dating to the first public draft matches the other Bioschemas rows (dataset, sample, molecularentity).) Verified 5 Oct 2026: dateSource changed (Source for the first public draft dated 2019-02-08 (see datePublished).)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.20sbr9",
@@ -1327,20 +1187,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.20sbr9",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2019 to the first public draft. Dataset specification v0.1 was on bioschemas.org by 2017-10-03 (git commit c9d53fa; it was drafted in Google Docs earlier in 2017). Versions: 0.2-DRAFT-2018_02_25; first stable 0.3-RELEASE-2019_06_14 (= FAIRsharing year); 1.0-RELEASE 2022-07-12; 1.1-DRAFT 2022-11-11. Use 2019-06-14 if only releases should count. Included through the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 1203,
-    "doi": "10.25504/FAIRsharing.20sbr9",
-    "name": "Bioschemas Dataset Profile",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2019,
-    "homepage": "https://bioschemas.org/profiles/Dataset/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2019 to the first public draft. Dataset specification v0.1 was on bioschemas.org by 2017-10-03 (git commit c9d53fa; it was drafted in Google Docs earlier in 2017). Versions: 0.2-DRAFT-2018_02_25; first stable 0.3-RELEASE-2019_06_14 (= FAIRsharing year); 1.0-RELEASE 2022-07-12; 1.1-DRAFT 2022-11-11. Use 2019-06-14 if only releases should count. Included through the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a847f0",
@@ -1372,20 +1219,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.ccaad2",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2020 to the first public draft under this name, 0.2-DRAFT-2018_11_14. FAIRsharing's 2020 is the first release, 0.5-RELEASE on 2020-04-07. The specifications repository renamed an earlier 'Chemical' draft to MolecularEntity on 2018-11-15. Latest version: 0.7-DRAFT, 2023-04-22. Use 2020-04-07 if only releases should count.",
-   "fairsharing": {
-    "id": 3588,
-    "doi": "10.25504/FAIRsharing.ccaad2",
-    "name": "Bioschemas MolecularEntity Profile",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2020,
-    "homepage": "https://bioschemas.org/profiles/MolecularEntity/0.5-RELEASE",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2020 to the first public draft under this name, 0.2-DRAFT-2018_11_14. FAIRsharing's 2020 is the first release, 0.5-RELEASE on 2020-04-07. The specifications repository renamed an earlier 'Chemical' draft to MolecularEntity on 2018-11-15. Latest version: 0.7-DRAFT, 2023-04-22. Use 2020-04-07 if only releases should count."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f3a3ca",
@@ -1404,20 +1238,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.f3a3ca",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2018 to the first public draft. FAIRsharing's 2018 is the first release, 0.2-RELEASE-2018_11_10. The Sample specification v0.1 was added to bioschemas.org on 2017-10-03 (git commit cfa46b2c2c; the Samples group is not on the June 2017 groups page). Later versions: 0.1-DRAFT-2018_02_25; latest 0.3-DRAFT, 2023-04-06. Use 2018-11-10 if only releases should count.",
-   "fairsharing": {
-    "id": 3589,
-    "doi": "10.25504/FAIRsharing.f3a3ca",
-    "name": "Bioschemas Sample Profile",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2018,
-    "homepage": "https://bioschemas.org/profiles/Sample/0.2-RELEASE-2018_11_10",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2018 to the first public draft. FAIRsharing's 2018 is the first release, 0.2-RELEASE-2018_11_10. The Sample specification v0.1 was added to bioschemas.org on 2017-10-03 (git commit cfa46b2c2c; the Samples group is not on the June 2017 groups page). Later versions: 0.1-DRAFT-2018_02_25; latest 0.3-DRAFT, 2023-04-06. Use 2018-11-10 if only releases should count."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
@@ -1445,21 +1266,7 @@
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): The earliest web-archive capture of the public BioSD search interface is 2011-10-09, a lower bound. The describing paper (Gostev et al., NAR, online 2011-11-16, https://doi.org/10.1093/nar/gkr937) calls it a new database. No public release in 2010 was found to support the FAIRsharing year, so the date is changed to 2011. Subdomain toxicogenomics proposed (was empty) because BioSamples holds the sample metadata for omics submissions. Include: member of the FAIRsharing Toxicology collection (I4).",
    "fsr": [
     "https://fairsharing.org/10.25504/FAIRsharing.ewjdq6"
-   ],
-   "fairsharing": {
-    "id": 1554,
-    "doi": "10.25504/FAIRsharing.ewjdq6",
-    "name": "BioSamples",
-    "abbreviation": "BioSD",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2010,
-    "homepage": "https://www.ebi.ac.uk/biosamples/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.mtjvme",
@@ -1486,21 +1293,7 @@
    "manuscriptEvidence": "III Data generation; Comments [ap]; L101-102, L408",
    "fairsharingRecord": "FAIRsharing.mtjvme",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): McEntyre, Sarkans & Brazma, 'The BioStudies database', Mol Syst Biol 11:847. PubMed gives the e-publication date as 2015-12-23; Crossref gives published-online 2015-12-28 but shows the DOI created on 2015-12-23. FAIRsharing year 2015. The earliest web capture of ebi.ac.uk/biostudies is 2016-08-06. NAR database paper: 2018 (doi 10.1093/nar/gkx965). Year unchanged; the day is added.",
-   "fairsharing": {
-    "id": 2507,
-    "doi": "10.25504/FAIRsharing.mtjvme",
-    "name": "BioStudies",
-    "abbreviation": "BioStudies",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2015,
-    "homepage": "https://www.ebi.ac.uk/biostudies/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (high confidence): McEntyre, Sarkans & Brazma, 'The BioStudies database', Mol Syst Biol 11:847. PubMed gives the e-publication date as 2015-12-23; Crossref gives published-online 2015-12-28 but shows the DOI created on 2015-12-23. FAIRsharing year 2015. The earliest web capture of ebi.ac.uk/biostudies is 2016-08-06. NAR database paper: 2018 (doi 10.1093/nar/gkx965). Year unchanged; the day is added."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f37bb6",
@@ -1533,20 +1326,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.f37bb6",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. No launch date or paper was found, and the FAIRsharing record (checked by a single lookup) has no year. The date is a lower bound: the earliest Wayback capture of the BiU search, 2023-06-07. BiU runs on the ChemInfo platform of the federal and state governments (row cheminfo), but it has its own name, URL and FAIRsharing DOI, so it stays a separate row.",
-   "fairsharing": {
-    "id": 7183,
-    "doi": "10.25504/FAIRsharing.f37bb6",
-    "name": "Biocides in the environment ",
-    "abbreviation": "BiU",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://recherche.chemikalieninfo.de/biu",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. No launch date or paper was found, and the FAIRsharing record (checked by a single lookup) has no year. The date is a lower bound: the earliest Wayback capture of the BiU search, 2023-06-07. BiU runs on the ChemInfo platform of the federal and state governments (row cheminfo), but it has its own name, URL and FAIRsharing DOI, so it stays a separate row."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.68a369",
@@ -1578,20 +1358,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.68a369",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Date is the online publication of Barupal & Fiehn, Environ Health Perspect, 2019-09-26 (Crossref, Europe PMC). The earliest homepage capture is 2019-11-07, and FAIRsharing has no year. URL updated to https.",
-   "fairsharing": {
-    "id": 4723,
-    "doi": "10.25504/FAIRsharing.68a369",
-    "name": "The Blood Exposome Database",
-    "abbreviation": "Blood Exposome DB",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "http://bloodexposome.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Date is the online publication of Barupal & Fiehn, Environ Health Perspect, 2019-09-26 (Crossref, Europe PMC). The earliest homepage capture is 2019-11-07, and FAIRsharing has no year. URL updated to https."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e5c86e",
@@ -1629,20 +1396,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.r7Kwy7",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing gives no year. CAS states that CAS Registry Numbers have identified substances since 1965. The CAS registry system was described in J Chem Doc, Nov 1965 (doi 10.1021/c160019a010), building on Morgan's unique structure description (May 1965, doi 10.1021/c160017a018). The url was changed from the check-digit help page to the CAS REGISTRY page. Registry access is licensed, but the numbers are public and in wide use.",
-   "fairsharing": {
-    "id": 381,
-    "doi": "10.25504/FAIRsharing.r7Kwy7",
-    "name": "CAS Registry Number",
-    "abbreviation": "CAS RN",
-    "registry": "Standard",
-    "recordType": "identifier_schema",
-    "status": "ready",
-    "homepage": "https://www.cas.org/training/documentation/chemical-substances/checkdig",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing gives no year. CAS states that CAS Registry Numbers have identified substances since 1965. The CAS registry system was described in J Chem Doc, Nov 1965 (doi 10.1021/c160019a010), building on Morgan's unique structure description (May 1965, doi 10.1021/c160017a018). The url was changed from the check-digit help page to the CAS REGISTRY page. Registry access is licensed, but the numbers are public and in wide use."
   },
   {
    "@id": "#cc_by_4_0",
@@ -1733,20 +1487,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.750d23",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. CESAR is known mainly as an eChemPortal source (participant 3; see https://www.echemportal.org/echemportal/content/participants/3). The date is the eChemPortal news item of 2009-02-05 announcing CESAR as a newly participating report collection (also in https://www.echemportal.org/echemportal/api/news). The assessments themselves are older. FAIRsharing has no year. Homepage is live (modified 2025-03-04).",
-   "fairsharing": {
-    "id": 5631,
-    "doi": "10.25504/FAIRsharing.750d23",
-    "name": "Canada’s Existing Substances Assessment Repository ",
-    "abbreviation": "CESAR",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://www.canada.ca/en/health-canada/services/chemical-substances.html",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. CESAR is known mainly as an eChemPortal source (participant 3; see https://www.echemportal.org/echemportal/content/participants/3). The date is the eChemPortal news item of 2009-02-05 announcing CESAR as a newly participating report collection (also in https://www.echemportal.org/echemportal/api/news). The assessments themselves are older. FAIRsharing has no year. Homepage is live (modified 2025-03-04)."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.62qk8w",
@@ -1776,21 +1517,7 @@
    "note": "Research 5 Oct 2026 (high confidence): I refined 2004 to the exact date. Degtyarenko et al., NAR (online 2007-10-11) states 'Since its first public release (21 July 2004)'. The earliest web capture of www.ebi.ac.uk/chebi/ is 2004-07-24, which agrees. FAIRsharing gives year 2006; the project itself started at the EBI in 2002.",
    "fsr": [
     "https://w3id.org/np/RAiHZjVo32RyXg_i777br8u1oT-TW6ul20Xv5HAWszcis#ChEBI"
-   ],
-   "fairsharing": {
-    "id": 1036,
-    "doi": "10.25504/FAIRsharing.62qk8w",
-    "name": "Chemical Entities of Biological Interest",
-    "abbreviation": "ChEBI",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2006,
-    "homepage": "http://www.ebi.ac.uk/chebi/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.m3jtpg",
@@ -1818,21 +1545,7 @@
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. First public release was ChEMBL_01: the web interface and downloads went live on 2009-10-28 (ChEMBL blog; FTP README dated 28/10/2009). This agrees with the FAIRsharing year 2009. The first describing paper, Gaulton et al., NAR, online 2011-09-23 (https://doi.org/10.1093/nar/gkr777), is later. Included through membership of the FAIRsharing Toxicology collection.",
    "fsr": [
     "http://purl.org/np/RAVAVosrskaZNJP2MtoEkVlNJXyuY4hB5fW2D4jOb4OvQ#ChEMBL"
-   ],
-   "fairsharing": {
-    "id": 1561,
-    "doi": "10.25504/FAIRsharing.m3jtpg",
-    "name": "ChEMBL",
-    "abbreviation": "ChEMBL",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2009,
-    "homepage": "https://www.ebi.ac.uk/chembl",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b5a070",
@@ -1862,19 +1575,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.b5a070",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): The history section on chemikalieninfo.de says the GSBL agreement ended on 2015-12-31, the ChemInfo cooperation started on 2016-01-01 and the online search application was completed in December 2021. Web-archive captures of recherche.chemikalieninfo.de start in 2022-01. The predecessor 'GSBL public' was online by 2003 (gsbl.de capture); use 2003 instead if the GSBL lineage should count. There is no FAIRsharing year. Scope, stakeholder and subdomains filled (were empty). Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: datePublished changed (ChemInfo could be searched publicly under its own name before the December 2021 relaunch. The gsbl.de homepage captured 2019-08-21 reads 'Willkommen bei ChemInfo! ... Unsere Datenbank ist weiterhin uneingeschänkt für Sie verfügbar ... Stoffinformationssystem ChemInfo public, einem Auszug aus dem Gesamtsystem', with a link to the public search (http://web.archive.org/web/20190821200437/https://gsbl.de/). The 2019-04-04 capture still says 'GSBL public', so 2019 is a lower bound. December 2021 is only when the rebuilt search application was completed (chemikalieninfo.de history). Use 2003 instead if the GSBL lineage counts, as the note says.) Verified 5 Oct 2026: dateSource changed (Source for the 2019 lower bound (see datePublished). dateBasis stays release.)",
-   "fairsharing": {
-    "id": 6260,
-    "doi": "10.25504/FAIRsharing.b5a070",
-    "name": "ChemInfo",
-    "registry": "Database",
-    "recordType": "knowledgebase_and_repository",
-    "status": "ready",
-    "homepage": "https://recherche.chemikalieninfo.de/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): The history section on chemikalieninfo.de says the GSBL agreement ended on 2015-12-31, the ChemInfo cooperation started on 2016-01-01 and the online search application was completed in December 2021. Web-archive captures of recherche.chemikalieninfo.de start in 2022-01. The predecessor 'GSBL public' was online by 2003 (gsbl.de capture); use 2003 instead if the GSBL lineage should count. There is no FAIRsharing year. Scope, stakeholder and subdomains filled (were empty). Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: datePublished changed (ChemInfo could be searched publicly under its own name before the December 2021 relaunch. The gsbl.de homepage captured 2019-08-21 reads 'Willkommen bei ChemInfo! ... Unsere Datenbank ist weiterhin uneingeschänkt für Sie verfügbar ... Stoffinformationssystem ChemInfo public, einem Auszug aus dem Gesamtsystem', with a link to the public search (http://web.archive.org/web/20190821200437/https://gsbl.de/). The 2019-04-04 capture still says 'GSBL public', so 2019 is a lower bound. December 2021 is only when the rebuilt search application was completed (chemikalieninfo.de history). Use 2003 instead if the GSBL lineage counts, as the note says.) Verified 5 Oct 2026: dateSource changed (Source for the 2019 lower bound (see datePublished). dateBasis stays release.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.96f3gm",
@@ -1896,21 +1597,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.96f3gm",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The beta launch in March 2007 comes from Wikipedia, which cites RSC. A Wayback capture of 2007-04-20 shows the live database with news items from 2007-04-10; earlier captures (2003) are a parked domain. The FAIRsharing year 2009 is the RSC acquisition (RSC press release 2009-05-11). The describing paper, Pence & Williams, J Chem Educ 2010 (https://doi.org/10.1021/ed100697w), is later. URL updated to https.",
-   "fairsharing": {
-    "id": 2042,
-    "doi": "10.25504/FAIRsharing.96f3gm",
-    "name": "ChemSpider",
-    "abbreviation": "ChemSpider",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2009,
-    "homepage": "http://www.chemspider.com/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The beta launch in March 2007 comes from Wikipedia, which cites RSC. A Wayback capture of 2007-04-20 shows the live database with news items from 2007-04-10; earlier captures (2003) are a parked domain. The FAIRsharing year 2009 is the RSC acquisition (RSC press release 2009-05-11). The describing paper, Pence & Williams, J Chem Educ 2010 (https://doi.org/10.1021/ed100697w), is later. URL updated to https."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.j9y503",
@@ -1936,21 +1623,7 @@
    "manuscriptEvidence": "III Data generation (nano); L109",
    "fairsharingRecord": "FAIRsharing.j9y503",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (medium confidence): I corrected the date from 2005. 'Cell type, CL, cell.ontology' already appears in the OBO ontology table captured on 2004-04-15, which is a web-archive lower bound. FAIRsharing year 2004 agrees. The first paper, Bard, Rhee & Ashburner, Genome Biol, 2005-01-14 (doi:10.1186/gb-2005-6-2-r21; received Sept 2004), was the previous source and mentions archived older versions. I filled the creator, which was empty. The ontology is active (GitHub releases in 2026). Verified 5 Oct 2026: datePublished changed (OBO's ontology list script, captured 2003-09-25 (https://web.archive.org/web/20030925190936/http://obo.sourceforge.net/ontologies.js), already contains the 'cell type' ontology: ns 'CL', contacts Jonathan Bard & Michael Ashburner, file cell.ontology in the OBO CVS. obo.sourceforge.net/ontologies.htm captured 2003-07-11 already lists 'cell type', while GO's GOBO page of 2003-04-01 had no cell-type ontology. The web-archive lower bound is therefore 2003, not the 2004-04-15 table capture.) Verified 5 Oct 2026: dateSource changed (This is the earliest capture that names CL explicitly (see the datePublished fix).)",
-   "fairsharing": {
-    "id": 1004,
-    "doi": "10.25504/FAIRsharing.j9y503",
-    "name": "Cell Ontology",
-    "abbreviation": "CL",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2004,
-    "homepage": "https://github.com/obophenotype/cell-ontology",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (medium confidence): I corrected the date from 2005. 'Cell type, CL, cell.ontology' already appears in the OBO ontology table captured on 2004-04-15, which is a web-archive lower bound. FAIRsharing year 2004 agrees. The first paper, Bard, Rhee & Ashburner, Genome Biol, 2005-01-14 (doi:10.1186/gb-2005-6-2-r21; received Sept 2004), was the previous source and mentions archived older versions. I filled the creator, which was empty. The ontology is active (GitHub releases in 2026). Verified 5 Oct 2026: datePublished changed (OBO's ontology list script, captured 2003-09-25 (https://web.archive.org/web/20030925190936/http://obo.sourceforge.net/ontologies.js), already contains the 'cell type' ontology: ns 'CL', contacts Jonathan Bard & Michael Ashburner, file cell.ontology in the OBO CVS. obo.sourceforge.net/ontologies.htm captured 2003-07-11 already lists 'cell type', while GO's GOBO page of 2003-04-01 had no cell-type ontology. The web-archive lower bound is therefore 2003, not the 2004-04-15 table capture.) Verified 5 Oct 2026: dateSource changed (This is the earliest capture that names CL explicitly (see the datePublished fix).)"
   },
   {
    "@id": "#combine",
@@ -2026,20 +1699,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.tfj7gt",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The year taken over from the previous inventory is verified and refined: Williams et al., J Cheminform (online 2017-11-28), states the Dashboard was publicly launched in April 2016. FAIRsharing year 2016 agrees. fairsharingRecord changed from the numeric id 2480 to its DOI code. Verified 5 Oct 2026: fairsharingRecord changed (The research note says fairsharingRecord was changed from the numeric id 2480 to its DOI code, but the field still holds '2480'. The row's own @id and fairsharing.doi are 10.25504/FAIRsharing.tfj7gt. Other rows with a FAIRsharing DOI use the 'FAIRsharing.<code>' form (e.g. agritox 'FAIRsharing.73888a').)",
-   "fairsharing": {
-    "id": 2480,
-    "doi": "10.25504/FAIRsharing.tfj7gt",
-    "name": "EPA CompTox Chemicals Dashboard",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2016,
-    "homepage": "https://comptox.epa.gov/dashboard",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The year taken over from the previous inventory is verified and refined: Williams et al., J Cheminform (online 2017-11-28), states the Dashboard was publicly launched in April 2016. FAIRsharing year 2016 agrees. fairsharingRecord changed from the numeric id 2480 to its DOI code. Verified 5 Oct 2026: fairsharingRecord changed (The research note says fairsharingRecord was changed from the numeric id 2480 to its DOI code, but the field still holds '2480'. The row's own @id and fairsharing.doi are 10.25504/FAIRsharing.tfj7gt. Other rows with a FAIRsharing DOI use the 'FAIRsharing.<code>' form (e.g. agritox 'FAIRsharing.73888a').)"
   },
   {
    "@id": "#cookbook",
@@ -2094,20 +1754,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.522e02",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing has no year. A DG Enterprise cosmetics news item of 2008-05-21 (archived RSS feed) announces the launch of the new online CosIng database, which replaced the PDF ingredient list. The CosIng page was already captured live on 2008-05-01, and there are no earlier captures.",
-   "fairsharing": {
-    "id": 6238,
-    "doi": "10.25504/FAIRsharing.522e02",
-    "name": "Cosmetic ingredient database",
-    "abbreviation": "CosIng",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://ec.europa.eu/growth/tools-databases/cosing/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing has no year. A DG Enterprise cosmetics news item of 2008-05-21 (archived RSS feed) announces the launch of the new online CosIng database, which replaced the PDF ingredient list. The CosIng page was already captured live on 2008-05-01, and there are no earlier captures."
   },
   {
    "@id": "#cred",
@@ -2163,21 +1810,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.dcsw6j",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Excluded E7: clinical adverse-event grading is outside chemical toxicology (the criteria name it as an example). The CTCAE name began with v3.0 in 2003; Trotti et al., Semin Radiat Oncol, July 2003, describe its development. FAIRsharing year 2003 agrees. The old CTEP URL redirects to the DCTD trial-development page, which lists v3.0 to v6.0 (2025).",
-   "fairsharing": {
-    "id": 989,
-    "doi": "10.25504/FAIRsharing.dcsw6j",
-    "name": "Common Terminology Criteria for Adverse Events",
-    "abbreviation": "CTCAE",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2003,
-    "homepage": "http://ctep.cancer.gov/protocolDevelopment/electronic_applications/ctc.htm",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Excluded E7: clinical adverse-event grading is outside chemical toxicology (the criteria name it as an example). The CTCAE name began with v3.0 in 2003; Trotti et al., Semin Radiat Oncol, July 2003, describe its development. FAIRsharing year 2003 agrees. The old CTEP URL redirects to the DCTD trial-development page, which lists v3.0 to v6.0 (2025)."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.h3tjtr",
@@ -2210,21 +1843,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.h3tjtr",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Date is the first describing paper, Mattingly et al., Environ Health Perspect, May 2003 (Crossref/Europe PMC 2003-05-01). The public prototype was released on 2004-12-08: the archived ctd.mdibl.org homepage says 'This prototype is now publicly available'. That release is FAIRsharing's year 2004. Exposome subdomain added for CTD's curated exposure data. Verified 5 Oct 2026: datePublished changed (The first describing paper (Mattingly et al.) was online before its May 2003 print issue. The article's own text in the Europe PMC full text (https://www.ebi.ac.uk/europepmc/webservices/rest/PMC1241500/fullTextXML) reads 'Environ Health Perspect 111:793-795 (2003). doi:10.1289/txg.6028 ... [Online 13 February 2003]'. Crossref created that EHP-Toxicogenomics DOI on 2003-02-12 (https://api.crossref.org/works/10.1289/txg.6028). The date 2003-05-01 is only the print issue date of 10.1289/ehp.6028. The basis stays 'publication'.) Verified 5 Oct 2026: dateSource changed (Crossref and PubMed for 10.1289/ehp.6028 give only the May 2003 issue date. The full text of the same article (PMC1241500, also on Europe PMC) shows '[Online 13 February 2003]', so it supports the corrected date.)",
-   "fairsharing": {
-    "id": 1716,
-    "doi": "10.25504/FAIRsharing.h3tjtr",
-    "name": "Comparative Toxicogenomics Database",
-    "abbreviation": "CTD",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2004,
-    "homepage": "https://ctdbase.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Date is the first describing paper, Mattingly et al., Environ Health Perspect, May 2003 (Crossref/Europe PMC 2003-05-01). The public prototype was released on 2004-12-08: the archived ctd.mdibl.org homepage says 'This prototype is now publicly available'. That release is FAIRsharing's year 2004. Exposome subdomain added for CTD's curated exposure data. Verified 5 Oct 2026: datePublished changed (The first describing paper (Mattingly et al.) was online before its May 2003 print issue. The article's own text in the Europe PMC full text (https://www.ebi.ac.uk/europepmc/webservices/rest/PMC1241500/fullTextXML) reads 'Environ Health Perspect 111:793-795 (2003). doi:10.1289/txg.6028 ... [Online 13 February 2003]'. Crossref created that EHP-Toxicogenomics DOI on 2003-02-12 (https://api.crossref.org/works/10.1289/txg.6028). The date 2003-05-01 is only the print issue date of 10.1289/ehp.6028. The basis stays 'publication'.) Verified 5 Oct 2026: dateSource changed (Crossref and PubMed for 10.1289/ehp.6028 give only the May 2003 issue date. The full text of the same article (PMC1241500, also on Europe PMC) shows '[Online 13 February 2003]', so it supports the corrected date.)"
   },
   {
    "@id": "#cure",
@@ -2278,20 +1897,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.bca16f",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2004 kept. The database's own terms of use (archived DTU page, http://web.archive.org/web/20121021213223/http://qsar.food.dtu.dk/) describe it as a public snapshot of the Danish EPA (Q)SAR tool as of 1 Jan 2004, made with support from the European Chemicals Bureau. The exact first release date was not found; the DTU host is captured from 2012-10. Stakeholder set to In silico research (QSAR modellers, now at DTU); because the first version came from the Danish EPA, Regulator is the alternative. Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: datePublished changed (2004 is not a release date. It is when the Danish EPA-ECB project to build an internet version began ('In 2004, a collaborative project was set up between the Danish EPA and the ECB to develop an internet-accessible version', http://web.archive.org/web/20060507054905/http://ecb.jrc.it/QSAR/qsar_tools/), and it is the date of the data snapshot. The ECB 'What's new' for April 2006 announces the registration form for the internet version of the Danish (Q)SAR database (http://web.archive.org/web/20070502164010/http://ecb.jrc.it:80/whatsnew/content1.php?ANNEE=2006). The ECB news for 2004-2005 does not mention it. The method uses the FAIRsharing year only as a last resort.) Verified 5 Oct 2026: dateBasis changed (An agency page documents the public release (see datePublished), so the FAIRsharing-year fallback no longer applies.) Verified 5 Oct 2026: dateSource changed (ECB 'What's new' 2006, April entry announcing access to the internet version of the Danish (Q)SAR database.)",
-   "fairsharing": {
-    "id": 4640,
-    "doi": "10.25504/FAIRsharing.bca16f",
-    "name": "Danish (Q)SAR Database",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2004,
-    "homepage": "https://qsar.food.dtu.dk/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2004 kept. The database's own terms of use (archived DTU page, http://web.archive.org/web/20121021213223/http://qsar.food.dtu.dk/) describe it as a public snapshot of the Danish EPA (Q)SAR tool as of 1 Jan 2004, made with support from the European Chemicals Bureau. The exact first release date was not found; the DTU host is captured from 2012-10. Stakeholder set to In silico research (QSAR modellers, now at DTU); because the first version came from the Danish EPA, Regulator is the alternative. Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: datePublished changed (2004 is not a release date. It is when the Danish EPA-ECB project to build an internet version began ('In 2004, a collaborative project was set up between the Danish EPA and the ECB to develop an internet-accessible version', http://web.archive.org/web/20060507054905/http://ecb.jrc.it/QSAR/qsar_tools/), and it is the date of the data snapshot. The ECB 'What's new' for April 2006 announces the registration form for the internet version of the Danish (Q)SAR database (http://web.archive.org/web/20070502164010/http://ecb.jrc.it:80/whatsnew/content1.php?ANNEE=2006). The ECB news for 2004-2005 does not mention it. The method uses the FAIRsharing year only as a last resort.) Verified 5 Oct 2026: dateBasis changed (An agency page documents the public release (see datePublished), so the FAIRsharing-year fallback no longer applies.) Verified 5 Oct 2026: dateSource changed (ECB 'What's new' 2006, April entry announcing access to the internet version of the Danish (Q)SAR database.)"
   },
   {
    "@id": "#datacite_metadata_scheme",
@@ -2356,21 +1962,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.z1ars2",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Excluded E7: bacterial toxins (toxinology and infection) are outside chemical toxicology. Date is the online publication of Chakraborty et al., NAR, 2011-11-17 (Crossref), the same year as FAIRsharing. FAIRsharing status is deprecated, although the static site still resolves.",
-   "fairsharing": {
-    "id": 1569,
-    "doi": "10.25504/FAIRsharing.z1ars2",
-    "name": "Database of Bacterial Exotoxins for Human",
-    "abbreviation": "DBETH",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "deprecated",
-    "yearCreation": 2011,
-    "homepage": "http://www.hpppi.iicb.res.in/btox/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Excluded E7: bacterial toxins (toxinology and infection) are outside chemical toxicology. Date is the online publication of Chakraborty et al., NAR, 2011-11-17 (Crossref), the same year as FAIRsharing. FAIRsharing status is deprecated, although the static site still resolves."
   },
   {
    "@id": "#dc_data_explorer",
@@ -2537,20 +2129,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.353yat",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The date is a lower bound: a Wayback capture of www.drugbank.ca on 2002-12-09 shows the DrugBank homepage of the Wishart lab with browse and query tools, marked 'Last updated: July 5, 2002'. The FAIRsharing year is 2004. The first describing paper is Wishart et al., NAR, 2006-01-01 (https://doi.org/10.1093/nar/gkj067; PMC release 2005-12-28). URL updated: drugbank.ca now redirects to go.drugbank.com.",
-   "fairsharing": {
-    "id": 1844,
-    "doi": "10.25504/FAIRsharing.353yat",
-    "name": "DrugBank",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2004,
-    "homepage": "http://www.drugbank.ca/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The date is a lower bound: a Wayback capture of www.drugbank.ca on 2002-12-09 shows the DrugBank homepage of the Wishart lab with browse and query tools, marked 'Last updated: July 5, 2002'. The FAIRsharing year is 2004. The first describing paper is Wishart et al., NAR, 2006-01-01 (https://doi.org/10.1093/nar/gkj067; PMC release 2005-12-28). URL updated: drugbank.ca now redirects to go.drugbank.com."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.wkggtx",
@@ -2588,21 +2167,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.c5b513",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2013 replaced by 2008: NIH papers say the DSLD was launched in 2008 (J Food Compos Anal 2021, doi 10.1016/j.jfca.2021.104058) and created in 2008 (J Nutr 2018, doi 10.1093/jn/nxy082). 2013 matches the move to dsld.nlm.nih.gov (earliest archive capture 2013-05-09; FASEB J 2013 abstract doi 10.1096/fasebj.27.1_supplement.848.1). A predecessor, NLM's Dietary Supplements Labels Database, was online by Oct 2007 (archive). The homepage returns 403 to scripted requests but is live (archived 2026-08-01). Scope Life Sciences because it is a nutrition and public-health resource; toxicology uses it for supplement exposure and harmful ingredients. Verified 5 Oct 2026: datePublished changed (The row's own dateSource (Saldanha et al., JFCA 2021, https://doi.org/10.1016/j.jfca.2021.104058; full text PMC8336909) says a DSLD prototype was discussed at a project meeting in late 2008 and demonstrated in 2009, and 'The first version was deployed in 2013' with about 17,000 labels. The abstract's 'Launched in 2008' therefore refers to the project, not public availability. 2013 is supported by the April 2013 FASEB J abstract 'DSLD Will Capture Information from Dietary Supplement (DS) Labels' (doi 10.1096/fasebj.27.1_supplement.848.1), the earliest dsld.nlm.nih.gov capture (2013-05-09) and FAIRsharing year 2013. The basis stays release.)",
-   "fairsharing": {
-    "id": 6486,
-    "doi": "10.25504/FAIRsharing.c5b513",
-    "name": "Dietary Supplement Label Database",
-    "abbreviation": "DSLD",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2013,
-    "homepage": "https://dsld.od.nih.gov/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2013 replaced by 2008: NIH papers say the DSLD was launched in 2008 (J Food Compos Anal 2021, doi 10.1016/j.jfca.2021.104058) and created in 2008 (J Nutr 2018, doi 10.1093/jn/nxy082). 2013 matches the move to dsld.nlm.nih.gov (earliest archive capture 2013-05-09; FASEB J 2013 abstract doi 10.1096/fasebj.27.1_supplement.848.1). A predecessor, NLM's Dietary Supplements Labels Database, was online by Oct 2007 (archive). The homepage returns 403 to scripted requests but is live (archived 2026-08-01). Scope Life Sciences because it is a nutrition and public-health resource; toxicology uses it for supplement exposure and harmful ingredients. Verified 5 Oct 2026: datePublished changed (The row's own dateSource (Saldanha et al., JFCA 2021, https://doi.org/10.1016/j.jfca.2021.104058; full text PMC8336909) says a DSLD prototype was discussed at a project meeting in late 2008 and demonstrated in 2009, and 'The first version was deployed in 2013' with about 17,000 labels. The abstract's 'Launched in 2008' therefore refers to the project, not public availability. 2013 is supported by the April 2013 FASEB J abstract 'DSLD Will Capture Information from Dietary Supplement (DS) Labels' (doi 10.1096/fasebj.27.1_supplement.848.1), the earliest dsld.nlm.nih.gov capture (2013-05-09) and FAIRsharing year 2013. The basis stays release.)"
   },
   {
    "@id": "#ec_inventory",
@@ -2631,19 +2196,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "6245",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Date changed from 2008 to the publication of EINECS, the core of the EC Inventory, in OJ C 146A of 15 June 1990 (CELEX 51990XC0615(01), cited by de.wikipedia). EUR-Lex could not be reached to confirm. The FAIRsharing year 2008 is only when ECHA received the data from the JRC, and ECHA's EC Inventory page is captured only from 2014-08-23. Use 2008 or 2014 instead if the row is meant as ECHA's web service alone.",
-   "fairsharing": {
-    "id": 6245,
-    "name": "EC Inventory",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2008,
-    "homepage": "https://echa.europa.eu/information-on-chemicals/ec-inventory",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Date changed from 2008 to the publication of EINECS, the core of the EC Inventory, in OJ C 146A of 15 June 1990 (CELEX 51990XC0615(01), cited by de.wikipedia). EUR-Lex could not be reached to confirm. The FAIRsharing year 2008 is only when ECHA received the data from the JRC, and ECHA's EC Inventory page is captured only from 2014-08-23. Use 2008 or 2014 instead if the row is meant as ECHA's web service alone."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.60ef2d",
@@ -2675,20 +2228,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.60ef2d",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing has no year. The earliest Wayback capture (2013-09-06) shows the ECHA biocidal active substances list with 'Data as of 1 Sep 2013' and 49 approved substances. It therefore launched when the BPR began to apply on 1 September 2013. Added to eChemPortal on 2021-10-27.",
-   "fairsharing": {
-    "id": 5678,
-    "doi": "10.25504/FAIRsharing.60ef2d",
-    "name": " ECHA Biocidal Products Regulation",
-    "abbreviation": "ECHA-BPR",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://echa.europa.eu/information-on-chemicals/biocidal-active-substances",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing has no year. The earliest Wayback capture (2013-09-06) shows the ECHA biocidal active substances list with 'Data as of 1 Sep 2013' and 49 approved substances. It therefore launched when the BPR began to apply on 1 September 2013. Added to eChemPortal on 2021-10-27."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ab25e3",
@@ -2720,20 +2260,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.ab25e3",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. ECHA news release ECHA/NR/24/02 of 30 January 2024 announces the launch of ECHA CHEM with all REACH registrations (read from the archived copy). The first Wayback capture of chem.echa.europa.eu is from the same day. FAIRsharing has no year. REACH registration data were published earlier on ECHA's former registered-substances pages, which have no row of their own.",
-   "fairsharing": {
-    "id": 5677,
-    "doi": "10.25504/FAIRsharing.ab25e3",
-    "name": "ECHA CHEM - Registration, Evaluation, Authorisation and Restriction of Chemicals Regulation",
-    "abbreviation": "ECHA CHEM - REACH",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://chem.echa.europa.eu/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. ECHA news release ECHA/NR/24/02 of 30 January 2024 announces the launch of ECHA CHEM with all REACH registrations (read from the archived copy). The first Wayback capture of chem.echa.europa.eu is from the same day. FAIRsharing has no year. REACH registration data were published earlier on ECHA's former registered-substances pages, which have no row of their own."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4782f1",
@@ -2765,20 +2292,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.4782f1",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The public C&L Inventory was launched on 13 February 2012 (ECHA press release ECHA/PR/12/02, archived copy; confirmed by ECHA's news list of March 2012). FAIRsharing status is deprecated ('Data incorporated in ECHA CHEM'), and eChemPortal moved its links to ECHA CHEM on 2026-03-16, so the stand-alone database is marked discontinued. Kept as its own row because it had its own identity from 2012; alternatively E6, covered by echa_chem_reach.",
-   "fairsharing": {
-    "id": 5679,
-    "doi": "10.25504/FAIRsharing.4782f1",
-    "name": "ECHA Classification, Labelling and Packaging",
-    "abbreviation": "ECHA-CLP",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "deprecated",
-    "homepage": "https://echa.europa.eu/web/guest/information-on-chemicals/cl-inventory-database",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The public C&L Inventory was launched on 13 February 2012 (ECHA press release ECHA/PR/12/02, archived copy; confirmed by ECHA's news list of March 2012). FAIRsharing status is deprecated ('Data incorporated in ECHA CHEM'), and eChemPortal moved its links to ECHA CHEM on 2026-03-16, so the stand-alone database is marked discontinued. Kept as its own row because it had its own identity from 2012; alternatively E6, covered by echa_chem_reach."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.25fbf6",
@@ -2816,20 +2330,7 @@
      "source": "https://www.echemportal.org/echemportal/news",
      "note": "Checked 5 Oct 2026: eChemPortal's release notes (v2.0 in 2018 and later maintenance releases) state that its property-search fields follow the OECD Harmonised Templates."
     }
-   ],
-   "fairsharing": {
-    "id": 4724,
-    "doi": "10.25504/FAIRsharing.25fbf6",
-    "name": "OECD eChemPortal",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2007,
-    "homepage": "https://www.echemportal.org/echemportal/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4b2234",
@@ -2862,21 +2363,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.4b2234",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): The archived 1999 ECOTOX FAQ says the combined ECOTOX interface was released to government users only, by telnet, in March 1996, and that AQUIRE was opened to all users on the web in 1999. The public ECOTOX homepage was captured on 1999-08-27 (page last modified 1999-05-04). FAIRsharing year 2017 is far too late. Olker et al. 2022 (https://doi.org/10.1002/etc.5324) describes version 5, not the launch. ECOTOX data tapes were also sold through NTIS, date not established. Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: datePublished changed (NTIS sold ECOTOX itself to the public in 1996. Record PB97500318, 'Ecotox Database (AQUIRE, PHYTOTOX, and TERRETOX) (VMS Data and Programs) (on Magnetic Tape)', has publication date 1996 and NTIS issue 1997-01, and supersedes the 1995 AQUIRE tapes (https://ntrl.ntis.gov/NTRL/dashboard/searchResults/titleDetail/PB97500318.xhtml). The non-VMS tape, PB97500292, is also dated 1996. The cited 1999 FAQ lists both tapes. 1999 is only when AQUIRE opened on the web.) Verified 5 Oct 2026: dateSource changed (Source for the 1996 NTIS release (see datePublished). dateBasis stays release.)",
-   "fairsharing": {
-    "id": 4704,
-    "doi": "10.25504/FAIRsharing.4b2234",
-    "name": "ECOTOXicology Knowledgebase",
-    "abbreviation": "ECOTOX",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2017,
-    "homepage": "https://cfpub.epa.gov/ecotox/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): The archived 1999 ECOTOX FAQ says the combined ECOTOX interface was released to government users only, by telnet, in March 1996, and that AQUIRE was opened to all users on the web in 1999. The public ECOTOX homepage was captured on 1999-08-27 (page last modified 1999-05-04). FAIRsharing year 2017 is far too late. Olker et al. 2022 (https://doi.org/10.1002/etc.5324) describes version 5, not the launch. ECOTOX data tapes were also sold through NTIS, date not established. Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: datePublished changed (NTIS sold ECOTOX itself to the public in 1996. Record PB97500318, 'Ecotox Database (AQUIRE, PHYTOTOX, and TERRETOX) (VMS Data and Programs) (on Magnetic Tape)', has publication date 1996 and NTIS issue 1997-01, and supersedes the 1995 AQUIRE tapes (https://ntrl.ntis.gov/NTRL/dashboard/searchResults/titleDetail/PB97500318.xhtml). The non-VMS tape, PB97500292, is also dated 1996. The cited 1999 FAQ lists both tapes. 1999 is only when AQUIRE opened on the web.) Verified 5 Oct 2026: dateSource changed (Source for the 1996 NTIS release (see datePublished). dateBasis stays release.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.560f4e",
@@ -2905,20 +2392,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.560f4e",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Loterre vocabulary metadata: created 2017-11-21, version 1.1, last modified 2022-06-22, creator Inist-CNRS, licence CC BY 4.0. Agrees with the previous value 2017 and FAIRsharing year 2017. The date is the Loterre SKOS release; an older INIST vocabulary may lie behind it. fairsharingRecord changed from the numeric 4460 to the DOI code. Stakeholder 'In silico research' chosen as the closest fit for an academic terminology provider. Verified 5 Oct 2026: fairsharingRecord changed (The note says fairsharingRecord was changed from the numeric 4460 to the DOI code, but the field still holds 4460. DataCite resolves 10.25504/FAIRsharing.560f4e to 'FAIRsharing record for: Ecotoxicology thesaurus' (https://api.datacite.org/dois/10.25504/FAIRsharing.560f4e). That matches the row's @id and the code format used by the other 95 rows.)",
-   "fairsharing": {
-    "id": 4460,
-    "doi": "10.25504/FAIRsharing.560f4e",
-    "name": "Ecotoxicology thesaurus",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2017,
-    "homepage": "https://loterre.istex.fr/3WV/en/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Loterre vocabulary metadata: created 2017-11-21, version 1.1, last modified 2022-06-22, creator Inist-CNRS, licence CC BY 4.0. Agrees with the previous value 2017 and FAIRsharing year 2017. The date is the Loterre SKOS release; an older INIST vocabulary may lie behind it. fairsharingRecord changed from the numeric 4460 to the DOI code. Stakeholder 'In silico research' chosen as the closest fit for an academic terminology provider. Verified 5 Oct 2026: fairsharingRecord changed (The note says fairsharingRecord was changed from the numeric 4460 to the DOI code, but the field still holds 4460. DataCite resolves 10.25504/FAIRsharing.560f4e to 'FAIRsharing record for: Ecotoxicology thesaurus' (https://api.datacite.org/dois/10.25504/FAIRsharing.560f4e). That matches the row's @id and the code format used by the other 95 rows.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.g593w1",
@@ -3185,21 +2659,7 @@
      "source": "https://doi.org/10.3762/bjnano.6.165",
      "note": "Checked 5 Oct 2026: The database paper describes importing ISA-Tab files into its data model, which also borrows ISA-Tab's protocol-application concept; the FAIRsharing record behind the earlier evidence could not be read to confirm it."
     }
-   ],
-   "fairsharing": {
-    "id": 2282,
-    "doi": "10.25504/FAIRsharing.r18yt0",
-    "name": "data.eNanoMapper.net",
-    "abbreviation": "data.eNanoMapper.net",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2014,
-    "homepage": "https://data.enanomapper.net/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2gpf81",
@@ -3259,21 +2719,7 @@
      "source": "https://github.com/enanomapper/ontologies/blob/master/config/bao.props",
      "note": "Checked 5 Oct 2026: The eNanoMapper ontology build imports a slimmed BAO module (about 700 BAO classes), and the eNanoMapper database paper names BAO as reused content."
     }
-   ],
-   "fairsharing": {
-    "id": 493,
-    "doi": "10.25504/FAIRsharing.2gpf81",
-    "name": "eNanoMapper Ontology",
-    "abbreviation": "ENM",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2014,
-    "homepage": "https://github.com/enanomapper/ontologies",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fx0mw7",
@@ -3295,20 +2741,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.fx0mw7",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1999 is the project start. Ensembl's own About page (archived 2015) says the project started in 1999 and the website launched in July 2000. Earliest archive capture of ensembl.org is 2000-08-15. First paper: Hubbard et al. 2002 (doi 10.1093/nar/30.1.38). www.ensembl.org now serves the new Ensembl app, and legacy pages redirect to archive sites.",
-   "fairsharing": {
-    "id": 1867,
-    "doi": "10.25504/FAIRsharing.fx0mw7",
-    "name": "Ensembl",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 1999,
-    "homepage": "http://www.ensembl.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1999 is the project start. Ensembl's own About page (archived 2015) says the project started in 1999 and the website launched in July 2000. Earliest archive capture of ensembl.org is 2000-08-15. First paper: Hubbard et al. 2002 (doi 10.1093/nar/30.1.38). www.ensembl.org now serves the new Ensembl app, and legacy pages redirect to archive sites."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.azqskx",
@@ -3334,21 +2767,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.azqskx",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2007 is supported by other sources. EnvO is in the OBO Foundry registry listed in Smith et al. 2007 (Nat Biotechnol, online 2007-11-07). environmentontology.org was archived on 2008-05-18, and the MIGS paper (2008-05-08) cites EnvO as an existing project. First dedicated paper: Buttigieg et al. 2013-12-11 (doi:10.1186/2041-1480-4-43). The homepage's https certificate fails; http works. Subdomains proposed for environmental and exposure context.",
-   "fairsharing": {
-    "id": 919,
-    "doi": "10.25504/FAIRsharing.azqskx",
-    "name": "Environment Ontology",
-    "abbreviation": "ENVO",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2007,
-    "homepage": "http://environmentontology.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2007 is supported by other sources. EnvO is in the OBO Foundry registry listed in Smith et al. 2007 (Nat Biotechnol, online 2007-11-07). environmentontology.org was archived on 2008-05-18, and the MIGS paper (2008-05-08) cites EnvO as an existing project. First dedicated paper: Buttigieg et al. 2013-12-11 (doi:10.1186/2041-1480-4-43). The homepage's https certificate fails; http works. Subdomains proposed for environmental and exposure context."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.eca652",
@@ -3378,19 +2797,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.eca652",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The earliest web-archive capture of the OPP Aquatic Life Benchmark table is 2008-01-16, a lower bound. The table was not yet linked from OPP's effects-characterisation page in the April 2006 capture and cites assessments up to 2006, so it was probably first posted in 2006-2007. There is no FAIRsharing year. The current table was updated in September 2025. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 5680,
-    "doi": "10.25504/FAIRsharing.eca652",
-    "name": "EPA Aquatic Life Benchmarks",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/aquatic-life-benchmarks-and-ecological-risk#benchmarks",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The earliest web-archive capture of the OPP Aquatic Life Benchmark table is 2008-01-16, a lower bound. The table was not yet linked from OPP's effects-characterisation page in the April 2006 capture and cites assessments up to 2006, so it was probably first posted in 2006-2007. There is no FAIRsharing year. The current table was updated in September 2025. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4a5271",
@@ -3419,19 +2826,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.4a5271",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing gives no year, and no launch announcement was found because web search was unavailable in this pass. The live database at java.epa.gov/chemview was first archived on 2013-09-12. That is a lower bound; the page says EPA is still populating it, which suggests a recent launch. The user guide for release 1.2 is dated 6 Oct 2014. Check EPA's 2013 press release if an exact date is needed.",
-   "fairsharing": {
-    "id": 6221,
-    "doi": "10.25504/FAIRsharing.4a5271",
-    "name": "EPA ChemView",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "homepage": "https://chemview.epa.gov/chemview/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing gives no year, and no launch announcement was found because web search was unavailable in this pass. The live database at java.epa.gov/chemview was first archived on 2013-09-12. That is a lower bound; the page says EPA is still populating it, which suggests a recent launch. The user guide for release 1.2 is dated 6 Oct 2014. Check EPA's 2013 press release if an exact date is needed."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.e1124d",
@@ -3463,19 +2858,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.e1124d",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Source is EPA's IRIS history timeline, the data file behind the 'History of IRIS' section of the About IRIS page. IRIS was created in 1985 as an internal EPA database and the first summaries were added in 1987. It was made public in 1988, first by e-mail and then through NLM TOXNET and NTIS, and went on the internet in March 1997. Wikipedia's '1987' refers to the internal summaries. There is no FAIRsharing year. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 5681,
-    "doi": "10.25504/FAIRsharing.e1124d",
-    "name": "EPA Integrated Risk Information System",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://www.epa.gov/iris",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Source is EPA's IRIS history timeline, the data file behind the 'History of IRIS' section of the About IRIS page. IRIS was created in 1985 as an internal EPA database and the first summaries were added in 1987. It was made public in 1988, first by e-mail and then through NLM TOXNET and NTIS, and went on the internet in March 1997. Wikipedia's '1987' refers to the internal summaries. There is no FAIRsharing year. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d4074e",
@@ -3504,19 +2887,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.d4074e",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): First released as the 'Substance Registry System' at www.epa.gov/srs. The earliest web-archive capture of its searchable homepage is 2001-05-02, a lower bound; a 2002 capture reads 'SRS Version 2002'. There is no FAIRsharing year and no describing paper was found. Scope, stakeholder and subdomains filled (were empty). Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 5684,
-    "doi": "10.25504/FAIRsharing.d4074e",
-    "name": "EPA Substance Registry Services",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://cdxapps.epa.gov/oms-substance-registry-services/search",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): First released as the 'Substance Registry System' at www.epa.gov/srs. The earliest web-archive capture of its searchable homepage is 2001-05-02, a lower bound; a 2002 capture reads 'SRS Version 2002'. There is no FAIRsharing year and no describing paper was found. Scope, stakeholder and subdomains filled (were empty). Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#epicrdb",
@@ -3550,20 +2921,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "2973",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2020 kept: no launch date or paper describing the portal was found. The paper FAIRsharing cites (VonHandorf et al., Epigenetics 2018, doi 10.1080/15592294.2018.1454243) reports the underlying datasets, not the portal. Earliest archive capture is 2021-03-04. FAIRsharing deprecated the record on 2026-06-04 for lack of maintenance. The static page still loads, so it is marked discontinued as unmaintained.",
-   "fairsharing": {
-    "id": 2973,
-    "name": "Chromium Epigenomics Toxicology",
-    "abbreviation": "EpiCrDB",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "deprecated",
-    "yearCreation": 2020,
-    "homepage": "http://eh4.uc.edu/chromium/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2020 kept: no launch date or paper describing the portal was found. The paper FAIRsharing cites (VonHandorf et al., Epigenetics 2018, doi 10.1080/15592294.2018.1454243) reports the underlying datasets, not the portal. Earliest archive capture is 2021-03-04. FAIRsharing deprecated the record on 2026-06-04 for lack of maintenance. The static page still loads, so it is marked discontinued as unmaintained."
   },
   {
    "@id": "#etox",
@@ -3765,21 +3123,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.b5c52c",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): ECHA press release ECHA/PR/17/11 (Helsinki, 14 June 2017, read from the 2017 web-archive copy) announced the launch; the first capture of the site is 2017-08-01. FAIRsharing year 2016 is when the Commission-ECHA delegation agreement was signed (end of 2016), so the date is corrected. The homepage refuses scripted requests (403), but web-archive captures up to May 2026 show it live. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 2618,
-    "doi": "10.25504/FAIRsharing.b5c52c",
-    "name": "European Union Observatory for Nanomaterials",
-    "abbreviation": "EUON",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2016,
-    "homepage": "https://euon.echa.europa.eu/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): ECHA press release ECHA/PR/17/11 (Helsinki, 14 June 2017, read from the 2017 web-archive copy) announced the launch; the first capture of the site is 2017-08-01. FAIRsharing year 2016 is when the Commission-ECHA delegation agreement was signed (end of 2016), so the date is corrected. The homepage refuses scripted requests (403), but web-archive captures up to May 2026 show it live. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#europepmc",
@@ -3977,21 +3321,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.6hna78",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2011 kept; other evidence supports it. The ExO file distributed by CTD has header date 13 Sep 2011 (archived copy of 2012-02-05). The OBO Foundry entry was archived on 2012-01-27. The describing paper, Mattingly et al., Environ Sci Technol (doi:10.1021/es2033857), was online 2012-02-10 per PMC; Crossref gives 2012-03-12. Public availability during 2011 itself is not directly verified. OBO lists ExO as active.",
-   "fairsharing": {
-    "id": 512,
-    "doi": "10.25504/FAIRsharing.6hna78",
-    "name": "Exposure Ontology",
-    "abbreviation": "ExO",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2011,
-    "homepage": "https://github.com/CTDbase/exposure-ontology",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2011 kept; other evidence supports it. The ExO file distributed by CTD has header date 13 Sep 2011 (archived copy of 2012-02-05). The OBO Foundry entry was archived on 2012-01-27. The describing paper, Mattingly et al., Environ Sci Technol (doi:10.1021/es2033857), was online 2012-02-10 per PMC; Crossref gives 2012-03-12. Public availability during 2011 itself is not directly verified. OBO lists ExO as active."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
@@ -4021,19 +3351,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.fbbcf8",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): The first description is Neveu et al., NAR, online 2016-10-24 (Crossref, Europe PMC); the first web-archive capture is 2016-11-04. This confirms the previous inventory's 2016 and adds the day. fairsharingRecord changed from the numeric id 4722 to the record's DOI code. Stakeholder set to In silico research because IARC researchers built it as a literature-curated knowledgebase; IARC is a WHO agency, so Regulator is the alternative. Scope and subdomains filled (were empty). Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: fairsharingRecord changed (The note says this field was changed to the record's DOI code, but it still holds the numeric id. The FAIRsharing block maps id 4722 to doi 10.25504/FAIRsharing.fbbcf8 (https://doi.org/10.25504/FAIRsharing.fbbcf8), which is also the row's @id.)",
-   "fairsharing": {
-    "id": 4722,
-    "doi": "10.25504/FAIRsharing.fbbcf8",
-    "name": "Exposome Explorer",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "http://exposome-explorer.iarc.fr/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): The first description is Neveu et al., NAR, online 2016-10-24 (Crossref, Europe PMC); the first web-archive capture is 2016-11-04. This confirms the previous inventory's 2016 and adds the day. fairsharingRecord changed from the numeric id 4722 to the record's DOI code. Stakeholder set to In silico research because IARC researchers built it as a literature-curated knowledgebase; IARC is a WHO agency, so Regulator is the alternative. Scope and subdomains filled (were empty). Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: fairsharingRecord changed (The note says this field was changed to the record's DOI code, but it still holds the numeric id. The FAIRsharing block maps id 4722 to doi 10.25504/FAIRsharing.fbbcf8 (https://doi.org/10.25504/FAIRsharing.fbbcf8), which is also the row's @id.)"
   },
   {
    "@id": "#exposome",
@@ -4335,21 +3653,7 @@
    "manuscriptEvidence": "Throughout (I-VI); L7, L10, L14, L18, L40, L86, L92, L94, L96, L112, L116, L148, L175, L184, L188, L190, L205, L222, L264, L267, L301, L330",
    "fairsharingRecord": "FAIRsharing.WWI10U",
    "fairsharingMatch": "confirmed",
-   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify.",
-   "fairsharing": {
-    "id": 1236,
-    "doi": "10.25504/FAIRsharing.WWI10U",
-    "name": "The FAIR Principles",
-    "abbreviation": "FAIR",
-    "registry": "Standard",
-    "recordType": "principle",
-    "status": "ready",
-    "yearCreation": 2016,
-    "homepage": "https://doi.org/10.1038/sdata.2016.18",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2abjs5",
@@ -4375,20 +3679,7 @@
    "note": "Research 5 Oct 2026 (high confidence): Launched as BioSharing in 2011: McQuilton et al. 2016 (doi 10.1093/database/baw075) and Sansone et al. 2019 (doi 10.1038/s41587-019-0080-8) both give 2011. The web archive shows the BioSharing standards and policies catalogue live on 2011-06-05; biosharing.org was a blog in 2009-2010. FAIRsharing year 2011. dateSource changed from the 2019 paper to the 2016 paper, which states the launch year. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository).",
    "fsr": [
     "https://w3id.org/np/RAqEeg0TsBbCE6tdp3xdZifswbiUEOh8psfJ8LoD5zrDc#FS"
-   ],
-   "fairsharing": {
-    "id": 2521,
-    "doi": "10.25504/FAIRsharing.2abjs5",
-    "name": "FAIRsharing",
-    "registry": "Database",
-    "recordType": "knowledgebase_and_repository",
-    "status": "ready",
-    "yearCreation": 2011,
-    "homepage": "https://fairsharing.org",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "#fics",
@@ -4501,19 +3792,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.c7bb32",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): No launch announcement or FAIRsharing year was found. The earliest web-archive capture of the page titled 'Food and Feed Information Portal Database | FIP' is 2022-12-20, a lower bound. The description is widened from flavourings to all modules listed in the portal's application routes. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 7182,
-    "doi": "10.25504/FAIRsharing.c7bb32",
-    "name": "Food and Feed Information Portal Database",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://ec.europa.eu/food/food-feed-portal/screen/home",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): No launch announcement or FAIRsharing year was found. The earliest web-archive capture of the page titled 'Food and Feed Information Portal Database | FIP' is 2022-12-20, a lower bound. The description is widened from flavourings to all modules listed in the portal's application routes. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#ftp",
@@ -4689,21 +3968,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.c8f1cd",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2001 replaced; it probably reflects NITE's own establishment, not the database. NITE's update history says the consolidated NITE Japan-GHS results were first published on 2020-12-14 (last update 2026-09-02). The Japanese Government GHS classification results it consolidates were published on NITE's site earlier: a pilot in Oct 2005 (archived safe.nite.go.jp/ghs page, comment deadline 31 Oct 2005) and formal rounds from 2006 (9th round on 2006-10-31). Use 2005 if the row is meant to cover that older database.",
-   "fairsharing": {
-    "id": 5636,
-    "doi": "10.25504/FAIRsharing.c8f1cd",
-    "name": "NITE Japan-GHS",
-    "abbreviation": "GHS-J",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2001,
-    "homepage": "https://www.chem-info.nite.go.jp/chem/english/ghs/ghs_nite_download_e.html",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2001 replaced; it probably reflects NITE's own establishment, not the database. NITE's update history says the consolidated NITE Japan-GHS results were first published on 2020-12-14 (last update 2026-09-02). The Japanese Government GHS classification results it consolidates were published on NITE's site earlier: a pilot in Oct 2005 (archived safe.nite.go.jp/ghs page, comment deadline 31 Oct 2005) and formal rounds from 2006 (9th round on 2006-10-31). Use 2005 if the row is meant to cover that older database."
   },
   {
    "@id": "#givimp",
@@ -4909,20 +4174,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.d6e8fa",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Earliest evidence found, used as a lower bound: Purchase 1989 (Pol J Occup Med 2(4):337-49, PMID 2489435) reports that IPCS produces ICSCs. Later evidence: a 1992 review of the printed cards (https://doi.org/10.1016/0304-3894(92)87024-a), 349 English cards by 1993 (PMID 8255257), online at NIOSH by 1997-1998 (web archive) and in the ILO database later. The project start date was not found and there is no FAIRsharing year. URL updated to the page the old one now redirects to. Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: dateBasis changed (Purchase 1989 (https://pubmed.ncbi.nlm.nih.gov/2489435/) reviews international work on existing chemicals and only mentions that IPCS produces ICSCs. It is not the paper that first describes the cards, so 1989 is a lower bound for their release. This fits WHO's World Health of December 1988, which announced 'the planned publication of some 400 ... International Chemical Safety Cards this year and next' (https://iris.who.int/handle/10665/52739).)",
-   "fairsharing": {
-    "id": 5632,
-    "doi": "10.25504/FAIRsharing.d6e8fa",
-    "name": "ILO-WHO International Chemical Safety Cards ",
-    "abbreviation": "ICSCs",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://www.ilo.org/resource/ilo-who-international-chemical-safety-cards-icscs",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Earliest evidence found, used as a lower bound: Purchase 1989 (Pol J Occup Med 2(4):337-49, PMID 2489435) reports that IPCS produces ICSCs. Later evidence: a 1992 review of the printed cards (https://doi.org/10.1016/0304-3894(92)87024-a), 349 English cards by 1993 (PMID 8255257), online at NIOSH by 1997-1998 (web archive) and in the ILO database later. The project start date was not found and there is no FAIRsharing year. URL updated to the page the old one now redirects to. Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: dateBasis changed (Purchase 1989 (https://pubmed.ncbi.nlm.nih.gov/2489435/) reviews international work on existing chemicals and only mentions that IPCS produces ICSCs. It is not the paper that first describes the cards, so 1989 is a lower bound for their release. This fits WHO's World Health of December 1988, which announced 'the planned publication of some 400 ... International Chemical Safety Cards this year and next' (https://iris.who.int/handle/10665/52739).)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2b0d92",
@@ -4980,21 +4232,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.801285",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2006 replaced. IGS-public of the Landesumweltamt NRW was online by 2000-09-16 (earliest archive capture of its start page; a lower bound). A 2002 capture (igs.lua.nrw.de) says release 01/2001 added health hazards to IGS-public. The internal IGS for authorities is older. The agency became LANUV and is now LANUK. The old homepage igsvtu.lanuv.nrw.de redirects to igsvtu.lanuk.nrw.de, which showed a maintenance banner at check time with 'Release 05/2026 online'.",
-   "fairsharing": {
-    "id": 5654,
-    "doi": "10.25504/FAIRsharing.801285",
-    "name": "IGS - Public Informationssystem für gefährliche Stoffe",
-    "abbreviation": "IGS",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2006,
-    "homepage": "https://igsvtu.lanuv.nrw.de/en/home/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2006 replaced. IGS-public of the Landesumweltamt NRW was online by 2000-09-16 (earliest archive capture of its start page; a lower bound). A 2002 capture (igs.lua.nrw.de) says release 01/2001 added health hazards to IGS-public. The internal IGS for authorities is older. The agency became LANUV and is now LANUK. The old homepage igsvtu.lanuv.nrw.de redirects to igsvtu.lanuk.nrw.de, which showed a maintenance banner at check time with 'Release 05/2026 online'."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.ddk9t9",
@@ -5053,21 +4291,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.9gqfpm",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): FAIRsharing year 1991 corrected: it matches the goRENI/RENI platform (copyright Fraunhofer ITEM 1991-), not INHAND. The first INHAND guide (rat and mouse respiratory tract, Renne et al., Toxicol Pathol 37(7 Suppl)) appeared in December 2009; PubMed has no earlier INHAND paper. Homepage moved to https. The STP's INHAND page is https://www.toxpath.org/inhand.asp.",
-   "fairsharing": {
-    "id": 392,
-    "doi": "10.25504/FAIRsharing.9gqfpm",
-    "name": "International Harmonization of Nomenclature and Diagnostic criteria",
-    "abbreviation": "INHAND",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 1991,
-    "homepage": "http://www.goreni.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): FAIRsharing year 1991 corrected: it matches the goRENI/RENI platform (copyright Fraunhofer ITEM 1991-), not INHAND. The first INHAND guide (rat and mouse respiratory tract, Renne et al., Toxicol Pathol 37(7 Suppl)) appeared in December 2009; PubMed has no earlier INHAND paper. Homepage moved to https. The STP's INHAND page is https://www.toxpath.org/inhand.asp."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.d05nwx",
@@ -5180,20 +4404,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.667115",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing gives no year, and no official launch date was found. The JRC's IPCheM portal was online by 2014-11-26 (earliest archive capture; a lower bound, showing modules and participation information). By Dec 2015 'IPCheM Version 3.1' offered data discovery and a viewer (archive). Modules are coordinated by EEA, EFSA and JRC. URL trailing '#' dropped. Verified 5 Oct 2026: datePublished changed (The 2014-11-26 capture (https://web.archive.org/web/20141126151332/http://ipchem.jrc.ec.europa.eu/) is only a public information page: a June 2014 flyer, 'How to participate' and LIFE funding. Its only links into the platform are 'Go to IPCheM for European Agencies' (webgate.ec.testa.eu, the closed sTESTA network) and 'Go to IPCheM for European Commission' (ipchem-portal.jrc.it, internal to JRC). The platform was therefore not publicly available in 2014. The first capture of the public discovery portal (IPCheM Version 3.1, with Discovery and Viewer) is from 2015-12-19, so 2015 is the documented lower bound.) Verified 5 Oct 2026: dateSource changed (Earliest capture of the publicly accessible IPCheM portal (Version 3.1); see datePublished.)",
-   "fairsharing": {
-    "id": 5633,
-    "doi": "10.25504/FAIRsharing.667115",
-    "name": "Information Platform for Chemical Monitoring",
-    "abbreviation": "IPCHEM",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "homepage": "https://ipchem.jrc.ec.europa.eu/#",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing gives no year, and no official launch date was found. The JRC's IPCheM portal was online by 2014-11-26 (earliest archive capture; a lower bound, showing modules and participation information). By Dec 2015 'IPCheM Version 3.1' offered data discovery and a viewer (archive). Modules are coordinated by EEA, EFSA and JRC. URL trailing '#' dropped. Verified 5 Oct 2026: datePublished changed (The 2014-11-26 capture (https://web.archive.org/web/20141126151332/http://ipchem.jrc.ec.europa.eu/) is only a public information page: a June 2014 flyer, 'How to participate' and LIFE funding. Its only links into the platform are 'Go to IPCheM for European Agencies' (webgate.ec.testa.eu, the closed sTESTA network) and 'Go to IPCheM for European Commission' (ipchem-portal.jrc.it, internal to JRC). The platform was therefore not publicly available in 2014. The first capture of the public discovery portal (IPCheM Version 3.1, with Discovery and Viewer) is from 2015-12-19, so 2015 is the documented lower bound.) Verified 5 Oct 2026: dateSource changed (Earliest capture of the publicly accessible IPCheM portal (Version 3.1); see datePublished.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fc4807",
@@ -5225,20 +4436,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.fc4807",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): IPCS INCHEM was first released as a CCOHS CD-ROM; the CCOHS release announcing it was captured 1997-05-11, a lower bound. The free website inchem.org is captured from 1998-12-01. There is no FAIRsharing year. URL cleaned (removed '#/'). Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 5641,
-    "doi": "10.25504/FAIRsharing.fc4807",
-    "name": "Internationally Peer Reviewed Chemical Safety Information",
-    "abbreviation": "IPCS INCHEM",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://www.inchem.org/#/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): IPCS INCHEM was first released as a CCOHS CD-ROM; the CCOHS release announcing it was captured 1997-05-11, a lower bound. The free website inchem.org is captured from 1998-12-01. There is no FAIRsharing year. URL cleaned (removed '#/'). Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#isa_ext",
@@ -5312,21 +4510,7 @@
    "manuscriptEvidence": "III Data generation; Comments [ap]; L99-100, L407",
    "fairsharingRecord": "FAIRsharing.53gp75",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): The year is confirmed. The first description is the RSBI ISA-TAB workshop report, OMICS 12(2) (Crossref issue/online date 2008-06-01; PubMed 2008 Jun). The DOI was registered on 2008-04-30 and PubMed indexed it on 2008-05-02, so the online date is uncertain and I kept year precision. The format was proposed at the workshop held 6-8 Dec 2007 at the EBI, where toxicogenomics was among the RSBI communities. FAIRsharing yearCreation 2010 reflects the ISA software suite. I refined the creator because ISA-Tab started at EMBL-EBI before the team moved to Oxford.",
-   "fairsharing": {
-    "id": 1497,
-    "doi": "10.25504/FAIRsharing.53gp75",
-    "name": "Investigation Study Assay Tabular",
-    "abbreviation": "ISA-Tab",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2010,
-    "homepage": "https://isa-specs.readthedocs.io/en/latest/isatab.html",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (high confidence): The year is confirmed. The first description is the RSBI ISA-TAB workshop report, OMICS 12(2) (Crossref issue/online date 2008-06-01; PubMed 2008 Jun). The DOI was registered on 2008-04-30 and PubMed indexed it on 2008-05-02, so the online date is uncertain and I kept year precision. The format was proposed at the workshop held 6-8 Dec 2007 at the EBI, where toxicogenomics was among the RSBI communities. FAIRsharing yearCreation 2010 reflects the ISA software suite. I refined the creator because ISA-Tab started at EMBL-EBI before the team moved to Oxford."
   },
   {
    "@id": "#iuclid",
@@ -5472,21 +4656,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.39044c",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The earliest web-archive capture of J-CHECK (www.safe.nite.go.jp/jcheck) is 2008-06-07, a lower bound. FAIRsharing year 2013 is its relaunch as an integrated Japanese-English system on 2013-04-08 (J-CHECK update history), so the date is corrected. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 5640,
-    "doi": "10.25504/FAIRsharing.39044c",
-    "name": "Japan Chemicals Collaborative Knowledge database",
-    "abbreviation": "J-CHECK",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2013,
-    "homepage": "https://www.nite.go.jp/chem/jcheck/top.action?request_locale=en",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The earliest web-archive capture of J-CHECK (www.safe.nite.go.jp/jcheck) is 2008-06-07, a lower bound. FAIRsharing year 2013 is its relaunch as an integrated Japanese-English system on 2013-04-08 (J-CHECK update history), so the date is corrected. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.3b78e1",
@@ -5518,21 +4688,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.3b78e1",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The same database of toxicity test reports (English summaries, Japanese reports, same chemicals) was online on the Ministry of Health and Welfare GINC server by 1998-12-02 (web archive, lower bound). It moved to MHLW in 2001 and to NIHS, under the name 'Japan Existing Chemical Data Base (JECDB)', by 2007-07. FAIRsharing year 1991 is when Japan joined the OECD HPV testing programme, not the date of the database, so the date is corrected. Last updated December 2024. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 5634,
-    "doi": "10.25504/FAIRsharing.3b78e1",
-    "name": "Japan Existing Chemical Database ",
-    "abbreviation": "JECDB",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 1991,
-    "homepage": "https://dra4.nihs.go.jp/mhlw_data/jsp/SearchPageENG.jsp",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The same database of toxicity test reports (English summaries, Japanese reports, same chemicals) was online on the Ministry of Health and Welfare GINC server by 1998-12-02 (web archive, lower bound). It moved to MHLW in 2001 and to NIHS, under the name 'Japan Existing Chemical Data Base (JECDB)', by 2007-07. FAIRsharing year 1991 is when Japan joined the OECD HPV testing programme, not the date of the database, so the date is corrected. Last updated December 2024. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#json_ld",
@@ -5696,20 +4852,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.hxvt6c",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Dalby et al. 1992, J Chem Inf Comput Sci 32(3):244-255, May 1992 issue (Crossref print date; the 2002 online date is the digitisation). Agrees with FAIRsharing year 1992. MDL software used the format before 1992; this paper is its first public specification. The homepage PDF (BIOVIA CTfile formats, 2020) responds.",
-   "fairsharing": {
-    "id": 1480,
-    "doi": "10.25504/FAIRsharing.hxvt6c",
-    "name": "MDL Molfile Format",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 1992,
-    "homepage": "https://discover.3ds.com/sites/default/files/2020-08/biovia_ctfileformats_2020.pdf",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Dalby et al. 1992, J Chem Inf Comput Sci 32(3):244-255, May 1992 issue (Crossref print date; the 2002 online date is the digitisation). Agrees with FAIRsharing year 1992. MDL software used the format before 1992; this paper is its first public specification. The homepage PDF (BIOVIA CTfile formats, 2020) responds."
   },
   {
    "@id": "#mesh",
@@ -5759,21 +4902,7 @@
    "manuscriptEvidence": "Comments [ap]; L405",
    "fairsharingRecord": "FAIRsharing.32b10v",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): Brazma et al., Nat Genet 29(4), December 2001 issue (Crossref issued 2001-12; PubMed 2001 Dec; FGED history: 'December 2001 - a paper describing MIAME was published'). Draft MGED standard proposals were posted from December 1999, which matches FAIRsharing year 1999 (MGED founding). Discontinued is confirmed: fged.org says the FGED Society closed operations in 2021. MIAME is still used by repositories. Verified 5 Oct 2026: datePublished changed (The MGED annotations working-group page (captured 2001-02-20, page 'Last modified: Friday, December 15, 2000': https://web.archive.org/web/20010220163059/http://www.mged.org/Annotations-wg/index.html) publishes the full 'Minimum information about a microarray experiment - MIAME', marked 'Endorsed by MGED steering committee meeting November 17, 2000'. The Nat Genet paper's acknowledgements confirm that the Nov 2000 NIH steering-committee meeting prepared the current version. MIAME was officially adopted and public a year before the Dec 2001 paper. If release is preferred over adoption, use 2000 with basis release.) Verified 5 Oct 2026: dateBasis changed (This is the formal endorsement of the guideline by MGED, comparable to the W3C Recommendation dates used with 'adoption' for rdf/owl/sparql.) Verified 5 Oct 2026: dateSource changed (This capture shows the MIAME text with its 17 Nov 2000 endorsement and a 15 Dec 2000 last-modified date.)",
-   "fairsharing": {
-    "id": 96,
-    "doi": "10.25504/FAIRsharing.32b10v",
-    "name": "Minimum Information About a Microarray Experiment",
-    "abbreviation": "MIAME",
-    "registry": "Standard",
-    "recordType": "reporting_guideline",
-    "status": "ready",
-    "yearCreation": 1999,
-    "homepage": "http://www.fged.org/projects/miame/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (high confidence): Brazma et al., Nat Genet 29(4), December 2001 issue (Crossref issued 2001-12; PubMed 2001 Dec; FGED history: 'December 2001 - a paper describing MIAME was published'). Draft MGED standard proposals were posted from December 1999, which matches FAIRsharing year 1999 (MGED founding). Discontinued is confirmed: fged.org says the FGED Society closed operations in 2021. MIAME is still used by repositories. Verified 5 Oct 2026: datePublished changed (The MGED annotations working-group page (captured 2001-02-20, page 'Last modified: Friday, December 15, 2000': https://web.archive.org/web/20010220163059/http://www.mged.org/Annotations-wg/index.html) publishes the full 'Minimum information about a microarray experiment - MIAME', marked 'Endorsed by MGED steering committee meeting November 17, 2000'. The Nat Genet paper's acknowledgements confirm that the Nov 2000 NIH steering-committee meeting prepared the current version. MIAME was officially adopted and public a year before the Dec 2001 paper. If release is preferred over adoption, use 2000 with basis release.) Verified 5 Oct 2026: dateBasis changed (This is the formal endorsement of the guideline by MGED, comparable to the W3C Recommendation dates used with 'adoption' for rdf/owl/sparql.) Verified 5 Oct 2026: dateSource changed (This capture shows the MIAME text with its 17 Nov 2000 endorsement and a 15 Dec 2000 last-modified date.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
@@ -5815,21 +4944,7 @@
      "source": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
      "note": "Checked 5 Oct 2026: The FAIRsharing record says MIAME/Tox was developed as an extension of MIAME for array-based toxicogenomics experiments."
     }
-   ],
-   "fairsharing": {
-    "id": 1258,
-    "doi": "10.25504/FAIRsharing.zrmjr7",
-    "name": "Minimum Information about an array-based toxicogenomics experiment",
-    "abbreviation": "MIAME/Tox",
-    "registry": "Standard",
-    "recordType": "reporting_guideline",
-    "status": "deprecated",
-    "yearCreation": 2003,
-    "homepage": "http://mibbi.sourceforge.net/projects/MIAME-Tox.shtml",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.wYScsE",
@@ -5861,21 +4976,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.wYScsE",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2020 replaced by the first commit of the GitHub repository (2019-11-06, 'first commit of MIATE repository'). The repository has no tags or releases, and when it became public cannot be seen. The README cites a bioRxiv submission (Nault & Zacharewski) marked TBD; Europe PMC and Crossref show no preprint or paper. Last commit 2023-01-24; 'active' kept per FAIRsharing status 'ready'. Toxicogenomics subdomain proposed because of the GEO and single-cell templates.",
-   "fairsharing": {
-    "id": 1111,
-    "doi": "10.25504/FAIRsharing.wYScsE",
-    "name": "Minimum Information about Animal Toxicology Experiments",
-    "abbreviation": "MIATE",
-    "registry": "Standard",
-    "recordType": "reporting_guideline",
-    "status": "ready",
-    "yearCreation": 2020,
-    "homepage": "https://github.com/zacharewskilab/MIATE",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2020 replaced by the first commit of the GitHub repository (2019-11-06, 'first commit of MIATE repository'). The repository has no tags or releases, and when it became public cannot be seen. The README cites a bioRxiv submission (Nault & Zacharewski) marked TBD; Europe PMC and Crossref show no preprint or paper. Last commit 2023-01-24; 'active' kept per FAIRsharing status 'ready'. Toxicogenomics subdomain proposed because of the GEO and single-cell templates."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a55z32",
@@ -5923,21 +5024,7 @@
      "source": "manuscript draft, line 146",
      "note": "Checked 5 Oct 2026: The draft presents MIRIAM as an annotation guideline that complements SBML, and FAIRsharing notes that MIRIAM works with any structured model format, so neither one builds on the other."
     }
-   ],
-   "fairsharing": {
-    "id": 988,
-    "doi": "10.25504/FAIRsharing.ap169a",
-    "name": "Minimal Information Required In the Annotation of Models",
-    "abbreviation": "MIRIAM",
-    "registry": "Standard",
-    "recordType": "reporting_guideline",
-    "status": "ready",
-    "yearCreation": 2005,
-    "homepage": "https://pubmed.ncbi.nlm.nih.gov/16333295/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "#mit_license",
@@ -5980,21 +5067,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.e2b341",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Elberskirch et al., Part Fibre Toxicol 19:1, online 2022-01-05 (Crossref); matches FAIRsharing year 2022. Authors are from the Leibniz institutes INM, IUF, IfADo, IWT and FIZ Karlsruhe. There is no separate homepage, so the DOI stays as url. fairsharingRecord changed from the numeric 5228 to the DOI code. Verified 5 Oct 2026: fairsharingRecord changed (The note says fairsharingRecord was changed from the numeric 5228 to the DOI code, but the field still holds 5228. DataCite resolves 10.25504/FAIRsharing.e2b341 to 'FAIRsharing record for: Minimum Information Table for the Safety of Engineered Nanomaterials' (https://api.datacite.org/dois/10.25504/FAIRsharing.e2b341). That matches the row's @id.)",
-   "fairsharing": {
-    "id": 5228,
-    "doi": "10.25504/FAIRsharing.e2b341",
-    "name": "Minimum Information Table for the Safety of Engineered Nanomaterials",
-    "abbreviation": "MIT Nanosafety",
-    "registry": "Standard",
-    "recordType": "reporting_guideline",
-    "status": "ready",
-    "yearCreation": 2022,
-    "homepage": "https://doi.org/10.1186/s12989-021-00442-x",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Elberskirch et al., Part Fibre Toxicol 19:1, online 2022-01-05 (Crossref); matches FAIRsharing year 2022. Authors are from the Leibniz institutes INM, IUF, IfADo, IWT and FIZ Karlsruhe. There is no separate homepage, so the DOI stays as url. fairsharingRecord changed from the numeric 5228 to the DOI code. Verified 5 Oct 2026: fairsharingRecord changed (The note says fairsharingRecord was changed from the numeric 5228 to the DOI code, but the field still holds 5228. DataCite resolves 10.25504/FAIRsharing.e2b341 to 'FAIRsharing record for: Minimum Information Table for the Safety of Engineered Nanomaterials' (https://api.datacite.org/dois/10.25504/FAIRsharing.e2b341). That matches the row's @id.)"
   },
   {
    "@id": "#nams",
@@ -6122,20 +5195,7 @@
      "source": "https://doi.org/10.3389/fphy.2023.1271842",
      "note": "Checked 5 Oct 2026: The KB runs on Biomax BioXM and integrates eNanoMapper database content only virtually, at the metadata level through the eNanoMapper API, so it links to that database rather than building on it."
     }
-   ],
-   "fairsharing": {
-    "id": 2979,
-    "doi": "10.25504/FAIRsharing.9e23f2",
-    "name": "NanoCommons Knowledge Base",
-    "registry": "Database",
-    "recordType": "knowledgebase_and_repository",
-    "status": "ready",
-    "yearCreation": 2019,
-    "homepage": "https://www.nanocommons.eu/nanocommons-knowledge-base/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "#nanocommons_meta",
@@ -6373,21 +5433,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.9ATgeT",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2015 confirmed as the start of the NORMAN Suspect List Exchange (NORMAN-SLE), which FAIRsharing counts as part of this resource (Mohammed Taha et al. 2022, doi 10.1186/s12302-022-00680-6). The merged SusDat table was online by 2017-06-25 (archive of norman-network.com/datatable). Dulio et al. 2018 (doi 10.1186/s12302-018-0135-3) call it recently launched. The first Zenodo version was issued 2018-03-01 (doi 10.5281/zenodo.2664078). Use 2017 if SusDat alone is meant. Verified 5 Oct 2026: datePublished changed (The cited paper (Mohammed Taha et al. 2022, https://doi.org/10.1186/s12302-022-00680-6) dates only the start of the NORMAN Suspect List Exchange to 2015. It also says SusDat 'will be described in more detail in a separate article'. The row, its url and its FAIRsharing homepage are SusDat. 'NORMAN-SusDat: NORMAN Suspect List Exchange Merged Data Table' was first captured on 2017-06-25. Dulio et al. 2018 (received 2017-10-25, https://doi.org/10.1186/s12302-018-0135-3) says SusDat 'has recently been launched', citing that datatable. The Zenodo S0 SUSDAT record was created on 2019-05-04 (with a backdated publication date of 2018-03-01). The basis stays release.) Verified 5 Oct 2026: dateSource changed (Earliest documented public availability of the merged SusDat table (a lower bound); see datePublished.)",
-   "fairsharing": {
-    "id": 3023,
-    "doi": "10.25504/FAIRsharing.9ATgeT",
-    "name": "NORMAN Substance Database",
-    "abbreviation": "NORMAN SusDat",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2015,
-    "homepage": "https://www.norman-network.com/nds/susdat/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2015 confirmed as the start of the NORMAN Suspect List Exchange (NORMAN-SLE), which FAIRsharing counts as part of this resource (Mohammed Taha et al. 2022, doi 10.1186/s12302-022-00680-6). The merged SusDat table was online by 2017-06-25 (archive of norman-network.com/datatable). Dulio et al. 2018 (doi 10.1186/s12302-018-0135-3) call it recently launched. The first Zenodo version was issued 2018-03-01 (doi 10.5281/zenodo.2664078). Use 2017 if SusDat alone is meant. Verified 5 Oct 2026: datePublished changed (The cited paper (Mohammed Taha et al. 2022, https://doi.org/10.1186/s12302-022-00680-6) dates only the start of the NORMAN Suspect List Exchange to 2015. It also says SusDat 'will be described in more detail in a separate article'. The row, its url and its FAIRsharing homepage are SusDat. 'NORMAN-SusDat: NORMAN Suspect List Exchange Merged Data Table' was first captured on 2017-06-25. Dulio et al. 2018 (received 2017-10-25, https://doi.org/10.1186/s12302-018-0135-3) says SusDat 'has recently been launched', citing that datatable. The Zenodo S0 SUSDAT record was created on 2019-05-04 (with a backdated publication date of 2018-03-01). The basis stays release.) Verified 5 Oct 2026: dateSource changed (Earliest documented public availability of the merged SusDat table (a lower bound); see datePublished.)"
   },
   {
    "@id": "#nsc",
@@ -6457,21 +5503,7 @@
    "manuscriptEvidence": "III Data generation (nano); L109",
    "fairsharingRecord": "FAIRsharing.284e1z",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (medium confidence): I corrected the date from 2009. 2009 matches the OBI release of 2009-11-02 used in Brinkman et al. 2010 (doi:10.1186/2041-1480-1-S1-S7), but an OBI OWL file was already public at obi.sourceforge.net (web capture 2007-08-07). The OBI site, which says OBI was renamed from FuGO, existed by Jan 2007, and the SourceForge project was created 2006-09-20. FuGO, the predecessor, was described in OMICS 2006 (doi:10.1089/omi.2006.10.199). FAIRsharing gives 2008, and the main paper is Bandrowski et al., PLoS One 2016 (the previous source). 2007 is used as a web-archive lower bound. Verified 5 Oct 2026: datePublished changed (OBI is FuGO renamed: 'The FuGO effort was rechristened the Ontology for Biomedical Investigations' (Bandrowski et al. 2016, PMC4851331). FuGO was first described in OMICS 10(2) 2006 (doi:10.1089/omi.2006.10.199; Crossref print 2006-06, online 2006-07). FuGO.owl itself (223 classes) was public at fugo.sourceforge.net/ontology/FuGO.owl by 2006-09-06 (https://web.archive.org/web/20060906041903/http://fugo.sourceforge.net/ontology/FuGO.owl). Both are earlier than the 2007 OBI.owl capture.) Verified 5 Oct 2026: dateBasis changed (The earliest event is the 2006 OMICS paper that first describes the ontology (as FuGO). FuGO.owl was also public in 2006.) Verified 5 Oct 2026: dateSource changed (Whetzel et al., 'Development of FuGO: an ontology for functional genomics investigations', OMICS 2006, is the first describing paper of OBI under its original name.)",
-   "fairsharing": {
-    "id": 1488,
-    "doi": "10.25504/FAIRsharing.284e1z",
-    "name": "Ontology for Biomedical Investigations",
-    "abbreviation": "OBI",
-    "registry": "Standard",
-    "recordType": "terminology_artefact",
-    "status": "ready",
-    "yearCreation": 2008,
-    "homepage": "http://obi-ontology.org/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (medium confidence): I corrected the date from 2009. 2009 matches the OBI release of 2009-11-02 used in Brinkman et al. 2010 (doi:10.1186/2041-1480-1-S1-S7), but an OBI OWL file was already public at obi.sourceforge.net (web capture 2007-08-07). The OBI site, which says OBI was renamed from FuGO, existed by Jan 2007, and the SourceForge project was created 2006-09-20. FuGO, the predecessor, was described in OMICS 2006 (doi:10.1089/omi.2006.10.199). FAIRsharing gives 2008, and the main paper is Bandrowski et al., PLoS One 2016 (the previous source). 2007 is used as a web-archive lower bound. Verified 5 Oct 2026: datePublished changed (OBI is FuGO renamed: 'The FuGO effort was rechristened the Ontology for Biomedical Investigations' (Bandrowski et al. 2016, PMC4851331). FuGO was first described in OMICS 10(2) 2006 (doi:10.1089/omi.2006.10.199; Crossref print 2006-06, online 2006-07). FuGO.owl itself (223 classes) was public at fugo.sourceforge.net/ontology/FuGO.owl by 2006-09-06 (https://web.archive.org/web/20060906041903/http://fugo.sourceforge.net/ontology/FuGO.owl). Both are earlier than the 2007 OBI.owl capture.) Verified 5 Oct 2026: dateBasis changed (The earliest event is the 2006 OMICS paper that first describes the ontology (as FuGO). FuGO.owl was also public in 2006.) Verified 5 Oct 2026: dateSource changed (Whetzel et al., 'Development of FuGO: an ontology for functional genomics investigations', OMICS 2006, is the first describing paper of OBI under its original name.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.847069",
@@ -6575,19 +5607,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.ced127",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The same database, under the same title it still carries ('OECD's Work on Co-operating in the Investigation of High Production Volume Chemicals'), tracked HPV chemicals with public access to SIDS documents at cs3-hq.oecd.org/scripts/hpv by 2002-10-16 (web archive, lower bound). It later moved to webnet.oecd.org/hpv (captured 2010) and hpvchemicals.oecd.org (captured 2018). There is no FAIRsharing year. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 6246,
-    "doi": "10.25504/FAIRsharing.ced127",
-    "name": "OECD Existing Chemicals Database",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "homepage": "https://hpvchemicals.oecd.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): The same database, under the same title it still carries ('OECD's Work on Co-operating in the Investigation of High Production Volume Chemicals'), tracked HPV chemicals with public access to SIDS documents at cs3-hq.oecd.org/scripts/hpv by 2002-10-16 (web archive, lower bound). It later moved to webnet.oecd.org/hpv (captured 2010) and hpvchemicals.oecd.org (captured 2018). There is no FAIRsharing year. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#oecd_tg",
@@ -6681,21 +5701,7 @@
      "source": "manuscript draft, line 146",
      "note": "Checked 5 Oct 2026: The draft lists OMEX as the packaging format that complements SBML; an OMEX archive can hold SBML models, but neither standard extends the other."
     }
-   ],
-   "fairsharing": {
-    "id": 1161,
-    "doi": "10.25504/FAIRsharing.27tnee",
-    "name": "Open Modeling EXchange format",
-    "abbreviation": "OMEX",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2014,
-    "homepage": "http://co.mbine.org/specifications/omex.version-1",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.41af40",
@@ -6740,21 +5746,7 @@
      "source": "https://doi.org/10.1016/j.yrtph.2021.105020",
      "note": "Checked 5 Oct 2026: Harrill et al. 2021 cite R-ODAF as the parallel initiative that prescribes omics analysis steps, while the OORF covers reporting, so the two are related but independent."
     }
-   ],
-   "fairsharing": {
-    "id": 5501,
-    "doi": "10.25504/FAIRsharing.41af40",
-    "name": "OECD Omics Reporting Framework",
-    "abbreviation": "OORF",
-    "registry": "Standard",
-    "recordType": "reporting_guideline",
-    "status": "ready",
-    "yearCreation": 2021,
-    "homepage": "https://www.oecd.org/en/publications/oecd-omics-reporting-framework-oorf-guidance-on-reporting-elements-for-the-regulatory-use-of-omics-data-from-laboratory-based-toxicology-studies_6bb2e6ce-en.html",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "#open_data_commons_open_database",
@@ -6813,21 +5805,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.80d69d",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): The first description is the Dorne et al. editorial, EFSA Journal 15(1):e15011, first published 2017-01-18 (Europe PMC; approved 2016-12-08). FAIRsharing year 2017 agrees. URL changed because the MicroStrategy link now redirects to a Power BI dashboard; EFSA's OpenFoodTox page is the landing page. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 4727,
-    "doi": "10.25504/FAIRsharing.80d69d",
-    "name": "EFSA OpenFoodTox",
-    "abbreviation": "OpenFoodTox",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2017,
-    "homepage": "https://www.efsa.europa.eu/en/microstrategy/openfoodtox",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): The first description is the Dorne et al. editorial, EFSA Journal 15(1):e15011, first published 2017-01-18 (Europe PMC; approved 2016-12-08). FAIRsharing year 2017 agrees. URL changed because the MicroStrategy link now redirects to a Power BI dashboard; EFSA's OpenFoodTox page is the landing page. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "#openrisknet",
@@ -7217,21 +6195,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.b71e74",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2009 confirmed by the archive: the INERIS Portail Substances Chimiques was online by 2009-12-27 (earliest capture of www.ineris.fr/substances), and a March 2010 capture shows 'Copyright 2009, Version: 1'. The exact launch date was not found. Now at substances.ineris.fr.",
-   "fairsharing": {
-    "id": 5653,
-    "doi": "10.25504/FAIRsharing.b71e74",
-    "name": "INERIS - Chemical Substances Portal",
-    "abbreviation": "Portail Substances Chimiques (PSC)",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2009,
-    "homepage": "https://substances.ineris.fr/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2009 confirmed by the archive: the INERIS Portail Substances Chimiques was online by 2009-12-27 (earliest capture of www.ineris.fr/substances), and a March 2010 capture shows 'Copyright 2009, Version: 1'. The exact launch date was not found. Now at substances.ineris.fr."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.4ndncv",
@@ -7283,21 +6247,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.qt3w7z",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2004 confirmed: PubChem was launched in 2004 as part of the NIH Molecular Libraries Roadmap (Kim et al., NAR 2016, doi 10.1093/nar/gkv951). Earliest archive capture is 2004-09-23. First dedicated paper: Wang et al. 2009 (doi 10.1093/nar/gkp456).",
-   "fairsharing": {
-    "id": 1989,
-    "doi": "10.25504/FAIRsharing.qt3w7z",
-    "name": "PubChem",
-    "abbreviation": "PubChem",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2004,
-    "homepage": "https://pubchem.ncbi.nlm.nih.gov/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2004 confirmed: PubChem was launched in 2004 as part of the NIH Molecular Libraries Roadmap (Kim et al., NAR 2016, doi 10.1093/nar/gkv951). Earliest archive capture is 2004-09-23. First dedicated paper: Wang et al. 2009 (doi 10.1093/nar/gkp456)."
   },
   {
    "@id": "#pubchem_cid",
@@ -7401,21 +6351,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.ad3e10",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The previous inventory value 2014 (to verify) was the format paper: Ruusmann et al., J Cheminform, online 2014-05-14, doi 10.1186/1758-2946-6-25. The repository paper is Ruusmann et al. 2015 (doi 10.1186/s13321-015-0082-6, the one FAIRsharing cites). The first item in the repository was made available on 2012-05-14 (handle 10967/4), and the repository was archived live on 2013-03-31. The qsardb.org site with the format specification existed by 2009-02-27 (archive); FAIRsharing year is 2008. QsarDB stands for 'QSAR DataBank'; FAIRsharing's name 'QSAR DataBase' is inaccurate. The FAIRsharing record has a DOI, so its code FAIRsharing.ad3e10 replaces the numeric id 4904. Scope set to Life Sciences because the repository covers QSAR/QSPR for any endpoint; FAIRsharing subjects are broad, from chemistry to materials. Toxicology/In silico research would also be defensible. Verified 5 Oct 2026: fairsharingRecord changed (Minor consistency fix. The FAIRsharing record has DOI 10.25504/FAIRsharing.ad3e10 (in the fairsharing block, and @id already uses it). The row's research note says this code replaces the numeric id 4904, but the field was not updated.)",
-   "fairsharing": {
-    "id": 4904,
-    "doi": "10.25504/FAIRsharing.ad3e10",
-    "name": "QSAR DataBase ",
-    "abbreviation": "QsarDB, QDB",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2008,
-    "homepage": "http://qsardb.org/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The previous inventory value 2014 (to verify) was the format paper: Ruusmann et al., J Cheminform, online 2014-05-14, doi 10.1186/1758-2946-6-25. The repository paper is Ruusmann et al. 2015 (doi 10.1186/s13321-015-0082-6, the one FAIRsharing cites). The first item in the repository was made available on 2012-05-14 (handle 10967/4), and the repository was archived live on 2013-03-31. The qsardb.org site with the format specification existed by 2009-02-27 (archive); FAIRsharing year is 2008. QsarDB stands for 'QSAR DataBank'; FAIRsharing's name 'QSAR DataBase' is inaccurate. The FAIRsharing record has a DOI, so its code FAIRsharing.ad3e10 replaces the numeric id 4904. Scope set to Life Sciences because the repository covers QSAR/QSPR for any endpoint; FAIRsharing subjects are broad, from chemistry to materials. Toxicology/In silico research would also be defensible. Verified 5 Oct 2026: fairsharingRecord changed (Minor consistency fix. The FAIRsharing record has DOI 10.25504/FAIRsharing.ad3e10 (in the fairsharing block, and @id already uses it). The row's research note says this code replaces the numeric id 4904, but the field was not updated.)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.p77ph9",
@@ -7501,7 +6437,7 @@
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III Table 1; L57",
-   "fairsharingRecord": "7474",
+   "fairsharingRecord": "FAIRsharing.acbc28",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): The year 2021 is confirmed and now has a full date. The page was added by pull request #714 'New page - Toxicology data', opened 2021-10-08 and merged 2021-10-20; this is the first commit of pages/your_domain/toxicology_data.md. The page was first archived 2022-05-29. The FAIRsharing collection 7474 mirrors the page and is later (yearCreation 2025; DOI FAIRsharing.acbc28 minted 2026-02-06). Type changed from 'Tool' to 'Collection' to follow the FAIRsharing record. Subdomains filled from the page's sections (in vitro, animal and human data from regulatory studies, ecotoxicology). The FAIRsharing record value is kept as 7474.",
    "buildsOnFair": true,
@@ -7513,57 +6449,7 @@
      "source": "https://rdmkit.elixir-europe.org/toxicology_data",
      "note": "Checked 5 Oct 2026: The page is RDMkit's own 'Your domain: Toxicology data' page, which adds toxicology-specific data management guidance to the general toolkit."
     }
-   ],
-   "fairsharing": {
-    "id": 7474,
-    "doi": "10.25504/FAIRsharing.acbc28",
-    "name": "RDMkit Toxicology data Domain",
-    "registry": "Collection",
-    "recordType": "collection",
-    "status": "ready",
-    "yearCreation": 2025,
-    "homepage": "https://rdmkit.elixir-europe.org/toxicology_data",
-    "inCollection": false,
-    "associations": [
-     [
-      "collects",
-      187
-     ],
-     [
-      "collects",
-      381
-     ],
-     [
-      "collects",
-      1561
-     ],
-     [
-      "collects",
-      2004
-     ],
-     [
-      "collects",
-      2085
-     ],
-     [
-      "collects",
-      2146
-     ],
-     [
-      "collects",
-      2480
-     ],
-     [
-      "collects",
-      4704
-     ],
-     [
-      "collects",
-      5708
-     ]
-    ],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "#readacross",
@@ -7813,21 +6699,7 @@
    "manuscriptEvidence": "III Computational; L146-147, L150",
    "fairsharingRecord": "FAIRsharing.9qv71f",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): I corrected the date from 2003. sbml.org says the SBML Level 1 Version 1 specification was 'made available on 2001-03-02'. The 2003 Bioinformatics paper (doi:10.1093/bioinformatics/btg015, 2003-03-01) was the previous source and is a later description. FAIRsharing year 1999 is the project start; the SBML FAQ says the name was conceived around 2000. Initial development to 2003 was funded through the ERATO Kitano project at Caltech.",
-   "fairsharing": {
-    "id": 18,
-    "doi": "10.25504/FAIRsharing.9qv71f",
-    "name": "Systems Biology Markup Language",
-    "abbreviation": "SBML",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 1999,
-    "homepage": "http://sbml.org",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (high confidence): I corrected the date from 2003. sbml.org says the SBML Level 1 Version 1 specification was 'made available on 2001-03-02'. The 2003 Bioinformatics paper (doi:10.1093/bioinformatics/btg015, 2003-03-01) was the previous source and is a later description. FAIRsharing year 1999 is the project start; the SBML FAQ says the name was conceived around 2000. Initial development to 2003 was funded through the ERATO Kitano project at Caltech."
   },
   {
    "@id": "#science_friction",
@@ -7912,21 +6784,7 @@
      "source": "manuscript draft, line 146",
      "note": "Checked 5 Oct 2026: The draft names SED-ML as the standard for simulation experiments that complements SBML; SED-ML points to models in SBML and other formats without extending SBML."
     }
-   ],
-   "fairsharing": {
-    "id": 80,
-    "doi": "10.25504/FAIRsharing.6f7m6j",
-    "name": "Simulation Experiment Description Markup Language",
-    "abbreviation": "SED-ML",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2008,
-    "homepage": "http://sed-ml.org/",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.7z842d",
@@ -7962,21 +6820,7 @@
    "manuscriptEvidence": "III Regulatory; L178, L188, L193",
    "fairsharingRecord": "FAIRsharing.7z842d",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (medium confidence): Changed 2011 to 2004: cdisc.org hosted the public SEND Review Version 1.4 by 2004-05-19 (earliest Wayback capture, a lower bound). It was followed by v1.5 (2004), Implementation Guide v2.0 (by Jan 2005) and v2.3 (2006). SENDIG v3.0 (2011-06-17) is the earliest version CDISC lists today and matches the FAIRsharing year 2011; use it if only current versions count.",
-   "fairsharing": {
-    "id": 790,
-    "doi": "10.25504/FAIRsharing.7z842d",
-    "name": "CDISC Standard for Exchange of Nonclinical Data Format",
-    "abbreviation": "SEND",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "ready",
-    "yearCreation": 2011,
-    "homepage": "https://www.cdisc.org/standards/foundational/send",
-    "inCollection": false,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (medium confidence): Changed 2011 to 2004: cdisc.org hosted the public SEND Review Version 1.4 by 2004-05-19 (earliest Wayback capture, a lower bound). It was followed by v1.5 (2004), Implementation Guide v2.0 (by Jan 2005) and v2.3 (2006). SENDIG v3.0 (2011-06-17) is the earliest version CDISC lists today and matches the FAIRsharing year 2011; use it if only current versions count."
   },
   {
    "@id": "#seqc",
@@ -8023,21 +6867,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.qv4b3c",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1980 replaced: SMILES was first formally described by Weininger in J Chem Inf Comput Sci, Feb 1988 (doi 10.1021/ci00057a005). It was developed in the 1980s at the US EPA Duluth laboratory and later maintained by Daylight. The FAIRsharing record and homepage describe OpenSMILES, the open community specification, which was online by 2007-11-01 (archive). The https version of opensmiles.org does not respond, so the url stays on http. Verified 5 Oct 2026: datePublished changed (SMILES was first formally described in a US EPA Environmental Research Brief, EPA/600/M-87/021: Anderson, Veith and Weininger, 'SMILES: A Line Notation and Computerized Interpreter for Chemical Structures', ERL-Duluth, dated 'August 1987' on its cover (https://nepis.epa.gov/Exe/ZyPDF.cgi/2000CAUR.PDF?Dockey=2000CAUR.PDF). That is six months before the J Chem Inf Comput Sci paper (issued 1988-02-01). The basis stays publication.) Verified 5 Oct 2026: dateSource changed (The 1987 EPA report is the earliest formal description (see datePublished).)",
-   "fairsharing": {
-    "id": 140,
-    "doi": "10.25504/FAIRsharing.qv4b3c",
-    "name": "Simplified Molecular Input Line Entry Specification Format",
-    "abbreviation": "SMILES",
-    "registry": "Standard",
-    "recordType": "identifier_schema",
-    "status": "ready",
-    "yearCreation": 1980,
-    "homepage": "http://opensmiles.org/opensmiles.html",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1980 replaced: SMILES was first formally described by Weininger in J Chem Inf Comput Sci, Feb 1988 (doi 10.1021/ci00057a005). It was developed in the 1980s at the US EPA Duluth laboratory and later maintained by Daylight. The FAIRsharing record and homepage describe OpenSMILES, the open community specification, which was online by 2007-11-01 (archive). The https version of opensmiles.org does not respond, so the url stays on http. Verified 5 Oct 2026: datePublished changed (SMILES was first formally described in a US EPA Environmental Research Brief, EPA/600/M-87/021: Anderson, Veith and Weininger, 'SMILES: A Line Notation and Computerized Interpreter for Chemical Structures', ERL-Duluth, dated 'August 1987' on its cover (https://nepis.epa.gov/Exe/ZyPDF.cgi/2000CAUR.PDF?Dockey=2000CAUR.PDF). That is six months before the J Chem Inf Comput Sci paper (issued 1988-02-01). The basis stays publication.) Verified 5 Oct 2026: dateSource changed (The 1987 EPA report is the earliest formal description (see datePublished).)"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.87ccfd",
@@ -8096,21 +6926,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.5fee61",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2000 kept: no launch date or describing paper was found. The archive shows the SPIN homepage with 'SPIN Online' and a downloadable 'SPIN 0.4' database by 2001-05-29 (earliest capture of spin2000.net), which is consistent with 2000. The site timed out when checked on 2026-10-05 but was archived live on 2026-08-06.",
-   "fairsharing": {
-    "id": 5635,
-    "doi": "10.25504/FAIRsharing.5fee61",
-    "name": "Substances in Preparations In the Nordic countries SPIN",
-    "abbreviation": "SPIN",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "ready",
-    "yearCreation": 2000,
-    "homepage": "http://spin2000.net/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2000 kept: no launch date or describing paper was found. The archive shows the SPIN homepage with 'SPIN Online' and a downloadable 'SPIN 0.4' database by 2001-05-29 (earliest capture of spin2000.net), which is consistent with 2000. The site timed out when checked on 2026-10-05 but was archived live on 2026-08-06."
   },
   {
    "@id": "#spreadsheet_harmon",
@@ -8200,21 +7016,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.psn0h2",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Lim et al., NAR, online 2009-11-06 (Crossref, Europe PMC); FAIRsharing year 2009 agrees. First web capture 2009-11-24 (t3db.org). The 2015 update is titled 'T3DB: the toxic exposome database' (https://doi.org/10.1093/nar/gku1004). Not E7, because it covers chemical toxicants and not only venoms or bacterial toxins. The site sits behind a Cloudflare challenge (403 to scripts) but is live in 2025 captures; URL moved to https. Include: member of the FAIRsharing Toxicology collection (I4).",
-   "fairsharing": {
-    "id": 2085,
-    "doi": "10.25504/FAIRsharing.psn0h2",
-    "name": "Toxin and Toxin Target Database",
-    "abbreviation": "T3DB",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2009,
-    "homepage": "http://www.t3db.ca/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Lim et al., NAR, online 2009-11-06 (Crossref, Europe PMC); FAIRsharing year 2009 agrees. First web capture 2009-11-24 (t3db.org). The 2015 update is titled 'T3DB: the toxic exposome database' (https://doi.org/10.1093/nar/gku1004). Not E7, because it covers chemical toxicants and not only venoms or bacterial toxins. The site sits behind a Cloudflare challenge (403 to scripts) but is live in 2025 captures; URL moved to https. Include: member of the FAIRsharing Toxicology collection (I4)."
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.jgbxr",
@@ -8248,21 +7050,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.jgbxr",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): The archived MIBBI TBC page gives release April 2007 and cites Fostel et al., Toxicol Sci 99(1):26-34, online 2007-04-17 (Crossref). FAIRsharing year 2007 agrees. The MIBBI page now returns 404 (last archived 2024), so url is set to the paper.",
-   "fairsharing": {
-    "id": 229,
-    "doi": "10.25504/FAIRsharing.jgbxr",
-    "name": "Tox Biology Checklist",
-    "abbreviation": "TBC",
-    "registry": "Standard",
-    "recordType": "reporting_guideline",
-    "status": "deprecated",
-    "yearCreation": 2007,
-    "homepage": "http://mibbi.sf.net/projects/TBC.shtml",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): The archived MIBBI TBC page gives release April 2007 and cites Fostel et al., Toxicol Sci 99(1):26-34, online 2007-04-17 (Crossref). FAIRsharing year 2007 agrees. The MIBBI page now returns 404 (last archived 2024), so url is set to the paper."
   },
   {
    "@id": "#temowl",
@@ -8346,20 +7134,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "2604",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The previous inventory year 2011 (to verify) is confirmed and refined: the Life Science Database Archive gives operation start 2011-02-25 and last update 2012-01-18; earliest capture of toxico.nibio.go.jp is 2011-04-11. Describing paper: Igarashi et al., NAR, online 2014-10-13 (doi 10.1093/nar/gku955). FAIRsharing year 2008 is earlier, before the public release. The original homepage toxico.nibiohn.go.jp no longer resolves (FAIRsharing deprecated the record 2021-09-20). The data are archived with DOI 10.18908/lsdba.nbdc00954-01-000, so the url now points to the archive page.",
-   "fairsharing": {
-    "id": 2604,
-    "name": "Open Toxicogenomics Project-Genomics Assisted Toxicity Evaluation system",
-    "abbreviation": "Open TG-GATEs",
-    "registry": "Database",
-    "recordType": "repository",
-    "status": "deprecated",
-    "yearCreation": 2008,
-    "homepage": "http://toxico.nibiohn.go.jp/english/",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The previous inventory year 2011 (to verify) is confirmed and refined: the Life Science Database Archive gives operation start 2011-02-25 and last update 2012-01-18; earliest capture of toxico.nibio.go.jp is 2011-04-11. Describing paper: Igarashi et al., NAR, online 2014-10-13 (doi 10.1093/nar/gku955). FAIRsharing year 2008 is earlier, before the public release. The original homepage toxico.nibiohn.go.jp no longer resolves (FAIRsharing deprecated the record 2021-09-20). The data are archived with DOI 10.18908/lsdba.nbdc00954-01-000, so the url now points to the archive page."
   },
   {
    "@id": "#threers",
@@ -8466,318 +7241,7 @@
      "source": "https://doi.org/10.25504/FAIRsharing.f60a10",
      "note": "Checked 5 Oct 2026: The record is a FAIRsharing collection that the ELIXIR Toxicology Community curates inside the registry, adding a toxicology selection on top of FAIRsharing."
     }
-   ],
-   "fairsharing": {
-    "id": 3496,
-    "doi": "10.25504/FAIRsharing.f60a10",
-    "name": "ELIXIR Toxicology Community",
-    "abbreviation": "Toxicology",
-    "registry": "Collection",
-    "recordType": "collection",
-    "status": "ready",
-    "yearCreation": 2020,
-    "homepage": "https://elixir-europe.org/communities/toxicology",
-    "inCollection": false,
-    "associations": [
-     [
-      "collects",
-      140
-     ],
-     [
-      "collects",
-      229
-     ],
-     [
-      "collects",
-      374
-     ],
-     [
-      "collects",
-      381
-     ],
-     [
-      "collects",
-      392
-     ],
-     [
-      "collects",
-      493
-     ],
-     [
-      "collects",
-      512
-     ],
-     [
-      "collects",
-      919
-     ],
-     [
-      "collects",
-      989
-     ],
-     [
-      "collects",
-      1111
-     ],
-     [
-      "collects",
-      1203
-     ],
-     [
-      "collects",
-      1258
-     ],
-     [
-      "collects",
-      1480
-     ],
-     [
-      "collects",
-      1554
-     ],
-     [
-      "collects",
-      1561
-     ],
-     [
-      "collects",
-      1569
-     ],
-     [
-      "collects",
-      1698
-     ],
-     [
-      "collects",
-      1716
-     ],
-     [
-      "collects",
-      1844
-     ],
-     [
-      "collects",
-      1845
-     ],
-     [
-      "collects",
-      1867
-     ],
-     [
-      "collects",
-      1989
-     ],
-     [
-      "collects",
-      2037
-     ],
-     [
-      "collects",
-      2042
-     ],
-     [
-      "collects",
-      2077
-     ],
-     [
-      "collects",
-      2085
-     ],
-     [
-      "collects",
-      2282
-     ],
-     [
-      "collects",
-      2480
-     ],
-     [
-      "collects",
-      2604
-     ],
-     [
-      "collects",
-      2618
-     ],
-     [
-      "collects",
-      2973
-     ],
-     [
-      "collects",
-      2979
-     ],
-     [
-      "collects",
-      3023
-     ],
-     [
-      "collects",
-      3584
-     ],
-     [
-      "collects",
-      3585
-     ],
-     [
-      "collects",
-      3588
-     ],
-     [
-      "collects",
-      3589
-     ],
-     [
-      "collects",
-      3608
-     ],
-     [
-      "collects",
-      4460
-     ],
-     [
-      "collects",
-      4640
-     ],
-     [
-      "collects",
-      4704
-     ],
-     [
-      "collects",
-      4722
-     ],
-     [
-      "collects",
-      4723
-     ],
-     [
-      "collects",
-      4724
-     ],
-     [
-      "collects",
-      4727
-     ],
-     [
-      "collects",
-      4904
-     ],
-     [
-      "collects",
-      5228
-     ],
-     [
-      "collects",
-      5629
-     ],
-     [
-      "collects",
-      5630
-     ],
-     [
-      "collects",
-      5631
-     ],
-     [
-      "collects",
-      5632
-     ],
-     [
-      "collects",
-      5633
-     ],
-     [
-      "collects",
-      5634
-     ],
-     [
-      "collects",
-      5635
-     ],
-     [
-      "collects",
-      5636
-     ],
-     [
-      "collects",
-      5640
-     ],
-     [
-      "collects",
-      5641
-     ],
-     [
-      "collects",
-      5642
-     ],
-     [
-      "collects",
-      5653
-     ],
-     [
-      "collects",
-      5654
-     ],
-     [
-      "collects",
-      5677
-     ],
-     [
-      "collects",
-      5678
-     ],
-     [
-      "collects",
-      5679
-     ],
-     [
-      "collects",
-      5680
-     ],
-     [
-      "collects",
-      5681
-     ],
-     [
-      "collects",
-      5684
-     ],
-     [
-      "collects",
-      6221
-     ],
-     [
-      "collects",
-      6238
-     ],
-     [
-      "collects",
-      6245
-     ],
-     [
-      "collects",
-      6246
-     ],
-     [
-      "collects",
-      6260
-     ],
-     [
-      "collects",
-      6486
-     ],
-     [
-      "collects",
-      7182
-     ],
-     [
-      "collects",
-      7183
-     ]
-    ],
-    "retrieved": "2026-10-05"
-   }
+   ]
   },
   {
    "@id": "#toxdataexplorer",
@@ -8832,21 +7296,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.emw61v",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): FAIRsharing year 2011 replaced. Richard, Yang & Judson 2008 describe ToxML as an existing public standard, and Yang et al. 2008 use it (Toxicol Mech Methods 18(2-3)). Leadscope offered the public schema for download (archived page 2009-05-18). The dedicated paper, Ali et al. 2013 (Lhasa), is used as url. toxml.org no longer resolves (FAIRsharing status: deprecated). The origin, around 2005-2007, could not be dated more precisely. Verified 5 Oct 2026: datePublished changed (An earlier documented public release exists. The Wayback capture of Leadscope's ToxML page from 2006-03-20 (http://web.archive.org/web/20060320041511/http://www.leadscope.com/toxml.php) describes ToxML as an XML database standard based on a toxicity controlled vocabulary and offers 'Download the public ToxML schema (version 2.0)'. The page shows copyright 2005 and a LIST Consortium meeting of 5-7 Oct 2005. This lower bound predates Richard et al. 2008 (doi:10.1080/15376510701857452). Leadscope homepage captures from 2004-2005 do not mention ToxML, and the 2006 toxml.org capture is an unrelated German placeholder page, so 2006 is the earliest documented year.) Verified 5 Oct 2026: dateBasis changed (The earliest evidence is the public schema download on Leadscope's ToxML page, captured 2006-03-20 (http://web.archive.org/web/20060320041511/http://www.leadscope.com/toxml.php). That is a public release, not a describing paper.) Verified 5 Oct 2026: dateSource changed (This archived page shows 'Download the public ToxML schema (version 2.0)' by 2006-03-20, earlier than the 2008 paper. It is the earliest web-archive capture, so it is a lower bound.)",
-   "fairsharing": {
-    "id": 374,
-    "doi": "10.25504/FAIRsharing.emw61v",
-    "name": "Toxicology Data Markup Language",
-    "abbreviation": "ToxML",
-    "registry": "Standard",
-    "recordType": "model_and_format",
-    "status": "deprecated",
-    "yearCreation": 2011,
-    "homepage": "http://toxml.org",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): FAIRsharing year 2011 replaced. Richard, Yang & Judson 2008 describe ToxML as an existing public standard, and Yang et al. 2008 use it (Toxicol Mech Methods 18(2-3)). Leadscope offered the public schema for download (archived page 2009-05-18). The dedicated paper, Ali et al. 2013 (Lhasa), is used as url. toxml.org no longer resolves (FAIRsharing status: deprecated). The origin, around 2005-2007, could not be dated more precisely. Verified 5 Oct 2026: datePublished changed (An earlier documented public release exists. The Wayback capture of Leadscope's ToxML page from 2006-03-20 (http://web.archive.org/web/20060320041511/http://www.leadscope.com/toxml.php) describes ToxML as an XML database standard based on a toxicity controlled vocabulary and offers 'Download the public ToxML schema (version 2.0)'. The page shows copyright 2005 and a LIST Consortium meeting of 5-7 Oct 2005. This lower bound predates Richard et al. 2008 (doi:10.1080/15376510701857452). Leadscope homepage captures from 2004-2005 do not mention ToxML, and the 2006 toxml.org capture is an unrelated German placeholder page, so 2006 is the earliest documented year.) Verified 5 Oct 2026: dateBasis changed (The earliest evidence is the public schema download on Leadscope's ToxML page, captured 2006-03-20 (http://web.archive.org/web/20060320041511/http://www.leadscope.com/toxml.php). That is a public release, not a describing paper.) Verified 5 Oct 2026: dateSource changed (This archived page shows 'Download the public ToxML schema (version 2.0)' by 2006-03-20, earlier than the 2008 paper. It is the earliest web-archive capture, so it is a lower bound.)"
   },
   {
    "@id": "#toxrtool",
@@ -8973,21 +7423,7 @@
    "manuscriptEvidence": "III Computational; L147",
    "fairsharingRecord": "FAIRsharing.s1ne3g",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (medium confidence): First paper: Apweiler et al., 'UniProt: the Universal Protein knowledgebase', NAR 2004 database issue. Its DOI was registered on 2003-12-17, it entered PubMed on 2003-12-19, and the issue is dated 2004-01-01. The web archive shows uniprot.org as a project page in October 2003 and a working Knowledgebase/UniRef/UniParc site by 2004-01-29, so the public release was around December 2003. FAIRsharing year 2002 is when the consortium formed (uniprot.org/help/about), not when the resource became public. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.s1ne3g returns id 2077 'UniProt Knowledgebase' (UniProtKB): knowledgebase_and_repository, homepage https://www.uniprot.org. This is identical to the row's URL and type. The row's first paper is titled 'UniProt: the Universal Protein knowledgebase' (doi 10.1093/nar/gkh131).)",
-   "fairsharing": {
-    "id": 2077,
-    "doi": "10.25504/FAIRsharing.s1ne3g",
-    "name": "UniProt Knowledgebase",
-    "abbreviation": "UniProtKB",
-    "registry": "Database",
-    "recordType": "knowledgebase_and_repository",
-    "status": "ready",
-    "yearCreation": 2002,
-    "homepage": "https://www.uniprot.org",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (medium confidence): First paper: Apweiler et al., 'UniProt: the Universal Protein knowledgebase', NAR 2004 database issue. Its DOI was registered on 2003-12-17, it entered PubMed on 2003-12-19, and the issue is dated 2004-01-01. The web archive shows uniprot.org as a project page in October 2003 and a working Knowledgebase/UniRef/UniParc site by 2004-01-29, so the public release was around December 2003. FAIRsharing year 2002 is when the consortium formed (uniprot.org/help/about), not when the resource became public. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.s1ne3g returns id 2077 'UniProt Knowledgebase' (UniProtKB): knowledgebase_and_repository, homepage https://www.uniprot.org. This is identical to the row's URL and type. The row's first paper is titled 'UniProt: the Universal Protein knowledgebase' (doi 10.1093/nar/gkh131).)"
   },
   {
    "@id": "#usepa",
@@ -9065,21 +7501,7 @@
    "manuscriptEvidence": "III AOP; L123",
    "fairsharingRecord": "FAIRsharing.1x53qk",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): Agrawal et al., NAR 2024 (doi 10.1093/nar/gkad960) says WikiPathways was launched in 2007. The web archive shows the wiki live on 2007-09-28, and the FAIRsharing year is 2007. The previous value, 2008, came from the first paper (Pico et al., PLoS Biol, online 2008-07-22, doi 10.1371/journal.pbio.0060184), which postdates the launch. Creator changed from 'WikiPathways community' to the founding groups, Gladstone and BiGCaT (2008 paper affiliations).",
-   "fairsharing": {
-    "id": 1698,
-    "doi": "10.25504/FAIRsharing.1x53qk",
-    "name": "WikiPathways",
-    "abbreviation": "WikiPathways",
-    "registry": "Database",
-    "recordType": "knowledgebase",
-    "status": "ready",
-    "yearCreation": 2007,
-    "homepage": "https://wikipathways.org",
-    "inCollection": true,
-    "associations": [],
-    "retrieved": "2026-10-05"
-   }
+   "note": "Research 5 Oct 2026 (high confidence): Agrawal et al., NAR 2024 (doi 10.1093/nar/gkad960) says WikiPathways was launched in 2007. The web archive shows the wiki live on 2007-09-28, and the FAIRsharing year is 2007. The previous value, 2008, came from the first paper (Pico et al., PLoS Biol, online 2008-07-22, doi 10.1371/journal.pbio.0060184), which postdates the launch. Creator changed from 'WikiPathways community' to the founding groups, Gladstone and BiGCaT (2008 paper affiliations)."
   },
   {
    "@id": "#woe",

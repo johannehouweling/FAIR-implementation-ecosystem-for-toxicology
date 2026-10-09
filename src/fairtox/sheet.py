@@ -151,7 +151,7 @@ def _sort_key(r):
 
 
 def build(doc, path):
-    """Write the curation workbook for the current dataset."""
+    """Write the curation workbook for the dataset with FAIRsharing added (fairsharing.enrich)."""
     doc = model.normalise(copy.deepcopy(doc))
     _, warnings = model.check(doc)
     warn = {}

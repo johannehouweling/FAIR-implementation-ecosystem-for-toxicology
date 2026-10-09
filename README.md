@@ -27,17 +27,21 @@ Requires [uv](https://docs.astral.sh/uv/).
 ```bash
 uv sync
 uv run fairtox validate
-uv run fairtox site build/site                 # the dashboard
-uv run fairtox site --internal build/internal  # curation view with every row; local only, never publish
-uv run --env-file .env fairtox fetch           # refresh from FAIRsharing; login in .env (see .env.example)
+uv run --env-file .env fairtox site build/site                 # the dashboard
+uv run --env-file .env fairtox site --internal build/internal  # curation view with every row; local only, never publish
+uv run --env-file .env fairtox fairsharing                     # new collection members; --apply adds them
 ```
+
+The dashboard, the curation sheet and the FAIRsharing export read FAIRsharing when they are built, with the login in
+`.env` (see `.env.example`), and publish its record data with the retrieval date; the dataset stores only what is
+curated. `--offline` reads the local cache in `build/` instead.
 
 ## Curation
 
-`uv run fairtox sheet build/curation.xlsx` writes a workbook with drop-down lists that co-authors edit as a Google
-Sheet. The edited sheet, downloaded as .xlsx, is read back with `uv run fairtox ingest <file>.xlsx`, which checks
-every cell and logs each change. `uv run fairtox export-fairsharing build/` lists what could be registered in
-FAIRsharing; nothing is submitted automatically.
+`uv run --env-file .env fairtox sheet build/curation.xlsx` writes a workbook with drop-down lists that co-authors edit
+as a Google Sheet. The edited sheet, downloaded as .xlsx, is read back with `uv run fairtox ingest <file>.xlsx`, which
+checks every cell and logs each change. `uv run --env-file .env fairtox export-fairsharing build/` lists what could be
+registered in FAIRsharing; nothing is submitted automatically.
 
 ## Citation and licences
 

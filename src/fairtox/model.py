@@ -223,14 +223,14 @@ CONTEXT = {
     'question': {'@id': 'fip:refers-to-question', '@type': '@id'}, 'considerations': 'fip:considerations',
     **{p: {'@id': 'fip:' + p, '@type': '@id'} for p in FIP_PROPERTIES},
     'fsr': {'@id': 'skos:exactMatch', '@type': '@id', '@container': '@set'},
-    # Kept in the file for people and the dashboard, but not part of the graph: derived fields, and the sources,
-    # vocabularies and FAIRsharing snapshots (sources are linked through isBasedOn, terms are defined by their IRIs).
+    # Kept in the file for people and the dashboard, but not part of the graph: derived fields, the sources and
+    # vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
     **dict.fromkeys(['buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn', 'principles', 'principle', 'sources',
                      'vocabularies', 'fairsharing']),
 }
 # Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn'
-# and 'principles' are derived, 'fairsharing' is fetched, 'fsr' (a declared resource's IRIs in the FIPs) is imported;
-# 'declared-by' and 'fipDeclaration' exist only in the built site.
+# and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
+# 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
            'phase', 'span', 'stakeholders', 'subdomains', 'datePublished', 'dateBasis', 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
@@ -329,12 +329,8 @@ def iri_of(r):
     if FIC in r.get('fsrType', []) and NANOPUB_RE.match(r.get('@id') or ''):
         return r['@id']                                     # a FIC is identified by its FIC nanopublication
     code = fs_ref(r.get('fairsharingRecord'))
-    if r.get('fairsharingMatch') == 'confirmed':
-        if code.startswith('FAIRsharing.'):
-            return 'https://doi.org/10.25504/' + code
-        doi = (r.get('fairsharing') or {}).get('doi')
-        if doi:
-            return 'https://doi.org/' + doi
+    if r.get('fairsharingMatch') == 'confirmed' and code.startswith('FAIRsharing.'):
+        return 'https://doi.org/10.25504/' + code
     return '#' + r['key']
 
 
@@ -503,9 +499,6 @@ def check(doc):
                 missing.append('description')
             if missing:
                 warnings.append(f'{k}: included but missing {", ".join(missing)}')
-        fy = (r.get('fairsharing') or {}).get('yearCreation')
-        if isinstance(fy, int) and _year(r) and abs(fy - _year(r)) > 1:
-            warnings.append(f'{k}: first published {_year(r)}, FAIRsharing year of creation {fy}')
         if r.get('fairsharingMatch') == 'to check':
             warnings.append(f'{k}: FAIRsharing match still to check')
     return errors, warnings
@@ -528,14 +521,9 @@ def dumps(doc):
 
 
 def _stable(doc):
-    """The document without the fields that change on every run, to decide whether a save changes anything."""
+    """The document without dateModified, to decide whether a save changes anything."""
     d = copy.deepcopy(doc)
     d.pop('dateModified', None)
-    for s in d.get('sources', {}).values():
-        if isinstance(s, dict):
-            s.pop('retrieved', None)
-    for r in d.get('hasPart', []):
-        (r.get('fairsharing') or {}).pop('retrieved', None)
     return d
 
 

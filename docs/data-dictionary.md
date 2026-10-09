@@ -1,6 +1,6 @@
 # Data dictionary
 
-The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC BY-SA 4.0. It is a schema.org `Dataset` whose `hasPart` lists the resources. Each resource has its curated fields, an optional `fairsharing` block with data read from FAIRsharing, and its relations to other resources. The file is written only by the `fairtox` commands, which validate every change and log curated changes in `data/changes.csv`.
+The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC BY-SA 4.0. It is a schema.org `Dataset` whose `hasPart` lists the resources. Each resource has its curated fields and its relations to other resources; FAIRsharing record data are added when the dashboard, the curation sheet or the FAIRsharing export is built (see The `fairsharing` block). The file is written only by the `fairtox` commands, which validate every change and log curated changes in `data/changes.csv`.
 
 ## Identifiers
 
@@ -19,13 +19,13 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | `creator` | ELIXIR Toxicology Community. |
 | `creditText` | Attribution to FAIRsharing. |
 | `isBasedOn` | The FAIRsharing Toxicology collection. |
-| `sources` | What each source contributed, with versions, checksums and retrieval times. |
+| `sources` | What each source contributed, with versions and checksums. The published dataset adds FAIRsharing and the FIPs, each with its retrieval date. |
 | `vocabularies` | Every controlled list with its definitions, so the file can be read on its own. |
 | `hasPart` | The resources. |
 
 ## Resource fields
 
-Curated fields are edited in the curation sheet; the column is given. `@id`, `buildsOnFair`, `fsrCategory`, `fsrParent`, `declaredIn` and `principles` are derived; `fairsharing` is written by `fairtox fetch`.
+Curated fields are edited in the curation sheet; the column is given. `@id`, `buildsOnFair`, `fsrCategory`, `fsrParent`, `declaredIn` and `principles` are derived; `fairsharing` is added when the dashboard, the sheet or the FAIRsharing export is built.
 
 | Field | Sheet column | Content |
 |---|---|---|
@@ -55,13 +55,13 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `bu
 | `maintained` | Maintained | Maintenance status (list below). |
 | `manuscript` | In manuscript | Whether and how the manuscript names it (list below). Internal only. |
 | `manuscriptEvidence` | Manuscript evidence | Section and line numbers in the frozen manuscript draft. Internal only. |
-| `fairsharingRecord` | FAIRsharing record | FAIRsharing record code (`FAIRsharing.xxxxxx`) or numeric id. |
+| `fairsharingRecord` | FAIRsharing record | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI. |
 | `fairsharingMatch` | FAIRsharing match | Whether that record is this resource (list below). |
 | `reviewedBy` | Reviewed by | Initials of the curator who checked the row. |
 | `note` | Note | Free text for the next curator. |
 | `qualifiedRelation` | Relations tab | Relations to other resources (below). |
 | `fipDeclaration` |  | On a FIP row: its declarations, imported from its nanopublications (below). Never curated. |
-| `fairsharing` |  | Data read from FAIRsharing (below). Never curated. |
+| `fairsharing` |  | FAIRsharing record data, added when the dashboard, the sheet or the FAIRsharing export is built (below). Never stored. |
 
 ## Lanes
 
@@ -235,7 +235,7 @@ A FIP row's declarations (`fipDeclaration`) are labelled with FIP ontology prope
 
 ## The `fairsharing` block
 
-Written by `fairtox fetch` from the FAIRsharing API; replaced on every refresh: `id`, `doi`, `name`, `abbreviation`, `registry`, `recordType`, `status`, `yearCreation`, `homepage`, `inCollection` (member of the Toxicology collection, record 3496), `associations` (FAIRsharing's own relations of this record: label and record id) and `retrieved` (date). FAIRsharing contact details are never stored.
+Read from the FAIRsharing API when the dashboard, the curation sheet or the FAIRsharing export is built, and published on each resource with a confirmed FAIRsharing record: `id`, `doi`, `name`, `abbreviation`, `registry`, `recordType`, `status`, `yearCreation`, `homepage`, `inCollection` (member of the Toxicology collection, record 3496), `associations` (FAIRsharing's own relations of this record: label and record id) and `retrieved` (the retrieval date). The published `sources.fairsharing` gives the retrieval date and the number of collection members. The dataset in `data/` keeps only curated fields: `fairtox fairsharing --apply` adds each new collection member as an undecided row, its curated fields filled from its record and logged in `data/changes.csv`. FAIRsharing contact details are left out.
 
 ## Change log
 

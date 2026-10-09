@@ -2,7 +2,8 @@ name: CI
 
 # Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
 # public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
-# The build reads the FIP declarations; a weekly run rebuilds main so the page has the current ones.
+# The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, and the FIP
+# declarations; a weekly run rebuilds main so the page has the current ones.
 
 on:
   push:
@@ -30,7 +31,11 @@ jobs:
       - run: uv sync --locked --all-groups
       - run: uv run python -m unittest discover -s tests -v
       - run: uv run fairtox validate
-      - run: uv run fairtox site build/site
+      - name: Build the dashboard
+        env:
+          FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
+          FAIRSHARING_PASSWORD: ${{ secrets.FAIRSHARING_PASSWORD }}
+        run: uv run fairtox site build/site
       - name: Check out the public dashboard repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

@@ -170,9 +170,10 @@ def _csv(fields, rows):
 
 
 def build(doc, outdir, internal=False, offline=False):
-    """Write index.html, the dataset and two CSV files into outdir: the public build, or with internal=True the
-    curation view of every row with the full dataset (never to be published). Both add the FIP declarations, read
-    online or from the local cache, to a copy of the dataset, which is not saved."""
+    """Write index.html, the dataset and two CSV files into outdir from the dataset with FAIRsharing added
+    (fairsharing.enrich): the public build, or with internal=True the curation view of every row with the full dataset
+    (never to be published). Both add the FIP declarations, read online or from the local cache, to a copy of the
+    dataset, which is not saved."""
     doc = model.normalise(fip.enrich(copy.deepcopy(doc), fip.read(offline)))
     nodes, links = nodes_links(doc)
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')

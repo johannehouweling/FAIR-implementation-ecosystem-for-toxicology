@@ -16,7 +16,7 @@ appear only through the resources they produced.
 | Source | Version | What it contributes |
 |---|---|---|
 | Manuscript draft | ELIXIR Toxicology Community paper, Google Docs export (8) of 2 Oct 2026, frozen by SHA-256 checksum in the dataset header | Every named entity in the text, Table 1, figure captions, to-do notes and comments |
-| FAIRsharing Toxicology collection | Record 3496; membership as read on the retrieval date recorded in the dataset header | All collection members |
+| FAIRsharing Toxicology collection | Record 3496; membership as read on the retrieval date published with the dataset | All collection members |
 | FAIRsharing neighbours | Records linked to collection members ("two hops") | Reported only; not screened |
 | Co-author additions | Rows added in the curation Sheet | New candidates |
 
@@ -106,8 +106,10 @@ Each excluded row carries exactly one code.
 1. **Extraction.** Two independent passes listed every named entity in the manuscript draft, including entities that
    were then excluded, so that the counts are complete. The passes were reconciled, every row's line references,
    manuscript status and classification were checked against the text, and a final sweep looked for missed names.
-2. **FAIRsharing.** The collection members were added. A member is matched to a manuscript row only through a
-   recorded FAIRsharing record; homepage and name matches are proposed for a curator to confirm.
+2. **FAIRsharing.** The collection members were added as undecided rows; `fairtox fairsharing --apply` adds new
+   members the same way. A member is matched to a manuscript row only through a recorded FAIRsharing record; homepage
+   and name matches are proposed for a curator to confirm. Record data, collection membership and associations are
+   read from FAIRsharing whenever the dashboard is built and published with their retrieval date.
 3. **Evidence.** Dates, homepages, descriptions and FAIRsharing records were researched for every included or
    undecided row, each with its source, and checked by a second pass. This research, the screening and classification
    proposals and the relation checks were drafted with an AI-assisted workflow (Claude Opus 5.5, Anthropic) and remain
@@ -133,7 +135,8 @@ Each excluded row carries exactly one code.
 
 - The manuscript is a draft; line references refer to the frozen version, and later drafts may name other resources
   (`fairtox draft-check` reports the differences).
-- The FAIRsharing collection is curated by its maintainers and changes over time; the retrieval date is recorded.
+- The FAIRsharing collection is curated by its maintainers and changes over time; the retrieval date is published
+  with the dashboard and the dataset.
 - First-publication dates depend on what is documented; some can only be bounded.
 - Choosing a phase by main use is a judgement for resources with several uses, and creator types depend on what
   is documented about the makers; both are recorded per resource so they can be checked and revised.

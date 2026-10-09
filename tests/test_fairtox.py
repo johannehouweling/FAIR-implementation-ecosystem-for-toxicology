@@ -12,7 +12,7 @@ from unittest import mock
 
 from openpyxl import load_workbook
 
-from fairtox import __version__, fairsharing, fip, model, sheet, site
+from fairtox import __version__, cli, fairsharing, fip, model, sheet, site
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -48,11 +48,12 @@ class TempDir(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.dir = self.tmp.name
-        # FIP data comes from the fixtures of FipTest, never from the network; FIP reports go to this folder
-        for name, value in (('CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'fip')),
-                            ('FIPS', {'tool': np_iri('fipA'), 'oecd_gd': np_iri('fipB')}),
-                            ('REPORT', self.path('report.csv')), ('CONVERGENCE', self.path('fip.md'))):
-            patcher = mock.patch.object(fip, name, value)
+        # FIP and FAIRsharing data come from the fixtures, never from the network; FIP reports go to this folder
+        for module, name, value in ((fip, 'CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'fip')),
+                                    (fip, 'FIPS', {'tool': np_iri('fipA'), 'oecd_gd': np_iri('fipB')}),
+                                    (fip, 'REPORT', self.path('report.csv')), (fip, 'CONVERGENCE', self.path('fip.md')),
+                                    (fairsharing, 'CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'fairsharing'))):
+            patcher = mock.patch.object(module, name, value)
             patcher.start()
             self.addCleanup(patcher.stop)
 
@@ -263,9 +264,6 @@ PUBLIC = {'id': 512, 'name': 'Exposure Ontology', 'registry': 'Standard', 'type'
           'abbreviation': 'ExO', 'metadata': {'doi': '10.25504/FAIRsharing.6hna78', 'year_creation': 2012,
                                               'status': 'ready', 'homepage': 'https://github.com/CTDbase/exposure-ontology'},
           'tags': {'subjects': [{'label': 'Toxicology', 'iri': 'http://www.fairsharing.org/ontology/subject/SRAO_0000001'}]}}
-NEW = {'id': 9999, 'name': 'New Tox Database', 'registry': 'Database', 'type': 'repository',
-       'metadata': {'doi': '10.25504/FAIRsharing.zzz999', 'year_creation': 2019, 'status': 'ready',
-                    'homepage': 'https://newtox.example.org', 'description': 'Example.'}}
 
 
 # The REST shape as served on 5 Oct 2026 (abridged from a real response).
@@ -279,7 +277,12 @@ REST_LINKED = {'data': {'id': '3496', 'type': 'fairsharing_records', 'attributes
     'linking_records': [{'linking_record_name': 'Y', 'linking_record_id': 7, 'relation': 'recommends'}]}}}
 
 
-class FairsharingTest(unittest.TestCase):
+class FairsharingTest(TempDir):
+    """Read offline from tests/fixtures/fairsharing: members ExO (a row) and New Tox Database (not yet a row)."""
+    def setUp(self):
+        super().setUp()
+        self.data = fairsharing.read(None, None, offline=True)
+
     def test_slim_reads_linked_records_and_the_real_name(self):
         c = fairsharing.slim(REST_LINKED)
         self.assertEqual((c['name'], c['registry'], c['yearCreation']), ('ELIXIR Toxicology Community', 'Collection', 2020))
@@ -299,28 +302,59 @@ class FairsharingTest(unittest.TestCase):
                                                                        '10.25504/FAIRsharing.6hna78'))
         self.assertEqual(e['subjects'][0]['label'], 'Toxicology')
 
-    def test_merge_proposes_adds_and_links(self):
-        doc = fixture()
-        ctd = next(r for r in doc['hasPart'] if r['key'] == 'ctd')
-        del ctd['qualifiedRelation']
-        model.normalise(doc)
-        records = [fairsharing.slim(x) for x in (REST, PUBLIC, NEW)]
-        report = fairsharing.merge(doc, records, members={1716, 9999}, today='2026-10-05')
-        by = {r['key']: r for r in doc['hasPart']}
-        self.assertEqual(by['exo']['fairsharing']['id'], 512)
-        self.assertFalse(by['exo']['fairsharing']['inCollection'])
-        self.assertEqual((by['ctd']['fairsharingMatch'], by['ctd']['fairsharingRecord']), ('to check', 'FAIRsharing.h3tjtr'))
-        new = next(r for r in doc['hasPart'] if r.get('fairsharingRecord') == 'FAIRsharing.zzz999')
-        self.assertEqual((new['decision'], new['manuscript'], new['type'], new['datePublished'], new['dateBasis']),
-                         ('undecided', 'absent', 'Database: repository', '2019', 'FAIRsharing year'))
-        q = by['ctd']['qualifiedRelation'][0]
-        self.assertEqual((q['hadRole'], q['evidence'], q['relation']),
-                         ('implements', 'FAIRsharing', 'https://doi.org/10.25504/FAIRsharing.6hna78'))
-        self.assertTrue(any(line.startswith('new relation: ctd implements exo') for line in report))
-        self.assertEqual(model.check(model.normalise(doc))[0], [])
+    def test_read_takes_the_members_and_the_rows_records_and_caches_them(self):
+        api = {3496: {'id': 3496, 'record_associations': [{'record_assoc_label': 'collects', 'linked_record': {'id': 9}}]},
+               9: {'id': 9, 'doi': '10.25504/FAIRsharing.nine'}, 5: {'id': 5, 'doi': '10.25504/FAIRsharing.five'}}
+        rows = {'hasPart': [{'fairsharingRecord': 'FAIRsharing.nine'}, {'fairsharingRecord': 'FAIRsharing.five'}]}
+        with mock.patch.multiple(fairsharing, CACHE=self.dir, PAUSE=0, sign_in=mock.DEFAULT,
+                                 record=lambda rid, jwt: api[rid], lookup=lambda code: api[5]), \
+                mock.patch.object(model, 'load', return_value=rows):
+            data = fairsharing.read('login', 'password')
+        self.assertEqual((data['members'], [x['id'] for x in data['records']]), ([9], [5, 9, 3496]))
+        self.assertEqual(model.load(os.path.join(self.dir, 'records.json')), data)   # the cache --offline reads
+
+    def test_curate_adds_a_new_member_once(self):
+        doc = model.normalise(fixture())
+        self.assertEqual(fairsharing.curate(doc, self.data), [
+            'new collection member: newtox (New Tox Database)',
+            'exo: first published 2012, FAIRsharing year of creation 2015',
+            'FAIRsharing association, not a relation here: newtox implements exo',
+            'two-hop: newtox related_to FAIRsharing 7777 Other record'])
+        new = next(r for r in doc['hasPart'] if r['key'] == 'newtox')
+        self.assertEqual((new['decision'], new['manuscript'], new['type'], new['datePublished'], new['dateBasis'],
+                          new['fairsharingRecord'], new['fairsharingMatch']),
+                         ('undecided', 'absent', 'Database: repository', '2019', 'FAIRsharing year', 'FAIRsharing.zzz999',
+                          'confirmed'))
+        self.assertEqual(model.check(doc)[0], [])
+        self.assertEqual([r['key'] for r in doc['hasPart'] if 'fairsharing' in r], [])   # nothing read is stored
+        once = model.dumps(doc)
+        self.assertEqual(len(fairsharing.curate(doc, self.data)), 3)                       # only the notes again
+        self.assertEqual(model.dumps(model.normalise(doc)), once)
+        doc = model.normalise(fixture())
+        next(r for r in doc['hasPart'] if r['key'] == 'tool')['url'] = 'https://newtox.example.org'
+        self.assertEqual(fairsharing.curate(doc, self.data)[0],
+                         'proposed match: tool = FAIRsharing 9999 New Tox Database (same homepage)')
+
+    def test_enrich_adds_the_published_block(self):
+        doc = fairsharing.enrich(model.normalise(fixture()), self.data)
+        self.assertEqual([(r['key'], r['fairsharing']) for r in doc['hasPart'] if 'fairsharing' in r], [('exo', {
+            'id': 512, 'doi': '10.25504/FAIRsharing.6hna78', 'name': 'Exposure Ontology', 'abbreviation': 'ExO',
+            'registry': 'Standard', 'recordType': 'terminology_artefact', 'status': 'ready', 'yearCreation': 2015,
+            'homepage': 'https://github.com/CTDbase/exposure-ontology', 'inCollection': True, 'associations': [],
+            'retrieved': '2026-10-09'})])
+        self.assertEqual(doc['sources']['fairsharing'], {'retrieved': '2026-10-09', 'members': 2})
+
+    def test_commands_stop_when_fairsharing_cannot_be_read(self):
+        with mock.patch.dict(os.environ, {'FAIRSHARING_LOGIN': '', 'FAIRSHARING_PASSWORD': ''}):
+            for argv in (['site', self.path('site')], ['sheet', self.path('c.xlsx')], ['export-fairsharing', self.dir],
+                         ['fairsharing', '--apply']):
+                with self.assertRaises(SystemExit) as stop:
+                    cli.main(argv)
+                self.assertIn('FAIRsharing could not be read', str(stop.exception.code))
+        self.assertEqual(os.listdir(self.dir), [])
 
     def test_submission_export(self):
-        doc = model.normalise(fixture())
+        doc = fairsharing.enrich(model.normalise(fixture()), dict(self.data, members=[9999]))   # exo not a member
         sub = fairsharing.submission(doc)
         self.assertEqual([x['key'] for x in sub['incomplete']], ['oecd_gd'])          # no description, no homepage
         self.assertEqual(sub['incomplete'][0]['missing'], ['description', 'url'])
@@ -337,11 +371,12 @@ class SiteTest(TempDir):
     def build(self, internal=False, doc=None):
         doc = doc or fixture()
         doc['sources'] = {'manuscript': {'name': 'ELIXIR Toxicology Community paper, draft (8)'},
-                          'previous': {'name': 'inventory'}, 'fairsharing': {'members': 74, 'retrieved': '2026-10-05'}}
+                          'previous': {'name': 'inventory'}}
         p = self.path('d.jsonld')
         model.save(doc, p)
         out = self.path('internal' if internal else 'site')
-        counts = site.build(model.load(p), out, internal=internal, offline=True)
+        doc = fairsharing.enrich(model.load(p), fairsharing.read(None, None, offline=True))
+        counts = site.build(doc, out, internal=internal, offline=True)
         return counts, {f: pathlib.Path(out, f).read_text(encoding='utf-8') for f in self.FILES}
 
     def test_public_build_holds_included_resources_only(self):
@@ -406,13 +441,12 @@ class SiteTest(TempDir):
             self.assertNotIn('Toxicology building on FAIR', t, name)
 
     def test_collection_switch_hides_collection_members_the_manuscript_does_not_name(self):
-        doc = fixture()
-        for r in doc['hasPart']:
-            if r['key'] in ('exo', 'ctd'):                       # exo is named in the manuscript, ctd is absent
-                r['fairsharing'] = {'inCollection': True}
+        doc = model.normalise(fixture())                          # members: exo, named in the manuscript, and newtox
+        fairsharing.curate(doc, fairsharing.read(None, None, offline=True))
+        next(r for r in doc['hasPart'] if r['key'] == 'newtox')['decision'] = 'include'
         html = self.build(doc=doc)[1]['index.html']
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
-        self.assertEqual({n['key'] for n in data['nodes'] if n['fromCollection']}, {'ctd'})
+        self.assertEqual({n['key'] for n in data['nodes'] if n['fromCollection']}, {'newtox'})
         self.assertIn('<input type="checkbox" id="t-coll" checked>', html)
         self.assertIn("(!n.fromCollection || $('t-coll').checked)", html)
 
@@ -545,12 +579,14 @@ class FipTest(TempDir):
         self.assertEqual(doc['isBasedOn'], sorted([model.COLLECTION_DOI, np_iri('fipA') + '/fip',
                                                    np_iri('fipB') + '#fip']))
 
-    def test_site_build_publishes_declarations_to_included_rows_only_and_saves_nothing(self):
+    def test_site_and_sheet_builds_publish_declarations_to_included_rows_only_and_save_nothing(self):
         doc, folder = self.curated(), pathlib.Path(ROOT, 'data')
         state = lambda: (model.dumps(doc), {p: p.stat().st_mtime_ns for p in folder.rglob('*')})
         before = state()
-        site.build(doc, self.path('site'), offline=True)
-        self.assertEqual(state(), before)   # a copy is enriched, and nothing under data/ is written
+        built = fairsharing.enrich(copy.deepcopy(doc), fairsharing.read(None, None, offline=True))
+        site.build(built, self.path('site'), offline=True)
+        sheet.build(built, self.path('curation.xlsx'))
+        self.assertEqual(state(), before)   # copies are enriched, and nothing under data/ is written
         by = {r['key']: r for r in model.load(self.path('site/fair-tox-ecosystem.jsonld'))['hasPart']}
         # oecd_gd also declares wlic, and is declared by tox: both undecided; tool, the other FIP, is undecided too
         self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']], [by['exo']['@id']])
@@ -598,6 +634,8 @@ class RepositoryTest(unittest.TestCase):
             self.skipTest('no dataset yet')
         doc = model.load(dataset)
         self.assertEqual(model.check(doc)[0], [])
+        self.assertEqual([r['key'] for r in doc['hasPart'] if 'fairsharing' in r], [])   # FAIRsharing is read when
+        self.assertNotIn('fairsharing', doc['sources'])                                  # building, never stored
         import rdflib
         g = rdflib.Graph().parse(data=json.dumps(doc), format='json-ld')
         name = rdflib.URIRef('https://schema.org/name')
