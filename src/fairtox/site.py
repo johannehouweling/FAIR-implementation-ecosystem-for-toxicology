@@ -1,4 +1,5 @@
-"""Build the static dashboard: index.html with the data embedded, plus the dataset and CSV downloads.
+"""Build the static dashboard: index.html with the data embedded, plus the dataset and CSV downloads, and the
+vocabulary (terms.ttl, terms.jsonld) and JSON-LD context (context.jsonld) that the dataset's own IRIs resolve to.
 
 The public build (the default, deployed to GitHub Pages) holds the included resources only, without curation fields.
 The internal build (`--internal`, local only) holds every row and adds the curation view: the parts of the template
@@ -185,10 +186,10 @@ def _csv(fields, rows):
 
 
 def build(doc, outdir, internal=False, offline=False):
-    """Write index.html, the dataset and two CSV files into outdir from the dataset with FAIRsharing added
-    (fairsharing.enrich): the public build, or with internal=True the curation view of every row with the full dataset
-    (never to be published). Both add the FIP declarations, read online or from the local cache, to a copy of the
-    dataset, which is not saved."""
+    """Write index.html, the dataset, two CSV files, the vocabulary and the context into outdir from the dataset with
+    FAIRsharing added (fairsharing.enrich): the public build, or with internal=True the curation view of every row with
+    the full dataset and vocabulary (never to be published). Both add the FIP declarations, read online or from the
+    local cache, to a copy of the dataset, which is not saved."""
     doc = model.normalise(fip.enrich(copy.deepcopy(doc), fip.read(offline)))
     nodes, links, declarations = nodes_links(doc)
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')
@@ -206,11 +207,15 @@ def build(doc, outdir, internal=False, offline=False):
                  if x['src'] in keep and x['dst'] in keep]
         declarations = [x for x in declarations if x['src'] in keep and x['dst'] in keep]
         page = INTERNAL.sub('', page)
+    terms = model.vocabulary(doc, () if internal else PRIVATE + PRIVATE_VOCABULARIES)
+    jsonld = json.loads(terms.serialize(format='json-ld', context={p: str(ns) for p, ns in terms.namespaces()}))
+    jsonld['@graph'].sort(key=lambda node: node['@id'])     # one order, so an unchanged build publishes nothing new
     page = page.replace('__SCHEMA__', _script_json(schema_org(doc)))
     page = page.replace('__DATA__', _script_json({'nodes': nodes, 'links': links, 'declarations': declarations,
                                                   'meta': page_meta(doc, internal)}))
     out = {'index.html': page, 'fair-tox-ecosystem.jsonld': model.dumps(doc), 'resources.csv': _csv(fields, nodes),
-           'relations.csv': _csv(rel_fields, model.relation_rows(doc))}
+           'relations.csv': _csv(rel_fields, model.relation_rows(doc)), 'terms.ttl': terms.serialize(format='turtle'),
+           'terms.jsonld': model.dumps(jsonld), 'context.jsonld': model.dumps({'@context': model.CONTEXT})}
     leaks = [name for name, text in out.items() if not internal and re.search('manuscript', text, re.I)]
     if leaks:   # a last guard: the public pages go live from CI
         raise ValueError(f'public build not written: {", ".join(leaks)} mention the manuscript')

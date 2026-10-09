@@ -16,6 +16,7 @@ import tempfile
 import warnings
 
 import rdflib
+from rdflib import DCTERMS, OWL, RDF, RDFS, SDO, SKOS, Literal, URIRef
 
 from fairtox import __version__
 
@@ -112,7 +113,7 @@ CREATOR_LANE_DEF = {
     'Made jointly': 'Toxicology resources made by two or more creator types together.',
 }
 CREATOR_LANE_OF = dict(zip(STAKEHOLDER, CREATOR_LANE_DEF))
-# Relation labels that make a toxicology resource count as building on FAIR when they point to a FAIR resource.
+# Relation labels that make a toxicology resource count as building on FAIR when they point to a Generic resource.
 BUILDS_ON = ('implements', 'extends', 'profiles', 'recommends')
 FAIR_PUBLISHED = 2016   # the FAIR guiding principles: only later resources can build on FAIR
 SUBDOMAINS = {
@@ -228,6 +229,35 @@ CONTEXT = {
     **dict.fromkeys(['buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn', 'principles', 'principle', 'sources',
                      'vocabularies', 'fairsharing']),
 }
+# Our own terms, under TERMS: the fields the context leaves to @vocab, and the class DigitalObject (label, definition).
+OWN_TERMS = {
+    'scope': ('scope', 'What the resource was made for: generic, life-science or toxicology infrastructure.'),
+    'phase': ('phase', 'For a toxicology resource: the data life-cycle phase it acts on; when it acts on several, the '
+                       'earliest at which it must be applied.'),
+    'span': ('span', 'For a toxicology resource: every data life-cycle phase it acts on, starting with its phase.'),
+    'stakeholders': ('creator types', 'For a toxicology resource: who made it; several may apply.'),
+    'dateBasis': ('date basis', 'What the first-published date refers to.'),
+    'dateSource': ('date source', 'DOI or URL of the source that shows the first-published date.'),
+    'decision': ('decision', 'Screening decision.'),
+    'exclusionReason': ('exclusion reason', 'Why the resource is screened out.'),
+    'coveredBy': ('covered by', 'Key of the row that covers this one (exclusion reason E6).'),
+    'manuscript': ('in manuscript', 'Whether and how the manuscript names the resource.'),
+    'manuscriptEvidence': ('manuscript evidence', 'Section and line numbers in the frozen manuscript draft.'),
+    'fairsharingRecord': ('FAIRsharing record', 'FAIRsharing record code, or the numeric id of a record without a '
+                                                'DOI.'),
+    'fairsharingMatch': ('FAIRsharing match', 'Whether that FAIRsharing record is this resource.'),
+    'evidence': ('evidence', 'Where a relation is stated.'),
+    'DigitalObject': ('Digital object', 'A resource that is not a FAIR Supporting Resource, such as a dataset or a '
+                                        'model.'),
+}
+# Links of our terms to FIP, schema.org and DCTERMS terms, where one exists. A relation label (hadRole) names its
+# concept: terms#implements.
+TERM_LINKS = [
+    ('DigitalObject', OWL.disjointWith, URIRef(FSR)), ('DigitalObject', RDFS.subClassOf, SDO.CreativeWork),
+    ('dateSource', RDFS.subPropertyOf, SDO.subjectOf), ('implements', SKOS.closeMatch, DCTERMS.conformsTo),
+    ('profiles', SKOS.closeMatch, DCTERMS.conformsTo), ('extends', SKOS.closeMatch, SDO.isBasedOn),
+    ('deprecates', SKOS.closeMatch, DCTERMS.replaces), ('related_to', SKOS.closeMatch, DCTERMS.relation),
+]
 # Curated fields, in file order; edited in the Sheet. '@id', 'buildsOnFair', 'fsrCategory', 'fsrParent', 'declaredIn'
 # and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
@@ -257,10 +287,39 @@ def new_document(resources=()):
     }
 
 
+def vocabulary(doc, hidden=()):
+    """Our terms as RDF, for terms.ttl and terms.jsonld: OWN_TERMS except `hidden`, and each of the document's
+    vocabularies as a SKOS concept scheme <name>-values. A concept's prefLabel is the stored value; a relation label
+    is an IRI in the data and names its concept (implements), any other value's concept is <name>-<value>
+    (phase-data-generation)."""
+    t, head = rdflib.Namespace(TERMS), URIRef(TERMS[:-1])
+    g = rdflib.Graph(bind_namespaces='none')
+    for prefix, ns in (('terms', TERMS), ('fip', FIP), ('schema', SDO), ('dct', DCTERMS), ('skos', SKOS),
+                       ('rdf', RDF), ('rdfs', RDFS), ('owl', OWL)):
+        g.bind(prefix, ns)
+    g += [(head, RDF.type, OWL.Ontology), (head, RDFS.label, Literal(f"Terms of the {doc['name']}")),
+          (head, OWL.versionInfo, Literal(doc['version'])), (head, DCTERMS.license, URIRef(doc['license']))]
+    for name, (label, definition) in OWN_TERMS.items():
+        if name not in hidden:
+            g += [(t[name], RDF.type, OWL.Class if name == 'DigitalObject' else RDF.Property),
+                  (t[name], RDFS.label, Literal(label)), (t[name], SKOS.definition, Literal(definition))]
+    for name, values in doc['vocabularies'].items():
+        scheme = t[name + '-values']
+        g += [(scheme, RDF.type, SKOS.ConceptScheme), (scheme, RDFS.label, Literal(name + ' values'))]
+        for value, definition in values.items():
+            c = t[value] if name == 'hadRole' else t[f"{name}-{re.sub('[^a-z0-9]+', '-', value.lower()).strip('-')}"]
+            g += [(c, RDF.type, SKOS.Concept), (c, SKOS.inScheme, scheme), (c, SKOS.prefLabel, Literal(value)),
+                  (c, SKOS.definition, Literal(definition))]
+            if name == 'declaration':                       # the FIP ontology's own property
+                g.add((c, SKOS.exactMatch, URIRef(FIP + value)))
+    g += [(t[s], p, o) for s, p, o in TERM_LINKS if (t[s], None, None) in g]
+    return g
+
+
 # ---- derived values --------------------------------------------------------------------------------------------------
 
 def lane(r):
-    """Dashboard lane by intended use (display only, never stored): generic and life-science resources have
+    """Dashboard lane by phase (display only, never stored): generic and life-science resources have
     their own lanes; a toxicology resource sits in the lane of its phase."""
     if r.get('scope') == 'Generic':
         return 'Generic infrastructure'

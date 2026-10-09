@@ -803,13 +803,15 @@ function header() {
   if (isUrl(META.collection)) $('coll').href = META.collection;
 }
 
-// The data dictionary: each field with a one-line definition, and the allowed values of the controlled ones.
+// The data dictionary: each field with a one-line definition, and the allowed values of the controlled ones. Each term
+// has an anchor, its name, where https://w3id.org/fair-tox/terms#span lands; so has each relation label (#implements).
 const FIELDS = [
   ['name', 'Full name.'],
   ['alternateName', 'Abbreviations and other names.'],
   ['type', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing does not register.', 'type'],
   ['fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, at most two under one parent class, or Digital ' +
     'object for a resource that is not an FSR, such as a dataset or a model. IRIs in the JSON-LD, labels in resources.csv.'],
+  ['DigitalObject', 'The class of the FSR type Digital object: a resource that is not a FAIR Supporting Resource.'],
   ['fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource, FAIR Supporting Resource (any other FSR) or ' +
     'Digital object. The Class filter uses it; resources without a type always pass it.'],
   ['principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty ' +
@@ -830,6 +832,7 @@ const FIELDS = [
   ['url', 'Homepage.'],
   ['description', 'One to three sentences on what the resource is.'],
   ['maintained', 'Maintenance status.', 'maintained'],
+  ['fairsharingRecord', 'FAIRsharing record code or numeric id, in the JSON-LD.'],
   ['fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection that ' +
     'entered this dataset only through the collection. The switch of the same name hides these resources.'],
   ['relations', 'Relations to other resources, read subject first ("CTD implements ExO"): qualifiedRelation in the JSON-LD, ' +
@@ -844,14 +847,14 @@ const FIELDS = [
 /*internal*/
 FIELDS.push(['decision', 'Screening decision.', 'decision'], ['exclusionReason', 'Why a resource is screened out.', 'exclusionReason'],
   ['coveredBy', 'Key of the row that covers this one (E6).'], ['manuscript', 'Whether and how the manuscript names it.', 'manuscript'],
-  ['manuscriptEvidence', 'Section and line numbers in the frozen manuscript draft.'], ['fairsharingRecord', 'FAIRsharing record code or numeric id.'],
+  ['manuscriptEvidence', 'Section and line numbers in the frozen manuscript draft.'],
   ['fairsharingMatch', 'Whether that record is this resource.', 'fairsharingMatch'], ['reviewedBy', 'Initials of the curator who checked the row.'],
   ['note', 'Free text for the next curator.'], ['evidence', 'Where a relation is stated.', 'evidence']);
 /*/internal*/
 function dictionary() {
   const vocab = META.vocab || {};
-  $('dict').innerHTML = FIELDS.map(([f, def, v]) => `<dt>${esc(f)}</dt><dd>${esc(def)}` + (vocab[v] ?
-    `<dl>${Object.entries(vocab[v]).map(([k, d]) => `<dt>${esc(k)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') + '</dd>').join('');
+  $('dict').innerHTML = FIELDS.map(([f, def, v]) => `<dt id="${esc(f.split(',')[0])}">${esc(f)}</dt><dd>${esc(def)}` + (vocab[v] ?
+    `<dl>${Object.entries(vocab[v]).map(([k, d]) => `<dt${v === 'hadRole' ? ` id="${esc(k)}"` : ''}>${esc(k)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>` : '') + '</dd>').join('');
 }
 
 function addChip(parent, text, on, before = null) {
@@ -944,6 +947,11 @@ function render() {
   if (state.sel && !byKey[state.sel].pass) closePanel();   // a filter hid the selected resource: undim the figure
 }
 header(); dictionary(); /*internal*/ panel(); /*/internal*/ render();
+// The fragment opens its resource (https://w3id.org/fair-tox/dataset#ctd) or its term in the data dictionary
+// (https://w3id.org/fair-tox/terms#span); any other fragment does nothing.
+const hash = location.hash.slice(1), term = $(hash);
+if (Object.hasOwn(byKey, hash)) select(hash);
+else if (term && $('dict').contains(term)) { term.closest('details').open = true; term.scrollIntoView(); }
 </script>
 </body>
 </html>

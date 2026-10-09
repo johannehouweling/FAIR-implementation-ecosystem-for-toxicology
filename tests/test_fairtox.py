@@ -8,6 +8,7 @@ import pathlib
 import re
 import tempfile
 import unittest
+import warnings
 from unittest import mock
 
 from openpyxl import load_workbook
@@ -395,7 +396,8 @@ class FairsharingTest(TempDir):
 
 
 class SiteTest(TempDir):
-    FILES = ('index.html', 'fair-tox-ecosystem.jsonld', 'resources.csv', 'relations.csv')
+    FILES = ('index.html', 'fair-tox-ecosystem.jsonld', 'resources.csv', 'relations.csv', 'terms.ttl', 'terms.jsonld',
+             'context.jsonld')
 
     def build(self, internal=False, doc=None):
         doc = doc or fixture()
@@ -502,6 +504,37 @@ class SiteTest(TempDir):
                          'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
                          *model.CREATOR_LANE_DEF):
                 self.assertIn(text, html, (internal, text))
+
+    def test_vocabulary_context_and_anchors_resolve_our_iris(self):
+        import rdflib
+        from rdflib import OWL, RDF, SKOS
+        self.enterContext(warnings.catch_warnings(action='ignore', category=DeprecationWarning))   # rdflib's own code
+        t = rdflib.Namespace(model.TERMS)
+        fields = {'@context': model.CONTEXT, **dict.fromkeys(model.CURATED + model.RELATION_ORDER, 'x')}
+        own = {p[len(model.TERMS):] for p in rdflib.Graph().parse(data=json.dumps(fields), format='json-ld')
+               .predicates() if p.startswith(model.TERMS)}         # the fields the context leaves to our terms
+        self.assertEqual(len(own), 14)
+        for internal in (False, True):                             # the public build leaves out the curation terms
+            text, hidden = self.build(internal)[1], set() if internal else {*site.PRIVATE, *site.PRIVATE_VOCABULARIES}
+            terms = rdflib.Graph().parse(data=text['terms.ttl'], format='turtle')
+            self.assertEqual(set(terms), set(rdflib.Graph().parse(data=text['terms.jsonld'], format='json-ld')))
+            self.assertEqual(json.loads(text['context.jsonld']), {'@context': model.CONTEXT})
+            data = rdflib.Graph().parse(data=text['fair-tox-ecosystem.jsonld'], format='json-ld')
+            used = {x for triple in data for x in triple if x.startswith(model.TERMS)}
+            self.assertLessEqual(used, set(terms.subjects()))      # every IRI of ours in the data is defined
+            props = {p[len(model.TERMS):] for p in terms.subjects(RDF.type, RDF.Property)}
+            self.assertEqual(props, own - hidden)
+            self.assertIn((t.DigitalObject, RDF.type, OWL.Class), terms)
+            for name, values in model.VOCABULARIES.items():        # one concept per value, labelled with it
+                concepts = set(terms.subjects(SKOS.inScheme, t[name + '-values']))
+                labels = {str(terms.value(c, SKOS.prefLabel)) for c in concepts}
+                expected = (set(), 0) if name in hidden else (set(values), len(values))
+                self.assertEqual((labels, len(concepts)), expected, name)
+            html = text['index.html']                              # an anchor per term; a fragment opens its resource
+            for code in (*(f"['{name}', '" for name in props | {'DigitalObject'}),
+                         """<dt id="${esc(f.split(',')[0])}">""", """<dt${v === 'hadRole' ? ` id="${esc(k)}"` : ''}>""",
+                         'if (Object.hasOwn(byKey, hash)) select(hash);'):
+                self.assertIn(code, html, (internal, code))
 
 
 class LabelTest(unittest.TestCase):
