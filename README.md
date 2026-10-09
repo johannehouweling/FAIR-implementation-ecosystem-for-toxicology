@@ -21,7 +21,6 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 - `data/changes.csv`: every change, with its date, process or curator, and source.
 - `docs/inclusion-criteria.md`: how resources were selected and classified.
 - `docs/data-dictionary.md`: fields with their terms, and the controlled vocabularies.
-- `docs/fip-convergence.md`: the choices of the two FIPs per FIP question.
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
 - `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
 
@@ -53,8 +52,8 @@ uv run --env-file .env fairtox site build/site                 # dashboard, publ
 uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharing would accept; nothing is posted
 ```
 
-`fairsharing`, `fip`, `sheet`, `site` and `export-fairsharing` take `--offline`; `fip --report` writes
-`docs/fip-convergence.md`.
+`fairsharing`, `fip`, `sheet`, `site` and `export-fairsharing` take `--offline`; `fip --report` writes the
+choices of the two FIPs per FIP question to `build/fip-convergence.md`.
 
 ## Licences
 

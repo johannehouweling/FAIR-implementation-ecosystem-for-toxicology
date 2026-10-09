@@ -27,7 +27,7 @@ FIPS = {'parcfip': 'https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7W
 CACHE = 'build/fip'
 QUERY = 'https://query.knowledgepixels.com/repo/full'
 REPORT = 'build/fip-match-report.csv'
-CONVERGENCE = 'docs/fip-convergence.md'
+CONVERGENCE = 'build/fip-convergence.md'
 F, NPX = rdflib.Namespace(model.FIP), rdflib.Namespace('http://purl.org/nanopub/x/')
 METHOD = ("Nanopublications read through each FIP's declaration index; validity from the admin graph of the nanopub "
           f'query service ({QUERY}): not invalidated by a nanopublication signed with the same key.')

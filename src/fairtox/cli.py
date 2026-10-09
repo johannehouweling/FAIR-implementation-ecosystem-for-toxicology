@@ -175,7 +175,7 @@ def main(argv=None):
     s = sub.add_parser('fip', help="read the toxicology FIPs' declarations and write the match report; the "
                                    'declarations are never stored: the site build reads them')
     s.add_argument('--offline', action='store_true', help='read only the local cache in build/fip')
-    s.add_argument('--report', action='store_true', help='also write the convergence table, docs/fip-convergence.md')
+    s.add_argument('--report', action='store_true', help='also write the convergence table, build/fip-convergence.md')
     s.add_argument('--apply', action='store_true', help='store links to the declared resources and undecided rows for '
                                                         'new ones and their communities (after reviewing the report)')
     s.set_defaults(run=cmd_fip)

@@ -17,6 +17,7 @@
   maintenance status is not published.
 - Curation sheet: the Type column is now FAIRsharing type, a computed Identifier column is added, each header note
   names the column's term, and Lane, Warnings and Row version are folded.
+- The FIP convergence table (`fip --report`) is written to `build/` and no longer kept in the repository.
 - Dashboard: the data dictionary shows each field's term and has an anchor for each term of the dataset. The published
   credit names the nanopublications of the two FIPs.
 
