@@ -59,7 +59,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `scope` | Scope | `schema:about` | What the resource was made for (list below). |
 | `phase` | Phase |  | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. Not in the graph: it is the earliest phase of `span`. |
 | `span` | one "Span" column per phase | `dcat:theme` | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
-| `stakeholders` | one "Made by" column per creator type | `dcat:theme` | For toxicology resources: who created it; several may apply (list below). Required for included and undecided toxicology resources. |
+| `creatorType` | one "Made by" column per creator type | `schema:creator` | For toxicology resources: the kind of creator, an EFO role or SIO organisation type, next to the names in `creator`; several may apply (list below). Required for included and undecided toxicology resources. |
 | `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
 | `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource when the type is one, else FAIR Supporting Resource. |
 | `declaredIn`, `principles` | Declared in, Principles |  | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
@@ -176,7 +176,7 @@ The IRIs are FAIRsharing's subject terms.
 | Data integration | Integrating and synthesising those records into secondary resources and evidence: curated databases, knowledge bases, ontologies, pathway networks and models. | `terms:phase-data-integration` |
 | Regulatory assessment | Assessing records and secondary resources for reliability and relevance in a regulatory context and integrating them into weight of evidence and decisions. | `terms:phase-regulatory-assessment` |
 
-### Creator types (`stakeholders`)
+### Creator types (`creatorType`)
 
 | Value | Meaning | IRI |
 |---|---|---|

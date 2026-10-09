@@ -24,20 +24,20 @@ def fixture():
         {'key': 'exo', 'name': 'Exposure Ontology', 'alternateName': ['ExO'], 'decision': 'include',
          'type': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration'],
-         'stakeholders': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
+         'creatorType': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
          'dateSource': 'https://doi.org/10.1021/es2033857', 'url': 'https://github.com/CTDbase/exposure-ontology',
          'manuscript': 'named', 'manuscriptEvidence': 'Data generation; L100', 'fairsharingRecord': 'FAIRsharing.6hna78',
          'fairsharingMatch': 'confirmed', 'maintained': 'active'},
         {'key': 'ctd', 'name': 'Comparative Toxicogenomics Database', 'alternateName': ['CTD'], 'decision': 'include',
          'type': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration', 'Regulatory assessment'],
-         'stakeholders': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
+         'creatorType': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
          'url': 'https://ctdbase.org', 'description': 'Curated chemical-gene-disease interactions.',
          'manuscript': 'absent', 'maintained': 'active',
          'qualifiedRelation': [{'relation': '#exo', 'hadRole': 'implements', 'evidence': 'FAIRsharing'}]},
         {'key': 'oecd_gd', 'name': 'OECD guidance on research data', 'decision': 'include', 'type': 'Policy: institution',
          'scope': 'Toxicology', 'phase': 'Regulatory assessment', 'span': ['Regulatory assessment'],
-         'stakeholders': ['Regulator'],
+         'creatorType': ['Regulator'],
          'date': '2026', 'manuscript': 'cited',
          'manuscriptEvidence': 'L190'},
         {'key': 'parc', 'name': 'PARC', 'decision': 'exclude', 'exclusionReason': 'E1', 'manuscript': 'named'},
@@ -87,9 +87,9 @@ class ModelTest(TempDir):
             ('exo', 'datePublished', '2999', 'YYYY'),
             ('parc', 'exclusionReason', '', 'exclusion reason is required'),
             ('ctd', 'phase', '', 'phase is required'),
-            ('ctd', 'stakeholders', [], 'creator type is required'),
+            ('ctd', 'creatorType', [], 'creator type is required'),
             ('tool', 'phase', 'Data generation', 'phase is required'),
-            ('exo', 'stakeholders', ['Lab'], 'creator type'),
+            ('exo', 'creatorType', ['Lab'], 'creator type'),
             ('parc', 'exclusionReason', 'E6', 'E6 needs Covered by'),
             ('exo', 'subdomains', ['ecotox'], 'sub-domain'),
             ('exo', 'url', 'ctdbase.org', 'http(s) URL'),
@@ -120,8 +120,8 @@ class ModelTest(TempDir):
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
         for phase in model.PHASES:   # the toxicology lanes take the phase names
             self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': phase}), phase)
-        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator']}), 'Made by regulators')
-        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'stakeholders': ['Regulator', 'Wet-lab research']}),
+        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'creatorType': ['Regulator']}), 'Made by regulators')
+        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'creatorType': ['Regulator', 'Wet-lab research']}),
                          'Made jointly')
         self.assertEqual(model.creator_lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
 
@@ -247,6 +247,13 @@ class SheetTest(TempDir):
                              (sheet.SPAN_HEAD['Data generation'], 'dcat:theme'), ('exposome', 'schema:about'),
                              ('Date basis', 'dct:issued')):
             self.assertIn(term, head[column].comment.text, column)
+
+    def test_columns_without_curator_information_are_folded(self):
+        ws = load_workbook(self.build(model.normalise(fixture())))['Resources']
+        for c in ws[1]:
+            dim = ws.column_dimensions[c.column_letter]
+            self.assertEqual((dim.outline_level, bool(dim.hidden)), (1, True) if c.value in sheet.FOLDED else (0, False),
+                             c.value)
 
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
@@ -524,14 +531,14 @@ class SiteTest(TempDir):
             'ctd': ('Data integration', 'Made jointly', False),
             'oecd_gd': ('Regulatory assessment', 'Made by regulators', True),
             'tool': ('Generic infrastructure', 'Generic infrastructure', False)})
-        self.assertEqual((nodes['ctd']['phase'], nodes['ctd']['stakeholders']),
+        self.assertEqual((nodes['ctd']['phase'], nodes['ctd']['creatorType']),
                          ('Data integration', ['Wet-lab research', 'In silico research']))
-        self.assertEqual((nodes['tool']['phase'], nodes['tool']['stakeholders']), ('', []))
+        self.assertEqual((nodes['tool']['phase'], nodes['tool']['creatorType']), ('', []))
         self.assertEqual(data['meta']['creatorLanes'], list(model.CREATOR_LANE_DEF))
         self.assertEqual(data['meta']['creatorLaneDef'], model.CREATOR_LANE_DEF)
-        self.assertLessEqual({'phase', 'stakeholders', 'creatorLane'}, set(data['meta']['vocab']))
+        self.assertLessEqual({'phase', 'creatorType', 'creatorLane'}, set(data['meta']['vocab']))
         rows = {r['key']: r for r in csv.DictReader(io.StringIO(text['resources.csv']))}
-        self.assertEqual((rows['ctd']['stakeholders'], rows['oecd_gd']['buildsOnFair'], rows['ctd']['buildsOnFair']),
+        self.assertEqual((rows['ctd']['creatorType'], rows['oecd_gd']['buildsOnFair'], rows['ctd']['buildsOnFair']),
                          ('Wet-lab research; In silico research', 'True', 'False'))
         # the two-option layout toggle, the creator lanes, and italics from buildsOnFair rather than the scope
         self.assertIn('<legend>Toxicology lanes</legend>', html)
@@ -595,7 +602,7 @@ class SiteTest(TempDir):
                        (exo, S.about, URIRef(model.NCIT_TOXICOLOGY)),        # FAIRsharing's subject
                        (exo, S.about, URIRef('http://id.nlm.nih.gov/mesh/D000081413')),
                        (ctd, DCAT.theme, t['phase-regulatory-assessment']),
-                       (ctd, DCAT.theme, URIRef('http://www.ebi.ac.uk/efo/EFO_0009742')),   # computational scientist
+                       (ctd, model.SCHEMA.creator, URIRef('http://www.ebi.ac.uk/efo/EFO_0009742')),   # computational scientist
                        (exo, S.creativeWorkStatus, t['maintained-active']),
                        (exo, S.datePublished, Literal('2012-01')), (ctd, DCTERMS.issued, Literal('2004')),
                        (ds.oecd_gd, DCTERMS.date, Literal('2026')),

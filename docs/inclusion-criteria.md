@@ -179,6 +179,7 @@ Each excluded row carries exactly one code.
 | 9 Oct 2026 | A date is stored under the property of what it refers to, after DataCite's date types: publication `schema:datePublished`, release `dct:issued`, adoption `dct:dateAccepted`, FAIRsharing year `schema:dateCreated`, and no recorded basis `dct:date`. | Jente Houweling |
 | 9 Oct 2026 | A resource with a confirmed FAIRsharing record keeps the record DOI as its identifier, as the FIP Wizard and the two toxicology FIPs do, although FAIRsharing describes the DOI as identifying its record; each resource states its identifier and homepage. | Jente Houweling |
 | 9 Oct 2026 | The published dataset follows CODATA's CDIF Discovery profile 1.1, and its term lists the CDIF Concept Scheme profile 1.1; CI checks the dataset with CODATA's SHACL rules. An unknown maintenance status is not published. | Jente Houweling |
+| 10 Oct 2026 | The creator types are stored as `creatorType` (formerly `stakeholders`) and published as `schema:creator`, with the EFO and SIO concepts for the kind of creator, next to the creator names: they say who made a resource, not what it is about, so `dcat:theme` no longer applies. | Jente Houweling |
 
 ## 9. Limitations
 

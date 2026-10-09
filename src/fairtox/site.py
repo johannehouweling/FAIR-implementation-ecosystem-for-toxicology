@@ -21,7 +21,7 @@ PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxico
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
 NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
                'type', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
-               'stakeholders', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
+               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
 # Curation fields and vocabularies that stay out of the build. Relations keep only their label: their evidence and
@@ -84,7 +84,7 @@ def nodes_links(doc):
             'fsrType': [fsr.get(t, t) for t in r.get('fsrType', [])], 'fsrCategory': fsr.get(r.get('fsrCategory'), ''),
             'principles': r.get('principles', []), 'declaredIn': [key_of[f] for f in r.get('declaredIn', [])],
             'declaredBy': key_of.get(r.get('declared-by'), ''), 'registry': model.registry(r) or '',
-            'scope': r.get('scope', ''), 'stakeholders': r.get('stakeholders', []),
+            'scope': r.get('scope', ''), 'creatorType': r.get('creatorType', []),
             'buildsOnFair': bool(r.get('buildsOnFair')), 'subdomains': r.get('subdomains', []),
             # in the collection but not in the manuscript: hidden by one switch on the page
             'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
@@ -188,8 +188,8 @@ FIELDS = [
     ('phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.',
      'phase'),
     ('span', 'Every data life-cycle phase a toxicology resource acts on, its phase first.', None),
-    ('stakeholders', 'Creator types: who made a toxicology resource; several may apply. In the layout by creator they '
-                     'set its lane (Made jointly for two or more).', 'stakeholders'),
+    ('creatorType', 'Creator types: who made a toxicology resource; several may apply. In the layout by creator they '
+                     'set its lane (Made jointly for two or more).', 'creatorType'),
     ('buildsOnFair', 'Derived: true for a toxicology resource first published in 2016 or later that implements, '
                      'extends, profiles or recommends a generic resource. Its label is in italics.', None),
     ('subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'),

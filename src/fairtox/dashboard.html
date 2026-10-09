@@ -240,7 +240,7 @@ const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
 const label = n => short(n) + dagger(n);
 const laneText = n => n.phase || n.lane || '—';   // toxicology resources show their phase
 // creator types in sentence case: "In silico research, regulator"
-const made = n => capital((n.stakeholders || []).map(s => s.charAt(0).toLowerCase() + s.slice(1)).join(', '));
+const made = n => capital((n.creatorType || []).map(s => s.charAt(0).toLowerCase() + s.slice(1)).join(', '));
 // The toxicology lanes are arranged by phase (lane) or by creator (creatorLane); the generic lanes stay.
 const byCreator = () => $('by-creator').checked;
 const laneOf = n => byCreator() ? n.creatorLane : n.lane;

@@ -111,10 +111,12 @@ RELATION_COLUMNS = [
     ('Note', 'note', 'text', 40, ''),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
-MARK_FIELD = {'mark': 'subdomains', 'creator': 'stakeholders', 'span': 'span'}   # one column per value of these
+MARK_FIELD = {'mark': 'subdomains', 'creator': 'creatorType', 'span': 'span'}   # one column per value of these
+FOLDED = ('Lane', 'Warnings', 'Row version')   # no information for curators: grouped and collapsed
 INSTRUCTIONS = [
     'Edit only the white cells. Grey columns, and the grey rows on the Relations tab, are computed or read from '
-    'FAIRsharing and the FIPs when the sheet is made, and are ignored when it is read back.',
+    'FAIRsharing and the FIPs when the sheet is made, and are ignored when it is read back. Lane, Warnings and Row '
+    'version are folded; open them with the + above the column letters.',
     'Never delete a row. To drop a resource, set Decision to exclude and choose an Exclusion reason.',
     'Add new resources at the bottom of the Resources tab and leave Key empty; a key is assigned on import.',
     'Mark each sub-domain that applies with x. A resource can belong to several.',
@@ -294,7 +296,7 @@ def build(doc, path):
             if kind == 'mark':
                 c.value = 'x' if field in r.get('subdomains', []) else None
             elif kind == 'creator':
-                c.value = 'x' if field in r.get('stakeholders', []) else None
+                c.value = 'x' if field in r.get('creatorType', []) else None
             elif kind == 'span':
                 c.value = 'x' if field in r.get('span', []) else None
             elif field == 'fsrType':
@@ -328,6 +330,9 @@ def build(doc, path):
                 c.value = r.get(field) or None
     for i, (head, field, kind, *_) in enumerate(RESOURCE_COLUMNS, 1):
         _validation(res, kind, get_column_letter(i), [(2, last)], keys_range)
+    for i, (head, *_) in enumerate(RESOURCE_COLUMNS, 1):
+        if head in FOLDED:
+            res.column_dimensions.group(get_column_letter(i), hidden=True)
     res.freeze_panes = 'C2'
     res.auto_filter.ref = f'A1:{get_column_letter(len(RESOURCE_COLUMNS))}{last}'
 
@@ -462,7 +467,7 @@ def ingest(doc, path, force=False):
             else:
                 parsed[field] = _text(v)
         parsed['subdomains'] = [s for s in model.SUBDOMAINS if _text(val.get(s)).lower() == 'x']
-        parsed['stakeholders'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() == 'x']
+        parsed['creatorType'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() == 'x']
         parsed['span'] = [p for p in model.PHASES if _text(val.get(SPAN_HEAD[p])).lower() == 'x']
         parsed['fsrType'] = list(dict.fromkeys(parsed['fsrType']))
         for mark in list(model.SUBDOMAINS) + list(CREATOR_HEAD.values()) + list(SPAN_HEAD.values()):

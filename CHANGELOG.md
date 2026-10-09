@@ -11,11 +11,12 @@
   rules, and its term lists to the CDIF Concept Scheme profile 1.1. The dataset states its identifier, landing page,
   release date, temporal coverage, sources, fields with their terms, and downloads with checksums; its creator is the
   ELIXIR Toxicology Community within ELIXIR (ROR), its licence a labelled link and its keywords defined terms.
-- Resources: each states its persistent identifier and homepage and has a schema.org type. Dates are stored under the
+- Resources: each states its persistent identifier and homepage and has a schema.org type. The creator types
+  (`creatorType`, formerly `stakeholders`) are `schema:creator`, next to the creator names. Dates are stored under the
   property of what they refer to, after DataCite's date types; the date source is `schema:citation`. An unknown
   maintenance status is not published.
-- Curation sheet: the Type column is now FAIRsharing type, a computed Identifier column is added, and each header note
-  names the column's term.
+- Curation sheet: the Type column is now FAIRsharing type, a computed Identifier column is added, each header note
+  names the column's term, and Lane, Warnings and Row version are folded.
 - Dashboard: the data dictionary shows each field's term and has an anchor for each term of the dataset. The published
   credit names the nanopublications of the two FIPs.
 

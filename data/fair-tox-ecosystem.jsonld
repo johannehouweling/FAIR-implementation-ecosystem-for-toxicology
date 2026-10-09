@@ -125,8 +125,8 @@
     "Regulatory assessment": "https://w3id.org/fair-tox/terms#phase-regulatory-assessment"
    }
   },
-  "stakeholders": {
-   "@id": "dcat:theme",
+  "creatorType": {
+   "@id": "schema:creator",
    "@type": "@vocab",
    "@container": "@set",
    "@context": {
@@ -299,7 +299,7 @@
    "Data integration": "Integrating and synthesising those records into secondary resources and evidence: curated databases, knowledge bases, ontologies, pathway networks and models.",
    "Regulatory assessment": "Assessing records and secondary resources for reliability and relevance in a regulatory context and integrating them into weight of evidence and decisions."
   },
-  "stakeholders": {
+  "creatorType": {
    "Wet-lab research": "Made by experimental (wet-lab) researchers, mostly academic.",
    "In silico research": "Made by computational researchers: modellers, AOP, PBK, QSAR, informatics and data stewards.",
    "Regulator": "Made by a regulatory agency or intergovernmental body, such as OECD, EFSA, ECHA or US EPA."
@@ -390,7 +390,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -445,7 +445,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -485,7 +485,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -533,7 +533,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -561,7 +561,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -597,7 +597,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "url": "https://aopwiki.org/aops",
@@ -627,7 +627,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -674,7 +674,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -710,7 +710,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -763,7 +763,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -796,7 +796,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -834,7 +834,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -872,7 +872,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -907,7 +907,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -941,7 +941,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -987,7 +987,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -1059,7 +1059,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -1108,7 +1108,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -1167,7 +1167,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -1257,7 +1257,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -1603,7 +1603,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -1641,7 +1641,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -1814,7 +1814,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -1916,7 +1916,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2062,7 +2062,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2129,7 +2129,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2167,7 +2167,7 @@
     "Data generation",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "Regulator"
    ],
@@ -2229,7 +2229,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -2290,7 +2290,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -2344,7 +2344,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -2401,7 +2401,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -2441,7 +2441,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research",
     "Regulator"
@@ -2493,7 +2493,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -2520,7 +2520,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -2647,7 +2647,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2684,7 +2684,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2721,7 +2721,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2758,7 +2758,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2792,7 +2792,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2839,7 +2839,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -2874,7 +2874,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -2932,7 +2932,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -2972,7 +2972,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -3152,7 +3152,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3180,7 +3180,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3239,7 +3239,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3362,7 +3362,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -3397,7 +3397,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -3434,7 +3434,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -3469,7 +3469,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -3506,7 +3506,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -3543,7 +3543,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "creator": "IMI eTOX consortium",
@@ -3570,7 +3570,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -3612,7 +3612,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3637,7 +3637,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3664,7 +3664,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3695,7 +3695,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3732,7 +3732,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -3787,7 +3787,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -3820,7 +3820,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -3865,7 +3865,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -3893,7 +3893,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -3921,7 +3921,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -3951,7 +3951,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -3987,7 +3987,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -4041,7 +4041,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -4116,7 +4116,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -4495,7 +4495,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -4602,7 +4602,7 @@
     "Data generation",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -4641,7 +4641,7 @@
     "Data generation",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -4708,7 +4708,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -4743,7 +4743,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -4776,7 +4776,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -4929,7 +4929,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -4959,7 +4959,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -5027,7 +5027,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -5096,7 +5096,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -5155,7 +5155,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -5233,7 +5233,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -5271,7 +5271,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -5394,7 +5394,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -5457,7 +5457,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "datePublished": "2012-02-16",
@@ -5493,7 +5493,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "datePublished": "2007-07",
@@ -5526,7 +5526,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -5564,7 +5564,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -5646,7 +5646,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -5870,7 +5870,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -5917,7 +5917,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -6033,7 +6033,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -6071,7 +6071,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -6102,7 +6102,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -6158,7 +6158,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -6207,7 +6207,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -6231,7 +6231,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -6258,7 +6258,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -6290,7 +6290,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -6350,7 +6350,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -6375,7 +6375,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "creator": "Toxicologic Pathology Regulatory Forum",
@@ -6412,7 +6412,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "manuscript": "comment only",
@@ -6438,7 +6438,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research"
    ],
@@ -6475,7 +6475,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -6590,7 +6590,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -6617,7 +6617,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -6643,7 +6643,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -6678,7 +6678,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -6709,7 +6709,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -6787,7 +6787,7 @@
     "Data generation",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research",
     "Regulator"
@@ -6874,7 +6874,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -6912,7 +6912,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -6947,7 +6947,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -6977,7 +6977,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -7012,7 +7012,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -7119,7 +7119,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "date": "2023",
@@ -7149,7 +7149,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -7185,7 +7185,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research",
     "Regulator"
@@ -7249,7 +7249,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -7294,7 +7294,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -7323,7 +7323,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -7442,7 +7442,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -7492,7 +7492,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -7616,7 +7616,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -7665,7 +7665,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -7694,7 +7694,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -7742,7 +7742,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -7797,7 +7797,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -7858,7 +7858,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research",
     "Regulator"
    ],
@@ -7894,7 +7894,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -7973,7 +7973,7 @@
     "Data generation",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -8054,7 +8054,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research",
     "Regulator"
@@ -8179,7 +8179,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -8212,7 +8212,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -8235,7 +8235,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "manuscript": "named",
@@ -8255,7 +8255,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "manuscript": "comment only",
@@ -8280,7 +8280,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -8318,7 +8318,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research",
     "Regulator"
@@ -8379,7 +8379,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -8414,7 +8414,7 @@
     "Data generation",
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "In silico research",
     "Regulator"
@@ -8469,7 +8469,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -8497,7 +8497,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -8529,7 +8529,7 @@
     "Data integration",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "dateReleased": "2020-06-09",
@@ -8570,7 +8570,7 @@
    "span": [
     "Data generation"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research"
    ],
    "subdomains": [
@@ -8599,7 +8599,7 @@
    "span": [
     "Data integration"
    ],
-   "stakeholders": [
+   "creatorType": [
     "In silico research"
    ],
    "subdomains": [
@@ -8636,7 +8636,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -8671,7 +8671,7 @@
     "Data generation",
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Wet-lab research",
     "Regulator"
    ],
@@ -8787,7 +8787,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [
@@ -8883,7 +8883,7 @@
    "span": [
     "Regulatory assessment"
    ],
-   "stakeholders": [
+   "creatorType": [
     "Regulator"
    ],
    "subdomains": [

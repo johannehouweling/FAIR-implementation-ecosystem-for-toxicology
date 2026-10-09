@@ -208,7 +208,7 @@ FSR_OFFERED = [FIP + t for t in (
 
 VOCABULARIES = {
     'decision': DECISION, 'exclusionReason': EXCLUSION, 'type': {k: v[3] for k, v in TYPES.items()},
-    'scope': SCOPE, 'phase': PHASES, 'stakeholders': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
+    'scope': SCOPE, 'phase': PHASES, 'creatorType': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
     'subdomains': SUBDOMAINS, 'dateBasis': DATE_BASIS, 'maintained': MAINTAINED, 'manuscript': MANUSCRIPT,
     'fairsharingMatch': MATCH, 'hadRole': {k: v[2] for k, v in RELATIONS.items()}, 'declaration': FIP_PROPERTIES,
     'evidence': EVIDENCE,
@@ -230,7 +230,7 @@ SAME = {
                    'exposome': MESH + 'D000081413', 'toxicogenomics': 'http://purl.obolibrary.org/obo/NCIT_C20179',
                    'AOP-based mechanistic knowledge': MESH + 'D000073931',
                    'computational and predictive toxicology': IUPAC + '15583'},
-    'stakeholders': {'Wet-lab research': 'http://www.ebi.ac.uk/efo/EFO_0009741',       # experimental scientist
+    'creatorType': {'Wet-lab research': 'http://www.ebi.ac.uk/efo/EFO_0009741',       # experimental scientist
                      'In silico research': 'http://www.ebi.ac.uk/efo/EFO_0009742',     # computational scientist
                      'Regulator': 'http://semanticscience.org/resource/SIO_000619'},   # regulatory authority
     'maintained': {'in development': 'http://purl.org/adms/status/UnderDevelopment',
@@ -300,7 +300,7 @@ CONTEXT = {
     'scope': _values('schema:about', 'scope', SCOPE),
     'subdomains': _values('schema:about', 'subdomains', SUBDOMAINS, **{'@container': '@set'}),
     'span': _values('dcat:theme', 'phase', PHASES, **{'@container': '@set'}),
-    'stakeholders': _values('dcat:theme', 'stakeholders', STAKEHOLDER, **{'@container': '@set'}),
+    'creatorType': _values('schema:creator', 'creatorType', STAKEHOLDER, **{'@container': '@set'}),   # the kind of creator
     'maintained': _values('schema:creativeWorkStatus', 'maintained', MAINTAINED),
     'datePublished': 'schema:datePublished', 'dateReleased': 'dct:issued', 'dateAdopted': 'dct:dateAccepted',
     'dateCreated': 'schema:dateCreated', 'date': 'dct:date',
@@ -334,7 +334,7 @@ TERM_LINKS = [
       for o in (NCIT_TOXICOLOGY, IUPAC + 'T06417')],
     ('subdomains', 'eco-toxicology', SKOS.exactMatch, IUPAC + '14399'),
     ('subdomains', 'toxicogenomics', SKOS.exactMatch, IUPAC + '16156'),
-    ('stakeholders', 'Regulator', SKOS.closeMatch, 'http://purl.obolibrary.org/obo/OBI_0000450'),   # regulatory agency
+    ('creatorType', 'Regulator', SKOS.closeMatch, 'http://purl.obolibrary.org/obo/OBI_0000450'),   # regulatory agency
     ('maintained', 'active', SKOS.closeMatch,
      'http://publications.europa.eu/resource/authority/distribution-status/ONGOING'),
     ('hadRole', 'implements', SKOS.closeMatch, FIP + 'implements'),
@@ -366,14 +366,14 @@ def iri(curie):
 # 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
-           'phase', 'span', 'stakeholders', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
+           'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
            'reviewedBy', 'note']
 FIELD_ORDER = ['@id', 'identifier', 'schemaType'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles',
                                                                'fsr', 'qualifiedRelation', 'declared-by', 'fipDeclaration',
                                                                'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
-LIST_FIELDS = {'alternateName', 'subdomains', 'stakeholders', 'fsrType', 'span'}
+LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span'}
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
 DATE_RE = re.compile(r'^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$')
 FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
@@ -448,7 +448,7 @@ def creator_lane(r):
     """Dashboard lane by creator: the toxicology lanes follow the creator types, 'Made jointly' for several."""
     if r.get('scope') != 'Toxicology':
         return lane(r)
-    types = r.get('stakeholders') or []
+    types = r.get('creatorType') or []
     if len(types) > 1:
         return 'Made jointly'
     return CREATOR_LANE_OF.get(types[0], '') if types else ''
@@ -533,7 +533,7 @@ def normalise(doc):
                 r[f] = r[f].strip()
             elif isinstance(r.get(f), list):
                 r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
-        for f, vocab in (('subdomains', SUBDOMAINS), ('stakeholders', STAKEHOLDER), ('span', PHASES)):
+        for f, vocab in (('subdomains', SUBDOMAINS), ('creatorType', STAKEHOLDER), ('span', PHASES)):
             if r.get(f):                                    # one canonical order, so round trips are exact
                 known = [x for x in vocab if x in r[f]]
                 r[f] = known + [x for x in r[f] if x not in vocab]
@@ -626,9 +626,9 @@ def check(doc):
         if r.get('decision') != 'exclude' and FIC not in r.get('fsrType', []):   # excluded rows and communities
             if (r.get('scope') == 'Toxicology') != bool(r.get('phase')):            # are not plotted
                 e(f'{k}: a phase is required exactly when the scope is Toxicology')
-            if (r.get('scope') == 'Toxicology') != bool(r.get('stakeholders')):
+            if (r.get('scope') == 'Toxicology') != bool(r.get('creatorType')):
                 e(f'{k}: at least one creator type is required exactly when the scope is Toxicology')
-        for s in r.get('stakeholders', []) if isinstance(r.get('stakeholders'), list) else []:
+        for s in r.get('creatorType', []) if isinstance(r.get('creatorType'), list) else []:
             if s not in STAKEHOLDER:
                 e(f'{k}: creator type {s!r} is not an allowed value')
         for s in r.get('subdomains', []):
