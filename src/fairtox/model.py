@@ -70,7 +70,7 @@ TYPES = {
     'Policy: project': ('Policy', 'project', 13, 'Policy or guidance issued by a project.'),
     'Policy: institution': ('Policy', 'institution', 14,
                             'Policy or guidance issued by an institution or agency, such as OECD guidance.'),
-    'Collection': ('Collection', 'collection', 15, 'Curated collection of FAIR-enabling resources.'),
+    'Collection': ('Collection', 'collection', 15, 'Curated collection of standards, databases and policies.'),
     'Tool': ('Tool', None, None, 'Software or service; FAIRsharing does not register these.'),
 }
 SCOPE = {
@@ -278,7 +278,8 @@ def new_document(resources=()):
     return {
         '@context': CONTEXT, '@id': '', '@type': 'schema:Dataset',
         'name': 'FAIR implementation ecosystem for toxicology',
-        'description': 'FAIR-enabling resources used in toxicology (standards, databases, policies and tools), curated '
+        'description': 'Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling '
+                       'Resource, another FAIR Supporting Resource or a digital object, curated '
                        'by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with '
                        'first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.',
         'version': __version__, 'dateModified': '', 'license': 'https://creativecommons.org/licenses/by-sa/4.0/',

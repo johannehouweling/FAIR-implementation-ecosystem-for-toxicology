@@ -126,7 +126,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 | Policy: funder | Policy | funder (12) | Data policy of a funder. |
 | Policy: project | Policy | project (13) | Policy or guidance issued by a project. |
 | Policy: institution | Policy | institution (14) | Policy or guidance issued by an institution or agency, such as OECD guidance. |
-| Collection | Collection | collection (15) | Curated collection of FAIR-enabling resources. |
+| Collection | Collection | collection (15) | Curated collection of standards, databases and policies. |
 | Tool | (not registered) | - | Software or service; FAIRsharing does not register these. |
 
 ### FSR type (`fsrType`)

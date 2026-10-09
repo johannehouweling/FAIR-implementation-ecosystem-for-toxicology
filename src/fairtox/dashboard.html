@@ -183,7 +183,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
 
   <div class="viz" id="viz">
     <a class="skip fig-skip" href="#list">Skip the figure</a>
-    <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Timeline of FAIR-enabling resources for toxicology"></svg></div>
+    <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Timeline of the FAIR implementation ecosystem for toxicology"></svg></div>
     <aside id="panel" class="panel" aria-label="Details of the selected resource" hidden></aside>
   </div>
   <p class="notes" id="notes" aria-live="polite"></p>
@@ -212,7 +212,7 @@ tr.out th, tr.out td { color: var(--ink-2); }
     <div class="cols">
     <div>
       <h3>What is listed</h3>
-      <p>FAIR-enabling resources: standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the list but not in the figure.</p>
+      <p>Standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable, each typed as a FAIR-Enabling Resource, another FAIR Supporting Resource or a digital object. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the list but not in the figure.</p>
       <h3>Where the resources come from</h3>
       <p>The <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and curation by the ELIXIR Toxicology Community. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata and the declarations of the toxicology FAIR Implementation Profiles (FIPs) are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
       <h3>FSR types and FIP declarations</h3>
@@ -629,7 +629,7 @@ function draw() {  // the screen figure
   fig.dataset.nodes = shown.length;
   fig.dataset.links = nLinks;
   fig.dataset.overlaps = overlaps(fig);
-  fig.setAttribute('aria-label', `Timeline of ${plural(shown.length, 'FAIR-enabling resource', 'FAIR-enabling resources')} for toxicology, ${Y0} to ${Y1 - 1}, ` +
+  fig.setAttribute('aria-label', `Timeline of ${plural(shown.length, 'resource', 'resources')} for toxicology, ${Y0} to ${Y1 - 1}, ` +
     `in ${plural(lanes.length, 'lane', 'lanes')} (${lanes.map(b => show(b.lane)).join(', ')}), with ${plural(nLinks, 'relation', 'relations')} drawn. ` +
     'The list below gives the same resources.');
   notes();

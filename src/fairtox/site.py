@@ -159,7 +159,7 @@ def schema_org(doc):
         'url': PAGES, 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
         'license': doc['license'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
         'creator': {'@type': 'Organization', 'name': doc.get('creator', '')},
-        'keywords': ['FAIR', 'toxicology', 'FAIR-enabling resources', 'FAIRsharing', 'research data management'],
+        'keywords': ['FAIR', 'toxicology', 'FAIR supporting resources', 'FAIRsharing', 'research data management'],
         'distribution': [
             {'@type': 'DataDownload', 'encodingFormat': 'application/ld+json',
              'contentUrl': PAGES + 'fair-tox-ecosystem.jsonld'},
