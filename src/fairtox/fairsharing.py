@@ -307,30 +307,30 @@ def enrich(doc, data):
 # ---- submission export -----------------------------------------------------------------------------------------------
 
 def submission(doc):
-    """What could be added to FAIRsharing, from a document with FAIRsharing added (`enrich`): new records (in the API
-    create shape), associations FAIRsharing does not hold yet, records to add to the collection, and resources
-    FAIRsharing does not register. Nothing is posted."""
+    """What could be added to FAIRsharing, from a document with FAIRsharing added (`enrich`), in the shapes of its API.
+    Only what FAIRsharing accepts and the curators have checked is proposed: new records for included resources that
+    FAIRsharing was checked not to hold; associations it allows between these record types and does not hold yet,
+    between records that exist or are proposed here, with published evidence; and records to add to the collection.
+    Everything else is held back with the reason. Nothing is posted: FAIRsharing approves a new record only once its
+    subjects, domains, species, countries and organisations are filled in."""
     rs = {r['key']: r for r in doc['hasPart'] if r.get('decision') == 'include'}
+    out = {'records': [], 'associations': [], 'collectionAdditions': [], 'heldBack': []}
     ref = {}
     for k, r in rs.items():
-        code = model.fs_ref(r.get('fairsharingRecord'))
-        ref[k] = (f'new: {k}' if r.get('fairsharingMatch') != 'confirmed' or not code else
-                  r['@id'] if not r['@id'].startswith('#') else f'{SITE}/{code}')
-    out = {'records': [], 'incomplete': [], 'associations': [], 'collectionAdditions': [], 'notRegistrable': []}
-    for k, r in rs.items():
-        t = model.TYPES.get(r.get('type'))
-        if r.get('fairsharingMatch') == 'confirmed':
+        t, code = model.TYPES.get(r.get('type')), model.fs_ref(r.get('fairsharingRecord'))
+        if r.get('fairsharingMatch') == 'confirmed' and code:
+            ref[k] = r['@id'] if not r['@id'].startswith('#') else f'{SITE}/{code}'
             if not (r.get('fairsharing') or {}).get('inCollection'):
-                out['collectionAdditions'].append({'key': k, 'name': r['name'], 'record': r['@id']})
-            continue
-        if not t or t[0] == 'Tool':
-            out['notRegistrable'].append({'key': k, 'name': r['name'], 'type': r.get('type', ''),
-                                          'suggestion': 'bio.tools (software) or FAIRassist (FAIR assessment tools)'})
+                out['collectionAdditions'].append({'key': k, 'name': r['name'], 'record': ref[k]})
             continue
         missing = [f for f in ('name', 'description', 'url') if not r.get(f)]
-        if missing:
-            out['incomplete'].append({'key': k, 'name': r['name'], 'missing': missing})
+        reason = ('FAIRsharing not yet checked for a record of it' if r.get('fairsharingMatch') != 'no record' else
+                  'software: bio.tools, or FAIRassist for FAIR assessment tools' if not t or t[0] == 'Tool' else
+                  'missing ' + ', '.join(missing) if missing else '')
+        if reason:
+            out['heldBack'].append({'item': k, 'name': r['name'], 'reason': reason})
             continue
+        ref[k] = f'new: {k}'
         metadata = {'name': r['name'], 'homepage': r['url'], 'description': r['description'],
                     'status': STATUS.get(r.get('maintained'), 'uncertain')}
         if r.get('alternateName'):
@@ -341,16 +341,23 @@ def submission(doc):
                                'for_the_form': {'type': r['type'], 'organisations': r.get('creator', ''),
                                                 'publication': r.get('dateSource', '')}})
     for x in model.relation_rows(doc):
-        if x['subject'] not in rs or x['target'] not in rs or x['evidence'] == 'FAIRsharing':
+        s, t = x['subject'], x['target']
+        if s not in rs or t not in rs or x['evidence'] == 'FAIRsharing':
             continue
-        held = (rs[x['subject']].get('fairsharing') or {}).get('associations', [])
-        if [x['hadRole'], (rs[x['target']].get('fairsharing') or {}).get('id')] in held:
+        ids = [(rs[k].get('fairsharing') or {}).get('id') for k in (s, t)]
+        if [x['hadRole'], ids[1]] in (rs[s].get('fairsharing') or {}).get('associations', []):
             continue
-        a, b = model.registry(rs[x['subject']]), model.registry(rs[x['target']])
-        out['associations'].append({
-            'subject': ref[x['subject']], 'relation': x['hadRole'], 'relation_id': model.RELATIONS[x['hadRole']][0],
-            'target': ref[x['target']], 'enterable': (a, b) in model.ALLOWED.get(x['hadRole'], set()),
-            'evidence': x['evidence'], 'source': x['source']})
+        reason = ('FAIRsharing does not allow this label between these record types'
+                  if (model.registry(rs[s]), model.registry(rs[t])) not in model.ALLOWED.get(x['hadRole'], set()) else
+                  'not every end is in FAIRsharing or proposed here' if s not in ref or t not in ref else
+                  'the only evidence is the unpublished manuscript' if x['evidence'] == 'manuscript' else '')
+        if reason:
+            out['heldBack'].append({'item': f"{s} {x['hadRole']} {t}", 'reason': reason})
+            continue
+        out['associations'].append({'record': ref[s], 'record_id': ids[0], 'relation': x['hadRole'],
+                                    'linked_record': ref[t], 'linked_record_id': ids[1],
+                                    'record_assoc_label_id': model.RELATIONS[x['hadRole']][0],
+                                    'evidence': x['evidence'], 'source': x['source']})
     return out
 
 
@@ -366,9 +373,8 @@ def write_submission(doc, outdir):
         'New records': [{'key': x['key'], **x['fairsharing_record']['metadata'],
                          'record_type_id': x['fairsharing_record']['record_type_id'], **x['for_the_form']}
                         for x in sub['records']],
-        'Incomplete': [{**x, 'missing': ', '.join(x['missing'])} for x in sub['incomplete']],
         'Associations': sub['associations'], 'Add to collection': sub['collectionAdditions'],
-        'Not registrable': sub['notRegistrable'],
+        'Held back': sub['heldBack'],
     }
     for title, rows in flat.items():
         ws = wb.create_sheet(title)

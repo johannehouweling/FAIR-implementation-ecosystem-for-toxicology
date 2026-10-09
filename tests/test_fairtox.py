@@ -381,16 +381,36 @@ class FairsharingTest(TempDir):
                 self.assertIn('Nothing was built or changed: FAIRSHARING_LOGIN', str(stop.exception.code))
         self.assertEqual(os.listdir(self.dir), [])
 
-    def test_submission_export(self):
-        doc = fairsharing.enrich(model.normalise(fixture()), dict(self.data, members=[9999]))   # exo not a member
-        sub = fairsharing.submission(doc)
-        self.assertEqual([x['key'] for x in sub['incomplete']], ['oecd_gd'])          # no description, no homepage
-        self.assertEqual(sub['incomplete'][0]['missing'], ['description', 'url'])
-        ctd = next(x for x in sub['records'] if x['key'] == 'ctd')['fairsharing_record']
-        self.assertEqual(ctd['record_type_id'], 2)
-        self.assertEqual(set(ctd['metadata']) >= {'name', 'description', 'homepage', 'status'}, True)
-        self.assertEqual(sub['collectionAdditions'][0]['key'], 'exo')
-        self.assertEqual(sub['associations'], [])                                        # FAIRsharing evidence only
+    def test_submission_proposes_only_what_was_checked_and_is_allowed(self):
+        doc = model.normalise(fixture())
+        by = {r['key']: r for r in doc['hasPart']}
+        by['oecd_gd'].update(description='Guidance on sharing research data.', url='https://www.oecd.org')
+        by['ctd']['qualifiedRelation'].append({'relation': by['exo']['@id'], 'hadRole': 'related_to',
+                                               'evidence': 'literature'})
+        by['oecd_gd']['qualifiedRelation'] = [
+            {'relation': '#ctd', 'hadRole': 'recommends', 'evidence': 'literature'},
+            {'relation': by['exo']['@id'], 'hadRole': 'recommends', 'evidence': 'manuscript'},
+            {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'}]   # not for a policy
+        read = lambda: fairsharing.submission(fairsharing.enrich(copy.deepcopy(doc), dict(self.data, members=[9999])))
+        sub = read()                                      # FAIRsharing was never checked for ctd and oecd_gd
+        self.assertEqual((sub['records'], sub['associations']), ([], []))
+        self.assertEqual(sub['heldBack'][0], {'item': 'ctd', 'name': 'Comparative Toxicogenomics Database',
+                                              'reason': 'FAIRsharing not yet checked for a record of it'})
+        self.assertEqual(sub['collectionAdditions'], [{'key': 'exo', 'name': 'Exposure Ontology',
+                                                       'record': by['exo']['@id']}])   # not a member
+        by['ctd']['fairsharingMatch'] = by['oecd_gd']['fairsharingMatch'] = 'no record'
+        sub = read()
+        self.assertEqual([(x['key'], x['fairsharing_record']['record_type_id']) for x in sub['records']],
+                         [('ctd', 2), ('oecd_gd', 14)])
+        self.assertEqual(set(sub['records'][0]['fairsharing_record']['metadata']),
+                         {'name', 'homepage', 'description', 'status', 'abbreviation', 'year_creation'})
+        self.assertEqual([(x['record'], x['relation'], x['linked_record'], x['linked_record_id'],
+                           x['record_assoc_label_id']) for x in sub['associations']],
+                         [('new: ctd', 'related_to', by['exo']['@id'], 512, 4),
+                          ('new: oecd_gd', 'recommends', 'new: ctd', None, 11)])
+        self.assertEqual({x['item']: x['reason'] for x in sub['heldBack']},
+                         {'oecd_gd recommends exo': 'the only evidence is the unpublished manuscript',
+                          'oecd_gd implements exo': 'FAIRsharing does not allow this label between these record types'})
 
 
 class WebTest(unittest.TestCase):
