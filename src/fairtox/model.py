@@ -119,14 +119,18 @@ CREATOR_LANE_OF = dict(zip(STAKEHOLDER, CREATOR_LANE_DEF))
 BUILDS_ON = ('implements', 'extends', 'profiles', 'recommends')
 FAIR_PUBLISHED = 2016   # the FAIR guiding principles: only later resources can build on FAIR
 SUBDOMAINS = {
-    'in vitro toxicology': 'Data generation (manuscript Figure 2 caption and section III).',
+    'in vitro toxicology': 'Toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or '
+                           'biochemical systems (after IUPAC, 1993, doi:10.1351/pac199365092003).',
     'nanotoxicology': 'Data generation.',
     'exposome': 'Data generation.',
     'eco-toxicology': 'Data generation.',
     'toxicogenomics': 'Integration and tools.',
     'AOP-based mechanistic knowledge': 'Integration and tools.',
     'computational and predictive toxicology': 'Integration and tools.',
-    'regulatory toxicology': 'Application.',
+    'regulatory toxicology': 'Toxicology that collects, processes and evaluates experimental and epidemiological data as '
+                             'the basis for decisions that protect health from the harmful effects of chemical '
+                             'substances, and that develops standard protocols and new test methods for them (after '
+                             'Schwenk et al., 2002, doi:10.1016/S0378-4274(01)00457-X).',
 }
 # The lane each sub-domain belongs to in the manuscript (Figure 2 caption): used to group the dashboard filters.
 SUBDOMAIN_LANE = {s: ('Data generation' if i < 4 else 'Data integration' if i < 7 else 'Regulatory assessment')
@@ -218,6 +222,7 @@ NCIT_TOXICOLOGY = 'http://purl.obolibrary.org/obo/NCIT_C17206'
 IUPAC = 'https://doi.org/10.1351/goldbook.'   # IUPAC Gold Book, which holds the IUPAC glossary of terms used in toxicology
 T4FS, EDAM, MESH = 'http://purl.obolibrary.org/obo/T4FS_', 'http://edamontology.org/', 'http://id.nlm.nih.gov/mesh/'
 WIKIDATA = 'http://www.wikidata.org/entity/'
+VHP = 'https://vhp4safety.github.io/glossary#'   # VHP4Safety glossary
 SAME = {
     'scope': {'Generic': 'http://www.fairsharing.org/ontology/subject/SRAO_0000401',   # FAIRsharing's subjects
               'Life Sciences': 'http://aims.fao.org/aos/agrovoc/c_4318', 'Toxicology': NCIT_TOXICOLOGY},
@@ -320,7 +325,11 @@ TERM_LINKS = [
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, EDAM + 'topic_3394'),   # regulatory affairs
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, T4FS + '0000507'),      # data quality
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, IUPAC + '16194'),       # weight-of-evidence for toxicity
+    ('phase', 'Regulatory assessment', SKOS.relatedMatch, VHP + 'VHP0000103'),    # safety assessment
+    ('phase', 'Regulatory assessment', SKOS.relatedMatch, VHP + 'VHP0000159'),    # IATA
+    ('phase', 'Regulatory assessment', SKOS.relatedMatch, VHP + 'VHP0000101'),    # risk assessment
     ('subdomains', 'regulatory toxicology', SKOS.relatedMatch, WIKIDATA + 'Q2448782'),   # regulatory science
+    ('subdomains', 'regulatory toxicology', DCTERMS.source, 'https://doi.org/10.1016/S0378-4274(01)00457-X'),
     *[('subdomains', s, SKOS.broadMatch, o) for s in ('in vitro toxicology', 'regulatory toxicology')
       for o in (NCIT_TOXICOLOGY, IUPAC + 'T06417')],
     ('subdomains', 'eco-toxicology', SKOS.exactMatch, IUPAC + '14399'),

@@ -190,14 +190,16 @@ The group is the part of the toxicology life cycle under which the figure lists 
 
 | Value | Group | IRI |
 |---|---|---|
-| in vitro toxicology | Data generation. | [Wikidata Q6013136](http://www.wikidata.org/entity/Q6013136) In vitro toxicology |
+| in vitro toxicology | Data generation (definition below). | [Wikidata Q6013136](http://www.wikidata.org/entity/Q6013136) In vitro toxicology |
 | nanotoxicology | Data generation. | [IUPAC 10.1351/goldbook.15908](https://doi.org/10.1351/goldbook.15908) nanotoxicology |
 | exposome | Data generation. | [MeSH D000081413](http://id.nlm.nih.gov/mesh/D000081413) Exposome |
 | eco-toxicology | Data generation. | [MeSH D054750](http://id.nlm.nih.gov/mesh/D054750) Ecotoxicology, `skos:exactMatch` IUPAC ecotoxicology |
 | toxicogenomics | Integration and tools. | [NCIT_C20179](http://purl.obolibrary.org/obo/NCIT_C20179) Toxicogenomics, FAIRsharing's subject term, `skos:exactMatch` IUPAC toxicogenomics |
 | AOP-based mechanistic knowledge | Integration and tools. | [MeSH D000073931](http://id.nlm.nih.gov/mesh/D000073931) Adverse Outcome Pathways |
 | computational and predictive toxicology | Integration and tools. | [IUPAC 10.1351/goldbook.15583](https://doi.org/10.1351/goldbook.15583) computational toxicology |
-| regulatory toxicology | Application. | `terms:subdomains-regulatory-toxicology`, `skos:relatedMatch` Wikidata regulatory science |
+| regulatory toxicology | Application (definition below). | `terms:subdomains-regulatory-toxicology`, `skos:relatedMatch` Wikidata regulatory science |
+
+In vitro toxicology is toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or biochemical systems, after the IUPAC definitions of toxicology and in vitro (Duffus, 1993, [doi:10.1351/pac199365092003](https://doi.org/10.1351/pac199365092003)). Regulatory toxicology collects, processes and evaluates experimental and epidemiological data as the basis for decisions that protect health from the harmful effects of chemical substances, and develops standard protocols and new test methods for them, after the working group on regulatory toxicology of the German Society for Experimental and Clinical Pharmacology and Toxicology (Schwenk et al., 2002, [doi:10.1016/S0378-4274(01)00457-X](https://doi.org/10.1016/S0378-4274(01)00457-X)).
 
 ### Date basis (`dateBasis`)
 
@@ -306,8 +308,8 @@ Each list with terms of the dataset (phase, sub-domains, maintained, relation la
 |---|---|
 | Data generation | `skos:closeMatch` Terms4FAIRskills data production, EDAM Data acquisition |
 | Data integration | `skos:closeMatch` Terms4FAIRskills data integration, EDAM Data integration and warehousing |
-| Regulatory assessment | `skos:relatedMatch` MeSH Risk Assessment, EDAM Regulatory affairs, Terms4FAIRskills data quality, IUPAC weight-of-evidence for toxicity |
-| regulatory toxicology | `skos:broadMatch` NCIT and IUPAC Toxicology; `skos:relatedMatch` Wikidata regulatory science |
+| Regulatory assessment | `skos:relatedMatch` MeSH Risk Assessment, EDAM Regulatory affairs, Terms4FAIRskills data quality, IUPAC weight-of-evidence for toxicity, VHP4Safety glossary Safety Assessment, IATA and Risk Assessment |
+| regulatory toxicology | `skos:broadMatch` NCIT and IUPAC Toxicology; `skos:relatedMatch` Wikidata regulatory science; `dct:source` Schwenk et al. (2002) |
 | active | `skos:closeMatch` EU distribution status Ongoing |
 | implements | `skos:closeMatch` `fip:implements`, SIO is implementation of, `dct:conformsTo` |
 | profiles | `skos:exactMatch` W3C PROF `prof:isProfileOf`; `skos:broadMatch` `dct:conformsTo` |

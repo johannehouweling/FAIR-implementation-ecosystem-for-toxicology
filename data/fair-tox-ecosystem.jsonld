@@ -67,10 +67,7 @@
    "@type": "@id"
   },
   "checksum": "spdx:checksum",
-  "algorithm": {
-   "@id": "spdx:algorithm",
-   "@type": "@id"
-  },
+  "algorithm": "spdx:algorithm",
   "checksumValue": "spdx:checksumValue",
   "subjectOf": "schema:subjectOf",
   "about": {
@@ -108,7 +105,7 @@
    "@type": "@vocab",
    "@container": "@set",
    "@context": {
-    "in vitro toxicology": "https://w3id.org/fair-tox/terms#subdomains-in-vitro-toxicology",
+    "in vitro toxicology": "http://www.wikidata.org/entity/Q6013136",
     "nanotoxicology": "https://doi.org/10.1351/goldbook.15908",
     "exposome": "http://id.nlm.nih.gov/mesh/D000081413",
     "eco-toxicology": "http://id.nlm.nih.gov/mesh/D054750",
@@ -224,7 +221,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.2.0",
- "dateModified": "2026-10-09",
+ "dateModified": "2026-10-10",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -321,14 +318,14 @@
    "Made jointly": "Toxicology resources made by two or more creator types together."
   },
   "subdomains": {
-   "in vitro toxicology": "Data generation (manuscript Figure 2 caption and section III).",
+   "in vitro toxicology": "Toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or biochemical systems (after IUPAC, 1993, doi:10.1351/pac199365092003).",
    "nanotoxicology": "Data generation.",
    "exposome": "Data generation.",
    "eco-toxicology": "Data generation.",
    "toxicogenomics": "Integration and tools.",
    "AOP-based mechanistic knowledge": "Integration and tools.",
    "computational and predictive toxicology": "Integration and tools.",
-   "regulatory toxicology": "Application."
+   "regulatory toxicology": "Toxicology that collects, processes and evaluates experimental and epidemiological data as the basis for decisions that protect health from the harmful effects of chemical substances, and that develops standard protocols and new test methods for them (after Schwenk et al., 2002, doi:10.1016/S0378-4274(01)00457-X)."
   },
   "dateBasis": {
    "publication": "Online publication of the paper that first describes the resource.",

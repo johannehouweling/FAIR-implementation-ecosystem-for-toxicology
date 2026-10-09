@@ -109,9 +109,6 @@ def public(doc):
     out = dict(doc)
     out['sources'] = {k: v for k, v in doc.get('sources', {}).items() if k not in ('manuscript', 'previous')}
     out['vocabularies'] = {k: v for k, v in doc.get('vocabularies', {}).items() if k not in PRIVATE_VOCABULARIES}
-    if 'subdomains' in out['vocabularies']:   # their definitions cite the manuscript's figure caption
-        out['vocabularies']['subdomains'] = {s: re.sub(r'\s*\([^)]*manuscript[^)]*\)', '', d)
-                                             for s, d in out['vocabularies']['subdomains'].items()}
     keep = [r for r in doc['hasPart'] if r.get('decision') == 'include']
     ids = {r['@id'] for r in keep}
     out['hasPart'] = []
