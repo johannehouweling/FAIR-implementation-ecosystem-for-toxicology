@@ -174,6 +174,7 @@ Each excluded row carries exactly one code.
 | 8 Oct 2026 | The JSON-LD context maps the fields to schema.org, DCTERMS, DCAT, SKOS, PAV and the FIP ontology; only 14 core terms and the class Digital object are the dataset's own (`https://w3id.org/fair-tox/terms#`). | Jente Houweling |
 | 9 Oct 2026 | FAIRsharing record data, the FIP declarations and the FIP ontology are read when the dashboard and the curation sheet are built, and published with their retrieval date. The dataset stores only what is curated. | Jente Houweling |
 | 9 Oct 2026 | Typing is simplified: every resource is an FSR with one type from the FIP ontology, chosen by the kind of resource, the type a FIP gives coming first. A database that indexes and serves records under stable identifiers is a registry, as in FIPs; the own class Digital object and second types are dropped, and the curation sheet offers only the 27 types the rule uses. | Jente Houweling |
+| 9 Oct 2026 | Curation is done in the curation sheet only; the dashboard has no separate curation view. A release has no validation warnings: relations that FAIRsharing cannot hold are shown in the sheet rather than warned about, and a pending FAIRsharing match is a warning only for an included resource. | Jente Houweling |
 
 ## 9. Limitations
 

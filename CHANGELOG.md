@@ -20,6 +20,11 @@
   that open a resource or a term from the URL fragment.
 - Curation sheet: FSR type, Class and span columns, and the FIP declarations as read-only rows.
 - Docs: the inclusion criteria, the data dictionary and a FIP convergence table (`docs/fip-convergence.md`).
+- Robustness: reads from FAIRsharing, the nanopublication services and the FIP ontology retry busy servers and failed
+  connections, and CI runs `fairtox validate --strict`, so a release has no warnings.
+- The FAIRsharing export proposes only what FAIRsharing would accept and the curators have checked, in the shapes of
+  its API, and lists everything else with the reason it is held back.
+- Removed: the dashboard's internal curation view, as curation is done in the sheet, and the `draft-check` command.
 
 ## 0.1.0 (2026-10-05)
 
