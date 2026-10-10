@@ -27,7 +27,7 @@ FIPS = {'parcfip': 'https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7W
 CACHE = 'build/fip'
 QUERY = 'https://query.knowledgepixels.com/repo/full'
 REPORT = 'build/fip-match-report.csv'
-CONVERGENCE = 'docs/fip-convergence.md'
+CONVERGENCE = 'build/fip-convergence.md'
 F, NPX = rdflib.Namespace(model.FIP), rdflib.Namespace('http://purl.org/nanopub/x/')
 METHOD = ("Nanopublications read through each FIP's declaration index; validity from the admin graph of the nanopub "
           f'query service ({QUERY}): not invalidated by a nanopublication signed with the same key.')
@@ -171,8 +171,13 @@ def read(offline=False):
     numbers = sorted({c for f in fsrs.values() for c in map(model.fs_ref, f['fairsharing']) if c.isdigit()})
     if not offline:   # legacy numeric FAIRsharing pages give their DOI without a login
         ans['fairsharing'] = {n: model.fs_ref(fairsharing.slim(fairsharing.lookup(n))['doi']) for n in numbers}
+    # legacy bsg- ids have no public page; each record read signed in lists its own
+    # ponytail: only the records in the FAIRsharing cache (the collection's and the rows'); any other stays unresolved
+    cached = os.path.join(fairsharing.CACHE, 'records.json')
+    old = {x: model.fs_ref(rec['doi']) for rec in (model.load(cached)['records'] if os.path.exists(cached) else [])
+           if rec.get('doi') for x in rec.get('legacyIds', [])} | ans.get('fairsharing', {})
     for f in fsrs.values():
-        f['codes'] = sorted({ans.get('fairsharing', {}).get(c, c) for c in map(model.fs_ref, f['fairsharing'])} - {''})
+        f['codes'] = sorted({old.get(c, c) for c in map(model.fs_ref, f['fairsharing'])} - {''})
 
     if not offline:
         fic = {}

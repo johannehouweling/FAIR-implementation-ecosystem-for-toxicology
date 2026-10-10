@@ -107,9 +107,10 @@ def slim(raw):
     meta = a.get('metadata') or {}
     tags = a.get('tags') or {}
 
-    def terms(name):
-        items = _first(a.get(name), tags.get(name)) or []
-        return [{'iri': t.get('iri', ''), 'label': t['label']} for t in items if isinstance(t, dict) and t.get('label')]
+    def terms(name):                                # the public record gives IRIs, the REST record only labels
+        items = _first(tags.get(name), a.get(name)) or []
+        return [{'iri': t.get('iri') or '', 'label': t['label']} if isinstance(t, dict) else {'iri': '', 'label': t}
+                for t in items if (t.get('label') if isinstance(t, dict) else t)]
 
     assocs = []
     for key, outgoing in (('record_associations', True), ('recordAssociations', True),
@@ -143,12 +144,14 @@ def slim(raw):
         'homepage': _first(meta.get('homepage'), a.get('homepage')),
         'description': _first(meta.get('description'), a.get('description')),
         'subjects': terms('subjects'), 'domains': terms('domains'), 'associations': assocs,
+        'legacyIds': _first(a.get('legacy_ids'), a.get('legacyIds')) or [],   # bsg-xxx, cited by older nanopublications
     }
 
 
 def block(rec, members, today):
     """The `fairsharing` block that `enrich` adds to a resource."""
-    keep = ('id', 'doi', 'name', 'abbreviation', 'registry', 'recordType', 'status', 'yearCreation', 'homepage')
+    keep = ('id', 'doi', 'name', 'abbreviation', 'registry', 'recordType', 'status', 'yearCreation', 'homepage',
+            'subjects', 'domains')
     out = {k: rec[k] for k in keep if rec.get(k) not in (None, '')}
     out['inCollection'] = rec['id'] in members
     out['associations'] = sorted([FOLD.get(a['label'], a['label']), a['other']] for a in rec['associations']
@@ -216,6 +219,9 @@ def read(login, password, offline=False):
     def get(rid):
         records[rid] = slim(record(rid, jwt))
         time.sleep(PAUSE)
+        public = slim(lookup(rid))                      # subjects and domains with their IRIs
+        records[rid].update({k: public[k] for k in ('subjects', 'domains')})
+        time.sleep(PAUSE)
 
     get(model.COLLECTION_ID)
     members = sorted({a['other'] for a in records[model.COLLECTION_ID]['associations']
@@ -260,7 +266,7 @@ def curate(doc, data):
             continue
         key = model.slug(rec.get('abbreviation') or rec['name'], {r['key'] for r in doc['hasPart']})
         row = {'key': key, 'name': rec['name'], 'alternateName': [rec['abbreviation']] if rec.get('abbreviation') else [],
-               'decision': 'undecided', 'type': RECORD_TYPE.get(rec.get('recordType'), ''),
+               'decision': 'undecided', 'fairsharingType': RECORD_TYPE.get(rec.get('recordType'), ''),
                'url': rec.get('homepage') or '', 'description': rec.get('description') or '',
                'maintained': MAINTAINED.get(rec.get('status'), 'unknown'), 'manuscript': 'absent',
                'fairsharingRecord': code, 'fairsharingMatch': 'confirmed',
@@ -317,9 +323,9 @@ def submission(doc):
     out = {'records': [], 'associations': [], 'collectionAdditions': [], 'heldBack': []}
     ref = {}
     for k, r in rs.items():
-        t, code = model.TYPES.get(r.get('type')), model.fs_ref(r.get('fairsharingRecord'))
+        t, code = model.TYPES.get(r.get('fairsharingType')), model.fs_ref(r.get('fairsharingRecord'))
         if r.get('fairsharingMatch') == 'confirmed' and code:
-            ref[k] = r['@id'] if not r['@id'].startswith('#') else f'{SITE}/{code}'
+            ref[k] = r['@id'] if not r['@id'].startswith(model.BASE) else f'{SITE}/{code}'
             if not (r.get('fairsharing') or {}).get('inCollection'):
                 out['collectionAdditions'].append({'key': k, 'name': r['name'], 'record': ref[k]})
             continue
@@ -338,7 +344,7 @@ def submission(doc):
         if model._year(r):
             metadata['year_creation'] = model._year(r)
         out['records'].append({'key': k, 'fairsharing_record': {'metadata': metadata, 'record_type_id': t[2]},
-                               'for_the_form': {'type': r['type'], 'organisations': r.get('creator', ''),
+                               'for_the_form': {'type': r['fairsharingType'], 'organisations': r.get('creator', ''),
                                                 'publication': r.get('dateSource', '')}})
     for x in model.relation_rows(doc):
         s, t = x['subject'], x['target']

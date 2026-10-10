@@ -3003,3 +3003,299 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-10,model 2026-10-10,toxtemp,creatorType,,Wet-lab research; Regulator,migration,"stakeholders renamed creatorType, term schema:creator"
 2026-10-10,model 2026-10-10,usepa,creatorType,,Regulator,migration,"stakeholders renamed creatorType, term schema:creator"
 2026-10-10,model 2026-10-10,woe,creatorType,,Regulator,migration,"stakeholders renamed creatorType, term schema:creator"
+2026-10-10,model 2026-10-10,agritox,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ai4fair,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aicis,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ammar_mi,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,annot_guidelines,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aop_datafusion,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aop_ec,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aop_wiki_id,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopdb,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopdb_v2,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopdbrdf,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopfw,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aophelp,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aophelp_2025,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopkb,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aoplink,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopnet,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopo,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aoproadmap,fairsharingType,,Policy: society,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopwiki,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,aopwikirdf,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,apvma_cr,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,arachnoserver,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,arrayexpress,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,arraytrack,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bao,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,biomodels,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bioschemas_chemicalsubstance,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bioschemas_computationaltool,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bioschemas_computationalworkflow,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bioschemas_dataset_profile,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bioschemas_deploys,fairsharingType,,Collection,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bioschemas_molecularentity,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,bioschemas_sample_profile,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,biosd,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,biostudies,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,biu,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,blood_exposome_db,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cas_common_chemistry,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cas_rn,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cc_by_4_0,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cc_by_sa_4_0,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cdisc,fairsharingType,,Policy: society,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cerif,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cesar,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,chebi,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,chembl,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cheminfo,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,chemspider,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cl,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,combine,fairsharingType,,Policy: society,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,combine_coll,fairsharingType,,Collection,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,comptox,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cookbook,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cosing,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cred,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ctcae,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ctd,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,cure,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,danish_q_sar_database,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,datacite_metadata_scheme,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,datacure,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,dbeth,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,dc_data_explorer,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,dixa,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,dixa_project,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,dnt_negref,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,doi,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,drugbank,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,dryad,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,dsld,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ec_inventory,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,echa_bpr,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,echa_chem_reach,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,echa_clp,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,echemportal,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ecotox,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ectothes,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,edam_bioimaging,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,edelweissdata,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,efsa_fairmem,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ega,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,elixir,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,elixir_depdb,fairsharingType,,Collection,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,elixir_tox_fips,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,elixirtox,fairsharingType,,Policy: society,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,empiar,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ena,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,enanomapper,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,enm_db,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,enm_ont,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ensembl,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,envo,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,epa_aquatic_life_benchmarks,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,epa_chemview,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,epa_integrated_risk_information,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,epa_substance_registry_services,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,epicrdb,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,etox,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,etransafe,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,etransafe_datasharing,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,etransafe_modelverif,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,etransafe_project,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,etransafe_repro,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,euon,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,europepmc,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,eutoxrisk,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,eutr_ki,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,eutr_methods,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,eutr_notebooks,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,exner_metadata,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,exo,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,expexplorer,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,exposome,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,exposome_sharing,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,f2f,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fair4ai,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fair4chem,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairaop,fairsharingType,,Collection,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairaop_case,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairaop_cluster,fairsharingType,,Policy: society,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairbydesign,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairconnect,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairlite,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairmodels,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairplus,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairplus_etox_recipes,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairprinc,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fairsharing,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fics,fairsharingType,,Policy: society,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fip_wizard,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fipmatrix,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fipwiz,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,food_and_feed_information_portal,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ftp,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,fuji,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,funder_policies,fairsharingType,,Policy: funder,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,gd211,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,gd417,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,geo,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ghs_j,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,givimp,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,glp,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,go,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,harvard_dataverse_repository,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,hgnc,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,http,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,https,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,iata,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,icscs,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,identifiersorg,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,igs,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,inchi,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,inhand,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,intact,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,intob,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,intoxicom,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,intoxicom_ws,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ipchem,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ipcs_inchem,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,isa_ext,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,isajson,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,isatab,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,iuclid,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,iupac,fairsharingType,,Policy: society,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,iupac_immunotox,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,iupac_toxgloss,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,j_check,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,jecdb,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,json_ld,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,kherroubi,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,klimisch,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,maqc,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,mars,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,martens2023elixir,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,matrixdb,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,mdl_molfile_format,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,mesh,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,metabolights,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,miame,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,miametox,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,miate,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,minseqe,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,miriam,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,mit_license,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,mitnano,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nams,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanoaop,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanocommons,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanocommons_meta,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanocommons_onto,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanocommons_project,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanocommons_services,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanopub,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nanosafety_cluster,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,negdata_opinion,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nem,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,noeffect_repo,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,norman_susdat,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,nsc,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,oauth,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,obi,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,obo,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,oecd,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,oecd_aop_prog,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,oecd_existing_chemicals_database,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,oecd_tg,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,oht,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,omex,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,oorf,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,open_data_commons_open_database,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,openalex,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,openfoodtox,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,openrisknet,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,openrisknet_project,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,opentox,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,opentox_project,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,orcid,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,osdr,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,owl,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,parc,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,parc_partnership,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,parcfip,fairsharingType,,Collection,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,pbk,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,pbk_models,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,portail_substances_chimiques_psc,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,pro,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,pubchem,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,pubchem_cid,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,qaop,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,qid,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,qsar,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,qsardb,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,rdf,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,rdmkit,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,rdmtox,fairsharingType,,Collection,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,readacross,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,recipe_aop,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,recipe_bao,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,rodaf,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,ror,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,s2cie,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,sbd,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,sbml,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,science_friction,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,scirap,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,sedml,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,send,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,seqc,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,smiles,fairsharingType,,Standard: identifier schema,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,sparql,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,spin,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,spreadsheet_harmon,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,suppl_formats,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,suppl_rules,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,t3db,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,tbc,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,temowl,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,tg236,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,tggates,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,threers,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,tox21,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,toxcast,fairsharingType,,Policy: project,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,toxcoll,fairsharingType,,Collection,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,toxdataexplorer,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,toxml,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,toxrtool,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,toxtemp,fairsharingType,,Standard: reporting guideline,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,uberon,fairsharingType,,Standard: terminology artefact,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,umap,fairsharingType,,Tool,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,uniprot,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,usepa,fairsharingType,,Policy: institution,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,wellfair,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,wikidata,fairsharingType,,Database: knowledgebase and repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,wikipathways,fairsharingType,,Database: knowledgebase,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,woe,fairsharingType,,Standard: principle,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,workflowhub,fairsharingType,,Database: repository,migration,type renamed fairsharingType
+2026-10-10,model 2026-10-10,xmls,fairsharingType,,Standard: model/format,migration,type renamed fairsharingType
+2026-10-10,verification 2026-10-10,cerif,fairsharingMatch,to check,confirmed,verification,FIP description nanopublication http://purl.org/np/RAtv_q4s-8xxL_is8gV8GPDwoqVY550Omdvy9Rg0Liaqc; https://fairsharing.org/FAIRsharing.6945dq
+2026-10-10,verification 2026-10-10,cerif,note,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA0iZfdyOGR1ugbRfIfY_mhRsR8QraJSagJKteW5CdlN0/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for R1.2: its model of projects, people, organisations and outputs records where data come from.","Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA0iZfdyOGR1ugbRfIfY_mhRsR8QraJSagJKteW5CdlN0/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for R1.2: its model of projects, people, organisations and outputs records where data come from. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAtv_q4s-8xxL_is8gV8GPDwoqVY550Omdvy9Rg0Liaqc links https://doi.org/10.25504/FAIRsharing.6945dq; one lookup of https://fairsharing.org/FAIRsharing.6945dq returns 'Common European Research project Information Format' (CERIF), Standard/model_and_format, status ready, homepage https://eurocris.org/services/main-features-cerif.)",verification,FIP description nanopublication http://purl.org/np/RAtv_q4s-8xxL_is8gV8GPDwoqVY550Omdvy9Rg0Liaqc; https://fairsharing.org/FAIRsharing.6945dq
+2026-10-10,verification 2026-10-10,datacite_metadata_scheme,fairsharingMatch,to check,confirmed,verification,FIP description nanopublication http://purl.org/np/RAl80tWl_i_CPaLWi13ofQe3tLCuY74uby1v8VbzfY8_0; https://fairsharing.org/FAIRsharing.me4qwe
+2026-10-10,verification 2026-10-10,datacite_metadata_scheme,note,Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA5s44FA3LMGhslfp7iiERfpSDldn6NarlH9JRmVWKFPM/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F2; it is the generic metadata schema for describing research outputs registered with DataCite DOIs.,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA5s44FA3LMGhslfp7iiERfpSDldn6NarlH9JRmVWKFPM/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F2; it is the generic metadata schema for describing research outputs registered with DataCite DOIs. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAl80tWl_i_CPaLWi13ofQe3tLCuY74uby1v8VbzfY8_0 links https://doi.org/10.25504/FAIRsharing.me4qwe; one lookup of https://fairsharing.org/FAIRsharing.me4qwe returns 'DataCite Metadata Schema', Standard/model_and_format, status ready, homepage https://schema.datacite.org/.)",verification,FIP description nanopublication http://purl.org/np/RAl80tWl_i_CPaLWi13ofQe3tLCuY74uby1v8VbzfY8_0; https://fairsharing.org/FAIRsharing.me4qwe
+2026-10-10,verification 2026-10-10,doi,fairsharingMatch,to check,confirmed,verification,FIP description nanopublication http://purl.org/np/RAVI6ifsFrq3vkzlwYn5-D-x31ORGJEZ8af0DsBfzQprU; https://fairsharing.org/FAIRsharing.hFLKCn
+2026-10-10,verification 2026-10-10,doi,note,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA6-tRMaxvyhPm6GnMQw9OnJk5M3OCA00BQ8dzOiRCTbk/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared mainly for F1 as a persistent, globally unique and resolvable identifier system for data and metadata.","Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA6-tRMaxvyhPm6GnMQw9OnJk5M3OCA00BQ8dzOiRCTbk/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared mainly for F1 as a persistent, globally unique and resolvable identifier system for data and metadata. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAVI6ifsFrq3vkzlwYn5-D-x31ORGJEZ8af0DsBfzQprU links https://doi.org/10.25504/FAIRsharing.hFLKCn; one lookup of https://fairsharing.org/FAIRsharing.hFLKCn returns 'Digital Object Identifier' (DOI, ISO 26324:2025), Standard/identifier_schema, status ready, homepage https://www.doi.org/the-identifier/resources/handbook/.)",verification,FIP description nanopublication http://purl.org/np/RAVI6ifsFrq3vkzlwYn5-D-x31ORGJEZ8af0DsBfzQprU; https://fairsharing.org/FAIRsharing.hFLKCn
+2026-10-10,verification 2026-10-10,https,fairsharingMatch,to check,confirmed,verification,FIP description nanopublication http://purl.org/np/RAQMemFusa3RG0PhZ7oY9uL-Io2ey339_Moj1zL2jwvTE; https://fairsharing.org/FAIRsharing.cd2f9e
+2026-10-10,verification 2026-10-10,https,note,"Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAPK_PKpmeC6YCBA1nkPpqtF1aj2D9CPYREOA6CiBDeH4#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for A1.1 as the open, encrypted web protocol through which data and metadata are retrieved.","Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAPK_PKpmeC6YCBA1nkPpqtF1aj2D9CPYREOA6CiBDeH4#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for A1.1 as the open, encrypted web protocol through which data and metadata are retrieved. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAQMemFusa3RG0PhZ7oY9uL-Io2ey339_Moj1zL2jwvTE links https://fairsharing.org/10.25504/FAIRsharing.cd2f9e; one lookup of https://fairsharing.org/FAIRsharing.cd2f9e returns 'Hypertext Transfer Protocol Secure' (HTTPS), Standard/model_and_format, status ready.)",verification,FIP description nanopublication http://purl.org/np/RAQMemFusa3RG0PhZ7oY9uL-Io2ey339_Moj1zL2jwvTE; https://fairsharing.org/FAIRsharing.cd2f9e
+2026-10-10,verification 2026-10-10,json_ld,fairsharingMatch,to check,confirmed,verification,FIP description nanopublication http://purl.org/np/RAnRDe5tB9qKa67_GjDBPz5ufvBHO9HAnM1xKB5lsIyF4; https://fairsharing.org/FAIRsharing.8f9bbb
+2026-10-10,verification 2026-10-10,json_ld,note,Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA4wpnAoiEF6yBvfdaHlxwWGJRQPpLEpN-UPQHlWwFDgs/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I1: a W3C JSON-based language for serialising linked data that machines can process.,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA4wpnAoiEF6yBvfdaHlxwWGJRQPpLEpN-UPQHlWwFDgs/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I1: a W3C JSON-based language for serialising linked data that machines can process. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAnRDe5tB9qKa67_GjDBPz5ufvBHO9HAnM1xKB5lsIyF4 links https://doi.org/10.25504/FAIRsharing.8f9bbb; one lookup of https://fairsharing.org/FAIRsharing.8f9bbb returns 'JavaScript Object Notation for Linking Data' (JSON-LD), Standard/model_and_format, status ready, homepage https://www.w3.org/TR/json-ld/.)",verification,FIP description nanopublication http://purl.org/np/RAnRDe5tB9qKa67_GjDBPz5ufvBHO9HAnM1xKB5lsIyF4; https://fairsharing.org/FAIRsharing.8f9bbb
+2026-10-10,verification 2026-10-10,orcid,fairsharingType,Standard: identifier schema,Database: repository,verification,FIP description nanopublication http://purl.org/np/RAtIFnvA0nuTJjr4QEBw8j_CNW-8D7xLAC42qLxSZqDMo; https://fairsharing.org/FAIRsharing.nx58jg
+2026-10-10,verification 2026-10-10,orcid,fairsharingMatch,to check,confirmed,verification,FIP description nanopublication http://purl.org/np/RAtIFnvA0nuTJjr4QEBw8j_CNW-8D7xLAC42qLxSZqDMo; https://fairsharing.org/FAIRsharing.nx58jg
+2026-10-10,verification 2026-10-10,orcid,note,Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAVl1raaW85ATpzspwV8C_jm__sZ3J6I3y1_j1RId7bRQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it issues and resolves persistent identifiers for researchers.,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAVl1raaW85ATpzspwV8C_jm__sZ3J6I3y1_j1RId7bRQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it issues and resolves persistent identifiers for researchers. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAtIFnvA0nuTJjr4QEBw8j_CNW-8D7xLAC42qLxSZqDMo links https://doi.org/10.25504/FAIRsharing.nx58jg; one lookup of https://fairsharing.org/FAIRsharing.nx58jg returns 'Open Researcher and Contributor ID Registry' (ORCID), Database/repository, status ready, homepage http://orcid.org/, the row's homepage. The FIP describes ORCID as an Identifier-service and a Registry; FAIRsharing keeps the ORCID iD identifier schema as a separate record (FAIRsharing.OrNi1L). Type changed to follow this record.)",verification,FIP description nanopublication http://purl.org/np/RAtIFnvA0nuTJjr4QEBw8j_CNW-8D7xLAC42qLxSZqDMo; https://fairsharing.org/FAIRsharing.nx58jg
+2026-10-10,verification 2026-10-10,uberon,fairsharingMatch,to check,confirmed,verification,FIP description nanopublication https://w3id.org/np/RA0B68Nh4bbEffx2drdKk1mu4Bd46JBuPat0H3s05yH3M; https://fairsharing.org/FAIRsharing.4c0b6b
+2026-10-10,verification 2026-10-10,uberon,note,Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAkcKz_Pcfh6w0T_fnw-k3beH1piivsiSfMc3h0HdB25k/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for I2; UBERON is the cross-species anatomy ontology used as a controlled vocabulary for annotating metadata.,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAkcKz_Pcfh6w0T_fnw-k3beH1piivsiSfMc3h0HdB25k/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for I2; UBERON is the cross-species anatomy ontology used as a controlled vocabulary for annotating metadata. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication https://w3id.org/np/RA0B68Nh4bbEffx2drdKk1mu4Bd46JBuPat0H3s05yH3M links https://fairsharing.org/FAIRsharing.4c0b6b; one lookup of https://fairsharing.org/FAIRsharing.4c0b6b returns 'UBER anatomy ONtology' (UBERON), Standard/terminology_artefact, status ready, homepage http://uberon.org/.)",verification,FIP description nanopublication https://w3id.org/np/RA0B68Nh4bbEffx2drdKk1mu4Bd46JBuPat0H3s05yH3M; https://fairsharing.org/FAIRsharing.4c0b6b
+2026-10-10,verification 2026-10-10,mesh,fairsharingRecord,,FAIRsharing.qnkw45,verification,FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM; https://fairsharing.org/FAIRsharing.qnkw45
+2026-10-10,verification 2026-10-10,mesh,fairsharingMatch,,confirmed,verification,FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM; https://fairsharing.org/FAIRsharing.qnkw45
+2026-10-10,verification 2026-10-10,mesh,note,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2: NLM's controlled biomedical vocabulary of identified, defined descriptors.","Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2: NLM's controlled biomedical vocabulary of identified, defined descriptors. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM links https://fairsharing.org/bsg-s000294/; one lookup of https://fairsharing.org/FAIRsharing.qnkw45 returns 'Medical Subject Headings', id 1265, whose legacy ids include bsg-s000294, the FAIRsharing id the FIP description cites.)",verification,FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM; https://fairsharing.org/FAIRsharing.qnkw45

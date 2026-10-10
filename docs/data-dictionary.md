@@ -6,8 +6,9 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 
 - A FAIR Implementation Community is identified by its FIC nanopublication, for example `http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk#FAIR-AOPs`.
 - A resource with a confirmed FAIRsharing record is identified by the record DOI, for example `https://doi.org/10.25504/FAIRsharing.6hna78`, as in the FIP Wizard and the two toxicology FIPs. This follows the FIP ontology, for which a FAIR Supporting Resource has an identifier that resolves to machine-readable metadata about it; FAIRsharing notes that its DOI identifies its record rather than the resource itself.
-- Any other resource is identified by `#<key>` relative to `https://w3id.org/fair-tox/dataset`. These identifiers are provisional until the resource is registered in FAIRsharing or the namespace is registered at w3id.org.
+- Any other resource is identified by `https://w3id.org/fair-tox/dataset#<key>`. These identifiers are provisional until the resource is registered in FAIRsharing or the namespace is registered at w3id.org.
 - Each resource also states its identifier as `identifier`, and its homepage as `url`.
+- Every identifier is written in full: the context sets no `@base`, which a context loaded by URL may not set.
 
 ## Dataset header
 
@@ -19,7 +20,6 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | `inLanguage` | `en`. |
 | `license` | CC BY-SA 4.0 (name and URL), required because the dataset contains FAIRsharing data. |
 | `creator` | The ELIXIR Toxicology Community, an organisation within ELIXIR (ROR `https://ror.org/044rwnt51`). |
-| `keywords` | Defined terms: Toxicology (NCIT), FAIR Supporting Resource and FAIR Implementation Profile (FIP ontology), Data management (EDAM). |
 | `creditText` | Attribution to FAIRsharing; the published dataset adds the nanopublications of the two FIPs. |
 | `isBasedOn` | The FAIRsharing Toxicology collection; the published dataset adds the profiles of the two FIPs. |
 | `sources` | What each source contributed, with versions and checksums. The published dataset adds `fairsharing` and `fip`, each with its retrieval date (see Fields added at build time). |
@@ -37,7 +37,7 @@ The published dataset also has the fields that CODATA's CDIF Discovery profile 1
 | `wasDerivedFrom` | The sources in `isBasedOn` (`prov:wasDerivedFrom`). |
 | `variableMeasured` | Each resource field with its term and definition. |
 | `distribution` | The JSON-LD file, the two CSV files and `terms.ttl`, each with its media type, the standard it follows and, except the dataset file itself, a SHA-256 checksum. |
-| `subjectOf` | The catalog record (`dcat:CatalogRecord`), which declares conformance to CDIF Core 1.1 and CDIF Discovery 1.1. |
+| `subjectOf` | The catalog record (`dcat:CatalogRecord`), which names its maintainer, the ELIXIR Toxicology Community, and declares conformance to CDIF Core 1.1 and CDIF Discovery 1.1. |
 
 ## Resource fields
 
@@ -45,7 +45,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 
 | Field | Sheet column | Term | Content |
 |---|---|---|---|
-| `@id` |  |  | FIC nanopublication of a FAIR Implementation Community, else the FAIRsharing DOI when the match is confirmed, else `#key`. |
+| `@id` |  |  | FIC nanopublication of a FAIR Implementation Community, else the FAIRsharing DOI when the match is confirmed, else `https://w3id.org/fair-tox/dataset#key`. |
 | `identifier` | Identifier | `schema:identifier` | Derived: the `@id` as an absolute IRI, the resource's persistent identifier. |
 | `schemaType` |  | `rdf:type` | Derived: `schema:SoftwareApplication` for a tool, else `schema:CreativeWork`, next to the FSR type. |
 | `key` | Key | `dct:identifier` | Stable short identifier: lowercase letters, digits, `_` or `-`. Never changes. |
@@ -54,16 +54,17 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `decision` | Decision |  | Screening decision (list below). |
 | `exclusionReason` | Exclusion reason |  | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by |  | Key of the row that covers this one (exclusion reason E6). |
-| `type` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text. |
+| `fairsharingType` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text. |
 | `fsrType` | FSR type | `rdf:type` | FAIR Supporting Resource (FSR) type: one class of the FIP ontology, from those the typing rule uses (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
 | `scope` | Scope | `schema:about` | What the resource was made for (list below). |
 | `phase` | Phase |  | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. Not in the graph: it is the earliest phase of `span`. |
 | `span` | one "Span" column per phase | `dcat:theme` | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
-| `creatorType` | one "Made by" column per creator type | `schema:creator` | For toxicology resources: the kind of creator, an EFO role or SIO organisation type, next to the names in `creator`; several may apply (list below). Required for included and undecided toxicology resources. |
+| `creatorType` | one "Made by" column per creator type | via `qualifiedAttribution` | For toxicology resources: the kind of creator; several may apply (list below). Required for included and undecided toxicology resources. |
+| `qualifiedAttribution` |  | `prov:qualifiedAttribution` | Derived from `creatorType`: one `prov:Attribution` per creator type, whose `dcat:hadRole` is its concept. |
 | `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
 | `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource when the type is one, else FAIR Supporting Resource. |
 | `declaredIn`, `principles` | Declared in, Principles |  | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
-| `fsr` |  | `skos:exactMatch` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
+| `fsr` |  | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | one column per sub-domain | `schema:about` | Sub-domains that apply (list below). |
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
 | `dateSource` | Date source | `schema:citation` | DOI or URL that shows the date. |
@@ -73,7 +74,8 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |
 | `manuscriptEvidence` | Manuscript evidence |  | Section and line numbers in the frozen manuscript draft. Not published. |
-| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. |
+| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `scope`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects, next to Scope, and FAIRsharing domains, next to Span. |
+| `resource` |  | `dcat:resource` | On the FAIRsharing Toxicology collection only, in the published dataset: the included resources that FAIRsharing lists as its members, read when the dataset is built. |
 | `fairsharingMatch` | FAIRsharing match |  | Whether that record is this resource (list below). |
 | `reviewedBy` | Reviewed by |  | Initials of the curator who checked the row. |
 | `note` | Note |  | Free text for the next curator. |
@@ -124,7 +126,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 | E7 | Outside chemical toxicology, such as toxinology or clinical adverse-event grading. |
 | E8 | Test method or guideline that standardises an experiment rather than data or metadata. |
 
-### Type (`type`)
+### FAIRsharing type (`fairsharingType`)
 
 | Value | FAIRsharing registry | Record type (id) | Meaning |
 |---|---|---|---|
@@ -177,6 +179,8 @@ The IRIs are FAIRsharing's subject terms.
 | Regulatory assessment | Assessing records and secondary resources for reliability and relevance in a regulatory context and integrating them into weight of evidence and decisions. | `terms:phase-regulatory-assessment` |
 
 ### Creator types (`creatorType`)
+
+In the graph each creator type is the role (`dcat:hadRole`) of a qualified attribution (`prov:qualifiedAttribution` to a `prov:Attribution`), the DCAT pattern for the role an agent has in a resource: the concepts are kinds of creator, not creators.
 
 | Value | Meaning | IRI |
 |---|---|---|

@@ -207,7 +207,7 @@ FSR_OFFERED = [FIP + t for t in (
     'Semantic-model', 'Structured-vocabulary', 'FAIR-Training-Material')]
 
 VOCABULARIES = {
-    'decision': DECISION, 'exclusionReason': EXCLUSION, 'type': {k: v[3] for k, v in TYPES.items()},
+    'decision': DECISION, 'exclusionReason': EXCLUSION, 'fairsharingType': {k: v[3] for k, v in TYPES.items()},
     'scope': SCOPE, 'phase': PHASES, 'creatorType': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
     'subdomains': SUBDOMAINS, 'dateBasis': DATE_BASIS, 'maintained': MAINTAINED, 'manuscript': MANUSCRIPT,
     'fairsharingMatch': MATCH, 'hadRole': {k: v[2] for k, v in RELATIONS.items()}, 'declaration': FIP_PROPERTIES,
@@ -271,7 +271,7 @@ def _values(term, name, vocab, **entry):
 # (phase is the earliest phase of the span; principles follow from the declarations), the curation fields, the sources
 # and vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
 CONTEXT = {
-    '@version': 1.1, '@base': BASE,
+    '@version': 1.1,
     'schema': str(SCHEMA), 'dcat': 'http://www.w3.org/ns/dcat#', 'dct': 'http://purl.org/dc/terms/',
     'skos': 'http://www.w3.org/2004/02/skos/core#', 'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'fip': FIP,
     'prov': 'http://www.w3.org/ns/prov#', 'spdx': 'http://spdx.org/rdf/terms#',
@@ -292,15 +292,17 @@ CONTEXT = {
     'conformsTo': {'@id': 'dct:conformsTo', '@type': '@id'},
     'checksum': 'spdx:checksum', 'algorithm': 'spdx:algorithm',
     'checksumValue': 'spdx:checksumValue',
-    'subjectOf': 'schema:subjectOf', 'about': {'@id': 'schema:about', '@type': '@id'},   # the catalog record
+    'subjectOf': 'schema:subjectOf', 'maintainer': 'schema:maintainer', 'theme': {'@id': 'dcat:theme', '@type': '@id'},
+    'resource': {'@id': 'dcat:resource', '@type': '@id', '@container': '@set'}, 'about': {'@id': 'schema:about', '@type': '@id'},   # the catalog record
     'additionalType': {'@id': 'schema:additionalType', '@type': '@id'}, 'sdDatePublished': 'schema:sdDatePublished',
     'hasPart': {'@id': 'schema:hasPart', '@container': '@set'},
-    'schemaType': '@type', 'key': 'dct:identifier', 'type': 'schema:additionalType',
+    'schemaType': '@type', 'key': 'dct:identifier', 'fairsharingType': 'schema:additionalType',
     'fsrType': {'@id': 'rdf:type', '@type': '@id', '@container': '@set'},
     'scope': _values('schema:about', 'scope', SCOPE),
     'subdomains': _values('schema:about', 'subdomains', SUBDOMAINS, **{'@container': '@set'}),
     'span': _values('dcat:theme', 'phase', PHASES, **{'@container': '@set'}),
-    'creatorType': _values('schema:creator', 'creatorType', STAKEHOLDER, **{'@container': '@set'}),   # the kind of creator
+    'qualifiedAttribution': {'@id': 'prov:qualifiedAttribution', '@container': '@set',   # derived from creatorType
+                             '@context': {'hadRole': _values('dcat:hadRole', 'creatorType', STAKEHOLDER)}},
     'maintained': _values('schema:creativeWorkStatus', 'maintained', MAINTAINED),
     'datePublished': 'schema:datePublished', 'dateReleased': 'dct:issued', 'dateAdopted': 'dct:dateAccepted',
     'dateCreated': 'schema:dateCreated', 'date': 'dct:date',
@@ -312,7 +314,7 @@ CONTEXT = {
     'fipDeclaration': {'@id': 'schema:hasPart', '@container': '@set'},
     'question': {'@id': 'fip:refers-to-question', '@type': '@id'}, 'considerations': 'fip:considerations',
     **{p: {'@id': 'fip:' + p, '@type': '@id'} for p in FIP_PROPERTIES},
-    'fsr': {'@id': 'skos:exactMatch', '@type': '@id', '@container': '@set'},
+    'fsr': {'@id': 'schema:sameAs', '@type': '@id', '@container': '@set'},
 }
 # Links from a value's concept to outside concepts: (list, value, SKOS mapping property, outside concept). Some link
 # an outside concept the dataset uses to another one, such as the IUPAC entry of a MeSH concept.
@@ -365,12 +367,13 @@ def iri(curie):
 # Curated fields, in file order; edited in the Sheet. '@id', 'identifier', 'schemaType', 'buildsOnFair', 'fsrCategory',
 # 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
-CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'type', 'fsrType', 'scope',
+CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'fairsharingType', 'fsrType', 'scope',
            'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
            'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
            'reviewedBy', 'note']
 FIELD_ORDER = ['@id', 'identifier', 'schemaType'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles',
-                                                               'fsr', 'qualifiedRelation', 'declared-by', 'fipDeclaration',
+                                                               'qualifiedAttribution', 'fsr', 'qualifiedRelation',
+                                                               'declared-by', 'fipDeclaration',
                                                                'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
 LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span'}
@@ -381,7 +384,7 @@ FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
 
 def new_document(resources=()):
     return {
-        '@context': CONTEXT, '@id': '', '@type': 'schema:Dataset',
+        '@context': CONTEXT, '@id': BASE, '@type': 'schema:Dataset',
         'name': 'FAIR implementation ecosystem for toxicology',
         'description': 'Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling '
                        'Resource or another FAIR Supporting Resource, curated '
@@ -455,7 +458,7 @@ def creator_lane(r):
 
 
 def registry(r):
-    t = TYPES.get(r.get('type'))
+    t = TYPES.get(r.get('fairsharingType'))
     return t[0] if t else None
 
 
@@ -490,12 +493,13 @@ def fsr_types():
 
 
 def fs_ref(value):
-    """Normalise a FAIRsharing reference (DOI, URL, code or numeric id) to 'FAIRsharing.xxx' or a numeric string."""
+    """Normalise a FAIRsharing reference (DOI, URL, code, numeric id or legacy bsg- id) to 'FAIRsharing.xxx', a numeric
+    string or 'bsg-xxx'."""
     value = str(value or '').strip()
     m = FS_CODE_RE.search(value)
     if m:
         return m.group(0)
-    m = re.fullmatch(r'(?:https?://(?:www\.)?fairsharing\.org/(?:fairsharing_records/)?)?(\d+)/?', value)
+    m = re.fullmatch(r'(?:https?://(?:www\.)?fairsharing\.org/(?:fairsharing_records/)?)?(\d+|bsg-[a-z]?\d+)/?', value)
     return m.group(1) if m else value
 
 
@@ -520,7 +524,7 @@ def iri_of(r):
     code = fs_ref(r.get('fairsharingRecord'))
     if r.get('fairsharingMatch') == 'confirmed' and code.startswith('FAIRsharing.'):
         return 'https://doi.org/10.25504/' + code
-    return '#' + r['key']
+    return BASE + '#' + r['key']
 
 
 def normalise(doc):
@@ -546,10 +550,10 @@ def normalise(doc):
             if date:
                 r[DATE_FIELDS[basis]] = date
         r['@id'] = iri_of(r)
-        r['identifier'] = r['@id'] if r['@id'].startswith('http') else BASE + r['@id']
-        r['schemaType'] = 'schema:SoftwareApplication' if r.get('type') == 'Tool' else 'schema:CreativeWork'
+        r['identifier'] = r['@id']
+        r['schemaType'] = 'schema:SoftwareApplication' if r.get('fairsharingType') == 'Tool' else 'schema:CreativeWork'
     new_ids = {r['key']: r['@id'] for r in doc['hasPart']}
-    target = lambda v: new_ids.get(old_ids.get(v, v.lstrip('#')), v)
+    target = lambda v: new_ids.get(old_ids.get(v, v.removeprefix(BASE).lstrip('#')), v)   # an @id, or #key
     declared = {}                                           # target @id -> [(FIP @id, principle)]
     for r in doc['hasPart']:
         for q in r.get('qualifiedRelation', []):
@@ -568,10 +572,12 @@ def normalise(doc):
             r.pop('buildsOnFair', None)
         types = [fsr_types()[t] for t in r.get('fsrType', []) if t in fsr_types()]
         r['fsrCategory'] = (FER if types[0][2] else FSR) if types else ''
+        r['qualifiedAttribution'] = [{'@type': 'prov:Attribution', 'hadRole': t} for t in r.get('creatorType', [])]
         r['declaredIn'] = sorted({fip for fip, _ in declared.get(r['@id'], [])})
         r['principles'] = sorted({p for _, p in declared.get(r['@id'], []) if p})
     doc['hasPart'] = sorted((_ordered(r) for r in doc['hasPart']), key=lambda r: r['key'])
     doc['@context'] = CONTEXT
+    doc['@id'] = BASE
     doc['vocabularies'] = VOCABULARIES
     doc['version'] = __version__
     doc.update({k: new_document()[k] for k in HEADER})
@@ -583,7 +589,8 @@ def _ordered(r):
     out.update({k: v for k, v in r.items() if k not in out and v not in (None, '', [], {})})
     if 'qualifiedRelation' in out:
         rels = [{k: q[k] for k in RELATION_ORDER if q.get(k) not in (None, '')} for q in out['qualifiedRelation']]
-        out['qualifiedRelation'] = sorted(rels, key=lambda q: (q['relation'], q['hadRole']))
+        out['qualifiedRelation'] = sorted(rels, key=lambda q: (q['relation'].removeprefix(BASE), q['hadRole']))   # own
+        # targets first, as when their @ids were relative, so the sheet keeps its row order
     return out
 
 
@@ -610,7 +617,7 @@ def check(doc):
             continue
         if not r.get('name'):
             e(f'{k}: name is empty')
-        for field, vocab in (('decision', DECISION), ('type', TYPES), ('scope', SCOPE), ('phase', PHASES),
+        for field, vocab in (('decision', DECISION), ('fairsharingType', TYPES), ('scope', SCOPE), ('phase', PHASES),
                              ('dateBasis', DATE_BASIS), ('maintained', MAINTAINED), ('manuscript', MANUSCRIPT),
                              ('fairsharingMatch', MATCH), ('exclusionReason', EXCLUSION)):
             if r.get(field) not in (None, '') and r[field] not in vocab:
@@ -688,7 +695,7 @@ def check(doc):
                 warnings.append(f'{k}: {role} {t["key"]} points to a resource first published later')
         if r.get('decision') == 'include':
             missing = (['first published'] if not first_date(r)[0] else []) + \
-                [f for f in ('dateSource', 'url', 'type', 'fsrType', 'scope') if not r.get(f)]
+                [f for f in ('dateSource', 'url', 'fairsharingType', 'fsrType', 'scope') if not r.get(f)]
             if r.get('fairsharingMatch') != 'confirmed' and not r.get('description'):
                 missing.append('description')
             if missing:

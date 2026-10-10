@@ -9,5 +9,6 @@
 sub:assertion {
   <http://purl.org/np/RAfsrX000000000000000000000000000000000000000#X> a fip:Registry ;
     rdfs:label "XYZ | X  Resource Name" ;
-    skos:closeMatch <https://fairsharing.org/FAIRsharing.6hna78> .
+    skos:closeMatch <https://fairsharing.org/FAIRsharing.6hna78> ;
+    skos:exactMatch <https://fairsharing.org/bsg-s000512/> .
 }

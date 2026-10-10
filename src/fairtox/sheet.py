@@ -30,7 +30,7 @@ def _fsr_list():
 
 
 LISTS = {
-    'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['type'],
+    'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['fairsharingType'],
     'Scope': model.SCOPE, 'Phase': model.PHASES, 'Date basis': model.DATE_BASIS,
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
     'Relation': {k: v[2] for k, v in model.RELATIONS.items()}, 'Evidence': model.EVIDENCE,
@@ -50,17 +50,21 @@ RESOURCE_COLUMNS = [
     ('Covered by', 'coveredBy', 'keys', 14, 'For exclusion reason E6: the key of the row that covers this one.'),
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
-    ('FAIRsharing type', 'type', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
+    ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, by the typing rule on the Instructions tab. '
      'The Lists tab groups the types by direct FSR subclass.'),
     ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
     ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
     ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
+    ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
+     'compare with Scope.'),
     ('Phase', 'phase', 'list:Phase', 26,
      'The phase it acts on; the earliest when several. Only for scope Toxicology; it sets the lane.'),
     *[(SPAN_HEAD[p], p, 'span', 11, f'Mark x when a toxicology resource acts on {p.lower()}. The earliest phase '
        'marked is the Phase.') for p in model.PHASES],
+    ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
+     'compare with Phase and Span.'),
     ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
@@ -182,7 +186,8 @@ def _header(ws, columns):
         c = ws.cell(row=1, column=i, value=head)
         c.font, c.fill = BOLD, HEAD
         c.alignment = Alignment(wrap_text=True, vertical='top')
-        term = model.term(MARK_FIELD.get(kind, field)) if field not in model.DATE_FIELDS.values() else None
+        field = {**MARK_FIELD, 'creator': 'qualifiedAttribution'}.get(kind, field)   # creator types: as published
+        term = model.term(field) if field not in model.DATE_FIELDS.values() else None
         note = f'{note} Term: {term}.'.strip() if term else note   # a date's term follows its basis
         if note:
             c.comment = Comment(note, 'fairtox')
@@ -320,6 +325,8 @@ def build(doc, path):
                 c.value = r.get('identifier')
             elif head == 'In FAIRsharing collection':
                 c.value = ('yes' if fs.get('inCollection') else 'no') if fs else None
+            elif head in ('FAIRsharing subjects', 'FAIRsharing domains'):
+                c.value = '; '.join(t['label'] for t in fs.get(head.split()[1], [])) or None
             elif head == 'FAIRsharing year':
                 c.value = fs.get('yearCreation')
             elif head == 'FAIRsharing name, type, status':

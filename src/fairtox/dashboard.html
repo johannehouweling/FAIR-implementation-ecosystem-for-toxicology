@@ -388,7 +388,7 @@ function overlaps(svg) {  // ponytail: O(n^2) over label boxes, fine for a few h
   return k;
 }
 
-const aria = n => [`${n.name}${n.abbr ? ` (${n.abbr})` : ''}`, `first published ${n.date}`, n.type || 'type not set', laneText(n),
+const aria = n => [`${n.name}${n.abbr ? ` (${n.abbr})` : ''}`, `first published ${n.date}`, n.fairsharingType || 'type not set', laneText(n),
   made(n) && 'made by ' + made(n).toLowerCase(), italic(n) && 'builds on FAIR', dagger(n) && 'no longer maintained'].filter(Boolean).join(', ');
 
 // Draws the current view into svg in geometry G, on white: lanes separated by hairlines, an x axis, the relations, the
@@ -571,7 +571,7 @@ function paint() {
 
 function showTip(n, x, y) {
   const t = $('tip');
-  t.innerHTML = `<b>${esc(n.name)}</b><span>${esc([n.year, n.type].filter(Boolean).join(' · '))}</span>`;
+  t.innerHTML = `<b>${esc(n.name)}</b><span>${esc([n.year, n.fairsharingType].filter(Boolean).join(' · '))}</span>`;
   t.hidden = false;
   const bw = t.offsetWidth, bh = t.offsetHeight;
   t.style.left = Math.max(8, Math.min(x + 14, innerWidth - bw - 8)) + 'px';
@@ -604,7 +604,7 @@ function details(n) {
     `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(n.name)}${dagger(n)}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>`,
     n.abbr && `<p class="m">${esc(n.abbr)}</p>`,
     n.description && `<p>${esc(n.description)}</p>`,
-    '<dl>' + row('Type', esc(n.type)) + row('FSR type', esc(n.fsrType.join(', '))) +
+    '<dl>' + row('Type', esc(n.fairsharingType)) + row('FSR type', esc(n.fsrType.join(', '))) +
       row('Class', n.fsrCategory !== n.fsrType.join() && esc(n.fsrCategory)) + row('Principles', esc(n.principles.join(', '))) +
       row('Declarations', fip && `${fip.declarations}, of which ${own} to resources in this dataset`) +
       row('Lane', !TOX.has(n.lane) && esc(n.lane)) + row('Phase', esc(n.phase)) + row('Span', esc(n.span.join(', '))) +
@@ -645,7 +645,7 @@ $('panel').addEventListener('click', ev => {
 const COLS = [
   {t: 'Resource', v: n => n.name, c: n => link(n.url, n.name) + (n.abbr ? ` <span class="m">(${esc(n.abbr)})</span>` : '') + dagger(n)},
   {t: 'First published', v: n => n.date, c: n => n.date ? link(n.dateSource, n.date) : '<span class="m">—</span>'},
-  {t: 'Type', v: n => n.type, c: n => esc(n.type) || '<span class="m">—</span>'},
+  {t: 'Type', v: n => n.fairsharingType, c: n => esc(n.fairsharingType) || '<span class="m">—</span>'},
   {t: 'Phase or lane', v: n => `${laneIndex(n)} ${n.date || '9999'}`, c: n => esc(laneText(n))},
   {t: 'Span', v: n => n.span.join(', '), c: n => esc(n.span.join(', ')) || '<span class="m">—</span>'},
   {t: 'Made by', by: 'creator type', v: made, c: n => esc(made(n)) || '<span class="m">—</span>'},
