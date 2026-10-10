@@ -144,6 +144,7 @@ def slim(raw):
         'homepage': _first(meta.get('homepage'), a.get('homepage')),
         'description': _first(meta.get('description'), a.get('description')),
         'subjects': terms('subjects'), 'domains': terms('domains'), 'associations': assocs,
+        'legacyIds': _first(a.get('legacy_ids'), a.get('legacyIds')) or [],   # bsg-xxx, cited by older nanopublications
     }
 
 

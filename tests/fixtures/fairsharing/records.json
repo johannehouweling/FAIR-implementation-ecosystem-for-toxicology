@@ -32,7 +32,11 @@
      "label": "exposure"
     }
    ],
-   "associations": []
+   "associations": [],
+   "legacyIds": [
+    "bsg-000512",
+    "bsg-s000512"
+   ]
   },
   {
    "id": 9999,

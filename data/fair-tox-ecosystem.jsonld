@@ -1927,8 +1927,8 @@
    "manuscriptEvidence": "III Regulatory; L178, L188, L193"
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#cerif",
-   "identifier": "https://w3id.org/fair-tox/dataset#cerif",
+   "@id": "https://doi.org/10.25504/FAIRsharing.6945dq",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.6945dq",
    "schemaType": "schema:CreativeWork",
    "key": "cerif",
    "name": "Common European Research Information Format",
@@ -1942,8 +1942,8 @@
    ],
    "scope": "Generic",
    "fairsharingRecord": "FAIRsharing.6945dq",
-   "fairsharingMatch": "to check",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA0iZfdyOGR1ugbRfIfY_mhRsR8QraJSagJKteW5CdlN0/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for R1.2: its model of projects, people, organisations and outputs records where data come from.",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA0iZfdyOGR1ugbRfIfY_mhRsR8QraJSagJKteW5CdlN0/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for R1.2: its model of projects, people, organisations and outputs records where data come from. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAtv_q4s-8xxL_is8gV8GPDwoqVY550Omdvy9Rg0Liaqc links https://doi.org/10.25504/FAIRsharing.6945dq; one lookup of https://fairsharing.org/FAIRsharing.6945dq returns 'Common European Research project Information Format' (CERIF), Standard/model_and_format, status ready, homepage https://eurocris.org/services/main-features-cerif.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RA4b-LIptEtHjOVWfK1uvEwd0s9NAWtKKEHTsXklIC6fU#CERIF"
@@ -2515,8 +2515,8 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#datacite_metadata_scheme",
-   "identifier": "https://w3id.org/fair-tox/dataset#datacite_metadata_scheme",
+   "@id": "https://doi.org/10.25504/FAIRsharing.me4qwe",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.me4qwe",
    "schemaType": "schema:CreativeWork",
    "key": "datacite_metadata_scheme",
    "name": "DataCite Metadata Scheme",
@@ -2527,8 +2527,8 @@
    ],
    "scope": "Generic",
    "fairsharingRecord": "FAIRsharing.me4qwe",
-   "fairsharingMatch": "to check",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA5s44FA3LMGhslfp7iiERfpSDldn6NarlH9JRmVWKFPM/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F2; it is the generic metadata schema for describing research outputs registered with DataCite DOIs.",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA5s44FA3LMGhslfp7iiERfpSDldn6NarlH9JRmVWKFPM/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F2; it is the generic metadata schema for describing research outputs registered with DataCite DOIs. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAl80tWl_i_CPaLWi13ofQe3tLCuY74uby1v8VbzfY8_0 links https://doi.org/10.25504/FAIRsharing.me4qwe; one lookup of https://fairsharing.org/FAIRsharing.me4qwe returns 'DataCite Metadata Schema', Standard/model_and_format, status ready, homepage https://schema.datacite.org/.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RAko0U2Q8boW-drM8t11DcbX6Ixu2mcSQf-2BrM07geIQ#datacite_metadata_scheme"
@@ -2772,8 +2772,8 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#doi",
-   "identifier": "https://w3id.org/fair-tox/dataset#doi",
+   "@id": "https://doi.org/10.25504/FAIRsharing.hFLKCn",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.hFLKCn",
    "schemaType": "schema:CreativeWork",
    "key": "doi",
    "name": "Digital Object Identifier",
@@ -2788,8 +2788,8 @@
    "scope": "Generic",
    "url": "https://www.doi.org",
    "fairsharingRecord": "FAIRsharing.hFLKCn",
-   "fairsharingMatch": "to check",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA6-tRMaxvyhPm6GnMQw9OnJk5M3OCA00BQ8dzOiRCTbk/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared mainly for F1 as a persistent, globally unique and resolvable identifier system for data and metadata.",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA6-tRMaxvyhPm6GnMQw9OnJk5M3OCA00BQ8dzOiRCTbk/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared mainly for F1 as a persistent, globally unique and resolvable identifier system for data and metadata. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAVI6ifsFrq3vkzlwYn5-D-x31ORGJEZ8af0DsBfzQprU links https://doi.org/10.25504/FAIRsharing.hFLKCn; one lookup of https://fairsharing.org/FAIRsharing.hFLKCn returns 'Digital Object Identifier' (DOI, ISO 26324:2025), Standard/identifier_schema, status ready, homepage https://www.doi.org/the-identifier/resources/handbook/.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RAnAWGdeI_1GGmDAqv-vZjby5XqbL2ZujNz1vgwK_6cRI#DOI"
@@ -5393,8 +5393,8 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#https",
-   "identifier": "https://w3id.org/fair-tox/dataset#https",
+   "@id": "https://doi.org/10.25504/FAIRsharing.cd2f9e",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.cd2f9e",
    "schemaType": "schema:CreativeWork",
    "key": "https",
    "name": "Hypertext Transfer Protocol Secure",
@@ -5408,8 +5408,8 @@
    ],
    "scope": "Generic",
    "fairsharingRecord": "FAIRsharing.cd2f9e",
-   "fairsharingMatch": "to check",
-   "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAPK_PKpmeC6YCBA1nkPpqtF1aj2D9CPYREOA6CiBDeH4#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for A1.1 as the open, encrypted web protocol through which data and metadata are retrieved.",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAPK_PKpmeC6YCBA1nkPpqtF1aj2D9CPYREOA6CiBDeH4#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for A1.1 as the open, encrypted web protocol through which data and metadata are retrieved. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAQMemFusa3RG0PhZ7oY9uL-Io2ey339_Moj1zL2jwvTE links https://fairsharing.org/10.25504/FAIRsharing.cd2f9e; one lookup of https://fairsharing.org/FAIRsharing.cd2f9e returns 'Hypertext Transfer Protocol Secure' (HTTPS), Standard/model_and_format, status ready.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RAF1ANn-BCFop0OBMOC7S8NtG0y_xYhRX4tAu37XZVCo0#HTTPS"
@@ -6163,8 +6163,8 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#json_ld",
-   "identifier": "https://w3id.org/fair-tox/dataset#json_ld",
+   "@id": "https://doi.org/10.25504/FAIRsharing.8f9bbb",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.8f9bbb",
    "schemaType": "schema:CreativeWork",
    "key": "json_ld",
    "name": "JavaScript Object Notation for Linking Data",
@@ -6179,8 +6179,8 @@
    "scope": "Generic",
    "url": "https://www.w3.org/TR/json-ld11/",
    "fairsharingRecord": "FAIRsharing.8f9bbb",
-   "fairsharingMatch": "to check",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA4wpnAoiEF6yBvfdaHlxwWGJRQPpLEpN-UPQHlWwFDgs/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I1: a W3C JSON-based language for serialising linked data that machines can process.",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA4wpnAoiEF6yBvfdaHlxwWGJRQPpLEpN-UPQHlWwFDgs/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I1: a W3C JSON-based language for serialising linked data that machines can process. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAnRDe5tB9qKa67_GjDBPz5ufvBHO9HAnM1xKB5lsIyF4 links https://doi.org/10.25504/FAIRsharing.8f9bbb; one lookup of https://fairsharing.org/FAIRsharing.8f9bbb returns 'JavaScript Object Notation for Linking Data' (JSON-LD), Standard/model_and_format, status ready, homepage https://www.w3.org/TR/json-ld/.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RAQKjgd7Ug9xSo4J0REW_AHGOJyaF9-ydj60nunqQ0qVg#JSON-LD"
@@ -6367,8 +6367,8 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#mesh",
-   "identifier": "https://w3id.org/fair-tox/dataset#mesh",
+   "@id": "https://doi.org/10.25504/FAIRsharing.qnkw45",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.qnkw45",
    "schemaType": "schema:CreativeWork",
    "key": "mesh",
    "name": "Medical Subject Headings",
@@ -6381,7 +6381,9 @@
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2: NLM's controlled biomedical vocabulary of identified, defined descriptors.",
+   "fairsharingRecord": "FAIRsharing.qnkw45",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2: NLM's controlled biomedical vocabulary of identified, defined descriptors. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM links https://fairsharing.org/bsg-s000294/; one lookup of https://fairsharing.org/FAIRsharing.qnkw45 returns 'Medical Subject Headings', id 1265, whose legacy ids include bsg-s000294, the FAIRsharing id the FIP description cites.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM#MeSH"
@@ -7789,8 +7791,8 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#orcid",
-   "identifier": "https://w3id.org/fair-tox/dataset#orcid",
+   "@id": "https://doi.org/10.25504/FAIRsharing.nx58jg",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.nx58jg",
    "schemaType": "schema:CreativeWork",
    "key": "orcid",
    "name": "Open Researcher and Contributor ID",
@@ -7798,15 +7800,15 @@
     "ORCID"
    ],
    "decision": "undecided",
-   "fairsharingType": "Standard: identifier schema",
+   "fairsharingType": "Database: repository",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "scope": "Generic",
    "url": "https://orcid.org/",
    "fairsharingRecord": "FAIRsharing.nx58jg",
-   "fairsharingMatch": "to check",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAVl1raaW85ATpzspwV8C_jm__sZ3J6I3y1_j1RId7bRQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it issues and resolves persistent identifiers for researchers.",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAVl1raaW85ATpzspwV8C_jm__sZ3J6I3y1_j1RId7bRQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it issues and resolves persistent identifiers for researchers. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAtIFnvA0nuTJjr4QEBw8j_CNW-8D7xLAC42qLxSZqDMo links https://doi.org/10.25504/FAIRsharing.nx58jg; one lookup of https://fairsharing.org/FAIRsharing.nx58jg returns 'Open Researcher and Contributor ID Registry' (ORCID), Database/repository, status ready, homepage http://orcid.org/, the row's homepage. The FIP describes ORCID as an Identifier-service and a Registry; FAIRsharing keeps the ORCID iD identifier schema as a separate record (FAIRsharing.OrNi1L). Type changed to follow this record.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RA1MzU1MPio-mtLzm1P7zfTBSMnTNc2I8HLNARhPjpif8#ORCID"
@@ -9710,8 +9712,8 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#uberon",
-   "identifier": "https://w3id.org/fair-tox/dataset#uberon",
+   "@id": "https://doi.org/10.25504/FAIRsharing.4c0b6b",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.4c0b6b",
    "schemaType": "schema:CreativeWork",
    "key": "uberon",
    "name": "Uber Cross-Species Anatomy Ontology",
@@ -9726,8 +9728,8 @@
    "scope": "Life Sciences",
    "url": "http://purl.obolibrary.org/obo/uberon.owl",
    "fairsharingRecord": "FAIRsharing.4c0b6b",
-   "fairsharingMatch": "to check",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAkcKz_Pcfh6w0T_fnw-k3beH1piivsiSfMc3h0HdB25k/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for I2; UBERON is the cross-species anatomy ontology used as a controlled vocabulary for annotating metadata.",
+   "fairsharingMatch": "confirmed",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAkcKz_Pcfh6w0T_fnw-k3beH1piivsiSfMc3h0HdB25k/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for I2; UBERON is the cross-species anatomy ontology used as a controlled vocabulary for annotating metadata. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication https://w3id.org/np/RA0B68Nh4bbEffx2drdKk1mu4Bd46JBuPat0H3s05yH3M links https://fairsharing.org/FAIRsharing.4c0b6b; one lookup of https://fairsharing.org/FAIRsharing.4c0b6b returns 'UBER anatomy ONtology' (UBERON), Standard/terminology_artefact, status ready, homepage http://uberon.org/.)",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RAT8JraaK8NUg89sUA5I8lJd-FyRfDvaDadRRJm_oC_nU#UBERON"

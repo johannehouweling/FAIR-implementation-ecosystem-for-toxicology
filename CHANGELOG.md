@@ -25,6 +25,8 @@
   names the column's term, Lane, Warnings and Row version are folded, and grey FAIRsharing subjects and domains
   columns sit next to Scope and Span.
 - The FIP convergence table (`fip --report`) is written to `build/` and no longer kept in the repository.
+- A FIP description that cites a FAIRsharing record by its legacy id (`bsg-…`) is resolved to the record, whose
+  FAIRsharing entry lists its legacy ids.
 - Dashboard: the data dictionary shows each field's term and has an anchor for each term of the dataset. The published
   credit names the nanopublications of the two FIPs.
 

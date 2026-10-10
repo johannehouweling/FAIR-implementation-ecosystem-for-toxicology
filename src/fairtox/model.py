@@ -493,12 +493,13 @@ def fsr_types():
 
 
 def fs_ref(value):
-    """Normalise a FAIRsharing reference (DOI, URL, code or numeric id) to 'FAIRsharing.xxx' or a numeric string."""
+    """Normalise a FAIRsharing reference (DOI, URL, code, numeric id or legacy bsg- id) to 'FAIRsharing.xxx', a numeric
+    string or 'bsg-xxx'."""
     value = str(value or '').strip()
     m = FS_CODE_RE.search(value)
     if m:
         return m.group(0)
-    m = re.fullmatch(r'(?:https?://(?:www\.)?fairsharing\.org/(?:fairsharing_records/)?)?(\d+)/?', value)
+    m = re.fullmatch(r'(?:https?://(?:www\.)?fairsharing\.org/(?:fairsharing_records/)?)?(\d+|bsg-[a-z]?\d+)/?', value)
     return m.group(1) if m else value
 
 

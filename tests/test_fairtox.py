@@ -746,7 +746,8 @@ class FipTest(TempDir):
                       for x in self.data['declarations'] if x['target'])
         self.assertEqual(uses, [('oecd_gd', 'F1-D', 'F1', self.X, ''), ('oecd_gd', 'R1.1-D', 'R1.1', self.W, ''),
                                 ('tool', 'F1-D', 'F1', self.X, 'Used for test data.')])   # not the invalidated I1-D
-        x = self.data['fsrs'][self.X]   # superseded where it was minted: its latest valid description is read
+        x = self.data['fsrs'][self.X]   # superseded where it was minted: its latest valid description is read,
+                                        # where FAIRsharing's legacy id bsg-s000512 resolves to the same record
         self.assertEqual((x['description'], x['name'], x['aliases'], x['codes']),
                          (np_iri('fsrXtwo'), 'X Resource Name', ['XYZ'], ['FAIRsharing.6hna78']))
 
