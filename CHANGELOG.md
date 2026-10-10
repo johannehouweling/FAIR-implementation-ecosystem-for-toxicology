@@ -1,35 +1,5 @@
 # Changelog
 
-## Unreleased
-
-- Terms: every field in the graph is a schema.org term (written `http://schema.org/`), else a DCAT term, and a FIP
-  ontology term for FSR types and FIP declarations; the dataset defines no properties of its own. Controlled values
-  are IRIs of established concepts where one exists (FAIRsharing's subject terms, the IUPAC Gold Book, MeSH, NCIT, EFO,
-  SIO, Wikidata, and the ADMS and EU status lists). The 11 values without one are defined terms of the dataset in `terms.ttl`,
-  each linked to its closest outside concepts. Derived and curation fields stay out of the graph.
-- CDIF: the published dataset conforms to CODATA's CDIF Discovery profile 1.1, checked in CI with CODATA's SHACL
-  rules, and its term lists to the CDIF Concept Scheme profile 1.1. The dataset states its identifier, landing page,
-  release date, temporal coverage, sources, fields with their terms, and downloads with checksums; its creator, and the
-  maintainer of its catalog record, is the ELIXIR Toxicology Community within ELIXIR (ROR), its licence a labelled link
-  and its keywords defined terms.
-- Resources: each states its persistent identifier, written in full (the context sets no `@base`), and homepage and
-  has a schema.org type. The creator types (`creatorType`, formerly `stakeholders`) are qualified attributions
-  (`prov:qualifiedAttribution` with `dcat:hadRole`); the FAIRsharing type is `fairsharingType` (formerly `type`); the
-  IRIs under which the FIPs declare a resource are `schema:sameAs`. The FAIRsharing record of a resource carries
-  FAIRsharing's subjects (`schema:about`, beside scope) and domains (`dcat:theme`, beside span), read at build time.
-  The FAIRsharing Toxicology collection lists its included members (`dcat:resource`).
-  Dates are stored under the
-  property of what they refer to, after DataCite's date types; the date source is `schema:citation`. An unknown
-  maintenance status is not published.
-- Curation sheet: the Type column is now FAIRsharing type, a computed Identifier column is added, each header note
-  names the column's term, Lane, Warnings and Row version are folded, and grey FAIRsharing subjects and domains
-  columns sit next to Scope and Span.
-- The FIP convergence table (`fip --report`) is written to `build/` and no longer kept in the repository.
-- A FIP description that cites a FAIRsharing record by its legacy id (`bsg-…`) is resolved to the record, whose
-  FAIRsharing entry lists its legacy ids.
-- Dashboard: the data dictionary shows each field's term and has an anchor for each term of the dataset. The published
-  credit names the nanopublications of the two FIPs.
-
 ## 0.2.0 (2026-10-09)
 
 - FAIR Implementation Profiles: the declarations of the PARC Toxicology FIP and the Reference AOP FIP are read from
