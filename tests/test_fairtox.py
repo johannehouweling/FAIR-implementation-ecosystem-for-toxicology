@@ -249,17 +249,19 @@ class SheetTest(TempDir):
         self.assertEqual(problems, [])
         self.assertEqual(changes, [('ctd', 'datePublished', '2004', ''), ('ctd', 'dateReleased', '', '2004')])
 
-    def test_identifier_column_and_terms_in_header_notes(self):
-        ws = load_workbook(self.build(model.normalise(fixture())))['Resources']
+    def test_identifier_column_and_plain_explanations(self):
+        wb = load_workbook(self.build(model.normalise(fixture())))
+        ws = wb['Resources']
         head = {c.value: c for c in ws[1]}
         self.assertNotIn('Type', head)
         row = next(c.row for c in ws['A'] if c.value == 'exo')
         self.assertEqual(ws.cell(row=row, column=head['Identifier'].column).value,
                          'https://doi.org/10.25504/FAIRsharing.6hna78')
-        for column, term in (('Homepage', 'schema:url'), ('FAIRsharing type', 'schema:additionalType'),
-                             (sheet.SPAN_HEAD['Data generation'], 'dcat:theme'), ('exposome', 'schema:about'),
-                             ('Date basis', 'dct:issued')):
-            self.assertIn(term, head[column].comment.text, column)
+        texts = [c.comment.text for tab in ('Resources', 'Relations') for c in wb[tab][1] if c.comment]
+        texts += [c.value for tab in ('Instructions', 'Lists') for row in wb[tab].iter_rows() for c in row
+                  if isinstance(c.value, str)]
+        for text in texts:                                  # plain words for curators: no vocabulary terms or IRIs
+            self.assertNotRegex(text, r'\b(schema|dct|dcat|prov|skos):|Term:|\bIRI\b|w3id\.org|ontology', text)
 
     def test_fairsharing_subjects_and_domains_sit_beside_scope_and_span(self):
         doc = fairsharing.enrich(model.normalise(fixture()), fairsharing.read(None, None, offline=True))

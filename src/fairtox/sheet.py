@@ -21,11 +21,10 @@ FSR_IRI = {v: k for k, v in FSR_LABEL.items()}
 
 
 def _fsr_list():
-    """FSR type label -> its direct FSR subclass, category and IRI, for the types offered; grouped by direct FSR
-    subclass."""
+    """FSR type label -> its direct FSR subclass and category, for the types offered; grouped by direct FSR subclass."""
     t = model.fsr_types()
     group = lambda i: t[t[i][1]][0]
-    return {t[i][0]: f'{group(i)}; {site.CLASSES[model.FER if t[i][2] else model.FSR]}; {i}'
+    return {t[i][0]: f'{group(i)}; {site.CLASSES[model.FER if t[i][2] else model.FSR]}'
             for i in sorted(model.FSR_OFFERED, key=lambda i: (group(i).casefold(), t[i][0].casefold()))}
 
 
@@ -51,8 +50,8 @@ RESOURCE_COLUMNS = [
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
     ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
-    ('FSR type', 'fsrType', 'list:FSR type', 28, 'Type in the FIP ontology, by the typing rule on the Instructions tab. '
-     'The Lists tab groups the types by direct FSR subclass.'),
+    ('FSR type', 'fsrType', 'list:FSR type', 28, 'What kind of FAIR resource this is. The Instructions tab says how to '
+     'choose.'),
     ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
     ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
     ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
@@ -74,12 +73,11 @@ RESOURCE_COLUMNS = [
       for s in model.SUBDOMAINS],
     ('First published', 'datePublished', 'date', 14,
      'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'),
-    ('Date basis', 'dateBasis', 'list:Date basis', 16, 'What the date refers to. It decides the term of the date: '
-     + '; '.join(f'{basis or "none"}, {model.term(field)}' for basis, field in model.DATE_FIELDS.items()) + '.'),
+    ('Date basis', 'dateBasis', 'list:Date basis', 16, 'What the date refers to. The Lists tab explains each choice.'),
     ('Date source', 'dateSource', 'text', 32, 'DOI or web page that shows the date.'),
     ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
-    ('Identifier', None, 'static', 34, 'Computed persistent identifier: the FIC nanopublication, else the '
-     'FAIRsharing DOI, else the dataset IRI. Term: schema:identifier.'),
+    ('Identifier', None, 'static', 34, "Computed: a community's FIC nanopublication, else the FAIRsharing DOI, else "
+     'the address of the resource in this dataset.'),
     ('Homepage', 'url', 'text', 32, 'Main web address.'),
     ('Description', 'description', 'text', 50, 'One to three sentences. Needed to register it in FAIRsharing.'),
     ('Maintained', 'maintained', 'list:Maintained', 14, 'active, discontinued, in development or unknown.'),
@@ -99,23 +97,22 @@ RESOURCE_COLUMNS = [
 ]
 RELATION_COLUMNS = [
     ('Resource', 'subject', 'keys', 16, 'Key of the resource that builds on or relates to the target.'),
-    ('Relation', 'hadRole', 'list:Relation', 14, 'FAIRsharing relation label; on a grey row, a FIP ontology property. '
-     'Read: Resource relation Target.'),
+    ('Relation', 'hadRole', 'list:Relation', 14, 'How the resource relates to the target, read from left to right: '
+     '"CTD implements ExO". On a grey row, what a FIP declares.'),
     ('Target', 'target', 'keys', 16, 'Key of the earlier or related resource.'),
-    ('Vocabulary', None, 'static', 12, 'Where the label comes from: FAIRsharing for a curated relation, the FIP '
-     'ontology for a FIP declaration.'),
+    ('Vocabulary', None, 'static', 12, 'Where the label comes from: FAIRsharing, or a FIP on the grey rows.'),
     ('Reads as', None, 'reads', 60, 'Computed.'),
     ('Evidence', 'evidence', 'list:Evidence', 13, 'Where the relation is stated.'),
     ('Source', 'source', 'text', 34, 'Line numbers, DOI or URL.'),
     ('Question', 'question', 'static', 10, 'FIP rows: the FIP question the declaration answers.'),
     ('Use', 'use', 'static', 12, 'FIP rows: current use, planned use, planned development or planned replacement.'),
     ('Keep', None, 'list:Keep', 9, 'Set to remove to drop the relation.'),
-    ('Enterable in FAIRsharing', None, 'static', 14, 'Whether FAIRsharing allows this label between these types.'),
+    ('Enterable in FAIRsharing', None, 'static', 14, 'Whether FAIRsharing allows this relation between these two '
+     'records.'),
     ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the relation.'),
     ('Note', 'note', 'text', 40, ''),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
-MARK_FIELD = {'mark': 'subdomains', 'creator': 'creatorType', 'span': 'span'}   # one column per value of these
 FOLDED = ('Lane', 'Warnings', 'Row version')   # no information for curators: grouped and collapsed
 INSTRUCTIONS = [
     'Edit only the white cells. Grey columns, and the grey rows on the Relations tab, are computed or read from '
@@ -130,12 +127,9 @@ INSTRUCTIONS = [
     'Regulatory assessment. When it acts on several, choose the earliest at which it must be applied. Choose by what '
     'the resource is used for, not by who made it. Mark x under Span for every phase it acts on; the earliest one '
     'marked is the Phase.',
-    'FSR type is the one type of the resource in the FIP ontology; the Lists tab groups the types by direct FSR '
-    'subclass. When a toxicology FIP declares the resource, use the type its FIP description gives. Otherwise a '
-    'database is a Domain-specific or Generalist registry; an identifier scheme an Identifier service; a terminology or '
-    'ontology a Structured vocabulary or Semantic model; a reporting guideline, model or format a Metadata schema or '
-    'Knowledge representation language; a licence a Data usage license; guidance a FAIR practice; a tool its service '
-    'type; training FAIR training material. Class, Principles and Declared in follow.',
+    'FSR type is the kind of FAIR resource it is. When a toxicology FIP declares the resource, use the type the FIP '
+    'gives it; otherwise choose the one that fits best (a database is a registry). Class, Principles and Declared in '
+    'follow from it.',
     'FAIR Implementation Community is only for a community identified by its FIC nanopublication; any other community '
     'stays excluded as E1.',
     'Mark x in each "Made by" column that describes who created a toxicology resource; several may apply. '
@@ -143,8 +137,8 @@ INSTRUCTIONS = [
     'Builds on FAIR is derived: a toxicology resource that implements, extends, profiles or recommends a Generic '
     'resource on the Relations tab.',
     'Relations read from left to right, for example "CTD implements ExO". Set Keep to remove to drop one; '
-    'add new ones at the bottom of the Relations tab. The grey rows are the declarations of the toxicology FIPs, read '
-    'from their nanopublications when the sheet is made; they are read-only. Vocabulary says which is which.',
+    'add new ones at the bottom of the Relations tab. The grey rows are what the toxicology FIPs declare, read when '
+    'the sheet is made; they are read-only. Vocabulary says which is which.',
     'Put your initials in Reviewed by when you have checked a row.',
 ]
 CRITERIA_TEXT = [
@@ -186,9 +180,6 @@ def _header(ws, columns):
         c = ws.cell(row=1, column=i, value=head)
         c.font, c.fill = BOLD, HEAD
         c.alignment = Alignment(wrap_text=True, vertical='top')
-        field = {**MARK_FIELD, 'creator': 'qualifiedAttribution'}.get(kind, field)   # creator types: as published
-        term = model.term(field) if field not in model.DATE_FIELDS.values() else None
-        note = f'{note} Term: {term}.'.strip() if term else note   # a date's term follows its basis
         if note:
             c.comment = Comment(note, 'fairtox')
         ws.column_dimensions[get_column_letter(i)].width = width
