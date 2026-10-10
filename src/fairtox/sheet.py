@@ -415,9 +415,11 @@ def _url(v):
     return v
 
 
-def ingest(doc, path, force=False):
+def ingest(doc, path, force=False, read_back=()):
     """Read a curated workbook. Returns (new_doc, changes, problems, notes, reviewers); new_doc is None when there are
-    problems. Problems are dicts with sheet, cell, column, value, problem; reviewers maps key -> Reviewed by."""
+    problems. Problems are dicts with sheet, cell, column, value, problem; reviewers maps key -> Reviewed by.
+    read_back holds the keys whose latest logged change came from reading this sheet back: their row version may be
+    older than the dataset row, which still equals what the sheet showed."""
     wb = load_workbook(path, data_only=True)
     problems, notes = [], []
 
@@ -513,7 +515,7 @@ def ingest(doc, path, force=False):
             date, basis = model.first_date(old)                  # the sheet's form of the date
             seen_as = {**old, 'datePublished': date, 'dateBasis': basis}
             changed = any(model._text(seen_as.get(f)) != model._text(parsed.get(f)) for f in parsed)
-            if changed and version and version != current.get(key) and not force:
+            if changed and version and version != current.get(key) and key not in read_back and not force:
                 problem('Resources', where['Key'], 'Key', key,
                         'this row changed in the dataset after the sheet was made; make a new sheet or re-check it')
                 continue
