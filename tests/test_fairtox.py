@@ -263,15 +263,18 @@ class SheetTest(TempDir):
         for text in texts:                                  # plain words for curators: no vocabulary terms or IRIs
             self.assertNotRegex(text, r'\b(schema|dct|dcat|prov|skos):|Term:|\bIRI\b|w3id\.org|ontology', text)
 
-    def test_fairsharing_subjects_and_domains_sit_beside_scope_and_span(self):
+    def test_tasks_come_first_and_the_context_follows_folded(self):
         doc = fairsharing.enrich(model.normalise(fixture()), fairsharing.read(None, None, offline=True))
+        next(r for r in doc['hasPart'] if r['key'] == 'exo')['fsr'] = ['http://purl.org/np/RAexo#ExO']
         ws = load_workbook(self.build(doc))['Resources']
         head = [c.value for c in ws[1]]
-        self.assertEqual(head[head.index('Scope') + 1], 'FAIRsharing subjects')
-        self.assertEqual(head[head.index(sheet.SPAN_HEAD['Regulatory assessment']) + 1], 'FAIRsharing domains')
+        self.assertEqual(head[:4], ['Key', 'Name', 'Homepage', 'Decision'])
+        self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
+        self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
         row = next(c.row for c in ws['A'] if c.value == 'exo')
-        self.assertEqual([ws.cell(row=row, column=head.index(h) + 1).value for h in ('FAIRsharing subjects', 'FAIRsharing domains')],
-                         ['Toxicogenomics', 'study design; exposure'])   # read-only: grey and not read back
+        value = lambda h: ws.cell(row=row, column=head.index(h) + 1).value
+        self.assertEqual([value(h) for h in ('FIP identifiers', 'FAIRsharing subjects', 'FAIRsharing domains')],
+                         ['http://purl.org/np/RAexo#ExO', 'Toxicogenomics', 'study design; exposure'])
         self.assertIn('FAIRsharing subjects', [h for h, f, k, *_ in sheet.RESOURCE_COLUMNS if k in sheet.GREY_KINDS])
 
     def test_columns_without_curator_information_are_folded(self):
