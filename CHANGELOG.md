@@ -17,6 +17,7 @@
 ### Fixes
 
 * **fip:** resolve FAIRsharing legacy ids and confirm the FIP-linked records ([d91b492](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/d91b492b951314a93e85d92b9d1872fd557fdae0)), closes [#5](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/issues/5)
+* **sheet:** explain the columns in plain words ([ad99676](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/ad99676532f6f6eae07e08d568e957ddd3c869c9))
 * **sheet:** let a row read back from the sheet be edited there again ([6de9528](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/6de952869a16eb41f3fb7c6a98bdfdc72f928812))
 * **terms:** absolute identifiers, qualified attributions and FAIRsharing types ([f484505](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/f48450583907cf235d7a6e266ddd0d6c80f00ba3))
 * **terms:** absolute identifiers, qualified attributions and sameAs links ([be9c166](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/be9c1665b36cd03fc5d2f5b25ad71ddc00d8a1e0)), closes [#5](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/issues/5)
