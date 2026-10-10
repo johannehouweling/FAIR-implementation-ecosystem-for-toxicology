@@ -72,8 +72,11 @@ def cmd_sheet(a):
 
 def cmd_ingest(a):
     from fairtox import sheet
-    doc = _load()
-    new, changes, problems, notes, reviewers = sheet.ingest(doc, a.workbook, force=a.force)
+    doc, source = _load(), os.path.basename(a.workbook)
+    with open(model.CHANGES, newline='', encoding='utf-8') as f:    # rows last changed by reading this sheet back
+        last = {r['key']: r['source'] for r in csv.DictReader(f)}
+    read_back = {k for k, s in last.items() if s == source}
+    new, changes, problems, notes, reviewers = sheet.ingest(doc, a.workbook, force=a.force, read_back=read_back)
     for n in notes:
         print('note:', n)
     if problems:
@@ -88,7 +91,7 @@ def cmd_ingest(a):
         print(f'{len(problems)} problems, nothing changed. The full list is in {path}.')
         return 1
     model.save(new)
-    model.log_changes(changes, a.round, os.path.basename(a.workbook), reviewers)
+    model.log_changes(changes, a.round, source, reviewers)
     print(f'{len(changes)} changes applied and logged in {model.CHANGES}')
     _, warnings = model.check(new)
     print(f'{len(warnings)} warnings remain (see: uv run fairtox validate)')

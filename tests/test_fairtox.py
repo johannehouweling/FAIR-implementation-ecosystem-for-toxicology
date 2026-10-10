@@ -279,6 +279,17 @@ class SheetTest(TempDir):
             self.assertEqual((dim.outline_level, bool(dim.hidden)), (1, True) if c.value in sheet.FOLDED else (0, False),
                              c.value)
 
+    def test_a_row_read_back_earlier_can_be_edited_again(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'First published', 'ctd', '2003')
+        doc = sheet.ingest(doc, p)[0]                       # read back: the sheet's row version is now behind
+        self.edit(p, 'First published', 'ctd', '2002')
+        self.assertTrue(sheet.ingest(doc, p)[2])            # a dataset row changed elsewhere stops the read-back,
+        new, changes, problems, _, _ = sheet.ingest(doc, p, read_back={'ctd'})
+        self.assertEqual(problems, [])                      # one whose latest change came from the sheet does not
+        self.assertEqual(changes, [('ctd', 'datePublished', '2003', '2002')])
+
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
         for column, value in (('Scope', 'Toxicologie'), ('FSR type', 'Databank')):
@@ -882,6 +893,8 @@ class RepositoryTest(unittest.TestCase):
             self.assertIn(f'version = "{__version__}"', f.read())
         with open(os.path.join(ROOT, 'CITATION.cff')) as f:
             self.assertIn(f'version: {__version__}', f.read())
+        with open(os.path.join(ROOT, '.release-please-manifest.json')) as f:
+            self.assertEqual(json.load(f), {'.': __version__})
         dataset = os.path.join(ROOT, model.DATASET)
         if os.path.exists(dataset):
             self.assertEqual(model.load(dataset)['version'], __version__)

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "python",
+  "include-component-in-tag": false,
+  "bump-minor-pre-major": true,
+  "changelog-sections": [
+    {"type": "feat", "section": "Features"},
+    {"type": "fix", "section": "Fixes"},
+    {"type": "docs", "section": "Documentation"}
+  ],
+  "packages": {
+    ".": {
+      "extra-files": [
+        "CITATION.cff",
+        {"type": "json", "path": "data/fair-tox-ecosystem.jsonld", "jsonpath": "$.version"},
+        {"type": "toml", "path": "uv.lock", "jsonpath": "$.package[?(@.name.value=='fairtox')].version"}
+      ]
+    }
+  }
+}

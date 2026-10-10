@@ -155,7 +155,12 @@ Each excluded row carries exactly one code.
    verification, relation check, phase proposal, review, migration) and source.
 4. **Curation.** Co-authors review every row in the curation Sheet. Disagreements are discussed and settled by the
    corresponding authors; the outcome and the reviewer's initials are recorded in the row and in `data/changes.csv`.
-5. **Release.** A version is released when `fairtox validate --strict` passes; CI runs it on every change.
+   The daily data refresh reads the Sheet back with `fairtox ingest` and keeps the changes in one pull request for
+   review. A row that changed in the dataset after the Sheet was made, other than by an earlier read-back, stops the
+   read-back until the Sheet is updated.
+5. **Release.** A version is released by merging the release pull request that release-please keeps open: it sets the
+   version and writes the `CHANGELOG.md` entry from the Conventional Commits since the last release. CI makes the
+   release only after the tests and `fairtox validate --strict` pass.
 
 ## 8. Decision record
 
@@ -182,6 +187,8 @@ Each excluded row carries exactly one code.
 | 10 Oct 2026 | The creator types are stored as `creatorType` (formerly `stakeholders`) and published as qualified attributions (`prov:qualifiedAttribution`) whose role (`dcat:hadRole`) is the EFO or SIO concept: they say who made a resource, not what it is about (`dcat:theme`), and they are kinds of creator, not creators (`schema:creator`). | Jente Houweling |
 | 10 Oct 2026 | Identifiers are written in full and the context sets no `@base`, which a context loaded by URL may not set. The FAIRsharing type is stored as `fairsharingType`, since `type` is schema.org's alias of `@type`. The IRIs under which the FIPs declare a resource are `schema:sameAs`, since SKOS mappings relate concepts. The catalog record names its maintainer, as in the CDIF examples. | Jente Houweling |
 | 10 Oct 2026 | FAIRsharing's subjects and domains of a confirmed record are published on the FAIRsharing record that the resource links to (`schema:sameAs`): its subjects (subject areas) as `schema:about`, the property of the curated scope, and its domains (the kinds of data, entities and activities a record covers, some of them life-cycle activities such as study design) as `dcat:theme`, the property of the curated phases. They are FAIRsharing's statements: read when the dataset and the sheet are built, shown in grey columns of the sheet next to Scope and Span, and neither stored in the dataset nor read back. | Jente Houweling |
+| 10 Oct 2026 | Versions and the changelog follow the Conventional Commits: release-please proposes each release as a pull request, and a release is made only from a commit that passed CI. | Jente Houweling |
+| 10 Oct 2026 | Edits made in the curation sheet are read back daily and reach the dataset only through a reviewed pull request. | Jente Houweling |
 
 ## 9. Limitations
 
