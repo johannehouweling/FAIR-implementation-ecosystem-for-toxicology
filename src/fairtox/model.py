@@ -292,7 +292,8 @@ CONTEXT = {
     'conformsTo': {'@id': 'dct:conformsTo', '@type': '@id'},
     'checksum': 'spdx:checksum', 'algorithm': 'spdx:algorithm',
     'checksumValue': 'spdx:checksumValue',
-    'subjectOf': 'schema:subjectOf', 'maintainer': 'schema:maintainer', 'about': {'@id': 'schema:about', '@type': '@id'},   # the catalog record
+    'subjectOf': 'schema:subjectOf', 'maintainer': 'schema:maintainer', 'theme': {'@id': 'dcat:theme', '@type': '@id'},
+    'resource': {'@id': 'dcat:resource', '@type': '@id', '@container': '@set'}, 'about': {'@id': 'schema:about', '@type': '@id'},   # the catalog record
     'additionalType': {'@id': 'schema:additionalType', '@type': '@id'}, 'sdDatePublished': 'schema:sdDatePublished',
     'hasPart': {'@id': 'schema:hasPart', '@container': '@set'},
     'schemaType': '@type', 'key': 'dct:identifier', 'fairsharingType': 'schema:additionalType',

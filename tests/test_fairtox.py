@@ -261,6 +261,17 @@ class SheetTest(TempDir):
                              ('Date basis', 'dct:issued')):
             self.assertIn(term, head[column].comment.text, column)
 
+    def test_fairsharing_subjects_and_domains_sit_beside_scope_and_span(self):
+        doc = fairsharing.enrich(model.normalise(fixture()), fairsharing.read(None, None, offline=True))
+        ws = load_workbook(self.build(doc))['Resources']
+        head = [c.value for c in ws[1]]
+        self.assertEqual(head[head.index('Scope') + 1], 'FAIRsharing subjects')
+        self.assertEqual(head[head.index(sheet.SPAN_HEAD['Regulatory assessment']) + 1], 'FAIRsharing domains')
+        row = next(c.row for c in ws['A'] if c.value == 'exo')
+        self.assertEqual([ws.cell(row=row, column=head.index(h) + 1).value for h in ('FAIRsharing subjects', 'FAIRsharing domains')],
+                         ['Toxicogenomics', 'study design; exposure'])   # read-only: grey and not read back
+        self.assertIn('FAIRsharing subjects', [h for h, f, k, *_ in sheet.RESOURCE_COLUMNS if k in sheet.GREY_KINDS])
+
     def test_columns_without_curator_information_are_folded(self):
         ws = load_workbook(self.build(model.normalise(fixture())))['Resources']
         for c in ws[1]:
@@ -337,7 +348,8 @@ class SheetTest(TempDir):
 
 REST = {'data': {'id': '1716', 'type': 'fairsharing_records', 'attributes': {
     'name': 'Comparative Toxicogenomics Database', 'abbreviation': 'CTD', 'registry': 'Database',
-    'record_type': 'knowledgebase', 'metadata': {'doi': '10.25504/FAIRsharing.h3tjtr', 'year_creation': 2004,
+    'record_type': 'knowledgebase', 'subjects': ['Toxicology'], 'domains': ['gene'],   # labels only, without IRIs
+    'metadata': {'doi': '10.25504/FAIRsharing.h3tjtr', 'year_creation': 2004,
                                                  'status': 'ready', 'homepage': 'https://ctdbase.org/'},
     'record_associations': [{'record_assoc_label': 'implements', 'linked_record': {'id': 512, 'name': 'ExO'}}],
     'reverse_record_associations': [{'record_assoc_label': 'collects',
@@ -382,7 +394,14 @@ class FairsharingTest(TempDir):
                       c['associations'])
         self.assertEqual((e['registry'], e['recordType'], e['doi']), ('Standard', 'terminology_artefact',
                                                                        '10.25504/FAIRsharing.6hna78'))
-        self.assertEqual(e['subjects'][0]['label'], 'Toxicology')
+        self.assertEqual(e['subjects'], [{'iri': 'http://www.fairsharing.org/ontology/subject/SRAO_0000001', 'label': 'Toxicology'}])
+        self.assertEqual((c['subjects'], c['domains']), ([{'iri': '', 'label': 'Toxicology'}], [{'iri': '', 'label': 'gene'}]))
+        public = {'id': 1716, 'tags': {'subjects': [{'iri': 'http://aims.fao.org/aos/agrovoc/c_4318', 'label': 'Life Science'}]}}
+        with mock.patch.multiple(fairsharing, PAUSE=0, sign_in=mock.DEFAULT, record=lambda rid, jwt: REST_LINKED if rid == 3496 else REST,
+                                 lookup=lambda ref: public), mock.patch.object(model, 'load', return_value={'hasPart': []}):
+            with mock.patch.object(fairsharing, 'CACHE', self.dir):
+                rec = next(x for x in fairsharing.read('a', 'b')['records'] if x['id'] == 1716)
+        self.assertEqual(rec['subjects'], public['tags']['subjects'])   # the IRIs come from the public record
 
     def test_read_takes_the_members_and_the_rows_records_and_caches_them(self):
         api = {3496: {'id': 3496, 'record_associations': [{'record_assoc_label': 'collects', 'linked_record': {'id': 9}}]},
@@ -423,9 +442,32 @@ class FairsharingTest(TempDir):
         self.assertEqual([(r['key'], r['fairsharing']) for r in doc['hasPart'] if 'fairsharing' in r], [('exo', {
             'id': 512, 'doi': '10.25504/FAIRsharing.6hna78', 'name': 'Exposure Ontology', 'abbreviation': 'ExO',
             'registry': 'Standard', 'recordType': 'terminology_artefact', 'status': 'ready', 'yearCreation': 2015,
-            'homepage': 'https://github.com/CTDbase/exposure-ontology', 'inCollection': True, 'associations': [],
-            'retrieved': '2026-10-09'})])
+            'homepage': 'https://github.com/CTDbase/exposure-ontology',
+            'subjects': [{'iri': 'http://purl.obolibrary.org/obo/NCIT_C20179', 'label': 'Toxicogenomics'}],
+            'domains': [{'iri': 'http://purl.obolibrary.org/obo/OBI_0500000', 'label': 'study design'},
+                        {'iri': '', 'label': 'exposure'}],
+            'inCollection': True, 'associations': [], 'retrieved': '2026-10-09'})])
+        published = {r['key']: r for r in site.public(doc)['hasPart']}
+        record = published['exo']['fairsharingRecord']   # inherited: FAIRsharing's statements, on its record
+        self.assertEqual(record, {'@id': 'https://fairsharing.org/FAIRsharing.6hna78',
+            'about': [{'@id': 'http://purl.obolibrary.org/obo/NCIT_C20179', 'name': 'Toxicogenomics'}],   # its subjects: scope
+            'theme': [{'@id': 'http://purl.obolibrary.org/obo/OBI_0500000', 'name': 'study design'}]})   # its domains:
+        # the life cycle; a term without an IRI ('exposure') is left out
+        unconfirmed = copy.deepcopy(doc)
+        next(r for r in unconfirmed['hasPart'] if r['key'] == 'exo')['fairsharingMatch'] = 'to check'
+        self.assertNotIn('fairsharingRecord', {r['key']: r for r in site.public(unconfirmed)['hasPart']}['exo'])
+        self.assertNotIn('keywords', published['exo'])
         self.assertEqual(doc['sources']['fairsharing'], {'retrieved': '2026-10-09', 'members': 2})
+
+    def test_the_collection_lists_its_included_members(self):
+        doc = model.normalise(fixture())
+        doc['hasPart'].append({'key': 'toxcoll', 'name': 'ELIXIR Toxicology FAIRsharing collection', 'decision': 'include',
+                               'fairsharingRecord': 'FAIRsharing.f60a10', 'fairsharingMatch': 'confirmed'})
+        doc = fairsharing.enrich(model.normalise(doc), self.data)
+        published = {r['key']: r for r in site.public(doc)['hasPart']}   # inherited from FAIRsharing, not stored
+        self.assertEqual(published['toxcoll']['@id'], model.COLLECTION_DOI)
+        self.assertEqual(published['toxcoll']['resource'], [published['exo']['@id']])   # 9999 has no row
+        self.assertNotIn('resource', published['exo'])
 
     def test_commands_stop_when_fairsharing_cannot_be_read(self):
         with mock.patch.dict(os.environ, {'FAIRSHARING_LOGIN': '', 'FAIRSHARING_PASSWORD': ''}):

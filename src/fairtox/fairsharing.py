@@ -107,9 +107,10 @@ def slim(raw):
     meta = a.get('metadata') or {}
     tags = a.get('tags') or {}
 
-    def terms(name):
-        items = _first(a.get(name), tags.get(name)) or []
-        return [{'iri': t.get('iri', ''), 'label': t['label']} for t in items if isinstance(t, dict) and t.get('label')]
+    def terms(name):                                # the public record gives IRIs, the REST record only labels
+        items = _first(tags.get(name), a.get(name)) or []
+        return [{'iri': t.get('iri') or '', 'label': t['label']} if isinstance(t, dict) else {'iri': '', 'label': t}
+                for t in items if (t.get('label') if isinstance(t, dict) else t)]
 
     assocs = []
     for key, outgoing in (('record_associations', True), ('recordAssociations', True),
@@ -148,7 +149,8 @@ def slim(raw):
 
 def block(rec, members, today):
     """The `fairsharing` block that `enrich` adds to a resource."""
-    keep = ('id', 'doi', 'name', 'abbreviation', 'registry', 'recordType', 'status', 'yearCreation', 'homepage')
+    keep = ('id', 'doi', 'name', 'abbreviation', 'registry', 'recordType', 'status', 'yearCreation', 'homepage',
+            'subjects', 'domains')
     out = {k: rec[k] for k in keep if rec.get(k) not in (None, '')}
     out['inCollection'] = rec['id'] in members
     out['associations'] = sorted([FOLD.get(a['label'], a['label']), a['other']] for a in rec['associations']
@@ -215,6 +217,9 @@ def read(login, password, offline=False):
 
     def get(rid):
         records[rid] = slim(record(rid, jwt))
+        time.sleep(PAUSE)
+        public = slim(lookup(rid))                      # subjects and domains with their IRIs
+        records[rid].update({k: public[k] for k in ('subjects', 'domains')})
         time.sleep(PAUSE)
 
     get(model.COLLECTION_ID)

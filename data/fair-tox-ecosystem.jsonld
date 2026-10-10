@@ -70,6 +70,15 @@
   "checksumValue": "spdx:checksumValue",
   "subjectOf": "schema:subjectOf",
   "maintainer": "schema:maintainer",
+  "theme": {
+   "@id": "dcat:theme",
+   "@type": "@id"
+  },
+  "resource": {
+   "@id": "dcat:resource",
+   "@type": "@id",
+   "@container": "@set"
+  },
   "about": {
    "@id": "schema:about",
    "@type": "@id"

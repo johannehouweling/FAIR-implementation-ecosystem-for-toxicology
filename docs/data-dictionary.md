@@ -20,7 +20,6 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | `inLanguage` | `en`. |
 | `license` | CC BY-SA 4.0 (name and URL), required because the dataset contains FAIRsharing data. |
 | `creator` | The ELIXIR Toxicology Community, an organisation within ELIXIR (ROR `https://ror.org/044rwnt51`). |
-| `keywords` | Defined terms: Toxicology (NCIT), FAIR Supporting Resource and FAIR Implementation Profile (FIP ontology), Data management (EDAM). |
 | `creditText` | Attribution to FAIRsharing; the published dataset adds the nanopublications of the two FIPs. |
 | `isBasedOn` | The FAIRsharing Toxicology collection; the published dataset adds the profiles of the two FIPs. |
 | `sources` | What each source contributed, with versions and checksums. The published dataset adds `fairsharing` and `fip`, each with its retrieval date (see Fields added at build time). |
@@ -75,7 +74,8 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |
 | `manuscriptEvidence` | Manuscript evidence |  | Section and line numbers in the frozen manuscript draft. Not published. |
-| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. |
+| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `scope`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects, next to Scope, and FAIRsharing domains, next to Span. |
+| `resource` |  | `dcat:resource` | On the FAIRsharing Toxicology collection only, in the published dataset: the included resources that FAIRsharing lists as its members, read when the dataset is built. |
 | `fairsharingMatch` | FAIRsharing match |  | Whether that record is this resource (list below). |
 | `reviewedBy` | Reviewed by |  | Initials of the curator who checked the row. |
 | `note` | Note |  | Free text for the next curator. |

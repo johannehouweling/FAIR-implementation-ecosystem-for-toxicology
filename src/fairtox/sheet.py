@@ -57,10 +57,14 @@ RESOURCE_COLUMNS = [
     ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
     ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
+    ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
+     'compare with Scope.'),
     ('Phase', 'phase', 'list:Phase', 26,
      'The phase it acts on; the earliest when several. Only for scope Toxicology; it sets the lane.'),
     *[(SPAN_HEAD[p], p, 'span', 11, f'Mark x when a toxicology resource acts on {p.lower()}. The earliest phase '
        'marked is the Phase.') for p in model.PHASES],
+    ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
+     'compare with Phase and Span.'),
     ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
@@ -321,6 +325,8 @@ def build(doc, path):
                 c.value = r.get('identifier')
             elif head == 'In FAIRsharing collection':
                 c.value = ('yes' if fs.get('inCollection') else 'no') if fs else None
+            elif head in ('FAIRsharing subjects', 'FAIRsharing domains'):
+                c.value = '; '.join(t['label'] for t in fs.get(head.split()[1], [])) or None
             elif head == 'FAIRsharing year':
                 c.value = fs.get('yearCreation')
             elif head == 'FAIRsharing name, type, status':

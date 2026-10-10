@@ -16,8 +16,22 @@
    "yearCreation": 2015,
    "homepage": "https://github.com/CTDbase/exposure-ontology",
    "description": null,
-   "subjects": [],
-   "domains": [],
+   "subjects": [
+    {
+     "iri": "http://purl.obolibrary.org/obo/NCIT_C20179",
+     "label": "Toxicogenomics"
+    }
+   ],
+   "domains": [
+    {
+     "iri": "http://purl.obolibrary.org/obo/OBI_0500000",
+     "label": "study design"
+    },
+    {
+     "iri": "",
+     "label": "exposure"
+    }
+   ],
    "associations": []
   },
   {

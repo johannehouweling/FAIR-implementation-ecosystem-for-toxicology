@@ -111,17 +111,27 @@ def public(doc):
     out['vocabularies'] = {k: v for k, v in doc.get('vocabularies', {}).items() if k not in PRIVATE_VOCABULARIES}
     keep = [r for r in doc['hasPart'] if r.get('decision') == 'include']
     ids = {r['@id'] for r in keep}
+    members = sorted(r['@id'] for r in keep if r.get('fairsharingMatch') == 'confirmed'   # inherited from FAIRsharing:
+                     and (r.get('fairsharing') or {}).get('inCollection'))             # the collection's members
     out['hasPart'] = []
     for r in keep:
         p = {k: v for k, v in r.items() if k not in PRIVATE}
         if r.get('fairsharingMatch') != 'confirmed':
             p.pop('fairsharingRecord', None)
             p.pop('fairsharing', None)
+        fs = p.get('fairsharing') or {}               # inherited, not curated: FAIRsharing's statements, on its record,
+        terms = lambda kind: [{'@id': t['iri'], 'name': t['label']} for t in fs.get(kind, []) if t['iri']]   # IRIs only
+        inherited = {'about': terms('subjects'), 'theme': terms('domains')}   # with the terms of scope and span
+        if p.get('fairsharingRecord') and any(inherited.values()):
+            p['fairsharingRecord'] = {'@id': 'https://fairsharing.org/' + p['fairsharingRecord'],
+                                      **{k: v for k, v in inherited.items() if v}}
         p['qualifiedRelation'] = [{'relation': q['relation'], 'hadRole': q['hadRole']}
                                   for q in r.get('qualifiedRelation', []) if q['relation'] in ids]
         p['fipDeclaration'] = [d for d in r.get('fipDeclaration', []) if ids & {d.get(k) for k in model.FIP_PROPERTIES}]
         p['declaredIn'] = [x for x in r.get('declaredIn', []) if x in ids]
         p['declared-by'] = r.get('declared-by') if r.get('declared-by') in ids else None
+        if r['@id'] == model.COLLECTION_DOI:
+            p['resource'] = members
         if p.get('maintained') == 'unknown':   # nothing is stated when the status could not be established
             del p['maintained']
         out['hasPart'].append({k: v for k, v in p.items() if v not in (None, [])})
@@ -203,7 +213,9 @@ FIELDS = [
     ('url', 'Homepage.', None),
     ('description', 'One to three sentences on what the resource is.', None),
     ('maintained', 'Maintenance status.', 'maintained'),
-    ('fairsharingRecord', 'FAIRsharing record code or numeric id, in the JSON-LD.', None),
+    ('fairsharingRecord', "FAIRsharing record code or numeric id. In the JSON-LD, a link to the record, with "
+                          "FAIRsharing's subjects (about, as for scope) and domains (theme, as for span), inherited "
+                          'when the dataset is built, not curated.', None),
     ('fsr', 'The IRIs under which the FIPs declare the resource, when they differ from its identifier.', None),
     ('fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection '
                        'that entered this dataset only through the collection. The switch of the same name hides these '
