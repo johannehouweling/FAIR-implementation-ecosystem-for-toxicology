@@ -67,9 +67,9 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `fsr` | FIP identifiers | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | one column per sub-domain | `schema:about` | Sub-domains that apply (list below). |
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
-| `dateSource` | Date source | `schema:citation` | DOI or URL that shows the date. |
+| `dateSource` | Citation | `schema:citation` | DOI or URL that shows the date. |
 | `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information. |
-| `url` | Homepage | `schema:url` | Main web address. |
+| `url` | URL | `schema:url` | Main web address. |
 | `description` | Description | `schema:description` | One to three sentences; needed to register the resource in FAIRsharing. |
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |

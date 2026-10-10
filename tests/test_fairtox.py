@@ -268,7 +268,7 @@ class SheetTest(TempDir):
         next(r for r in doc['hasPart'] if r['key'] == 'exo')['fsr'] = ['http://purl.org/np/RAexo#ExO']
         ws = load_workbook(self.build(doc))['Resources']
         head = [c.value for c in ws[1]]
-        self.assertEqual(head[:4], ['Key', 'Name', 'Homepage', 'Decision'])
+        self.assertEqual(head[:4], ['Key', 'Name', 'URL', 'Decision'])
         self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
         self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
         row = next(c.row for c in ws['A'] if c.value == 'exo')

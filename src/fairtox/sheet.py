@@ -44,7 +44,7 @@ SPAN_HEAD = {p: f'Span: {p.lower()}' for p in model.PHASES}
 TASK_COLUMNS = [
     ('Key', 'key', 'key', 16, 'Stable identifier. Leave empty for a new row; a key is assigned on import.'),
     ('Name', 'name', 'text', 36, 'Full name of the resource.'),
-    ('Homepage', 'url', 'text', 32, 'Main web address.'),
+    ('URL', 'url', 'text', 32, 'Main web address.'),
     ('Decision', 'decision', 'list:Decision', 12, 'include, exclude or undecided.'),
     ('Exclusion reason', 'exclusionReason', 'list:Exclusion reason', 10,
      'Required when Decision is exclude. Codes E1-E8 are defined on the Instructions tab.'),
@@ -65,7 +65,7 @@ TASK_COLUMNS = [
     ('First published', 'datePublished', 'date', 14,
      'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'),
     ('Date basis', 'dateBasis', 'list:Date basis', 16, 'What the date refers to. The Lists tab explains each choice.'),
-    ('Date source', 'dateSource', 'text', 32, 'DOI or web page that shows the date.'),
+    ('Citation', 'dateSource', 'text', 32, 'DOI or web page that shows the date.'),
     ('Description', 'description', 'text', 50, 'One to three sentences. Needed to register it in FAIRsharing.'),
     ('Maintained', 'maintained', 'list:Maintained', 14, 'active, discontinued, in development or unknown.'),
     ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the row.'),
@@ -129,7 +129,7 @@ INSTRUCTIONS = [
     'Add new resources at the bottom of the Resources tab and leave Key empty; a key is assigned on import.',
     'Mark each sub-domain that applies with x. A resource can belong to several.',
     'First published is the date the resource first became public, as YYYY, YYYY-MM or YYYY-MM-DD. '
-    'Put the DOI or web page that shows the date in Date source.',
+    'Put the DOI or web page that shows the date in Citation.',
     'Phase is the phase a toxicology resource acts on and sets its lane: Data generation, Data integration or '
     'Regulatory assessment. When it acts on several, choose the earliest at which it must be applied. Choose by what '
     'the resource is used for, not by who made it. Mark x under Span for every phase it acts on; the earliest one '
