@@ -893,6 +893,8 @@ class RepositoryTest(unittest.TestCase):
             self.assertIn(f'version = "{__version__}"', f.read())
         with open(os.path.join(ROOT, 'CITATION.cff')) as f:
             self.assertIn(f'version: {__version__}', f.read())
+        with open(os.path.join(ROOT, '.release-please-manifest.json')) as f:
+            self.assertEqual(json.load(f), {'.': __version__})
         dataset = os.path.join(ROOT, model.DATASET)
         if os.path.exists(dataset):
             self.assertEqual(model.load(dataset)['version'], __version__)

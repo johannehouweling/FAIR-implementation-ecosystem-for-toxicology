@@ -4,6 +4,9 @@ name: CI
 # public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
 # The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, and the FIP
 # declarations; a weekly run rebuilds main so the page has the current ones.
+# After a green build of a push to main, release-please keeps a release pull request open with the next version and
+# its CHANGELOG.md entry, made from the Conventional Commits since the last release; merging it tags the version and
+# publishes a GitHub release.
 
 on:
   push:
@@ -60,3 +63,13 @@ jobs:
           if git diff --cached --quiet; then echo "The dashboard did not change."; exit 0; fi
           git commit -m "chore(site): publish the dashboard built from ${GITHUB_SHA::7}"
           git push
+  release:
+    needs: build
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - uses: googleapis/release-please-action@45996ed1f6d02564a971a2fa1b5860e934307cf7 # v5.0.0

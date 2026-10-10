@@ -33,9 +33,12 @@ nanopublications, and the FIP ontology from its IRI (`https://w3id.org/fair/fip/
 `--offline` reads the local caches in `build/fairsharing` and `build/fip`, left by an earlier run, instead.
 
 CI tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
-Discovery profile 1.1 (its SHACL rules, with pyshacl) and, on `main`, publishes the dashboard. A weekly workflow reads
-FAIRsharing and the FIPs and opens a pull request when there is something new to curate. Co-authors curate in a Google
-Sheet made with `fairtox sheet`; `fairtox ingest` reads it back with its checks and logs every change.
+Discovery profile 1.1 (its SHACL rules, with pyshacl) and, on `main`, publishes the dashboard. Then release-please
+keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
+Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
+Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back with its checks and logs
+every change. A daily workflow reads the sheet back, then FAIRsharing and the FIPs, and keeps one pull request open
+with what changed.
 
 ## Commands
 

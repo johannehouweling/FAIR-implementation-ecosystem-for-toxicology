@@ -1,13 +1,16 @@
 name: Data refresh
 
-# Weekly: read the FAIRsharing Toxicology collection with the repository owner's FAIRsharing login (Actions secrets
-# FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and the toxicology FIPs' nanopublications, and open a pull request only
-# when there is something to curate: new collection members, or new resources and links from the FIP declarations.
-# Nothing is pushed to main; the dashboard is redeployed after a person merges the pull request.
+# Daily: read back the curation sheet, then the FAIRsharing Toxicology collection with the repository owner's
+# FAIRsharing login (Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and the toxicology FIPs'
+# nanopublications. What changed (edits made in the sheet, new collection members, new resources and links from the
+# FIP declarations) goes into one pull request on the branch data-refresh, updated every day until a person merges it.
+# The sheet is exported with a Google service account that can only view it (secret GOOGLE_CREDENTIALS); setting the
+# secret SHEET_ID switches this on. Nothing is pushed to main; the dashboard is redeployed after the pull request is
+# merged.
 
 on:
   schedule:
-    - cron: '17 5 * * 1'
+    - cron: '17 5 * * *'
   workflow_dispatch:
 
 permissions:
@@ -21,12 +24,35 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    env:
+      SHEET_ID: ${{ secrets.SHEET_ID }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
           enable-cache: true
       - run: uv sync --locked --all-groups
+      - id: day
+        run: echo "day=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+      # The sheet first, while its row versions still match the committed dataset. A sheet with problems stops the run,
+      # and the log lists them.
+      - id: google
+        if: env.SHEET_ID
+        uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
+        with:
+          credentials_json: ${{ secrets.GOOGLE_CREDENTIALS }}
+          create_credentials_file: false
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/drive.readonly
+      - name: Read the curation sheet back
+        if: env.SHEET_ID
+        env:
+          TOKEN: ${{ steps.google.outputs.access_token }}
+          ROUND: curation sheet ${{ steps.day.outputs.day }}
+        run: |
+          curl -fsS --create-dirs -o build/curation-sheet.xlsx -H "Authorization: Bearer $TOKEN" \
+            "https://www.googleapis.com/drive/v3/files/$SHEET_ID/export?mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          uv run fairtox ingest build/curation-sheet.xlsx --round "$ROUND"
       - name: Read FAIRsharing
         env:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
@@ -37,17 +63,13 @@ jobs:
       # Pull requests opened with the workflow token do not trigger CI, so test here.
       - run: uv run python -m unittest discover -s tests
       - run: uv run fairtox validate
-      - name: Open a pull request if the dataset changed
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if git diff --quiet -- data; then echo "The dataset did not change."; exit 0; fi
-          day="$(date -u +%Y-%m-%d)"
-          branch="refresh/${day}-${GITHUB_RUN_ID}"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "$branch"
-          git add data
-          git commit -m "chore(data): refresh ${day}"
-          git push -u origin "$branch"
-          gh pr create --title "Data refresh ${day}" --body-file build/refresh.md
+      - name: Open or update the pull request if the dataset changed
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          add-paths: data
+          branch: data-refresh
+          delete-branch: true
+          author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
+          commit-message: 'fix(data): refresh ${{ steps.day.outputs.day }}'
+          title: Data refresh ${{ steps.day.outputs.day }}
+          body-path: build/refresh.md
