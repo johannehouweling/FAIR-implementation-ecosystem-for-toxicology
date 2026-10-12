@@ -40,61 +40,67 @@ CREATOR_HEAD = {s: f'Made by {s.lower()}' for s in model.STAKEHOLDER}
 SPAN_HEAD = {p: f'Span: {p.lower()}' for p in model.PHASES}
 # (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark, creator,
 # span, and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
-RESOURCE_COLUMNS = [
+# The Resources tab puts what curators check first, in the order of the curation steps; the context follows, folded.
+TASK_COLUMNS = [
     ('Key', 'key', 'key', 16, 'Stable identifier. Leave empty for a new row; a key is assigned on import.'),
     ('Name', 'name', 'text', 36, 'Full name of the resource.'),
+    ('URL', 'url', 'text', 32, 'Main web address.'),
     ('Decision', 'decision', 'list:Decision', 12, 'include, exclude or undecided.'),
     ('Exclusion reason', 'exclusionReason', 'list:Exclusion reason', 10,
      'Required when Decision is exclude. Codes E1-E8 are defined on the Instructions tab.'),
     ('Covered by', 'coveredBy', 'keys', 14, 'For exclusion reason E6: the key of the row that covers this one.'),
-    ('Aliases', 'alternateName', 'aliases', 18,
-     'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
-    ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('FSR type', 'fsrType', 'list:FSR type', 28, 'What kind of FAIR resource this is. The Instructions tab says how to '
      'choose.'),
-    ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
-    ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
-    ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
+    ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
-    ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
-     'compare with Scope.'),
     ('Phase', 'phase', 'list:Phase', 26,
      'The phase it acts on; the earliest when several. Only for scope Toxicology; it sets the lane.'),
     *[(SPAN_HEAD[p], p, 'span', 11, f'Mark x when a toxicology resource acts on {p.lower()}. The earliest phase '
        'marked is the Phase.') for p in model.PHASES],
-    ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
-     'compare with Phase and Span.'),
-    ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
-    *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
-       'Toxicology; several may apply.') for s in model.STAKEHOLDER],
-    ('Builds on FAIR', None, 'static', 10,
-     'Derived from the Relations tab: implements, extends, profiles or recommends a Generic resource.'),
     *[(s, s, 'mark', 11, f'Mark x when the resource belongs to {s}. Several sub-domains may apply.')
       for s in model.SUBDOMAINS],
+    *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
+       'Toxicology; several may apply.') for s in model.STAKEHOLDER],
+    ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
     ('First published', 'datePublished', 'date', 14,
      'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'),
     ('Date basis', 'dateBasis', 'list:Date basis', 16, 'What the date refers to. The Lists tab explains each choice.'),
-    ('Date source', 'dateSource', 'text', 32, 'DOI or web page that shows the date.'),
-    ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
-    ('Identifier', None, 'static', 34, "Computed: a community's FIC nanopublication, else the FAIRsharing DOI, else "
-     'the address of the resource in this dataset.'),
-    ('Homepage', 'url', 'text', 32, 'Main web address.'),
+    ('Citation', 'dateSource', 'text', 32, 'DOI or web page that shows the date.'),
     ('Description', 'description', 'text', 50, 'One to three sentences. Needed to register it in FAIRsharing.'),
     ('Maintained', 'maintained', 'list:Maintained', 14, 'active, discontinued, in development or unknown.'),
-    ('In manuscript', 'manuscript', 'list:In manuscript', 14, 'cited, named, comment only or absent.'),
-    ('Manuscript evidence', 'manuscriptEvidence', 'text', 26, 'Section and line numbers in the frozen draft.'),
+    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the row.'),
+    ('Note', 'note', 'text', 44, 'Anything the next curator should know.'),
+]
+CONTEXT_COLUMNS = [
+    ('Identifier', None, 'static', 34, "Computed: a community's FIC nanopublication, else the FAIRsharing DOI, else "
+     'the address of the resource in this dataset.'),
+    ('FIP identifiers', None, 'static', 34, 'Read from the FIPs: the addresses under which the toxicology FIPs '
+     'declare the resource, when they differ from its Identifier.'),
     ('FAIRsharing record', 'fairsharingRecord', 'text', 20, 'FAIRsharing.xxxxxx code or numeric record id.'),
     ('FAIRsharing match', 'fairsharingMatch', 'list:FAIRsharing match', 14,
      'confirmed when the FAIRsharing record is this resource.'),
     ('FAIRsharing link', None, 'fslink', 10, 'Computed from FAIRsharing record.'),
+    ('FAIRsharing name, type, status', None, 'static', 34, 'As recorded in FAIRsharing.'),
     ('In FAIRsharing collection', None, 'static', 12, 'Member of the FAIRsharing Toxicology collection (3496).'),
     ('FAIRsharing year', None, 'static', 10, "FAIRsharing's year of creation."),
-    ('FAIRsharing name, type, status', None, 'static', 34, 'As recorded in FAIRsharing.'),
+    ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
+     'compare with Scope.'),
+    ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
+     'compare with Phase and Span.'),
+    ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
+    ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
+    ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
+    ('Builds on FAIR', None, 'static', 10,
+     'Derived from the Relations tab: implements, extends, profiles or recommends a Generic resource.'),
+    ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
     ('Warnings', None, 'static', 44, 'Checks that will need attention before release.'),
-    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the row.'),
-    ('Note', 'note', 'text', 44, 'Anything the next curator should know.'),
+    ('In manuscript', 'manuscript', 'list:In manuscript', 14, 'cited, named, comment only or absent.'),
+    ('Manuscript evidence', 'manuscriptEvidence', 'text', 26, 'Section and line numbers in the frozen draft.'),
+    ('Aliases', 'alternateName', 'aliases', 18,
+     'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
     ('Row version', None, 'version', 12, 'Do not edit. Detects rows that changed elsewhere after this sheet was made.'),
 ]
+RESOURCE_COLUMNS = TASK_COLUMNS + CONTEXT_COLUMNS
 RELATION_COLUMNS = [
     ('Resource', 'subject', 'keys', 16, 'Key of the resource that builds on or relates to the target.'),
     ('Relation', 'hadRole', 'list:Relation', 14, 'How the resource relates to the target, read from left to right: '
@@ -113,16 +119,17 @@ RELATION_COLUMNS = [
     ('Note', 'note', 'text', 40, ''),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
-FOLDED = ('Lane', 'Warnings', 'Row version')   # no information for curators: grouped and collapsed
+FOLDED = tuple(h for h, *_ in CONTEXT_COLUMNS)   # context, not tasks: grouped and collapsed
 INSTRUCTIONS = [
     'Edit only the white cells. Grey columns, and the grey rows on the Relations tab, are computed or read from '
-    'FAIRsharing and the FIPs when the sheet is made, and are ignored when it is read back. Lane, Warnings and Row '
-    'version are folded; open them with the + above the column letters.',
+    'FAIRsharing and the FIPs when the sheet is made, and are ignored when it is read back. The columns up to Note are '
+    'what to check, in the order of the curation steps; the context after Note is folded: open it with the + above '
+    'the column letters.',
     'Never delete a row. To drop a resource, set Decision to exclude and choose an Exclusion reason.',
     'Add new resources at the bottom of the Resources tab and leave Key empty; a key is assigned on import.',
     'Mark each sub-domain that applies with x. A resource can belong to several.',
     'First published is the date the resource first became public, as YYYY, YYYY-MM or YYYY-MM-DD. '
-    'Put the DOI or web page that shows the date in Date source.',
+    'Put the DOI or web page that shows the date in Citation.',
     'Phase is the phase a toxicology resource acts on and sets its lane: Data generation, Data integration or '
     'Regulatory assessment. When it acts on several, choose the earliest at which it must be applied. Choose by what '
     'the resource is used for, not by who made it. Mark x under Span for every phase it acts on; the earliest one '
@@ -314,6 +321,8 @@ def build(doc, path):
                 c.value = model.first_date(r)[field == 'dateBasis'] or None
             elif head == 'Identifier':
                 c.value = r.get('identifier')
+            elif head == 'FIP identifiers':
+                c.value = '; '.join(r.get('fsr', [])) or None
             elif head == 'In FAIRsharing collection':
                 c.value = ('yes' if fs.get('inCollection') else 'no') if fs else None
             elif head in ('FAIRsharing subjects', 'FAIRsharing domains'):

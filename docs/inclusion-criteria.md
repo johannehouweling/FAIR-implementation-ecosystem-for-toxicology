@@ -189,6 +189,7 @@ Each excluded row carries exactly one code.
 | 10 Oct 2026 | FAIRsharing's subjects and domains of a confirmed record are published on the FAIRsharing record that the resource links to (`schema:sameAs`): its subjects (subject areas) as `schema:about`, the property of the curated scope, and its domains (the kinds of data, entities and activities a record covers, some of them life-cycle activities such as study design) as `dcat:theme`, the property of the curated phases. They are FAIRsharing's statements: read when the dataset and the sheet are built, shown in grey columns of the sheet next to Scope and Span, and neither stored in the dataset nor read back. | Jente Houweling |
 | 10 Oct 2026 | Versions and the changelog follow the Conventional Commits: release-please proposes each release as a pull request, and a release is made only from a commit that passed CI. | Jente Houweling |
 | 10 Oct 2026 | Edits made in the curation sheet are read back daily and reach the dataset only through a reviewed pull request. | Jente Houweling |
+| 10 Oct 2026 | The curation sheet puts what curators check first, in the order of the curation steps and ending with Reviewed by and Note; the context (identifiers, FAIRsharing and FIP data, derived fields, the manuscript columns) follows, folded. | Jente Houweling |
 
 ## 9. Limitations
 

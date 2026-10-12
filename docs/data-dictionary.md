@@ -64,17 +64,17 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
 | `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource when the type is one, else FAIR Supporting Resource. |
 | `declaredIn`, `principles` | Declared in, Principles |  | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
-| `fsr` |  | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
+| `fsr` | FIP identifiers | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | one column per sub-domain | `schema:about` | Sub-domains that apply (list below). |
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
-| `dateSource` | Date source | `schema:citation` | DOI or URL that shows the date. |
+| `dateSource` | Citation | `schema:citation` | DOI or URL that shows the date. |
 | `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information. |
-| `url` | Homepage | `schema:url` | Main web address. |
+| `url` | URL | `schema:url` | Main web address. |
 | `description` | Description | `schema:description` | One to three sentences; needed to register the resource in FAIRsharing. |
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |
 | `manuscriptEvidence` | Manuscript evidence |  | Section and line numbers in the frozen manuscript draft. Not published. |
-| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `scope`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects, next to Scope, and FAIRsharing domains, next to Span. |
+| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `scope`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects and FAIRsharing domains, in the folded context. |
 | `resource` |  | `dcat:resource` | On the FAIRsharing Toxicology collection only, in the published dataset: the included resources that FAIRsharing lists as its members, read when the dataset is built. |
 | `fairsharingMatch` | FAIRsharing match |  | Whether that record is this resource (list below). |
 | `reviewedBy` | Reviewed by |  | Initials of the curator who checked the row. |
