@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.4.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.3.0...v0.4.0) (2026-10-17)
+
+
+### Features
+
+* **sheet:** name the homepage and date source columns URL and Citation ([175ca14](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/175ca14db753c29287865e67c8112384ad68e8fe))
+* **sheet:** put the curators' tasks first and fold the context ([b1b56c3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/b1b56c3a40553dcee1a627e01cab54fa67404985))
+* **sheet:** put the curators' tasks first and fold the context ([b4430ae](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/b4430ae1fe413bd48a371112862051f852868bcc))
+* **site:** filter by source and fold the rare filters ([8224176](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/8224176c28cc30315c0f535b97411891d3c7303f))
+
 ## [0.3.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.2.0...v0.3.0) (2026-10-10)
 
 
