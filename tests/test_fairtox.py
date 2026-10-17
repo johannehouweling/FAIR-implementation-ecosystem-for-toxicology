@@ -97,12 +97,18 @@ class ModelTest(TempDir):
             ('ctd', 'span', [], 'earliest phase'),
             ('exo', 'fsrType', [model.FIP + 'Structured-vocabulary', model.FIP + 'Registry'], 'one FSR type'),
             ('exo', 'fsrType', [model.FIP + 'Crosswalk'], 'not an allowed value'),   # not one the typing rule uses
+            ('exo', 'mentionedIn', ['Blog'], 'community document'),
         ]
         for key, field, value, message in cases:
             doc = fixture()
             next(r for r in doc['hasPart'] if r['key'] == key)[field] = value
             errors, _ = model.check(model.normalise(doc))
             self.assertTrue(any(message in e for e in errors), (key, field, value, errors))
+
+    def test_a_field_added_later_keeps_the_row_versions(self):
+        exo = next(r for r in model.normalise(fixture())['hasPart'] if r['key'] == 'exo')
+        self.assertEqual(model.row_hash(exo), '382d971423')        # as before mentionedIn existed
+        self.assertNotEqual(model.row_hash({**exo, 'mentionedIn': ['Whitepaper']}), '382d971423')
 
     def test_structural_errors(self):
         doc = fixture()
@@ -211,9 +217,9 @@ class ModelTest(TempDir):
 
 
 class SheetTest(TempDir):
-    def build(self, doc):
+    def build(self, doc, **kw):
         p = self.path('curation.xlsx')
-        sheet.build(doc, p)
+        sheet.build(doc, p, **kw)
         return p
 
     def edit(self, p, column, key, value, tab='Resources'):
@@ -268,7 +274,7 @@ class SheetTest(TempDir):
         next(r for r in doc['hasPart'] if r['key'] == 'exo')['fsr'] = ['http://purl.org/np/RAexo#ExO']
         ws = load_workbook(self.build(doc))['Resources']
         head = [c.value for c in ws[1]]
-        self.assertEqual(head[:4], ['Key', 'Name', 'URL', 'Decision'])
+        self.assertEqual(head[:5], ['Key', 'Name', 'URL', 'Source', 'Decision'])
         self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
         self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
         row = next(c.row for c in ws['A'] if c.value == 'exo')
@@ -360,6 +366,43 @@ class SheetTest(TempDir):
         self.assertEqual(problems, [])
         self.assertIn(('newres', '(row)', '(new)', 'New Resource'), changes)
         self.assertIn(('ctd', 'relation', 'implements exo', '(removed)'), changes)
+
+    def test_source_and_community_document_ticks(self):
+        doc = fip.enrich(fairsharing.enrich(model.normalise(fixture()), fairsharing.read(None, None, offline=True)),
+                         fip.read(offline=True))                 # the FIPs tool and oecd_gd declare exo
+        by = {r['key']: r for r in doc['hasPart']}
+        by['tool']['declared-by'] = by['parc']['@id']             # parc is the community behind tool
+        by['exo']['mentionedIn'] = ['Whitepaper']
+        ws = load_workbook(self.build(doc, added={'ctd'}))['Resources']
+        head = [c.value for c in ws[1]]
+        rows = {r[0]: dict(zip(head, r)) for r in ws.iter_rows(min_row=2, values_only=True) if r[0]}
+        self.assertEqual({k: r['Source'] for k, r in rows.items()}, {
+            'exo': 'Manuscript draft; FAIRsharing Toxicology collection; A FAIR tool; OECD guidance on research data',
+            'ctd': 'Co-author addition', 'oecd_gd': 'Manuscript draft', 'parc': 'Manuscript draft; A FAIR tool',
+            'tool': None})
+        self.assertEqual([rows['exo'][f'ETC: {d}'] for d in model.ETC_DOCUMENTS],
+                         [d == 'Whitepaper' for d in model.ETC_DOCUMENTS])
+        self.assertEqual(head.index('Reviewed by') - head.index(f'ETC: {next(iter(model.ETC_DOCUMENTS))}'),
+                         len(model.ETC_DOCUMENTS))                # the tick boxes come right before Reviewed by
+        self.assertNotIn('In FAIRsharing collection', head)
+
+    def test_ticks_and_a_new_row_are_read_back_once(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        wb = load_workbook(p)
+        ws = wb['Resources']
+        head = {c.value: c.column for c in ws[1]}
+        ws.cell(row=next(c.row for c in ws['A'] if c.value == 'exo'), column=head['ETC: INTOXICOM 2'], value=True)
+        n = next(c.row for c in ws['B'] if c.row > 1 and c.value is None)
+        ws.cell(row=n, column=head['Name'], value='New Resource')   # no key, decision or manuscript status
+        for d in model.ETC_DOCUMENTS:                               # unticked boxes leave a spare row empty
+            ws.cell(row=n + 1, column=head[f'ETC: {d}'], value=False)
+        wb.save(p)
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(problems, [])
+        self.assertEqual(changes, [('new_resource', '(row)', '(new)', 'New Resource'),
+                                   ('exo', 'mentionedIn', '', 'INTOXICOM 2')])
+        self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))     # the next read-back adds nothing twice
 
 
 REST = {'data': {'id': '1716', 'type': 'fairsharing_records', 'attributes': {
@@ -559,10 +602,13 @@ class SiteTest(TempDir):
         return counts, {f: pathlib.Path(out, f).read_text(encoding='utf-8') for f in self.FILES}
 
     def test_public_build_holds_included_resources_only(self):
-        counts, text = self.build()
+        doc = fixture()
+        doc['hasPart'][0]['mentionedIn'] = ['Whitepaper']           # a curation field
+        counts, text = self.build(doc)
         self.assertEqual(counts, (3, 1))
         for name, t in text.items():
-            for word in ('manuscript', 'draft', 'undecided', 'exclusion', 'screened', 'PARC', 'A FAIR tool'):
+            for word in ('manuscript', 'draft', 'undecided', 'exclusion', 'screened', 'PARC', 'A FAIR tool',
+                         'Whitepaper'):
                 self.assertNotIn(word.lower(), t.lower(), name)
         html = text['index.html']
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))

@@ -50,7 +50,7 @@ uv run fairtox validate                                        # check; --strict
 uv run --env-file .env fairtox fairsharing                     # new FAIRsharing collection members; --apply stores them
 uv run fairtox fip                                             # FIP match report; --apply stores links and new rows
 uv run --env-file .env fairtox sheet build/curation.xlsx       # curation workbook, edited as a Google Sheet
-uv run fairtox ingest curated.xlsx                             # read the edited sheet back, checked and logged
+uv run fairtox ingest build/curation-sheet.xlsx                # read the edited sheet back, checked and logged
 uv run --env-file .env fairtox site build/site                 # dashboard, published dataset, CSV files and vocabulary
 uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharing would accept; nothing is posted
 ```
