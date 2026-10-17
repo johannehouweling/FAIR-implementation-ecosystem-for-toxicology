@@ -153,14 +153,19 @@ Each excluded row carries exactly one code.
 3. **Evidence.** Dates, homepages, descriptions and FAIRsharing records were researched for every included or
    undecided row, each with its source, and checked by a second pass. This research, the screening and classification
    proposals and the relation checks were drafted with an AI-assisted workflow (Claude Opus 5.5, Anthropic) and remain
-   proposals until a curator confirms them. `data/changes.csv` records each change with its process (research,
-   verification, relation check, phase proposal, review, migration) and source.
+   proposals until a curator confirms them (step 4). `data/changes.csv` records each change with its process
+   (research, verification, classification, relation check, phase proposal, review, migration) and source.
 4. **Curation.** Co-authors review every row in the curation Sheet. Disagreements are discussed and settled by the
    corresponding authors; the outcome and the reviewer's initials are recorded in the row and in `data/changes.csv`.
-   Curators also tick, for each row, the ELIXIR Toxicology Community documents that mention it.
-   The daily data refresh reads the Sheet back with `fairtox ingest` and keeps the changes in one pull request for
-   review. A row that changed in the dataset after the Sheet was made, other than by an earlier read-back, stops the
-   read-back until the Sheet is updated.
+   Curators also tick, for each row, the ELIXIR Toxicology Community documents that mention it. A curator confirms a
+   row by putting their initials in Reviewed by once every value up to Note is checked, and a relation likewise on the
+   Relations tab; its values are then curator decisions. The folded context is not covered. A process that later
+   changes a confirmed value empties Reviewed by, so the row is confirmed again. The data refresh reads the Sheet back
+   with `fairtox ingest` three times a day, row by row, and keeps the changes in one pull request for review; each
+   change is logged under the Reviewed by of its row or relation. A row or relation with a problem, or one that would
+   add an error or a warning, waits in the Sheet (a row with its relations) and is listed in the pull request until
+   it is fixed; two lines with the same key or the same relation both wait. So does a row that changed in the dataset
+   after the Sheet was made, other than by an earlier read-back, until the Sheet is updated.
 5. **Release.** A version is released by merging the release pull request that release-please keeps open: it sets the
    version and writes the `CHANGELOG.md` entry from the Conventional Commits since the last release. CI makes the
    release only after the tests and `fairtox validate --strict` pass.
@@ -194,6 +199,7 @@ Each excluded row carries exactly one code.
 | 10 Oct 2026 | Edits made in the curation sheet are read back daily and reach the dataset only through a reviewed pull request. | Jente Houweling |
 | 10 Oct 2026 | The curation sheet puts what curators check first, in the order of the curation steps and ending with Reviewed by and Note; the context (identifiers, FAIRsharing and FIP data, derived fields, the manuscript columns) follows, folded. | Jente Houweling |
 | 17 Oct 2026 | A mention in an ELIXIR Toxicology Community document documents toxicology use (I4). Curators tick the documents in the sheet (`mentionedIn`): the white paper (Martens et al. 2023), FAIRsharing's report on the collection of 3 Jul 2025 and the INTOXICOM workshop reports 1, 2, 3 and 5. The sheet also shows, computed, where each resource is found now (manuscript draft, FAIRsharing Toxicology collection, a toxicology FIP, co-author addition) in a Source column after URL, an exception to the layout of 10 Oct 2026, which replaces In FAIRsharing collection. | Jente Houweling |
+| 18 Oct 2026 | A value is a proposal until a curator confirms its row, or relation, by putting initials in Reviewed by after checking every value up to Note; a process that changes a confirmed value empties Reviewed by. Nothing else is stored: `data/changes.csv` records each proposal under its process, each change made in the Sheet under the Reviewed by of its row or relation, and each confirmation as a change of Reviewed by. The data refresh reads the Sheet back three times a day, row by row: a row or relation with a problem, or one that would add an error or a warning, waits and is listed in the pull request. A new row gets a key typed by its curator; a key left empty is made from the name on import. | Jente Houweling |
 
 ## 9. Limitations
 
@@ -203,6 +209,7 @@ Each excluded row carries exactly one code.
 - First-publication dates depend on what is documented; some can only be bounded.
 - Mentions in the community documents are ticked by curators, not extracted systematically; FAIRsharing's report
   lists its records only in figures.
+- Who typed a value in the Sheet is taken from Reviewed by; the Sheet's version history is the full record.
 - FSR types, phases and spans are proposals until the co-authors confirm them, and a judgement for resources with
   several roles or uses; creator types depend on what is documented about the makers. All are recorded per resource
   so they can be checked and revised.
