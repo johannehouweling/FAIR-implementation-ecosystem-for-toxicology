@@ -628,9 +628,12 @@ class SiteTest(TempDir):
         next(r for r in doc['hasPart'] if r['key'] == 'newtox')['decision'] = 'include'
         html = self.build(doc=doc)[1]['index.html']
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
-        self.assertEqual({n['key'] for n in data['nodes'] if n['fromCollection']}, {'newtox'})
-        self.assertIn('<input type="checkbox" id="t-coll" checked>', html)
-        self.assertIn("(!n.fromCollection || $('t-coll').checked)", html)
+        nodes = {n['key']: n for n in data['nodes']}
+        self.assertEqual({k for k, n in nodes.items() if n['fromCollection']}, {'newtox'})
+        self.assertEqual(nodes['newtox']['sources'], [site.COLLECTION])   # its only source; exo is also curated
+        self.assertEqual(nodes['exo']['sources'][:2], [data['meta']['creator'], site.COLLECTION])
+        self.assertEqual(data['meta']['sourceList'][:2], [data['meta']['creator'], site.COLLECTION])
+        self.assertIn("(!state.src || n.sources.includes(state.src))", html)
 
     def test_build_follows_the_journal_figure_rules(self):
         # Scientific Data: white only, one sans-serif face, sentence-case labels, the 183 mm export, a data dictionary
@@ -643,7 +646,7 @@ class SiteTest(TempDir):
                      'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
                      'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
                      'life-cycle phase they act on (the earliest, if several)', "row('Phase'", "row('Span'",
-                     "{t: 'Span'", "{t: 'FSR type'", 'FIP declarations', 'Declared in a toxicology FIP',
+                     "{t: 'Span'", "{t: 'FSR type'", 'FIP declarations', 'All sources',
                      'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
                      *model.CREATOR_LANE_DEF):
             self.assertIn(text, html, text)
@@ -866,12 +869,16 @@ class FipTest(TempDir):
                          (['F1'], ['oecd_gd'], ''))   # its community, tox, is not included
         self.assertEqual(data['declarations'], [{'src': 'oecd_gd', 'dst': 'exo',
                                                  'q': [['F1-D', np_iri('decD') + '/declaration']]}])
+        self.assertEqual(set(data['meta']['classDef']), set(data['meta']['classes']))
+        # a FIP is a source of what it declares and of itself
+        self.assertEqual(nodes['oecd_gd']['sources'][-1], nodes['oecd_gd']['label'])
+        self.assertIn(nodes['oecd_gd']['label'], nodes['exo']['sources'])
         self.assertEqual((data['meta']['classes'], data['meta']['communities']),
                          (['FAIR-Enabling Resource', 'FAIR Supporting Resource'],
                           ['Emerging community', 'FAIR Implementation Community', 'Mature community']))
         # the Class filter; the FIP switches, off on load, the lines never in the export; communities never drawn
         for code in ('(!n.fsrCategory || state.cls.has(n.fsrCategory))', '<input type="checkbox" id="t-fip">',
-                     "const fipOn = !G.print && $('t-fip').checked", '<input type="checkbox" id="t-declared">',
+                     "const fipOn = !G.print && $('t-fip').checked", '<select id="f-src"',
                      'n.fsrType.some(t => META.communities.includes(t))',
                      "=> dated(n) && laneNames().includes(laneOf(n)) && !community(n);"):
             self.assertIn(code, html)
