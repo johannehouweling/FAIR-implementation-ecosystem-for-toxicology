@@ -64,8 +64,11 @@ def _report(lines, path, title):
 def cmd_sheet(a):
     from fairtox import fip, sheet
     doc = fip.enrich(_enriched(a), fip.read(a.offline))
+    with open(model.CHANGES, newline='', encoding='utf-8') as f:    # rows that co-authors added in the sheet
+        added = {r['key'] for r in csv.DictReader(f)
+                 if r['field'] == '(row)' and r['source'] == 'curation-sheet.xlsx'}
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
-    n, m = sheet.build(doc, a.out)
+    n, m = sheet.build(doc, a.out, added=added)
     print(f'{a.out}: {n} resources, {m} relations')
     return 0
 

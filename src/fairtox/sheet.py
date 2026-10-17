@@ -38,6 +38,8 @@ LISTS = {
 }
 CREATOR_HEAD = {s: f'Made by {s.lower()}' for s in model.STAKEHOLDER}
 SPAN_HEAD = {p: f'Span: {p.lower()}' for p in model.PHASES}
+ETC_HEAD = {d: f'ETC: {d}' for d in model.ETC_DOCUMENTS}
+MARKED = ('x', 'true')                                      # how a mark reads back: an x, or a ticked box
 # (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark, creator,
 # span, and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
 # The Resources tab puts what curators check first, in the order of the curation steps; the context follows, folded.
@@ -45,6 +47,8 @@ TASK_COLUMNS = [
     ('Key', 'key', 'key', 16, 'Stable identifier. Leave empty for a new row; a key is assigned on import.'),
     ('Name', 'name', 'text', 36, 'Full name of the resource.'),
     ('URL', 'url', 'text', 32, 'Main web address.'),
+    ('Source', None, 'static', 30, 'Computed: where the resource is found: the manuscript draft, the FAIRsharing '
+     'Toxicology collection, a toxicology FIP, or added by a co-author in this sheet.'),
     ('Decision', 'decision', 'list:Decision', 12, 'include, exclude or undecided.'),
     ('Exclusion reason', 'exclusionReason', 'list:Exclusion reason', 10,
      'Required when Decision is exclude. Codes E1-E8 are defined on the Instructions tab.'),
@@ -68,6 +72,8 @@ TASK_COLUMNS = [
     ('Citation', 'dateSource', 'text', 32, 'DOI or web page that shows the date.'),
     ('Description', 'description', 'text', 50, 'One to three sentences. Needed to register it in FAIRsharing.'),
     ('Maintained', 'maintained', 'list:Maintained', 14, 'active, discontinued, in development or unknown.'),
+    *[(ETC_HEAD[d], d, 'etc', 10, 'Tick when this ELIXIR Toxicology Community document mentions the resource: '
+       + text) for d, text in model.ETC_DOCUMENTS.items()],
     ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the row.'),
     ('Note', 'note', 'text', 44, 'Anything the next curator should know.'),
 ]
@@ -81,7 +87,6 @@ CONTEXT_COLUMNS = [
      'confirmed when the FAIRsharing record is this resource.'),
     ('FAIRsharing link', None, 'fslink', 10, 'Computed from FAIRsharing record.'),
     ('FAIRsharing name, type, status', None, 'static', 34, 'As recorded in FAIRsharing.'),
-    ('In FAIRsharing collection', None, 'static', 12, 'Member of the FAIRsharing Toxicology collection (3496).'),
     ('FAIRsharing year', None, 'static', 10, "FAIRsharing's year of creation."),
     ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
      'compare with Scope.'),
@@ -153,8 +158,8 @@ CRITERIA_TEXT = [
     'Community identified by its FIC nanopublication.',
     'I2 It is named and identifiable (homepage or DOI).',
     'I3 It is or was publicly available.',
-    'I4 Its use in toxicology is documented: in the manuscript, in the FAIRsharing Toxicology collection or in a '
-    'toxicology FIP.',
+    'I4 Its use in toxicology is documented: in the manuscript, in the FAIRsharing Toxicology collection, in a '
+    'toxicology FIP or in an ELIXIR Toxicology Community document.',
     'I5 It makes data or metadata findable, accessible, interoperable or reusable.',
 ]
 
@@ -198,9 +203,9 @@ def _sort_key(r):
     return (r.get('decision') == 'exclude', lanes.index(model.lane(r)), r['name'].lower())
 
 
-def build(doc, path):
+def build(doc, path, added=()):
     """Write the curation workbook for the dataset with FAIRsharing and the FIP declarations added (fairsharing.enrich,
-    fip.enrich)."""
+    fip.enrich). added holds the keys of the rows that co-authors added in the sheet."""
     doc = model.normalise(copy.deepcopy(doc))
     _, warnings = model.check(doc)
     warn = {}
@@ -219,6 +224,7 @@ def build(doc, path):
     declared = {}                                           # declared resource key -> FIP key -> questions
     for x in fips:
         declared.setdefault(x['target'], {}).setdefault(x['subject'], set()).add(x['question'])
+    community = {r['declared-by']: r['key'] for r in doc['hasPart'] if r.get('declared-by')}   # FIC @id -> FIP key
     wb = Workbook()
     ins = wb.active
     ins.title = 'Instructions'
@@ -302,6 +308,14 @@ def build(doc, path):
                 c.value = 'x' if field in r.get('creatorType', []) else None
             elif kind == 'span':
                 c.value = 'x' if field in r.get('span', []) else None
+            elif kind == 'etc':
+                c.value = field in r.get('mentionedIn', [])
+            elif head == 'Source':                          # where the resource is found, in a fixed order
+                fips_of = set(declared.get(r['key'], {})) | ({community[r['@id']]} if r['@id'] in community else set())
+                c.value = '; '.join((['Manuscript draft'] if r.get('manuscript', 'absent') != 'absent' else [])
+                                    + ([site.COLLECTION] if fs.get('inCollection') else [])
+                                    + sorted(site.label(by_key[k]) for k in fips_of)
+                                    + (['Co-author addition'] if r['key'] in added else [])) or None
             elif field == 'fsrType':
                 c.value = next((FSR_LABEL.get(t, t) for t in r.get('fsrType', [])), None)
             elif head == 'Class':
@@ -323,8 +337,6 @@ def build(doc, path):
                 c.value = r.get('identifier')
             elif head == 'FIP identifiers':
                 c.value = '; '.join(r.get('fsr', [])) or None
-            elif head == 'In FAIRsharing collection':
-                c.value = ('yes' if fs.get('inCollection') else 'no') if fs else None
             elif head in ('FAIRsharing subjects', 'FAIRsharing domains'):
                 c.value = '; '.join(t['label'] for t in fs.get(head.split()[1], [])) or None
             elif head == 'FAIRsharing year':
@@ -397,7 +409,7 @@ def build(doc, path):
 # ---- reading a curated workbook back ---------------------------------------------------------------------------------
 
 def _text(v):
-    if v is None:
+    if v is None or v is False:                             # an unticked box is empty
         return ''
     if isinstance(v, float) and v.is_integer():
         return str(int(v))
@@ -451,7 +463,7 @@ def ingest(doc, path, force=False, read_back=()):
         version = _text(val.get('Row version'))
         parsed, bad = {}, False
         for h, field, kind, *_ in RESOURCE_COLUMNS:
-            if not field or kind in ('key', 'mark', 'creator', 'span'):
+            if not field or kind in ('key', 'mark', 'creator', 'span', 'etc'):
                 continue
             v = val.get(h)
             if kind == 'aliases':
@@ -475,13 +487,14 @@ def ingest(doc, path, force=False, read_back=()):
                 parsed[field] = _url(v)
             else:
                 parsed[field] = _text(v)
-        parsed['subdomains'] = [s for s in model.SUBDOMAINS if _text(val.get(s)).lower() == 'x']
-        parsed['creatorType'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() == 'x']
-        parsed['span'] = [p for p in model.PHASES if _text(val.get(SPAN_HEAD[p])).lower() == 'x']
+        parsed['subdomains'] = [s for s in model.SUBDOMAINS if _text(val.get(s)).lower() in MARKED]
+        parsed['creatorType'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() in MARKED]
+        parsed['span'] = [p for p in model.PHASES if _text(val.get(SPAN_HEAD[p])).lower() in MARKED]
+        parsed['mentionedIn'] = [d for d in model.ETC_DOCUMENTS if _text(val.get(ETC_HEAD[d])).lower() in MARKED]
         parsed['fsrType'] = list(dict.fromkeys(parsed['fsrType']))
-        for mark in list(model.SUBDOMAINS) + list(CREATOR_HEAD.values()) + list(SPAN_HEAD.values()):
+        for mark in [*model.SUBDOMAINS, *CREATOR_HEAD.values(), *SPAN_HEAD.values(), *ETC_HEAD.values()]:
             t = _text(val.get(mark)).lower()
-            if t and t != 'x':
+            if t and t not in MARKED:
                 problem('Resources', where.get(mark, ''), mark, val.get(mark), 'mark with x or leave it empty')
                 bad = True
         if not parsed['name']:
@@ -497,6 +510,8 @@ def ingest(doc, path, force=False, read_back=()):
             if not model.KEY_RE.match(key):
                 problem('Resources', where['Key'], 'Key', key, 'a new key may only use a-z, 0-9, _ and -')
                 continue
+        if not key:                                         # a row read back before is found again by its name
+            key = next((k for k, r in rows.items() if k not in seen and r.get('name') == parsed['name']), '')
         if not key:
             key = model.slug((parsed['alternateName'] or [parsed['name']])[0], set(rows) | seen)
             notes.append(f'Resources row {n}: new resource {parsed["name"]!r} gets key {key!r}')
@@ -505,10 +520,10 @@ def ingest(doc, path, force=False, read_back=()):
         if bad:
             continue
         old = rows.get(key)
+        if old is None or not version:                      # a row added in the sheet keeps its defaults
+            parsed['decision'] = parsed.get('decision') or (old or {}).get('decision') or 'undecided'
+            parsed['manuscript'] = parsed.get('manuscript') or (old or {}).get('manuscript') or 'absent'
         if old is None:
-            parsed.setdefault('decision', 'undecided')
-            parsed['decision'] = parsed['decision'] or 'undecided'
-            parsed['manuscript'] = parsed.get('manuscript') or 'absent'
             rows[key] = {'key': key, **parsed}
             new['hasPart'].append(rows[key])
         else:

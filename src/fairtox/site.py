@@ -26,9 +26,9 @@ NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
 # Curation fields and vocabularies that stay out of the build. Relations keep only their label: their evidence and
 # source cite the manuscript draft.
-PRIVATE = ('decision', 'exclusionReason', 'coveredBy', 'manuscript', 'manuscriptEvidence', 'reviewedBy', 'note',
-           'fairsharingMatch')
-PRIVATE_VOCABULARIES = ('decision', 'exclusionReason', 'manuscript', 'fairsharingMatch', 'evidence')
+PRIVATE = ('decision', 'exclusionReason', 'coveredBy', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'reviewedBy',
+           'note', 'fairsharingMatch')
+PRIVATE_VOCABULARIES = ('decision', 'exclusionReason', 'manuscript', 'mentionedIn', 'fairsharingMatch', 'evidence')
 # fsrCategory IRI -> label: one box each in the Class filter
 CLASSES = {model.FER: 'FAIR-Enabling Resource', model.FSR: 'FAIR Supporting Resource'}
 CLASS_DEF = {model.FER: 'Essential to the operationalisation of the FAIR principles: a service, specification or policy '

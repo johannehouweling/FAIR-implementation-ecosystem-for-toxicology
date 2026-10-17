@@ -74,6 +74,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |
 | `manuscriptEvidence` | Manuscript evidence |  | Section and line numbers in the frozen manuscript draft. Not published. |
+| `mentionedIn` | one "ETC" column per document |  | ELIXIR Toxicology Community documents that mention the resource, ticked by curators (list below); a mention documents toxicology use (I4). Not published. |
 | `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `scope`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects and FAIRsharing domains, in the folded context. |
 | `resource` |  | `dcat:resource` | On the FAIRsharing Toxicology collection only, in the published dataset: the included resources that FAIRsharing lists as its members, read when the dataset is built. |
 | `fairsharingMatch` | FAIRsharing match |  | Whether that record is this resource (list below). |
@@ -234,6 +235,17 @@ The basis decides the field, and so the term, that holds the date, following Dat
 | named | Named in the manuscript text without a reference. |
 | comment only | Named only in a comment or to-do note of the manuscript. |
 | absent | Not in the manuscript. |
+
+### Community documents (`mentionedIn`)
+
+| Value | Document |
+|---|---|
+| Whitepaper | Martens et al. 2023, "ELIXIR and Toxicology: a community in development", F1000Research, doi 10.12688/f1000research.74502.2. |
+| FAIRSharing | FAIRsharing's report on the ELIXIR Toxicology Community collection, 3 Jul 2025, doi 10.5281/zenodo.15799783. |
+| INTOXICOM 1 | Report of INTOXICOM workshop 1. |
+| INTOXICOM 2 | Report of INTOXICOM workshop 2. |
+| INTOXICOM 3 | Report of INTOXICOM workshop 3. |
+| INTOXICOM 5 | Report of INTOXICOM workshop 5. |
 
 ### FAIRsharing match (`fairsharingMatch`)
 

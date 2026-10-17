@@ -31,6 +31,7 @@ Implementation Communities (E1).
 | PARC Toxicology FIP | Nanopublication `https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E` (7 Sep 2026), read through its declaration index on the retrieval date published with the dataset | Every resource it declares, and the community that declares it |
 | Reference AOP FIP | Nanopublication `https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc` (14 Jul 2025), read the same way | Every resource it declares, and the community that declares it |
 | Co-author additions | Rows added in the curation Sheet | New candidates |
+| ELIXIR Toxicology Community documents | Martens et al. 2023, "ELIXIR and Toxicology: a community in development", F1000Research, doi 10.12688/f1000research.74502.2; FAIRsharing's report on the collection, 3 Jul 2025, doi 10.5281/zenodo.15799783; the reports of INTOXICOM workshops 1, 2, 3 and 5 | Mentions of a row, ticked by curators in the sheet; a mention documents toxicology use (I4) |
 
 The PARC TOXRIC FIP (2024), an earlier FIP of the PARC toxicology community, is known but not imported.
 
@@ -48,7 +49,8 @@ A candidate is included when all of these hold:
 - **I2** It is named and identifiable: it has a homepage or a DOI.
 - **I3** It is or was publicly available. Discontinued resources are kept and marked as discontinued.
 - **I4** Its use in toxicology is documented: it is named in the manuscript in a toxicology context, it is a member
-  of the FAIRsharing Toxicology collection, or it is declared in a toxicology FIP (section 2).
+  of the FAIRsharing Toxicology collection, it is declared in a toxicology FIP, or it is mentioned in an ELIXIR
+  Toxicology Community document (section 2).
 - **I5** It makes data or metadata findable, accessible, interoperable or reusable.
 
 ## 4. Exclusion reasons
@@ -155,6 +157,7 @@ Each excluded row carries exactly one code.
    verification, relation check, phase proposal, review, migration) and source.
 4. **Curation.** Co-authors review every row in the curation Sheet. Disagreements are discussed and settled by the
    corresponding authors; the outcome and the reviewer's initials are recorded in the row and in `data/changes.csv`.
+   Curators also tick, for each row, the ELIXIR Toxicology Community documents that mention it.
    The daily data refresh reads the Sheet back with `fairtox ingest` and keeps the changes in one pull request for
    review. A row that changed in the dataset after the Sheet was made, other than by an earlier read-back, stops the
    read-back until the Sheet is updated.
@@ -190,6 +193,7 @@ Each excluded row carries exactly one code.
 | 10 Oct 2026 | Versions and the changelog follow the Conventional Commits: release-please proposes each release as a pull request, and a release is made only from a commit that passed CI. | Jente Houweling |
 | 10 Oct 2026 | Edits made in the curation sheet are read back daily and reach the dataset only through a reviewed pull request. | Jente Houweling |
 | 10 Oct 2026 | The curation sheet puts what curators check first, in the order of the curation steps and ending with Reviewed by and Note; the context (identifiers, FAIRsharing and FIP data, derived fields, the manuscript columns) follows, folded. | Jente Houweling |
+| 17 Oct 2026 | A mention in an ELIXIR Toxicology Community document documents toxicology use (I4). Curators tick the documents in the sheet (`mentionedIn`): the white paper (Martens et al. 2023), FAIRsharing's report on the collection of 3 Jul 2025 and the INTOXICOM workshop reports 1, 2, 3 and 5. The sheet also shows, computed, where each resource is found now (manuscript draft, FAIRsharing Toxicology collection, a toxicology FIP, co-author addition) in a Source column after URL, an exception to the layout of 10 Oct 2026, which replaces In FAIRsharing collection. | Jente Houweling |
 
 ## 9. Limitations
 
@@ -197,6 +201,8 @@ Each excluded row carries exactly one code.
 - The FAIRsharing collection is curated by its maintainers and changes over time; the retrieval date is published
   with the dashboard and the dataset.
 - First-publication dates depend on what is documented; some can only be bounded.
+- Mentions in the community documents are ticked by curators, not extracted systematically; FAIRsharing's report
+  lists its records only in figures.
 - FSR types, phases and spans are proposals until the co-authors confirm them, and a judgement for resources with
   several roles or uses; creator types depend on what is documented about the makers. All are recorded per resource
   so they can be checked and revised.

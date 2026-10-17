@@ -153,6 +153,14 @@ MANUSCRIPT = {
     'comment only': 'Named only in a comment or to-do note of the manuscript.',
     'absent': 'Not in the manuscript.',
 }
+# The ELIXIR Toxicology Community documents whose mentions curators tick (criteria, section 2).
+ETC_DOCUMENTS = {
+    'Whitepaper': 'Martens et al. 2023, "ELIXIR and Toxicology: a community in development", F1000Research, '
+                  'doi 10.12688/f1000research.74502.2.',
+    'FAIRSharing': "FAIRsharing's report on the ELIXIR Toxicology Community collection, 3 Jul 2025, "
+                   'doi 10.5281/zenodo.15799783.',
+    **{f'INTOXICOM {n}': f'Report of INTOXICOM workshop {n}.' for n in (1, 2, 3, 5)},
+}
 MATCH = {
     'confirmed': 'The FAIRsharing record is this resource.',
     'to check': 'A FAIRsharing record was proposed and needs a curator.',
@@ -211,7 +219,7 @@ VOCABULARIES = {
     'scope': SCOPE, 'phase': PHASES, 'creatorType': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
     'subdomains': SUBDOMAINS, 'dateBasis': DATE_BASIS, 'maintained': MAINTAINED, 'manuscript': MANUSCRIPT,
     'fairsharingMatch': MATCH, 'hadRole': {k: v[2] for k, v in RELATIONS.items()}, 'declaration': FIP_PROPERTIES,
-    'evidence': EVIDENCE,
+    'evidence': EVIDENCE, 'mentionedIn': ETC_DOCUMENTS,
 }
 
 # ---- JSON-LD shape ---------------------------------------------------------------------------------------------------
@@ -369,14 +377,16 @@ def iri(curie):
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'fairsharingType', 'fsrType', 'scope',
            'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
-           'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'fairsharingRecord', 'fairsharingMatch',
-           'reviewedBy', 'note']
+           'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'fairsharingRecord',
+           'fairsharingMatch', 'reviewedBy', 'note']
 FIELD_ORDER = ['@id', 'identifier', 'schemaType'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles',
                                                                'qualifiedAttribution', 'fsr', 'qualifiedRelation',
                                                                'declared-by', 'fipDeclaration',
                                                                'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
-LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span'}
+LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span', 'mentionedIn'}
+# Curated fields added after the Sheet went live count in the row fingerprint only once set: Row versions stay valid.
+LATER = ('mentionedIn',)
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
 DATE_RE = re.compile(r'^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$')
 FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
@@ -537,7 +547,8 @@ def normalise(doc):
                 r[f] = r[f].strip()
             elif isinstance(r.get(f), list):
                 r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
-        for f, vocab in (('subdomains', SUBDOMAINS), ('creatorType', STAKEHOLDER), ('span', PHASES)):
+        for f, vocab in (('subdomains', SUBDOMAINS), ('creatorType', STAKEHOLDER), ('span', PHASES),
+                         ('mentionedIn', ETC_DOCUMENTS)):
             if r.get(f):                                    # one canonical order, so round trips are exact
                 known = [x for x in vocab if x in r[f]]
                 r[f] = known + [x for x in r[f] if x not in vocab]
@@ -638,6 +649,9 @@ def check(doc):
         for s in r.get('creatorType', []) if isinstance(r.get('creatorType'), list) else []:
             if s not in STAKEHOLDER:
                 e(f'{k}: creator type {s!r} is not an allowed value')
+        for d in r.get('mentionedIn', []):
+            if d not in ETC_DOCUMENTS:
+                e(f'{k}: community document {d!r} is not an allowed value')
         for s in r.get('subdomains', []):
             if s not in SUBDOMAINS:
                 e(f'{k}: sub-domain {s!r} is not an allowed value')
@@ -754,7 +768,8 @@ def save(doc, path=DATASET):
 def row_hash(r):
     """Short fingerprint of a resource's curated fields. The Sheet carries it per row, so ingest can refuse an edit
     to a row that changed in the dataset after the Sheet was built, while rows nobody touched merge cleanly."""
-    return hashlib.sha256(json.dumps([r.get(k) for k in CURATED], sort_keys=True).encode()).hexdigest()[:10]
+    fields = [r.get(k) for k in CURATED if k not in LATER] + [[k, r[k]] for k in LATER if r.get(k)]
+    return hashlib.sha256(json.dumps(fields, sort_keys=True).encode()).hexdigest()[:10]
 
 
 def relation_rows(doc):
