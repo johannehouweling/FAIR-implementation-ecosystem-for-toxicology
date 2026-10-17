@@ -21,7 +21,7 @@ PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxico
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
 NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
                'fairsharingType', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
-               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'fairsharing', 'url', 'creator',
+               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'sources', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
 # Curation fields and vocabularies that stay out of the build. Relations keep only their label: their evidence and
@@ -31,6 +31,10 @@ PRIVATE = ('decision', 'exclusionReason', 'coveredBy', 'manuscript', 'manuscript
 PRIVATE_VOCABULARIES = ('decision', 'exclusionReason', 'manuscript', 'fairsharingMatch', 'evidence')
 # fsrCategory IRI -> label: one box each in the Class filter
 CLASSES = {model.FER: 'FAIR-Enabling Resource', model.FSR: 'FAIR Supporting Resource'}
+CLASS_DEF = {model.FER: 'Essential to the operationalisation of the FAIR principles: a service, specification or policy '
+                        'that puts FAIR into action.',
+             model.FSR: 'Any other resource that supports FAIR implementation.'}   # as the criteria define them
+COLLECTION = 'FAIRsharing Toxicology collection'   # the collection as a source, named as in the criteria
 
 
 NOT_A_NAME = re.compile(r'^[a-z]+\d+[a-z]?$|^Issue #|FAIRsharing\.')   # citation keys, issue numbers, record codes
@@ -86,12 +90,18 @@ def nodes_links(doc):
             'declaredBy': key_of.get(r.get('declared-by'), ''), 'registry': model.registry(r) or '',
             'scope': r.get('scope', ''), 'creatorType': r.get('creatorType', []),
             'buildsOnFair': bool(r.get('buildsOnFair')), 'subdomains': r.get('subdomains', []),
-            # in the collection but not in the manuscript: hidden by one switch on the page
             'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
+            # where it was found, by the sources the criteria screen; the FIPs come below, once every key has a label
+            'sources': ([doc['creator']['name']] if r.get('manuscript', 'absent') != 'absent' else [])
+                       + ([COLLECTION] if fs.get('inCollection') else []),
             'fairsharing': fairsharing_url(r), 'url': r.get('url', ''), 'creator': r.get('creator', ''),
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
             'dateSource': r.get('dateSource', ''), 'dateBasis': basis,
         })
+    fips, label_of = {k for n in nodes for k in n['declaredIn']}, {n['key']: n['label'] for n in nodes}
+    for n in nodes:   # a FIP is a source of what it declares and of itself; a row no source names was added by the curators
+        n['sources'] += [label_of[k] for k in n['declaredIn']] + ([n['label']] if n['key'] in fips else [])
+        n['sources'] = n['sources'] or [doc['creator']['name']]
     links = [{'src': x['target'], 'dst': x['subject'], 'label': x['hadRole'], 'lineage': model.RELATIONS[x['hadRole']][1]}
              for x in model.relation_rows(doc)]
     declared = {}
@@ -143,6 +153,10 @@ def page_meta(doc):
         'title': doc['name'], 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
         'creator': doc['creator']['name'], 'sources': doc.get('sources', {}), 'lanes': model.LANES,
         'toxLanes': model.TOX_LANES, 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
+        'classDef': {CLASSES[k]: v for k, v in CLASS_DEF.items()},
+        # the Source filter's options: the curators, the collection, then the FIPs in the dataset
+        'sourceList': [doc['creator']['name'], COLLECTION,
+                       *sorted(label(r) for r in doc['hasPart'] if r['key'] in doc.get('sources', {}).get('fip', {}))],
         'communities': sorted(v[0] for v in model.fsr_types().values() if v[1] == model.FIC),   # never drawn
         'creatorLanes': list(model.CREATOR_LANE_DEF), 'creatorLaneDef': model.CREATOR_LANE_DEF,
         'subdomains': [[s, model.SUBDOMAIN_LANE[s]] for s in model.SUBDOMAINS],
@@ -218,8 +232,10 @@ FIELDS = [
                           'when the dataset is built, not curated.', None),
     ('fsr', 'The IRIs under which the FIPs declare the resource, when they differ from its identifier.', None),
     ('fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection '
-                       'that entered this dataset only through the collection. The switch of the same name hides these '
-                       'resources.', None),
+                       'that entered this dataset only through the collection.', None),
+    ('sources', 'In resources.csv only. Derived: where the resource was found, by the sources the criteria screen: the '
+                'curation of the ELIXIR Toxicology Community, the FAIRsharing Toxicology collection, and each '
+                'toxicology FIP that declares it (a FIP is a source of itself). The Source filter uses it.', None),
     ('qualifiedRelation, hadRole', 'Relations to other resources, read subject first ("CTD implements ExO"): '
                                    'qualifiedRelation in the JSON-LD, subject, hadRole and target in relations.csv.',
      'hadRole'),
@@ -291,9 +307,11 @@ def build(doc, outdir, offline=False):
     doc = public(doc)
     keep = {r['key'] for r in doc['hasPart']}
     nodes = [n for n in nodes if n['key'] in keep]
+    sources = {doc['creator']['name'], COLLECTION, *(n['label'] for n in nodes)}
     for n in nodes:   # as in public(): FIPs and communities that are not included are left out
         n['declaredIn'] = [k for k in n['declaredIn'] if k in keep]
         n['declaredBy'] = n['declaredBy'] if n['declaredBy'] in keep else ''
+        n['sources'] = [s for s in n['sources'] if s in sources] or [doc['creator']['name']]
     links = [x for x in links if x['src'] in keep and x['dst'] in keep]
     declarations = [x for x in declarations if x['src'] in keep and x['dst'] in keep]
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')

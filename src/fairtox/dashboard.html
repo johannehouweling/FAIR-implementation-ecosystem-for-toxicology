@@ -41,14 +41,21 @@ header p { margin: 0; max-width: 80ch; }
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px; }
 input[type=search], select { box-sizing: border-box; height: 32px; max-width: 100%; padding: 4px 9px; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; }
 input[type=search] { width: 172px; }
-select { cursor: pointer; field-sizing: content; }
+select { cursor: pointer; }
+/* as wide as its longest value, so that nothing moves when one is chosen; the long sub-domains get an ellipsis */
+#f-sub { width: 190px; text-overflow: ellipsis; }
 fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .chip { box-sizing: border-box; display: inline-flex; align-items: center; gap: 5px; min-height: 30px; padding: 2px 10px 2px 8px; border: 1px solid var(--rule); border-radius: 15px; background: var(--bg); cursor: pointer; }
 .chip:has(input:not(:checked)) { color: var(--ink-2); border-style: dashed; }
 .chip input { margin: 0; accent-color: var(--ink); }
 .tox { padding: 2px 3px 2px 10px; border: 1px solid var(--grid); border-radius: 18px; }
-.tox legend { float: left; padding: 0; margin-right: 2px; color: var(--ink-2); font-size: 12px; }
+.tox legend, .group > legend { float: left; padding: 0; margin-right: 2px; color: var(--ink-2); font-size: 12px; }
 .tox .chip { min-height: 26px; }
+/* the filters most visits leave alone fold into one line; each row of the fold has its label in a column of its own */
+.more { flex-basis: 100%; }
+.more > div { display: grid; gap: 8px; padding-top: 8px; }
+.group { padding-left: 62px; }
+.group > legend { flex: none; width: 56px; margin: 0 0 0 -62px; }
 
 .viz { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
 @media (min-width: 1340px) {
@@ -103,7 +110,7 @@ td:nth-child(4) { white-space: nowrap; }
 .about dt { margin-top: 6px; color: var(--ink); font-weight: 500; }
 .about dd { margin: 0; }
 .dict { margin-top: 18px; overflow-wrap: anywhere; }
-.dict summary { cursor: pointer; width: fit-content; }
+.dict summary, .more summary { cursor: pointer; width: fit-content; }
 .dict summary h3 { display: inline; }
 .dict > p { max-width: 90ch; }
 .dict dd > dl { margin: 2px 0 8px; padding-left: 12px; border-left: 1px solid var(--grid); }
@@ -132,17 +139,22 @@ button.btn:hover { border-color: var(--ink); }
   </header>
 
   <div class="controls" role="search" aria-label="Search and filter the resources">
-    <input id="q" type="search" placeholder="Search resources" aria-label="Search resources by name, alias or description" autocomplete="off" spellcheck="false">
-    <fieldset id="f-mode" class="tox"><legend>Toxicology lanes</legend><label class="chip"><input type="radio" name="mode" checked> Phase</label><label class="chip"><input type="radio" name="mode" id="by-creator"> Creator</label></fieldset>
-    <select id="f-type" aria-label="Type"><option value="">All types</option><option>Standard</option><option>Database</option><option>Policy</option><option>Collection</option><option>Tool</option></select>
-    <select id="f-sub" aria-label="Sub-domain"><option value="">All sub-domains</option></select>
+    <!-- tooltips are titles: on hover only, so each label stands on its own -->
+    <input id="q" type="search" placeholder="Search resources" title="Search by name, alias or description" aria-label="Search resources by name, alias or description" autocomplete="off" spellcheck="false">
+    <select id="f-type" aria-label="Type" title="The kind of resource, as FAIRsharing registers it: standard, database, policy or collection; tools are the software and services FAIRsharing does not register"><option value="">All types</option><option>Standard</option><option>Database</option><option>Policy</option><option>Collection</option><option>Tool</option></select>
+    <select id="f-sub" aria-label="Sub-domain" title="The toxicology sub-domain a resource serves"><option value="">All sub-domains</option></select>
+    <select id="f-src" aria-label="Source" title="Where a resource was found: the curation of the ELIXIR Toxicology Community, the FAIRsharing Toxicology collection, or a toxicology FAIR Implementation Profile (FIP) that declares it"><option value="">All sources</option></select>
+    <fieldset id="f-mode" class="tox"><legend>Toxicology lanes</legend><label class="chip" title="Toxicology resources in the lane of the data life-cycle phase they act on, the earliest if several"><input type="radio" name="mode" checked> Phase</label><label class="chip" title="Toxicology resources in the lane of the creator type that made them, or of two or more together"><input type="radio" name="mode" id="by-creator"> Creator</label></fieldset>
     <label class="chip"><input type="checkbox" id="t-links" checked> Relations</label>
-    <label class="chip"><input type="checkbox" id="t-fip"> FIP declarations</label>
-    <label class="chip"><input type="checkbox" id="t-coll" checked> Added from the FAIRsharing Toxicology collection</label>
-    <label class="chip"><input type="checkbox" id="t-declared"> Declared in a toxicology FIP</label>
-    <fieldset id="f-class" class="tox"><legend>Class</legend></fieldset>
-    <!-- the lane chips change with the layout, so they come after the controls that do not -->
-    <fieldset id="f-lanes"><legend class="sr">Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology infrastructure</legend></fieldset></fieldset>
+    <label class="chip" title="Dotted lines from each toxicology FAIR Implementation Profile (FIP) to the resources it declares"><input type="checkbox" id="t-fip"> FIP declarations</label>
+    <details id="more" class="more">
+      <summary>More filters<span id="more-n"></span></summary>
+      <div>
+        <fieldset id="f-class" class="group"><legend>Class</legend></fieldset>
+        <!-- the lane chips change with the layout, so they come after the controls that do not -->
+        <fieldset id="f-lanes" class="group"><legend>Lanes</legend><fieldset id="f-tox" class="tox"><legend>Toxicology</legend></fieldset></fieldset>
+      </div>
+    </details>
   </div>
 
   <div class="viz" id="viz">
@@ -168,7 +180,7 @@ button.btn:hover { border-color: var(--ink); }
       <h3>What is listed</h3>
       <p>Standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the list but not in the figure.</p>
       <h3>Where the resources come from</h3>
-      <p>The <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and curation by the ELIXIR Toxicology Community. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata and the declarations of the toxicology FAIR Implementation Profiles (FIPs) are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
+      <p>Curation by the ELIXIR Toxicology Community, the <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and the toxicology FAIR Implementation Profiles (FIPs), whose declarations name the resources their communities use; the Source filter shows the resources of one source. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata and the FIP declarations are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
       <h3>FSR types and FIP declarations</h3>
       <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource or other FAIR Supporting Resource, one type per resource. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource list its declarations, with links to their nanopublications.</p>
     </div>
@@ -186,7 +198,7 @@ button.btn:hover { border-color: var(--ink); }
     </div>
     <details class="dict">
       <summary><h3>Data dictionary</h3></summary>
-      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. Each field names its term in schema.org, DCAT or the FIP ontology, and each controlled value is an outside concept or a term of the dataset (terms.ttl). resources.csv has the same fields, with aliases for alternateName and date and dateBasis for the date fields, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by phase and by creator), registry (the FAIRsharing registry of the type), fairsharing (the FAIRsharing record) and fromCollection (defined below).</p>
+      <p>The fields of the dataset (fair-tox-ecosystem.jsonld), with the allowed values of the controlled ones. Each field names its term in schema.org, DCAT or the FIP ontology, and each controlled value is an outside concept or a term of the dataset (terms.ttl). resources.csv has the same fields, with aliases for alternateName and date and dateBasis for the date fields, and adds key (a stable identifier), label and abbr (as shown in the figure), year, lane and creatorLane (the lane by phase and by creator), registry (the FAIRsharing registry of the type), fairsharing (the FAIRsharing record), fromCollection and sources (defined below).</p>
       <dl id="dict"></dl>
     </details>
   </section>
@@ -249,8 +261,8 @@ const laneNames = () => byCreator() ? [...GENERIC, ...META.creatorLanes] : META.
 const dated = n => Number.isInteger(n.year);
 const community = n => n.fsrType.some(t => META.communities.includes(t));   // listed, never drawn
 const placed = n => dated(n) && laneNames().includes(laneOf(n)) && !community(n);
-const declared = n => DECLS.some(d => d.dst === n.key || d.src === n.key);   // declared, or a FIP that declares
 const TOX = new Set([...META.toxLanes, ...META.creatorLanes]);
+const LANE_DEF = {...META.laneDef, ...META.creatorLaneDef};
 const byName = (a, b) => a.name.localeCompare(b.name);
 const laneIndex = n => { const i = META.lanes.indexOf(n.lane); return i < 0 ? META.lanes.length : i; };
 const hay = Object.fromEntries(NODES.map(n => [n.key, [n.name, ...(n.aliases || []), n.description || ''].join(' ').toLowerCase()]));
@@ -300,11 +312,11 @@ function shape(type, x, y, r, parent) {  // circle = standard, square = database
   return el('path', {d: `M${x} ${y - r * 1.2}L${x + r * 1.15} ${y + r * .9}L${x - r * 1.15} ${y + r * .9}Z`}, parent);
 }
 
-const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), cls: new Set(META.classes), type: '', sub: '', q: [], sel: null, col: 3, dir: 1};
+const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), cls: new Set(META.classes), type: '', sub: '', src: '', q: [], sel: null, col: 3, dir: 1};
 // resources without an FSR type pass the Class filter
 const passes = n => (!laneOf(n) || state.lanes.has(laneOf(n))) && (!state.type || n.registry === state.type) &&
-  (!state.sub || n.subdomains.includes(state.sub)) && (!n.fromCollection || $('t-coll').checked) &&
-  (!n.fsrCategory || state.cls.has(n.fsrCategory)) && (!$('t-declared').checked || declared(n));
+  (!state.sub || n.subdomains.includes(state.sub)) && (!state.src || n.sources.includes(state.src)) &&
+  (!n.fsrCategory || state.cls.has(n.fsrCategory));
 const matches = n => state.q.every(w => hay[n.key].includes(w));
 const offText = ns => {  // why some resources are listed but not drawn
   const c = ns.filter(community).length, rest = ns.filter(n => !community(n));
@@ -691,8 +703,7 @@ function header() {
   const year = String(META.dateModified || '').slice(0, 4) || new Date().getFullYear();
   $('cite').innerHTML = `${esc(META.creator)}. ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`;
   $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
-  const def = {...META.laneDef, ...META.creatorLaneDef};
-  $('lane-defs').innerHTML = [...META.lanes, ...META.creatorLanes].map(l => `<dt>${esc(l)}</dt><dd>${esc(def[l])}</dd>`).join('');
+  $('lane-defs').innerHTML = [...META.lanes, ...META.creatorLanes].map(l => `<dt>${esc(l)}</dt><dd>${esc(LANE_DEF[l])}</dd>`).join('');
   if (isUrl(META.collection)) $('coll').href = META.collection;
 }
 
@@ -710,14 +721,20 @@ function dictionary() {
 
 function addChip(parent, text, on, before = null) {
   const l = document.createElement('label'), i = document.createElement('input');
-  l.className = 'chip'; i.type = 'checkbox'; i.checked = true;
+  l.className = 'chip'; i.type = 'checkbox'; i.defaultChecked = true;
   i.addEventListener('change', () => { on(i.checked); render(); });
   l.append(i, ' ' + text); parent.insertBefore(l, before);
   return l;
 }
-for (const lane of [...META.lanes, ...META.creatorLanes])
-  addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), lane, on => on ? state.lanes.add(lane) : state.lanes.delete(lane), TOX.has(lane) ? null : $('f-tox')).dataset.lane = lane;
-for (const c of META.classes) addChip($('f-class'), c, on => on ? state.cls.add(c) : state.cls.delete(c));
+// lane chips go by the scope or creator type (Generic, Regulators), their tooltips by the lane's name and definition
+for (const lane of [...META.lanes, ...META.creatorLanes]) {
+  const text = capital(lane.replace(/ infrastructure$|^Made by /, ''));
+  const c = addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), text, on => on ? state.lanes.add(lane) : state.lanes.delete(lane),
+    TOX.has(lane) ? null : $('f-tox'));
+  c.dataset.lane = lane; c.title = (text === lane ? '' : `${lane}: `) + LANE_DEF[lane];
+}
+for (const c of META.classes) addChip($('f-class'), c, on => on ? state.cls.add(c) : state.cls.delete(c)).title = META.classDef[c];
+$('t-links').parentNode.title = `Lines for the FAIRsharing relations: ${Object.keys(META.relations).map(words).join(', ')}`;
 for (const lane of META.lanes) {
   const subs = META.subdomains.filter(s => s[1] === lane);
   if (!subs.length) continue;
@@ -726,9 +743,11 @@ for (const lane of META.lanes) {
   for (const [s] of subs) g.append(new Option(capital(s), s));
   $('f-sub').append(g);
 }
+for (const s of META.sourceList) $('f-src').append(new Option(s));
 $('f-type').addEventListener('change', ev => { state.type = ev.target.value; render(); });
 $('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; render(); });
-['t-links', 't-fip', 't-coll', 't-declared'].forEach(id => $(id).addEventListener('change', render));
+$('f-src').addEventListener('change', ev => { state.src = ev.target.value; render(); });
+['t-links', 't-fip'].forEach(id => $(id).addEventListener('change', render));
 $('f-mode').addEventListener('change', render);
 $('q').addEventListener('input', ev => { state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean); paint(); table(); notes(); });
 
@@ -761,6 +780,9 @@ $('b-print').addEventListener('click', () => {
 function render() {
   hideTip();
   $('f-tox').querySelectorAll('.chip').forEach(c => { c.hidden = !laneNames().includes(c.dataset.lane); });
+  // closed, the fold still says how many of its filters hide resources
+  const set = [...$('more').querySelectorAll('input')].filter(i => i.checked !== i.defaultChecked && !i.closest('[hidden]')).length;
+  $('more-n').textContent = set ? ` (${set} active)` : '';
   draw(); table();
   if (state.sel && !byKey[state.sel].pass) closePanel();   // a filter hid the selected resource: undim the figure
 }
