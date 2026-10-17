@@ -36,9 +36,11 @@ CI tests every change, runs `fairtox validate --strict`, checks the published da
 Discovery profile 1.1 (its SHACL rules, with pyshacl) and, on `main`, publishes the dashboard. Then release-please
 keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
 Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
-Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back with its checks and logs
-every change. A daily workflow reads the sheet back, then FAIRsharing and the FIPs, and keeps one pull request open
-with what changed.
+Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row with its
+checks and logs every change, under the curator's initials when given. A row with a problem waits in the sheet and is
+listed. A
+workflow reads the sheet back three times a day, then FAIRsharing and the FIPs, and keeps one pull request open with
+what changed.
 
 ## Commands
 
@@ -50,7 +52,7 @@ uv run fairtox validate                                        # check; --strict
 uv run --env-file .env fairtox fairsharing                     # new FAIRsharing collection members; --apply stores them
 uv run fairtox fip                                             # FIP match report; --apply stores links and new rows
 uv run --env-file .env fairtox sheet build/curation.xlsx       # curation workbook, edited as a Google Sheet
-uv run fairtox ingest build/curation-sheet.xlsx                # read the edited sheet back, checked and logged
+uv run fairtox ingest build/curation-sheet.xlsx                # read the sheet back row by row; --report adds a summary
 uv run --env-file .env fairtox site build/site                 # dashboard, published dataset, CSV files and vocabulary
 uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharing would accept; nothing is posted
 ```

@@ -76,26 +76,45 @@ def cmd_sheet(a):
 def cmd_ingest(a):
     from fairtox import sheet
     doc, source = _load(), os.path.basename(a.workbook)
-    with open(model.CHANGES, newline='', encoding='utf-8') as f:    # rows last changed by reading this sheet back
-        last = {r['key']: r['source'] for r in csv.DictReader(f)}
-    read_back = {k for k, s in last.items() if s == source}
+    with open(model.CHANGES, newline='', encoding='utf-8') as f:    # rows whose own fields were last changed by
+        last = {r['key']: r['source'] for r in csv.DictReader(f) if not r['field'].startswith('relation')}
+    read_back = {k for k, s in last.items() if s == source}        # reading this sheet back
     new, changes, problems, notes, reviewers = sheet.ingest(doc, a.workbook, force=a.force, read_back=read_back)
-    for n in notes:
-        print('note:', n)
+    path = os.path.join('build', 'ingest-errors.csv')
     if problems:
-        path = os.path.join('build', 'ingest-errors.csv')
         os.makedirs('build', exist_ok=True)
         with open(path, 'w', newline='', encoding='utf-8') as f:
             w = csv.DictWriter(f, ['sheet', 'cell', 'column', 'value', 'problem'])
             w.writeheader()
             w.writerows(problems)
-        for p in problems[:30]:
-            print(f"problem: {p['sheet']}!{p['cell']} {p['column']}: {p['problem']}")
-        print(f'{len(problems)} problems, nothing changed. The full list is in {path}.')
+    cell = lambda p: f"{p['sheet']}!{' '.join(filter(None, (p['cell'], p['column'], p['value'])))}: {p['problem']}"
+    if new is None:
+        _report([f'{len(problems)} problems, nothing changed. The full list is in {path}.',
+                 *(f'problem: {cell(p)}' for p in problems[:30]), *(f'note: {n}' for n in notes)],
+                a.report, 'Curation sheet')
         return 1
     model.save(new)
     model.log_changes(changes, a.round, source, reviewers)
-    print(f'{len(changes)} changes applied and logged in {model.CHANGES}')
+
+    def item(c):                                            # the row, or the relation, a change is about
+        if len(c) < 5:
+            return c[0]
+        rel = (c[2] if c[3] == '(removed)' else c[3]) if c[1] == 'relation' else ' '.join(c[1].split()[1:3])
+        return f'{c[0]} {rel}'
+    by = lambda c: c[4] if len(c) > 4 else reviewers.get(c[0], '')
+    resigned = {item(c) for c in changes if c[1] in ('reviewedBy', '(row)') or c[1].endswith(' reviewedBy')
+                or c[2] == '(new)'}                         # signed in this read-back
+    unsigned = sorted({item(c) for c in changes if not by(c)})
+    kept = sorted({f'{item(c)} ({by(c)})' for c in changes if by(c) and item(c) not in resigned})
+    included, rels = [r for r in new['hasPart'] if r.get('decision') == 'include'], model.relation_rows(new)
+    lines = [f'{len(changes)} changes read back and logged in {model.CHANGES}',
+             *(f'waits until fixed: {cell(p)}' for p in problems),
+             *([f"changed without initials: {', '.join(unsigned)}"] if unsigned else []),
+             *([f"changed under the initials already in Reviewed by: {', '.join(kept)}"] if kept else []),
+             f"signed by a curator: {sum(bool(r.get('reviewedBy')) for r in included)} of {len(included)} included "
+             f"rows, {sum(bool(x['reviewedBy']) for x in rels)} of {len(rels)} relations",
+             *(f'note: {n}' for n in notes)]
+    _report(lines, a.report, 'Curation sheet')
     _, warnings = model.check(new)
     print(f'{len(warnings)} warnings remain (see: uv run fairtox validate)')
     return 0
@@ -168,6 +187,7 @@ def main(argv=None):
     s.add_argument('workbook')
     s.add_argument('--force', action='store_true', help='apply rows that changed in the dataset after the sheet was made')
     s.add_argument('--round', default='curation', help='name of the curation round for the change log')
+    s.add_argument('--report', metavar='FILE', help='also append the report to a markdown file')
     s.set_defaults(run=cmd_ingest)
     s = sub.add_parser('site', help='build the static dashboard')
     s.add_argument('outdir')

@@ -619,6 +619,9 @@ def check(doc):
     by_id = {r.get('@id'): r for r in rs}
     for k in {k for k in keys if keys.count(k) > 1}:
         errors.append(f'{k}: duplicate key')
+    ids = [r.get('@id') for r in rs]
+    for k in {r.get('key') for r in rs if ids.count(r.get('@id')) > 1}:
+        errors.append(f'{k}: has the same identifier as another row')
     today = dt.date.today()
     for r in rs:
         k = r.get('key')
@@ -813,7 +816,8 @@ def _text(v):
 
 
 def log_changes(changes, round_name, source, by=None, path=CHANGES):
-    """Append (key, field, old, new) rows to the change log; `by` maps key -> curator initials."""
+    """Append (key, field, old, new) rows to the change log; `by` maps key -> curator initials. A change with a fifth
+    item, such as a relation read back with its own Reviewed by, is logged under that name."""
     if not changes:
         return
     new = not os.path.exists(path)
@@ -823,5 +827,6 @@ def log_changes(changes, round_name, source, by=None, path=CHANGES):
         w = csv.writer(f)
         if new:
             w.writerow(['date', 'round', 'key', 'field', 'old', 'new', 'by', 'source'])
-        for key, field, old, new_value in changes:
-            w.writerow([today, round_name, key, field, old, new_value, (by or {}).get(key, ''), source])
+        for key, field, old, new_value, *who in changes:
+            w.writerow([today, round_name, key, field, old, new_value, who[0] if who else (by or {}).get(key, ''),
+                        source])

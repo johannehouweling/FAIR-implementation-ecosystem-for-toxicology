@@ -44,7 +44,8 @@ MARKED = ('x', 'true')                                      # how a mark reads b
 # span, and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
 # The Resources tab puts what curators check first, in the order of the curation steps; the context follows, folded.
 TASK_COLUMNS = [
-    ('Key', 'key', 'key', 16, 'Stable identifier. Leave empty for a new row; a key is assigned on import.'),
+    ('Key', 'key', 'key', 16, 'Stable identifier, never changed. For a new row, type a short key: lowercase letters, '
+     'digits, _ or -.'),
     ('Name', 'name', 'text', 36, 'Full name of the resource.'),
     ('URL', 'url', 'text', 32, 'Main web address.'),
     ('Source', None, 'static', 30, 'Computed: where the resource is found: the manuscript draft, the FAIRsharing '
@@ -74,7 +75,7 @@ TASK_COLUMNS = [
     ('Maintained', 'maintained', 'list:Maintained', 14, 'active, discontinued, in development or unknown.'),
     *[(ETC_HEAD[d], d, 'etc', 10, 'Tick when this ELIXIR Toxicology Community document mentions the resource: '
        + text) for d, text in model.ETC_DOCUMENTS.items()],
-    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the row.'),
+    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the whole row: this confirms it.'),
     ('Note', 'note', 'text', 44, 'Anything the next curator should know.'),
 ]
 CONTEXT_COLUMNS = [
@@ -120,7 +121,7 @@ RELATION_COLUMNS = [
     ('Keep', None, 'list:Keep', 9, 'Set to remove to drop the relation.'),
     ('Enterable in FAIRsharing', None, 'static', 14, 'Whether FAIRsharing allows this relation between these two '
      'records.'),
-    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the relation.'),
+    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the relation: this confirms it.'),
     ('Note', 'note', 'text', 40, ''),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
@@ -131,7 +132,8 @@ INSTRUCTIONS = [
     'what to check, in the order of the curation steps; the context after Note is folded: open it with the + above '
     'the column letters.',
     'Never delete a row. To drop a resource, set Decision to exclude and choose an Exclusion reason.',
-    'Add new resources at the bottom of the Resources tab and leave Key empty; a key is assigned on import.',
+    'Add new resources at the bottom of the Resources tab, each with a short key of your own: lowercase letters, '
+    'digits, _ or -.',
     'Mark each sub-domain that applies with x. A resource can belong to several.',
     'First published is the date the resource first became public, as YYYY, YYYY-MM or YYYY-MM-DD. '
     'Put the DOI or web page that shows the date in Citation.',
@@ -151,7 +153,10 @@ INSTRUCTIONS = [
     'Relations read from left to right, for example "CTD implements ExO". Set Keep to remove to drop one; '
     'add new ones at the bottom of the Relations tab. The grey rows are what the toxicology FIPs declare, read when '
     'the sheet is made; they are read-only. Vocabulary says which is which.',
-    'Put your initials in Reviewed by when you have checked a row.',
+    'A value is a proposal until a co-author has checked its row; Note says where it comes from. When you have '
+    'checked a whole row and fixed what is wrong, put your initials in Reviewed by. To change a row someone else '
+    'signed, check the whole row and sign it yourself, or empty Reviewed by. Sign relations the same way on the '
+    'Relations tab.',
 ]
 CRITERIA_TEXT = [
     'I1 It is a resource, not an organisation, project, community, event or publication, except a FAIR Implementation '
@@ -210,7 +215,8 @@ def build(doc, path, added=()):
     _, warnings = model.check(doc)
     warn = {}
     for w in warnings:
-        warn.setdefault(w.split(':', 1)[0], []).append(w.split(':', 1)[1].strip())
+        k, _, text = w.partition(': ')
+        warn.setdefault(k, []).append(text)
     rows = sorted(doc['hasPart'], key=_sort_key)
     rels = model.relation_rows(doc)
     by_key = {r['key']: r for r in doc['hasPart']}
@@ -285,7 +291,7 @@ def build(doc, path, added=()):
         r = rows[n - 2] if n - 2 < len(rows) else None
         for i, (head, field, kind, *_) in enumerate(RESOURCE_COLUMNS, 1):
             c = res.cell(row=n, column=i)
-            if kind in GREY_KINDS or kind == 'key':
+            if kind in GREY_KINDS or (kind == 'key' and r is not None):    # a new row's key is typed in
                 c.fill = GREY
             if kind == 'date':
                 c.number_format = '@'
@@ -427,11 +433,25 @@ def _url(v):
     return v
 
 
-def ingest(doc, path, force=False, read_back=()):
-    """Read a curated workbook. Returns (new_doc, changes, problems, notes, reviewers); new_doc is None when there are
-    problems. Problems are dicts with sheet, cell, column, value, problem; reviewers maps key -> Reviewed by.
-    read_back holds the keys whose latest logged change came from reading this sheet back: their row version may be
-    older than the dataset row, which still equals what the sheet showed."""
+def _owner(message):
+    """What a check message names: (key, label, target) for a relation to a later resource, else a row's key."""
+    key, _, rest = message.partition(': ')
+    label, _, target = rest.partition(' ')
+    if label in model.RELATIONS and rest.endswith('points to a resource first published later'):
+        return key, label, target.split(' ', 1)[0]
+    return key.strip("'")
+
+
+def ingest(doc, path, force=False, read_back=(), refused=None):
+    """Read a curated workbook. Returns (new_doc, changes, problems, notes, reviewers). A row or relation with a problem
+    waits, with the relations of a waiting row, and is listed in problems; the rest is read back. new_doc is None only
+    when the workbook cannot be read, or when an error remains that no row or relation of the sheet causes. Problems
+    are dicts with sheet, cell, column, value, problem; reviewers maps key -> Reviewed by, and a relation change
+    carries its own Reviewed by as a fifth item. read_back holds the keys whose
+    latest logged change came from reading this sheet back: their row version may be older than the dataset row, which
+    still equals what the sheet showed. refused maps what the check found an error or a new warning in (a key, or
+    (subject, label, target) for a relation) to the check's message; the sheet is then read again without it."""
+    refused = refused or {}
     wb = load_workbook(path, data_only=True)
     problems, notes = [], []
 
@@ -452,7 +472,7 @@ def ingest(doc, path, force=False, read_back=()):
     if missing:
         problem('Resources', '1', ', '.join(missing), '', 'columns missing; do not rename or delete columns')
         return None, [], problems, notes, {}
-    seen, row_of, reviewer = set(), {}, {}
+    seen, row_of, reviewer, waiting, twice = set(), {}, {}, set(), {}
     for cells in ws.iter_rows(min_row=2):
         n = cells[0].row
         val = {h: cells[i].value for h, i in head.items() if i < len(cells)}
@@ -499,13 +519,17 @@ def ingest(doc, path, force=False, read_back=()):
                 bad = True
         if not parsed['name']:
             problem('Resources', where['Name'], 'Name', '', 'every row needs a name')
+            if key:
+                waiting.add(key)
             continue
-        if key and key in seen:
+        if key and key in seen:                             # both lines wait
             problem('Resources', where['Key'], 'Key', key, 'this key appears twice')
+            twice[key] = 'this key appears twice'
             continue
         if key and key not in rows:
             if version:
-                problem('Resources', where['Key'], 'Key', key, 'unknown key; keys must not be edited')
+                problem('Resources', where['Key'], 'Key', key, 'unknown key: restore the original key or, for a new '
+                        'resource copied from another line, empty its Row version (folded, last column)')
                 continue
             if not model.KEY_RE.match(key):
                 problem('Resources', where['Key'], 'Key', key, 'a new key may only use a-z, 0-9, _ and -')
@@ -517,7 +541,8 @@ def ingest(doc, path, force=False, read_back=()):
             notes.append(f'Resources row {n}: new resource {parsed["name"]!r} gets key {key!r}')
         seen.add(key)
         row_of[key] = n
-        if bad:
+        if bad or key in refused:
+            waiting.add(key)
             continue
         old = rows.get(key)
         if old is None or not version:                      # a row added in the sheet keeps its defaults
@@ -530,9 +555,10 @@ def ingest(doc, path, force=False, read_back=()):
             date, basis = model.first_date(old)                  # the sheet's form of the date
             seen_as = {**old, 'datePublished': date, 'dateBasis': basis}
             changed = any(model._text(seen_as.get(f)) != model._text(parsed.get(f)) for f in parsed)
-            if changed and version and version != current.get(key) and key not in read_back and not force:
+            if changed and version != current.get(key) and key not in read_back and not force:
                 problem('Resources', where['Key'], 'Key', key,
                         'this row changed in the dataset after the sheet was made; make a new sheet or re-check it')
+                waiting.add(key)
                 continue
             old.update(parsed)
         if _text(val.get('Reviewed by')):
@@ -547,25 +573,39 @@ def ingest(doc, path, force=False, read_back=()):
     by_key = {r['key']: r for r in new['hasPart']}
     ws = wb['Relations']
     head = {_text(c.value): i for i, c in enumerate(ws[1]) if _text(c.value)}
+    missing = [h for h, _, k, *_ in RELATION_COLUMNS if k not in GREY_KINDS and h not in head]
+    if missing:
+        problem('Relations', '1', ', '.join(missing), '', 'columns missing; do not rename or delete columns')
+        return None, [], problems, notes, {}
+    rel_row, rel_by = {}, {}
     for cells in ws.iter_rows(min_row=2):
         n = cells[0].row
         val = {h: cells[i].value for h, i in head.items() if i < len(cells)}
         subject, label, target = (_text(val.get(h)) for h in ('Resource', 'Relation', 'Target'))
         if not (subject or label or target) or label in model.FIP_PROPERTIES:   # FIP rows are read-only
             continue
-        bad = False
+        if (subject, label, target) in rel_row:                                 # both lines wait
+            problem('Relations', f'A{n}', '', f'{subject} {label} {target}', 'this relation appears twice')
+            twice[subject, label, target] = 'this relation appears twice'
+            continue
+        rel_row[subject, label, target] = n
+        if subject in waiting or (subject, label, target) in refused:          # waits with its row, or for a fix
+            continue
+        bad, evidence = False, _text(val.get('Evidence'))
         for h, v, ok in (('Resource', subject, subject in by_key), ('Relation', label, label in model.RELATIONS),
-                         ('Target', target, target in by_key)):
+                         ('Target', target, target in by_key and target != subject),
+                         ('Evidence', evidence, evidence in ('', *model.EVIDENCE))):
             if not ok:
                 col = get_column_letter(head.get(h, 0) + 1)
                 problem('Relations', f'{col}{n}', h, v, 'missing or not an allowed value')
                 bad = True
-        evidence, keep = _text(val.get('Evidence')), _text(val.get('Keep')) or 'keep'
+        keep = _text(val.get('Keep')) or 'keep'
         if keep not in LISTS['Keep']:
             problem('Relations', f'{get_column_letter(head["Keep"] + 1)}{n}', 'Keep', keep, 'use keep or remove')
             bad = True
         if bad:
             continue
+        rel_by[subject, label, target] = _text(val.get('Reviewed by'))
         rels = by_key[subject].setdefault('qualifiedRelation', [])
         existing = next((q for q in rels if q['relation'] == id_of[target] and q['hadRole'] == label), None)
         if keep == 'remove':
@@ -578,12 +618,34 @@ def ingest(doc, path, force=False, read_back=()):
         if existing is None:
             rels.append(q)
 
+    # Never worse than the dataset: a new error or warning holds back the row or relation it names; when holding back
+    # the relation does not help, the row whose date moved.
     model.normalise(new)
-    errors, _ = model.check(new)
-    for e in errors:
-        key = e.split(':', 1)[0].strip("'")
-        n = row_of.get(key)
-        problem('Resources', f'A{n}' if n else '', '', key, e)
-    if problems:
+    errors, warnings = model.check(new)
+    before = set(model.check(doc)[1])
+    was, now = ({r['key']: model._year(r) for r in d['hasPart']} for d in (doc, new))
+    blamed = dict(twice)
+    for m in errors + [w for w in warnings if w not in before]:
+        o = _owner(m)
+        if isinstance(o, tuple) and o in refused:
+            o = next((k for k in (o[0], o[2]) if k in was and was[k] != now.get(k)), o)
+        if o in row_of or o in rel_row:
+            blamed.setdefault(o, m)
+    if blamed.keys() - refused.keys():
+        return ingest(doc, path, force, read_back, {**blamed, **refused})
+    if errors:                                              # one that no row or relation of the sheet causes
+        for e in errors:
+            problem('Resources', '', '', '', e)
         return None, [], problems, notes, {}
-    return new, model.diff(doc, new), [], notes, reviewer
+    for o, m in refused.items():
+        if isinstance(o, tuple):
+            problem('Relations', f'A{rel_row[o]}', '', ' '.join(o), m)
+        else:
+            problem('Resources', f'A{row_of[o]}', '', o, m)
+
+    def credit(c):                                          # a relation change goes under its own Reviewed by
+        if not c[1].startswith('relation'):
+            return c
+        label, target = (c[2] if c[3] == '(removed)' else c[3]).split() if c[1] == 'relation' else c[1].split()[1:3]
+        return (*c, rel_by.get((c[0], label, target), ''))
+    return new, [credit(c) for c in model.diff(doc, new)], problems, notes, reviewer

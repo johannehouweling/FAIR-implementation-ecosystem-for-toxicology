@@ -1,16 +1,17 @@
 name: Data refresh
 
-# Daily: read back the curation sheet, then the FAIRsharing Toxicology collection with the repository owner's
-# FAIRsharing login (Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and the toxicology FIPs'
-# nanopublications. What changed (edits made in the sheet, new collection members, new resources and links from the
-# FIP declarations) goes into one pull request on the branch data-refresh, updated every day until a person merges it.
-# The sheet is exported with a Google service account that can only view it (secret GOOGLE_CREDENTIALS); setting the
-# secret SHEET_ID switches this on. Nothing is pushed to main; the dashboard is redeployed after the pull request is
-# merged.
+# Three times a day: read back the curation sheet row by row, then the FAIRsharing Toxicology collection with the
+# repository owner's FAIRsharing login (Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and the toxicology
+# FIPs' nanopublications. What changed (edits made in the sheet, new collection members, new resources and links from
+# the FIP declarations) goes into one pull request on the branch data-refresh, updated on each run until a person
+# merges it. A sheet row or relation with a problem waits in the sheet and is listed in the pull request; only a sheet
+# that cannot be read stops the run. The sheet is exported with a Google service account that can only view it
+# (secret GOOGLE_CREDENTIALS); setting the secret SHEET_ID switches this on. Nothing is pushed to main; the dashboard
+# is redeployed after the pull request is merged.
 
 on:
   schedule:
-    - cron: '17 5 * * *'
+    - cron: '17 5,11,17 * * *'
   workflow_dispatch:
 
 permissions:
@@ -34,8 +35,7 @@ jobs:
       - run: uv sync --locked --all-groups
       - id: day
         run: echo "day=$(date -u +%F)" >> "$GITHUB_OUTPUT"
-      # The sheet first, while its row versions still match the committed dataset. A sheet with problems stops the run,
-      # and the log lists them.
+      # The sheet first, while its row versions still match the committed dataset.
       - id: google
         if: env.SHEET_ID
         uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093 # v3.0.0
@@ -52,7 +52,7 @@ jobs:
         run: |
           curl -fsS --create-dirs -o build/curation-sheet.xlsx -H "Authorization: Bearer $TOKEN" \
             "https://www.googleapis.com/drive/v3/files/$SHEET_ID/export?mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-          uv run fairtox ingest build/curation-sheet.xlsx --round "$ROUND"
+          uv run fairtox ingest build/curation-sheet.xlsx --round "$ROUND" --report build/refresh.md
       - name: Read FAIRsharing
         env:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
@@ -73,3 +73,6 @@ jobs:
           commit-message: 'fix(data): refresh ${{ steps.day.outputs.day }}'
           title: Data refresh ${{ steps.day.outputs.day }}
           body-path: build/refresh.md
+      - name: Show the report
+        if: always()
+        run: if [ -f build/refresh.md ]; then cat build/refresh.md >> "$GITHUB_STEP_SUMMARY"; fi

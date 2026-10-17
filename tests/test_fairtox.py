@@ -115,6 +115,10 @@ class ModelTest(TempDir):
         doc['hasPart'].append(copy.deepcopy(doc['hasPart'][0]))
         self.assertTrue(any('duplicate key' in e for e in model.check(doc)[0]))
         doc = fixture()
+        next(r for r in doc['hasPart'] if r['key'] == 'parc').update(fairsharingRecord='FAIRsharing.6hna78',
+                                                                     fairsharingMatch='confirmed')   # exo's record
+        self.assertTrue(any('same identifier' in e for e in model.check(model.normalise(doc))[0]))
+        doc = fixture()
         doc['hasPart'][1]['qualifiedRelation'] = [{'relation': '#nothing', 'hadRole': 'implements', 'evidence': 'curator'}]
         self.assertTrue(any('not in the dataset' in e for e in model.check(model.normalise(doc))[0]))
         doc = fixture()
@@ -212,8 +216,12 @@ class ModelTest(TempDir):
         self.assertEqual(changes, [('ctd', 'datePublished', '2004', '2003')])
         log = self.path('changes.csv')
         model.log_changes(changes, 'round 1', 'test.xlsx', {'ctd': 'JH'}, path=log)
+        model.log_changes([('ctd', 'relation implements exo reviewedBy', '', 'IM', 'IM')], 'round 2', 'test.xlsx',
+                          {'ctd': 'JH'}, path=log)        # a fifth item names who made the change
         with open(log) as f:
-            self.assertIn('round 1,ctd,datePublished,2004,2003,JH,test.xlsx', f.read())
+            text = f.read()
+        self.assertIn('round 1,ctd,datePublished,2004,2003,JH,test.xlsx', text)
+        self.assertIn('round 2,ctd,relation implements exo reviewedBy,,IM,IM,test.xlsx', text)
 
 
 class SheetTest(TempDir):
@@ -230,6 +238,15 @@ class SheetTest(TempDir):
         cell = ws.cell(row=row, column=head[column], value=value).coordinate
         wb.save(p)
         return cell
+
+    def add(self, p, cells, tab='Resources'):
+        wb = load_workbook(p)
+        ws = wb[tab]
+        head = {c.value: c.column for c in ws[1]}
+        n = next((c.row for c in ws['A'][1:] if c.value is None), ws.max_row + 1)
+        for column, value in cells.items():
+            ws.cell(row=n, column=head[column], value=value)
+        wb.save(p)
 
     def test_round_trip_without_edits_changes_nothing(self):
         doc = model.normalise(fixture())
@@ -296,7 +313,7 @@ class SheetTest(TempDir):
         self.edit(p, 'First published', 'ctd', '2003')
         doc = sheet.ingest(doc, p)[0]                       # read back: the sheet's row version is now behind
         self.edit(p, 'First published', 'ctd', '2002')
-        self.assertTrue(sheet.ingest(doc, p)[2])            # a dataset row changed elsewhere stops the read-back,
+        self.assertTrue(sheet.ingest(doc, p)[2])            # a dataset row changed elsewhere waits,
         new, changes, problems, _, _ = sheet.ingest(doc, p, read_back={'ctd'})
         self.assertEqual(problems, [])                      # one whose latest change came from the sheet does not
         self.assertEqual(changes, [('ctd', 'datePublished', '2003', '2002')])
@@ -306,8 +323,9 @@ class SheetTest(TempDir):
         for column, value in (('Scope', 'Toxicologie'), ('FSR type', 'Databank')):
             p = self.build(doc)
             cell = self.edit(p, column, 'ctd', value)
-            new, _, problems, _, _ = sheet.ingest(doc, p)
-            self.assertIsNone(new)
+            new, changes, problems, _, _ = sheet.ingest(doc, p)
+            self.assertIsNotNone(new)                           # the row waits; the rest of the sheet is read
+            self.assertEqual(changes, [])
             self.assertEqual([(x['sheet'], x['cell'], x['column']) for x in problems], [('Resources', cell, column)])
             self.assertIn('allowed values', problems[0]['problem'])
 
@@ -352,20 +370,12 @@ class SheetTest(TempDir):
     def test_new_row_and_relation_removal(self):
         doc = model.normalise(fixture())
         p = self.build(doc)
-        wb = load_workbook(p)
-        ws = wb['Resources']
-        head = {c.value: c.column for c in ws[1]}
-        n = next(c.row for c in ws['B'] if c.row > 1 and c.value is None)
-        for col, value in (('Name', 'New Resource'), ('Aliases', 'NewRes'), ('Decision', 'undecided')):
-            ws.cell(row=n, column=head[col], value=value)
-        rel = wb['Relations']
-        rh = {c.value: c.column for c in rel[1]}
-        rel.cell(row=2, column=rh['Keep'], value='remove')
-        wb.save(p)
+        self.add(p, {'Name': 'New Resource', 'Aliases': 'NewRes', 'Decision': 'undecided'})
+        self.edit(p, 'Keep', 'ctd', 'remove', tab='Relations')
         new, changes, problems, notes, _ = sheet.ingest(doc, p)
         self.assertEqual(problems, [])
         self.assertIn(('newres', '(row)', '(new)', 'New Resource'), changes)
-        self.assertIn(('ctd', 'relation', 'implements exo', '(removed)'), changes)
+        self.assertIn(('ctd', 'relation', 'implements exo', '(removed)', ''), changes)   # unsigned
 
     def test_source_and_community_document_ticks(self):
         doc = fip.enrich(fairsharing.enrich(model.normalise(fixture()), fairsharing.read(None, None, offline=True)),
@@ -403,6 +413,108 @@ class SheetTest(TempDir):
         self.assertEqual(changes, [('new_resource', '(row)', '(new)', 'New Resource'),
                                    ('exo', 'mentionedIn', '', 'INTOXICOM 2')])
         self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))     # the next read-back adds nothing twice
+
+    def test_a_row_with_a_problem_waits_and_the_rest_is_read_back(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'First published', 'ctd', '2003')         # ctd keeps its older warning; that holds nothing back
+        self.edit(p, 'Decision', 'tool', 'exclude')             # no exclusion reason
+        self.edit(p, 'Reviewed by', 'ctd', 'IM', tab='Relations')
+        self.add(p, {'Resource': 'ctd', 'Relation': 'related_to', 'Target': 'tool', 'Evidence': 'Literature'},
+                 tab='Relations')                               # a bad cell waits on its own line
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(changes, [('ctd', 'datePublished', '2004', '2003'),
+                                   ('ctd', 'relation implements exo reviewedBy', '', 'IM', 'IM')])
+        self.assertEqual([(x['sheet'], x['value']) for x in problems],
+                         [('Relations', 'Literature'), ('Resources', 'tool')])
+        self.assertEqual(next(r for r in new['hasPart'] if r['key'] == 'tool')['decision'], 'undecided')
+
+    def test_a_relation_that_would_add_a_warning_waits(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.add(p, {'Resource': 'ctd', 'Relation': 'extends', 'Target': 'exo', 'Evidence': 'literature'},
+                 tab='Relations')
+        self.edit(p, 'First published', 'ctd', '2003')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(changes, [('ctd', 'datePublished', '2004', '2003')])   # ctd (2003) extends exo (2012) waits
+        self.assertEqual([(x['sheet'], x['value']) for x in problems], [('Relations', 'ctd extends exo')])
+
+    def test_a_date_that_would_make_a_relation_warn_waits(self):
+        doc = fixture()
+        next(r for r in doc['hasPart'] if r['key'] == 'exo')['qualifiedRelation'] = [
+            {'relation': '#ctd', 'hadRole': 'extends', 'evidence': 'curator'}]     # ExO (2012) extends CTD (2004)
+        doc = model.normalise(doc)
+        p = self.build(doc)
+        self.edit(p, 'First published', 'exo', '2000')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, sorted(x['value'] for x in problems)), ([], ['exo', 'exo extends ctd']))
+
+    def test_two_lines_with_one_key_or_one_relation_both_wait(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Description', 'ctd', 'Edited.')
+        self.add(p, {'Key': 'ctd', 'Name': 'CTD copy'})
+        for note in ('', 'again'):
+            self.add(p, {'Resource': 'exo', 'Relation': 'related_to', 'Target': 'tool', 'Note': note}, tab='Relations')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(changes, [])
+        self.assertEqual(sorted(x['value'] for x in problems),
+                         ['ctd', 'ctd', 'exo related_to tool', 'exo related_to tool'])
+
+    def test_a_row_added_in_the_sheet_and_changed_elsewhere_waits(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.add(p, {'Key': 'newres', 'Name': 'New Resource'})
+        doc = sheet.ingest(doc, p)[0]                           # read back; the sheet row has no Row version
+        next(r for r in doc['hasPart'] if r['key'] == 'newres')['description'] = 'Proposed elsewhere.'
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(changes, [])
+        self.assertIn('changed in the dataset', problems[0]['problem'])
+
+    def test_the_ingest_command_logs_who_and_reports_what_waits(self):
+        doc = model.normalise(fixture())
+        os.makedirs(self.path('data'))
+        model.save(doc, self.path(model.DATASET))
+        with open(self.path(model.CHANGES), 'w', encoding='utf-8') as f:
+            f.write('date,round,key,field,old,new,by,source\n')
+        p = self.build(doc)
+        self.edit(p, 'First published', 'ctd', '2003')
+        self.edit(p, 'Reviewed by', 'ctd', 'JH')
+        self.edit(p, 'Reviewed by', 'ctd', 'IM', tab='Relations')
+        self.edit(p, 'Decision', 'tool', 'exclude')
+        self.addCleanup(os.chdir, os.getcwd())
+        os.chdir(self.dir)                                      # the command works on data/ in the current folder
+        ontology = os.path.join(ROOT, model.FIP_ONTOLOGY)
+        with mock.patch.object(model, 'FIP_ONTOLOGY', ontology), mock.patch('builtins.print'):
+            with self.assertRaises(SystemExit) as stop:
+                cli.main(['ingest', p, '--report', 'report.md'])
+            self.assertEqual(stop.exception.code, 0)
+            with open(model.CHANGES, newline='', encoding='utf-8') as f:
+                self.assertEqual({(r['key'], r['field'], r['by']) for r in csv.DictReader(f)},
+                                 {('ctd', 'datePublished', 'JH'), ('ctd', 'reviewedBy', 'JH'),
+                                  ('ctd', 'relation implements exo reviewedBy', 'IM')})
+            # A process changes ctd, then a relation of ctd is signed: ctd's stale line must not undo the proposal.
+            later = model.load()
+            next(r for r in later['hasPart'] if r['key'] == 'ctd')['description'] = 'Proposed by research.'
+            model.save(later)
+            model.log_changes([('ctd', 'description', '', 'Proposed by research.')], 'research', 'web',
+                              {'ctd': 'research'})
+            model.log_changes([('ctd', 'relation implements exo note', '', 'Signed.', 'IM')], 'sheet', 'curation.xlsx')
+            with self.assertRaises(SystemExit):
+                cli.main(['ingest', p])
+            self.assertEqual(next(r for r in model.load()['hasPart'] if r['key'] == 'ctd')['description'],
+                             'Proposed by research.')
+            wb = load_workbook(p)
+            next(c for c in wb['Relations'][1] if c.value == 'Reviewed by').value = 'Checked by'
+            wb.save(p)
+            with self.assertRaises(SystemExit) as stop:
+                cli.main(['ingest', p, '--report', 'report.md'])
+            self.assertEqual(stop.exception.code, 1)            # a sheet that cannot be read changes nothing
+        with open('report.md', encoding='utf-8') as f:
+            report = f.read()
+        for text in ('tool: tool: an exclusion reason is required', 'columns missing',
+                     'signed by a curator: 1 of 3 included rows, 1 of 1 relations'):
+            self.assertIn(text, report)
 
 
 REST = {'data': {'id': '1716', 'type': 'fairsharing_records', 'attributes': {
@@ -963,6 +1075,23 @@ class RepositoryTest(unittest.TestCase):
         for name, vocab in model.VOCABULARIES.items():
             for value in vocab:
                 self.assertIn(value, text, f'{name}: {value}')
+
+    def test_a_signed_row_was_not_changed_elsewhere_after_its_signature(self):
+        # A signature covers the columns up to Note; a process that changes one of them on a signed row empties
+        # Reviewed by. Changes that only rename or move values do not count.
+        signed = set(model.CURATED) - {f for _, f, *_ in sheet.CONTEXT_COLUMNS} - {'key', 'reviewedBy', 'note'}
+        sign, outside = {}, {}
+        with open(os.path.join(ROOT, model.CHANGES), newline='', encoding='utf-8') as f:
+            for i, r in enumerate(csv.DictReader(f)):
+                if (r['field'] == 'reviewedBy' and r['new']
+                        or r['field'] == '(row)' and r['source'] == 'curation-sheet.xlsx'):   # added with initials
+                    sign[r['key']] = i
+                elif r['field'] in signed and r['source'] != 'curation-sheet.xlsx' and r['by'] not in (
+                        'migration', 'model change', 'rename', 'cleanup', 'labels'):
+                    outside[r['key']] = i
+        for r in model.load(os.path.join(ROOT, model.DATASET))['hasPart']:
+            if r.get('reviewedBy'):
+                self.assertGreater(sign.get(r['key'], -1), outside.get(r['key'], -1), r['key'])
 
     def test_no_two_public_resources_share_a_figure_label(self):
         dataset = os.path.join(ROOT, model.DATASET)
