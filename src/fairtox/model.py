@@ -202,17 +202,10 @@ EVIDENCE = {
     'curator': 'Added by a curator.',
     'FIP': 'Declared in a FAIR Implementation Profile.',
 }
-# FSR type (fsrType): one class under FAIR Supporting Resource in the FIP ontology (see fsr_types), from those
-# the typing rule uses (docs/inclusion-criteria.md, section 6).
+# FSR type (fsrType): a type of the FSR typology of the FIP ontology, or FAIR Implementation Community for a community
+# (see fsr_offered). The typology, as the ontology draws it, has a column for each of these classes.
 FSR, FER, FIC = FIP + 'FAIR-Supporting-Resource', FIP + 'FAIR-Enabling-Resource', FIP + 'FAIR-Implementation-Community'
-FSR_OFFERED = [FIP + t for t in (
-    'Data-usage-license', 'FAIR-Practice', 'FAIR-Interpretation', 'FAIR-Implementation-Community',
-    'Authentication-and-authorization-service', 'Domain-Specific-Registry', 'Editor', 'FAIR-Analysis-Service',
-    'FAIR-Enrichment-Service', 'FAIR-Publishing-Service', 'FAIR-Supporting-Software', 'FAIR-Visualization-Service',
-    'Generalist-Registry', 'Identifier-service', 'Integration-Service', 'Registry', 'Validation-Service',
-    'Communication-protocol', 'FAIR-Assessment-Specification', 'FAIR-Implementation-Profile',
-    'Knowledge-representation-language', 'Metadata-schema', 'Provenance-model', 'Reference-FAIR-Implementation-Profile',
-    'Semantic-model', 'Structured-vocabulary', 'FAIR-Training-Material')]
+TYPOLOGY = [FIP + t for t in ('FAIR-Data-Policy', 'FAIR-Specification', 'FAIR-Supporting-Technology')]
 
 VOCABULARIES = {
     'decision': DECISION, 'exclusionReason': EXCLUSION, 'fairsharingType': {k: v[3] for k, v in TYPES.items()},
@@ -502,6 +495,17 @@ def fsr_types():
     return out
 
 
+@functools.cache
+def fsr_offered():
+    """The FSR types offered: the FSR typology as the ontology draws it, the classes under a TYPOLOGY class and one
+    level below that are not deprecated, and FAIR Implementation Community."""
+    g, sub = fip_ontology(), rdflib.RDFS.subClassOf
+    gone = set(g.subjects(rdflib.RDF.type, rdflib.OWL.DeprecatedClass))
+    first = {c for b in TYPOLOGY for c in g.subjects(sub, URIRef(b))} - gone
+    second = {c for m in first for c in g.subjects(sub, m)} - gone
+    return sorted({str(c) for c in first | second} | {FIC})
+
+
 def fs_ref(value):
     """Normalise a FAIRsharing reference (DOI, URL, code, numeric id or legacy bsg- id) to 'FAIRsharing.xxx', a numeric
     string or 'bsg-xxx'."""
@@ -666,7 +670,7 @@ def check(doc):
             e(f'{k}: the span must contain the phase as its earliest phase')
         types = r.get('fsrType') or []
         for t in types:
-            if t not in FSR_OFFERED:
+            if t not in fsr_offered():
                 e(f'{k}: FSR type {t!r} is not an allowed value')
         if len(types) > 1:
             e(f'{k}: one FSR type only')

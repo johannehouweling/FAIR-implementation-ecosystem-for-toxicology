@@ -55,7 +55,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `exclusionReason` | Exclusion reason |  | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by |  | Key of the row that covers this one (exclusion reason E6). |
 | `fairsharingType` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text. |
-| `fsrType` | FSR type | `rdf:type` | FAIR Supporting Resource (FSR) type: one class of the FIP ontology, from those the typing rule uses (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
+| `fsrType` | FSR type | `rdf:type` | FAIR Supporting Resource (FSR) type: one type of the FSR typology of the FIP ontology (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
 | `scope` | Scope | `schema:about` | What the resource was made for (list below). |
 | `phase` | Phase |  | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. Not in the graph: it is the earliest phase of `span`. |
 | `span` | one "Span" column per phase | `dcat:theme` | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
@@ -150,16 +150,14 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 
 ### FSR type (`fsrType`)
 
-One type per resource, from the 27 classes the typing rule uses (inclusion criteria, section 6) among the 57 under `fip:FAIR-Supporting-Resource` in the FIP ontology (read from `https://w3id.org/fair/fip/terms/`, checked against version 20260227), stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`. `fsrCategory` is FAIR-Enabling Resource when the type is marked FER, else FAIR Supporting Resource. The curation sheet's Lists tab groups the types by direct FSR subclass, with each type's IRI.
+One type per resource, stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`: a type of the FSR typology of the FIP ontology (`https://w3id.org/fair/fip/terms/FIP-Ontology`, version 20260227: `https://w3id.org/fair/fip/terms/FIP-Ontology_20260227`), or FAIR Implementation Community for a community. The typology is read from `https://w3id.org/fair/fip/terms/` when the dashboard and the curation sheet are built, as the ontology draws it: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated. `fsrCategory` is FAIR-Enabling Resource when the type is a subclass of `fip:FAIR-Enabling-Resource` (gray in the typology), else FAIR Supporting Resource. The curation sheet's Lists tab gives each type with its direct FSR subclass and category; on 18 Oct 2026 they were:
 
 | Direct FSR subclass | Types offered |
 |---|---|
-| FAIR Data Policy | Data usage license (FER); FAIR practice |
-| FAIR Declaration | FAIR interpretation |
+| FAIR Data Policy | Data usage license (FER); FAIR practice; Metadata preservation policy (FER); Persistency Policy (FER) |
 | FAIR Implementation Community | FAIR Implementation Community |
-| FAIR specification | Communication protocol (FER); FAIR Assessment Specification; FAIR Implementation Profile (FER); Knowledge representation language (FER); Metadata schema (FER); Provenance model (FER); Reference FAIR Implementation Profile (FER); Semantic model (FER); Structured vocabulary (FER) |
-| FAIR Supporting Technology | Authentication and authorization service (FER); Domain-specific registry (FER); Editor; FAIR Analysis Service; FAIR Enrichment Service; FAIR Publishing Service; FAIR Supporting Software; FAIR Visualization Service; Generalist registry (FER); Identifier service (FER); Integration Service; Registry (FER); Validation service |
-| FAIR training material | FAIR training material |
+| FAIR specification | Communication protocol (FER); Crosswalk; FAIR Assessment Specification; FAIR Implementation Profile (FER); Knowledge representation language (FER); Metadata schema (FER); Metadata-data linking schema (FER); Open Digital Rights Language Specification; Provenance model (FER); Reference FAIR Implementation Profile (FER); Semantic model (FER); Structured vocabulary (FER) |
+| FAIR Supporting Technology | Authentication and authorization service (FER); Domain-specific registry (FER); Editor; FAIR Analysis Service; FAIR Enrichment Service; FAIR Publishing Service; FAIR Representation Service; FAIR Visualization Service; FAIRification Workflow; Generalist registry (FER); Identifier service (FER); Integration Service; Provenance tracking service; Registry (FER); Validation service |
 
 ### Scope (`scope`)
 

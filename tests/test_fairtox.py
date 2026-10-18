@@ -96,7 +96,7 @@ class ModelTest(TempDir):
             ('exo', 'span', ['Data generation', 'Data integration'], 'earliest phase'),
             ('ctd', 'span', [], 'earliest phase'),
             ('exo', 'fsrType', [model.FIP + 'Structured-vocabulary', model.FIP + 'Registry'], 'one FSR type'),
-            ('exo', 'fsrType', [model.FIP + 'Crosswalk'], 'not an allowed value'),   # not one the typing rule uses
+            ('exo', 'fsrType', [model.FIP + 'FAIR-Training-Material'], 'not an allowed value'),   # outside the typology
             ('exo', 'mentionedIn', ['Blog'], 'community document'),
         ]
         for key, field, value, message in cases:
@@ -162,7 +162,7 @@ class ModelTest(TempDir):
 
     def test_fsr_and_fip_fields_are_derived(self):
         types = model.fsr_types()
-        self.assertLessEqual(set(model.FSR_OFFERED), set(types))
+        self.assertLessEqual(set(model.fsr_offered()), set(types))
         self.assertEqual([types[model.FIP + t][2] for t in ('Registry', 'Metadata-schema', 'Editor')], [True, True, False])
         doc = fixture()
         by = {r['key']: r for r in doc['hasPart']}
@@ -176,6 +176,14 @@ class ModelTest(TempDir):
         self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), ([by['tool']['@id']], ['I2']))
         self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
         self.assertEqual(model.check(doc)[0], [])
+
+    def test_fsr_types_are_the_typology_of_the_fip_ontology(self):
+        offered = model.fsr_offered()
+        self.assertIn(model.FIP + 'Crosswalk', offered)                   # under FAIR specification
+        self.assertIn(model.FIP + 'Domain-Specific-Registry', offered)    # one level below, under Registry
+        self.assertIn(model.FIC, offered)                                 # for communities
+        self.assertNotIn(model.FIP + 'Web-API', offered)                  # deprecated
+        self.assertNotIn(model.FIP + 'FAIR-Training-Material', offered)   # outside the typology
 
     def test_fair_implementation_community_needs_its_fic_nanopublication(self):
         doc = model.normalise(fixture())
