@@ -3299,3 +3299,98 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-10,verification 2026-10-10,mesh,fairsharingRecord,,FAIRsharing.qnkw45,verification,FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM; https://fairsharing.org/FAIRsharing.qnkw45
 2026-10-10,verification 2026-10-10,mesh,fairsharingMatch,,confirmed,verification,FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM; https://fairsharing.org/FAIRsharing.qnkw45
 2026-10-10,verification 2026-10-10,mesh,note,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2: NLM's controlled biomedical vocabulary of identified, defined descriptors.","Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2: NLM's controlled biomedical vocabulary of identified, defined descriptors. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM links https://fairsharing.org/bsg-s000294/; one lookup of https://fairsharing.org/FAIRsharing.qnkw45 returns 'Medical Subject Headings', id 1265, whose legacy ids include bsg-s000294, the FAIRsharing id the FIP description cites.)",verification,FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM; https://fairsharing.org/FAIRsharing.qnkw45
+2026-10-18,curation sheet 2026-10-18,aopdevhandbook,(row),(new),AOP Developers' Handbook,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopxml,(row),(new),AOP-XML (AOP-Wiki XML exchange format),Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopxplorer,(row),(new),AOP Xplorer,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,effectopedia,(row),(new),Effectopedia,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,intermediate_effects_db,(row),(new),Intermediate Effects DB,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,wikipathways_aopportal,(row),(new),WikiPathways AOP Portal,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,decision,undecided,include,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,fsrType,https://w3id.org/fair/fip/terms/Identifier-service,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,subdomains,,in vitro toxicology; nanotoxicology; AOP-based mechanistic knowledge,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,dateReleased,,2013-05,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,dateSource,,https://aopwiki.org/handbooks/6#section-1-%E2%80%93-aop-description-41,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,description,,"Each AOP is automatically given a numerical AOP identifier by the AOP-Wiki when it is created (e.g., AOP: ###).",IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,maintained,,active,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,mentionedIn,,Whitepaper,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_wiki_id,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopo,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwiki,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,arraytrack,name,ArrayTrack,ArrayTrack HCA-PCA Standalone Package,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,arraytrack,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,bioschemas_chemicalsubstance,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,comptox,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,cred,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,cred,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,dixa,decision,include,exclude,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,dixa,exclusionReason,,E3,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,dixa,reviewedBy,,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,dixa_project,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,ec_inventory,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,echa_chem_reach,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,echemportal,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,edam_bioimaging,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,edelweissdata,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,elixir,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,elixirtox,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,enanomapper,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,enm_db,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,enm_ont,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,etox,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,etransafe,decision,undecided,exclude,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,etransafe,exclusionReason,,E7,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,etransafe,mentionedIn,,Whitepaper; FAIRSharing,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,etransafe,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,etransafe_project,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,etransafe_repro,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,eutoxrisk,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,eutr_ki,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,fairsharing,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,inchi,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,iuclid,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,nanocommons,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,nanocommons_project,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,nanosafety_cluster,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,norman_susdat,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,openrisknet,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,openrisknet_project,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,opentox,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,opentox_project,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,parctoxicology,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,pubchem,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,pubchem_cid,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,rdmkit,fsrType,https://w3id.org/fair/fip/terms/FAIR-Practice,https://w3id.org/fair/fip/terms/FAIR-Training-Material,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,tggates,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,tox21,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,toxcast,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,wikidata,mentionedIn,,Whitepaper,,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_ec,relation,(new),implements chebi,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_ec,relation,(new),implements cl,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_ec,relation,(new),implements go,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_ec,relation,(new),implements pro,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aop_ec,relation,(new),implements uberon,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopdb,relation,(new),implements aopxml,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopdb,relation,(new),related_to comptox,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopdbrdf,relation,(new),implements rdf,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopdbrdf,relation,(new),implements sparql,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aophelp,relation,(new),related_to aopwiki,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwiki,relation,(new),implements aopdevhandbook,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwiki,relation,(new),related_to aopkb,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements aopo,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements aopxml,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements cl,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements go,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements hgnc,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements identifiersorg,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements rdf,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements sparql,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopwikirdf,relation,(new),implements uberon,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopxplorer,relation,(new),implements aopo,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,aopxplorer,relation,(new),related_to aopkb,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,effectopedia,relation,(new),implements oht,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,effectopedia,relation,(new),related_to aopkb,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,effectopedia,relation,(new),related_to aopwiki,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,nanoaop,relation,(new),implements rdf,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,nanoaop,relation,(new),implements sparql,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,wikipathways_aopportal,relation,(new),extends wikipathways,Marvin,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,wikipathways_aopportal,relation,(new),related_to aopwiki,Marvin,curation-sheet.xlsx
