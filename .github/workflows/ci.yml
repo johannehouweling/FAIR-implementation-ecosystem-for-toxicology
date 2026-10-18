@@ -3,7 +3,8 @@ name: CI
 # Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
 # public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
 # The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, and the FIP
-# declarations; a weekly run rebuilds main so the page has the current ones.
+# declarations; a weekly run rebuilds main so the page has the current ones. A build of main that has started is
+# never cancelled, so every published build stays in the history of the dashboard repository.
 # After a green build of a push to main, release-please keeps a release pull request open with the next version and
 # its CHANGELOG.md entry, made from the Conventional Commits since the last release; merging it tags the version and
 # publishes a GitHub release.
@@ -21,7 +22,7 @@ permissions:
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:

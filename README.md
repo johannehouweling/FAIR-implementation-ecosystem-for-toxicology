@@ -41,7 +41,7 @@ Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` 
 checks and logs every change, under the curator's initials when given. A row with a problem waits in the sheet and is
 listed. A
 workflow reads the sheet back three times a day, then FAIRsharing and the FIPs, and keeps one pull request open with
-what changed.
+what changed; it keeps the exported sheet with the run for 90 days.
 
 ## Commands
 
