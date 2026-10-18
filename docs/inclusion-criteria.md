@@ -203,7 +203,7 @@ Each excluded row carries exactly one code.
 | 17 Oct 2026 | A mention in an ELIXIR Toxicology Community document documents toxicology use (I4). Curators tick the documents in the sheet (`mentionedIn`): the white paper (Martens et al. 2023), FAIRsharing's report on the collection of 3 Jul 2025 and the INTOXICOM workshop reports 1, 2, 3 and 5. The sheet also shows, computed, where each resource is found now (manuscript draft, FAIRsharing Toxicology collection, a toxicology FIP, co-author addition) in a Source column after URL, an exception to the layout of 10 Oct 2026, which replaces In FAIRsharing collection. | Jente Houweling |
 | 18 Oct 2026 | A value is a proposal until a curator confirms its row, or relation, by putting initials in Reviewed by after checking every value up to Note; a process that changes a confirmed value empties Reviewed by. Nothing else is stored: `data/changes.csv` records each proposal under its process, each change made in the Sheet under the Reviewed by of its row or relation, and each confirmation as a change of Reviewed by. The data refresh reads the Sheet back three times a day, row by row: a row or relation with a problem, or one that would add an error or a warning, waits and is listed in the pull request. A new row gets a key typed by its curator; a key left empty is made from the name on import. | Jente Houweling |
 | 18 Oct 2026 | The FSR types are the FSR typology of the FIP ontology as the ontology draws it, read from the ontology: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated (31), with FAIR Implementation Community for communities. FAIR-Enabling Resource still follows from the type. Guidance, training material and statements on the FAIR principles are FAIR practices, and software takes its service type; the six resources typed FAIR training material, FAIR interpretation or the deprecated FAIR Supporting Software were retyped accordingly. This replaces the 27 types of 9 Oct 2026. | Jente Houweling |
-| 18 Oct 2026 | A co-author's addition documents toxicology use (I4), like a mention in the manuscript or a community document. `data/changes.csv` is published with the code; it names the manuscript drafts only by section and line, and the drafts never enter the repository. | Jente Houweling |
+| 18 Oct 2026 | A co-author's addition documents toxicology use (I4), like a mention in the manuscript or a community document. `data/changes.csv` is published with the code and cites the manuscript drafts by section and line; the drafts never enter the repository. | Jente Houweling |
 
 ## 9. Limitations
 
@@ -214,6 +214,9 @@ Each excluded row carries exactly one code.
 - Mentions in the community documents are ticked by curators, not extracted systematically; FAIRsharing's report
   lists its records only in figures.
 - Who typed a value in the Sheet is taken from Reviewed by; the Sheet's version history is the full record.
+- A release's dashboard and figure cannot be rebuilt identically later: FAIRsharing, the FIP declarations and the FIP
+  ontology are read when they are built, and published with their retrieval dates. Each published build is kept in
+  the history of the dashboard's repository.
 - FSR types, phases and spans are proposals until the co-authors confirm them, and a judgement for resources with
   several roles or uses; creator types depend on what is documented about the makers. All are recorded per resource
   so they can be checked and revised.
