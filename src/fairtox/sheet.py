@@ -123,6 +123,8 @@ RELATION_COLUMNS = [
      'records.'),
     ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the relation: this confirms it.'),
     ('Note', 'note', 'text', 40, ''),
+    ('Line version', None, 'version', 12, 'Do not edit. Detects relations that changed elsewhere after this sheet was '
+     'made.'),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
 NOT_INITIALS = 'initials only, in one word; a remark goes in Note'
@@ -151,8 +153,9 @@ INSTRUCTIONS = [
     'The dashboard can also arrange the toxicology lanes by creator.',
     'Builds on FAIR is derived: a toxicology resource that implements, extends, profiles or recommends a Generic '
     'resource on the Relations tab.',
-    'Relations read from left to right, for example "CTD implements ExO". Set Keep to remove to drop one; '
-    'add new ones at the bottom of the Relations tab. The grey rows are what the toxicology FIPs declare, read when '
+    'Relations read from left to right, for example "CTD implements ExO". Never delete a line: set Keep to remove to '
+    'drop a relation, and edit a line to change its resource, relation or target; add new ones at the bottom of the '
+    'Relations tab. The grey rows are what the toxicology FIPs declare, read when '
     'the sheet is made; they are read-only. Vocabulary says which is which.',
     'A value is a proposal until a co-author has checked its row; Note says where it comes from. When you have '
     'checked a whole row and fixed what is wrong, put your initials in Reviewed by. To change a row someone else '
@@ -386,6 +389,8 @@ def build(doc, path, added=()):
                 c.value = 'yes' if pair in model.ALLOWED.get(x['hadRole'], set()) else 'no'
             elif head == 'Vocabulary':
                 c.value = 'FIP ontology' if fixed else 'FAIRsharing'
+            elif kind == 'version' and not fixed:
+                c.value = model.relation_hash(x)
             elif field:
                 c.value = x.get(field) or None
     for i, (head, field, kind, *_) in enumerate(RELATION_COLUMNS, 1):   # not on the FIP rows
@@ -448,9 +453,9 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
     waits, with the relations of a waiting row, and is listed in problems; the rest is read back. new_doc is None only
     when the workbook cannot be read, or when an error remains that no row or relation of the sheet causes. Problems
     are dicts with sheet, cell, column, value, problem; reviewers maps key -> Reviewed by, and a relation change
-    carries its own Reviewed by as a fifth item. read_back holds the keys whose
-    latest logged change came from reading this sheet back: their row version may be older than the dataset row, which
-    still equals what the sheet showed. refused maps what the check found an error or a new warning in (a key, or
+    carries its own Reviewed by as a fifth item. read_back holds the keys, and the (subject, label, target) of the
+    relations, whose latest logged change came from reading this sheet back: their row or line version may be older
+    than the dataset, which still equals what the sheet showed. refused maps what the check found an error or a new warning in (a key, or
     (subject, label, target) for a relation) to the check's message; the sheet is then read again without it."""
     refused = refused or {}
     wb = load_workbook(path, data_only=True)
@@ -582,7 +587,11 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
     if missing:
         problem('Relations', '1', ', '.join(missing), '', 'columns missing; do not rename or delete columns')
         return None, [], problems, notes, {}
-    rel_row, rel_by = {}, {}
+    base = {(x['subject'], x['hadRole'], x['target']): x for x in model.relation_rows(doc)}
+    shown = {model.relation_hash(x): t for t, x in base.items()}       # a line's version: the relation it showed
+    on_sheet = {tuple(_text(c[head[h]].value) if head[h] < len(c) else '' for h in ('Resource', 'Relation', 'Target'))
+                for c in ws.iter_rows(min_row=2)}
+    rel_row, rel_by, moved = {}, {}, set()
     for cells in ws.iter_rows(min_row=2):
         n = cells[0].row
         val = {h: cells[i].value for h, i in head.items() if i < len(cells)}
@@ -612,7 +621,37 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
             bad = True
         if bad:
             continue
-        rel_by[subject, label, target] = reviewed
+        triple, version, source, note = (subject, label, target), _text(val.get('Line version')), \
+            _text(val.get('Source')), _text(val.get('Note'))
+        was, old = shown.get(version), base.get(triple)
+        if was and was != triple and was in on_sheet:          # an edited copy of a line still there: a new relation
+            was = version = ''
+        if version and not was and old is None and (triple in read_back or version != model.relation_hash(
+                {'subject': subject, 'hadRole': label, 'target': target, 'evidence': evidence, 'source': source,
+                 'reviewedBy': reviewed, 'note': note})):    # edited again: the relation its last read-back made
+            last = [t for t in base if t[0] == subject and t in read_back and t not in on_sheet]
+            was = last[0] if len(last) == 1 else None
+        if keep == 'remove':
+            edits = old is not None
+        else:
+            edits = old is None or (evidence or old['evidence'] or 'curator', source, reviewed, note) != (
+                old['evidence'], old['source'], old['reviewedBy'], old['note'])
+        if version and (not was or was != triple and old is not None) and edits and triple not in read_back \
+                and not force:                                 # changed elsewhere, or named a relation added since
+            if was:
+                moved.add(was)
+            problem('Relations', f'A{n}', '', ' '.join(triple), 'this relation changed in the dataset after the sheet '
+                    'was made; it waits until the sheet shows the change (for a new relation copied from another '
+                    'line, empty its Line version, last column)')
+            continue
+        if was and was != triple:                              # Resource, Relation or Target edited: it replaces
+            if was[0] in waiting:
+                continue
+            moved.add(was)
+            rel_by[was] = reviewed
+            gone = by_key[was[0]].get('qualifiedRelation', [])
+            gone[:] = [q for q in gone if (q['hadRole'], q['relation']) != (was[1], id_of[was[2]])]
+        rel_by[triple] = reviewed
         rels = by_key[subject].setdefault('qualifiedRelation', [])
         existing = next((q for q in rels if q['relation'] == id_of[target] and q['hadRole'] == label), None)
         if keep == 'remove':
@@ -620,10 +659,14 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
                 rels.remove(existing)
             continue
         q = existing or {'relation': id_of[target], 'hadRole': label}
-        q.update(evidence=evidence or q.get('evidence') or 'curator', source=_text(val.get('Source')),
-                 reviewedBy=reviewed, note=_text(val.get('Note')))
+        q.update(evidence=evidence or q.get('evidence') or 'curator', source=source, reviewedBy=reviewed, note=note)
         if existing is None:
             rels.append(q)
+    absent = sorted(set(base) - on_sheet - moved)
+    if absent:
+        notes.append(f'{len(absent)} relations are not in the sheet and were left unchanged: '
+                     f'{", ".join(" ".join(t) for t in absent[:12])}{" ..." if len(absent) > 12 else ""}; '
+                     'to drop one, keep its line and set Keep to remove')
 
     # Never worse than the dataset: a new error or warning holds back the row or relation it names; when holding back
     # the relation does not help, the row whose date moved.
@@ -653,6 +696,5 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
     def credit(c):                                          # a relation change goes under its own Reviewed by
         if not c[1].startswith('relation'):
             return c
-        label, target = (c[2] if c[3] == '(removed)' else c[3]).split() if c[1] == 'relation' else c[1].split()[1:3]
-        return (*c, rel_by.get((c[0], label, target), ''))
+        return (*c, rel_by.get((c[0], *model.relation_of(*c[1:4])), ''))
     return new, [credit(c) for c in model.diff(doc, new)], problems, notes, reviewer

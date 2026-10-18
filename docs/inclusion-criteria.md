@@ -166,8 +166,10 @@ Each excluded row carries exactly one code.
    with `fairtox ingest` three times a day, row by row, and keeps the changes in one pull request for review; each
    change is logged under the Reviewed by of its row or relation. A row or relation with a problem, or one that would
    add an error or a warning, waits in the Sheet (a row with its relations) and is listed in the pull request until
-   it is fixed; two lines with the same key or the same relation both wait. So does a row that changed in the dataset
-   after the Sheet was made, other than by an earlier read-back, until the Sheet is updated.
+   it is fixed; two lines with the same key or the same relation both wait. So does a row or relation that changed in
+   the dataset after the Sheet was made, other than by an earlier read-back, until the Sheet is updated. A relation
+   line whose resource, relation or target is edited replaces its relation; a relation whose line is deleted is left
+   unchanged and listed in the pull request, and Keep set to remove drops it.
 5. **Release.** A version is released by merging the release pull request that release-please keeps open: it sets the
    version and writes the `CHANGELOG.md` entry from the Conventional Commits since the last release. CI makes the
    release only after the tests and `fairtox validate --strict` pass.
@@ -204,6 +206,7 @@ Each excluded row carries exactly one code.
 | 18 Oct 2026 | A value is a proposal until a curator confirms its row, or relation, by putting initials in Reviewed by after checking every value up to Note; a process that changes a confirmed value empties Reviewed by. Nothing else is stored: `data/changes.csv` records each proposal under its process, each change made in the Sheet under the Reviewed by of its row or relation, and each confirmation as a change of Reviewed by. The data refresh reads the Sheet back three times a day, row by row: a row or relation with a problem, or one that would add an error or a warning, waits and is listed in the pull request. A new row gets a key typed by its curator; a key left empty is made from the name on import. | Jente Houweling |
 | 18 Oct 2026 | The FSR types are the FSR typology of the FIP ontology as the ontology draws it, read from the ontology: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated (31), with FAIR Implementation Community for communities. FAIR-Enabling Resource still follows from the type. Guidance, training material and statements on the FAIR principles are FAIR practices, and software takes its service type; the six resources typed FAIR training material, FAIR interpretation or the deprecated FAIR Supporting Software were retyped accordingly. This replaces the 27 types of 9 Oct 2026. | Jente Houweling |
 | 18 Oct 2026 | A co-author's addition documents toxicology use (I4), like a mention in the manuscript or a community document. `data/changes.csv` is published with the code and cites the manuscript drafts by section and line; the drafts never enter the repository. | Jente Houweling |
+| 18 Oct 2026 | Each line on the Relations tab carries a line version, as each row carries its row version. A relation changed in the dataset after the Sheet was made waits instead of being put back; a line whose resource, relation or target is edited replaces its relation; a deleted line leaves its relation unchanged and is listed in the pull request, since it cannot be told apart from a relation added after the Sheet was made. | Jente Houweling |
 
 ## 9. Limitations
 

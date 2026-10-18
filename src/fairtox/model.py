@@ -779,6 +779,18 @@ def row_hash(r):
     return hashlib.sha256(json.dumps(fields, sort_keys=True).encode()).hexdigest()[:10]
 
 
+def relation_hash(x):
+    """Short fingerprint of a relation row (relation_rows): the Sheet carries it per line, like a row's version."""
+    fields = [x[k] for k in ('subject', 'hadRole', 'target', 'evidence', 'source', 'reviewedBy', 'note')]
+    return hashlib.sha256(json.dumps(fields).encode()).hexdigest()[:10]
+
+
+def relation_of(field, old, new):
+    """The label and target that a change-log line about a relation names: field 'relation' adds or removes one
+    ('label target' as new or old), 'relation label target field' changes one of its fields."""
+    return tuple((old if new == '(removed)' else new).split()[:2] if field == 'relation' else field.split()[1:3])
+
+
 def relation_rows(doc):
     """Relations as flat rows: subject key, label, target key, evidence, source, reviewedBy, note."""
     key_of = {r['@id']: r['key'] for r in doc['hasPart']}
