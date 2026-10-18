@@ -385,6 +385,104 @@ class SheetTest(TempDir):
         self.assertIn(('newres', '(row)', '(new)', 'New Resource'), changes)
         self.assertIn(('ctd', 'relation', 'implements exo', '(removed)', ''), changes)   # unsigned
 
+    def test_each_relation_line_carries_its_version(self):
+        doc = model.normalise(fixture())
+        ws = load_workbook(self.build(doc))['Relations']
+        head = [c.value for c in ws[1]]
+        versions = [dict(zip(head, r))['Line version'] for r in ws.iter_rows(min_row=2, values_only=True)]
+        self.assertEqual([v for v in versions if v], [model.relation_hash(x) for x in model.relation_rows(doc)])
+
+    def test_a_relation_changed_in_the_dataset_after_the_sheet_waits(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Note', 'ctd', 'Checked in the sheet.', tab='Relations')
+        moved = copy.deepcopy(doc)
+        next(r for r in moved['hasPart'] if r['key'] == 'ctd')['qualifiedRelation'][0]['note'] = 'Changed elsewhere.'
+        new, changes, problems, _, _ = sheet.ingest(moved, p)
+        self.assertEqual((changes, [x['value'] for x in problems]), ([], ['ctd implements exo']))
+        self.assertIn('changed in the dataset', problems[0]['problem'])
+        self.assertEqual(sheet.ingest(moved, p, read_back={('ctd', 'implements', 'exo')})[1],   # last read back here
+                         [('ctd', 'relation implements exo note', 'Changed elsewhere.', 'Checked in the sheet.', '')])
+        next(r for r in moved['hasPart'] if r['key'] == 'ctd')['qualifiedRelation'] = []      # removed elsewhere
+        self.assertEqual([x['value'] for x in sheet.ingest(moved, p)[2]], ['ctd implements exo'])
+        self.edit(p, 'Keep', 'ctd', 'remove', tab='Relations')                     # the sheet shows the removal
+        self.assertEqual(sheet.ingest(moved, p)[1:3], ([], []))
+
+    def test_a_relation_line_edited_again_after_its_read_back_replaces_again(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Relation', 'ctd', 'related_to', tab='Relations')
+        doc = sheet.ingest(doc, p)[0]                           # read back and merged; the line keeps its version
+        self.edit(p, 'Target', 'ctd', 'tool', tab='Relations')
+        new, changes, problems, _, _ = sheet.ingest(doc, p, read_back={('ctd', 'implements', 'exo'),
+                                                                       ('ctd', 'related_to', 'exo')})
+        self.assertEqual((sorted(changes), problems), ([('ctd', 'relation', '(new)', 'related_to tool', ''),
+                                                        ('ctd', 'relation', 'related_to exo', '(removed)', '')], []))
+        self.edit(p, 'Relation', 'ctd', 'implements', tab='Relations')     # and back to what the sheet first showed
+        self.edit(p, 'Target', 'ctd', 'exo', tab='Relations')
+        changes = sheet.ingest(new, p, read_back={('ctd', 'implements', 'exo'), ('ctd', 'related_to', 'tool')})[1]
+        self.assertEqual(sorted(changes), [('ctd', 'relation', '(new)', 'implements exo', ''),
+                                           ('ctd', 'relation', 'related_to tool', '(removed)', '')])
+
+    def test_a_relation_line_moved_onto_one_added_elsewhere_waits(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        added = copy.deepcopy(doc)
+        by = {r['key']: r for r in added['hasPart']}
+        by['ctd']['qualifiedRelation'].append({'relation': by['exo']['@id'], 'hadRole': 'related_to',
+                                               'evidence': 'literature', 'source': 'L120', 'reviewedBy': 'MM'})
+        self.edit(p, 'Relation', 'ctd', 'related_to', tab='Relations')
+        new, changes, problems, notes, _ = sheet.ingest(added, p)
+        self.assertEqual((changes, [x['value'] for x in problems], notes), ([], ['ctd related_to exo'], []))
+
+    def test_a_relation_signed_with_its_edit_is_not_reported_under_other_initials(self):
+        doc = model.normalise(fixture())
+        os.makedirs(self.path('data'))
+        model.save(doc, self.path(model.DATASET))
+        with open(self.path(model.CHANGES), 'w', encoding='utf-8') as f:
+            f.write('date,round,key,field,old,new,by,source\n')
+        p = self.build(doc)
+        self.edit(p, 'Relation', 'ctd', 'related_to', tab='Relations')
+        self.edit(p, 'Reviewed by', 'ctd', 'IM', tab='Relations')
+        self.addCleanup(os.chdir, os.getcwd())
+        os.chdir(self.dir)
+        with mock.patch.object(model, 'FIP_ONTOLOGY', os.path.join(ROOT, model.FIP_ONTOLOGY)), \
+                mock.patch('builtins.print'), self.assertRaises(SystemExit):
+            cli.main(['ingest', p, '--report', 'report.md'])
+        with open('report.md', encoding='utf-8') as f:
+            self.assertNotIn('changed under the initials', f.read())
+
+    def test_a_relation_line_edited_in_place_replaces_its_relation(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Relation', 'ctd', 'related_to', tab='Relations')
+        self.edit(p, 'Reviewed by', 'ctd', 'IM', tab='Relations')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(problems, [])
+        self.assertEqual(sorted(changes), [('ctd', 'relation', '(new)', 'related_to exo', 'IM'),
+                                           ('ctd', 'relation', 'implements exo', '(removed)', 'IM')])
+
+    def test_an_edited_copy_of_a_relation_line_adds_and_keeps_the_original(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        ws = load_workbook(p)['Relations']
+        head = [c.value for c in ws[1]]
+        line = next(dict(zip(head, r)) for r in ws.iter_rows(min_row=2, values_only=True) if r[0] == 'ctd')
+        self.add(p, {**{h: line[h] for h in ('Resource', 'Target', 'Evidence', 'Line version')},
+                     'Relation': 'related_to'}, tab='Relations')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([('ctd', 'relation', '(new)', 'related_to exo', '')], []))
+
+    def test_a_deleted_relation_line_leaves_the_relation_and_says_so(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        wb = load_workbook(p)
+        wb['Relations'].delete_rows(next(c.row for c in wb['Relations']['A'] if c.value == 'ctd'))
+        wb.save(p)
+        new, changes, problems, notes, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([], []))
+        self.assertIn('1 relations are not in the sheet and were left unchanged: ctd implements exo', notes[-1])
+
     def test_source_and_community_document_ticks(self):
         doc = fip.enrich(fairsharing.enrich(model.normalise(fixture()), fairsharing.read(None, None, offline=True)),
                          fip.read(offline=True))                 # the FIPs tool and oecd_gd declare exo
@@ -513,6 +611,12 @@ class SheetTest(TempDir):
                 self.assertEqual({(r['key'], r['field'], r['by']) for r in csv.DictReader(f)},
                                  {('ctd', 'datePublished', 'JH'), ('ctd', 'reviewedBy', 'JH'),
                                   ('ctd', 'relation implements exo reviewedBy', 'IM')})
+            # The relation was last read back from this sheet: edited again, its older line version does not hold it.
+            self.edit(p, 'Note', 'ctd', 'Checked twice.', tab='Relations')
+            with self.assertRaises(SystemExit):
+                cli.main(['ingest', p])
+            self.assertEqual(next(x for x in model.relation_rows(model.load()) if x['subject'] == 'ctd')['note'],
+                             'Checked twice.')
             # A process changes ctd, then a relation of ctd is signed: ctd's stale line must not undo the proposal.
             later = model.load()
             next(r for r in later['hasPart'] if r['key'] == 'ctd')['description'] = 'Proposed by research.'

@@ -76,9 +76,12 @@ def cmd_sheet(a):
 def cmd_ingest(a):
     from fairtox import sheet
     doc, source = _load(), os.path.basename(a.workbook)
-    with open(model.CHANGES, newline='', encoding='utf-8') as f:    # rows whose own fields were last changed by
-        last = {r['key']: r['source'] for r in csv.DictReader(f) if not r['field'].startswith('relation')}
-    read_back = {k for k, s in last.items() if s == source}        # reading this sheet back
+    last = {}                                                       # rows and relations last changed by reading
+    with open(model.CHANGES, newline='', encoding='utf-8') as f:    # this sheet back
+        for r in csv.DictReader(f):
+            rel = r['field'].startswith('relation')
+            last[(r['key'], *model.relation_of(r['field'], r['old'], r['new'])) if rel else r['key']] = r['source']
+    read_back = {k for k, s in last.items() if s == source}
     new, changes, problems, notes, reviewers = sheet.ingest(doc, a.workbook, force=a.force, read_back=read_back)
     path = os.path.join('build', 'ingest-errors.csv')
     if problems:
@@ -99,11 +102,12 @@ def cmd_ingest(a):
     def item(c):                                            # the row, or the relation, a change is about
         if len(c) < 5:
             return c[0]
-        rel = (c[2] if c[3] == '(removed)' else c[3]) if c[1] == 'relation' else ' '.join(c[1].split()[1:3])
-        return f'{c[0]} {rel}'
+        return f'{c[0]} {" ".join(model.relation_of(*c[1:4]))}'
     by = lambda c: c[4] if len(c) > 4 else reviewers.get(c[0], '')
+    before = {(x['subject'], x['hadRole'], x['target']): x['reviewedBy'] for x in model.relation_rows(doc)}
     resigned = {item(c) for c in changes if c[1] in ('reviewedBy', '(row)') or c[1].endswith(' reviewedBy')
-                or c[2] == '(new)'}                         # signed in this read-back
+                or c[2] == '(new)' or c[3] == '(removed)' and c[4] != before.get(
+                    (c[0], *model.relation_of(*c[1:4])), '')}  # signed in this read-back
     unsigned = sorted({item(c) for c in changes if not by(c)})
     kept = sorted({f'{item(c)} ({by(c)})' for c in changes if by(c) and item(c) not in resigned})
     included, rels = [r for r in new['hasPart'] if r.get('decision') == 'include'], model.relation_rows(new)
