@@ -220,6 +220,8 @@ Each excluded row carries exactly one code.
 - A release's dashboard and figure cannot be rebuilt identically later: FAIRsharing, the FIP declarations and the FIP
   ontology are read when they are built, and published with their retrieval dates. Each published build is kept in
   the history of the dashboard's repository.
+- A read-back can be replayed from its exported sheet, which the data refresh keeps for 90 days; dates are checked
+  against the day of the run.
 - FSR types, phases and spans are proposals until the co-authors confirm them, and a judgement for resources with
   several roles or uses; creator types depend on what is documented about the makers. All are recorded per resource
   so they can be checked and revised.

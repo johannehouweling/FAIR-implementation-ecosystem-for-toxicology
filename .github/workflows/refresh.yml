@@ -7,7 +7,8 @@ name: Data refresh
 # merges it. A sheet row or relation with a problem waits in the sheet and is listed in the pull request; only a sheet
 # that cannot be read stops the run. The sheet is exported with a Google service account that can only view it
 # (secret GOOGLE_CREDENTIALS); setting the secret SHEET_ID switches this on. Nothing is pushed to main; the dashboard
-# is redeployed after the pull request is merged.
+# is redeployed after the pull request is merged. Each run keeps the exported sheet and the FIP ontology it read for
+# 90 days.
 
 on:
   schedule:
@@ -53,6 +54,16 @@ jobs:
           curl -fsS --create-dirs -o build/curation-sheet.xlsx -H "Authorization: Bearer $TOKEN" \
             "https://www.googleapis.com/drive/v3/files/$SHEET_ID/export?mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           uv run fairtox ingest build/curation-sheet.xlsx --round "$ROUND" --report build/refresh.md
+      - name: Keep the exported sheet and the FIP ontology with the run
+        if: always() && env.SHEET_ID
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: curation-sheet
+          path: |
+            build/curation-sheet.xlsx
+            build/fip/fip-ontology.ttl
+          retention-days: 90
+          if-no-files-found: ignore
       - name: Read FAIRsharing
         env:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
