@@ -1703,7 +1703,7 @@
    "decision": "include",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Supporting-Software"
+    "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
    "scope": "Toxicology",
    "phase": "Data generation",
@@ -1727,7 +1727,6 @@
    "manuscript": "comment only",
    "manuscriptEvidence": "Comments [ap]; L406",
    "fairsharingMatch": "no record",
-   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): The year 2003 is confirmed. Tong et al., EHP 111(15), November 2003, is the first description; Crossref and Europe PMC give only the print issue date, with no separate online date. Development started in 2001 (Xu et al. 2010, doi 10.1186/1479-7364-4-6-428). The full ArrayTrack system is no longer distributed. FDA now offers only the 'ArrayTrack HCA-PCA standalone package' (page current as of 2024-02-02), so that page replaces the DOI as url. FAIRsharing: no record. Proposed 9 Oct 2026: FDA software with a MIAME-supportive database: stores and analyses primary microarray data, interprets them with annotation libraries, and supported regulatory review.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
@@ -2593,7 +2592,7 @@
    "decision": "include",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Training-Material"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "scope": "Generic",
    "dateReleased": "2020",
@@ -3667,7 +3666,7 @@
    "decision": "include",
    "fairsharingType": "Policy: institution",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Interpretation"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "scope": "Toxicology",
    "phase": "Data generation",
@@ -8953,7 +8952,7 @@
    "decision": "include",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Training-Material"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "scope": "Generic",
    "dateReleased": "2021-03-31",
@@ -9072,7 +9071,7 @@
    "decision": "include",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Training-Material"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "scope": "Toxicology",
    "phase": "Data integration",
@@ -9191,7 +9190,7 @@
    "decision": "include",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Supporting-Software"
+    "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
    "scope": "Toxicology",
    "phase": "Data generation",
