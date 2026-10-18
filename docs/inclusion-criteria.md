@@ -6,8 +6,10 @@ row in the dataset: every screened candidate keeps its row, with its decision an
 ## 1. Terminology
 
 The terms follow the typology of FAIR Supporting Resources of Magagna et al. 2024 (*Ontological Analysis of FAIR
-Supporting Resources*, CEUR-WS Vol-3882) and the FIP ontology (`https://w3id.org/fair/fip/terms/`, read from that address; the types were checked
-against version 20260227, and validation warns when the ontology moves on).
+Supporting Resources*, CEUR-WS Vol-3882) and the FIP ontology (`https://w3id.org/fair/fip/terms/FIP-Ontology`, read
+from `https://w3id.org/fair/fip/terms/`), whose FSR typology gives the FSR types (data dictionary, FSR type). The
+types were checked against version 20260227 (`https://w3id.org/fair/fip/terms/FIP-Ontology_20260227`), and
+validation warns when the ontology moves on.
 
 - A **FAIR Supporting Resource (FSR)** is any resource that supports FAIR implementation.
 - A **FAIR-Enabling Resource (FER)** is an FSR that is essential to the operationalisation of the FAIR principles: a
@@ -97,16 +99,16 @@ Each excluded row carries exactly one code.
 
 - **Scope** says what a resource was made for: Generic (infrastructure not specific to a research domain, including
   FAIR resources such as FAIRsharing and the FIP), Life Sciences (life-science infrastructure) or Toxicology.
-- **FSR type.** Each resource gets one type from the FIP ontology. When a toxicology FIP declares the resource, the
-  type comes from the FIP's own description of it (if that gives several, the one that fits the question it is
-  declared for). Otherwise the kind of resource decides: a database, including a portal or a report repository, is a
-  Domain-specific or Generalist registry, as databases are in FIPs; an identifier scheme is an Identifier service; a
-  terminology or ontology a Structured vocabulary or Semantic model; a reporting guideline, model or format a Metadata
-  schema or Knowledge representation language; a licence a Data usage license; guidance, including regulatory
-  guidance, a FAIR practice (a FAIR interpretation for a statement on the FAIR principles); a tool or service its
-  service type, such as Editor or Validation service; training FAIR training material. The class (FAIR-Enabling
-  Resource or other FAIR Supporting Resource) follows from the type. FAIR principles are assigned only through the
-  FIP questions a resource is declared for, so a resource that no FIP declares has none.
+- **FSR type.** Each resource gets one type of the FSR typology of the FIP ontology. When a toxicology FIP declares
+  the resource, the type comes from the FIP's own description of it (if that gives several, the one that fits the
+  question it is declared for). Otherwise the kind of resource decides: a database, including a portal or a report
+  repository, is a Domain-specific or Generalist registry, as databases are in FIPs; an identifier scheme is an
+  Identifier service; a terminology or ontology a Structured vocabulary or Semantic model; a reporting guideline, model
+  or format a Metadata schema or Knowledge representation language; a licence a Data usage license; guidance,
+  including regulatory guidance, training material and statements on the FAIR principles, a FAIR practice; a tool or
+  service, including software, its service type, such as Editor, FAIR Analysis Service or Validation service. The
+  class (FAIR-Enabling Resource or other FAIR Supporting Resource) follows from the type. FAIR principles are assigned
+  only through the FIP questions a resource is declared for, so a resource that no FIP declares has none.
 - **Phase.** A toxicology resource's phase is the data life-cycle phase it acts on, whoever made it: Data generation
   (planning, producing and depositing primary records: datasets, protocols, method descriptions and the publications
   reporting them), Data integration (integrating and synthesising those records into secondary resources and evidence:
@@ -200,6 +202,7 @@ Each excluded row carries exactly one code.
 | 10 Oct 2026 | The curation sheet puts what curators check first, in the order of the curation steps and ending with Reviewed by and Note; the context (identifiers, FAIRsharing and FIP data, derived fields, the manuscript columns) follows, folded. | Jente Houweling |
 | 17 Oct 2026 | A mention in an ELIXIR Toxicology Community document documents toxicology use (I4). Curators tick the documents in the sheet (`mentionedIn`): the white paper (Martens et al. 2023), FAIRsharing's report on the collection of 3 Jul 2025 and the INTOXICOM workshop reports 1, 2, 3 and 5. The sheet also shows, computed, where each resource is found now (manuscript draft, FAIRsharing Toxicology collection, a toxicology FIP, co-author addition) in a Source column after URL, an exception to the layout of 10 Oct 2026, which replaces In FAIRsharing collection. | Jente Houweling |
 | 18 Oct 2026 | A value is a proposal until a curator confirms its row, or relation, by putting initials in Reviewed by after checking every value up to Note; a process that changes a confirmed value empties Reviewed by. Nothing else is stored: `data/changes.csv` records each proposal under its process, each change made in the Sheet under the Reviewed by of its row or relation, and each confirmation as a change of Reviewed by. The data refresh reads the Sheet back three times a day, row by row: a row or relation with a problem, or one that would add an error or a warning, waits and is listed in the pull request. A new row gets a key typed by its curator; a key left empty is made from the name on import. | Jente Houweling |
+| 18 Oct 2026 | The FSR types are the FSR typology of the FIP ontology as the ontology draws it, read from the ontology: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated (31), with FAIR Implementation Community for communities. FAIR-Enabling Resource still follows from the type. Guidance, training material and statements on the FAIR principles are FAIR practices, and software takes its service type; the six resources typed FAIR training material, FAIR interpretation or the deprecated FAIR Supporting Software were retyped accordingly. This replaces the 27 types of 9 Oct 2026. | Jente Houweling |
 
 ## 9. Limitations
 

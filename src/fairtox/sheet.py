@@ -25,7 +25,7 @@ def _fsr_list():
     t = model.fsr_types()
     group = lambda i: t[t[i][1]][0]
     return {t[i][0]: f'{group(i)}; {site.CLASSES[model.FER if t[i][2] else model.FSR]}'
-            for i in sorted(model.FSR_OFFERED, key=lambda i: (group(i).casefold(), t[i][0].casefold()))}
+            for i in sorted(model.fsr_offered(), key=lambda i: (group(i).casefold(), t[i][0].casefold()))}
 
 
 LISTS = {
