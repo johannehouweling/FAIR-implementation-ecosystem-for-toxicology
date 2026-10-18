@@ -2687,7 +2687,7 @@
    "manuscript": "cited",
    "manuscriptEvidence": "V Challenges; L267",
    "reviewedBy": "IM",
-   "note": "Research 5 Oct 2026 (high confidence): Moermond et al., Environ Toxicol Chem 35(5):1297-1309 (2016 issue), first online 2015-09-24 (Crossref). Planning team included UBA and Eawag; risk assessors took part in the ring test. The variants NanoCRED, EthoCRED and plasticCRED are now distributed through SciRAP. url changed from the DOI to the Ecotox Centre CRED page, and creator changed from a citation to organisations. FAIRsharing: DataCite (prefix 10.25504) shows no FAIRsharing DOI for CRED. The web search budget was used up, so this was not checked further. Proposed 9 Oct 2026: Its reporting recommendations specify the metadata ecotoxicity studies should report, applied at reporting, and its criteria are used in regulatory assessment.",
+   "note": "Research 5 Oct 2026 (high confidence): Moermond et al., Environ Toxicol Chem 35(5):1297-1309 (2016 issue), first online 2015-09-24 (Crossref). Planning team included UBA and Eawag; risk assessors took part in the ring test. The variants NanoCRED, EthoCRED and plasticCRED are now distributed through SciRAP. url changed from the DOI to the Ecotox Centre CRED page, and creator changed from a citation to organisations. FAIRsharing: DataCite (prefix 10.25504) shows no FAIRsharing DOI for CRED. The web search budget was used up, so this was not checked further. Proposed 9 Oct 2026: Its reporting recommendations specify the metadata ecotoxicity studies should report, applied at reporting, and its criteria are used in regulatory assessment. IM: FAIR practice instead of metadata schema",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
@@ -3000,8 +3000,8 @@
    "maintained": "discontinued",
    "manuscript": "comment only",
    "manuscriptEvidence": "III Toxicogenomics (notes); L164",
-   "reviewedBy": "IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora",
-   "note": "Research 5 Oct 2026 (high confidence): Refined 2015 (print issue, May 2015) to the online date 2014-12-12 (Crossref, Europe PMC). The portal named in the paper, www.dixa-fp7.eu, is now a parked domain and the EBI warehouse URL redirects to a team page, so the URL stays the DOI and discontinued is confirmed. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Verified 5 Oct 2026: datePublished changed (On 2013-08-27 the diXa homepage linked the Data Warehouse only in its 'Members' box (https://web.archive.org/web/20130827153007/http://www.dixa-fp7.eu/). By 2014-02-07 the homepage had a public 'Enter the diXa data warehouse' button linking to wwwdev.ebi.ac.uk/fg/dixa (https://web.archive.org/web/20140207104020/http://www.dixa-fp7.eu/). So the warehouse was public about 10 months before the paper's online date. A capture is only a lower bound, so year precision is used, as for SEND. The workshop report describing diXa (doi 10.1007/s00204-014-1387-3, online 2014-10-19) also comes before the paper.) Verified 5 Oct 2026: dateBasis changed (The earliest documented date is the public availability (launch) of the warehouse, shown in a web archive capture, not the 2014-12-12 paper.) Verified 5 Oct 2026: dateSource changed (This is the earliest capture showing the public 'Enter the diXa data warehouse' entry point. The Aug 2013 capture still lists the warehouse under Members only.) Proposed 9 Oct 2026: Domain repository for toxicogenomics data that took deposits through templates and linked chemical, molecular and phenotype records, acting on deposition and integration.",
+   "reviewedBy": "IM",
+   "note": "Research 5 Oct 2026 (high confidence): Refined 2015 (print issue, May 2015) to the online date 2014-12-12 (Crossref, Europe PMC). The portal named in the paper, www.dixa-fp7.eu, is now a parked domain and the EBI warehouse URL redirects to a team page, so the URL stays the DOI and discontinued is confirmed. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Verified 5 Oct 2026: datePublished changed (On 2013-08-27 the diXa homepage linked the Data Warehouse only in its 'Members' box (https://web.archive.org/web/20130827153007/http://www.dixa-fp7.eu/). By 2014-02-07 the homepage had a public 'Enter the diXa data warehouse' button linking to wwwdev.ebi.ac.uk/fg/dixa (https://web.archive.org/web/20140207104020/http://www.dixa-fp7.eu/). So the warehouse was public about 10 months before the paper's online date. A capture is only a lower bound, so year precision is used, as for SEND. The workshop report describing diXa (doi 10.1007/s00204-014-1387-3, online 2014-10-19) also comes before the paper.) Verified 5 Oct 2026: dateBasis changed (The earliest documented date is the public availability (launch) of the warehouse, shown in a web archive capture, not the 2014-12-12 paper.) Verified 5 Oct 2026: dateSource changed (This is the earliest capture showing the public 'Enter the diXa data warehouse' entry point. The Aug 2013 capture still lists the warehouse under Members only.) Proposed 9 Oct 2026: Domain repository for toxicogenomics data that took deposits through templates and linked chemical, molecular and phenotype records, acting on deposition and integration. IM: Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -8472,6 +8472,11 @@
    "description": "EU public-public partnership that develops regulatory risk assessment of chemicals and brings novel assessment methods and next-generation risk assessment tools into regulatory practice.",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; III Data generation; III AOP; III Computational; L60, L112, L135, L158, L399",
+   "mentionedIn": [
+    "Whitepaper"
+   ],
+   "reviewedBy": "JH",
+   "note": "Checked 18 Oct 2026: a co-author set this community to exclude without a reason; a FAIR Implementation Community nanopublication identifies it, so E1 does not apply and it stays included.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
