@@ -164,7 +164,7 @@ CRITERIA_TEXT = [
     'I2 It is named and identifiable (homepage or DOI).',
     'I3 It is or was publicly available.',
     'I4 Its use in toxicology is documented: in the manuscript, in the FAIRsharing Toxicology collection, in a '
-    'toxicology FIP or in an ELIXIR Toxicology Community document.',
+    'toxicology FIP, in an ELIXIR Toxicology Community document, or by a co-author who added it.',
     'I5 It makes data or metadata findable, accessible, interoperable or reusable.',
 ]
 
