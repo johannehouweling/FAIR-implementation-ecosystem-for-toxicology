@@ -18,7 +18,8 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 
 - `data/fair-tox-ecosystem.jsonld`: the dataset (JSON-LD with schema.org, DCAT and the FIP ontology; FAIRsharing DOIs
   as identifiers).
-- `data/changes.csv`: every change, with its date, process or curator, and source.
+- `data/changes.csv`: every change to a curated field or relation since the first version, with its date, process or
+  curator, and source; it is published with the code.
 - `docs/inclusion-criteria.md`: how resources were selected and classified.
 - `docs/data-dictionary.md`: fields with their terms, and the controlled vocabularies.
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).

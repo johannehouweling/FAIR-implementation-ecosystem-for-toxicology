@@ -125,6 +125,7 @@ RELATION_COLUMNS = [
     ('Note', 'note', 'text', 40, ''),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
+NOT_INITIALS = 'initials only, in one word; a remark goes in Note'
 FOLDED = tuple(h for h, *_ in CONTEXT_COLUMNS)   # context, not tasks: grouped and collapsed
 INSTRUCTIONS = [
     'Edit only the white cells. Grey columns, and the grey rows on the Relations tab, are computed or read from '
@@ -164,7 +165,7 @@ CRITERIA_TEXT = [
     'I2 It is named and identifiable (homepage or DOI).',
     'I3 It is or was publicly available.',
     'I4 Its use in toxicology is documented: in the manuscript, in the FAIRsharing Toxicology collection, in a '
-    'toxicology FIP or in an ELIXIR Toxicology Community document.',
+    'toxicology FIP, in an ELIXIR Toxicology Community document, or by a co-author who added it.',
     'I5 It makes data or metadata findable, accessible, interoperable or reusable.',
 ]
 
@@ -517,6 +518,9 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
             if t and t not in MARKED:
                 problem('Resources', where.get(mark, ''), mark, val.get(mark), 'mark with x or leave it empty')
                 bad = True
+        if parsed['reviewedBy'] and not parsed['reviewedBy'].isalpha():
+            problem('Resources', where['Reviewed by'], 'Reviewed by', parsed['reviewedBy'], NOT_INITIALS)
+            bad = True
         if not parsed['name']:
             problem('Resources', where['Name'], 'Name', '', 'every row needs a name')
             if key:
@@ -557,7 +561,8 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
             changed = any(model._text(seen_as.get(f)) != model._text(parsed.get(f)) for f in parsed)
             if changed and version != current.get(key) and key not in read_back and not force:
                 problem('Resources', where['Key'], 'Key', key,
-                        'this row changed in the dataset after the sheet was made; make a new sheet or re-check it')
+                        'this row changed in the dataset after the sheet was made; it waits until the sheet shows the '
+                        'change')
                 waiting.add(key)
                 continue
             old.update(parsed)
@@ -591,13 +596,15 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
         rel_row[subject, label, target] = n
         if subject in waiting or (subject, label, target) in refused:          # waits with its row, or for a fix
             continue
-        bad, evidence = False, _text(val.get('Evidence'))
+        bad, evidence, reviewed = False, _text(val.get('Evidence')), _text(val.get('Reviewed by'))
         for h, v, ok in (('Resource', subject, subject in by_key), ('Relation', label, label in model.RELATIONS),
                          ('Target', target, target in by_key and target != subject),
-                         ('Evidence', evidence, evidence in ('', *model.EVIDENCE))):
+                         ('Evidence', evidence, evidence in ('', *model.EVIDENCE)),
+                         ('Reviewed by', reviewed, not reviewed or reviewed.isalpha())):
             if not ok:
                 col = get_column_letter(head.get(h, 0) + 1)
-                problem('Relations', f'{col}{n}', h, v, 'missing or not an allowed value')
+                problem('Relations', f'{col}{n}', h, v,
+                        NOT_INITIALS if h == 'Reviewed by' else 'missing or not an allowed value')
                 bad = True
         keep = _text(val.get('Keep')) or 'keep'
         if keep not in LISTS['Keep']:
@@ -605,7 +612,7 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
             bad = True
         if bad:
             continue
-        rel_by[subject, label, target] = _text(val.get('Reviewed by'))
+        rel_by[subject, label, target] = reviewed
         rels = by_key[subject].setdefault('qualifiedRelation', [])
         existing = next((q for q in rels if q['relation'] == id_of[target] and q['hadRole'] == label), None)
         if keep == 'remove':
@@ -614,7 +621,7 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
             continue
         q = existing or {'relation': id_of[target], 'hadRole': label}
         q.update(evidence=evidence or q.get('evidence') or 'curator', source=_text(val.get('Source')),
-                 reviewedBy=_text(val.get('Reviewed by')), note=_text(val.get('Note')))
+                 reviewedBy=reviewed, note=_text(val.get('Note')))
         if existing is None:
             rels.append(q)
 

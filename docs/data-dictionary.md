@@ -15,7 +15,7 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | Field | Meaning |
 |---|---|
 | `name, description` | Title and summary. |
-| `version` | Semantic version, the same as the software and CITATION.cff. A minor version marks a curation round. |
+| `version` | Semantic version, the same as the software and CITATION.cff, set by release-please from the commits: a release with new features is a minor version, one with only fixes or data refreshes a patch version. |
 | `dateModified` | Date of the last change to the content. |
 | `inLanguage` | `en`. |
 | `license` | CC BY-SA 4.0 (name and URL), required because the dataset contains FAIRsharing data. |
@@ -302,7 +302,7 @@ Read through each FIP's declaration index from the nanopublications of the two t
 
 | Field | Content |
 |---|---|
-| `fipDeclaration` | On a FIP row, one entry per declaration: `@id` (the declaration in its nanopublication), `@type` (`fip:FIP-Declaration`), one of the `declares-…` properties above with the target's `@id`, `question` (the FIP question, such as `fip:FIP-Question-F1-D`), `principle` (its FAIR principle in the pinned ontology, such as F1) and `considerations` (the community's remarks, when given). |
+| `fipDeclaration` | On a FIP row, one entry per declaration: `@id` (the declaration in its nanopublication), `@type` (`fip:FIP-Declaration`), one of the `declares-…` properties above with the target's `@id`, `question` (the FIP question, such as `fip:FIP-Question-F1-D`), `principle` (its FAIR principle in the FIP ontology, whose version 20260227 validation checks, such as F1) and `considerations` (the community's remarks, when given). |
 | `declared-by` | On a FIP row: the `@id` of the FAIR Implementation Community that declares the FIP, when it has a row. |
 | `declaredIn` | On a declared resource: the `@id`s of the FIPs that declare it. |
 | `principles` | On a declared resource: the principles of the questions it is declared for; absent when no FIP declares it. |
@@ -337,4 +337,4 @@ The FAIRsharing type stays text (`schema:additionalType`), as FAIRsharing publis
 
 ## Change log
 
-`data/changes.csv` has one row per changed field: `date`, `round` (the curation round, import or process), `key`, `field`, `old`, `new`, `by` (the Reviewed by initials from the sheet, or the command or process that made the change) and `source` (workbook file name, FAIRsharing Toxicology collection, FIP nanopublications, or the basis of the change). A change read back from the sheet is logged under the Reviewed by of its row or, for a relation, of the relation itself; `by` is empty when the curator gave no initials. Changes by research, verification, classification, relation check, phase proposal, screening, review, fairtox fip and fairtox fairsharing are proposals; JH marks a decision of a corresponding author; migration, model change, rename, cleanup and labels only rename or move values. A change of `reviewedBy` to initials is a confirmation, and so is a row added in the sheet with initials (its `(row)` line).
+`data/changes.csv` has one row per changed field: `date`, `round` (the curation round, import or process), `key`, `field`, `old`, `new`, `by` (the Reviewed by initials from the sheet, or the command or process that made the change) and `source` (workbook file name, FAIRsharing Toxicology collection, FIP nanopublications, or the basis of the change). A change read back from the sheet is logged under the Reviewed by of its row or, for a relation, of the relation itself; `by` is empty when the curator gave no initials. Changes by research, verification, classification, relation check, phase proposal, screening, review, fairtox fip and fairtox fairsharing are proposals; JH marks a decision of a corresponding author; migration, rename, cleanup and labels only rename or move values, and model change also re-derived phases and creator types on 5 Oct 2026, as proposals. The log starts with the first version of the dataset, whose values have no line; a row or relation added later is one line (`(row)` or `relation`), and older lines may use field names renamed since (`type`, `stakeholder`, `stakeholders`). A change of `reviewedBy` to initials is a confirmation, and so is a row added in the sheet with initials (its `(row)` line). FIP identifiers (`fsr`) are replaced on each FIP import and not logged. The log is published with the code; it cites the manuscript drafts by section and line.

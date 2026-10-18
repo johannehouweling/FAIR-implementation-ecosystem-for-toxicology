@@ -3322,9 +3322,9 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-18,curation sheet 2026-10-18,comptox,mentionedIn,,Whitepaper,,curation-sheet.xlsx
 2026-10-18,curation sheet 2026-10-18,cred,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
 2026-10-18,curation sheet 2026-10-18,cred,reviewedBy,,IM,IM,curation-sheet.xlsx
-2026-10-18,curation sheet 2026-10-18,dixa,decision,include,exclude,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,curation-sheet.xlsx
-2026-10-18,curation sheet 2026-10-18,dixa,exclusionReason,,E3,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,curation-sheet.xlsx
-2026-10-18,curation sheet 2026-10-18,dixa,reviewedBy,,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,dixa,decision,include,exclude,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,dixa,exclusionReason,,E3,IM,curation-sheet.xlsx
+2026-10-18,curation sheet 2026-10-18,dixa,reviewedBy,,IM Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora,IM,curation-sheet.xlsx
 2026-10-18,curation sheet 2026-10-18,dixa_project,mentionedIn,,Whitepaper,,curation-sheet.xlsx
 2026-10-18,curation sheet 2026-10-18,ec_inventory,mentionedIn,,Whitepaper,,curation-sheet.xlsx
 2026-10-18,curation sheet 2026-10-18,echa_chem_reach,mentionedIn,,Whitepaper,,curation-sheet.xlsx

@@ -437,6 +437,18 @@ class SheetTest(TempDir):
                          [('Relations', 'Literature'), ('Resources', 'tool')])
         self.assertEqual(next(r for r in new['hasPart'] if r['key'] == 'tool')['decision'], 'undecided')
 
+    def test_a_note_in_reviewed_by_waits_on_its_cell(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Description', 'tool', 'Edited.')
+        self.edit(p, 'Reviewed by', 'tool', 'IM see ChemAgora')    # a note, not initials
+        self.edit(p, 'Reviewed by', 'ctd', 'IM, JH', tab='Relations')
+        self.edit(p, 'Reviewed by', 'exo', 'Marvin')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(changes, [('exo', 'reviewedBy', '', 'Marvin')])
+        self.assertEqual([(x['sheet'], x['column'], x['value']) for x in problems],
+                         [('Resources', 'Reviewed by', 'IM see ChemAgora'), ('Relations', 'Reviewed by', 'IM, JH')])
+
     def test_a_relation_that_would_add_a_warning_waits(self):
         doc = model.normalise(fixture())
         p = self.build(doc)
@@ -1086,7 +1098,7 @@ class RepositoryTest(unittest.TestCase):
 
     def test_a_signed_row_was_not_changed_elsewhere_after_its_signature(self):
         # A signature covers the columns up to Note; a process that changes one of them on a signed row empties
-        # Reviewed by. Changes that only rename or move values do not count.
+        # Reviewed by. Changes that only rename or move values do not count; a model change can propose values.
         signed = set(model.CURATED) - {f for _, f, *_ in sheet.CONTEXT_COLUMNS} - {'key', 'reviewedBy', 'note'}
         sign, outside = {}, {}
         with open(os.path.join(ROOT, model.CHANGES), newline='', encoding='utf-8') as f:
@@ -1095,7 +1107,7 @@ class RepositoryTest(unittest.TestCase):
                         or r['field'] == '(row)' and r['source'] == 'curation-sheet.xlsx'):   # added with initials
                     sign[r['key']] = i
                 elif r['field'] in signed and r['source'] != 'curation-sheet.xlsx' and r['by'] not in (
-                        'migration', 'model change', 'rename', 'cleanup', 'labels'):
+                        'migration', 'rename', 'cleanup', 'labels'):
                     outside[r['key']] = i
         for r in model.load(os.path.join(ROOT, model.DATASET))['hasPart']:
             if r.get('reviewedBy'):
