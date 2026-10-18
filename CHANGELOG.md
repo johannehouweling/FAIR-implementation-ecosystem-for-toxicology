@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.4.0...v0.5.0) (2026-10-18)
+
+
+### Features
+
+* **sheet:** read the sheet back row by row and record who confirmed what ([1c36c0d](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/1c36c0d5f4b80a6f4bcd4eee6ce8213ce72c28c2))
+
+
+### Fixes
+
+* **data:** refresh 2026-10-18 ([fcec8ba](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/fcec8ba76f4e9b144c630c9d40e838089a6cfa12))
+
 ## [0.4.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.3.0...v0.4.0) (2026-10-17)
 
 
