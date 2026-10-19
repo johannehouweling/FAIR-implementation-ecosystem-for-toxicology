@@ -3407,3 +3407,99 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-18,curation sheet 2026-10-18,parc_partnership,mentionedIn,,Whitepaper,JH,curation-sheet.xlsx
 2026-10-18,curation sheet 2026-10-18,parc_partnership,reviewedBy,,JH,JH,curation-sheet.xlsx
 2026-10-18,curation sheet 2026-10-18,parc_partnership,note,,"Checked 18 Oct 2026: a co-author set this community to exclude without a reason; a FAIR Implementation Community nanopublication identifies it, so E1 does not apply and it stays included.",JH,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,compact_identifier,(row),(new),compact identifier,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,data_management_plan_wizard,(row),(new),Data Management Plan Wizard,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,diamonds,(row),(new),Diamonds (TNO),,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,fair_enabling_resource_fer,(row),(new),FAIR enabling resource (FER),,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,harmless,(row),(new),HARMLESS,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,pink,(row),(new),PINK,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,risk_hunt3r,(row),(new),RISK-HUNT3R,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,sbd4nano,(row),(new),SbD4Nano,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,sysbiotop_moving,(row),(new),SysBioToP-Moving,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,vhp4safety,(row),(new),VHP4Safety,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,agritox,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,aicis,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,aopwiki,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,apvma_cr,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,arachnoserver,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,arrayexpress,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,arraytrack,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,bioschemas_chemicalsubstance,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,bioschemas_computationaltool,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,bioschemas_computationalworkflow,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,bioschemas_dataset_profile,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,bioschemas_molecularentity,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,bioschemas_sample_profile,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,biosd,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,cas_rn,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,cesar,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,chembl,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,cheminfo,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,chemspider,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,comptox,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,cookbook,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,cosing,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,ctcae,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,ctd,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,danish_q_sar_database,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,drugbank,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,dsld,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,echa_bpr,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,echa_chem_reach,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,echa_clp,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,echemportal,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,elixir,mentionedIn,Whitepaper,Whitepaper; FAIRSharing; INTOXICOM 1,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,elixir_tox_fips,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,enm_db,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,enm_db,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,enm_ont,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,enm_ont,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,ensembl,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,envo,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,epa_aquatic_life_benchmarks,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,epa_chemview,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,epa_integrated_risk_information,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,epa_substance_registry_services,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,epicrdb,description,"Small University of Cincinnati web portal giving FAIR access to epigenomics datasets (ChIP-seq, ATAC-seq, MNase-seq, FAIRE) on how hexavalent chromium disturbs chromatin organisation. It adds curated chemical, cell, antibody and treatment metadata, with links to GEO, BioProject and PubMed.","University of Cincinnati web portal giving FAIR access to epigenomics datasets (ChIP-seq, ATAC-seq, MNase-seq, FAIRE) on how hexavalent chromium disturbs chromatin organisation. It adds curated chemical, cell, antibody and treatment metadata, with links to GEO, BioProject and PubMed.",,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,euon,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,eutr_ki,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,exo,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,fairsharing,mentionedIn,Whitepaper,Whitepaper; FAIRSharing; INTOXICOM 1,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,fip_wizard,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,fipwiz,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,ghs_j,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,icscs,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,igs,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,intoxicom,mentionedIn,,INTOXICOM 1; INTOXICOM 2; INTOXICOM 3; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,ipchem,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,ipcs_inchem,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,j_check,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,jecdb,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,mdl_molfile_format,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,miametox,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,miate,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,nanocommons,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,norman_susdat,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,oecd_existing_chemicals_database,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,openfoodtox,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,parc_partnership,mentionedIn,Whitepaper,,JH,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,parctoxicology,scope,,Toxicology,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,parctoxicology,mentionedIn,Whitepaper,Whitepaper; INTOXICOM 1,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,portail_substances_chimiques_psc,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,pubchem,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,qsardb,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,rdmkit,mentionedIn,,INTOXICOM 1,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,rdmkit,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,recipe_bao,fsrType,https://w3id.org/fair/fip/terms/FAIR-Practice,https://w3id.org/fair/fip/terms/Metadata-schema,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,recipe_bao,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,smiles,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,sparql,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,spin,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,t3db,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,tbc,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,tggates,mentionedIn,Whitepaper,Whitepaper; FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,toxcoll,mentionedIn,,FAIRSharing; INTOXICOM 1,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,toxcoll,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,toxml,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,uniprot,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-19,curation sheet 2026-10-19,wikipathways,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
