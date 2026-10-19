@@ -58,10 +58,14 @@ TASK_COLUMNS = [
      'choose.'),
     ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
+    ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
+     'compare with Scope.'),
     ('Phase', 'phase', 'list:Phase', 26,
      'The phase it acts on; the earliest when several. Only for scope Toxicology; it sets the lane.'),
     *[(SPAN_HEAD[p], p, 'span', 11, f'Mark x when a toxicology resource acts on {p.lower()}. The earliest phase '
        'marked is the Phase.') for p in model.PHASES],
+    ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
+     'compare with Phase and Span.'),
     *[(s, s, 'mark', 11, f'Mark x when the resource belongs to {s}. Several sub-domains may apply.')
       for s in model.SUBDOMAINS],
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
@@ -89,10 +93,6 @@ CONTEXT_COLUMNS = [
     ('FAIRsharing link', None, 'fslink', 10, 'Computed from FAIRsharing record.'),
     ('FAIRsharing name, type, status', None, 'static', 34, 'As recorded in FAIRsharing.'),
     ('FAIRsharing year', None, 'static', 10, "FAIRsharing's year of creation."),
-    ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
-     'compare with Scope.'),
-    ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
-     'compare with Phase and Span.'),
     ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
     ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
     ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),

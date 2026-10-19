@@ -301,6 +301,9 @@ class SheetTest(TempDir):
         head = [c.value for c in ws[1]]
         self.assertEqual(head[:5], ['Key', 'Name', 'URL', 'Source', 'Decision'])
         self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
+        s = head.index('Scope')                             # FAIRsharing's tags beside the fields they help check
+        self.assertEqual(head[s:s + 7], ['Scope', 'FAIRsharing subjects', 'Phase', *sheet.SPAN_HEAD.values(),
+                                         'FAIRsharing domains'])
         self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
         row = next(c.row for c in ws['A'] if c.value == 'exo')
         value = lambda h: ws.cell(row=row, column=head.index(h) + 1).value
