@@ -1174,7 +1174,10 @@ class FipTest(TempDir):
         self.assertEqual(len(declarations), 3)   # tool and oecd_gd declare exo, oecd_gd declares wlic
 
     def test_convergence_rows(self):
-        fip.convergence(self.data)
+        principle, version = fip.ontology()       # since 19 Oct 2026 the FIP ontology gives supporting questions a
+        principle = {**principle, model.FIP + 'FIP-S-Question-F2-E': 'F2'}       # principle too: not a core question
+        with mock.patch.object(fip, 'ontology', return_value=(principle, version)):
+            fip.convergence(self.data)
         with open(fip.CONVERGENCE, encoding='utf-8') as f:
             text = f.read()
         for row in ('| Question | Principle | Test FIP A | Test FIP B | Shared |', '| F1-D | F1 | XYZ | XYZ | yes |',

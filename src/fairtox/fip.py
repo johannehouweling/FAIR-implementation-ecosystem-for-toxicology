@@ -332,7 +332,7 @@ def convergence(data):
     """Write the convergence table: per FIP question (the core questions in FAIR order, then the supporting ones),
     each FIP's choices or "no choice", and whether the FIPs share a choice."""
     principle, _ = ontology()
-    core = sorted(principle, key=lambda q: ('FAIR'.index(_q(q)[0]), _q(q)))
+    core = sorted((q for q in principle if _q(q)[0] in 'FAIR'), key=lambda q: ('FAIR'.index(_q(q)[0]), _q(q)))
     fips = data['fips']
     label = lambda iri: min([data['fsrs'][iri]['name']] + data['fsrs'][iri]['aliases'], key=len)
     lines, shared = [], []
