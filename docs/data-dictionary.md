@@ -243,6 +243,7 @@ The basis decides the field, and so the term, that holds the date, following Dat
 | INTOXICOM 1 | Report of INTOXICOM workshop 1. |
 | INTOXICOM 2 | Report of INTOXICOM workshop 2. |
 | INTOXICOM 3 | Report of INTOXICOM workshop 3. |
+| INTOXICOM 4 | Report of INTOXICOM workshop 4. |
 | INTOXICOM 5 | Report of INTOXICOM workshop 5. |
 
 ### FAIRsharing match (`fairsharingMatch`)

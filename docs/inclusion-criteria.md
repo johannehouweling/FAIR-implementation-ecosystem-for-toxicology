@@ -33,7 +33,7 @@ Implementation Communities (E1).
 | PARC Toxicology FIP | Nanopublication `https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E` (7 Sep 2026), read through its declaration index on the retrieval date published with the dataset | Every resource it declares, and the community that declares it |
 | Reference AOP FIP | Nanopublication `https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc` (14 Jul 2025), read the same way | Every resource it declares, and the community that declares it |
 | Co-author additions | Rows added in the curation Sheet | New candidates; the addition documents toxicology use (I4) |
-| ELIXIR Toxicology Community documents | Martens et al. 2023, "ELIXIR and Toxicology: a community in development", F1000Research, doi 10.12688/f1000research.74502.2; FAIRsharing's report on the collection, 3 Jul 2025, doi 10.5281/zenodo.15799783; the reports of INTOXICOM workshops 1, 2, 3 and 5 | Mentions of a row, ticked by curators in the sheet; a mention documents toxicology use (I4) |
+| ELIXIR Toxicology Community documents | Martens et al. 2023, "ELIXIR and Toxicology: a community in development", F1000Research, doi 10.12688/f1000research.74502.2; FAIRsharing's report on the collection, 3 Jul 2025, doi 10.5281/zenodo.15799783; the reports of INTOXICOM workshops 1 to 5 | Mentions of a row, ticked by curators in the sheet; a mention documents toxicology use (I4) |
 
 The PARC TOXRIC FIP (2024), an earlier FIP of the PARC toxicology community, is known but not imported.
 
@@ -208,6 +208,7 @@ Each excluded row carries exactly one code.
 | 18 Oct 2026 | A co-author's addition documents toxicology use (I4), like a mention in the manuscript or a community document. `data/changes.csv` is published with the code and cites the manuscript drafts by section and line; the drafts never enter the repository. | Jente Houweling |
 | 18 Oct 2026 | Each line on the Relations tab carries a line version, as each row carries its row version. A relation changed in the dataset after the Sheet was made waits instead of being put back; a line whose resource, relation or target is edited replaces its relation; a deleted line leaves its relation unchanged and is listed in the pull request, since it cannot be told apart from a relation added after the Sheet was made. | Jente Houweling |
 | 19 Oct 2026 | The curation sheet shows FAIRsharing's subjects and domains of a record beside the fields they help check, the subjects after Scope and the domains after the Span columns, an exception to the layout of 10 Oct 2026. | Jente Houweling |
+| 19 Oct 2026 | The report of INTOXICOM workshop 4 counts as an ELIXIR Toxicology Community document too; its tick boxes in the sheet are read back like the others. | Jente Houweling |
 
 ## 9. Limitations
 

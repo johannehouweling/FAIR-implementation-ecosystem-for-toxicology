@@ -511,7 +511,7 @@ class SheetTest(TempDir):
         wb = load_workbook(p)
         ws = wb['Resources']
         head = {c.value: c.column for c in ws[1]}
-        ws.cell(row=next(c.row for c in ws['A'] if c.value == 'exo'), column=head['ETC: INTOXICOM 2'], value=True)
+        ws.cell(row=next(c.row for c in ws['A'] if c.value == 'exo'), column=head['ETC: INTOXICOM 4'], value=True)
         n = next(c.row for c in ws['B'] if c.row > 1 and c.value is None)
         ws.cell(row=n, column=head['Name'], value='New Resource')   # no key, decision or manuscript status
         for d in model.ETC_DOCUMENTS:                               # unticked boxes leave a spare row empty
@@ -520,7 +520,7 @@ class SheetTest(TempDir):
         new, changes, problems, _, _ = sheet.ingest(doc, p)
         self.assertEqual(problems, [])
         self.assertEqual(changes, [('new_resource', '(row)', '(new)', 'New Resource'),
-                                   ('exo', 'mentionedIn', '', 'INTOXICOM 2')])
+                                   ('exo', 'mentionedIn', '', 'INTOXICOM 4')])
         self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))     # the next read-back adds nothing twice
 
     def test_a_row_with_a_problem_waits_and_the_rest_is_read_back(self):
