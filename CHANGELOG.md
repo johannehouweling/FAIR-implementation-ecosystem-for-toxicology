@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.6.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.5.0...v0.6.0) (2026-10-18)
+
+
+### Features
+
+* **sheet:** give each relation line a version, as each row has ([303cb5f](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/303cb5f53a41758df120a6c2fbaf92631d806e83))
+
+
+### Fixes
+
+* **data:** name the curator of the diXa lines ([c475555](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/c475555d10771831fc4b6fa08dbcc6fd43d5a831))
+* **data:** refresh 2026-10-18 ([0117b73](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/0117b73f5a59acd54957e70c63a590e8c84cfcdf))
+* **sheet:** hold back a Reviewed by that is not initials ([ff9f468](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/ff9f468b9a56f883b3289813399628e3f7cc9a3e))
+
+
+### Documentation
+
+* count a co-author's addition as documented toxicology use ([c6a7bc5](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/c6a7bc5360bdaa5f6f984e932f4c8fa0175d7b1b))
+* describe the change log and the versions as they are ([14965f4](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/14965f4825e6a30b8ec0cd22b297bd5a4c08a1be))
+
 ## [0.5.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.4.0...v0.5.0) (2026-10-18)
 
 
