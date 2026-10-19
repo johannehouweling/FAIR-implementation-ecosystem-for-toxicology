@@ -301,6 +301,9 @@ class SheetTest(TempDir):
         head = [c.value for c in ws[1]]
         self.assertEqual(head[:5], ['Key', 'Name', 'URL', 'Source', 'Decision'])
         self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
+        s = head.index('Scope')                             # FAIRsharing's tags beside the fields they help check
+        self.assertEqual(head[s:s + 7], ['Scope', 'FAIRsharing subjects', 'Phase', *sheet.SPAN_HEAD.values(),
+                                         'FAIRsharing domains'])
         self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
         row = next(c.row for c in ws['A'] if c.value == 'exo')
         value = lambda h: ws.cell(row=row, column=head.index(h) + 1).value
@@ -508,7 +511,7 @@ class SheetTest(TempDir):
         wb = load_workbook(p)
         ws = wb['Resources']
         head = {c.value: c.column for c in ws[1]}
-        ws.cell(row=next(c.row for c in ws['A'] if c.value == 'exo'), column=head['ETC: INTOXICOM 2'], value=True)
+        ws.cell(row=next(c.row for c in ws['A'] if c.value == 'exo'), column=head['ETC: INTOXICOM 4'], value=True)
         n = next(c.row for c in ws['B'] if c.row > 1 and c.value is None)
         ws.cell(row=n, column=head['Name'], value='New Resource')   # no key, decision or manuscript status
         for d in model.ETC_DOCUMENTS:                               # unticked boxes leave a spare row empty
@@ -517,7 +520,7 @@ class SheetTest(TempDir):
         new, changes, problems, _, _ = sheet.ingest(doc, p)
         self.assertEqual(problems, [])
         self.assertEqual(changes, [('new_resource', '(row)', '(new)', 'New Resource'),
-                                   ('exo', 'mentionedIn', '', 'INTOXICOM 2')])
+                                   ('exo', 'mentionedIn', '', 'INTOXICOM 4')])
         self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))     # the next read-back adds nothing twice
 
     def test_a_row_with_a_problem_waits_and_the_rest_is_read_back(self):
@@ -1171,7 +1174,10 @@ class FipTest(TempDir):
         self.assertEqual(len(declarations), 3)   # tool and oecd_gd declare exo, oecd_gd declares wlic
 
     def test_convergence_rows(self):
-        fip.convergence(self.data)
+        principle, version = fip.ontology()       # since 19 Oct 2026 the FIP ontology gives supporting questions a
+        principle = {**principle, model.FIP + 'FIP-S-Question-F2-E': 'F2'}       # principle too: not a core question
+        with mock.patch.object(fip, 'ontology', return_value=(principle, version)):
+            fip.convergence(self.data)
         with open(fip.CONVERGENCE, encoding='utf-8') as f:
             text = f.read()
         for row in ('| Question | Principle | Test FIP A | Test FIP B | Shared |', '| F1-D | F1 | XYZ | XYZ | yes |',

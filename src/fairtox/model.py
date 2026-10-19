@@ -159,7 +159,7 @@ ETC_DOCUMENTS = {
                   'doi 10.12688/f1000research.74502.2.',
     'FAIRSharing': "FAIRsharing's report on the ELIXIR Toxicology Community collection, 3 Jul 2025, "
                    'doi 10.5281/zenodo.15799783.',
-    **{f'INTOXICOM {n}': f'Report of INTOXICOM workshop {n}.' for n in (1, 2, 3, 5)},
+    **{f'INTOXICOM {n}': f'Report of INTOXICOM workshop {n}.' for n in range(1, 6)},
 }
 MATCH = {
     'confirmed': 'The FAIRsharing record is this resource.',
