@@ -3591,3 +3591,70 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-20,curation sheet 2026-10-20,worldfair,scope,,Generic,,curation-sheet.xlsx
 2026-10-20,curation sheet 2026-10-20,worldfair,url,,https://worldfair-project.eu/,,curation-sheet.xlsx
 2026-10-20,curation sheet 2026-10-20,xmls,url,,https://www.w3.org/TR/xmlschema-1/,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aop_wiki_id,subdomains,in vitro toxicology; nanotoxicology; AOP-based mechanistic knowledge,in vitro toxicology,IM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopdevhandbook,reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopxml,reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopxplorer,reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,compact_identifier,url,,https://docs.identifiers.org/pages/identification_scheme,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,data_management_plan_wizard,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,data_management_plan_wizard,exclusionReason,,E6,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,data_management_plan_wizard,coveredBy,,data_stewardship_wizard_ds,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,data_management_plan_wizard,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,data_stewardship_wizard_ds,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,effectopedia,reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,harmless,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,harmless,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,harmless,scope,,Toxicology,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,harmless,url,,https://www.harmless-project.eu/,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,harmless,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,intermediate_effects_db,reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,pink,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,pink,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,pink,scope,,Toxicology,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,pink,url,,https://pink-project.eu/,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,pink,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,risk_hunt3r,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,risk_hunt3r,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,risk_hunt3r,scope,,Toxicology,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,risk_hunt3r,url,,https://www.risk-hunt3r.eu/,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,risk_hunt3r,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,sbd4nano,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,sbd4nano,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,sbd4nano,scope,,Toxicology,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,sbd4nano,url,,https://www.sbd4nano.eu/,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,sbd4nano,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,vhp4safety,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,vhp4safety,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,vhp4safety,scope,,Toxicology,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,vhp4safety,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,wikipathways_aopportal,reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aop_ec,relation implements chebi reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aop_ec,relation implements cl reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aop_ec,relation implements go reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aop_ec,relation implements pro reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aop_ec,relation implements uberon reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopdb,relation implements aopxml reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopdb,relation related_to comptox reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopdbrdf,relation implements rdf reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopdbrdf,relation implements sparql reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aophelp,relation related_to aopwiki reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwiki,relation implements aopdevhandbook reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwiki,relation related_to aopkb reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements aopo reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements aopxml reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements cl reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements go reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements hgnc reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements identifiersorg reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements rdf reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements sparql reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopwikirdf,relation implements uberon reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopxplorer,relation implements aopo reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,aopxplorer,relation related_to aopkb reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,effectopedia,relation implements oht reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,effectopedia,relation related_to aopkb reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,effectopedia,relation related_to aopwiki reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,nanoaop,relation implements rdf reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,nanoaop,relation implements sparql reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,wikipathways_aopportal,relation extends wikipathways reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,wikipathways_aopportal,relation related_to aopwiki reviewedBy,Marvin,MM,MM,curation-sheet.xlsx

@@ -309,9 +309,9 @@
    "Toxicology": "Made for toxicology, including toxicology instances of generic resources."
   },
   "phase": {
-   "Data generation": "Planning, producing and depositing primary records: datasets, protocols, method descriptions and the publications reporting them.",
-   "Data integration": "Integrating and synthesising those records into secondary resources and evidence: curated databases, knowledge bases, ontologies, pathway networks and models.",
-   "Regulatory assessment": "Assessing records and secondary resources for reliability and relevance in a regulatory context and integrating them into weight of evidence and decisions."
+   "Data generation": "Supports the planning of individual toxicology studies, the recording of their results and study context (metadata, protocols, data processing) and the deposition of study-level datasets linked to that context.",
+   "Data integration": "Supports the linking of existing research output from different studies across test systems, stressors, exposures and endpoints, with mechanistic knowledge and models; includes the derivative objects this produces.",
+   "Regulatory assessment": "Supports the reporting of studies for regulatory submission and the identification and evaluation of toxicology research outputs for a specified regulatory question."
   },
   "creatorType": {
    "Wet-lab research": "Made by experimental (wet-lab) researchers, mostly academic.",
@@ -321,9 +321,9 @@
   "lane": {
    "Generic infrastructure": "Resources not specific to a research domain.",
    "Life sciences infrastructure": "Life-science resources, not specific to toxicology, that toxicology uses.",
-   "Data generation": "Toxicology resources whose phase, the earliest they act on, is data generation.",
-   "Data integration": "Toxicology resources whose phase, the earliest they act on, is data integration.",
-   "Regulatory assessment": "Toxicology resources whose phase, the earliest they act on, is regulatory assessment."
+   "Data generation": "Toxicology resources whose earliest phase is data generation; it supports the planning of individual toxicology studies, the recording of their results and study context (metadata, protocols, data processing) and the deposition of study-level datasets linked to that context.",
+   "Data integration": "Toxicology resources whose earliest phase is data integration; it supports the linking of existing research output from different studies across test systems, stressors, exposures and endpoints, with mechanistic knowledge and models; includes the derivative objects this produces.",
+   "Regulatory assessment": "Toxicology resources whose earliest phase is regulatory assessment; it supports the reporting of studies for regulatory submission and the identification and evaluation of toxicology research outputs for a specified regulatory question."
   },
   "creatorLane": {
    "Made by wet-lab research": "Toxicology resources made by wet-lab research only.",
@@ -643,35 +643,35 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2017.0017",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.4ndncv",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2017.0017",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.62qk8w",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2017.0017",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.6xq0ee",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2017.0017",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.j9y503",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2017.0017",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -698,9 +698,7 @@
     "Regulator"
    ],
    "subdomains": [
-    "in vitro toxicology",
-    "nanotoxicology",
-    "AOP-based mechanistic knowledge"
+    "in vitro toxicology"
    ],
    "dateReleased": "2013-05",
    "dateSource": "https://aopwiki.org/handbooks/6#section-1-%E2%80%93-aop-description-41",
@@ -778,14 +776,14 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1038/s41597-021-00962-3",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.tfj7gt",
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.1016/j.taap.2018.02.006",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -900,14 +898,14 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.3389/ftox.2022.803983",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.3389/ftox.2022.803983",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -942,7 +940,7 @@
    "description": "The OECD AOP Developers' Handbook (formerly Users' Handbook) is the supplement to the OECD Guidance Document for developing and assessing AOPs. It specifies what information each AOP, Key Event and Key Event Relationship page in the AOP-Wiki must contain, and how weight of evidence and applicability are to be recorded, so AOP descriptions are structured and comparable for review.",
    "maintained": "active",
    "manuscript": "absent",
-   "reviewedBy": "Marvin",
+   "reviewedBy": "MM",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -1039,7 +1037,7 @@
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.1289/EHP4200",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -1361,14 +1359,14 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://aopwiki.org/handbooks",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://w3id.org/fair-tox/dataset#aopkb",
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.5620/eht.e2018002",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.1x53qk",
@@ -1434,7 +1432,7 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://w3id.org/fair-tox/dataset#aopwiki",
@@ -1448,21 +1446,21 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.2b0d92",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.4c0b6b",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.62qk8w",
@@ -1476,35 +1474,35 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.87ccfd",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.amcv1e",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.j9y503",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1089/aivt.2021.0010",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -1539,7 +1537,7 @@
    "description": "The XML schema and exchange format in which the AOP-Wiki exports its full content (AOPs, Key Events, KERs, stressors, Event Components and evidence fields), published as nightly and quarterly frozen downloads. It is the machine-readable source that downstream resources such as AOP-Wiki RDF and AOP-DB are built from.",
    "maintained": "active",
    "manuscript": "absent",
-   "reviewedBy": "Marvin",
+   "reviewedBy": "MM",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -1582,7 +1580,7 @@
    "description": "AOPXplorer is a Cytoscape app with companion R packages that builds AOP networks from the AOP Ontology and overlays user data, such as gene expression, on them. It was the AOP-KB module for viewing AOPs in a wider network context.",
    "maintained": "unknown",
    "manuscript": "absent",
-   "reviewedBy": "Marvin",
+   "reviewedBy": "MM",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
@@ -1596,14 +1594,14 @@
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.3389/fgene.2018.00661",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://w3id.org/fair-tox/dataset#aopo",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://datasciburgoon.github.io/aopxplorer/running_aopxplorer.html",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -2607,6 +2605,7 @@
    "key": "compact_identifier",
    "name": "compact identifier",
    "decision": "undecided",
+   "url": "https://docs.identifiers.org/pages/identification_scheme",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -2943,12 +2942,15 @@
    "schemaType": "schema:CreativeWork",
    "key": "data_management_plan_wizard",
    "name": "Data Management Plan Wizard",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "data_stewardship_wizard_ds",
    "scope": "Generic",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#data_stewardship_wizard_ds",
@@ -2962,7 +2964,8 @@
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 2"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.me4qwe",
@@ -3772,7 +3775,7 @@
    "description": "Effectopedia was the AOP-KB module for building structured and quantitative AOPs collaboratively. AOPs were drawn as diagrams whose elements carried test methods, experimental dose-response data and computational models. It was open-source desktop software (GPLv3) connected to a central OECD database, and it supported the AOP-XML format and OECD Harmonised Template 201.",
    "maintained": "discontinued",
    "manuscript": "absent",
-   "reviewedBy": "Marvin",
+   "reviewedBy": "MM",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -3790,21 +3793,21 @@
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.3389/fgene.2018.00661",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://w3id.org/fair-tox/dataset#aopwiki",
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11027510",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://w3id.org/fair-tox/dataset#oht",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://sourceforge.net/projects/effectopedia/files",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -6048,11 +6051,15 @@
    "schemaType": "schema:CreativeWork",
    "key": "harmless",
    "name": "HARMLESS",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "scope": "Toxicology",
+   "url": "https://www.harmless-project.eu/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.t2e1ss",
@@ -6438,7 +6445,7 @@
    "description": "The Intermediate Effects Database was the AOP-KB module meant to hold chemical-related, non-apical (intermediate) effect data in a regulatory reporting format, linking chemicals to AOP Key Events.",
    "maintained": "discontinued",
    "manuscript": "absent",
-   "reviewedBy": "Marvin",
+   "reviewedBy": "MM",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -7609,14 +7616,14 @@
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1186/s13321-024-00833-0",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://doi.org/10.1186/s13321-024-00833-0",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
@@ -9058,11 +9065,15 @@
    "schemaType": "schema:CreativeWork",
    "key": "pink",
    "name": "PINK",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "scope": "Toxicology",
+   "url": "https://pink-project.eu/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.b71e74",
@@ -9608,11 +9619,15 @@
    "schemaType": "schema:CreativeWork",
    "key": "risk_hunt3r",
    "name": "RISK-HUNT3R",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "scope": "Toxicology",
+   "url": "https://www.risk-hunt3r.eu/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#rodaf",
@@ -9773,11 +9788,15 @@
    "schemaType": "schema:CreativeWork",
    "key": "sbd4nano",
    "name": "SbD4Nano",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "scope": "Toxicology",
+   "url": "https://www.sbd4nano.eu/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.9qv71f",
@@ -10893,12 +10912,15 @@
    "schemaType": "schema:CreativeWork",
    "key": "vhp4safety",
    "name": "VHP4Safety",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "scope": "Toxicology",
    "url": "https://vhp4safety.nl/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#wellfair",
@@ -11004,7 +11026,7 @@
    "description": "The AOP community portal of WikiPathways, which collects the molecular pathway models that underlie AOP-Wiki Key Events, including molecular AOPs. It links Key Events to curated, identifier-mapped pathways, so that omics data can be analysed and visualised in the context of an AOP.",
    "maintained": "active",
    "manuscript": "absent",
-   "reviewedBy": "Marvin",
+   "reviewedBy": "MM",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -11018,14 +11040,14 @@
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.3389/fgene.2018.00661",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.1x53qk",
      "hadRole": "extends",
      "evidence": "literature",
      "source": "https://doi.org/10.3389/fgene.2018.00661",
-     "reviewedBy": "Marvin"
+     "reviewedBy": "MM"
     }
    ]
   },
