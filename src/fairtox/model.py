@@ -159,7 +159,12 @@ ETC_DOCUMENTS = {
                   'doi 10.12688/f1000research.74502.2.',
     'FAIRSharing': "FAIRsharing's report on the ELIXIR Toxicology Community collection, 3 Jul 2025, "
                    'doi 10.5281/zenodo.15799783.',
-    **{f'INTOXICOM {n}': f'Report of INTOXICOM workshop {n}.' for n in range(1, 6)},
+    **{f'INTOXICOM {n}': f'Report of INTOXICOM workshop {n}: {c}.' for n, c in enumerate((
+        'Martens et al. 2024, BioHackrXiv, doi 10.37044/osf.io/un2rw',
+        'Bonatto Minella et al. 2026, BioHackrXiv, doi 10.37044/osf.io/64dfv_v1',
+        'Bünger et al. 2026, BioHackrXiv, doi 10.37044/osf.io/u3fnh_v1',
+        'Martens et al., draft, github.com/TGX-UM/INTOXICOM_Workshop_4',
+        'Evelo et al. 2026, BioHackrXiv, doi 10.37044/osf.io/zf2qj_v1'), 1)},
 }
 MATCH = {
     'confirmed': 'The FAIRsharing record is this resource.',
