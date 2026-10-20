@@ -323,6 +323,15 @@ class SheetTest(TempDir):
                          ['http://purl.org/np/RAexo#ExO', 'Toxicogenomics', 'study design; exposure'])
         self.assertIn('FAIRsharing subjects', [h for h, f, k, *_ in sheet.RESOURCE_COLUMNS if k in sheet.GREY_KINDS])
 
+    def test_grey_columns_say_what_grey_means(self):
+        for columns in (sheet.RESOURCE_COLUMNS, sheet.RELATION_COLUMNS):
+            for head, field, kind, _, note in columns:
+                if kind in sheet.GREY_KINDS:                # each grey note opens the same way and gives a purpose
+                    self.assertTrue(note.startswith(sheet.GREY_NOTE), head)
+                    self.assertGreater(len(note), len(sheet.GREY_NOTE) + 20, head)
+        self.assertIn('grey means', sheet.INSTRUCTIONS[0].lower())
+        self.assertIn('cannot break', sheet.INSTRUCTIONS[0].lower())
+
     def test_columns_without_curator_information_are_folded(self):
         ws = load_workbook(self.build(model.normalise(fixture())))['Resources']
         for c in ws[1]:

@@ -39,6 +39,7 @@ LISTS = {
 CREATOR_HEAD = {s: f'Made by {s.lower()}' for s in model.STAKEHOLDER}
 ETC_HEAD = {d: f'ETC: {d}' for d in model.ETC_DOCUMENTS}
 MARKED = ('x', 'true')                                      # how a mark reads back: an x, or a ticked box
+GREY_NOTE = 'Grey, not read back: '                         # every grey column's note opens with what grey means
 MULTI = {'span': model.PHASES, 'subdomains': model.SUBDOMAINS}   # multi-select columns: field -> its list, in order
 # (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark, creator,
 # and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
@@ -51,8 +52,8 @@ TASK_COLUMNS = [
     ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the whole row: this confirms it.'),
     ('Sub-domains', 'subdomains', 'list:Sub-domains', 30, 'The toxicology sub-domains the resource belongs to: choose '
      'each one that applies.'),
-    ('Source', None, 'static', 30, 'Computed: where the resource is found: the manuscript draft, the FAIRsharing '
-     'Toxicology collection, a toxicology FIP, or added by a co-author in this sheet.'),
+    ('Source', None, 'static', 30, GREY_NOTE + 'where the resource is found: the manuscript draft, the FAIRsharing '
+     'Toxicology collection, a toxicology FIP, or added by a co-author in this sheet. It tells you why the row is here.'),
     ('Decision', 'decision', 'list:Decision', 12, 'include, exclude or undecided.'),
     ('Exclusion reason', 'exclusionReason', 'list:Exclusion reason', 10,
      'Required when Decision is exclude. Codes E1-E8 are defined on the Instructions tab.'),
@@ -61,12 +62,12 @@ TASK_COLUMNS = [
      'choose.'),
     ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
-    ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
-     'compare with Scope.'),
+    ('FAIRsharing subjects', None, 'static', 24, GREY_NOTE + "FAIRsharing's subjects of the record, read when the "
+     'sheet is made. Compare them with Scope and correct Scope if they disagree.'),
     ('Phase', 'span', 'list:Phase', 26,
      'Every phase it acts on: choose each one that applies. The earliest sets the lane. Only for scope Toxicology.'),
-    ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
-     'compare with Phase.'),
+    ('FAIRsharing domains', None, 'static', 24, GREY_NOTE + "FAIRsharing's domains of the record, read when the "
+     'sheet is made. Compare them with Phase and correct Phase if they disagree.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
     ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
@@ -81,28 +82,37 @@ TASK_COLUMNS = [
     ('Note', 'note', 'text', 44, 'Anything the next curator should know.'),
 ]
 CONTEXT_COLUMNS = [
-    ('Identifier', None, 'static', 34, "Computed: a community's FIC nanopublication, else the FAIRsharing DOI, else "
-     'the address of the resource in this dataset.'),
-    ('FIP identifiers', None, 'static', 34, 'Read from the FIPs: the addresses under which the toxicology FIPs '
-     'declare the resource, when they differ from its Identifier.'),
+    ('Identifier', None, 'static', 34, GREY_NOTE + "the resource's address in the published dataset: a community's "
+     'FIC nanopublication, else the FAIRsharing DOI, else an address of this dataset.'),
+    ('FIP identifiers', None, 'static', 34, GREY_NOTE + 'the addresses under which the toxicology FIPs declare the '
+     'resource, when they differ from its Identifier. They show that a FIP means this resource.'),
     ('FAIRsharing record', 'fairsharingRecord', 'text', 20, 'FAIRsharing.xxxxxx code or numeric record id.'),
     ('FAIRsharing match', 'fairsharingMatch', 'list:FAIRsharing match', 14,
      'confirmed when the FAIRsharing record is this resource.'),
-    ('FAIRsharing link', None, 'fslink', 10, 'Computed from FAIRsharing record.'),
-    ('FAIRsharing name, type, status', None, 'static', 34, 'As recorded in FAIRsharing.'),
-    ('FAIRsharing year', None, 'static', 10, "FAIRsharing's year of creation."),
-    ('Class', None, 'static', 16, 'Derived from FSR type: FAIR-Enabling Resource or FAIR Supporting Resource.'),
-    ('Principles', None, 'static', 12, 'Principles of the FIP questions the resource is declared for.'),
-    ('Declared in', None, 'static', 30, 'The toxicology FIPs that declare the resource, with the questions.'),
-    ('Builds on FAIR', None, 'static', 10,
-     'Derived from the Relations tab: implements, extends, profiles or recommends a Generic resource.'),
-    ('Lane', None, 'lane', 26, 'Computed from Scope and Phase.'),
-    ('Warnings', None, 'static', 44, 'Checks that will need attention before release.'),
+    ('FAIRsharing link', None, 'fslink', 10, GREY_NOTE + 'opens the FAIRsharing record named in FAIRsharing record, '
+     'to check that it is this resource.'),
+    ('FAIRsharing name, type, status', None, 'static', 34, GREY_NOTE + 'the name, record type and status FAIRsharing '
+     'gives the record. Compare them with Name, FAIRsharing type and Maintained.'),
+    ('FAIRsharing year', None, 'static', 10, GREY_NOTE + "FAIRsharing's year of creation of the record. Compare it "
+     'with First published; a difference of more than a year is worth a look.'),
+    ('Class', None, 'static', 16, GREY_NOTE + 'follows from FSR type: FAIR-Enabling Resource or FAIR Supporting '
+     'Resource. To change it, change FSR type.'),
+    ('Principles', None, 'static', 12, GREY_NOTE + 'the FAIR principles of the FIP questions the resource is declared '
+     'for. They come from the FIPs, not from this sheet.'),
+    ('Declared in', None, 'static', 30, GREY_NOTE + 'the toxicology FIPs that declare the resource, with the '
+     'questions. The grey rows on the Relations tab list the same declarations.'),
+    ('Builds on FAIR', None, 'static', 10, GREY_NOTE + 'yes when the Relations tab says the resource implements, '
+     'extends, profiles or recommends a Generic resource. To change it, edit the Relations tab.'),
+    ('Lane', None, 'lane', 26, GREY_NOTE + 'where the dashboard draws the resource, from Scope and the earliest '
+     'Phase. To change it, change Scope or Phase.'),
+    ('Warnings', None, 'static', 44, GREY_NOTE + 'checks that will need attention before release, found when the '
+     'sheet was made. Fix the white cells they point at.'),
     ('In manuscript', 'manuscript', 'list:In manuscript', 14, 'cited, named, comment only or absent.'),
     ('Manuscript evidence', 'manuscriptEvidence', 'text', 26, 'Section and line numbers in the frozen draft.'),
     ('Aliases', 'alternateName', 'aliases', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
-    ('Row version', None, 'version', 12, 'Do not edit. Detects rows that changed elsewhere after this sheet was made.'),
+    ('Row version', None, 'version', 12, GREY_NOTE + 'a fingerprint of the row when the sheet was made, which detects '
+     'rows that changed elsewhere since. Do not edit it: an edited version makes the row wait.'),
 ]
 RESOURCE_COLUMNS = TASK_COLUMNS + CONTEXT_COLUMNS
 RELATION_COLUMNS = [
@@ -110,28 +120,36 @@ RELATION_COLUMNS = [
     ('Relation', 'hadRole', 'list:Relation', 14, 'How the resource relates to the target, read from left to right: '
      '"CTD implements ExO". On a grey row, what a FIP declares.'),
     ('Target', 'target', 'keys', 16, 'Key of the earlier or related resource.'),
-    ('Vocabulary', None, 'static', 12, 'Where the label comes from: FAIRsharing, or a FIP on the grey rows.'),
-    ('Reads as', None, 'reads', 60, 'Computed.'),
+    ('Vocabulary', None, 'static', 12, GREY_NOTE + 'where the relation label comes from: FAIRsharing on the white '
+     'lines, a FIP on the grey ones.'),
+    ('Reads as', None, 'reads', 60, GREY_NOTE + 'the line as a sentence, Resource, Relation, Target, to check that '
+     'you have the direction right.'),
     ('Evidence', 'evidence', 'list:Evidence', 13, 'Where the relation is stated.'),
     ('Source', 'source', 'text', 34, 'Line numbers, DOI or URL.'),
-    ('Question', 'question', 'static', 10, 'FIP rows: the FIP question the declaration answers.'),
-    ('Use', 'use', 'static', 12, 'FIP rows: current use, planned use, planned development or planned replacement.'),
+    ('Question', 'question', 'static', 10, GREY_NOTE + 'on a grey line, the FIP question the declaration answers, '
+     'such as F1-D.'),
+    ('Use', 'use', 'static', 12, GREY_NOTE + 'on a grey line, what the FIP declares: current use, planned use, '
+     'planned development or planned replacement.'),
     ('Keep', None, 'list:Keep', 9, 'Set to remove to drop the relation.'),
-    ('Enterable in FAIRsharing', None, 'static', 14, 'Whether FAIRsharing allows this relation between these two '
-     'records.'),
+    ('Enterable in FAIRsharing', None, 'static', 14, GREY_NOTE + 'whether FAIRsharing allows this relation between '
+     'these two record types. A no is fine here; it only means the relation cannot be entered in FAIRsharing.'),
     ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the relation: this confirms it.'),
     ('Note', 'note', 'text', 40, ''),
-    ('Line version', None, 'version', 12, 'Do not edit. Detects relations that changed elsewhere after this sheet was '
-     'made.'),
+    ('Line version', None, 'version', 12, GREY_NOTE + 'a fingerprint of the line when the sheet was made, which '
+     'detects relations that changed elsewhere since. Do not edit it: an edited version makes the line wait.'),
 ]
 GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
 NOT_INITIALS = 'initials only, in one word; a remark goes in Note'
 FOLDED = tuple(h for h, *_ in CONTEXT_COLUMNS)   # context, not tasks: grouped and collapsed
 INSTRUCTIONS = [
-    'Edit only the white cells. Grey columns, and the grey rows on the Relations tab, are computed or read from '
-    'FAIRsharing and the FIPs when the sheet is made, and are ignored when it is read back. The columns up to Note are '
-    'what to check, in the order of the curation steps; the context after Note is folded: open it with the + above '
-    'the column letters.',
+    'White cells are yours to edit; grey means read-only. A grey column is computed from the white cells or read from '
+    'FAIRsharing and the FIPs when the sheet is made, and it is ignored when the sheet is read back, so typing in it '
+    'changes nothing. Use the grey columns to check your white cells: each one says in its header note what it is '
+    'for. The grey rows on the Relations tab are what the FIPs declare; they are read-only too. You cannot break the '
+    'dataset from this sheet: every edit is checked when it is read back, a row with a problem waits here and is '
+    'listed, and the dataset changes only through a reviewed pull request. Just never delete rows or columns. The '
+    'columns up to Note are what to check, in the order of the curation steps; the context after Note is folded: '
+    'open it with the + above the column letters.',
     'Never delete a row. To drop a resource, set Decision to exclude and choose an Exclusion reason.',
     'Add new resources at the bottom of the Resources tab, each with a short key of your own: lowercase letters, '
     'digits, _ or -.',
