@@ -389,11 +389,11 @@
   "mentionedIn": {
    "Whitepaper": "Martens et al. 2023, \"ELIXIR and Toxicology: a community in development\", F1000Research, doi 10.12688/f1000research.74502.2.",
    "FAIRSharing": "FAIRsharing's report on the ELIXIR Toxicology Community collection, 3 Jul 2025, doi 10.5281/zenodo.15799783.",
-   "INTOXICOM 1": "Report of INTOXICOM workshop 1.",
-   "INTOXICOM 2": "Report of INTOXICOM workshop 2.",
-   "INTOXICOM 3": "Report of INTOXICOM workshop 3.",
-   "INTOXICOM 4": "Report of INTOXICOM workshop 4.",
-   "INTOXICOM 5": "Report of INTOXICOM workshop 5."
+   "INTOXICOM 1": "Report of INTOXICOM workshop 1: Martens et al. 2024, BioHackrXiv, doi 10.37044/osf.io/un2rw.",
+   "INTOXICOM 2": "Report of INTOXICOM workshop 2: Bonatto Minella et al. 2026, BioHackrXiv, doi 10.37044/osf.io/64dfv_v1.",
+   "INTOXICOM 3": "Report of INTOXICOM workshop 3: Bünger et al. 2026, BioHackrXiv, doi 10.37044/osf.io/u3fnh_v1.",
+   "INTOXICOM 4": "Report of INTOXICOM workshop 4: Martens et al., draft, github.com/TGX-UM/INTOXICOM_Workshop_4.",
+   "INTOXICOM 5": "Report of INTOXICOM workshop 5: Evelo et al. 2026, BioHackrXiv, doi 10.37044/osf.io/zf2qj_v1."
   }
  },
  "hasPart": [
@@ -586,6 +586,7 @@
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
+   "url": "https://doi.org/10.1093/toxsci/kfx252",
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; L123",
    "qualifiedAttribution": [
@@ -978,6 +979,7 @@
    "date": "2010",
    "dateSource": "https://doi.org/10.1002/etc.34",
    "creator": "Ankley et al. 2010; OECD",
+   "url": "https://doi.org/10.1002/etc.34",
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "I Introduction; III AOP; L10, L13, L116",
@@ -2248,6 +2250,7 @@
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
    "scope": "Generic",
+   "url": "https://creativecommons.org/licenses/by/4.0/",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAR6yeOv4eNPYd6Ep_GngSkGUFUE1LYw2r8X94RlWUFQo/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Creative Commons licence declared in a FIP for R1.1, stating the reuse conditions of data and metadata in any domain.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -2269,6 +2272,7 @@
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
    "scope": "Generic",
+   "url": "https://creativecommons.org/licenses/by-sa/4.0/",
    "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAAsw25osO0qOYiHv6i2F55DiOcRuyR3fEzGrpBpznSW8#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for R1.1 as a Creative Commons licence stating the legal terms for reusing data and metadata.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -2310,6 +2314,7 @@
     "https://w3id.org/fair/fip/terms/Provenance-model"
    ],
    "scope": "Generic",
+   "url": "https://eurocris.org/services/main-features-cerif/",
    "fairsharingRecord": "FAIRsharing.6945dq",
    "fairsharingMatch": "confirmed",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA0iZfdyOGR1ugbRfIfY_mhRsR8QraJSagJKteW5CdlN0/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for R1.2: its model of projects, people, organisations and outputs records where data come from. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAtv_q4s-8xxL_is8gV8GPDwoqVY550Omdvy9Rg0Liaqc links https://doi.org/10.25504/FAIRsharing.6945dq; one lookup of https://fairsharing.org/FAIRsharing.6945dq returns 'Common European Research project Information Format' (CERIF), Standard/model_and_format, status ready, homepage https://eurocris.org/services/main-features-cerif.)",
@@ -2876,6 +2881,7 @@
    ],
    "date": "2026",
    "dateSource": "https://doi.org/10.1038/s41540-026-00651-0",
+   "url": "https://doi.org/10.1038/s41540-026-00651-0",
    "maintained": "unknown",
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; reference notes; L150, L156",
@@ -2938,6 +2944,7 @@
    "key": "data_management_plan_wizard",
    "name": "Data Management Plan Wizard",
    "decision": "undecided",
+   "scope": "Generic",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -2950,6 +2957,7 @@
    "key": "data_stewardship_wizard_ds",
    "name": "Data Stewardship Wizard (DS-Wizard)",
    "decision": "undecided",
+   "scope": "Generic",
    "url": "https://ds-wizard.org/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -2968,6 +2976,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Generic",
+   "url": "https://schema.datacite.org/",
    "fairsharingRecord": "FAIRsharing.me4qwe",
    "fairsharingMatch": "confirmed",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA5s44FA3LMGhslfp7iiERfpSDldn6NarlH9JRmVWKFPM/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F2; it is the generic metadata schema for describing research outputs registered with DataCite DOIs. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAl80tWl_i_CPaLWi13ofQe3tLCuY74uby1v8VbzfY8_0 links https://doi.org/10.25504/FAIRsharing.me4qwe; one lookup of https://fairsharing.org/FAIRsharing.me4qwe returns 'DataCite Metadata Schema', Standard/model_and_format, status ready, homepage https://schema.datacite.org/.)",
@@ -3184,6 +3193,7 @@
     "toxicogenomics"
    ],
    "creator": "EU FP7 diXa consortium",
+   "url": "https://cordis.europa.eu/project/id/283775",
    "manuscript": "comment only",
    "manuscriptEvidence": "III Toxicogenomics (notes); L164",
    "mentionedIn": [
@@ -3219,6 +3229,7 @@
    "subdomains": [
     "in vitro toxicology"
    ],
+   "url": "https://doi.org/10.1016/j.ntt.2022.107117",
    "manuscript": "cited",
    "manuscriptEvidence": "V Challenges; L257",
    "qualifiedAttribution": [
@@ -3930,6 +3941,7 @@
    "fairsharingType": "Standard: model/format",
    "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
+   "url": "https://osf.io/edq3c/",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; Comments [g]; L60",
    "mentionedIn": [
@@ -4499,6 +4511,7 @@
     "In silico research"
    ],
    "creator": "IMI eTOX consortium",
+   "url": "https://cordis.europa.eu/project/id/115002",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L68",
    "mentionedIn": [
@@ -4596,6 +4609,7 @@
     "regulatory toxicology"
    ],
    "creator": "eTRANSAFE consortium",
+   "url": "https://doi.org/10.14573/altex.2011181",
    "manuscript": "cited",
    "manuscriptEvidence": "III Regulatory; L188",
    "qualifiedAttribution": [
@@ -4627,6 +4641,7 @@
     "regulatory toxicology"
    ],
    "creator": "eTRANSAFE consortium",
+   "url": "https://doi.org/10.12688/f1000research.74024.1",
    "manuscript": "cited",
    "manuscriptEvidence": "III Regulatory; L188",
    "qualifiedAttribution": [
@@ -4923,6 +4938,7 @@
     "in vitro toxicology"
    ],
    "creator": "EU-ToxRisk consortium",
+   "url": "https://doi.org/10.1016/j.tiv.2024.105903",
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation; L101-102",
    "qualifiedAttribution": [
@@ -4957,6 +4973,7 @@
     "in vitro toxicology"
    ],
    "creator": "EU-ToxRisk consortium",
+   "url": "https://doi.org/10.1016/j.tiv.2024.105903",
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation; L101-102",
    "qualifiedAttribution": [
@@ -5128,6 +5145,7 @@
     "exposome"
    ],
    "creator": "Christopher P. Wild (2005)",
+   "url": "https://doi.org/10.1158/1055-9965.EPI-05-0456",
    "manuscript": "cited",
    "manuscriptEvidence": "I Introduction; III subdomain lists; L13, L86, L96"
   },
@@ -5174,6 +5192,7 @@
    "fairsharingType": "Policy: project",
    "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
+   "url": "https://elixir-europe.org/events/toxicology-meeting-2026",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); Comments [h], [av]; L344-345, L358, L418"
   },
@@ -5213,6 +5232,8 @@
    "key": "fair_data_point_fdp",
    "name": "FAIR Data Point (FDP)",
    "decision": "undecided",
+   "scope": "Generic",
+   "url": "https://www.fairdatapoint.org/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -5225,6 +5246,8 @@
    "key": "fair_enabling_resource_fer",
    "name": "FAIR enabling resource (FER)",
    "decision": "undecided",
+   "scope": "Generic",
+   "url": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -5460,6 +5483,7 @@
    "fairsharingType": "Tool",
    "scope": "Toxicology",
    "creator": "FAIRplus",
+   "url": "https://faircookbook.elixir-europe.org/content/recipes/applied-examples/etox.html",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L68"
   },
@@ -5541,6 +5565,7 @@
    "exclusionReason": "E1",
    "fairsharingType": "Policy: society",
    "scope": "Generic",
+   "url": "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L61"
   },
@@ -5690,6 +5715,7 @@
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
    "scope": "Generic",
+   "url": "https://www.rfc-editor.org/rfc/rfc959",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAQh-U4eNXDwYw0YPs_WZEaQ5UZ34Sp4rY0b46GAvJotQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared for A1.1 as the open, standard network protocol used to retrieve data and metadata files.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -5972,6 +5998,7 @@
     "regulatory toxicology"
    ],
    "creator": "OECD",
+   "url": "https://doi.org/10.1787/9789264078536-en",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory; L188, L190",
    "qualifiedAttribution": [
@@ -6092,6 +6119,7 @@
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
    "scope": "Generic",
+   "url": "https://www.rfc-editor.org/rfc/rfc9110",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RABk2MwowDIwFn71b2LR7CazCQLNUiZLooAiBigGTHFXo/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for A1.1; HTTP is the open, universal protocol for retrieving data and metadata on the web.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -6113,6 +6141,7 @@
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
    "scope": "Generic",
+   "url": "https://www.rfc-editor.org/rfc/rfc9110",
    "fairsharingRecord": "FAIRsharing.cd2f9e",
    "fairsharingMatch": "confirmed",
    "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAPK_PKpmeC6YCBA1nkPpqtF1aj2D9CPYREOA6CiBDeH4#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for A1.1 as the open, encrypted web protocol through which data and metadata are retrieved. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAQMemFusa3RG0PhZ7oY9uL-Io2ey339_Moj1zL2jwvTE links https://fairsharing.org/10.25504/FAIRsharing.cd2f9e; one lookup of https://fairsharing.org/FAIRsharing.cd2f9e returns 'Hypertext Transfer Protocol Secure' (HTTPS), Standard/model_and_format, status ready.)",
@@ -6147,6 +6176,7 @@
     "regulatory toxicology"
    ],
    "creator": "OECD",
+   "url": "https://www.oecd.org/en/topics/sub-issues/assessment-of-chemicals/integrated-approaches-to-testing-and-assessment.html",
    "manuscript": "cited",
    "manuscriptEvidence": "I Introduction; III AOP; III Regulatory; L10, L132, L187",
    "qualifiedAttribution": [
@@ -6481,6 +6511,7 @@
    "fairsharingType": "Policy: project",
    "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
+   "url": "https://elixir-europe.org/internal-projects/commissioned-services/integrating-toxicology-community",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; VI (to-do notes); Comments; L67, L344, L358, L418",
    "mentionedIn": [
@@ -6508,6 +6539,7 @@
    "fairsharingType": "Policy: project",
    "scope": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
+   "url": "https://elixir-europe.org/internal-projects/commissioned-services/integrating-toxicology-community",
    "manuscript": "comment only",
    "manuscriptEvidence": "Comments [h], [av]; L358, L418-422"
   },
@@ -7013,6 +7045,7 @@
     "regulatory toxicology"
    ],
    "creator": "Klimisch et al. 1997",
+   "url": "https://doi.org/10.1006/rtph.1996.1076",
    "manuscript": "cited",
    "manuscriptEvidence": "IV (to-do notes); V Challenges; L212, L267",
    "qualifiedAttribution": [
@@ -7029,6 +7062,7 @@
    "key": "large_language_model_llm",
    "name": "Large Language Model (LLM)",
    "decision": "undecided",
+   "scope": "Generic",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 2"
@@ -7053,6 +7087,7 @@
    "date": "2006",
    "dateSource": "https://doi.org/10.1038/nbt1239",
    "creator": "US FDA-led consortium",
+   "url": "https://www.fda.gov/science-research/bioinformatics-tools/microarraysequencing-quality-control-maqcseqc",
    "maintained": "active",
    "manuscript": "comment only",
    "manuscriptEvidence": "Comments [ap]; L409",
@@ -7176,6 +7211,7 @@
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
+   "url": "https://www.nlm.nih.gov/mesh/meshhome.html",
    "fairsharingRecord": "FAIRsharing.qnkw45",
    "fairsharingMatch": "confirmed",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RATZTCIU-uqnvJpsmp17-b-aHZCcyYKFl0waUoAml6WJQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2: NLM's controlled biomedical vocabulary of identified, defined descriptors. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAt0hUGI9DUyQvTyIorbdbHDHKItMHif6GjSoIYUYvNxM links https://fairsharing.org/bsg-s000294/; one lookup of https://fairsharing.org/FAIRsharing.qnkw45 returns 'Medical Subject Headings', id 1265, whose legacy ids include bsg-s000294, the FAIRsharing id the FIP description cites.)",
@@ -7413,6 +7449,7 @@
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
    "scope": "Generic",
+   "url": "https://opensource.org/license/mit",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA1kZtzg9KRtjmZkQrv1QLBwSenrs902pQjVl7YrwLokk/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for R1.1 as a permissive licence stating the legal terms under which data and software may be reused.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -7886,6 +7923,7 @@
     "Wet-lab research"
    ],
    "creator": "Toxicologic Pathology Regulatory Forum",
+   "url": "https://doi.org/10.1177/0192623315595884",
    "manuscript": "comment only",
    "manuscriptEvidence": "V (to-do notes); L292",
    "qualifiedAttribution": [
@@ -8172,6 +8210,7 @@
     "AOP-based mechanistic knowledge"
    ],
    "creator": "OECD",
+   "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/adverse-outcome-pathways.html",
    "manuscript": "named",
    "manuscriptEvidence": "III AOP; L117",
    "qualifiedAttribution": [
@@ -8249,6 +8288,7 @@
     "regulatory toxicology"
    ],
    "creator": "OECD",
+   "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory; L106, L190",
    "qualifiedAttribution": [
@@ -8433,6 +8473,8 @@
    "key": "openaire",
    "name": "OpenAIRE",
    "decision": "undecided",
+   "scope": "Generic",
+   "url": "https://www.openaire.eu/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -8573,6 +8615,7 @@
     "computational and predictive toxicology"
    ],
    "creator": "EU H2020 OpenRiskNet consortium",
+   "url": "https://openrisknet.org/",
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; L149",
    "mentionedIn": [
@@ -8656,6 +8699,7 @@
     "nanotoxicology"
    ],
    "creator": "EU FP7 OpenTox consortium",
+   "url": "https://cordis.europa.eu/project/id/200787",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation (nano); L110",
    "mentionedIn": [
@@ -8778,6 +8822,7 @@
    "date": "2023",
    "dateSource": "https://doi.org/10.5281/zenodo.15005810",
    "creator": "PARC",
+   "url": "https://doi.org/10.5281/zenodo.15005810",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation; L112",
@@ -9634,6 +9679,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "scope": "Generic",
+   "url": "https://ror.org/",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAhknXQZhXhF2F6PFH5-krSCeiq1bmHSgGrimuLCCq8nY/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared for F1 as the persistent, resolvable identifier scheme for research organisations named in metadata.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -9944,6 +9990,7 @@
    "date": "2014",
    "dateSource": "https://doi.org/10.1038/nbt.2957",
    "creator": "US FDA-led consortium",
+   "url": "https://www.fda.gov/science-research/bioinformatics-tools/microarraysequencing-quality-control-maqcseqc",
    "maintained": "active",
    "manuscript": "comment only",
    "manuscriptEvidence": "Comments [ap]; L409",
@@ -10149,6 +10196,7 @@
    "key": "sysbiotop_moving",
    "name": "SysBioToP-Moving",
    "decision": "undecided",
+   "url": "https://foerderportal.bund.de/foekat/jsp/SucheAction.do?actionMode=view&fkz=031L0243A",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -10288,6 +10336,7 @@
    "key": "tess",
    "name": "ELIXIR TeSS",
    "decision": "undecided",
+   "scope": "Life Sciences",
    "url": "https://tess.elixir-europe.org/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -10321,6 +10370,7 @@
    "date": "2013",
    "dateSource": "https://doi.org/10.1787/9789264203709-en",
    "creator": "OECD",
+   "url": "https://doi.org/10.1787/9789264203709-en",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation; L106",
@@ -10469,6 +10519,7 @@
     "AOP-based mechanistic knowledge"
    ],
    "creator": "US EPA",
+   "url": "https://www.epa.gov/comptox-tools/toxicity-forecasting-toxcast",
    "manuscript": "named",
    "manuscriptEvidence": "III AOP; L129",
    "mentionedIn": [
@@ -10563,6 +10614,7 @@
     "in vitro toxicology"
    ],
    "creator": "EU-ToxRisk consortium",
+   "url": "https://doi.org/10.1007/s00204-020-02802-6",
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation; Comments [n]-[s]; L101-102",
    "qualifiedAttribution": [
@@ -11037,6 +11089,8 @@
    "key": "worldfair",
    "name": "WorldFAIR",
    "decision": "undecided",
+   "scope": "Generic",
+   "url": "https://worldfair-project.eu/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -11057,6 +11111,7 @@
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
    "scope": "Generic",
+   "url": "https://www.w3.org/TR/xmlschema-1/",
    "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RA22ykE1eXn7KWKrFx3o0re3zVTg9HFRCNMr7WL6x4IDc#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for I1 as the W3C language that formally defines the structure and data types of XML documents.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
