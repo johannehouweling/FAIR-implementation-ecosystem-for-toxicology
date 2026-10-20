@@ -209,6 +209,7 @@ Each excluded row carries exactly one code.
 | 18 Oct 2026 | Each line on the Relations tab carries a line version, as each row carries its row version. A relation changed in the dataset after the Sheet was made waits instead of being put back; a line whose resource, relation or target is edited replaces its relation; a deleted line leaves its relation unchanged and is listed in the pull request, since it cannot be told apart from a relation added after the Sheet was made. | Jente Houweling |
 | 19 Oct 2026 | The curation sheet shows FAIRsharing's subjects and domains of a record beside the fields they help check, the subjects after Scope and the domains after the Span columns, an exception to the layout of 10 Oct 2026. | Jente Houweling |
 | 19 Oct 2026 | The report of INTOXICOM workshop 4 counts as an ELIXIR Toxicology Community document too; its tick boxes in the sheet are read back like the others. | Jente Houweling |
+| 20 Oct 2026 | The curation sheet records a toxicology resource's phases in one multi-select Phase column instead of Phase and three Span columns: the earliest chosen is its phase and sets the lane, and all chosen are its span. The dataset is unchanged. | Jente Houweling |
 
 ## 9. Limitations
 
