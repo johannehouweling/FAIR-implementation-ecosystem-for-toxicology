@@ -173,9 +173,9 @@ The IRIs are FAIRsharing's subject terms.
 
 | Value | Meaning | IRI |
 |---|---|---|
-| Data generation | Planning, producing and depositing primary records: datasets, protocols, method descriptions and the publications reporting them. | `terms:phase-data-generation` |
-| Data integration | Integrating and synthesising those records into secondary resources and evidence: curated databases, knowledge bases, ontologies, pathway networks and models. | `terms:phase-data-integration` |
-| Regulatory assessment | Assessing records and secondary resources for reliability and relevance in a regulatory context and integrating them into weight of evidence and decisions. | `terms:phase-regulatory-assessment` |
+| Data generation | Supports the planning of individual toxicology studies, the recording of their results and study context (metadata, protocols, data processing) and the deposition of study-level datasets linked to that context. | `terms:phase-data-generation` |
+| Data integration | Supports the linking of existing research output from different studies across test systems, stressors, exposures and endpoints, with mechanistic knowledge and models; includes the derivative objects this produces. | `terms:phase-data-integration` |
+| Regulatory assessment | Supports the reporting of studies for regulatory submission and the identification and evaluation of toxicology research outputs for a specified regulatory question. | `terms:phase-regulatory-assessment` |
 
 ### Creator types (`creatorType`)
 

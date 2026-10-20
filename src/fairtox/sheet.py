@@ -142,41 +142,28 @@ GREY_KINDS = {'lane', 'fslink', 'static', 'version', 'reads'}
 NOT_INITIALS = 'initials only, in one word; a remark goes in Note'
 FOLDED = tuple(h for h, *_ in CONTEXT_COLUMNS)   # context, not tasks: grouped and collapsed
 INSTRUCTIONS = [
-    'White cells are yours to edit; grey means read-only. A grey column is computed from the white cells or read from '
-    'FAIRsharing and the FIPs when the sheet is made, and it is ignored when the sheet is read back, so typing in it '
-    'changes nothing. Use the grey columns to check your white cells: each one says in its header note what it is '
-    'for. The grey rows on the Relations tab are what the FIPs declare; they are read-only too. You cannot break the '
-    'dataset from this sheet: every edit is checked when it is read back, a row with a problem waits here and is '
-    'listed, and the dataset changes only through a reviewed pull request. Just never delete rows or columns. The '
-    'columns up to Note are what to check, in the order of the curation steps; the context after Note is folded: '
-    'open it with the + above the column letters.',
-    'Never delete a row. To drop a resource, set Decision to exclude and choose an Exclusion reason.',
-    'Add new resources at the bottom of the Resources tab, each with a short key of your own: lowercase letters, '
-    'digits, _ or -.',
-    'Sub-domains lists the toxicology sub-domains a resource belongs to; choose each one that applies. Filter on it '
-    'to find the resources of your sub-domain.',
-    'First published is the date the resource first became public, as YYYY, YYYY-MM or YYYY-MM-DD. '
-    'Put the DOI or web page that shows the date in Citation.',
-    'Phase lists every phase a toxicology resource acts on: Data generation, Data integration, Regulatory assessment; '
-    'choose each one that applies. The earliest one sets its lane. Choose by what the resource is used for, not by who '
-    'made it.',
-    'FSR type is the kind of FAIR resource it is. When a toxicology FIP declares the resource, use the type the FIP '
-    'gives it; otherwise choose the one that fits best (a database is a registry). Class, Principles and Declared in '
-    'follow from it.',
-    'FAIR Implementation Community is only for a community identified by its FIC nanopublication; any other community '
-    'stays excluded as E1.',
-    'Mark x in each "Made by" column that describes who created a toxicology resource; several may apply. '
-    'The dashboard can also arrange the toxicology lanes by creator.',
-    'Builds on FAIR is derived: a toxicology resource that implements, extends, profiles or recommends a Generic '
-    'resource on the Relations tab.',
-    'Relations read from left to right, for example "CTD implements ExO". Never delete a line: set Keep to remove to '
-    'drop a relation, and edit a line to change its resource, relation or target; add new ones at the bottom of the '
-    'Relations tab. The grey rows are what the toxicology FIPs declare, read when '
-    'the sheet is made; they are read-only. Vocabulary says which is which.',
-    'A value is a proposal until a co-author has checked its row; Note says where it comes from. When you have '
-    'checked a whole row and fixed what is wrong, put your initials in Reviewed by. To change a row someone else '
-    'signed, check the whole row and sign it yourself, or empty Reviewed by. Sign relations the same way on the '
-    'Relations tab.',
+    'Edit the white cells only. Grey is read-only: computed, or read from FAIRsharing and the FIPs, and ignored when '
+    'the sheet is read back. You cannot break anything: the sheet is read back three times a day, every edit is '
+    'checked, and a row with a problem waits here.',
+    'Find your rows on the Resources tab: filter Sub-domains, or filter Reviewed by on blanks. Choose each sub-domain '
+    'that applies.',
+    'Check a row left to right up to Note; the folded context after Note opens with the + above the column letters. '
+    'A value is a proposal until a co-author checks its row; Note says where it comes from.',
+    'Decision: include, exclude or undecided. Never delete a row; to drop a resource, set Decision to exclude and '
+    'choose an Exclusion reason (E1-E8, below). For E6, name the covering row in Covered by.',
+    'FSR type: the type a toxicology FIP gives the resource, otherwise the best fit (a database is a registry). Class, '
+    'Principles and Declared in follow from it. FAIR Implementation Community only for a community with its own FIC '
+    'nanopublication; any other community is E1.',
+    'Phase: every phase the resource acts on; the earliest sets its lane. Judge by what it is used for, not by who '
+    'made it. Who made it goes in the Made by columns: x in each that applies.',
+    'First published: YYYY, YYYY-MM or YYYY-MM-DD; the DOI or page that shows it in Citation.',
+    'Checked the whole row and fixed what is wrong? Put your initials in Reviewed by. To change a row someone else '
+    'signed, check it again and sign it yourself, or empty Reviewed by.',
+    'New resource: a row at the bottom of the Resources tab, with a short key of your own (lowercase letters, digits, '
+    '_ or -); fill it in and sign it.',
+    'Relations tab: a line reads Resource, Relation, Target ("CTD implements ExO"). Edit a line to change it; never '
+    'delete one: set Keep to remove. Add new lines at the bottom and sign them in Reviewed by. The grey lines are '
+    'what the FIPs declare, read-only. Builds on FAIR on the Resources tab follows from this tab.',
 ]
 CRITERIA_TEXT = [
     'I1 It is a resource, not an organisation, project, community, event or publication, except a FAIR Implementation '

@@ -110,12 +110,13 @@ Each excluded row carries exactly one code.
   class (FAIR-Enabling Resource or other FAIR Supporting Resource) follows from the type. FAIR principles are assigned
   only through the FIP questions a resource is declared for, so a resource that no FIP declares has none.
 - **Phase.** A toxicology resource's phase is the data life-cycle phase it acts on, whoever made it: Data generation
-  (planning, producing and depositing primary records: datasets, protocols, method descriptions and the publications
-  reporting them), Data integration (integrating and synthesising those records into secondary resources and evidence:
-  curated databases, knowledge bases, ontologies, pathway networks and models) or Regulatory assessment (assessing
-  records and secondary resources for reliability and relevance in a regulatory context and integrating them into
-  weight of evidence and decisions). When it acts on several, its phase is the earliest at which it must be applied,
-  and every phase it acts on is recorded as its span.
+  (supports the planning of individual toxicology studies, the recording of their results and study context, that is
+  metadata, protocols and data processing, and the deposition of study-level datasets linked to that context), Data
+  integration (supports the linking of existing research output from different studies across test systems,
+  stressors, exposures and endpoints, with mechanistic knowledge and models, and includes the derivative objects this
+  produces) or Regulatory assessment (supports the reporting of studies for regulatory submission and the
+  identification and evaluation of toxicology research outputs for a specified regulatory question). When it acts on
+  several, its phase is the earliest at which it must be applied, and every phase it acts on is recorded as its span.
 - **Creator types.** Who created a toxicology resource is recorded separately as one or more creator types: wet-lab
   research, in silico research and regulator. A resource made by a consortium gets all types that apply; the
   organisations are named in Creator.
