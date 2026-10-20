@@ -121,7 +121,8 @@ RESOURCE_COLUMNS = TASK_COLUMNS + CONTEXT_COLUMNS
 RELATION_COLUMNS = [
     ('Resource', 'subject', 'keys', 16, 'Key of the resource that builds on or relates to the target.'),
     ('Relation', 'hadRole', 'list:Relation', 14, 'How the resource relates to the target, read from left to right: '
-     '"CTD implements ExO". On a grey row, what a FIP declares.'),
+     '"CTD implements ExO". A relation fits only certain kinds of resource; a line that does not fit waits. On a grey '
+     'row, what a FIP declares.'),
     ('Target', 'target', 'keys', 16, 'Key of the earlier or related resource.'),
     ('Vocabulary', None, 'static', 12, GREY_NOTE + 'where the relation label comes from: FAIRsharing on the white '
      'lines, a FIP on the grey ones.'),
@@ -448,10 +449,10 @@ def _url(v):
 
 
 def _owner(message):
-    """What a check message names: (key, label, target) for a relation to a later resource, else a row's key."""
+    """What a check message names: (key, label, target) for a message about a relation, else a row's key."""
     key, _, rest = message.partition(': ')
     label, _, target = rest.partition(' ')
-    if label in model.RELATIONS and rest.endswith('points to a resource first published later'):
+    if label in model.RELATIONS:
         return key, label, target.split(' ', 1)[0]
     return key.strip("'")
 
@@ -689,11 +690,12 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
                      'to drop one, keep its line and set Keep to remove')
 
     # Never worse than the dataset: a new error or warning holds back the row or relation it names; when holding back
-    # the relation does not help, the row whose date moved.
+    # the relation does not help, the row whose date or type moved.
     model.normalise(new)
     errors, warnings = model.check(new)
     before = set(model.check(doc)[1])
-    was, now = ({r['key']: model._year(r) for r in d['hasPart']} for d in (doc, new))
+    was, now = ({r['key']: (model._year(r), r.get('fairsharingType'), r.get('fsrType')) for r in d['hasPart']}
+                for d in (doc, new))
     blamed = dict(twice)
     for m in errors + [w for w in warnings if w not in before]:
         o = _owner(m)
