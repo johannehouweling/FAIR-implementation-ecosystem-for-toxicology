@@ -240,11 +240,11 @@ The basis decides the field, and so the term, that holds the date, following Dat
 |---|---|
 | Whitepaper | Martens et al. 2023, "ELIXIR and Toxicology: a community in development", F1000Research, doi 10.12688/f1000research.74502.2. |
 | FAIRSharing | FAIRsharing's report on the ELIXIR Toxicology Community collection, 3 Jul 2025, doi 10.5281/zenodo.15799783. |
-| INTOXICOM 1 | Report of INTOXICOM workshop 1. |
-| INTOXICOM 2 | Report of INTOXICOM workshop 2. |
-| INTOXICOM 3 | Report of INTOXICOM workshop 3. |
-| INTOXICOM 4 | Report of INTOXICOM workshop 4. |
-| INTOXICOM 5 | Report of INTOXICOM workshop 5. |
+| INTOXICOM 1 | Report of INTOXICOM workshop 1: Martens et al. 2024, BioHackrXiv, doi 10.37044/osf.io/un2rw. |
+| INTOXICOM 2 | Report of INTOXICOM workshop 2: Bonatto Minella et al. 2026, BioHackrXiv, doi 10.37044/osf.io/64dfv_v1. |
+| INTOXICOM 3 | Report of INTOXICOM workshop 3: Bünger et al. 2026, BioHackrXiv, doi 10.37044/osf.io/u3fnh_v1. |
+| INTOXICOM 4 | Report of INTOXICOM workshop 4: Martens et al., draft, github.com/TGX-UM/INTOXICOM_Workshop_4. |
+| INTOXICOM 5 | Report of INTOXICOM workshop 5: Evelo et al. 2026, BioHackrXiv, doi 10.37044/osf.io/zf2qj_v1. |
 
 ### FAIRsharing match (`fairsharingMatch`)
 
