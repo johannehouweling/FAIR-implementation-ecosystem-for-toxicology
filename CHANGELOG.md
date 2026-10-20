@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.2](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.1...v0.6.2) (2026-10-20)
+
+
+### Documentation
+
+* **criteria:** cite the INTOXICOM workshop reports ([62ae039](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/62ae0394a35be83f7315177728e30343c05f8233))
+
 ## [0.6.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.0...v0.6.1) (2026-10-20)
 
 
