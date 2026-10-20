@@ -65,7 +65,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource when the type is one, else FAIR Supporting Resource. |
 | `declaredIn`, `principles` | Declared in, Principles |  | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
 | `fsr` | FIP identifiers | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
-| `subdomains` | one column per sub-domain | `schema:about` | Sub-domains that apply (list below). |
+| `subdomains` | Sub-domains (multi-select) | `schema:about` | Sub-domains that apply (list below). |
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
 | `dateSource` | Citation | `schema:citation` | DOI or URL that shows the date. |
 | `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information. |

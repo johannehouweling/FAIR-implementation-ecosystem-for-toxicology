@@ -299,8 +299,10 @@ class SheetTest(TempDir):
         next(r for r in doc['hasPart'] if r['key'] == 'exo')['fsr'] = ['http://purl.org/np/RAexo#ExO']
         ws = load_workbook(self.build(doc))['Resources']
         head = [c.value for c in ws[1]]
-        self.assertEqual(head[:5], ['Key', 'Name', 'URL', 'Source', 'Decision'])
+        self.assertEqual(head[:7], ['Key', 'Name', 'URL', 'Reviewed by', 'Sub-domains', 'Source', 'Decision'])
         self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
+        row = next(c.row for c in ws['A'] if c.value == 'exo')
+        self.assertEqual(ws.cell(row=row, column=head.index('Sub-domains') + 1).value, 'exposome')
         s = head.index('Scope')                             # FAIRsharing's tags beside the fields they help check
         self.assertEqual(head[s:s + 4], ['Scope', 'FAIRsharing subjects', 'Phase', 'FAIRsharing domains'])
         self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
@@ -331,7 +333,7 @@ class SheetTest(TempDir):
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
         for column, value in (('Scope', 'Toxicologie'), ('FSR type', 'Databank'),
-                              ('Phase', 'Data generation, Data integratoin')):
+                              ('Phase', 'Data generation, Data integratoin'), ('Sub-domains', 'exposome, ecotox')):
             p = self.build(doc)
             cell = self.edit(p, column, 'ctd', value)
             new, changes, problems, _, _ = sheet.ingest(doc, p)
@@ -377,6 +379,17 @@ class SheetTest(TempDir):
             ('ctd', 'phase', 'Data integration', 'Data generation'),
             ('ctd', 'span', 'Data integration; Regulatory assessment', 'Data generation; Regulatory assessment')], []))
         self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))                  # read back once
+
+    def test_sub_domains_are_chosen_in_one_cell(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Sub-domains', 'ctd', 'regulatory toxicology, exposome')   # in the order clicked
+        self.edit(p, 'Sub-domains', 'exo', '')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([
+            ('ctd', 'subdomains', '', 'exposome; regulatory toxicology'),            # in the list's order
+            ('exo', 'subdomains', 'exposome', '')], []))
+        self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))
 
     def test_a_sheet_with_the_span_columns_is_not_read(self):
         doc = model.normalise(fixture())
@@ -522,8 +535,8 @@ class SheetTest(TempDir):
             'tool': None})
         self.assertEqual([rows['exo'][f'ETC: {d}'] for d in model.ETC_DOCUMENTS],
                          [d == 'Whitepaper' for d in model.ETC_DOCUMENTS])
-        self.assertEqual(head.index('Reviewed by') - head.index(f'ETC: {next(iter(model.ETC_DOCUMENTS))}'),
-                         len(model.ETC_DOCUMENTS))                # the tick boxes come right before Reviewed by
+        self.assertEqual(head.index('Note') - head.index(f'ETC: {next(iter(model.ETC_DOCUMENTS))}'),
+                         len(model.ETC_DOCUMENTS))                # the tick boxes come right before Note
         self.assertNotIn('In FAIRsharing collection', head)
 
     def test_ticks_and_a_new_row_are_read_back_once(self):
