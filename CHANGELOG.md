@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.6.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.0...v0.6.1) (2026-10-20)
+
+
+### Fixes
+
+* **data:** refresh 2026-10-19 ([3420454](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/3420454e4b313c40ea74e44c4ad28ca88724ab3c))
+* **data:** refresh 2026-10-20 ([9963a3d](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/9963a3dae312375577567918de901f99819b09dc))
+* **fip:** keep supporting questions out of the core of the convergence table ([d041613](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/d0416132016437cb47190be239dd8f2387f4a429))
+* **sheet:** read back the INTOXICOM workshop 4 tick boxes ([d04f76b](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/d04f76be77981f929e34c4f2d54d296e3c4c1bde))
+* **sheet:** show FAIRsharing's subjects and domains beside Scope and Span ([6516ddf](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/6516ddf9460582ad61a7eac61bcf09a5a6864dc4))
+
 ## [0.6.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.5.0...v0.6.0) (2026-10-18)
 
 
