@@ -329,7 +329,7 @@ class SheetTest(TempDir):
                 if kind in sheet.GREY_KINDS:                # each grey note opens the same way and gives a purpose
                     self.assertTrue(note.startswith(sheet.GREY_NOTE), head)
                     self.assertGreater(len(note), len(sheet.GREY_NOTE) + 20, head)
-        self.assertIn('grey means', sheet.INSTRUCTIONS[0].lower())
+        self.assertRegex(sheet.INSTRUCTIONS[0].lower(), r'grey (is|means) read-only')   # what grey is, first
         self.assertIn('cannot break', sheet.INSTRUCTIONS[0].lower())
 
     def test_columns_without_curator_information_are_folded(self):

@@ -90,19 +90,19 @@ STAKEHOLDER = {
 # The lifecycle phase of a toxicology resource: the phase it acts on; if several, the earliest at which it must be
 # applied. Every phase it acts on is recorded as its span.
 PHASES = {
-    'Data generation': 'Planning, producing and depositing primary records: datasets, protocols, method descriptions '
-                       'and the publications reporting them.',
-    'Data integration': 'Integrating and synthesising those records into secondary resources and evidence: curated '
-                        'databases, knowledge bases, ontologies, pathway networks and models.',
-    'Regulatory assessment': 'Assessing records and secondary resources for reliability and relevance in a regulatory '
-                             'context and integrating them into weight of evidence and decisions.',
+    'Data generation': 'Supports the planning of individual toxicology studies, the recording of their results and '
+                       'study context (metadata, protocols, data processing) and the deposition of study-level '
+                       'datasets linked to that context.',
+    'Data integration': 'Supports the linking of existing research output from different studies across test '
+                        'systems, stressors, exposures and endpoints, with mechanistic knowledge and models; includes '
+                        'the derivative objects this produces.',
+    'Regulatory assessment': 'Supports the reporting of studies for regulatory submission and the identification and '
+                             'evaluation of toxicology research outputs for a specified regulatory question.',
 }
 LANE_DEF = {
     'Generic infrastructure': 'Resources not specific to a research domain.',
     'Life sciences infrastructure': 'Life-science resources, not specific to toxicology, that toxicology uses.',
-    'Data generation': 'Toxicology resources whose phase, the earliest they act on, is data generation.',
-    'Data integration': 'Toxicology resources whose phase, the earliest they act on, is data integration.',
-    'Regulatory assessment': 'Toxicology resources whose phase, the earliest they act on, is regulatory assessment.',
+    **{p: f'Toxicology resources whose earliest phase is {p.lower()}; it {d[0].lower()}{d[1:]}' for p, d in PHASES.items()},
 }
 LANES = list(LANE_DEF)
 TOX_LANES = LANES[2:]
