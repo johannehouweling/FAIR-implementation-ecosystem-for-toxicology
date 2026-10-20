@@ -310,11 +310,12 @@ class SheetTest(TempDir):
         next(r for r in doc['hasPart'] if r['key'] == 'exo')['fsr'] = ['http://purl.org/np/RAexo#ExO']
         ws = load_workbook(self.build(doc))['Resources']
         head = [c.value for c in ws[1]]
-        self.assertEqual(head[:5], ['Key', 'Name', 'URL', 'Source', 'Decision'])
+        self.assertEqual(head[:7], ['Key', 'Name', 'URL', 'Reviewed by', 'Sub-domains', 'Source', 'Decision'])
         self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
+        row = next(c.row for c in ws['A'] if c.value == 'exo')
+        self.assertEqual(ws.cell(row=row, column=head.index('Sub-domains') + 1).value, 'exposome')
         s = head.index('Scope')                             # FAIRsharing's tags beside the fields they help check
-        self.assertEqual(head[s:s + 7], ['Scope', 'FAIRsharing subjects', 'Phase', *sheet.SPAN_HEAD.values(),
-                                         'FAIRsharing domains'])
+        self.assertEqual(head[s:s + 4], ['Scope', 'FAIRsharing subjects', 'Phase', 'FAIRsharing domains'])
         self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
         row = next(c.row for c in ws['A'] if c.value == 'exo')
         value = lambda h: ws.cell(row=row, column=head.index(h) + 1).value
@@ -342,7 +343,8 @@ class SheetTest(TempDir):
 
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
-        for column, value in (('Scope', 'Toxicologie'), ('FSR type', 'Databank')):
+        for column, value in (('Scope', 'Toxicologie'), ('FSR type', 'Databank'),
+                              ('Phase', 'Data generation, Data integratoin'), ('Sub-domains', 'exposome, ecotox')):
             p = self.build(doc)
             cell = self.edit(p, column, 'ctd', value)
             new, changes, problems, _, _ = sheet.ingest(doc, p)
@@ -359,10 +361,11 @@ class SheetTest(TempDir):
         wb = load_workbook(p)
         tab = lambda name: [dict(zip([c.value for c in wb[name][1]], r))
                             for r in wb[name].iter_rows(min_row=2, values_only=True) if r[0]]
-        exo = next(r for r in tab('Resources') if r['Key'] == 'exo')
-        self.assertEqual([exo[h] for h in ('FSR type', 'Class', 'Principles', 'Declared in', *sheet.SPAN_HEAD.values())],
+        exo, ctd = (next(r for r in tab('Resources') if r['Key'] == k) for k in ('exo', 'ctd'))
+        self.assertEqual([exo[h] for h in ('FSR type', 'Class', 'Principles', 'Declared in', 'Phase')],
                          ['Structured vocabulary', 'FAIR-Enabling Resource', 'F1',
-                          'OECD guidance on research data (F1-D); A FAIR tool (F1-D)', None, 'x', None])
+                          'OECD guidance on research data (F1-D); A FAIR tool (F1-D)', 'Data integration'])
+        self.assertEqual(ctd['Phase'], 'Data integration, Regulatory assessment')   # every phase, in phase order
         self.assertEqual([(x['Resource'], x['Relation'], x['Target'], x['Vocabulary'], x['Question'], x['Use'])
                           for x in tab('Relations') if x['Evidence'] == 'FIP'],
                          [('oecd_gd', 'declares-current-use-of', 'exo', 'FIP ontology', 'F1-D', 'current use'),
@@ -371,12 +374,43 @@ class SheetTest(TempDir):
         self.assertEqual(sheet.ingest(doc, p)[1:3], ([], []))                  # no changes, no problems
         self.edit(p, 'Target', 'tool', 'ctd', tab='Relations')                 # a FIP row: ignored
         self.edit(p, 'FSR type', 'ctd', 'Registry')
-        self.edit(p, 'Span: regulatory assessment', 'exo', 'x')
+        self.edit(p, 'Phase', 'exo', 'Regulatory assessment, Data integration')   # in the order clicked
         self.assertEqual(sheet.ingest(doc, p)[1:3], ([
             ('ctd', 'fsrType', model.FIP + 'Editor', model.FIP + 'Registry'),
             ('exo', 'span', 'Data integration', 'Data integration; Regulatory assessment')], []))
         by['exo']['fsrType'] = [model.FIP + 'Semantic-model']                  # changed after the sheet was made
         self.assertIn('changed in the dataset', sheet.ingest(doc, p)[2][0]['problem'])
+
+    def test_the_earliest_phase_chosen_is_the_phase(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Phase', 'ctd', 'Regulatory assessment,Data generation')   # any order, with or without a space
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([
+            ('ctd', 'phase', 'Data integration', 'Data generation'),
+            ('ctd', 'span', 'Data integration; Regulatory assessment', 'Data generation; Regulatory assessment')], []))
+        self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))                  # read back once
+
+    def test_sub_domains_are_chosen_in_one_cell(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Sub-domains', 'ctd', 'regulatory toxicology, exposome')   # in the order clicked
+        self.edit(p, 'Sub-domains', 'exo', '')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([
+            ('ctd', 'subdomains', '', 'exposome; regulatory toxicology'),            # in the list's order
+            ('exo', 'subdomains', 'exposome', '')], []))
+        self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))
+
+    def test_a_sheet_with_the_span_columns_is_not_read(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        wb = load_workbook(p)
+        ws = wb['Resources']
+        ws.cell(row=1, column=ws.max_column + 1, value='Span: regulatory assessment')   # the layout before 20 Oct 2026
+        wb.save(p)
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((new, changes, [x['column'] for x in problems]), (None, [], ['Span: regulatory assessment']))
 
     def test_stale_row_is_refused_unless_forced(self):
         doc = model.normalise(fixture())
@@ -512,8 +546,8 @@ class SheetTest(TempDir):
             'tool': None})
         self.assertEqual([rows['exo'][f'ETC: {d}'] for d in model.ETC_DOCUMENTS],
                          [d == 'Whitepaper' for d in model.ETC_DOCUMENTS])
-        self.assertEqual(head.index('Reviewed by') - head.index(f'ETC: {next(iter(model.ETC_DOCUMENTS))}'),
-                         len(model.ETC_DOCUMENTS))                # the tick boxes come right before Reviewed by
+        self.assertEqual(head.index('Note') - head.index(f'ETC: {next(iter(model.ETC_DOCUMENTS))}'),
+                         len(model.ETC_DOCUMENTS))                # the tick boxes come right before Note
         self.assertNotIn('In FAIRsharing collection', head)
 
     def test_ticks_and_a_new_row_are_read_back_once(self):

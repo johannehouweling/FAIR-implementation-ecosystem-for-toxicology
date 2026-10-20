@@ -30,24 +30,27 @@ def _fsr_list():
 
 LISTS = {
     'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['fairsharingType'],
-    'Scope': model.SCOPE, 'Phase': model.PHASES, 'Date basis': model.DATE_BASIS,
+    'Scope': model.SCOPE, 'Phase': model.PHASES, 'Sub-domains': model.SUBDOMAINS, 'Date basis': model.DATE_BASIS,
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
     'Relation': {k: v[2] for k, v in model.RELATIONS.items()}, 'Evidence': model.EVIDENCE,
     'Keep': {'keep': 'Keep this relation.', 'remove': 'Remove this relation.'},
     'Mark': {'x': 'Applies.'}, 'FSR type': _fsr_list(), 'FIP relation': model.FIP_PROPERTIES,
 }
 CREATOR_HEAD = {s: f'Made by {s.lower()}' for s in model.STAKEHOLDER}
-SPAN_HEAD = {p: f'Span: {p.lower()}' for p in model.PHASES}
 ETC_HEAD = {d: f'ETC: {d}' for d in model.ETC_DOCUMENTS}
 MARKED = ('x', 'true')                                      # how a mark reads back: an x, or a ticked box
+MULTI = {'span': model.PHASES, 'subdomains': model.SUBDOMAINS}   # multi-select columns: field -> its list, in order
 # (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark, creator,
-# span, and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
+# and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
 # The Resources tab puts what curators check first, in the order of the curation steps; the context follows, folded.
 TASK_COLUMNS = [
     ('Key', 'key', 'key', 16, 'Stable identifier, never changed. For a new row, type a short key: lowercase letters, '
      'digits, _ or -.'),
     ('Name', 'name', 'text', 36, 'Full name of the resource.'),
     ('URL', 'url', 'text', 32, 'Main web address.'),
+    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the whole row: this confirms it.'),
+    ('Sub-domains', 'subdomains', 'list:Sub-domains', 30, 'The toxicology sub-domains the resource belongs to: choose '
+     'each one that applies.'),
     ('Source', None, 'static', 30, 'Computed: where the resource is found: the manuscript draft, the FAIRsharing '
      'Toxicology collection, a toxicology FIP, or added by a co-author in this sheet.'),
     ('Decision', 'decision', 'list:Decision', 12, 'include, exclude or undecided.'),
@@ -60,14 +63,10 @@ TASK_COLUMNS = [
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
     ('FAIRsharing subjects', None, 'static', 24, "FAIRsharing's subjects of the record, read when the sheet is made; "
      'compare with Scope.'),
-    ('Phase', 'phase', 'list:Phase', 26,
-     'The phase it acts on; the earliest when several. Only for scope Toxicology; it sets the lane.'),
-    *[(SPAN_HEAD[p], p, 'span', 11, f'Mark x when a toxicology resource acts on {p.lower()}. The earliest phase '
-       'marked is the Phase.') for p in model.PHASES],
+    ('Phase', 'span', 'list:Phase', 26,
+     'Every phase it acts on: choose each one that applies. The earliest sets the lane. Only for scope Toxicology.'),
     ('FAIRsharing domains', None, 'static', 24, "FAIRsharing's domains of the record, read when the sheet is made; "
-     'compare with Phase and Span.'),
-    *[(s, s, 'mark', 11, f'Mark x when the resource belongs to {s}. Several sub-domains may apply.')
-      for s in model.SUBDOMAINS],
+     'compare with Phase.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
     ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
@@ -79,7 +78,6 @@ TASK_COLUMNS = [
     ('Maintained', 'maintained', 'list:Maintained', 14, 'active, discontinued, in development or unknown.'),
     *[(ETC_HEAD[d], d, 'etc', 10, 'Tick when this ELIXIR Toxicology Community document mentions the resource: '
        + text) for d, text in model.ETC_DOCUMENTS.items()],
-    ('Reviewed by', 'reviewedBy', 'text', 12, 'Your initials once you have checked the whole row: this confirms it.'),
     ('Note', 'note', 'text', 44, 'Anything the next curator should know.'),
 ]
 CONTEXT_COLUMNS = [
@@ -137,13 +135,13 @@ INSTRUCTIONS = [
     'Never delete a row. To drop a resource, set Decision to exclude and choose an Exclusion reason.',
     'Add new resources at the bottom of the Resources tab, each with a short key of your own: lowercase letters, '
     'digits, _ or -.',
-    'Mark each sub-domain that applies with x. A resource can belong to several.',
+    'Sub-domains lists the toxicology sub-domains a resource belongs to; choose each one that applies. Filter on it '
+    'to find the resources of your sub-domain.',
     'First published is the date the resource first became public, as YYYY, YYYY-MM or YYYY-MM-DD. '
     'Put the DOI or web page that shows the date in Citation.',
-    'Phase is the phase a toxicology resource acts on and sets its lane: Data generation, Data integration or '
-    'Regulatory assessment. When it acts on several, choose the earliest at which it must be applied. Choose by what '
-    'the resource is used for, not by who made it. Mark x under Span for every phase it acts on; the earliest one '
-    'marked is the Phase.',
+    'Phase lists every phase a toxicology resource acts on: Data generation, Data integration, Regulatory assessment; '
+    'choose each one that applies. The earliest one sets its lane. Choose by what the resource is used for, not by who '
+    'made it.',
     'FSR type is the kind of FAIR resource it is. When a toxicology FIP declares the resource, use the type the FIP '
     'gives it; otherwise choose the one that fits best (a database is a registry). Class, Principles and Declared in '
     'follow from it.',
@@ -184,7 +182,7 @@ def _validation(ws, kind, letter, rows, keys_range):
         formula = f'=Lists!${col}$2:${col}${1 + len(LISTS[name])}'
     elif kind == 'keys':
         formula = keys_range
-    elif kind in ('mark', 'creator', 'span'):
+    elif kind == 'creator':
         formula = '"x"'
     else:
         return
@@ -299,10 +297,11 @@ def build(doc, path, added=()):
                 c.fill = GREY
             if kind == 'date':
                 c.number_format = '@'
-            if kind == 'lane':
+            if kind == 'lane':                              # the earliest phase chosen in Phase
                 s, k = f'{col_of["Scope"]}{n}', f'{col_of["Phase"]}{n}'
+                first = ''.join(f'IF(ISNUMBER(FIND("{p}",{k})),"{p}",' for p in model.PHASES) + '""' + ')' * len(model.PHASES)
                 c.value = (f'=IF({s}="Generic","Generic infrastructure",'
-                           f'IF({s}="Life Sciences","Life sciences infrastructure",IF({s}="Toxicology",{k}&"","")))')
+                           f'IF({s}="Life Sciences","Life sciences infrastructure",IF({s}="Toxicology",{first},"")))')
                 continue
             if kind == 'fslink':
                 f = f'{col_of["FAIRsharing record"]}{n}'
@@ -312,12 +311,10 @@ def build(doc, path, added=()):
             if r is None:
                 continue
             fs = r.get('fairsharing') or {}
-            if kind == 'mark':
-                c.value = 'x' if field in r.get('subdomains', []) else None
-            elif kind == 'creator':
+            if kind == 'creator':
                 c.value = 'x' if field in r.get('creatorType', []) else None
-            elif kind == 'span':
-                c.value = 'x' if field in r.get('span', []) else None
+            elif field in MULTI:                            # every value, joined as Sheets joins a multi-select
+                c.value = ', '.join(r.get(field, [])) or None
             elif kind == 'etc':
                 c.value = field in r.get('mentionedIn', [])
             elif head == 'Source':                          # where the resource is found, in a fixed order
@@ -478,6 +475,11 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
     if missing:
         problem('Resources', '1', ', '.join(missing), '', 'columns missing; do not rename or delete columns')
         return None, [], problems, notes, {}
+    old = [h for h in head if h.startswith('Span: ') or h in model.SUBDOMAINS]   # the tick columns before 20 Oct
+    if old:                                                                      # 2026: refused, not misread
+        problem('Resources', '1', ', '.join(old), '', 'these tick columns are now chosen in Phase and Sub-domains; '
+                'this sheet is read back once they are merged into them')
+        return None, [], problems, notes, {}
     seen, row_of, reviewer, waiting, twice = set(), {}, {}, set(), {}
     for cells in ws.iter_rows(min_row=2):
         n = cells[0].row
@@ -489,7 +491,7 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
         version = _text(val.get('Row version'))
         parsed, bad = {}, False
         for h, field, kind, *_ in RESOURCE_COLUMNS:
-            if not field or kind in ('key', 'mark', 'creator', 'span', 'etc'):
+            if not field or kind in ('key', 'creator', 'etc'):
                 continue
             v = val.get(h)
             if kind == 'aliases':
@@ -498,6 +500,15 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
                 parsed[field] = _text(v)
                 if isinstance(v, (dt.datetime, dt.date)):
                     notes.append(f'Resources!{where[h]}: a date was converted by the spreadsheet; check its precision')
+            elif field in MULTI:                            # every value chosen, in the order clicked
+                chosen = [p.strip() for p in _text(v).split(',') if p.strip()]
+                wrong = [p for p in chosen if p not in MULTI[field]]
+                if wrong:
+                    problem('Resources', where[h], h, v, f'{wrong[0]!r} is not one of the allowed values')
+                    bad = True
+                parsed[field] = [p for p in MULTI[field] if p in chosen]
+                if field == 'span':                         # the earliest phase is the phase
+                    parsed['phase'] = (parsed['span'] or [''])[0]
             elif kind.startswith('list:'):
                 t = _text(v)
                 if kind == 'list:Exclusion reason':
@@ -513,12 +524,10 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
                 parsed[field] = _url(v)
             else:
                 parsed[field] = _text(v)
-        parsed['subdomains'] = [s for s in model.SUBDOMAINS if _text(val.get(s)).lower() in MARKED]
         parsed['creatorType'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() in MARKED]
-        parsed['span'] = [p for p in model.PHASES if _text(val.get(SPAN_HEAD[p])).lower() in MARKED]
         parsed['mentionedIn'] = [d for d in model.ETC_DOCUMENTS if _text(val.get(ETC_HEAD[d])).lower() in MARKED]
         parsed['fsrType'] = list(dict.fromkeys(parsed['fsrType']))
-        for mark in [*model.SUBDOMAINS, *CREATOR_HEAD.values(), *SPAN_HEAD.values(), *ETC_HEAD.values()]:
+        for mark in [*CREATOR_HEAD.values(), *ETC_HEAD.values()]:
             t = _text(val.get(mark)).lower()
             if t and t not in MARKED:
                 problem('Resources', where.get(mark, ''), mark, val.get(mark), 'mark with x or leave it empty')

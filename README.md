@@ -39,7 +39,8 @@ keeps a release pull request open with the next version and its `CHANGELOG.md` e
 Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
 Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row with its
 checks and logs every change, under the curator's initials when given. A row with a problem waits in the sheet and is
-listed. A
+listed. A freshly built sheet, once uploaded, needs "Allow multiple selections" switched on for Phase by hand, because
+an .xlsx cannot carry it. A
 workflow reads the sheet back three times a day, then FAIRsharing and the FIPs, and keeps one pull request open with
 what changed; it keeps the exported sheet with the run for 90 days.
 
