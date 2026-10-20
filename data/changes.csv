@@ -3503,3 +3503,36 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-19,curation sheet 2026-10-19,toxml,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
 2026-10-19,curation sheet 2026-10-19,uniprot,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
 2026-10-19,curation sheet 2026-10-19,wikipathways,mentionedIn,,FAIRSharing,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,data_stewardship_wizard_ds,(row),(new),Data Stewardship Wizard (DS-Wizard),,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,european_registry_of_materials,(row),(new),European Registry of Materials identifiers (ERM ID),,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,experimental_factor_ontology_efo,(row),(new),Experimental Factor Ontology (EFO),,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,fair_data_point_fdp,(row),(new),FAIR Data Point (FDP),,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,large_language_model_llm,(row),(new),Large Language Model (LLM),,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,nanopharos_database,(row),(new),NanoPharos Database,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,openaire,(row),(new),OpenAIRE,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,tess,(row),(new),ELIXIR TeSS,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,toxic_process_ontology,(row),(new),Toxic Process Ontology,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,worldfair,(row),(new),WorldFAIR,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,zenodo,(row),(new),Zenodo,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,bao,mentionedIn,,INTOXICOM 1; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,biostudies,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,chebi,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,cookbook,mentionedIn,INTOXICOM 1,INTOXICOM 1; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,doi,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,echa_chem_reach,mentionedIn,Whitepaper; FAIRSharing,Whitepaper; FAIRSharing; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,enm_ont,mentionedIn,Whitepaper; FAIRSharing,Whitepaper; FAIRSharing; INTOXICOM 2,IM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,fairsharing,mentionedIn,Whitepaper; FAIRSharing; INTOXICOM 1,Whitepaper; FAIRSharing; INTOXICOM 1; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,go,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,inchi,mentionedIn,Whitepaper,Whitepaper; INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,intoxicom,mentionedIn,INTOXICOM 1; INTOXICOM 2; INTOXICOM 3; INTOXICOM 5,INTOXICOM 1; INTOXICOM 2; INTOXICOM 3; INTOXICOM 4; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,isatab,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,iuclid,mentionedIn,Whitepaper,Whitepaper; INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,nanocommons_project,mentionedIn,Whitepaper,Whitepaper; INTOXICOM 1; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,obo,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,orcid,mentionedIn,,INTOXICOM 1; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,owl,mentionedIn,,INTOXICOM 1,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,parctoxicology,mentionedIn,Whitepaper; INTOXICOM 1,Whitepaper; INTOXICOM 1; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,qsardb,mentionedIn,FAIRSharing,FAIRSharing; INTOXICOM 2,,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,recipe_bao,name,FAIR Cookbook recipe: Metadata for cell-based assays using Bioassay Ontology (BAO),Metadata for cell-based assays using Bioassay Ontology (BAO),IM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,recipe_bao,dateSource,https://doi.org/10.37044/osf.io/un2rw,https://github.com/FAIRplus/the-fair-cookbook/issues/666,IM,curation-sheet.xlsx
+2026-10-20,curation sheet 2026-10-20,toxcoll,mentionedIn,FAIRSharing; INTOXICOM 1,FAIRSharing; INTOXICOM 1; INTOXICOM 2,IM,curation-sheet.xlsx

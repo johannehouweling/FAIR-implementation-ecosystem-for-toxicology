@@ -235,7 +235,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.6.0",
- "dateModified": "2026-10-19",
+ "dateModified": "2026-10-20",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -392,6 +392,7 @@
    "INTOXICOM 1": "Report of INTOXICOM workshop 1.",
    "INTOXICOM 2": "Report of INTOXICOM workshop 2.",
    "INTOXICOM 3": "Report of INTOXICOM workshop 3.",
+   "INTOXICOM 4": "Report of INTOXICOM workshop 4.",
    "INTOXICOM 5": "Report of INTOXICOM workshop 5."
   }
  },
@@ -1790,6 +1791,10 @@
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; III Data generation (nano); L67, L109",
+   "mentionedIn": [
+    "INTOXICOM 1",
+    "INTOXICOM 2"
+   ],
    "fairsharingRecord": "FAIRsharing.mye76w",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (medium confidence): The describing paper is Visser et al., BMC Bioinformatics, online 2011-06-24. Schürer et al., J Biomol Screen, April 2011 (doi:10.1177/1087057111400191) already used BAO. bioassayontology.org linked BAO on NCBO BioPortal by 2011-02-03 (web capture), while the May 2010 site and wiki were login-only. I kept year precision because the public BioPortal release may be late 2010. FAIRsharing year 2009 is the NHGRI grant/project start. Releases continue on GitHub (BAO 2.8.19, 2026). URL changed to https. Verified 5 Oct 2026: datePublished changed (The archived NCBO BioPortal BAO page (https://web.archive.org/web/20110703074549/http://bioportal.bioontology.org/ontologies/1533) lists version 0.9.461 with release date 09/17/2010 and a public download link. Its BioPortal id is 44531, the exact version that Visser et al. 2011 cite as 'available online at the NCBO bioportal http://bioportal.bioontology.org/ontologies/44531'. BAO was therefore public in Sept 2010, before both 2011 papers.) Verified 5 Oct 2026: dateBasis changed (The earliest date is now the first public BioPortal release (v0.9.461, 2010-09-17), not the June 2011 paper.) Verified 5 Oct 2026: dateSource changed (This capture's 'Versions' table shows 0.9.461 released 09/17/2010.) Proposed 9 Oct 2026: An OWL ontology giving controlled, identified terms and qualified relations for describing bioassay formats, targets, detection methods and endpoints.",
@@ -2079,6 +2084,9 @@
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation; Comments [ap]; L101-102, L408",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
    "fairsharingRecord": "FAIRsharing.mtjvme",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): McEntyre, Sarkans & Brazma, 'The BioStudies database', Mol Syst Biol 11:847. PubMed gives the e-publication date as 2015-12-23; Crossref gives published-online 2015-12-28 but shows the DOI created on 2015-12-23. FAIRsharing year 2015. The earliest web capture of ebi.ac.uk/biostudies is 2016-08-06. NAR database paper: 2018 (doi 10.1093/nar/gkx965). Year unchanged; the day is added. Proposed 9 Oct 2026: Declared for F1 because it assigns persistent study accessions; it is also an archive that indexes and serves study records, so registry too.",
@@ -2383,6 +2391,9 @@
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation (nano); III Computational; L109, L147",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
    "fairsharingRecord": "FAIRsharing.62qk8w",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): I refined 2004 to the exact date. Degtyarenko et al., NAR (online 2007-10-11) states 'Since its first public release (21 July 2004)'. The earliest web capture of www.ebi.ac.uk/chebi/ is 2004-07-24, which agrees. FAIRsharing gives year 2006; the project itself started at the EBI in 2002. Proposed 9 Oct 2026: A FIP declares it for I2, as the controlled chemical vocabulary with stable identifiers used to annotate data and metadata.",
@@ -2668,7 +2679,8 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III Table 1; L65, L67",
    "mentionedIn": [
-    "INTOXICOM 1"
+    "INTOXICOM 1",
+    "INTOXICOM 2"
    ],
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (medium confidence): FAIRplus deliverable D2.4 'FAIR Cookbook - Public Version' was deposited on Zenodo on 2020-06-30 (doi 10.5281/zenodo.3924476). The Sci Data paper (online 2023-05-19, doi 10.1038/s41597-023-02166-3, the previous source) says 'Launched in 2020'. The earliest web capture of fairplus.github.io/the-fair-cookbook is 2020-10-05. The year 2020 is firm; the exact day is that of the public-version deliverable. No FAIRsharing record found (DataCite search of FAIRsharing DOIs by title and full text). Verified 5 Oct 2026: datePublished changed (The cited deliverable D2.4 (https://doi.org/10.5281/zenodo.3924476, dated 30 Jun 2020) calls itself 'the second and latest release', counted from 'the launch of the FAIRplus cookbook', and refers to 'the first 6 months since the initial release'. So 2020-06-30 is not the first public release. The Sci Data paper (https://doi.org/10.1038/s41597-023-02166-3) says 'Launched in 2020'. No source gives the exact launch day, so only the year is documented.) Verified 5 Oct 2026: dateSource changed (The Sci Data paper is the source that states the launch year ('Launched in 2020'). The Zenodo deliverable documents a later, second release.) Proposed 9 Oct 2026: Open collection of step-by-step recipes teaching how to make life-science data FAIR, which makes it FAIR training material.",
@@ -2929,6 +2941,19 @@
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#data_stewardship_wizard_ds",
+   "identifier": "https://w3id.org/fair-tox/dataset#data_stewardship_wizard_ds",
+   "schemaType": "schema:CreativeWork",
+   "key": "data_stewardship_wizard_ds",
+   "name": "Data Stewardship Wizard (DS-Wizard)",
+   "decision": "undecided",
+   "url": "https://ds-wizard.org/",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 2"
    ]
   },
   {
@@ -3219,6 +3244,9 @@
    ],
    "scope": "Generic",
    "url": "https://www.doi.org",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
    "fairsharingRecord": "FAIRsharing.hFLKCn",
    "fairsharingMatch": "confirmed",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA6-tRMaxvyhPm6GnMQw9OnJk5M3OCA00BQ8dzOiRCTbk/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared mainly for F1 as a persistent, globally unique and resolvable identifier system for data and metadata. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAVI6ifsFrq3vkzlwYn5-D-x31ORGJEZ8af0DsBfzQprU links https://doi.org/10.25504/FAIRsharing.hFLKCn; one lookup of https://fairsharing.org/FAIRsharing.hFLKCn returns 'Digital Object Identifier' (DOI, ISO 26324:2025), Standard/identifier_schema, status ready, homepage https://www.doi.org/the-identifier/resources/handbook/.)",
@@ -3434,7 +3462,8 @@
    "manuscript": "absent",
    "mentionedIn": [
     "Whitepaper",
-    "FAIRSharing"
+    "FAIRSharing",
+    "INTOXICOM 2"
    ],
    "fairsharingRecord": "FAIRsharing.ab25e3",
    "fairsharingMatch": "confirmed",
@@ -4114,7 +4143,8 @@
    "manuscriptEvidence": "III Data generation (nano); L109",
    "mentionedIn": [
     "Whitepaper",
-    "FAIRSharing"
+    "FAIRSharing",
+    "INTOXICOM 2"
    ],
    "fairsharingRecord": "FAIRsharing.2gpf81",
    "fairsharingMatch": "confirmed",
@@ -4738,6 +4768,18 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#european_registry_of_materials",
+   "identifier": "https://w3id.org/fair-tox/dataset#european_registry_of_materials",
+   "schemaType": "schema:CreativeWork",
+   "key": "european_registry_of_materials",
+   "name": "European Registry of Materials identifiers (ERM ID)",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#europepmc",
    "identifier": "https://w3id.org/fair-tox/dataset#europepmc",
    "schemaType": "schema:CreativeWork",
@@ -5011,6 +5053,18 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#experimental_factor_ontology_efo",
+   "identifier": "https://w3id.org/fair-tox/dataset#experimental_factor_ontology_efo",
+   "schemaType": "schema:CreativeWork",
+   "key": "experimental_factor_ontology_efo",
+   "name": "Experimental Factor Ontology (EFO)",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
    "identifier": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
    "schemaType": "schema:CreativeWork",
@@ -5151,6 +5205,18 @@
    "scope": "Toxicology",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L345"
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#fair_data_point_fdp",
+   "identifier": "https://w3id.org/fair-tox/dataset#fair_data_point_fdp",
+   "schemaType": "schema:CreativeWork",
+   "key": "fair_data_point_fdp",
+   "name": "FAIR Data Point (FDP)",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fair_enabling_resource_fer",
@@ -5451,7 +5517,8 @@
    "mentionedIn": [
     "Whitepaper",
     "FAIRSharing",
-    "INTOXICOM 1"
+    "INTOXICOM 1",
+    "INTOXICOM 2"
    ],
    "fairsharingRecord": "FAIRsharing.2abjs5",
    "fairsharingMatch": "confirmed",
@@ -5940,6 +6007,9 @@
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Computational; L147",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
    "fairsharingRecord": "FAIRsharing.6xq0ee",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (medium confidence): Ashburner et al., Nat Genet 25(1), May 2000 (Crossref issued 2000-05; PubMed 2000 May). The 2000 GO documentation says the collaboration began in summer 1998, which matches FAIRsharing year 1998 (project start). The earliest web captures (geneontology.org, Stanford GO pages) are from May-June 2000; any public release in 1999 is undocumented, hence medium confidence. FAIRsharing.6xq0ee (Standard/terminology_artefact, year 1998, ready) was found through DataCite/Bioregistry and confirmed with one lookup. Verified 5 Oct 2026: datePublished changed (SGD's NAR database paper (https://doi.org/10.1093/nar/28.1.77; received 1999-10-01, published 2000-01-01) already cites the public GO pages at http://genome-www.stanford.edu/GO and says SGD pages link to 'Gene Ontology controlled vocabulary terms'. Rubin et al., Science, March 2000 (PMC2754258), also points to geneontology.org, and the GO site footer reads 'copyright © 1999–2026'. GO was therefore public in 1999, before the May 2000 Nat Genet paper.) Verified 5 Oct 2026: dateBasis changed (The earliest documented event is public availability in 1999, earlier than the first describing paper (May 2000).) Verified 5 Oct 2026: dateSource changed (This SGD NAR 2000 paper (received 1999-10-01) documents that the GO web pages and GO term links were live in 1999.) Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.6xq0ee returns 'Gene Ontology' (GO), Standard/terminology_artefact, status ready, homepage http://www.geneontology.org, citing doi:10.1038/75556. It is clearly the same resource.) Proposed 9 Oct 2026: Declared in a FIP for I2, it is an ontology giving identified terms with qualified relations for annotating gene functions, processes and components.",
@@ -6234,7 +6304,8 @@
    "manuscript": "named",
    "manuscriptEvidence": "I Introduction; L7",
    "mentionedIn": [
-    "Whitepaper"
+    "Whitepaper",
+    "INTOXICOM 1"
    ],
    "fairsharingRecord": "FAIRsharing.ddk9t9",
    "fairsharingMatch": "confirmed",
@@ -6416,6 +6487,7 @@
     "INTOXICOM 1",
     "INTOXICOM 2",
     "INTOXICOM 3",
+    "INTOXICOM 4",
     "INTOXICOM 5"
    ]
   },
@@ -6615,6 +6687,9 @@
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation; Comments [ap]; L99-100, L407",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
    "fairsharingRecord": "FAIRsharing.53gp75",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): The year is confirmed. The first description is the RSBI ISA-TAB workshop report, OMICS 12(2) (Crossref issue/online date 2008-06-01; PubMed 2008 Jun). The DOI was registered on 2008-04-30 and PubMed indexed it on 2008-05-02, so the online date is uncertain and I kept year precision. The format was proposed at the workshop held 6-8 Dec 2007 at the EBI, where toxicogenomics was among the RSBI communities. FAIRsharing yearCreation 2010 reflects the ISA software suite. I refined the creator because ISA-Tab started at EMBL-EBI before the team moved to Oxford. Proposed 9 Oct 2026: A FIP declares it for F2; ISA is a metadata model and tabular format for describing study design, samples, protocols and data files.",
@@ -6654,7 +6729,8 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III Regulatory; L178, L194",
    "mentionedIn": [
-    "Whitepaper"
+    "Whitepaper",
+    "INTOXICOM 1"
    ],
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (high confidence): Corrected from 2007. 2007 is IUCLID 5, made public in June 2007; IUCLID 6 followed on 2016-04-29. The official IUCLID website (archived 2009) dates the first version to 1993, built for the Existing Substances Regulation 793/93/EEC. The first journal description is Heidorn et al. 2003 (doi 10.1021/ci0202786). If the row means IUCLID 6 only, use 2016-04-29. ECHA pages refuse automated requests (HTTP 403), so the homepage could not be checked by script. FAIRsharing: no record. Proposed 9 Oct 2026: Software for entering and validating chemical data in OECD Harmonised Templates, required when regulatory dossiers are compiled, submitted and assessed.",
@@ -6944,6 +7020,18 @@
      "@type": "prov:Attribution",
      "hadRole": "Wet-lab research"
     }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#large_language_model_llm",
+   "identifier": "https://w3id.org/fair-tox/dataset#large_language_model_llm",
+   "schemaType": "schema:CreativeWork",
+   "key": "large_language_model_llm",
+   "name": "Large Language Model (LLM)",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 2"
    ]
   },
   {
@@ -7649,7 +7737,9 @@
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation (nano); L111",
    "mentionedIn": [
-    "Whitepaper"
+    "Whitepaper",
+    "INTOXICOM 1",
+    "INTOXICOM 2"
    ],
    "qualifiedAttribution": [
     {
@@ -7694,6 +7784,19 @@
      "@type": "prov:Attribution",
      "hadRole": "In silico research"
     }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#nanopharos_database",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanopharos_database",
+   "schemaType": "schema:CreativeWork",
+   "key": "nanopharos_database",
+   "name": "NanoPharos Database",
+   "decision": "undecided",
+   "url": "https://www.db.nanopharos.eu/",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
    ]
   },
   {
@@ -8003,6 +8106,9 @@
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Ecosystem overview; L96",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
    "fairsharingRecord": "FAIRsharing.847069",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (medium confidence): The web archive shows the OBO Foundry site, with its principles and initial candidate ontologies, on 2006-05-02; the page document is dated 2006-03-04. Describing paper: Smith et al., Nat Biotechnol, online 2007-11-07 (doi 10.1038/nbt1346); use that date if a formal description is preferred. The FAIRsharing record 'OBO Foundry' (FAIRsharing.847069) is registered as Database/repository with no year. Type changed from Collection to match it; revert if the match is rejected. Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.847069 returns id 2600 'OBO Foundry' (OBO): Database/repository, homepage http://www.obofoundry.org/. The homepage and resource are the same as the row (url https://obofoundry.org), and the type already follows this record.) Proposed 9 Oct 2026: A registry indexing biomedical ontologies and their metadata that also issues the persistent URLs identifying ontology terms.",
@@ -8321,6 +8427,18 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#openaire",
+   "identifier": "https://w3id.org/fair-tox/dataset#openaire",
+   "schemaType": "schema:CreativeWork",
+   "key": "openaire",
+   "name": "OpenAIRE",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#openalex",
    "identifier": "https://w3id.org/fair-tox/dataset#openalex",
    "schemaType": "schema:CreativeWork",
@@ -8566,6 +8684,10 @@
    ],
    "scope": "Generic",
    "url": "https://orcid.org/",
+   "mentionedIn": [
+    "INTOXICOM 1",
+    "INTOXICOM 2"
+   ],
    "fairsharingRecord": "FAIRsharing.nx58jg",
    "fairsharingMatch": "confirmed",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAVl1raaW85ATpzspwV8C_jm__sZ3J6I3y1_j1RId7bRQ/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it issues and resolves persistent identifiers for researchers. Verified 10 Oct 2026: fairsharingMatch changed (the FIP description nanopublication http://purl.org/np/RAtIFnvA0nuTJjr4QEBw8j_CNW-8D7xLAC42qLxSZqDMo links https://doi.org/10.25504/FAIRsharing.nx58jg; one lookup of https://fairsharing.org/FAIRsharing.nx58jg returns 'Open Researcher and Contributor ID Registry' (ORCID), Database/repository, status ready, homepage http://orcid.org/, the row's homepage. The FIP describes ORCID as an Identifier-service and a Registry; FAIRsharing keeps the ORCID iD identifier schema as a separate record (FAIRsharing.OrNi1L). Type changed to follow this record.)",
@@ -8622,6 +8744,9 @@
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation (nano); L109",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
    "fairsharingRecord": "FAIRsharing.atygwy",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): OWL became a W3C Recommendation on 2004-02-10; Working Drafts appeared from July 2002 (e.g. WD-owl-ref-20020729). OWL 2 became a Recommendation on 2009-10-27, with a second edition on 2012-12-11. FAIRsharing record FAIRsharing.atygwy describes OWL 2 (model/format, FAIRsharing year 2012). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.atygwy returns id 409 'Web Ontology Language' (abbreviation OWL 2): model_and_format, homepage https://www.w3.org/TR/owl2-overview. This is FAIRsharing's record for the OWL standard. OWL 2 is a version of the same language, and the row's https://www.w3.org/OWL/ covers both versions.) Proposed 9 Oct 2026: A FIP declares it for I1; OWL is the W3C language for writing machine-interpretable ontologies with formal semantics.",
@@ -8785,7 +8910,8 @@
    "url": "https://www.eu-parc.eu",
    "mentionedIn": [
     "Whitepaper",
-    "INTOXICOM 1"
+    "INTOXICOM 1",
+    "INTOXICOM 2"
    ],
    "note": "FAIR Implementation Community that declares PARC Toxicology FAIR Implementation Profile, from its FIC nanopublication. Retrieved 2026-10-08.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
@@ -9146,7 +9272,8 @@
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
-    "FAIRSharing"
+    "FAIRSharing",
+    "INTOXICOM 2"
    ],
    "fairsharingRecord": "FAIRsharing.ad3e10",
    "fairsharingMatch": "confirmed",
@@ -9374,7 +9501,7 @@
    "identifier": "https://w3id.org/fair-tox/dataset#recipe_bao",
    "schemaType": "schema:SoftwareApplication",
    "key": "recipe_bao",
-   "name": "FAIR Cookbook recipe: Metadata for cell-based assays using Bioassay Ontology (BAO)",
+   "name": "Metadata for cell-based assays using Bioassay Ontology (BAO)",
    "alternateName": [
     "Issue #666 FAIRplus/the-fair-cookbook"
    ],
@@ -9395,7 +9522,7 @@
     "in vitro toxicology"
    ],
    "datePublished": "2024-11-05",
-   "dateSource": "https://doi.org/10.37044/osf.io/un2rw",
+   "dateSource": "https://github.com/FAIRplus/the-fair-cookbook/issues/666",
    "creator": "ELIXIR Toxicology Community (INTOXICOM)",
    "url": "https://github.com/FAIRplus/the-fair-cookbook/issues/666",
    "description": "A FAIR Cookbook recipe, proposed on GitHub and not yet published, setting out minimum and desirable metadata for cell-based toxicology assays and how to annotate them with BioAssay Ontology terms, so that the data can be found and linked to AOPs.",
@@ -10155,6 +10282,19 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#tess",
+   "identifier": "https://w3id.org/fair-tox/dataset#tess",
+   "schemaType": "schema:CreativeWork",
+   "key": "tess",
+   "name": "ELIXIR TeSS",
+   "decision": "undecided",
+   "url": "https://tess.elixir-europe.org/",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 2"
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#tg236",
    "identifier": "https://w3id.org/fair-tox/dataset#tg236",
    "schemaType": "schema:CreativeWork",
@@ -10376,7 +10516,8 @@
    "manuscriptEvidence": "III Table 1; III Data generation; L64, L105",
    "mentionedIn": [
     "FAIRSharing",
-    "INTOXICOM 1"
+    "INTOXICOM 1",
+    "INTOXICOM 2"
    ],
    "fairsharingRecord": "FAIRsharing.f60a10",
    "fairsharingMatch": "confirmed",
@@ -10429,6 +10570,18 @@
      "@type": "prov:Attribution",
      "hadRole": "Wet-lab research"
     }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#toxic_process_ontology",
+   "identifier": "https://w3id.org/fair-tox/dataset#toxic_process_ontology",
+   "schemaType": "schema:CreativeWork",
+   "key": "toxic_process_ontology",
+   "name": "Toxic Process Ontology",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
    ]
   },
   {
@@ -10878,6 +11031,18 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#worldfair",
+   "identifier": "https://w3id.org/fair-tox/dataset#worldfair",
+   "schemaType": "schema:CreativeWork",
+   "key": "worldfair",
+   "name": "WorldFAIR",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#xmls",
    "identifier": "https://w3id.org/fair-tox/dataset#xmls",
    "schemaType": "schema:CreativeWork",
@@ -10896,6 +11061,19 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
     "http://purl.org/np/RA5E0NA_BAilxwHhZKQm-ItnFoxw3ateI8UFxZ0rs8N5Q#XML_Schema"
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#zenodo",
+   "identifier": "https://w3id.org/fair-tox/dataset#zenodo",
+   "schemaType": "schema:CreativeWork",
+   "key": "zenodo",
+   "name": "Zenodo",
+   "decision": "undecided",
+   "url": "https://zenodo.org/",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
    ]
   }
  ],
