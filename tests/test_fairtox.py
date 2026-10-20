@@ -12,6 +12,7 @@ import urllib.error
 import warnings
 from unittest import mock
 
+import rdflib
 from openpyxl import load_workbook
 
 from fairtox import __version__, cli, fairsharing, fip, model, sheet, site, web
@@ -184,6 +185,16 @@ class ModelTest(TempDir):
         self.assertIn(model.FIC, offered)                                 # for communities
         self.assertNotIn(model.FIP + 'Web-API', offered)                  # deprecated
         self.assertNotIn(model.FIP + 'FAIR-Training-Material', offered)   # outside the typology
+
+    def test_a_type_with_two_labels_keeps_its_sentence_case_label(self):
+        g, c = model.fip_ontology(), rdflib.URIRef(model.FIP + 'Communication-protocol')
+        g.remove((c, rdflib.RDFS.label, None))
+        for label in ('Communication Protocol', 'Communication protocol'):   # both, since 19 Oct 2026
+            g.add((c, rdflib.RDFS.label, rdflib.Literal(label)))
+        model.fsr_types.cache_clear()
+        self.addCleanup(model.fsr_types.cache_clear)
+        with mock.patch.object(model, 'fip_ontology', return_value=g):
+            self.assertEqual(model.fsr_types()[str(c)][0], 'Communication protocol')
 
     def test_fair_implementation_community_needs_its_fic_nanopublication(self):
         doc = model.normalise(fixture())

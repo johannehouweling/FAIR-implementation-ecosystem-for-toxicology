@@ -491,7 +491,9 @@ def fsr_types():
     direct = set(g.subjects(sub, fsr)) - {fer}
     for c in set(g.transitive_subjects(sub, fsr)) - {fsr}:
         up = set(g.transitive_objects(c, sub)) - {c}
-        out[str(c)] = (str(g.value(c, rdflib.RDFS.label)), str(next(iter(up & direct), c)), c == fer or fer in up)
+        label = min(map(str, g.objects(c, rdflib.RDFS.label)), key=lambda s: (s[1:] != s[1:].lower(), s),
+                    default='None')                    # of several labels, the sentence-case one
+        out[str(c)] = (label, str(next(iter(up & direct), c)), c == fer or fer in up)
     return out
 
 
