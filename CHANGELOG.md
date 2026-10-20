@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.6.3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.2...v0.6.3) (2026-10-20)
+
+
+### Fixes
+
+* **data:** refresh 2026-10-20 ([8899977](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/88999773907076bf5cfc95391cfe52cf78a4df67))
+* **sheet:** say what a grey column means and is for ([11224b8](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/11224b879d0fe83a33968668be96871c8eb36e70))
+
+
+### Documentation
+
+* **sheet:** instructions as ten short steps, and the phases as the draft defines them ([1bd3246](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/1bd3246314c069fcc3a16cb2cff7647dba9a7752))
+
 ## [0.6.2](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.1...v0.6.2) (2026-10-20)
 
 
