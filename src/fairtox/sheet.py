@@ -487,11 +487,6 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
     if missing:
         problem('Resources', '1', ', '.join(missing), '', 'columns missing; do not rename or delete columns')
         return None, [], problems, notes, {}
-    old = [h for h in head if h.startswith('Span: ') or h in model.SUBDOMAINS]   # the tick columns before 20 Oct
-    if old:                                                                      # 2026: refused, not misread
-        problem('Resources', '1', ', '.join(old), '', 'these tick columns are now chosen in Phase and Sub-domains; '
-                'this sheet is read back once they are merged into them')
-        return None, [], problems, notes, {}
     seen, row_of, reviewer, waiting, twice = set(), {}, {}, set(), {}
     for cells in ws.iter_rows(min_row=2):
         n = cells[0].row
