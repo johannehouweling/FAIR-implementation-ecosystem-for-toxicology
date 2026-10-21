@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.8.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.7.0...v0.8.0) (2026-10-21)
+
+
+### Features
+
+* **model:** a relation label of the dataset's own, uses ([68e8d3d](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/68e8d3dbe848225a6e604b9a70c59ae0d312cffb))
+
+
+### Fixes
+
+* **data:** refresh 2026-10-21 ([68c019b](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/68c019b4da579c9855123b82097a85040d3647d2))
+
 ## [0.7.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.3...v0.7.0) (2026-10-21)
 
 
