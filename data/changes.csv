@@ -3658,3 +3658,14 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-20,curation sheet 2026-10-20,nanoaop,relation implements sparql reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
 2026-10-20,curation sheet 2026-10-20,wikipathways_aopportal,relation extends wikipathways reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
 2026-10-20,curation sheet 2026-10-20,wikipathways_aopportal,relation related_to aopwiki reviewedBy,Marvin,MM,MM,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,bioimage_archive,(row),(new),BioImage Archive,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,dsfp,(row),(new),NORMAN Digital Sample Freezing Platform,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,figshare,(row),(new),figshare,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,immport,(row),(new),Immunology Database and Analysis Portal,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,massbank_eu,(row),(new),MassBank Europe,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,norman_bioassays,(row),(new),NORMAN Bioassays Monitoring Database,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,norman_ecotox,(row),(new),NORMAN Ecotoxicology Database,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,osf,(row),(new),The Open Science Framework,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,pride,(row),(new),PRoteomics IDEntifications database,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,uba_etox,(row),(new),Information System Ecotoxicology and Environmental Quality Targets,,curation-sheet.xlsx
+2026-10-21,curation sheet 2026-10-21,recipe_bao,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
