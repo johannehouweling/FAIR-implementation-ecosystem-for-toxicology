@@ -126,6 +126,25 @@ class ModelTest(TempDir):
         doc['hasPart'][1]['qualifiedRelation'][0]['hadRole'] = 'part_of'
         self.assertTrue(any('not an allowed label' in e for e in model.check(model.normalise(doc))[0]))
 
+    def test_a_relation_must_be_possible(self):
+        def warns(subject, role, target, **types):
+            doc = fixture()
+            by = {r['key']: r for r in doc['hasPart']}
+            for k, t in types.items():
+                by[k]['fsrType'] = [model.FIP + t]
+            by[subject]['qualifiedRelation'] = [{'relation': '#' + target, 'hadRole': role, 'evidence': 'curator'}]
+            return any(f'{subject}: {role} {target} is not possible' in w for w in model.check(model.normalise(doc))[1])
+        self.assertFalse(warns('ctd', 'implements', 'exo'))                     # FAIRsharing: database to standard
+        self.assertTrue(warns('oecd_gd', 'implements', 'exo'))                  # not from a policy
+        self.assertFalse(warns('oecd_gd', 'implements', 'exo', oecd_gd='Data-usage-license',
+                               exo='Structured-vocabulary'))                   # fip:implements: FER to FAIR specification
+        self.assertFalse(warns('tool', 'related_to', 'ctd', tool='Registry'))   # a Tool counts as its FSR column
+        self.assertTrue(warns('tool', 'recommends', 'ctd', tool='Registry'))
+        self.assertFalse(warns('tool', 'recommends', 'ctd'))                    # not checked until typed
+        self.assertEqual((model.RELATIONS['implements'][2], model.RELATIONS['recommends'][2]),
+                         ('The subject implements the standard or FAIR specification.',
+                          'The policy or guidance recommends the target.'))     # the definitions cover the rule
+
     def test_lane_rules(self):
         self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
@@ -635,6 +654,23 @@ class SheetTest(TempDir):
         self.edit(p, 'First published', 'exo', '2000')
         new, changes, problems, _, _ = sheet.ingest(doc, p)
         self.assertEqual((changes, sorted(x['value'] for x in problems)), ([], ['exo', 'exo extends ctd']))
+
+    def test_a_relation_that_is_not_possible_waits_on_its_line(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.add(p, {'Resource': 'oecd_gd', 'Relation': 'implements', 'Target': 'exo', 'Evidence': 'literature'},
+                 tab='Relations')
+        self.edit(p, 'Note', 'oecd_gd', 'Checked.')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(changes, [('oecd_gd', 'note', '', 'Checked.')])          # the row is read back
+        self.assertEqual([(x['sheet'], x['value']) for x in problems], [('Relations', 'oecd_gd implements exo')])
+
+    def test_a_type_that_would_make_a_relation_impossible_waits(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'FAIRsharing type', 'ctd', 'Policy: project')                # ctd implements exo
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, sorted(x['value'] for x in problems)), ([], ['ctd', 'ctd implements exo']))
 
     def test_two_lines_with_one_key_or_one_relation_both_wait(self):
         doc = model.normalise(fixture())

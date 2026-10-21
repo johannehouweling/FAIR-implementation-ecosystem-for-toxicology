@@ -382,10 +382,10 @@
    "no record": "FAIRsharing has no record for this resource."
   },
   "hadRole": {
-   "implements": "The database implements the standard.",
+   "implements": "The subject implements the standard or FAIR specification.",
    "extends": "The subject builds on and extends the target.",
    "profiles": "The standard is a profile of the target standard.",
-   "recommends": "The policy recommends the target.",
+   "recommends": "The policy or guidance recommends the target.",
    "deprecates": "The subject replaces the target.",
    "related_to": "The resources are related without one building on the other."
   },

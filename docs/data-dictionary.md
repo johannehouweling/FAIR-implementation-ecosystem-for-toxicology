@@ -268,16 +268,27 @@ The basis decides the field, and so the term, that holds the date, following Dat
 
 A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used. Lineage labels are drawn as arrows from the earlier resource to the one building on it; related_to has no arrowhead. A lineage relation normally points to an earlier resource; it may point to a later one only when FAIRsharing asserts it.
 
+A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries of its two resources (the table below); a Tool, which FAIRsharing does not register, or a Collection, which FAIRsharing lets only collect, also counts as the registry of its FSR typology column (FAIR data policy as a Policy, FAIR specification as a Standard, FAIR supporting technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification, the domain and range of `fip:implements`. A relation is not checked while an end lacks the type the check needs. A relation that is not possible is a validation warning: its line waits in the curation sheet, and no release is made with it.
+
 | Label (`hadRole`) | FAIRsharing id | Lineage | Meaning | Allowed in FAIRsharing between |
 |---|---|---|---|---|
-| implements | 1 | yes | The database implements the standard. | Database to Standard |
+| implements | 1 | yes | The subject implements the standard or FAIR specification. | Database to Standard |
 | extends | 8 | yes | The subject builds on and extends the target. | Database to Database, Policy to Policy, Standard to Standard |
 | profiles | 7 | yes | The standard is a profile of the target standard. | Standard to Standard |
-| recommends | 11 | yes | The policy recommends the target. | Policy to Collection, Policy to Database, Policy to Standard |
+| recommends | 11 | yes | The policy or guidance recommends the target. | Policy to Collection, Policy to Database, Policy to Standard |
 | deprecates | 9 | yes | The subject replaces the target. | Collection to Collection, Database to Database, Policy to Policy, Standard to Standard |
 | related_to | 4 | no | The resources are related without one building on the other. | Database to Database, Database to Standard, Policy to Policy, Standard to Database, Standard to Standard |
 
-Relations FAIRsharing does not allow between the two types are kept and flagged as not enterable in FAIRsharing.
+A relation that is possible but that FAIRsharing cannot hold is kept and flagged as not enterable in FAIRsharing.
+
+FAIRsharing's other eight labels are not used; FAIRsharing publishes no IRIs for any of its labels.
+
+| FAIRsharing label | Here |
+|---|---|
+| accepts, outputs | Read as implements, their parent label, when FAIRsharing data are imported. |
+| shares_code_with, shares_data_with | Read as related_to, their parent label. |
+| collects | Collection membership: read from FAIRsharing when the dashboard is built and published on the collection (`dcat:resource`), not stored. |
+| part_of, measures_principle, has_associated_metric | Only between principles, metrics and benchmarks, which no included resource is. |
 
 A FIP row's declarations (`fipDeclaration`) and `declared-by` use FIP ontology properties (`fip:` IRIs), read "FIP property target". They are read at build time (below), are not lineage and cannot be entered in FAIRsharing; the curation sheet shows the declarations as grey rows with evidence FIP.
 
