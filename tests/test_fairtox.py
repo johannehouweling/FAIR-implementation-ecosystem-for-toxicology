@@ -267,6 +267,12 @@ class SheetTest(TempDir):
             ws.cell(row=n, column=head[column], value=value)
         wb.save(p)
 
+    def test_every_list_is_named_after_the_column_it_fills(self):
+        lists = {(head, kind[5:]) for head, _, kind, *_ in sheet.RESOURCE_COLUMNS + sheet.RELATION_COLUMNS
+                 if kind.startswith('list:')}
+        self.assertLessEqual({name for _, name in lists}, set(sheet.LISTS))
+        self.assertEqual([(head, name) for head, name in sorted(lists) if head != name], [])
+
     def test_round_trip_without_edits_changes_nothing(self):
         doc = model.normalise(fixture())
         new, changes, problems, notes, _ = sheet.ingest(doc, self.build(doc))
@@ -546,13 +552,19 @@ class SheetTest(TempDir):
         by = {r['key']: r for r in doc['hasPart']}
         by['tool']['declared-by'] = by['parc']['@id']             # parc is the community behind tool
         by['exo']['mentionedIn'] = ['Whitepaper']
-        ws = load_workbook(self.build(doc, added={'ctd'}))['Resources']
+        doc.setdefault('sources', {})['inventory'] = {'name': 'repository list', 'resources': ['ctd', 'exo']}
+        wb = load_workbook(self.build(doc, added={'ctd'}))
+        ws = wb['Resources']
         head = [c.value for c in ws[1]]
         rows = {r[0]: dict(zip(head, r)) for r in ws.iter_rows(min_row=2, values_only=True) if r[0]}
         self.assertEqual({k: r['Source'] for k, r in rows.items()}, {
-            'exo': 'Manuscript draft; FAIRsharing Toxicology collection; A FAIR tool; OECD guidance on research data',
-            'ctd': 'Co-author addition', 'oecd_gd': 'Manuscript draft', 'parc': 'Manuscript draft; A FAIR tool',
+            'exo': 'Manuscript draft; FAIRsharing Toxicology collection; A FAIR tool; OECD guidance on research data; '
+                   'Co-author repository inventory',
+            'ctd': 'Co-author repository inventory', 'oecd_gd': 'Manuscript draft', 'parc': 'Manuscript draft; A FAIR tool',
             'tool': None})
+        self.assertIn(('inventory', 'name: repository list; resources: ctd, exo',
+                       'Repositories listed by a co-author, added as rows; the Source column names them.'),
+                      [tuple(r[:3]) for r in wb['Sources'].iter_rows(min_row=2, values_only=True)])
         self.assertEqual([rows['exo'][f'ETC: {d}'] for d in model.ETC_DOCUMENTS],
                          [d == 'Whitepaper' for d in model.ETC_DOCUMENTS])
         self.assertEqual(head.index('Note') - head.index(f'ETC: {next(iter(model.ETC_DOCUMENTS))}'),
@@ -886,7 +898,8 @@ class SiteTest(TempDir):
     def build(self, doc=None):
         doc = doc or fixture()
         doc['sources'] = {'manuscript': {'name': 'ELIXIR Toxicology Community paper, draft (8)'},
-                          'previous': {'name': 'inventory'}}
+                          'previous': {'name': 'inventory'},
+                          'inventory': {'name': 'repository list of example.org', 'resources': ['ctd']}}
         p = self.path('d.jsonld')
         model.save(doc, p)
         out = self.path('site')
@@ -901,7 +914,7 @@ class SiteTest(TempDir):
         self.assertEqual(counts, (3, 1))
         for name, t in text.items():
             for word in ('manuscript', 'draft', 'undecided', 'exclusion', 'screened', 'PARC', 'A FAIR tool',
-                         'Whitepaper'):
+                         'Whitepaper', 'example.org'):
                 self.assertNotIn(word.lower(), t.lower(), name)
         html = text['index.html']
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
