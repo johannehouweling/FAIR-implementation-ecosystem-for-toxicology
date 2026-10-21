@@ -179,6 +179,7 @@ RELATIONS = {
     'recommends': (11, True, 'The policy or guidance recommends the target.'),
     'deprecates': (9, True, 'The subject replaces the target.'),
     'related_to': (4, False, 'The resources are related without one building on the other.'),
+    'uses': (None, True, 'The subject uses the target.'),   # the dataset's own: FAIRsharing has no such label
 }
 # Registry pairs FAIRsharing allows per label (GET https://api.fairsharing.org/record_associations/allowed, checked
 # 18 Oct 2026).
@@ -358,6 +359,7 @@ TERM_LINKS = [
     ('hadRole', 'deprecates', SKOS.exactMatch, DCTERMS.replaces),
     ('hadRole', 'related_to', SKOS.exactMatch, DCTERMS.relation),
     ('hadRole', 'recommends', SKOS.broadMatch, DCTERMS.relation),
+    ('hadRole', 'uses', SKOS.broadMatch, DCTERMS.relation),
 ]
 
 
@@ -741,7 +743,10 @@ def check(doc):
 def possible(role, r, t):
     """Whether a relation may hold: FAIRsharing allows its label between the two registries, a Tool or a Collection
     also counting as the registry of its FSR column; implements also from a FAIR-Enabling Resource to a FAIR
-    specification (fip:implements). Not checked while an end lacks the type this needs."""
+    specification (fip:implements). Not checked while an end lacks the type this needs; a label of the dataset's own
+    is not constrained."""
+    if role not in ALLOWED:
+        return True
     fsr = lambda x: fsr_types().get((x.get('fsrType') or [''])[0])
 
     def regs(x):

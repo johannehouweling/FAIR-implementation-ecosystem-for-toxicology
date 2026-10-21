@@ -138,12 +138,12 @@ Each excluded row carries exactly one code.
   the publisher's or agency's page, the earliest web archive capture (as a lower bound only), and, as a last resort,
   FAIRsharing's year of creation. The basis and source of each date are recorded.
 - **Relations** use six FAIRsharing labels: implements, extends, profiles, recommends, deprecates (lineage) and
-  related_to. A relation must be possible: FAIRsharing allows its label between the registries of its two
-  resources, a Tool or a Collection also counting as the registry of its FSR typology column, and implements also
-  from a FAIR-Enabling Resource to a FAIR specification; a relation that is not possible is a warning, so it waits in
-  the sheet and blocks a release. Each relation records its evidence: the manuscript, FAIRsharing, the literature, or
-  a curator. FIP declarations are not relations: they are read from the FIPs whenever the dashboard or the curation
-  sheet is built.
+  related_to, and one label of the dataset's own, uses (lineage), which FAIRsharing cannot hold. A relation must be
+  possible: FAIRsharing allows its label between the registries of its two resources, a Tool or a Collection also
+  counting as the registry of its FSR typology column, and implements also from a FAIR-Enabling Resource to a FAIR
+  specification; uses is not constrained; a relation that is not possible is a warning, so it waits in the sheet and
+  blocks a release. Each relation records its evidence: the manuscript, FAIRsharing, the literature, or a curator. FIP
+  declarations are not relations: they are read from the FIPs whenever the dashboard or the curation sheet is built.
 
 ## 7. Process
 
@@ -217,6 +217,7 @@ Each excluded row carries exactly one code.
 | 19 Oct 2026 | The report of INTOXICOM workshop 4 counts as an ELIXIR Toxicology Community document too; its tick boxes in the sheet are read back like the others. | Jente Houweling |
 | 20 Oct 2026 | The curation sheet records a toxicology resource's phases in one multi-select Phase column instead of Phase and three Span columns: the earliest chosen is its phase and sets the lane, and all chosen are its span. Its sub-domains are chosen in one multi-select Sub-domains column instead of one tick column each. Reviewed by and Sub-domains come right after Name and URL, so that curators find the rows they signed and the resources of their sub-domain. The dataset is unchanged. | Jente Houweling |
 | 21 Oct 2026 | A relation must be possible: FAIRsharing allows its label between the registries of its two resources, a Tool or a Collection also counting as the registry of its FSR typology column, and implements also from a FAIR-Enabling Resource to a FAIR specification. A relation that is not possible is a warning, so it waits in the sheet and blocks a release; one that is possible but that FAIRsharing cannot hold is still only shown. This replaces the 9 Oct 2026 rule for relations FAIRsharing cannot hold. | Jente Houweling |
+| 21 Oct 2026 | A seventh relation label, uses, is the dataset's own: "The subject uses the target." It is lineage, FAIRsharing cannot hold it, the possibility rule does not constrain it, and it does not count for Builds on FAIR. This amends the 3 Oct 2026 rule that relations use FAIRsharing's labels only. | Jente Houweling |
 
 ## 9. Limitations
 

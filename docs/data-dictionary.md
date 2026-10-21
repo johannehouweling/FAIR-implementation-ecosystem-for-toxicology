@@ -266,9 +266,9 @@ The basis decides the field, and so the term, that holds the date, following Dat
 
 ## Relations
 
-A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used. Lineage labels are drawn as arrows from the earlier resource to the one building on it; related_to has no arrowhead. A lineage relation normally points to an earlier resource; it may point to a later one only when FAIRsharing asserts it.
+A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used, and one label of the dataset's own, uses, which FAIRsharing cannot hold. Lineage labels are drawn as arrows from the earlier resource to the one building on it; related_to has no arrowhead. A lineage relation normally points to an earlier resource; it may point to a later one only when FAIRsharing asserts it.
 
-A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries of its two resources (the table below); a Tool, which FAIRsharing does not register, or a Collection, which FAIRsharing lets only collect, also counts as the registry of its FSR typology column (FAIR data policy as a Policy, FAIR specification as a Standard, FAIR supporting technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification, the domain and range of `fip:implements`. A relation is not checked while an end lacks the type the check needs. A relation that is not possible is a validation warning: its line waits in the curation sheet, and no release is made with it.
+A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries of its two resources (the table below); a Tool, which FAIRsharing does not register, or a Collection, which FAIRsharing lets only collect, also counts as the registry of its FSR typology column (FAIR data policy as a Policy, FAIR specification as a Standard, FAIR supporting technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification, the domain and range of `fip:implements`. A relation is not checked while an end lacks the type the check needs. A relation that is not possible is a validation warning: its line waits in the curation sheet, and no release is made with it. The label uses is not constrained.
 
 | Label (`hadRole`) | FAIRsharing id | Lineage | Meaning | Allowed in FAIRsharing between |
 |---|---|---|---|---|
@@ -278,6 +278,7 @@ A relation must be possible: FAIRsharing allows its label between the FAIRsharin
 | recommends | 11 | yes | The policy or guidance recommends the target. | Policy to Collection, Policy to Database, Policy to Standard |
 | deprecates | 9 | yes | The subject replaces the target. | Collection to Collection, Database to Database, Policy to Policy, Standard to Standard |
 | related_to | 4 | no | The resources are related without one building on the other. | Database to Database, Database to Standard, Policy to Policy, Standard to Database, Standard to Standard |
+| uses | none: the dataset's own | yes | The subject uses the target. | not a FAIRsharing label |
 
 A relation that is possible but that FAIRsharing cannot hold is kept and flagged as not enterable in FAIRsharing.
 
@@ -326,7 +327,7 @@ Read through each FIP's declaration index from the nanopublications of the two t
 
 Every field in the RDF graph uses a term of schema.org, written `http://schema.org/` as in schema.org's own JSON-LD context, else of DCAT (with the DCTERMS and SKOS terms DCAT uses), and of the FIP ontology (`https://w3id.org/fair/fip/terms/`) for FSR types and FIP declarations. The dataset defines no properties of its own.
 
-The JSON-LD context (JSON-LD 1.1) maps each field to its term (Resource fields) and, through property-scoped contexts, each controlled value to its IRI, so the stored file and the sheet keep readable values. A value is an outside concept where one exists: FAIRsharing's subject terms for the scopes; MeSH, NCIT, the IUPAC Gold Book and Wikidata for seven sub-domains; EFO and SIO for the creator types; the ADMS and EU status lists for in development and discontinued. The other 11 values are the dataset's own terms, under `https://w3id.org/fair-tox/terms#`: the three phases, one sub-domain, one maintenance status and FAIRsharing's six relation labels. The dataset defines no properties.
+The JSON-LD context (JSON-LD 1.1) maps each field to its term (Resource fields) and, through property-scoped contexts, each controlled value to its IRI, so the stored file and the sheet keep readable values. A value is an outside concept where one exists: FAIRsharing's subject terms for the scopes; MeSH, NCIT, the IUPAC Gold Book and Wikidata for seven sub-domains; EFO and SIO for the creator types; the ADMS and EU status lists for in development and discontinued. The other 12 values are the dataset's own terms, under `https://w3id.org/fair-tox/terms#`: the three phases, one sub-domain, one maintenance status, FAIRsharing's six relation labels and the label uses. The dataset defines no properties.
 
 Each list with terms of the dataset (phase, sub-domains, maintained, relation labels) is a `schema:DefinedTermSet` and a `skos:ConceptScheme` of the CDIF Concept Scheme profile 1.1, such as `terms:phase-values`, with a definition and its terms as top concepts. Each term is a `schema:DefinedTerm` and `skos:Concept` in its set, named by the stored value and defined by its definition above; a relation label names its term (`terms:implements`), any other value's term is `<list>-<value>` (`terms:phase-data-generation`). Each term links to the closest outside concepts:
 
@@ -342,6 +343,7 @@ Each list with terms of the dataset (phase, sub-domains, maintained, relation la
 | extends | `skos:closeMatch` CiTO extends; `skos:broadMatch` `schema:isBasedOn` |
 | deprecates, related_to | `skos:exactMatch` `dct:replaces`, `dct:relation` |
 | recommends | `skos:broadMatch` `dct:relation` |
+| uses | `skos:broadMatch` `dct:relation` |
 
 The FAIRsharing type stays text (`schema:additionalType`), as FAIRsharing publishes no IRIs for its registries and record types.
 

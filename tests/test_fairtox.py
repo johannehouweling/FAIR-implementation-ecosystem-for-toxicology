@@ -145,6 +145,15 @@ class ModelTest(TempDir):
                          ('The subject implements the standard or FAIR specification.',
                           'The policy or guidance recommends the target.'))     # the definitions cover the rule
 
+    def test_uses_is_a_label_of_the_dataset_s_own(self):
+        self.assertEqual(model.RELATIONS['uses'], (None, True, 'The subject uses the target.'))   # no FAIRsharing id
+        doc = fixture()
+        by = {r['key']: r for r in doc['hasPart']}
+        by['oecd_gd']['qualifiedRelation'] = [{'relation': '#exo', 'hadRole': 'uses', 'evidence': 'curator'}]
+        by['tool']['qualifiedRelation'] = [{'relation': '#ctd', 'hadRole': 'uses', 'evidence': 'curator'}]
+        errors, warnings = model.check(model.normalise(doc))
+        self.assertEqual((errors, [w for w in warnings if ' uses ' in w]), ([], []))   # any kinds, never a warning
+
     def test_lane_rules(self):
         self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
@@ -672,6 +681,15 @@ class SheetTest(TempDir):
         new, changes, problems, _, _ = sheet.ingest(doc, p)
         self.assertEqual((changes, sorted(x['value'] for x in problems)), ([], ['ctd', 'ctd implements exo']))
 
+    def test_uses_can_be_chosen_on_the_relations_tab(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.assertIn('uses', [c.value for c in load_workbook(p)['Lists']['K']])   # the Relation list
+        self.add(p, {'Resource': 'oecd_gd', 'Relation': 'uses', 'Target': 'exo', 'Evidence': 'literature'},
+                 tab='Relations')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([('oecd_gd', 'relation', '(new)', 'uses exo', '')], []))
+
     def test_two_lines_with_one_key_or_one_relation_both_wait(self):
         doc = model.normalise(fixture())
         p = self.build(doc)
@@ -887,7 +905,8 @@ class FairsharingTest(TempDir):
         by['oecd_gd']['qualifiedRelation'] = [
             {'relation': by['ctd']['@id'], 'hadRole': 'recommends', 'evidence': 'literature'},
             {'relation': by['exo']['@id'], 'hadRole': 'recommends', 'evidence': 'manuscript'},
-            {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'}]   # not for a policy
+            {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'},   # not for a policy
+            {'relation': by['ctd']['@id'], 'hadRole': 'uses', 'evidence': 'literature'}]         # not FAIRsharing's
         read = lambda: fairsharing.submission(fairsharing.enrich(copy.deepcopy(doc), dict(self.data, members=[9999])))
         sub = read()                                      # FAIRsharing was never checked for ctd and oecd_gd
         self.assertEqual((sub['records'], sub['associations']), ([], []))
@@ -907,7 +926,8 @@ class FairsharingTest(TempDir):
                           ('new: oecd_gd', 'recommends', 'new: ctd', None, 11)])
         self.assertEqual({x['item']: x['reason'] for x in sub['heldBack']},
                          {'oecd_gd recommends exo': 'the only evidence is the unpublished manuscript',
-                          'oecd_gd implements exo': 'FAIRsharing does not allow this label between these record types'})
+                          'oecd_gd implements exo': 'FAIRsharing does not allow this label between these record types',
+                          'oecd_gd uses ctd': 'not a FAIRsharing label'})
 
 
 class WebTest(unittest.TestCase):
@@ -1100,7 +1120,8 @@ class SiteTest(TempDir):
                 self.assertTrue(terms.value(c, SKOS.definition), c)
                 self.assertIn((c, SKOS.inScheme, s), terms)
         for triple in ((t['subdomains-regulatory-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
-                       (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements'))):
+                       (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements')),
+                       (t.uses, SKOS.broadMatch, DCTERMS.relation)):
             self.assertIn(triple, terms, triple)
         html = text['index.html']                              # each field shows its term; a fragment opens its resource
         meta = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))['meta']
