@@ -73,7 +73,7 @@ def fairsharing_url(r):
 
 def nodes_links(doc):
     """Flatten the dataset for the page. Links run from the earlier resource (src, the relation's target) to the
-    one that builds on it (dst, the relation's subject), so "CTD implements ExO" is drawn ExO -> CTD. Declarations run
+    one that builds on or uses it (dst, the relation's subject), so "CTD implements ExO" is drawn ExO -> CTD. Declarations run
     from a FIP (src) to a resource it declares (dst), with each question and its declaration nanopublication (q)."""
     nodes, key_of = [], {r['@id']: r['key'] for r in doc['hasPart']}
     fsr = {**{k: v[0] for k, v in model.fsr_types().items()}, **CLASSES}   # IRI -> label
