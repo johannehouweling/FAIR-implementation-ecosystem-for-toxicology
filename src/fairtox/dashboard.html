@@ -734,7 +734,7 @@ for (const lane of [...META.lanes, ...META.creatorLanes]) {
   c.dataset.lane = lane; c.title = (text === lane ? '' : `${lane}: `) + LANE_DEF[lane];
 }
 for (const c of META.classes) addChip($('f-class'), c, on => on ? state.cls.add(c) : state.cls.delete(c)).title = META.classDef[c];
-$('t-links').parentNode.title = `Lines for the FAIRsharing relations: ${Object.keys(META.relations).map(words).join(', ')}`;
+$('t-links').parentNode.title = `Lines for the relations: ${Object.keys(META.relations).map(words).join(', ')}`;
 for (const lane of META.lanes) {
   const subs = META.subdomains.filter(s => s[1] === lane);
   if (!subs.length) continue;
