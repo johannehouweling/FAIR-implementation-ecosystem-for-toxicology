@@ -117,7 +117,8 @@ def public(doc):
     relation provenance, or relations and FIP declarations to resources that are not included; the curation
     vocabularies and sources go."""
     out = dict(doc)
-    out['sources'] = {k: v for k, v in doc.get('sources', {}).items() if k not in ('manuscript', 'previous')}
+    out['sources'] = {k: v for k, v in doc.get('sources', {}).items()
+                      if k not in ('manuscript', 'previous', 'inventory')}
     out['vocabularies'] = {k: v for k, v in doc.get('vocabularies', {}).items() if k not in PRIVATE_VOCABULARIES}
     keep = [r for r in doc['hasPart'] if r.get('decision') == 'include']
     ids = {r['@id'] for r in keep}

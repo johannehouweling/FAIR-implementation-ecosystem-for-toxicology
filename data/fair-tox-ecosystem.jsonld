@@ -235,7 +235,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.6.3",
- "dateModified": "2026-10-20",
+ "dateModified": "2026-10-21",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -267,6 +267,23 @@
    "name": "FAIR_tox inventory and audit",
    "date": "2026-10-02",
    "use": "evidence only, to verify"
+  },
+  "inventory": {
+   "name": "a co-author's repository list, the Google Sheet tox_repository_list_v3, tab repositories",
+   "read": "2026-10-21",
+   "rows": "42, of which 30 kept or added (tiers A and B); 19 already in the dataset",
+   "resources": [
+    "pride",
+    "bioimage_archive",
+    "immport",
+    "figshare",
+    "osf",
+    "norman_ecotox",
+    "norman_bioassays",
+    "dsfp",
+    "massbank_eu",
+    "uba_etox"
+   ]
   }
  },
  "vocabularies": {

@@ -29,7 +29,8 @@ def _fsr_list():
 
 
 LISTS = {
-    'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION, 'Type': model.VOCABULARIES['fairsharingType'],
+    'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION,
+    'FAIRsharing type': model.VOCABULARIES['fairsharingType'],
     'Scope': model.SCOPE, 'Phase': model.PHASES, 'Sub-domains': model.SUBDOMAINS, 'Date basis': model.DATE_BASIS,
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
     'Relation': {k: v[2] for k, v in model.RELATIONS.items()}, 'Evidence': model.EVIDENCE,
@@ -53,14 +54,16 @@ TASK_COLUMNS = [
     ('Sub-domains', 'subdomains', 'list:Sub-domains', 30, 'The toxicology sub-domains the resource belongs to: choose '
      'each one that applies.'),
     ('Source', None, 'static', 30, GREY_NOTE + 'where the resource is found: the manuscript draft, the FAIRsharing '
-     'Toxicology collection, a toxicology FIP, or added by a co-author in this sheet. It tells you why the row is here.'),
+     "Toxicology collection, a toxicology FIP, a co-author's repository inventory, or added by a co-author in this "
+     'sheet. It tells you why the row is here.'),
     ('Decision', 'decision', 'list:Decision', 12, 'include, exclude or undecided.'),
     ('Exclusion reason', 'exclusionReason', 'list:Exclusion reason', 10,
      'Required when Decision is exclude. Codes E1-E8 are defined on the Instructions tab.'),
     ('Covered by', 'coveredBy', 'keys', 14, 'For exclusion reason E6: the key of the row that covers this one.'),
     ('FSR type', 'fsrType', 'list:FSR type', 28, 'What kind of FAIR resource this is. The Instructions tab says how to '
      'choose.'),
-    ('FAIRsharing type', 'fairsharingType', 'list:Type', 32, 'FAIRsharing registry and record type, or Tool.'),
+    ('FAIRsharing type', 'fairsharingType', 'list:FAIRsharing type', 32,
+     'FAIRsharing registry and record type, or Tool.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
     ('FAIRsharing subjects', None, 'static', 24, GREY_NOTE + "FAIRsharing's subjects of the record, read when the "
      'sheet is made. Compare them with Scope and correct Scope if they disagree.'),
@@ -238,6 +241,7 @@ def build(doc, path, added=()):
     for x in fips:
         declared.setdefault(x['target'], {}).setdefault(x['subject'], set()).add(x['question'])
     community = {r['declared-by']: r['key'] for r in doc['hasPart'] if r.get('declared-by')}   # FIC @id -> FIP key
+    inventory = set(doc.get('sources', {}).get('inventory', {}).get('resources', []))   # a co-author's repository list
     wb = Workbook()
     ins = wb.active
     ins.title = 'Instructions'
@@ -327,7 +331,8 @@ def build(doc, path, added=()):
                 c.value = '; '.join((['Manuscript draft'] if r.get('manuscript', 'absent') != 'absent' else [])
                                     + ([site.COLLECTION] if fs.get('inCollection') else [])
                                     + sorted(site.label(by_key[k]) for k in fips_of)
-                                    + (['Co-author addition'] if r['key'] in added else [])) or None
+                                    + (['Co-author repository inventory'] if r['key'] in inventory else
+                                       ['Co-author addition'] if r['key'] in added else [])) or None
             elif field == 'fsrType':
                 c.value = next((FSR_LABEL.get(t, t) for t in r.get('fsrType', [])), None)
             elif head == 'Class':
@@ -407,7 +412,8 @@ def build(doc, path, added=()):
     used = {'manuscript': 'Resources named in the manuscript, their manuscript status and line references.',
             'fairsharing': 'Members of the FAIRsharing Toxicology collection and FAIRsharing record data.',
             'previous': 'Earlier evidence for dates, DOIs and FAIRsharing records, to be verified.',
-            'fip': 'FIP declarations: the grey rows on the Relations tab, and Principles and Declared in.'}
+            'fip': 'FIP declarations: the grey rows on the Relations tab, and Principles and Declared in.',
+            'inventory': 'Repositories listed by a co-author, added as rows; the Source column names them.'}
     for name, s in doc.get('sources', {}).items():
         for title, v in ({f'{name} {k}': v for k, v in s.items()} if name == 'fip' else {name: s}).items():  # per FIP
             details = '; '.join(f'{k}: {", ".join(x) if isinstance(x, list) else x}' for k, x in v.items()) \
