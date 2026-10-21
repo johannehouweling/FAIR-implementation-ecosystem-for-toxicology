@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.3...v0.7.0) (2026-10-21)
+
+
+### Features
+
+* **sheet:** a co-author's repository inventory as a source, and each list named after its column ([5c8445c](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/5c8445c65b127e5c78b9bb0617ecb23ee07fa64f))
+
 ## [0.6.3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.6.2...v0.6.3) (2026-10-20)
 
 
