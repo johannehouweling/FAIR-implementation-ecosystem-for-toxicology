@@ -3669,3 +3669,49 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-21,curation sheet 2026-10-21,pride,(row),(new),PRoteomics IDEntifications database,,curation-sheet.xlsx
 2026-10-21,curation sheet 2026-10-21,uba_etox,(row),(new),Information System Ecotoxicology and Environmental Quality Targets,,curation-sheet.xlsx
 2026-10-21,curation sheet 2026-10-21,recipe_bao,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,chemblrdf,(row),(new),ChEMBL RDF,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,nsdi,(row),(new),NanoSafety Data Interface,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,oberon,(row),(new),OBERON,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,oecd_qsar_toolbox,(row),(new),OECD QSAR Toolbox,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,omero,(row),(new),OMERO,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,pubpeer,(row),(new),PubPeer,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,tta,(row),(new),ToxTempAssistant,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,txg_mapr,(row),(new),TXG-MAPr,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,aopdb,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,aopfw,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,aophelp,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,aopnet,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,aopwiki,mentionedIn,Whitepaper; FAIRSharing,Whitepaper; FAIRSharing; INTOXICOM 3; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,aopwikirdf,mentionedIn,,INTOXICOM 3,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,biomodels,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,edam_bioimaging,mentionedIn,Whitepaper,Whitepaper; INTOXICOM 3,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,elixir,datePublished,,2012,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,elixir,dateSource,,https://doi.org/10.1016/j.tibtech.2012.02.002,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,elixir,mentionedIn,Whitepaper; FAIRSharing; INTOXICOM 1,Whitepaper; FAIRSharing; INTOXICOM 1; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,elixirtox,mentionedIn,Whitepaper,Whitepaper; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,enm_db,mentionedIn,Whitepaper; FAIRSharing,Whitepaper; FAIRSharing; INTOXICOM 3,IM,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,fairaop_cluster,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,fairsharing,mentionedIn,Whitepaper; FAIRSharing; INTOXICOM 1; INTOXICOM 2,Whitepaper; FAIRSharing; INTOXICOM 1; INTOXICOM 2; INTOXICOM 4,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,fipwiz,mentionedIn,INTOXICOM 1,INTOXICOM 1; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,large_language_model_llm,date,,2024,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,large_language_model_llm,dateSource,,https://en.wikipedia.org/wiki/Large_language_model,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,large_language_model_llm,description,,"The idea was evolving, but the 2024 release of o1 seems to be the game changer.",,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,large_language_model_llm,mentionedIn,INTOXICOM 2,INTOXICOM 2; INTOXICOM 3,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,parctoxicology,mentionedIn,Whitepaper; INTOXICOM 1; INTOXICOM 2,Whitepaper; INTOXICOM 1; INTOXICOM 2; INTOXICOM 3; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,qaop,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,sbml,mentionedIn,,INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,toxcast,mentionedIn,Whitepaper,Whitepaper; INTOXICOM 3,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,toxcoll,mentionedIn,FAIRSharing; INTOXICOM 1; INTOXICOM 2,FAIRSharing; INTOXICOM 1; INTOXICOM 2; INTOXICOM 3,IM,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,toxtemp,mentionedIn,,INTOXICOM 3,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,vhp4safety,mentionedIn,INTOXICOM 1,INTOXICOM 1; INTOXICOM 3; INTOXICOM 5,JH,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,wikipathways,mentionedIn,FAIRSharing,FAIRSharing; INTOXICOM 5,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,aopwiki,relation,(new),uses aop_wiki_id,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,chemblrdf,relation,(new),extends chembl,Egon,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,chemblrdf,relation,(new),uses rdf,Egon,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,enm_db,relation,(new),implements rdf,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,enm_ont,relation,(new),implements owl,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,nsdi,relation,(new),extends enanomapper,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,owl,relation,(new),implements rdf,Egon,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,sparql,relation,(new),uses rdf,Egon,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,tta,relation,(new),uses large_language_model_llm,,curation-sheet.xlsx
+2026-10-22,curation sheet 2026-10-22,tta,relation,(new),uses toxtemp,,curation-sheet.xlsx
