@@ -170,8 +170,9 @@ INSTRUCTIONS = [
     'New resource: a row at the bottom of the Resources tab, with a short key of your own (lowercase letters, digits, '
     '_ or -); fill it in and sign it.',
     'Relations tab: a line reads Resource, Relation, Target ("CTD implements ExO"). Edit a line to change it; never '
-    'delete one: set Keep to remove. Add new lines at the bottom and sign them in Reviewed by. The grey lines are '
-    'what the FIPs declare, read-only. Builds on FAIR on the Resources tab follows from this tab.',
+    'delete one: set Keep to remove. Add new lines at the bottom and sign them in Reviewed by. An unsigned copy of a '
+    'signed line is ignored. The grey lines are what the FIPs declare, read-only. Builds on FAIR on the Resources tab '
+    'follows from this tab.',
 ]
 CRITERIA_TEXT = [
     'I1 It is a resource, not an organisation, project, community, event or publication, except a FAIR Implementation '
@@ -607,12 +608,25 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
     shown = {model.relation_hash(x): t for t, x in base.items()}       # a line's version: the relation it showed
     on_sheet = {tuple(_text(c[head[h]].value) if head[h] < len(c) else '' for h in ('Resource', 'Relation', 'Target'))
                 for c in ws.iter_rows(min_row=2)}
+    lines = {}                                              # each relation's lines: (row, signed)
+    for c in ws.iter_rows(min_row=2):
+        t = tuple(_text(c[head[h]].value) if head[h] < len(c) else '' for h in ('Resource', 'Relation', 'Target'))
+        if any(t) and t[1] not in model.FIP_PROPERTIES:
+            lines.setdefault(t, []).append((c[0].row, bool(_text(c[head['Reviewed by']].value))))
+    copies = {}                                             # of several lines, the one signed line decides
+    for ls in lines.values():
+        signed = [n for n, s in ls if s]
+        if len(ls) > 1 and len(signed) == 1:
+            copies.update({n: signed[0] for n, s in ls if not s})
     rel_row, rel_by, moved = {}, {}, set()
     for cells in ws.iter_rows(min_row=2):
         n = cells[0].row
         val = {h: cells[i].value for h, i in head.items() if i < len(cells)}
         subject, label, target = (_text(val.get(h)) for h in ('Resource', 'Relation', 'Target'))
         if not (subject or label or target) or label in model.FIP_PROPERTIES:   # FIP rows are read-only
+            continue
+        if n in copies:
+            notes.append(f'Relations!A{n}: an unsigned copy of the signed line {copies[n]}, ignored')
             continue
         if (subject, label, target) in rel_row:                                 # both lines wait
             problem('Relations', f'A{n}', '', f'{subject} {label} {target}', 'this relation appears twice')
