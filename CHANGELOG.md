@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.9.0...v0.9.1) (2026-10-23)
+
+
+### Fixes
+
+* **data:** refresh 2026-10-23 ([478927c](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/478927c260c235b5a739ee84a64780f56dc9ac4c))
+
 ## [0.9.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.8.1...v0.9.0) (2026-10-23)
 
 
