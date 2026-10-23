@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.10.0...v0.10.1) (2026-10-23)
+
+
+### Documentation
+
+* write every rule once ([690d02d](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/690d02d43e50c4daf5c0d26bbdc009867ff8bcb4))
+
 ## [0.10.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.9.1...v0.10.0) (2026-10-23)
 
 
