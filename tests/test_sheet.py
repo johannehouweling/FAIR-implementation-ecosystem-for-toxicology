@@ -464,6 +464,23 @@ class SheetTest(TempDir):
         self.assertEqual(sorted(x['value'] for x in problems),
                          ['ctd', 'ctd', 'exo related_to tool', 'exo related_to tool'])
 
+    def test_of_two_lines_with_one_relation_the_signed_one_decides(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'Keep', 'ctd', 'remove', tab='Relations')                  # ctd implements exo, signed: remove
+        self.edit(p, 'Reviewed by', 'ctd', 'MM', tab='Relations')
+        self.add(p, {'Resource': 'ctd', 'Relation': 'implements', 'Target': 'exo'}, tab='Relations')   # a bare copy
+        new, changes, problems, notes, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([('ctd', 'relation', 'implements exo', '(removed)', 'MM')], []))
+        self.assertEqual([n for n in notes if 'copy' in n], ['Relations!A3: an unsigned copy of the signed line 2, ignored'])
+        p = self.build(doc)                                                     # signed: keep; the copy says remove
+        self.edit(p, 'Reviewed by', 'ctd', 'MM', tab='Relations')
+        self.add(p, {'Resource': 'ctd', 'Relation': 'implements', 'Target': 'exo', 'Keep': 'remove'}, tab='Relations')
+        self.assertEqual(sheet.ingest(doc, p)[1:3], ([('ctd', 'relation implements exo reviewedBy', '', 'MM', 'MM')], []))
+        self.add(p, {'Resource': 'ctd', 'Relation': 'implements', 'Target': 'exo', 'Reviewed by': 'IM'}, tab='Relations')
+        self.assertEqual(sorted(x['value'] for x in sheet.ingest(doc, p)[2]),  # two signed lines: they all wait
+                         ['ctd implements exo'] * 3)
+
     def test_a_row_added_in_the_sheet_and_changed_elsewhere_waits(self):
         doc = model.normalise(fixture())
         p = self.build(doc)

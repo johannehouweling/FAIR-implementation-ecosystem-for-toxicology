@@ -173,10 +173,11 @@ Each excluded row carries exactly one code.
    with `fairtox ingest` three times a day, row by row, and keeps the changes in one pull request for review; each
    change is logged under the Reviewed by of its row or relation. A row or relation with a problem, or one that would
    add an error or a warning, waits in the Sheet (a row with its relations) and is listed in the pull request until
-   it is fixed; two lines with the same key or the same relation both wait. So does a row or relation that changed in
-   the dataset after the Sheet was made, other than by an earlier read-back, until the Sheet is updated. A relation
-   line whose resource, relation or target is edited replaces its relation; a relation whose line is deleted is left
-   unchanged and listed in the pull request, and Keep set to remove drops it.
+   it is fixed; two lines with the same key both wait, and so do two lines with the same relation unless exactly one
+   of them is signed: that line decides, and the unsigned copies are ignored and listed in the pull request. So does a
+   row or relation that changed in the dataset after the Sheet was made, other than by an earlier read-back, until the
+   Sheet is updated. A relation line whose resource, relation or target is edited replaces its relation; a relation
+   whose line is deleted is left unchanged and listed in the pull request, and Keep set to remove drops it.
 5. **Release.** A version is released by merging the release pull request that release-please keeps open: it sets the
    version and writes the `CHANGELOG.md` entry from the Conventional Commits since the last release. CI makes the
    release only after the tests and `fairtox validate --strict` pass.
@@ -221,6 +222,7 @@ Each excluded row carries exactly one code.
 | 21 Oct 2026 | A seventh relation label, uses, is the dataset's own: "The subject uses the target." It is lineage, FAIRsharing cannot hold it, the possibility rule does not constrain it, and it does not count for Builds on FAIR. This amends the 3 Oct 2026 rule that relations use FAIRsharing's labels only. | Jente Houweling |
 | 23 Oct 2026 | A resource takes every FSR type that applies, chosen in one multi-select FSR type column of the curation sheet: the types of the typology that the FIP's own description gives it when a toxicology FIP declares it, otherwise those its kind gives. It is a FAIR-Enabling Resource when one of its types is one. For a relation, a Tool or a Collection counts as the registry of each of its FSR typology columns. A FAIR Implementation Community has no other type. Rows declared in a toxicology FIP and not yet confirmed were given, as proposals, the other types of their FIP's description. This replaces the one type per resource of 9 Oct 2026 and amends the relation rule of 21 Oct 2026 to match. | Jente Houweling |
 | 23 Oct 2026 | Each resource records who to contact about it, as the ORCID of a person or the ROR of an organisation (`contactPoint`, DCAT's `dcat:contactPoint`, as schema.org has none for a creative work), in a Contact column of the curation sheet after Creator. Creator still names the organisations that made the resource. | Jente Houweling |
+| 23 Oct 2026 | When a relation appears on several lines of the Relations tab and exactly one of them is signed, the signed line decides; the unsigned copies are ignored and listed in the pull request, so a copy never has to be deleted. With no signed line, or more than one, all copies wait as before. | Jente Houweling |
 
 ## 9. Limitations
 
