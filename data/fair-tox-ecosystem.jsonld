@@ -9265,9 +9265,9 @@
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
    "scope": "Toxicology",
-   "phase": "Data generation",
+   "phase": "Data integration",
    "span": [
-    "Data generation"
+    "Data integration"
    ],
    "creatorType": [
     "Wet-lab research",
