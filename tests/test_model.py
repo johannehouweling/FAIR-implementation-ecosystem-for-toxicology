@@ -38,7 +38,7 @@ class ModelTest(TempDir):
             ('exo', 'url', 'ctdbase.org', 'http(s) URL'),
             ('exo', 'span', ['Data generation', 'Data integration'], 'earliest phase'),
             ('ctd', 'span', [], 'earliest phase'),
-            ('exo', 'fsrType', [model.FIP + 'Structured-vocabulary', model.FIP + 'Registry'], 'one FSR type'),
+            ('exo', 'fsrType', [model.FIC, model.FIP + 'Registry'], 'no other FSR type'),
             ('exo', 'fsrType', [model.FIP + 'FAIR-Training-Material'], 'not an allowed value'),   # outside the typology
             ('exo', 'mentionedIn', ['Blog'], 'community document'),
         ]
@@ -73,7 +73,7 @@ class ModelTest(TempDir):
             doc = fixture()
             by = {r['key']: r for r in doc['hasPart']}
             for k, t in types.items():
-                by[k]['fsrType'] = [model.FIP + t]
+                by[k]['fsrType'] = [model.FIP + x for x in t.split()]
             by[subject]['qualifiedRelation'] = [{'relation': '#' + target, 'hadRole': role, 'evidence': 'curator'}]
             return any(f'{subject}: {role} {target} is not possible' in w for w in model.check(model.normalise(doc))[1])
         self.assertFalse(warns('ctd', 'implements', 'exo'))                     # FAIRsharing: database to standard
@@ -83,6 +83,9 @@ class ModelTest(TempDir):
         self.assertFalse(warns('tool', 'related_to', 'ctd', tool='Registry'))   # a Tool counts as its FSR column
         self.assertTrue(warns('tool', 'recommends', 'ctd', tool='Registry'))
         self.assertFalse(warns('tool', 'recommends', 'ctd'))                    # not checked until typed
+        self.assertFalse(warns('tool', 'recommends', 'ctd', tool='Editor Persistency-Policy'))   # each FSR column
+        self.assertFalse(warns('oecd_gd', 'implements', 'exo', oecd_gd='FAIR-Practice Persistency-Policy',
+                               exo='Editor Structured-vocabulary'))           # any FER type, any specification type
         self.assertEqual((model.RELATIONS['implements'][2], model.RELATIONS['recommends'][2]),
                          ('The subject implements the standard or FAIR specification.',
                           'The policy or guidance recommends the target.'))     # the definitions cover the rule
@@ -146,6 +149,15 @@ class ModelTest(TempDir):
         self.assertEqual((by['exo']['fsrCategory'], by['ctd']['fsrCategory']), (model.FER, model.FSR))
         self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), ([by['tool']['@id']], ['I2']))
         self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
+        self.assertEqual(model.check(doc)[0], [])
+
+    def test_a_resource_takes_every_fsr_type_that_applies(self):
+        doc = fixture()
+        next(r for r in doc['hasPart'] if r['key'] == 'ctd')['fsrType'] = [model.FIP + t for t in
+                                                                         ('Registry', 'Editor', 'Registry')]
+        ctd = next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'ctd')
+        self.assertEqual((ctd['fsrType'], ctd['fsrCategory']),          # once each, in one order; an FER when one is
+                         ([model.FIP + 'Editor', model.FIP + 'Registry'], model.FER))
         self.assertEqual(model.check(doc)[0], [])
 
     def test_fsr_types_are_the_typology_of_the_fip_ontology(self):

@@ -100,15 +100,16 @@ Each excluded row carries exactly one code.
 
 - **Scope** says what a resource was made for: Generic (infrastructure not specific to a research domain, including
   FAIR resources such as FAIRsharing and the FIP), Life Sciences (life-science infrastructure) or Toxicology.
-- **FSR type.** Each resource gets one type of the FSR typology of the FIP ontology. When a toxicology FIP declares
-  the resource, the type comes from the FIP's own description of it (if that gives several, the one that fits the
-  question it is declared for). Otherwise the kind of resource decides: a database, including a portal or a report
+- **FSR types.** Each resource gets every type of the FSR typology of the FIP ontology that applies. When a
+  toxicology FIP declares the resource, its types are those of the typology that the FIP's own description gives it.
+  Otherwise the kind of resource decides: a database, including a portal or a report
   repository, is a Domain-specific or Generalist registry, as databases are in FIPs; an identifier scheme is an
   Identifier service; a terminology or ontology a Structured vocabulary or Semantic model; a reporting guideline, model
   or format a Metadata schema or Knowledge representation language; a licence a Data usage license; guidance,
   including regulatory guidance, training material and statements on the FAIR principles, a FAIR practice; a tool or
-  service, including software, its service type, such as Editor, FAIR Analysis Service or Validation service. The
-  class (FAIR-Enabling Resource or other FAIR Supporting Resource) follows from the type. FAIR principles are assigned
+  service, including software, its service type, such as Editor, FAIR Analysis Service or Validation service. A FAIR
+  Implementation Community has no other type. The class (FAIR-Enabling Resource or other FAIR Supporting Resource)
+  follows from the types: a resource is a FAIR-Enabling Resource when one of its types is. FAIR principles are assigned
   only through the FIP questions a resource is declared for, so a resource that no FIP declares has none.
 - **Phase.** A toxicology resource's phase is the data life-cycle phase it acts on, whoever made it: Data generation
   (supports the planning of individual toxicology studies, the recording of their results and study context, that is
@@ -140,8 +141,8 @@ Each excluded row carries exactly one code.
 - **Relations** use six FAIRsharing labels: implements, extends, profiles, recommends, deprecates (lineage) and
   related_to, and one label of the dataset's own, uses (lineage), which FAIRsharing cannot hold. A relation must be
   possible: FAIRsharing allows its label between the registries of its two resources, a Tool or a Collection also
-  counting as the registry of its FSR typology column, and implements also from a FAIR-Enabling Resource to a FAIR
-  specification; uses is not constrained; a relation that is not possible is a warning, so it waits in the sheet and
+  counting as the registry of each of its FSR typology columns, and implements also from a FAIR-Enabling Resource to a
+  FAIR specification; uses is not constrained; a relation that is not possible is a warning, so it waits in the sheet and
   blocks a release. Each relation records its evidence: the manuscript, FAIRsharing, the literature, or a curator. FIP
   declarations are not relations: they are read from the FIPs whenever the dashboard or the curation sheet is built.
 
@@ -218,6 +219,7 @@ Each excluded row carries exactly one code.
 | 20 Oct 2026 | The curation sheet records a toxicology resource's phases in one multi-select Phase column instead of Phase and three Span columns: the earliest chosen is its phase and sets the lane, and all chosen are its span. Its sub-domains are chosen in one multi-select Sub-domains column instead of one tick column each. Reviewed by and Sub-domains come right after Name and URL, so that curators find the rows they signed and the resources of their sub-domain. The dataset is unchanged. | Jente Houweling |
 | 21 Oct 2026 | A relation must be possible: FAIRsharing allows its label between the registries of its two resources, a Tool or a Collection also counting as the registry of its FSR typology column, and implements also from a FAIR-Enabling Resource to a FAIR specification. A relation that is not possible is a warning, so it waits in the sheet and blocks a release; one that is possible but that FAIRsharing cannot hold is still only shown. This replaces the 9 Oct 2026 rule for relations FAIRsharing cannot hold. | Jente Houweling |
 | 21 Oct 2026 | A seventh relation label, uses, is the dataset's own: "The subject uses the target." It is lineage, FAIRsharing cannot hold it, the possibility rule does not constrain it, and it does not count for Builds on FAIR. This amends the 3 Oct 2026 rule that relations use FAIRsharing's labels only. | Jente Houweling |
+| 23 Oct 2026 | A resource takes every FSR type that applies, chosen in one multi-select FSR type column of the curation sheet: the types of the typology that the FIP's own description gives it when a toxicology FIP declares it, otherwise those its kind gives. It is a FAIR-Enabling Resource when one of its types is one. For a relation, a Tool or a Collection counts as the registry of each of its FSR typology columns. A FAIR Implementation Community has no other type. This replaces the one type per resource of 9 Oct 2026 and amends the relation rule of 21 Oct 2026 to match. | Jente Houweling |
 
 ## 9. Limitations
 

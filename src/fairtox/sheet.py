@@ -41,7 +41,8 @@ CREATOR_HEAD = {s: f'Made by {s.lower()}' for s in model.STAKEHOLDER}
 ETC_HEAD = {d: f'ETC: {d}' for d in model.ETC_DOCUMENTS}
 MARKED = ('x', 'true')                                      # how a mark reads back: an x, or a ticked box
 GREY_NOTE = 'Grey, not read back: '                         # every grey column's note opens with what grey means
-MULTI = {'span': model.PHASES, 'subdomains': model.SUBDOMAINS}   # multi-select columns: field -> its list, in order
+MULTI = {'span': model.PHASES, 'subdomains': model.SUBDOMAINS,   # multi-select columns: field -> its list, in order
+         'fsrType': [FSR_LABEL[i] for i in model.fsr_offered()]}   # an FSR type by its label
 # (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark, creator,
 # and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
 # The Resources tab puts what curators check first, in the order of the curation steps; the context follows, folded.
@@ -60,8 +61,8 @@ TASK_COLUMNS = [
     ('Exclusion reason', 'exclusionReason', 'list:Exclusion reason', 10,
      'Required when Decision is exclude. Codes E1-E8 are defined on the Instructions tab.'),
     ('Covered by', 'coveredBy', 'keys', 14, 'For exclusion reason E6: the key of the row that covers this one.'),
-    ('FSR type', 'fsrType', 'list:FSR type', 28, 'What kind of FAIR resource this is. The Instructions tab says how to '
-     'choose.'),
+    ('FSR type', 'fsrType', 'list:FSR type', 28, 'What kind of FAIR resource this is: choose each one that applies. The '
+     'Instructions tab says how to choose.'),
     ('FAIRsharing type', 'fairsharingType', 'list:FAIRsharing type', 32,
      'FAIRsharing registry and record type, or Tool.'),
     ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
@@ -98,8 +99,8 @@ CONTEXT_COLUMNS = [
      'gives the record. Compare them with Name, FAIRsharing type and Maintained.'),
     ('FAIRsharing year', None, 'static', 10, GREY_NOTE + "FAIRsharing's year of creation of the record. Compare it "
      'with First published; a difference of more than a year is worth a look.'),
-    ('Class', None, 'static', 16, GREY_NOTE + 'follows from FSR type: FAIR-Enabling Resource or FAIR Supporting '
-     'Resource. To change it, change FSR type.'),
+    ('Class', None, 'static', 16, GREY_NOTE + 'follows from FSR type: FAIR-Enabling Resource when one of the types '
+     'chosen is one, else FAIR Supporting Resource. To change it, change FSR type.'),
     ('Principles', None, 'static', 12, GREY_NOTE + 'the FAIR principles of the FIP questions the resource is declared '
      'for. They come from the FIPs, not from this sheet.'),
     ('Declared in', None, 'static', 30, GREY_NOTE + 'the toxicology FIPs that declare the resource, with the '
@@ -155,9 +156,9 @@ INSTRUCTIONS = [
     'A value is a proposal until a co-author checks its row; Note says where it comes from.',
     'Decision: include, exclude or undecided. Never delete a row; to drop a resource, set Decision to exclude and '
     'choose an Exclusion reason (E1-E8, below). For E6, name the covering row in Covered by.',
-    'FSR type: the type a toxicology FIP gives the resource, otherwise the best fit (a database is a registry). Class, '
-    'Principles and Declared in follow from it. FAIR Implementation Community only for a community with its own FIC '
-    'nanopublication; any other community is E1.',
+    'FSR type: each type that applies: those a toxicology FIP gives the resource, otherwise the best fit (a database is '
+    'a registry). Class, Principles and Declared in follow from it. FAIR Implementation Community only for a community '
+    'with its own FIC nanopublication, and with no other type; any other community is E1.',
     'Phase: every phase the resource acts on; the earliest sets its lane. Judge by what it is used for, not by who '
     'made it. Who made it goes in the Made by columns: x in each that applies.',
     'First published: YYYY, YYYY-MM or YYYY-MM-DD; the DOI or page that shows it in Citation.',
@@ -324,7 +325,7 @@ def build(doc, path, added=()):
             if kind == 'creator':
                 c.value = 'x' if field in r.get('creatorType', []) else None
             elif field in MULTI:                            # every value, joined as Sheets joins a multi-select
-                c.value = ', '.join(r.get(field, [])) or None
+                c.value = ', '.join(FSR_LABEL.get(x, x) for x in r.get(field, [])) or None   # FSR types by label
             elif kind == 'etc':
                 c.value = field in r.get('mentionedIn', [])
             elif head == 'Source':                          # where the resource is found, in a fixed order
@@ -334,8 +335,6 @@ def build(doc, path, added=()):
                                     + sorted(site.label(by_key[k]) for k in fips_of)
                                     + (['Co-author repository inventory'] if r['key'] in inventory else
                                        ['Co-author addition'] if r['key'] in added else [])) or None
-            elif field == 'fsrType':
-                c.value = next((FSR_LABEL.get(t, t) for t in r.get('fsrType', [])), None)
             elif head == 'Class':
                 c.value = FSR_LABEL.get(r.get('fsrCategory'))
             elif head == 'Principles':
@@ -516,6 +515,8 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
                 parsed[field] = [p for p in MULTI[field] if p in chosen]
                 if field == 'span':                         # the earliest phase is the phase
                     parsed['phase'] = (parsed['span'] or [''])[0]
+                elif field == 'fsrType':                    # FSR types, back to their IRIs
+                    parsed[field] = [FSR_IRI[p] for p in parsed[field]]
             elif kind.startswith('list:'):
                 t = _text(v)
                 if kind == 'list:Exclusion reason':
@@ -523,17 +524,13 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
                 if t and t not in LISTS[kind[5:]]:
                     problem('Resources', where[h], h, v, f'{t!r} is not one of the allowed values')
                     bad = True
-                if field == 'fsrType':                      # FSR type, back to its IRI
-                    parsed[field] = [FSR_IRI[t]] if t in LISTS['FSR type'] else []
-                else:
-                    parsed[field] = t
+                parsed[field] = t
             elif field in ('url', 'dateSource'):
                 parsed[field] = _url(v)
             else:
                 parsed[field] = _text(v)
         parsed['creatorType'] = [s for s in model.STAKEHOLDER if _text(val.get(CREATOR_HEAD[s])).lower() in MARKED]
         parsed['mentionedIn'] = [d for d in model.ETC_DOCUMENTS if _text(val.get(ETC_HEAD[d])).lower() in MARKED]
-        parsed['fsrType'] = list(dict.fromkeys(parsed['fsrType']))
         for mark in [*CREATOR_HEAD.values(), *ETC_HEAD.values()]:
             t = _text(val.get(mark)).lower()
             if t and t not in MARKED:

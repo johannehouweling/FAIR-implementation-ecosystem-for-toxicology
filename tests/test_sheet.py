@@ -184,6 +184,18 @@ class SheetTest(TempDir):
             ('exo', 'subdomains', 'exposome', '')], []))
         self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))
 
+    def test_fsr_types_are_chosen_in_one_cell(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.edit(p, 'FSR type', 'ctd', 'Registry, Editor')                    # in the order clicked
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([('ctd', 'fsrType', '', f'{model.FIP}Editor; {model.FIP}Registry')], []))
+        ws = load_workbook(self.build(new))['Resources']
+        head = [c.value for c in ws[1]]
+        ctd = next(dict(zip(head, r)) for r in ws.iter_rows(min_row=2, values_only=True) if r[0] == 'ctd')
+        self.assertEqual((ctd['FSR type'], ctd['Class']), ('Editor, Registry', 'FAIR-Enabling Resource'))
+        self.assertEqual(sheet.ingest(new, self.path('curation.xlsx'))[1:3], ([], []))   # read back once
+
     def test_a_column_a_curator_adds_is_ignored(self):
         doc = model.normalise(fixture())
         p = self.build(doc)

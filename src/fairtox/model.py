@@ -209,11 +209,11 @@ EVIDENCE = {
     'curator': 'Added by a curator.',
     'FIP': 'Declared in a FAIR Implementation Profile.',
 }
-# FSR type (fsrType): a type of the FSR typology of the FIP ontology, or FAIR Implementation Community for a community
-# (see fsr_offered). The typology, as the ontology draws it, has a column for each of these classes.
+# FSR types (fsrType): every type of the FSR typology of the FIP ontology that applies, or FAIR Implementation Community
+# alone for a community (see fsr_offered). The typology, as the ontology draws it, has a column for each of these classes.
 FSR, FER, FIC = FIP + 'FAIR-Supporting-Resource', FIP + 'FAIR-Enabling-Resource', FIP + 'FAIR-Implementation-Community'
 TYPOLOGY = [FIP + t for t in ('FAIR-Data-Policy', 'FAIR-Specification', 'FAIR-Supporting-Technology')]
-# The FAIRsharing registry a Tool or a Collection may also count as for ALLOWED: that of its FSR typology column.
+# The FAIRsharing registries a Tool or a Collection may also count as for ALLOWED: those of its FSR typology columns.
 COLUMN_REGISTRY = dict(zip(TYPOLOGY, ('Policy', 'Standard', 'Database')))
 
 VOCABULARIES = {
@@ -564,7 +564,7 @@ def normalise(doc):
             elif isinstance(r.get(f), list):
                 r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
         for f, vocab in (('subdomains', SUBDOMAINS), ('creatorType', STAKEHOLDER), ('span', PHASES),
-                         ('mentionedIn', ETC_DOCUMENTS)):
+                         ('mentionedIn', ETC_DOCUMENTS), ('fsrType', fsr_offered())):
             if r.get(f):                                    # one canonical order, so round trips are exact
                 known = [x for x in vocab if x in r[f]]
                 r[f] = known + [x for x in r[f] if x not in vocab]
@@ -598,7 +598,7 @@ def normalise(doc):
         else:
             r.pop('buildsOnFair', None)
         types = [fsr_types()[t] for t in r.get('fsrType', []) if t in fsr_types()]
-        r['fsrCategory'] = (FER if types[0][2] else FSR) if types else ''
+        r['fsrCategory'] = (FER if any(t[2] for t in types) else FSR) if types else ''   # an FER when one type is
         r['qualifiedAttribution'] = [{'@type': 'prov:Attribution', 'hadRole': t} for t in r.get('creatorType', [])]
         r['declaredIn'] = sorted({fip for fip, _ in declared.get(r['@id'], [])})
         r['principles'] = sorted({p for _, p in declared.get(r['@id'], []) if p})
@@ -684,8 +684,8 @@ def check(doc):
         for t in types:
             if t not in fsr_offered():
                 e(f'{k}: FSR type {t!r} is not an allowed value')
-        if len(types) > 1:
-            e(f'{k}: one FSR type only')
+        if FIC in types and len(types) > 1:
+            e(f'{k}: a FAIR Implementation Community has no other FSR type')
         if FIC in types and not NANOPUB_RE.match(r.get('@id') or ''):
             e(f'{k}: FAIR Implementation Community needs its FIC nanopublication as @id')
         for field in LIST_FIELDS:
@@ -742,21 +742,21 @@ def check(doc):
 
 def possible(role, r, t):
     """Whether a relation may hold: FAIRsharing allows its label between the two registries, a Tool or a Collection
-    also counting as the registry of its FSR column; implements also from a FAIR-Enabling Resource to a FAIR
+    also counting as the registry of each of its FSR columns; implements also from a FAIR-Enabling Resource to a FAIR
     specification (fip:implements). Not checked while an end lacks the type this needs; a label of the dataset's own
     is not constrained."""
     if role not in ALLOWED:
         return True
-    fsr = lambda x: fsr_types().get((x.get('fsrType') or [''])[0])
+    fsr = lambda x: [fsr_types()[i] for i in x.get('fsrType', []) if i in fsr_types()]
 
     def regs(x):
-        own, col = registry(x), COLUMN_REGISTRY.get((fsr(x) or ('', ''))[1])
-        return ({own, col} if own in ('Tool', 'Collection') else {own}) - {None, 'Tool'}
+        own, cols = registry(x), {COLUMN_REGISTRY.get(f[1]) for f in fsr(x)}
+        return ({own} | cols if own in ('Tool', 'Collection') else {own}) - {None, 'Tool'}
     a, b = regs(r), regs(t)
     if not (a and b) or any((x, y) in ALLOWED.get(role, ()) for x in a for y in b):
         return True
-    s, o = fsr(r), fsr(t)
-    return role == 'implements' and bool(s and o and s[2] and o[1] == FIP + 'FAIR-Specification')
+    return role == 'implements' and any(s[2] for s in fsr(r)) and \
+        any(o[1] == FIP + 'FAIR-Specification' for o in fsr(t))
 
 
 def first_date(r):
