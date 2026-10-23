@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.9.1...v0.10.0) (2026-10-23)
+
+
+### Features
+
+* **sheet:** of several lines with one relation, the signed one decides ([8b51f93](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/8b51f933534ac54f8d4a8412e215f61d41b41e1c))
+
 ## [0.9.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.9.0...v0.9.1) (2026-10-23)
 
 
