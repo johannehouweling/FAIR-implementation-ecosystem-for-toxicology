@@ -2019,7 +2019,9 @@
    "decision": "undecided",
    "fairsharingType": "Collection",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Metadata-schema"
+    "https://w3id.org/fair/fip/terms/Metadata-schema",
+    "https://w3id.org/fair/fip/terms/Provenance-model",
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
    "url": "https://bioschemas.org",
@@ -2133,7 +2135,8 @@
    "decision": "include",
    "fairsharingType": "Database: repository",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Identifier-service"
+    "https://w3id.org/fair/fip/terms/Identifier-service",
+    "https://w3id.org/fair/fip/terms/Registry"
    ],
    "scope": "Life Sciences",
    "subdomains": [
@@ -2255,6 +2258,7 @@
    "decision": "undecided",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "scope": "Life Sciences",
@@ -2373,7 +2377,10 @@
    "decision": "undecided",
    "fairsharingType": "Standard: model/format",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Provenance-model"
+    "https://w3id.org/fair/fip/terms/Metadata-schema",
+    "https://w3id.org/fair/fip/terms/Provenance-model",
+    "https://w3id.org/fair/fip/terms/Semantic-model",
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Generic",
    "url": "https://eurocris.org/services/main-features-cerif/",
@@ -2443,6 +2450,7 @@
    "decision": "include",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
@@ -2481,6 +2489,7 @@
    "decision": "include",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
@@ -3066,7 +3075,9 @@
    "decision": "undecided",
    "fairsharingType": "Standard: model/format",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Metadata-schema"
+    "https://w3id.org/fair/fip/terms/Metadata-schema",
+    "https://w3id.org/fair/fip/terms/Provenance-model",
+    "https://w3id.org/fair/fip/terms/Semantic-model"
    ],
    "scope": "Generic",
    "url": "https://schema.datacite.org/",
@@ -3344,7 +3355,8 @@
    "decision": "undecided",
    "fairsharingType": "Standard: identifier schema",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Identifier-service"
+    "https://w3id.org/fair/fip/terms/Identifier-service",
+    "https://w3id.org/fair/fip/terms/Metadata-data-linking-schema"
    ],
    "scope": "Generic",
    "url": "https://www.doi.org",
@@ -3813,6 +3825,7 @@
    "decision": "undecided",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
@@ -4004,7 +4017,8 @@
    "decision": "undecided",
    "fairsharingType": "Database: repository",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
+    "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "scope": "Life Sciences",
    "url": "https://ega-archive.org/",
@@ -4120,7 +4134,9 @@
    "decision": "undecided",
    "fairsharingType": "Database: repository",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
+    "https://w3id.org/fair/fip/terms/Identifier-service",
+    "https://w3id.org/fair/fip/terms/Metadata-data-linking-schema"
    ],
    "scope": "Life Sciences",
    "url": "https://www.ebi.ac.uk/empiar/",
@@ -6036,6 +6052,7 @@
    "decision": "include",
    "fairsharingType": "Database: repository",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Registry"
    ],
    "scope": "Life Sciences",
@@ -6186,6 +6203,7 @@
    "decision": "include",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
@@ -6308,6 +6326,7 @@
    "decision": "undecided",
    "fairsharingType": "Standard: model/format",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Authentication-and-authorization-service",
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
    "scope": "Generic",
@@ -6510,7 +6529,8 @@
    "decision": "include",
    "fairsharingType": "Standard: identifier schema",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Identifier-service"
+    "https://w3id.org/fair/fip/terms/Identifier-service",
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "scope": "Life Sciences",
    "dateReleased": "2005-04",
@@ -8717,7 +8737,8 @@
    "decision": "include",
    "fairsharingType": "Standard: reporting guideline",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Metadata-schema"
+    "https://w3id.org/fair/fip/terms/Metadata-schema",
+    "https://w3id.org/fair/fip/terms/Provenance-model"
    ],
    "scope": "Toxicology",
    "phase": "Data generation",
@@ -9047,7 +9068,9 @@
    "decision": "undecided",
    "fairsharingType": "Database: repository",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Identifier-service"
+    "https://w3id.org/fair/fip/terms/Communication-protocol",
+    "https://w3id.org/fair/fip/terms/Identifier-service",
+    "https://w3id.org/fair/fip/terms/Registry"
    ],
    "scope": "Generic",
    "url": "https://orcid.org/",
@@ -11273,6 +11296,7 @@
    "decision": "undecided",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
@@ -11560,7 +11584,7 @@
    "decision": "undecided",
    "fairsharingType": "Database: repository",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Registry"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "scope": "Generic",
    "url": "https://workflowhub.eu/",
