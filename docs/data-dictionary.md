@@ -69,6 +69,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
 | `dateSource` | Citation | `schema:citation` | DOI or URL that shows the date. |
 | `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information. |
+| `contactPoint` | Contact | `dcat:contactPoint` | Who to contact about the resource: the ORCID of a person (`https://orcid.org/…`) or the ROR of an organisation (`https://ror.org/…`), as a link; several may be given. DCAT's term, as schema.org has no contact point for a creative work. Published in the JSON-LD only, not in resources.csv or on the dashboard. |
 | `url` | URL | `schema:url` | Main web address. |
 | `description` | Description | `schema:description` | One to three sentences; needed to register the resource in FAIRsharing. |
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |

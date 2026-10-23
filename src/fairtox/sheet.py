@@ -43,8 +43,9 @@ MARKED = ('x', 'true')                                      # how a mark reads b
 GREY_NOTE = 'Grey, not read back: '                         # every grey column's note opens with what grey means
 MULTI = {'span': model.PHASES, 'subdomains': model.SUBDOMAINS,   # multi-select columns: field -> its list, in order
          'fsrType': [FSR_LABEL[i] for i in model.fsr_offered()]}   # an FSR type by its label
-# (header, dataset field, kind, width, header note). Kinds: key, text, aliases, date, list:<List>, keys, mark, creator,
-# and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on import.
+# (header, dataset field, kind, width, header note). Kinds: key, text, several (separated by ";"), date, list:<List>,
+# keys, mark, creator, and the grey kinds lane, fslink, static, version, which are computed or imported and ignored on
+# import.
 # The Resources tab puts what curators check first, in the order of the curation steps; the context follows, folded.
 TASK_COLUMNS = [
     ('Key', 'key', 'key', 16, 'Stable identifier, never changed. For a new row, type a short key: lowercase letters, '
@@ -75,6 +76,8 @@ TASK_COLUMNS = [
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
     ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
+    ('Contact', 'contactPoint', 'several', 26, "Who to contact about the resource: a person's ORCID or an organisation's "
+     'ROR, as a link; several separated by ";".'),
     ('First published', 'datePublished', 'date', 14,
      'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD.'),
     ('Date basis', 'dateBasis', 'list:Date basis', 16, 'What the date refers to. The Lists tab explains each choice.'),
@@ -113,7 +116,7 @@ CONTEXT_COLUMNS = [
      'sheet was made. Fix the white cells they point at.'),
     ('In manuscript', 'manuscript', 'list:In manuscript', 14, 'cited, named, comment only or absent.'),
     ('Manuscript evidence', 'manuscriptEvidence', 'text', 26, 'Section and line numbers in the frozen draft.'),
-    ('Aliases', 'alternateName', 'aliases', 18,
+    ('Aliases', 'alternateName', 'several', 18,
      'Abbreviations and other names, separated by ";". The first one is shown in the figure.'),
     ('Row version', None, 'version', 12, GREY_NOTE + 'a fingerprint of the row when the sheet was made, which detects '
      'rows that changed elsewhere since. Do not edit it: an edited version makes the row wait.'),
@@ -344,8 +347,8 @@ def build(doc, path, added=()):
                                     for k, q in declared.get(r['key'], {}).items()) or None
             elif head == 'Builds on FAIR':
                 c.value = 'yes' if r.get('buildsOnFair') else None
-            elif kind == 'aliases':
-                c.value = '; '.join(r.get('alternateName', [])) or None
+            elif kind == 'several':
+                c.value = '; '.join(r.get(field, [])) or None
             elif kind == 'version':
                 c.value = model.row_hash(r)
             elif field in ('datePublished', 'dateBasis'):   # the date and its basis, whichever field holds it
@@ -500,7 +503,7 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
             if not field or kind in ('key', 'creator', 'etc'):
                 continue
             v = val.get(h)
-            if kind == 'aliases':
+            if kind == 'several':
                 parsed[field] = [a.strip() for a in _text(v).split(';') if a.strip()]
             elif kind == 'date':
                 parsed[field] = _text(v)

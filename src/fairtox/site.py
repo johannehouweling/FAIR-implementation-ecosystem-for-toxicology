@@ -225,6 +225,8 @@ FIELDS = [
      'dateBasis.', 'dateBasis'),
     ('dateSource', 'DOI or URL of the source that shows the date.', None),
     ('creator', 'Organisations that made the resource.', None),
+    ('contactPoint', "Who to contact about the resource: a person's ORCID or an organisation's ROR. In the JSON-LD "
+                     'only.', None),
     ('url', 'Homepage.', None),
     ('description', 'One to three sentences on what the resource is.', None),
     ('maintained', 'Maintenance status.', 'maintained'),

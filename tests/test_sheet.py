@@ -196,6 +196,17 @@ class SheetTest(TempDir):
         self.assertEqual((ctd['FSR type'], ctd['Class']), ('Editor, Registry', 'FAIR-Enabling Resource'))
         self.assertEqual(sheet.ingest(new, self.path('curation.xlsx'))[1:3], ([], []))   # read back once
 
+    def test_contacts_are_orcid_or_ror_links(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        links = 'https://orcid.org/0000-0002-1825-0097; https://ror.org/044rwnt51'
+        self.edit(p, 'Contact', 'ctd', links)
+        self.edit(p, 'Contact', 'exo', 'someone@example.org')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual(changes, [('ctd', 'contactPoint', '', links)])
+        self.assertEqual([x['problem'] for x in problems], ["exo: contact 'someone@example.org' must be an ORCID or ROR link"])
+        self.assertEqual(sheet.ingest(new, self.build(new))[1:3], ([], []))   # read back once
+
     def test_a_column_a_curator_adds_is_ignored(self):
         doc = model.normalise(fixture())
         p = self.build(doc)

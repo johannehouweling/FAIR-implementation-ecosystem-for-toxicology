@@ -317,6 +317,8 @@ CONTEXT = {
     'datePublished': 'schema:datePublished', 'dateReleased': 'dct:issued', 'dateAdopted': 'dct:dateAccepted',
     'dateCreated': 'schema:dateCreated', 'date': 'dct:date',
     'dateSource': {'@id': 'schema:citation', '@type': '@id'},   # CDIF keeps subjectOf for the catalog record
+    # ORCID or ROR links; schema.org has no contact point for a creative work
+    'contactPoint': {'@id': 'dcat:contactPoint', '@type': '@id', '@container': '@set'},
     'fairsharingRecord': {'@id': 'schema:sameAs', '@type': '@vocab', '@context': {'@vocab': 'https://fairsharing.org/'}},
     'qualifiedRelation': {'@id': 'dcat:qualifiedRelation', '@container': '@set'},
     'relation': {'@id': 'dct:relation', '@type': '@id'},
@@ -379,18 +381,19 @@ def iri(curie):
 # 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'fairsharingType', 'fsrType', 'scope',
-           'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
-           'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'fairsharingRecord',
+           'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'contactPoint',
+           'url', 'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'fairsharingRecord',
            'fairsharingMatch', 'reviewedBy', 'note']
 FIELD_ORDER = ['@id', 'identifier', 'schemaType'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles',
                                                                'qualifiedAttribution', 'fsr', 'qualifiedRelation',
                                                                'declared-by', 'fipDeclaration',
                                                                'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
-LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span', 'mentionedIn'}
+LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span', 'mentionedIn', 'contactPoint'}
 # Curated fields added after the Sheet went live count in the row fingerprint only once set: Row versions stay valid.
-LATER = ('mentionedIn',)
+LATER = ('mentionedIn', 'contactPoint')
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
+CONTACT_RE = re.compile(r'^https://(orcid\.org/\d{4}-\d{4}-\d{4}-\d{3}[\dX]|ror\.org/0[a-z0-9]{6}\d{2})$')
 DATE_RE = re.compile(r'^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$')
 FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
 
@@ -671,6 +674,9 @@ def check(doc):
         for d in r.get('mentionedIn', []):
             if d not in ETC_DOCUMENTS:
                 e(f'{k}: community document {d!r} is not an allowed value')
+        for c in r.get('contactPoint', []):
+            if not CONTACT_RE.match(c):
+                e(f'{k}: contact {c!r} must be an ORCID or ROR link')
         for s in r.get('subdomains', []):
             if s not in SUBDOMAINS:
                 e(f'{k}: sub-domain {s!r} is not an allowed value')

@@ -41,6 +41,7 @@ class ModelTest(TempDir):
             ('exo', 'fsrType', [model.FIC, model.FIP + 'Registry'], 'no other FSR type'),
             ('exo', 'fsrType', [model.FIP + 'FAIR-Training-Material'], 'not an allowed value'),   # outside the typology
             ('exo', 'mentionedIn', ['Blog'], 'community document'),
+            ('exo', 'contactPoint', ['someone@example.org'], 'ORCID or ROR link'),
         ]
         for key, field, value, message in cases:
             doc = fixture()
@@ -52,6 +53,7 @@ class ModelTest(TempDir):
         exo = next(r for r in model.normalise(fixture())['hasPart'] if r['key'] == 'exo')
         self.assertEqual(model.row_hash(exo), '382d971423')        # as before mentionedIn existed
         self.assertNotEqual(model.row_hash({**exo, 'mentionedIn': ['Whitepaper']}), '382d971423')
+        self.assertNotEqual(model.row_hash({**exo, 'contactPoint': ['https://ror.org/044rwnt51']}), '382d971423')
 
     def test_structural_errors(self):
         doc = fixture()
