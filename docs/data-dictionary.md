@@ -1,6 +1,6 @@
 # Data dictionary
 
-The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC BY-SA 4.0. It is a schema.org `Dataset` whose `hasPart` lists the resources. Each resource has its curated fields and its relations to other resources. The file stores only what is curated: FAIRsharing record data are added when the dashboard, the curation sheet or the FAIRsharing export is built, and the declarations of the toxicology FAIR Implementation Profiles (FIPs) when the dashboard or the sheet is built (see Fields added at build time). The file is written only by the `fairtox` commands, which validate every change and log curated changes in `data/changes.csv`.
+The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC BY-SA 4.0. It is a schema.org `Dataset` whose `hasPart` lists the resources. Each resource has its curated fields and its relations to other resources. The file stores only what is curated: FAIRsharing record data and the declarations of the toxicology FAIR Implementation Profiles (FIPs) are added when the outputs are built (see Fields added at build time). The file is written only by the `fairtox` commands, which validate every change and log curated changes in `data/changes.csv`.
 
 ## Identifiers
 
@@ -52,17 +52,17 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `name` | Name | `schema:name` | Full name. |
 | `alternateName` | Aliases | `schema:alternateName` | Abbreviations and other names; the first short one is shown in the figure. |
 | `decision` | Decision |  | Screening decision (list below). |
-| `exclusionReason` | Exclusion reason |  | Code E1-E8, required when the decision is exclude. |
-| `coveredBy` | Covered by |  | Key of the row that covers this one (exclusion reason E6). |
+| `exclusionReason` | Exclusion reason |  | Code E1-E8 (criteria, section 4), required when the decision is exclude. |
+| `coveredBy` | Covered by |  | Key of the row that covers this one; required when the exclusion reason is E6. |
 | `fairsharingType` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text. |
-| `fsrType` | FSR type (multi-select) | `rdf:type` | FAIR Supporting Resource (FSR) types: every type of the FSR typology of the FIP ontology that applies (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication, and with no other type. |
+| `fsrType` | FSR type (multi-select) | `rdf:type` | FAIR Supporting Resource (FSR) types of the FIP ontology (list below; criteria, sections 5 and 6). |
 | `scope` | Scope | `schema:about` | What the resource was made for (list below). |
-| `phase` | the earliest phase chosen in Phase |  | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. Not in the graph: it is the earliest phase of `span`. |
+| `phase` | the earliest phase chosen in Phase |  | For toxicology resources: the earliest phase of `span` (list below; criteria, section 6). Required for included and undecided toxicology resources. Not in the graph. |
 | `span` | Phase (multi-select) | `dcat:theme` | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
 | `creatorType` | one "Made by" column per creator type | via `qualifiedAttribution` | For toxicology resources: the kind of creator; several may apply (list below). Required for included and undecided toxicology resources. |
 | `qualifiedAttribution` |  | `prov:qualifiedAttribution` | Derived from `creatorType`: one `prov:Attribution` per creator type, whose `dcat:hadRole` is its concept. |
-| `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
-| `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource when one of the types is one, else FAIR Supporting Resource. |
+| `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource that builds on FAIR (criteria, section 6). |
+| `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource or FAIR Supporting Resource (criteria, section 6). |
 | `declaredIn`, `principles` | Declared in, Principles |  | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
 | `fsr` | FIP identifiers | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | Sub-domains (multi-select) | `schema:about` | Sub-domains that apply (list below). |
@@ -75,11 +75,11 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |
 | `manuscriptEvidence` | Manuscript evidence |  | Section and line numbers in the frozen manuscript draft. Not published. |
-| `mentionedIn` | one "ETC" column per document |  | ELIXIR Toxicology Community documents that mention the resource, ticked by curators (list below); a mention documents toxicology use (I4). Not published. |
+| `mentionedIn` | one "ETC" column per document |  | ELIXIR Toxicology Community documents that mention the resource, ticked by curators (list below). Not published. |
 | `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `scope`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects, after Scope, and FAIRsharing domains, after Phase. |
 | `resource` |  | `dcat:resource` | On the FAIRsharing Toxicology collection only, in the published dataset: the included resources that FAIRsharing lists as its members, read when the dataset is built. |
 | `fairsharingMatch` | FAIRsharing match |  | Whether that record is this resource (list below). |
-| `reviewedBy` | Reviewed by |  | Initials of the curator who checked the row as it stands, up to Note: they confirm its values, which are proposals until then. A process that changes a confirmed value empties it. A relation has its own. |
+| `reviewedBy` | Reviewed by |  | Initials of the curator who confirmed the row (criteria, section 7). A relation has its own. |
 | `note` | Note |  | Free text for the next curator. |
 | `qualifiedRelation` | Relations tab | `dcat:qualifiedRelation` | Relations to other resources (below). |
 | `fipDeclaration` | grey rows on the Relations tab | `schema:hasPart` | On a FIP row: its declarations, read from its nanopublications at build time (below). Never stored. |
@@ -88,15 +88,15 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 
 ## Lanes
 
-The dashboard lane is derived and not stored. Scope Generic gives Generic infrastructure and scope Life Sciences gives Life sciences infrastructure. A toxicology resource sits in the lane named after its phase; the dashboard can instead arrange the toxicology lanes by creator type, with one lane for resources made jointly. The toxicology lanes together form the toxicology infrastructure. FAIR Implementation Communities are listed but not drawn.
+The dashboard lane is derived and not stored; the criteria (section 6) say which lane a resource takes.
 
 | Lane (by phase) | Meaning |
 |---|---|
 | Generic infrastructure | Resources not specific to a research domain. |
 | Life sciences infrastructure | Life-science resources, not specific to toxicology, that toxicology uses. |
-| Data generation | Toxicology resources whose phase, the earliest they act on, is data generation. |
-| Data integration | Toxicology resources whose phase, the earliest they act on, is data integration. |
-| Regulatory assessment | Toxicology resources whose phase, the earliest they act on, is regulatory assessment. |
+| Data generation | Toxicology resources whose earliest phase is data generation; it supports the planning of individual toxicology studies, the recording of their results and study context (metadata, protocols, data processing) and the deposition of study-level datasets linked to that context. |
+| Data integration | Toxicology resources whose earliest phase is data integration; it supports the linking of existing research output from different studies across test systems, stressors, exposures and endpoints, with mechanistic knowledge and models; includes the derivative objects this produces. |
+| Regulatory assessment | Toxicology resources whose earliest phase is regulatory assessment; it supports the reporting of studies for regulatory submission and the identification and evaluation of toxicology research outputs for a specified regulatory question. |
 
 | Lane (by creator) | Meaning |
 |---|---|
@@ -117,16 +117,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 
 ### Exclusion reason (`exclusionReason`)
 
-| Value | Meaning |
-|---|---|
-| E1 | Organisation, project, initiative, consortium, community or event; its named product is listed instead. |
-| E2 | Principle, framework, method or approach, or a publication only, rather than a resource that can be used directly; a standard, database, policy or tool that puts it into practice is listed instead. |
-| E3 | Unnamed or not identifiable (no homepage or DOI). |
-| E4 | Never publicly available. |
-| E5 | No documented toxicology use. |
-| E6 | Duplicate, version or component of another row (see Covered by). |
-| E7 | Outside chemical toxicology, such as toxinology or clinical adverse-event grading. |
-| E8 | Test method or guideline that standardises an experiment rather than data or metadata. |
+The codes E1-E8 and their meanings are the exclusion reasons of the criteria (section 4).
 
 ### FAIRsharing type (`fairsharingType`)
 
@@ -151,7 +142,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 
 ### FSR type (`fsrType`)
 
-Every type that applies, each stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`, in the order of the IRIs: types of the FSR typology of the FIP ontology (`https://w3id.org/fair/fip/terms/FIP-Ontology`, version 20260227: `https://w3id.org/fair/fip/terms/FIP-Ontology_20260227`), or FAIR Implementation Community alone for a community. The typology is read from `https://w3id.org/fair/fip/terms/` when the dashboard and the curation sheet are built, as the ontology draws it: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated. `fsrCategory` is FAIR-Enabling Resource when one of the types is a subclass of `fip:FAIR-Enabling-Resource` (gray in the typology), else FAIR Supporting Resource. A type's label is its sentence-case label in the ontology, the one with the fewest capitals. The curation sheet's FSR type column takes several types; its Lists tab gives each type with its direct FSR subclass and category; on 18 Oct 2026 they were:
+The types are stored as IRIs, such as `https://w3id.org/fair/fip/terms/Registry`, in IRI order: types of the FSR typology of the FIP ontology (`https://w3id.org/fair/fip/terms/FIP-Ontology`, version 20260227: `https://w3id.org/fair/fip/terms/FIP-Ontology_20260227`), or FAIR Implementation Community. The typology is read from `https://w3id.org/fair/fip/terms/` when the dashboard and the curation sheet are built, as the ontology draws it: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated. A type marked FER is a subclass of `fip:FAIR-Enabling-Resource` (gray in the typology). A type's label is its sentence-case label in the ontology, the one with the fewest capitals. The curation sheet's FSR type column takes several types; its Lists tab gives each type with its direct FSR subclass and category; on 18 Oct 2026 they were:
 
 | Direct FSR subclass | Types offered |
 |---|---|
@@ -203,7 +194,12 @@ The group is the part of the toxicology life cycle under which the figure lists 
 | computational and predictive toxicology | Integration and tools. | [IUPAC 10.1351/goldbook.15583](https://doi.org/10.1351/goldbook.15583) computational toxicology |
 | regulatory toxicology | Application (definition below). | `terms:subdomains-regulatory-toxicology`, `skos:relatedMatch` Wikidata regulatory science |
 
-In vitro toxicology is toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or biochemical systems, after the IUPAC definitions of toxicology and in vitro (Duffus, 1993, [doi:10.1351/pac199365092003](https://doi.org/10.1351/pac199365092003)). Regulatory toxicology collects, processes and evaluates experimental and epidemiological data as the basis for decisions that protect health from the harmful effects of chemical substances, and develops standard protocols and new test methods for them, after the working group on regulatory toxicology of the German Society for Experimental and Clinical Pharmacology and Toxicology (Schwenk et al., 2002, [doi:10.1016/S0378-4274(01)00457-X](https://doi.org/10.1016/S0378-4274(01)00457-X)).
+| Sub-domain | Definition |
+|---|---|
+| in vitro toxicology | Toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or biochemical systems (after IUPAC, 1993, doi:10.1351/pac199365092003). |
+| regulatory toxicology | Toxicology that collects, processes and evaluates experimental and epidemiological data as the basis for decisions that protect health from the harmful effects of chemical substances, and that develops standard protocols and new test methods for them (after Schwenk et al., 2002, doi:10.1016/S0378-4274(01)00457-X). |
+
+The in vitro definition combines the entries toxicology and in vitro of Duffus's IUPAC glossary (1993); Schwenk et al. wrote for the working group on regulatory toxicology of the German Society for Experimental and Clinical Pharmacology and Toxicology.
 
 ### Date basis (`dateBasis`)
 
@@ -267,9 +263,9 @@ The basis decides the field, and so the term, that holds the date, following Dat
 
 ## Relations
 
-A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used, and one label of the dataset's own, uses, which FAIRsharing cannot hold. Lineage labels are drawn as arrows from the earlier resource to the one building on or using it; related_to has no arrowhead. A lineage relation normally points to an earlier resource; it may point to a later one only when FAIRsharing asserts it.
+A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used, and one label of the dataset's own, uses, which FAIRsharing cannot hold. Lineage labels are drawn as arrows from the earlier resource to the one building on or using it; related_to has no arrowhead.
 
-A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries of its two resources (the table below); a Tool, which FAIRsharing does not register, or a Collection, which FAIRsharing lets only collect, also counts as the registry of each of its FSR typology columns (FAIR data policy as a Policy, FAIR specification as a Standard, FAIR supporting technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification, the domain and range of `fip:implements`. A relation is not checked while an end lacks the type the check needs. A relation that is not possible is a validation warning: its line waits in the curation sheet, and no release is made with it. The label uses is not constrained.
+The criteria (section 6) say which relations are possible and what happens to one that is not; the table's last column gives the registry pairs FAIRsharing allows for each label.
 
 | Label (`hadRole`) | FAIRsharing id | Lineage | Meaning | Allowed in FAIRsharing between |
 |---|---|---|---|---|
@@ -280,8 +276,6 @@ A relation must be possible: FAIRsharing allows its label between the FAIRsharin
 | deprecates | 9 | yes | The subject replaces the target. | Collection to Collection, Database to Database, Policy to Policy, Standard to Standard |
 | related_to | 4 | no | The resources are related without one building on the other. | Database to Database, Database to Standard, Policy to Policy, Standard to Database, Standard to Standard |
 | uses | none: the dataset's own | yes | The subject uses the target. | not a FAIRsharing label |
-
-A relation that is possible but that FAIRsharing cannot hold is kept and flagged as not enterable in FAIRsharing.
 
 FAIRsharing's other eight labels are not used; FAIRsharing publishes no IRIs for any of its labels.
 
@@ -308,7 +302,7 @@ These fields are added to a copy of the dataset when the dashboard (with its pub
 
 ### The `fairsharing` block
 
-Read from the FAIRsharing API and added to each resource with a confirmed FAIRsharing record: `id`, `doi`, `name`, `abbreviation`, `registry`, `recordType`, `status`, `yearCreation`, `homepage`, `inCollection` (member of the Toxicology collection, record 3496), `associations` (FAIRsharing's own relations of this record: label and record id) and `retrieved` (the retrieval date). `sources.fairsharing` gives the retrieval date and the number of collection members. `fairtox fairsharing --apply` adds each new collection member as an undecided row, its curated fields filled from its record and logged in `data/changes.csv`. FAIRsharing contact details are left out.
+Read from the FAIRsharing API and added to each resource with a confirmed FAIRsharing record: `id`, `doi`, `name`, `abbreviation`, `registry`, `recordType`, `status`, `yearCreation`, `homepage`, `inCollection` (member of the Toxicology collection, record 3496), `associations` (FAIRsharing's own relations of this record: label and record id) and `retrieved` (the retrieval date). `sources.fairsharing` gives the retrieval date and the number of collection members. FAIRsharing contact details are left out.
 
 ### FIP declarations
 
