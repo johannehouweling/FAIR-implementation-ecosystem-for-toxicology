@@ -3736,3 +3736,8 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-23,classification 2026-10-23,workflowhub,fsrType,https://w3id.org/fair/fip/terms/Registry,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,classification,FIP description nanopublication https://w3id.org/np/RAkBKXLlUPKLtx7zmRS1kYZFWLSoG0XCeG4nZWbGCzjfs
 2026-10-23,curation sheet 2026-10-23,parcfip,phase,Data generation,Data integration,,curation-sheet.xlsx
 2026-10-23,curation sheet 2026-10-23,parcfip,span,Data generation,Data integration,,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,fairaop,phase,Data generation,Data integration,,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,fairaop,span,Data generation,Data integration,,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,parcfip,phase,Data integration,Data generation,,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,parcfip,span,Data integration,Data generation,,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,toxtemp,relation,(new),related_to eutr_ki,JH,curation-sheet.xlsx

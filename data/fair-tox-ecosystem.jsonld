@@ -5431,9 +5431,9 @@
     "https://w3id.org/fair/fip/terms/Reference-FAIR-Implementation-Profile"
    ],
    "scope": "Toxicology",
-   "phase": "Data generation",
+   "phase": "Data integration",
    "span": [
-    "Data generation"
+    "Data integration"
    ],
    "creatorType": [
     "In silico research",
@@ -9265,9 +9265,9 @@
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
    "scope": "Toxicology",
-   "phase": "Data integration",
+   "phase": "Data generation",
    "span": [
-    "Data integration"
+    "Data generation"
    ],
    "creatorType": [
     "Wet-lab research",
@@ -11203,6 +11203,13 @@
     }
    ],
    "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#eutr_ki",
+     "hadRole": "related_to",
+     "evidence": "curator",
+     "reviewedBy": "JH",
+     "note": "Stated by JH on 23 Oct 2026."
+    },
     {
      "relation": "https://w3id.org/fair-tox/dataset#gd211",
      "hadRole": "extends",
