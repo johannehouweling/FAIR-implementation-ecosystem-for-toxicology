@@ -47,7 +47,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 |---|---|---|---|
 | `@id` |  |  | FIC nanopublication of a FAIR Implementation Community, else the FAIRsharing DOI when the match is confirmed, else `https://w3id.org/fair-tox/dataset#key`. |
 | `identifier` | Identifier | `schema:identifier` | Derived: the `@id` as an absolute IRI, the resource's persistent identifier. |
-| `schemaType` |  | `rdf:type` | Derived: `schema:SoftwareApplication` for a tool, else `schema:CreativeWork`, next to the FSR type. |
+| `schemaType` |  | `rdf:type` | Derived: `schema:SoftwareApplication` for a tool, else `schema:CreativeWork`, next to the FSR types. |
 | `key` | Key | `dct:identifier` | Stable short identifier: lowercase letters, digits, `_` or `-`. Never changes. |
 | `name` | Name | `schema:name` | Full name. |
 | `alternateName` | Aliases | `schema:alternateName` | Abbreviations and other names; the first short one is shown in the figure. |
@@ -55,20 +55,21 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `exclusionReason` | Exclusion reason |  | Code E1-E8, required when the decision is exclude. |
 | `coveredBy` | Covered by |  | Key of the row that covers this one (exclusion reason E6). |
 | `fairsharingType` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text. |
-| `fsrType` | FSR type | `rdf:type` | FAIR Supporting Resource (FSR) type: one type of the FSR typology of the FIP ontology (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication. |
+| `fsrType` | FSR type (multi-select) | `rdf:type` | FAIR Supporting Resource (FSR) types: every type of the FSR typology of the FIP ontology that applies (list below). FAIR Implementation Community only on a row whose `@id` is a valid FIC nanopublication, and with no other type. |
 | `scope` | Scope | `schema:about` | What the resource was made for (list below). |
 | `phase` | the earliest phase chosen in Phase |  | For toxicology resources: the phase it acts on; when it acts on several, the earliest at which it must be applied (list below). Required for included and undecided toxicology resources. Not in the graph: it is the earliest phase of `span`. |
 | `span` | Phase (multi-select) | `dcat:theme` | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
 | `creatorType` | one "Made by" column per creator type | via `qualifiedAttribution` | For toxicology resources: the kind of creator; several may apply (list below). Required for included and undecided toxicology resources. |
 | `qualifiedAttribution` |  | `prov:qualifiedAttribution` | Derived from `creatorType`: one `prov:Attribution` per creator type, whose `dcat:hadRole` is its concept. |
 | `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource first published in 2016 or later that implements, extends, profiles or recommends a generic resource. |
-| `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource when the type is one, else FAIR Supporting Resource. |
+| `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource when one of the types is one, else FAIR Supporting Resource. |
 | `declaredIn`, `principles` | Declared in, Principles |  | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
 | `fsr` | FIP identifiers | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | Sub-domains (multi-select) | `schema:about` | Sub-domains that apply (list below). |
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
 | `dateSource` | Citation | `schema:citation` | DOI or URL that shows the date. |
 | `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information. |
+| `contactPoint` | Contact | `dcat:contactPoint` | Who to contact about the resource: the ORCID of a person (`https://orcid.org/…`) or the ROR of an organisation (`https://ror.org/…`), as a link; several may be given. DCAT's term, as schema.org has no contact point for a creative work. Published in the JSON-LD only, not in resources.csv or on the dashboard. |
 | `url` | URL | `schema:url` | Main web address. |
 | `description` | Description | `schema:description` | One to three sentences; needed to register the resource in FAIRsharing. |
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
@@ -150,7 +151,7 @@ The dashboard lane is derived and not stored. Scope Generic gives Generic infras
 
 ### FSR type (`fsrType`)
 
-One type per resource, stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`: a type of the FSR typology of the FIP ontology (`https://w3id.org/fair/fip/terms/FIP-Ontology`, version 20260227: `https://w3id.org/fair/fip/terms/FIP-Ontology_20260227`), or FAIR Implementation Community for a community. The typology is read from `https://w3id.org/fair/fip/terms/` when the dashboard and the curation sheet are built, as the ontology draws it: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated. `fsrCategory` is FAIR-Enabling Resource when the type is a subclass of `fip:FAIR-Enabling-Resource` (gray in the typology), else FAIR Supporting Resource. The curation sheet's Lists tab gives each type with its direct FSR subclass and category; on 18 Oct 2026 they were:
+Every type that applies, each stored as its IRI, such as `https://w3id.org/fair/fip/terms/Registry`, in the order of the IRIs: types of the FSR typology of the FIP ontology (`https://w3id.org/fair/fip/terms/FIP-Ontology`, version 20260227: `https://w3id.org/fair/fip/terms/FIP-Ontology_20260227`), or FAIR Implementation Community alone for a community. The typology is read from `https://w3id.org/fair/fip/terms/` when the dashboard and the curation sheet are built, as the ontology draws it: the classes under FAIR Data Policy, FAIR specification and FAIR Supporting Technology, and one level below, that are not deprecated. `fsrCategory` is FAIR-Enabling Resource when one of the types is a subclass of `fip:FAIR-Enabling-Resource` (gray in the typology), else FAIR Supporting Resource. A type's label is its sentence-case label in the ontology, the one with the fewest capitals. The curation sheet's FSR type column takes several types; its Lists tab gives each type with its direct FSR subclass and category; on 18 Oct 2026 they were:
 
 | Direct FSR subclass | Types offered |
 |---|---|
@@ -268,7 +269,7 @@ The basis decides the field, and so the term, that holds the date, following Dat
 
 A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used, and one label of the dataset's own, uses, which FAIRsharing cannot hold. Lineage labels are drawn as arrows from the earlier resource to the one building on or using it; related_to has no arrowhead. A lineage relation normally points to an earlier resource; it may point to a later one only when FAIRsharing asserts it.
 
-A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries of its two resources (the table below); a Tool, which FAIRsharing does not register, or a Collection, which FAIRsharing lets only collect, also counts as the registry of its FSR typology column (FAIR data policy as a Policy, FAIR specification as a Standard, FAIR supporting technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification, the domain and range of `fip:implements`. A relation is not checked while an end lacks the type the check needs. A relation that is not possible is a validation warning: its line waits in the curation sheet, and no release is made with it. The label uses is not constrained.
+A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries of its two resources (the table below); a Tool, which FAIRsharing does not register, or a Collection, which FAIRsharing lets only collect, also counts as the registry of each of its FSR typology columns (FAIR data policy as a Policy, FAIR specification as a Standard, FAIR supporting technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification, the domain and range of `fip:implements`. A relation is not checked while an end lacks the type the check needs. A relation that is not possible is a validation warning: its line waits in the curation sheet, and no release is made with it. The label uses is not constrained.
 
 | Label (`hadRole`) | FAIRsharing id | Lineage | Meaning | Allowed in FAIRsharing between |
 |---|---|---|---|---|

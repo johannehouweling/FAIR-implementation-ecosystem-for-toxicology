@@ -9,7 +9,7 @@ and reusable, with the code to curate it and to publish its dashboard. It underl
 Community paper on ten years of the FAIR principles in toxicology (in preparation). The dataset combines the
 resources named in the paper, the FAIRsharing Toxicology collection and the resources declared in two toxicology
 FAIR Implementation Profiles (FIPs). For each resource it records when it was first published, its FAIRsharing type,
-its type in the FIP ontology, its toxicology life-cycle phase and span, its sub-domains and its relations to other
+its types in the FIP ontology, its toxicology life-cycle phase and span, its sub-domains and its relations to other
 resources.
 
 Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/
@@ -39,7 +39,7 @@ keeps a release pull request open with the next version and its `CHANGELOG.md` e
 Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
 Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row with its
 checks and logs every change, under the curator's initials when given. A row with a problem waits in the sheet and is
-listed. A freshly built sheet, once uploaded, needs "Allow multiple selections" switched on for Phase by hand, because
+listed. A freshly built sheet, once uploaded, needs "Allow multiple selections" switched on for Sub-domains, FSR type and Phase by hand, because
 an .xlsx cannot carry it. A
 workflow reads the sheet back three times a day, then FAIRsharing and the FIPs, and keeps one pull request open with
 what changed; it keeps the exported sheet with the run for 90 days.

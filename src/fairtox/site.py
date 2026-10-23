@@ -203,10 +203,10 @@ FIELDS = [
                    'FAIRsharing DOI, else https://w3id.org/fair-tox/dataset#key.', None),
     ('fairsharingType', 'FAIRsharing registry and record type, or Tool for software and services, which FAIRsharing '
                         'does not register.', 'fairsharingType'),
-    ('fsrType', 'FAIR Supporting Resource (FSR) type in the FIP ontology, one per resource, by the typing rule of the '
-                'criteria. IRIs in the JSON-LD, labels in resources.csv.', None),
-    ('fsrCategory', 'Derived from the FSR type: FAIR-Enabling Resource or FAIR Supporting Resource (any other FSR). The '
-                    'Class filter uses it; resources without a type always pass it.', None),
+    ('fsrType', 'FAIR Supporting Resource (FSR) types in the FIP ontology, every one that applies, by the typing rule '
+                'of the criteria. IRIs in the JSON-LD, labels in resources.csv.', None),
+    ('fsrCategory', 'Derived from the FSR types: FAIR-Enabling Resource when one of them is, else FAIR Supporting '
+                    'Resource (any other FSR). The Class filter uses it; resources without a type always pass it.', None),
     ('principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty '
                    'when no FIP declares it.', None),
     ('scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'),
@@ -225,6 +225,8 @@ FIELDS = [
      'dateBasis.', 'dateBasis'),
     ('dateSource', 'DOI or URL of the source that shows the date.', None),
     ('creator', 'Organisations that made the resource.', None),
+    ('contactPoint', "Who to contact about the resource: a person's ORCID or an organisation's ROR. In the JSON-LD "
+                     'only.', None),
     ('url', 'Homepage.', None),
     ('description', 'One to three sentences on what the resource is.', None),
     ('maintained', 'Maintenance status.', 'maintained'),

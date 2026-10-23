@@ -137,6 +137,7 @@ class SiteTest(TempDir):
         doc = fixture()
         by = {r['key']: r for r in doc['hasPart']}
         by['ctd']['dateBasis'], by['oecd_gd']['maintained'] = 'release', 'unknown'
+        by['ctd']['contactPoint'] = ['https://orcid.org/0000-0002-1825-0097']
         text = self.build(doc)[1]
         terms = rdflib.Graph().parse(data=text['terms.ttl'], format='turtle')
         self.assertEqual(set(terms), set(rdflib.Graph().parse(data=text['terms.jsonld'], format='json-ld')))
@@ -157,7 +158,8 @@ class SiteTest(TempDir):
                        (exo, S.sameAs, URIRef('https://fairsharing.org/FAIRsharing.6hna78')),
                        (exo, S.identifier, exo), (ctd, S.identifier, ctd), (exo, RDF.type, S.CreativeWork),
                        (exo, S.url, Literal('https://github.com/CTDbase/exposure-ontology')),
-                       (exo, S.additionalType, Literal('Standard: terminology artefact'))):
+                       (exo, S.additionalType, Literal('Standard: terminology artefact')),
+                       (ctd, DCAT.contactPoint, URIRef('https://orcid.org/0000-0002-1825-0097'))):
             self.assertIn(triple, data, triple)
         self.assertIsNone(data.value(ds.oecd_gd, S.creativeWorkStatus))   # unknown: nothing is stated
         for p in (S.about, DCAT.theme, S.creativeWorkStatus, DCAT.hadRole):   # controlled values are IRIs

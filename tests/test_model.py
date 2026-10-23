@@ -38,9 +38,10 @@ class ModelTest(TempDir):
             ('exo', 'url', 'ctdbase.org', 'http(s) URL'),
             ('exo', 'span', ['Data generation', 'Data integration'], 'earliest phase'),
             ('ctd', 'span', [], 'earliest phase'),
-            ('exo', 'fsrType', [model.FIP + 'Structured-vocabulary', model.FIP + 'Registry'], 'one FSR type'),
+            ('exo', 'fsrType', [model.FIC, model.FIP + 'Registry'], 'no other FSR type'),
             ('exo', 'fsrType', [model.FIP + 'FAIR-Training-Material'], 'not an allowed value'),   # outside the typology
             ('exo', 'mentionedIn', ['Blog'], 'community document'),
+            ('exo', 'contactPoint', ['someone@example.org'], 'ORCID or ROR link'),
         ]
         for key, field, value, message in cases:
             doc = fixture()
@@ -52,6 +53,7 @@ class ModelTest(TempDir):
         exo = next(r for r in model.normalise(fixture())['hasPart'] if r['key'] == 'exo')
         self.assertEqual(model.row_hash(exo), '382d971423')        # as before mentionedIn existed
         self.assertNotEqual(model.row_hash({**exo, 'mentionedIn': ['Whitepaper']}), '382d971423')
+        self.assertNotEqual(model.row_hash({**exo, 'contactPoint': ['https://ror.org/044rwnt51']}), '382d971423')
 
     def test_structural_errors(self):
         doc = fixture()
@@ -73,7 +75,7 @@ class ModelTest(TempDir):
             doc = fixture()
             by = {r['key']: r for r in doc['hasPart']}
             for k, t in types.items():
-                by[k]['fsrType'] = [model.FIP + t]
+                by[k]['fsrType'] = [model.FIP + x for x in t.split()]
             by[subject]['qualifiedRelation'] = [{'relation': '#' + target, 'hadRole': role, 'evidence': 'curator'}]
             return any(f'{subject}: {role} {target} is not possible' in w for w in model.check(model.normalise(doc))[1])
         self.assertFalse(warns('ctd', 'implements', 'exo'))                     # FAIRsharing: database to standard
@@ -83,6 +85,9 @@ class ModelTest(TempDir):
         self.assertFalse(warns('tool', 'related_to', 'ctd', tool='Registry'))   # a Tool counts as its FSR column
         self.assertTrue(warns('tool', 'recommends', 'ctd', tool='Registry'))
         self.assertFalse(warns('tool', 'recommends', 'ctd'))                    # not checked until typed
+        self.assertFalse(warns('tool', 'recommends', 'ctd', tool='Editor Persistency-Policy'))   # each FSR column
+        self.assertFalse(warns('oecd_gd', 'implements', 'exo', oecd_gd='FAIR-Practice Persistency-Policy',
+                               exo='Editor Structured-vocabulary'))           # any FER type, any specification type
         self.assertEqual((model.RELATIONS['implements'][2], model.RELATIONS['recommends'][2]),
                          ('The subject implements the standard or FAIR specification.',
                           'The policy or guidance recommends the target.'))     # the definitions cover the rule
@@ -148,6 +153,15 @@ class ModelTest(TempDir):
         self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
         self.assertEqual(model.check(doc)[0], [])
 
+    def test_a_resource_takes_every_fsr_type_that_applies(self):
+        doc = fixture()
+        next(r for r in doc['hasPart'] if r['key'] == 'ctd')['fsrType'] = [model.FIP + t for t in
+                                                                         ('Registry', 'Editor', 'Registry')]
+        ctd = next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'ctd')
+        self.assertEqual((ctd['fsrType'], ctd['fsrCategory']),          # once each, in one order; an FER when one is
+                         ([model.FIP + 'Editor', model.FIP + 'Registry'], model.FER))
+        self.assertEqual(model.check(doc)[0], [])
+
     def test_fsr_types_are_the_typology_of_the_fip_ontology(self):
         offered = model.fsr_offered()
         self.assertIn(model.FIP + 'Crosswalk', offered)                   # under FAIR specification
@@ -157,14 +171,18 @@ class ModelTest(TempDir):
         self.assertNotIn(model.FIP + 'FAIR-Training-Material', offered)   # outside the typology
 
     def test_a_type_with_two_labels_keeps_its_sentence_case_label(self):
-        g, c = model.fip_ontology(), rdflib.URIRef(model.FIP + 'Communication-protocol')
-        g.remove((c, rdflib.RDFS.label, None))
-        for label in ('Communication Protocol', 'Communication protocol'):   # both, since 19 Oct 2026
-            g.add((c, rdflib.RDFS.label, rdflib.Literal(label)))
+        g = model.fip_ontology()
+        for t, labels in (('Communication-protocol', ('Communication Protocol', 'Communication protocol')),   # 19 Oct
+                          ('FAIR-Practice', ('FAIR Practice', 'FAIR practice'))):                             # 23 Oct
+            c = rdflib.URIRef(model.FIP + t)
+            g.remove((c, rdflib.RDFS.label, None))
+            for label in labels:
+                g.add((c, rdflib.RDFS.label, rdflib.Literal(label)))
         model.fsr_types.cache_clear()
         self.addCleanup(model.fsr_types.cache_clear)
         with mock.patch.object(model, 'fip_ontology', return_value=g):
-            self.assertEqual(model.fsr_types()[str(c)][0], 'Communication protocol')
+            self.assertEqual([model.fsr_types()[model.FIP + t][0] for t in ('Communication-protocol', 'FAIR-Practice')],
+                             ['Communication protocol', 'FAIR practice'])
 
     def test_fair_implementation_community_needs_its_fic_nanopublication(self):
         doc = model.normalise(fixture())

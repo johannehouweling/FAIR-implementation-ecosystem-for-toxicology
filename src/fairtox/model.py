@@ -209,11 +209,11 @@ EVIDENCE = {
     'curator': 'Added by a curator.',
     'FIP': 'Declared in a FAIR Implementation Profile.',
 }
-# FSR type (fsrType): a type of the FSR typology of the FIP ontology, or FAIR Implementation Community for a community
-# (see fsr_offered). The typology, as the ontology draws it, has a column for each of these classes.
+# FSR types (fsrType): every type of the FSR typology of the FIP ontology that applies, or FAIR Implementation Community
+# alone for a community (see fsr_offered). The typology, as the ontology draws it, has a column for each of these classes.
 FSR, FER, FIC = FIP + 'FAIR-Supporting-Resource', FIP + 'FAIR-Enabling-Resource', FIP + 'FAIR-Implementation-Community'
 TYPOLOGY = [FIP + t for t in ('FAIR-Data-Policy', 'FAIR-Specification', 'FAIR-Supporting-Technology')]
-# The FAIRsharing registry a Tool or a Collection may also count as for ALLOWED: that of its FSR typology column.
+# The FAIRsharing registries a Tool or a Collection may also count as for ALLOWED: those of its FSR typology columns.
 COLUMN_REGISTRY = dict(zip(TYPOLOGY, ('Policy', 'Standard', 'Database')))
 
 VOCABULARIES = {
@@ -317,6 +317,8 @@ CONTEXT = {
     'datePublished': 'schema:datePublished', 'dateReleased': 'dct:issued', 'dateAdopted': 'dct:dateAccepted',
     'dateCreated': 'schema:dateCreated', 'date': 'dct:date',
     'dateSource': {'@id': 'schema:citation', '@type': '@id'},   # CDIF keeps subjectOf for the catalog record
+    # ORCID or ROR links; schema.org has no contact point for a creative work
+    'contactPoint': {'@id': 'dcat:contactPoint', '@type': '@id', '@container': '@set'},
     'fairsharingRecord': {'@id': 'schema:sameAs', '@type': '@vocab', '@context': {'@vocab': 'https://fairsharing.org/'}},
     'qualifiedRelation': {'@id': 'dcat:qualifiedRelation', '@container': '@set'},
     'relation': {'@id': 'dct:relation', '@type': '@id'},
@@ -379,18 +381,19 @@ def iri(curie):
 # 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
 # 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'fairsharingType', 'fsrType', 'scope',
-           'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'url',
-           'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'fairsharingRecord',
+           'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'contactPoint',
+           'url', 'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'fairsharingRecord',
            'fairsharingMatch', 'reviewedBy', 'note']
 FIELD_ORDER = ['@id', 'identifier', 'schemaType'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles',
                                                                'qualifiedAttribution', 'fsr', 'qualifiedRelation',
                                                                'declared-by', 'fipDeclaration',
                                                                'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
-LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span', 'mentionedIn'}
+LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span', 'mentionedIn', 'contactPoint'}
 # Curated fields added after the Sheet went live count in the row fingerprint only once set: Row versions stay valid.
-LATER = ('mentionedIn',)
+LATER = ('mentionedIn', 'contactPoint')
 KEY_RE = re.compile(r'^[a-z0-9][a-z0-9_-]*$')
+CONTACT_RE = re.compile(r'^https://(orcid\.org/\d{4}-\d{4}-\d{4}-\d{3}[\dX]|ror\.org/0[a-z0-9]{6}\d{2})$')
 DATE_RE = re.compile(r'^(\d{4})(?:-(\d{2})(?:-(\d{2}))?)?$')
 FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
 
@@ -501,8 +504,8 @@ def fsr_types():
     direct = set(g.subjects(sub, fsr)) - {fer}
     for c in set(g.transitive_subjects(sub, fsr)) - {fsr}:
         up = set(g.transitive_objects(c, sub)) - {c}
-        label = min(map(str, g.objects(c, rdflib.RDFS.label)), key=lambda s: (s[1:] != s[1:].lower(), s),
-                    default='None')                    # of several labels, the sentence-case one
+        label = min(map(str, g.objects(c, rdflib.RDFS.label)), key=lambda s: (sum(map(str.isupper, s)), s),
+                    default='None')                    # of several labels, the sentence-case one: the fewest capitals
         out[str(c)] = (label, str(next(iter(up & direct), c)), c == fer or fer in up)
     return out
 
@@ -564,7 +567,7 @@ def normalise(doc):
             elif isinstance(r.get(f), list):
                 r[f] = [x.strip() if isinstance(x, str) else x for x in r[f]]
         for f, vocab in (('subdomains', SUBDOMAINS), ('creatorType', STAKEHOLDER), ('span', PHASES),
-                         ('mentionedIn', ETC_DOCUMENTS)):
+                         ('mentionedIn', ETC_DOCUMENTS), ('fsrType', fsr_offered())):
             if r.get(f):                                    # one canonical order, so round trips are exact
                 known = [x for x in vocab if x in r[f]]
                 r[f] = known + [x for x in r[f] if x not in vocab]
@@ -598,7 +601,7 @@ def normalise(doc):
         else:
             r.pop('buildsOnFair', None)
         types = [fsr_types()[t] for t in r.get('fsrType', []) if t in fsr_types()]
-        r['fsrCategory'] = (FER if types[0][2] else FSR) if types else ''
+        r['fsrCategory'] = (FER if any(t[2] for t in types) else FSR) if types else ''   # an FER when one type is
         r['qualifiedAttribution'] = [{'@type': 'prov:Attribution', 'hadRole': t} for t in r.get('creatorType', [])]
         r['declaredIn'] = sorted({fip for fip, _ in declared.get(r['@id'], [])})
         r['principles'] = sorted({p for _, p in declared.get(r['@id'], []) if p})
@@ -671,6 +674,9 @@ def check(doc):
         for d in r.get('mentionedIn', []):
             if d not in ETC_DOCUMENTS:
                 e(f'{k}: community document {d!r} is not an allowed value')
+        for c in r.get('contactPoint', []):
+            if not CONTACT_RE.match(c):
+                e(f'{k}: contact {c!r} must be an ORCID or ROR link')
         for s in r.get('subdomains', []):
             if s not in SUBDOMAINS:
                 e(f'{k}: sub-domain {s!r} is not an allowed value')
@@ -684,8 +690,8 @@ def check(doc):
         for t in types:
             if t not in fsr_offered():
                 e(f'{k}: FSR type {t!r} is not an allowed value')
-        if len(types) > 1:
-            e(f'{k}: one FSR type only')
+        if FIC in types and len(types) > 1:
+            e(f'{k}: a FAIR Implementation Community has no other FSR type')
         if FIC in types and not NANOPUB_RE.match(r.get('@id') or ''):
             e(f'{k}: FAIR Implementation Community needs its FIC nanopublication as @id')
         for field in LIST_FIELDS:
@@ -742,21 +748,21 @@ def check(doc):
 
 def possible(role, r, t):
     """Whether a relation may hold: FAIRsharing allows its label between the two registries, a Tool or a Collection
-    also counting as the registry of its FSR column; implements also from a FAIR-Enabling Resource to a FAIR
+    also counting as the registry of each of its FSR columns; implements also from a FAIR-Enabling Resource to a FAIR
     specification (fip:implements). Not checked while an end lacks the type this needs; a label of the dataset's own
     is not constrained."""
     if role not in ALLOWED:
         return True
-    fsr = lambda x: fsr_types().get((x.get('fsrType') or [''])[0])
+    fsr = lambda x: [fsr_types()[i] for i in x.get('fsrType', []) if i in fsr_types()]
 
     def regs(x):
-        own, col = registry(x), COLUMN_REGISTRY.get((fsr(x) or ('', ''))[1])
-        return ({own, col} if own in ('Tool', 'Collection') else {own}) - {None, 'Tool'}
+        own, cols = registry(x), {COLUMN_REGISTRY.get(f[1]) for f in fsr(x)}
+        return ({own} | cols if own in ('Tool', 'Collection') else {own}) - {None, 'Tool'}
     a, b = regs(r), regs(t)
     if not (a and b) or any((x, y) in ALLOWED.get(role, ()) for x in a for y in b):
         return True
-    s, o = fsr(r), fsr(t)
-    return role == 'implements' and bool(s and o and s[2] and o[1] == FIP + 'FAIR-Specification')
+    return role == 'implements' and any(s[2] for s in fsr(r)) and \
+        any(o[1] == FIP + 'FAIR-Specification' for o in fsr(t))
 
 
 def first_date(r):
