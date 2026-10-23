@@ -6,10 +6,9 @@ row in the dataset: every screened candidate keeps its row, with its decision an
 ## 1. Terminology
 
 The terms follow the typology of FAIR Supporting Resources of Magagna et al. 2024 (*Ontological Analysis of FAIR
-Supporting Resources*, CEUR-WS Vol-3882) and the FIP ontology (`https://w3id.org/fair/fip/terms/FIP-Ontology`, read
-from `https://w3id.org/fair/fip/terms/`), whose FSR typology gives the FSR types (data dictionary, FSR type). The
-types were checked against version 20260227 (`https://w3id.org/fair/fip/terms/FIP-Ontology_20260227`), and
-validation warns when the ontology moves on.
+Supporting Resources*, CEUR-WS Vol-3882) and the FIP ontology, whose FSR typology gives the FSR types (data
+dictionary, FSR type, with the ontology version they were checked against); validation warns when the ontology moves
+on.
 
 - A **FAIR Supporting Resource (FSR)** is any resource that supports FAIR implementation.
 - A **FAIR-Enabling Resource (FER)** is an FSR that is essential to the operationalisation of the FAIR principles: a
@@ -17,11 +16,7 @@ validation warns when the ontology moves on.
   structured vocabulary.
 
 The dataset lists standards, databases, policies and guidance, collections, and tools or services that make data or
-metadata findable, accessible, interoperable or reusable, each typed as an FER or another FSR (section
-6). Their FAIRsharing types follow the FAIRsharing registries (standards, databases, policies, collections)
-and their record types; software and services, which FAIRsharing does not register, are recorded as Tool. Initiatives,
-projects and communities are not resources: they appear only through the resources they produced, except FAIR
-Implementation Communities (E1).
+metadata findable, accessible, interoperable or reusable, each typed as an FER or another FSR (section 6).
 
 ## 2. Sources screened
 
@@ -32,9 +27,9 @@ Implementation Communities (E1).
 | FAIRsharing neighbours | Records linked to collection members ("two hops") | Reported only; not screened |
 | PARC Toxicology FIP | Nanopublication `https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E` (7 Sep 2026), read through its declaration index on the retrieval date published with the dataset | Every resource it declares, and the community that declares it |
 | Reference AOP FIP | Nanopublication `https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc` (14 Jul 2025), read the same way | Every resource it declares, and the community that declares it |
-| Co-author additions | Rows added in the curation Sheet | New candidates; the addition documents toxicology use (I4) |
-| Co-author repository inventory | A co-author's list of repositories for toxicology data (a Google Sheet, read 21 Oct 2026; its name and the keys taken from it in the dataset header) | New candidates, added as rows; the listing documents toxicology use (I4) |
-| ELIXIR Toxicology Community documents | Martens et al. 2023, "ELIXIR and Toxicology: a community in development", F1000Research, doi 10.12688/f1000research.74502.2; FAIRsharing's report on the collection, 3 Jul 2025, doi 10.5281/zenodo.15799783; the reports of INTOXICOM workshops 1 to 5, preprints on BioHackrXiv: Martens et al. 2024, doi 10.37044/osf.io/un2rw; Bonatto Minella et al. 2026, doi 10.37044/osf.io/64dfv_v1; Bünger et al. 2026, doi 10.37044/osf.io/u3fnh_v1; for workshop 4 a draft, github.com/TGX-UM/INTOXICOM_Workshop_4; Evelo et al. 2026, doi 10.37044/osf.io/zf2qj_v1 | Mentions of a row, ticked by curators in the sheet; a mention documents toxicology use (I4) |
+| Co-author additions | Rows added in the curation Sheet | New candidates |
+| Co-author repository inventory | A co-author's list of repositories for toxicology data (a Google Sheet, read 21 Oct 2026; its name and the keys taken from it in the dataset header) | New candidates, added as rows |
+| ELIXIR Toxicology Community documents | The documents listed in the data dictionary (Community documents) | Mentions of a row, ticked by curators in the sheet |
 
 The PARC TOXRIC FIP (2024), an earlier FIP of the PARC toxicology community, is known but not imported.
 
@@ -48,12 +43,12 @@ first-release years, DOIs, FAIRsharing records and relations were used as eviden
 A candidate is included when all of these hold:
 
 - **I1** It is a resource, not an organisation, project, community, event or publication, except a FAIR
-  Implementation Community (E1).
+  Implementation Community (section 5).
 - **I2** It is named and identifiable: it has a homepage or a DOI.
 - **I3** It is or was publicly available. Discontinued resources are kept and marked as discontinued.
 - **I4** Its use in toxicology is documented: it is named in the manuscript in a toxicology context, it is a member
   of the FAIRsharing Toxicology collection, it is declared in a toxicology FIP, it is mentioned in an ELIXIR
-  Toxicology Community document (section 2), or a co-author added it.
+  Toxicology Community document, or a co-author added it or listed it in a repository inventory (section 2).
 - **I5** It makes data or metadata findable, accessible, interoperable or reusable.
 
 ## 4. Exclusion reasons
@@ -62,13 +57,13 @@ Each excluded row carries exactly one code.
 
 | Code | Reason | Examples from the manuscript |
 |---|---|---|
-| E1 | Organisation, project, initiative, consortium, community or event, unless a registered FAIR Implementation Community (FIC) nanopublication identifies it (section 5). Its named product is listed as its own row. | EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus |
+| E1 | Organisation, project, initiative, consortium, community or event; its named product is listed instead. For a FAIR Implementation Community (FIC), see section 5. | EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus |
 | E2 | Principle, framework, method or approach, or a publication only, rather than a resource that can be used directly; a standard, database, policy or tool that puts it into practice is listed instead. | The FAIR principles (shown as the 2016 line in the figure), the AOP framework, IATA |
-| E3 | Unnamed or not identifiable. | Services or pipelines mentioned in passing without a name |
+| E3 | Unnamed or not identifiable (no homepage or DOI). | Services or pipelines mentioned in passing without a name |
 | E4 | Never publicly available. | A resource that cannot be found online and has no archived release |
-| E5 | No documented use in toxicology. | A generic resource named only outside a toxicology context |
-| E6 | Duplicate, version or component of another row; that row is named in Covered by. | An alternative name or a version without its own identity |
-| E7 | Outside chemical toxicology. | Toxinology or clinical adverse-event grading resources |
+| E5 | No documented toxicology use. | A generic resource named only outside a toxicology context |
+| E6 | Duplicate, version or component of another row (see Covered by). | An alternative name or a version without its own identity |
+| E7 | Outside chemical toxicology, such as toxinology or clinical adverse-event grading. | Toxinology or clinical adverse-event grading resources |
 | E8 | Test method or guideline that standardises an experiment rather than data or metadata. | An OECD test guideline that describes how to run an assay |
 
 ## 5. Rules for borderline cases
@@ -98,8 +93,7 @@ Each excluded row carries exactly one code.
 
 ## 6. Classification
 
-- **Scope** says what a resource was made for: Generic (infrastructure not specific to a research domain, including
-  FAIR resources such as FAIRsharing and the FIP), Life Sciences (life-science infrastructure) or Toxicology.
+- **Scope** says what a resource was made for (data dictionary, Scope).
 - **FSR types.** Each resource gets every type of the FSR typology of the FIP ontology that applies. When a
   toxicology FIP declares the resource, its types are those of the typology that the FIP's own description gives it.
   Otherwise the kind of resource decides: a database, including a portal or a report
@@ -111,40 +105,35 @@ Each excluded row carries exactly one code.
   Implementation Community has no other type. The class (FAIR-Enabling Resource or other FAIR Supporting Resource)
   follows from the types: a resource is a FAIR-Enabling Resource when one of its types is. FAIR principles are assigned
   only through the FIP questions a resource is declared for, so a resource that no FIP declares has none.
-- **Phase.** A toxicology resource's phase is the data life-cycle phase it acts on, whoever made it: Data generation
-  (supports the planning of individual toxicology studies, the recording of their results and study context, that is
-  metadata, protocols and data processing, and the deposition of study-level datasets linked to that context), Data
-  integration (supports the linking of existing research output from different studies across test systems,
-  stressors, exposures and endpoints, with mechanistic knowledge and models, and includes the derivative objects this
-  produces) or Regulatory assessment (supports the reporting of studies for regulatory submission and the
-  identification and evaluation of toxicology research outputs for a specified regulatory question). When it acts on
-  several, its phase is the earliest at which it must be applied, and every phase it acts on is recorded as its span.
-- **Creator types.** Who created a toxicology resource is recorded separately as one or more creator types: wet-lab
-  research, in silico research and regulator. A resource made by a consortium gets all types that apply; the
-  organisations are named in Creator.
+- **Phase.** A toxicology resource's phase is the data life-cycle phase it acts on, whoever made it (data dictionary,
+  Phase). When it acts on several, its phase is the earliest at which it must be applied, and every phase it acts on
+  is recorded as its span.
+- **Creator types.** Who created a toxicology resource is recorded separately as one or more creator types (data
+  dictionary, Creator types). A resource made by a consortium gets all types that apply; the organisations are named
+  in Creator.
 - **Building on FAIR** is derived, not chosen: a toxicology resource builds on FAIR when it was first published in
   2016 or later and implements, extends, profiles or recommends a generic resource, such as a toxicology FAIR Implementation Profile building on the FIP.
 - **Lanes.** The dashboard places Generic resources in Generic infrastructure, Life Sciences resources in Life sciences
-  infrastructure, and toxicology resources in the lane of their phase (Data generation, Data integration, Regulatory
-  assessment), which together form the toxicology infrastructure. The toxicology lanes can also be arranged by creator
-  type, with one lane for resources made jointly. FAIR Implementation Communities are listed but not drawn.
-- **Sub-domains** are those of the manuscript: in vitro toxicology, nanotoxicology, exposome, eco-toxicology,
-  toxicogenomics, AOP-based mechanistic knowledge, computational and predictive toxicology, regulatory toxicology.
-  They are proposed from the section that discusses a resource and from its FAIRsharing subjects, and a resource
-  may have several.
-- **Type** is the FAIRsharing registry and record type, or Tool.
-- **First published** is the earliest date the resource was publicly available or formally described: its release or
-  launch, the online publication of the paper that first describes it, or the official adoption of guidance. Sources
-  are, in order: the DOI metadata of the describing paper, the first software release, the first ontology release,
-  the publisher's or agency's page, the earliest web archive capture (as a lower bound only), and, as a last resort,
-  FAIRsharing's year of creation. The basis and source of each date are recorded.
-- **Relations** use six FAIRsharing labels: implements, extends, profiles, recommends, deprecates (lineage) and
-  related_to, and one label of the dataset's own, uses (lineage), which FAIRsharing cannot hold. A relation must be
-  possible: FAIRsharing allows its label between the registries of its two resources, a Tool or a Collection also
-  counting as the registry of each of its FSR typology columns, and implements also from a FAIR-Enabling Resource to a
-  FAIR specification; uses is not constrained; a relation that is not possible is a warning, so it waits in the sheet and
-  blocks a release. Each relation records its evidence: the manuscript, FAIRsharing, the literature, or a curator. FIP
-  declarations are not relations: they are read from the FIPs whenever the dashboard or the curation sheet is built.
+  infrastructure, and toxicology resources in the lane of their phase (data dictionary, Lanes). The toxicology lanes,
+  which together form the toxicology infrastructure, can also be arranged by creator type, with one lane for resources
+  made jointly. FAIR Implementation Communities are listed but not drawn.
+- **Sub-domains** are those of the manuscript (data dictionary, Sub-domains). They are proposed from the section that
+  discusses a resource and from its FAIRsharing subjects, and a resource may have several.
+- **FAIRsharing type** is the FAIRsharing registry and record type, or Tool (data dictionary, FAIRsharing type).
+- **First published** is the earliest date the resource was publicly available or formally described, recorded with
+  its basis (data dictionary, Date basis) and its source. Sources are, in order: the DOI metadata of the describing
+  paper, the first software release, the first ontology release, the publisher's or agency's page, the earliest web
+  archive capture (as a lower bound only), and, as a last resort, FAIRsharing's year of creation.
+- **Relations** use the labels of the data dictionary (Relations), which also lists the registry pairs FAIRsharing
+  allows for each label. A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries
+  of its two resources; a Tool, which FAIRsharing does not register, or a Collection also counts as the registry of
+  each of its FSR typology columns (FAIR Data Policy as a Policy, FAIR specification as a Standard, FAIR Supporting
+  Technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification,
+  the domain and range of `fip:implements`. The label uses is always possible, and so is any relation while an end has
+  no FAIRsharing type or is a Tool without an FSR type. A relation that is not possible is a warning (section 7); one
+  that is possible but that FAIRsharing cannot hold is kept and flagged as not enterable in FAIRsharing. A lineage
+  relation to a resource first published in a later year is a warning unless FAIRsharing asserts it. Each relation
+  records its evidence (data dictionary, Relation evidence). FIP declarations are not relations.
 
 ## 7. Process
 
@@ -152,35 +141,34 @@ Each excluded row carries exactly one code.
    were then excluded, so that the counts are complete. The passes were reconciled, every row's line references,
    manuscript status and classification were checked against the text, and a final sweep looked for missed names.
 2. **FAIRsharing and FIPs.** The collection members were added as undecided rows; `fairtox fairsharing --apply` adds
-   new members the same way. A member is matched to a manuscript row only through a recorded FAIRsharing record;
-   homepage and name matches are proposed for a curator to confirm. `fairtox fip` reads both FIPs through their
-   declaration indexes, skips invalidated declarations and reports how each declared resource matches a row (by
-   FAIRsharing record, homepage or name); after review, `fairtox fip --apply` links the matched rows and adds the other
-   declared resources as undecided rows. FAIRsharing record data, collection membership and associations, and the FIP
-   declarations, are read whenever the dashboard or the curation sheet is built, published with their retrieval date
-   and never stored.
+   new members the same way, their curated fields filled from their records. A member is matched to a manuscript row
+   only through a recorded FAIRsharing record; homepage and name matches are proposed for a curator to confirm.
+   `fairtox fip` reads both FIPs through their declaration indexes, skips invalidated declarations and reports how each
+   declared resource matches a row (by FAIRsharing record, homepage or name); after review, `fairtox fip --apply` links
+   the matched rows and adds the other declared resources as undecided rows. FAIRsharing record data and the FIP
+   declarations are never stored: they are read when the outputs are built (data dictionary, Fields added at build
+   time).
 3. **Evidence.** Dates, homepages, descriptions and FAIRsharing records were researched for every included or
    undecided row, each with its source, and checked by a second pass. This research, the screening and classification
    proposals and the relation checks were drafted with an AI-assisted workflow (Claude Opus 5.5, Anthropic) and remain
-   proposals until a curator confirms them (step 4). `data/changes.csv` records each change with its process
-   (research, verification, classification, relation check, phase proposal, review, migration) and source.
+   proposals until a curator confirms them (step 4). `data/changes.csv` records each change with its process and
+   source (data dictionary, Change log).
 4. **Curation.** Co-authors review every row in the curation Sheet. Disagreements are discussed and settled by the
    corresponding authors; the outcome and the reviewer's initials are recorded in the row and in `data/changes.csv`.
    Curators also tick, for each row, the ELIXIR Toxicology Community documents that mention it. A curator confirms a
    row by putting their initials in Reviewed by once every value up to Note is checked, and a relation likewise on the
    Relations tab; its values are then curator decisions. The folded context is not covered. A process that later
    changes a confirmed value empties Reviewed by, so the row is confirmed again. The data refresh reads the Sheet back
-   with `fairtox ingest` three times a day, row by row, and keeps the changes in one pull request for review; each
-   change is logged under the Reviewed by of its row or relation. A row or relation with a problem, or one that would
-   add an error or a warning, waits in the Sheet (a row with its relations) and is listed in the pull request until
-   it is fixed; two lines with the same key both wait, and so do two lines with the same relation unless exactly one
-   of them is signed: that line decides, and the unsigned copies are ignored and listed in the pull request. So does a
-   row or relation that changed in the dataset after the Sheet was made, other than by an earlier read-back, until the
-   Sheet is updated. A relation line whose resource, relation or target is edited replaces its relation; a relation
-   whose line is deleted is left unchanged and listed in the pull request, and Keep set to remove drops it.
-5. **Release.** A version is released by merging the release pull request that release-please keeps open: it sets the
-   version and writes the `CHANGELOG.md` entry from the Conventional Commits since the last release. CI makes the
-   release only after the tests and `fairtox validate --strict` pass.
+   with `fairtox ingest` three times a day, row by row, and keeps the changes in one pull request for review. A row or
+   relation with a problem, or one that would add an error or a warning, waits in the Sheet (a row with its relations)
+   and is listed in the pull request until it is fixed; two lines with the same key both wait, and so do two lines with
+   the same relation unless exactly one of them is signed: that line decides, and the unsigned copies are ignored and
+   listed in the pull request. So does a row or relation that changed in the dataset after the Sheet was made, other
+   than by an earlier read-back, until the Sheet is updated. A relation line whose resource, relation or target is
+   edited replaces its relation; a relation whose line is deleted is left unchanged and listed in the pull request, and
+   Keep set to remove drops it.
+5. **Release.** A version is released by merging the release pull request (README, Data flow); CI makes the release
+   only after the tests pass and `fairtox validate --strict` finds no error or warning.
 
 ## 8. Decision record
 

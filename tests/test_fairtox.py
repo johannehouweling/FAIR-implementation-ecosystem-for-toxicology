@@ -78,12 +78,16 @@ class RepositoryTest(unittest.TestCase):
         if os.path.exists(dataset):
             self.assertEqual(model.load(dataset)['version'], __version__)
 
-    def test_every_vocabulary_value_is_documented(self):
-        with open(os.path.join(ROOT, 'docs', 'data-dictionary.md'), encoding='utf-8') as f:
-            text = f.read()
+    def test_every_vocabulary_value_is_documented_as_the_code_defines_it(self):
+        docs = {}
+        for name in ('data-dictionary.md', 'inclusion-criteria.md'):
+            with open(os.path.join(ROOT, 'docs', name), encoding='utf-8') as f:
+                docs[name] = f.read()
         for name, vocab in model.VOCABULARIES.items():
-            for value in vocab:
+            text = docs['inclusion-criteria.md' if name == 'exclusionReason' else 'data-dictionary.md']   # E1-E8: criteria
+            for value, meaning in vocab.items():
                 self.assertIn(value, text, f'{name}: {value}')
+                self.assertIn(meaning, text, f'{name}: {value}')
 
     def test_a_signed_row_was_not_changed_elsewhere_after_its_signature(self):
         # A signature covers the columns up to Note; a process that changes one of them on a signed row empties

@@ -20,29 +20,28 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
   as identifiers).
 - `data/changes.csv`: every change to a curated field or relation since the first version, with its date, process or
   curator, and source; it is published with the code.
-- `docs/inclusion-criteria.md`: how resources were selected and classified.
-- `docs/data-dictionary.md`: fields with their terms, and the controlled vocabularies.
+- `docs/inclusion-criteria.md`: the rules (how resources are selected, classified, related and curated).
+- `docs/data-dictionary.md`: the format (fields with their terms, and the controlled vocabularies).
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
 - `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
 
 ## Data flow
 
-The dataset stores only what is curated. FAIRsharing record data are read when the dashboard, the curation sheet or
-the FAIRsharing export is built, and the FIP declarations when the dashboard or the sheet is built; both are published
-with their retrieval date. FAIRsharing is read with the login in `.env` (see `.env.example`), the FIPs from their
-nanopublications, and the FIP ontology from its IRI (`https://w3id.org/fair/fip/terms/`), once, into `build/fip`.
-`--offline` reads the local caches in `build/fairsharing` and `build/fip`, left by an earlier run, instead.
+The dataset stores only what is curated; FAIRsharing record data and the FIP declarations are read when the outputs are
+built ([data dictionary](docs/data-dictionary.md#fields-added-at-build-time)). FAIRsharing is read with the login in
+`.env` (see `.env.example`), the FIPs from their nanopublications, and the FIP ontology from its IRI
+(`https://w3id.org/fair/fip/terms/`), once, into `build/fip`. `--offline` reads the local caches in `build/fairsharing`
+and `build/fip`, left by an earlier run, instead.
 
 CI tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
 Discovery profile 1.1 (its SHACL rules, with pyshacl) and, on `main`, publishes the dashboard. Then release-please
 keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
 Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
-Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row with its
-checks and logs every change, under the curator's initials when given. A row with a problem waits in the sheet and is
-listed. A freshly built sheet, once uploaded, needs "Allow multiple selections" switched on for Sub-domains, FSR type and Phase by hand, because
-an .xlsx cannot carry it. A
-workflow reads the sheet back three times a day, then FAIRsharing and the FIPs, and keeps one pull request open with
-what changed; it keeps the exported sheet with the run for 90 days.
+Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row, as the
+[criteria](docs/inclusion-criteria.md#7-process) describe. A freshly built sheet, once uploaded, needs "Allow multiple
+selections" switched on for Sub-domains, FSR type and Phase by hand, because an .xlsx cannot carry it. A workflow
+reads the sheet back three times a day, then FAIRsharing and the FIPs, and keeps one pull request open with what
+changed; it keeps the exported sheet with the run for 90 days.
 
 ## Commands
 
