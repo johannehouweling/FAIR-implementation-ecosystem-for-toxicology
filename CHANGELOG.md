@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.9.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.8.1...v0.9.0) (2026-10-23)
+
+
+### Features
+
+* a contact point for each resource, as an ORCID or ROR link ([9bd0e82](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/9bd0e82e9636d9cb44eb0cfb20d3f082f647e7e7))
+* a resource takes every FSR type that applies ([7d91b2e](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/7d91b2e260a80437bdbef5a7eb0da12a014ff4dc))
+
+
+### Fixes
+
+* **data:** propose the FSR types the toxicology FIPs give their resources ([8ab8165](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/8ab8165c91193b8b39b22ca99698ba05d10d0a96))
+* **model:** keep an FSR type's sentence-case label when it starts with FAIR ([e150610](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/e150610e533ba58ddd222ba7ec40b5591ac8a572))
+
 ## [0.8.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.8.0...v0.8.1) (2026-10-22)
 
 
