@@ -3741,3 +3741,11 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-23,curation sheet 2026-10-23,parcfip,phase,Data integration,Data generation,,curation-sheet.xlsx
 2026-10-23,curation sheet 2026-10-23,parcfip,span,Data integration,Data generation,,curation-sheet.xlsx
 2026-10-23,curation sheet 2026-10-23,toxtemp,relation,(new),related_to eutr_ki,JH,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,bioschemas_deploys,decision,undecided,include,IM,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,bioschemas_deploys,dateReleased,,2016-02-23,IM,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,bioschemas_deploys,dateSource,,https://github.com/BioSchemas/bioschemas.github.io,IM,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,bioschemas_deploys,creator,,ELIXIR Bioschemas Community,IM,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,bioschemas_deploys,description,,"List the sites that use Bioschemas markup to - a direct link to the site, an example deployment page, and a link to test the markup syntax using the Schema.org Markup Validation tool is provided",IM,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,bioschemas_deploys,maintained,,active,IM,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,bioschemas_deploys,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-10-23,curation sheet 2026-10-23,nanopub,relation,(new),uses rdf,Egon,curation-sheet.xlsx

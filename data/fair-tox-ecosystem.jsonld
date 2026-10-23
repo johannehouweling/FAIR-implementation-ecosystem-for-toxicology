@@ -2016,7 +2016,7 @@
    "schemaType": "schema:CreativeWork",
    "key": "bioschemas_deploys",
    "name": "Bioschemas Deploys",
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Collection",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema",
@@ -2024,9 +2024,15 @@
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "scope": "Life Sciences",
+   "dateReleased": "2016-02-23",
+   "dateSource": "https://github.com/BioSchemas/bioschemas.github.io",
+   "creator": "ELIXIR Bioschemas Community",
    "url": "https://bioschemas.org",
+   "description": "List the sites that use Bioschemas markup to - a direct link to the site, an example deployment page, and a link to test the markup syntax using the Schema.org Markup Validation tool is provided",
+   "maintained": "active",
    "fairsharingRecord": "FAIRsharing.a847f0",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA8FeBmXjIXHxm2Zlbyd_BQmviLa4Xa8WhfFf70n4VRP0/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared for F2 and R1.2 as Bioschemas markup, whose schema.org profiles carry descriptive and provenance metadata; FAIRsharing records it as a collection of deployments.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -8095,7 +8101,15 @@
    "fairsharingRecord": "FAIRsharing.a6dcff",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (medium confidence): Mons & Velterop introduced the concept in 'Nano-Publication in the e-Science Era' (SWASD 2009 workshop, CEUR-WS Vol-523, published 2009-10-20, https://ceur-ws.org/Vol-523/Mons.pdf). The model with assertion, provenance and publication info was formalised in Groth, Gibson & Velterop, Inf Serv Use 2010 (online 2010-02-01, doi 10.3233/ISU-2010-0613). Use 2010-02 if the format paper is preferred. FAIRsharing 'Nanopublication Schema' (FAIRsharing.a6dcff): model/format, year 2015, homepage nanopub.net. Creator changed from author names to the authors' organisations (Concept Web Alliance, Netherlands Bioinformatics Centre). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.a6dcff returns id 4396 'Nanopublication Schema' (Nanopub): model_and_format, homepage https://nanopub.net/. This matches the row's URL and type.) Proposed 9 Oct 2026: A model packaging each RDF assertion with its provenance and publication metadata under one verifiable identifier, linking data and metadata.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
+     "hadRole": "uses",
+     "evidence": "curator",
+     "reviewedBy": "Egon"
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#nanosafety_cluster",
