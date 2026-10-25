@@ -241,7 +241,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.10.1",
- "dateModified": "2026-10-23",
+ "dateModified": "2026-10-25",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -825,7 +825,9 @@
     "aopdb2021",
     "The 2021 update of the EPA's adverse outcome pathway database"
    ],
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "aopdb",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
@@ -1084,7 +1086,9 @@
     "AOP-helpFinder 2025 version",
     "btaf381"
    ],
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "aophelp",
    "fairsharingType": "Tool",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
@@ -1902,6 +1906,39 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#bioschemas",
+   "identifier": "https://w3id.org/fair-tox/dataset#bioschemas",
+   "schemaType": "schema:CreativeWork",
+   "key": "bioschemas",
+   "name": "Bioschemas",
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "scope": "Life Sciences",
+   "datePublished": "2017-10-22",
+   "dateSource": "http://ceur-ws.org/Vol-1963/paper579.pdf",
+   "url": "https://bioschemas.org/",
+   "description": "Bioschemas is an open community initiative, supported by ELIXIR, that helps life-science websites describe their resources with schema.org markup so that search engines and registries can find them. It proposes new life-science types and properties to schema.org and publishes profiles that state which properties to use, graded minimum, recommended or optional, for datasets, tools, samples, chemicals, training materials and other resources.",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 2",
+    "INTOXICOM 4"
+   ],
+   "fairsharingMatch": "no record",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.hzdzq8",
+     "hadRole": "extends",
+     "evidence": "curator",
+     "reviewedBy": "Egon"
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.82f7b4",
    "identifier": "https://doi.org/10.25504/FAIRsharing.82f7b4",
    "schemaType": "schema:CreativeWork",
@@ -1927,7 +1964,15 @@
    "fairsharingRecord": "FAIRsharing.82f7b4",
    "fairsharingMatch": "confirmed",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2020 confirmed and refined: 0.4-RELEASE, which the profile calls its first release, has version_date 2020-04-07 in the Bioschemas site source. Earlier public drafts: 0.1-DRAFT-2018_12_07, 0.2-DRAFT-2019_06_11 and 0.3-DRAFT-2019_11_11. A 0.5-DRAFT is in progress. Use 2018-12-07 if the first draft should count. Verified 5 Oct 2026: datePublished changed (The earliest public availability is the first public draft, 0.1-DRAFT-2018_12_07. It is still served at https://bioschemas.org/profiles/ChemicalSubstance/0.1-DRAFT-2018_12_07 ('Version: 07 December 2018'), and the site source gives version_date 20181207. 0.4-RELEASE (2020-04-07) is only the first stable release. The sibling rows bioschemas_dataset_profile, bioschemas_sample_profile and bioschemas_molecularentity are all dated to their first public draft, the first version in the profile's own folder.) Verified 5 Oct 2026: dateSource changed (Source for the first public draft dated 2018-12-07 (see datePublished).) Proposed 9 Oct 2026: Bioschemas profile specifying which schema.org properties describe chemical substance pages, so it defines a metadata schema for substance records.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#bioschemas",
+     "hadRole": "implements",
+     "evidence": "curator",
+     "reviewedBy": "Egon"
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.991d4e",
@@ -2008,7 +2053,15 @@
    "fairsharingRecord": "FAIRsharing.20sbr9",
    "fairsharingMatch": "confirmed",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2019 to the first public draft. Dataset specification v0.1 was on bioschemas.org by 2017-10-03 (git commit c9d53fa; it was drafted in Google Docs earlier in 2017). Versions: 0.2-DRAFT-2018_02_25; first stable 0.3-RELEASE-2019_06_14 (= FAIRsharing year); 1.0-RELEASE 2022-07-12; 1.1-DRAFT 2022-11-11. Use 2019-06-14 if only releases should count. Included through the FAIRsharing Toxicology collection (I4). Proposed 9 Oct 2026: Profile setting which schema.org Dataset properties pages should carry, graded minimum, recommended or optional, giving datasets a consistent metadata schema.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#bioschemas",
+     "hadRole": "implements",
+     "evidence": "curator",
+     "reviewedBy": "Egon"
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.a847f0",
@@ -2064,7 +2117,15 @@
    "fairsharingRecord": "FAIRsharing.ccaad2",
    "fairsharingMatch": "confirmed",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Date changed from FAIRsharing year 2020 to the first public draft under this name, 0.2-DRAFT-2018_11_14. FAIRsharing's 2020 is the first release, 0.5-RELEASE on 2020-04-07. The specifications repository renamed an earlier 'Chemical' draft to MolecularEntity on 2018-11-15. Latest version: 0.7-DRAFT, 2023-04-22. Use 2020-04-07 if only releases should count. Proposed 9 Oct 2026: Bioschemas profile that specifies the schema.org metadata properties for describing chemical entities on web pages.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#bioschemas",
+     "hadRole": "implements",
+     "evidence": "curator",
+     "reviewedBy": "Egon"
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f3a3ca",
@@ -2621,6 +2682,20 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#ciao",
+   "identifier": "https://w3id.org/fair-tox/dataset#ciao",
+   "schemaType": "schema:CreativeWork",
+   "key": "ciao",
+   "name": "CIAO",
+   "decision": "undecided",
+   "url": "https://www.ciao-covid.net/",
+   "description": "(Modelling the Pathogenesis of COVID-19 Using the Adverse Output Pathway Framework)",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.j9y503",
    "identifier": "https://doi.org/10.25504/FAIRsharing.j9y503",
    "schemaType": "schema:CreativeWork",
@@ -3060,17 +3135,25 @@
   {
    "@id": "https://w3id.org/fair-tox/dataset#data_stewardship_wizard_ds",
    "identifier": "https://w3id.org/fair-tox/dataset#data_stewardship_wizard_ds",
-   "schemaType": "schema:CreativeWork",
+   "schemaType": "schema:SoftwareApplication",
    "key": "data_stewardship_wizard_ds",
    "name": "Data Stewardship Wizard (DS-Wizard)",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Tool",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Editor"
+   ],
    "scope": "Generic",
+   "dateReleased": "2016-12-20",
+   "dateSource": "https://github.com/ds-wizard/legacy-wizard/commit/f057bc0f9af7d2947273f8747c312a9b211a6f4f",
    "url": "https://ds-wizard.org/",
+   "description": "The Data Stewardship Wizard is an open-source web platform for writing data management plans together, developed within ELIXIR and begun at the Czech Technical University in Prague. Data stewards encode guidance as knowledge models that drive adaptive questionnaires, and the answers are exported through document templates as readable or machine-actionable plans. Organisations can run their own instances, and the FIP Wizard is built on it.",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 2"
    ],
-   "reviewedBy": "JH"
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.me4qwe",
@@ -4020,16 +4103,19 @@
    "alternateName": [
     "EGA"
    ],
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Database: repository",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "scope": "Life Sciences",
+   "dateReleased": "2008-07-14",
+   "dateSource": "https://web.archive.org/web/20081203005048/http://www.ebi.ac.uk:80/Information/News/pdf/Press14Jul08_EGA.pdf",
    "url": "https://ega-archive.org/",
    "fairsharingRecord": "FAIRsharing.mya1ff",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "JH",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAvLZpSWZUWHdXw_zGEVoU5WHoatBCjQsoea4R0NQIBDY/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for F4 as an archive that indexes and serves controlled-access human genetic and phenotypic data.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
@@ -4079,6 +4165,30 @@
    "manuscript": "comment only",
    "manuscriptEvidence": "IV (to-do notes); L218",
    "note": "Research 5 Oct 2026 (high confidence): The archived page (first capture 2017-07-25) says 'The initial ELIXIR Deposition Databases list was defined in July 2017'. The list is already cited in the BioStudies NAR paper, online 2017-10-23. FAIRsharing has a combined collection, 'ELIXIR Core Data Resources and Deposition Databases' (FAIRsharing.7cbcb7, collection, year 2017); check whether it should stand for this row. The live page returns 403 to automated requests (bot protection), so its current content was not checked directly. Verified 5 Oct 2026: fairsharingRecord changed (One lookup of https://fairsharing.org/FAIRsharing.7cbcb7 returns id 3527 'ELIXIR Core Data Resources and Deposition Databases', a combined collection with homepage https://elixir-europe.org/platforms/data. The row is only the Deposition Databases list (.../elixir-deposition-databases). Name, scope and homepage differ, so it is not clearly the same resource.) Verified 5 Oct 2026: fairsharingMatch changed (The proposed record is the combined Core Data Resources and Deposition Databases collection, not this list, so the match is rejected and the field is cleared.) Proposed 9 Oct 2026: ELIXIR's community recommendation of which repositories to use for depositing life-science data, a convention clarifying resource use for FAIR publishing.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#elixir_lp",
+   "identifier": "https://w3id.org/fair-tox/dataset#elixir_lp",
+   "schemaType": "schema:SoftwareApplication",
+   "key": "elixir_lp",
+   "name": "ELIXIR Learning Paths Handbook",
+   "decision": "include",
+   "fairsharingType": "Tool",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
+   ],
+   "scope": "Life Sciences",
+   "dateReleased": "2024-08-01",
+   "dateSource": "https://github.com/elixir-europe-training/Learning-Paths-Handbook",
+   "url": "https://elixir-europe-training.github.io/Learning-Paths-Handbook/",
+   "description": "The ELIXIR Learning Paths Handbook, by the ELIXIR Training Platform, sets out a six-step protocol for designing learning paths: ordered sequences of courses and training materials that take learners step by step towards defined skills on a subject. It is still under development, and ELIXIR learning paths built with the protocol are curated and published in TeSS.",
+   "maintained": "in development",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 4"
+   ],
+   "reviewedBy": "JH",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
   {
@@ -4951,15 +5061,41 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#european_registry_of_materials",
-   "identifier": "https://w3id.org/fair-tox/dataset#european_registry_of_materials",
+   "@id": "https://doi.org/10.25504/FAIRsharing.c26a4e",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.c26a4e",
    "schemaType": "schema:CreativeWork",
    "key": "european_registry_of_materials",
    "name": "European Registry of Materials identifiers (ERM ID)",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Standard: identifier schema",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Identifier-service"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "dateReleased": "2019-06-11",
+   "dateSource": "https://github.com/NanoCommons/identifiers/commit/3823066c7137781ade64ee7db220be23694e47e3",
+   "url": "https://nanocommons.github.io/identifiers/",
+   "description": "A registry that mints global, unique identifiers (ERM followed by eight digits) for nanomaterials and other materials studied in research projects, including materials whose composition is not disclosed and specific batches or variants. Projects reserve an identifier when they plan to study a material, so that internal documents, datasets and publications refer to the same material and can later be linked to its public data; the identifiers resolve through identifiers.org.",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
+   ],
+   "fairsharingRecord": "FAIRsharing.c26a4e",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
    ]
   },
   {
@@ -5238,16 +5374,30 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#experimental_factor_ontology_efo",
-   "identifier": "https://w3id.org/fair-tox/dataset#experimental_factor_ontology_efo",
+   "@id": "https://doi.org/10.25504/FAIRsharing.1gr4tz",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.1gr4tz",
    "schemaType": "schema:CreativeWork",
    "key": "experimental_factor_ontology_efo",
    "name": "Experimental Factor Ontology (EFO)",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Standard: terminology artefact",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Semantic-model",
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+   ],
+   "scope": "Life Sciences",
+   "datePublished": "2008-06-19",
+   "dateSource": "https://web.archive.org/web/20080725122751/http://bio-ontologies.org.uk/",
+   "url": "https://www.ebi.ac.uk/ols4/ontologies/efo",
+   "description": "The Experimental Factor Ontology (EFO) is an application ontology from EMBL-EBI for the experimental variables recorded in EBI databases, such as diseases, phenotypes, anatomy, cell types and cell lines, chemical compounds and assays. It brings together classes from reference ontologies such as Uberon, ChEBI, the Cell Ontology and MONDO and links them, so that resources such as Expression Atlas, BioSamples, the GWAS Catalog and Open Targets can annotate samples and studies consistently and integrate their data.",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "fairsharingRecord": "FAIRsharing.1gr4tz",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.fbbcf8",
@@ -5413,13 +5563,15 @@
    "schemaType": "schema:CreativeWork",
    "key": "fair_enabling_resource_fer",
    "name": "FAIR enabling resource (FER)",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E2",
    "scope": "Generic",
    "url": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "reviewedBy": "JH"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fairaop",
@@ -5747,14 +5899,24 @@
    "schemaType": "schema:CreativeWork",
    "key": "figshare",
    "name": "figshare",
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Database: repository",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Generalist-Registry"
+   ],
    "scope": "Generic",
+   "dateReleased": "2011-01-12",
+   "dateSource": "https://web.archive.org/web/20110116044659/http://figshare.com/figblog/2011/01/12/figshare-alpha-release",
    "url": "https://figshare.com/",
    "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 3"
+   ],
    "fairsharingRecord": "FAIRsharing.drtwnh",
    "fairsharingMatch": "confirmed",
-   "note": "From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier A), 21 Oct 2026. FAIRsharing record found the same day."
+   "reviewedBy": "JH",
+   "note": "From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier A), 21 Oct 2026. FAIRsharing record found the same day.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fip_wizard",
@@ -6233,6 +6395,37 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#google_datasetsearch",
+   "identifier": "https://w3id.org/fair-tox/dataset#google_datasetsearch",
+   "schemaType": "schema:CreativeWork",
+   "key": "google_datasetsearch",
+   "name": "Google Dataset Search",
+   "decision": "include",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Registry"
+   ],
+   "scope": "Generic",
+   "dateReleased": "2018-09-05",
+   "dateSource": "https://blog.google/products/search/making-it-easier-discover-datasets/",
+   "url": "https://datasetsearch.research.google.com/",
+   "description": "Google Dataset Search is a free search engine for datasets. It indexes the dataset descriptions that publishers put on their web pages, mostly as schema.org markup, across repositories, publishers, government portals and personal sites. Results link back to the hosting pages, so it makes data findable without storing the data itself.",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 1"
+   ],
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.hzdzq8",
+     "hadRole": "implements",
+     "evidence": "curator",
+     "reviewedBy": "Egon"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#harmless",
    "identifier": "https://w3id.org/fair-tox/dataset#harmless",
    "schemaType": "schema:CreativeWork",
@@ -6611,15 +6804,18 @@
    "alternateName": [
     "IntAct"
    ],
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Database: knowledgebase and repository",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "scope": "Life Sciences",
+   "dateReleased": "2003",
+   "dateSource": "https://web.archive.org/web/20031215212402/http://www.ebi.ac.uk:80/intact/index.html",
    "url": "https://www.ebi.ac.uk/intact/home",
    "fairsharingRecord": "FAIRsharing.d05nwx",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "JH",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA26r-ccXnD92eAZxzQHc4RRK2KiHzTd5GJdtO-Nf5jng/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared for F4 as a domain-specific database that indexes and serves curated and deposited molecular interaction records for search.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
@@ -7287,6 +7483,54 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#maoorf",
+   "identifier": "https://w3id.org/fair-tox/dataset#maoorf",
+   "schemaType": "schema:CreativeWork",
+   "key": "maoorf",
+   "name": "Machine-Actionable OECD Omics Reporting Framework",
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Regulatory assessment"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "regulatory toxicology"
+   ],
+   "dateReleased": "2026-10-19",
+   "dateSource": "https://github.com/eu-parc/maoorf/commit/17e1758cd22ee7a25e30ec751097d4ee0fefe9d5",
+   "url": "https://eu-parc.github.io/maoorf/",
+   "description": "A modular LinkML data model that translates the reporting templates of the OECD Omics Reporting Framework (OORF) into a machine-readable schema, with modules for the study summary, the toxicology experiment, data acquisition and processing (microarray, RNA-seq, qRT-PCR, mass spectrometry, NMR) and data analysis. It lets omics study reports for regulatory toxicology be written, validated and exchanged as structured data. It is a community effort of the PARC toxicology community, still in development and not endorsed by the OECD.",
+   "maintained": "in development",
+   "manuscript": "absent",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.41af40",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://github.com/eu-parc/maoorf",
+     "reviewedBy": "JH"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#maqc",
    "identifier": "https://w3id.org/fair-tox/dataset#maqc",
    "schemaType": "schema:CreativeWork",
@@ -7372,14 +7616,21 @@
    "alternateName": [
     "MassBank"
    ],
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
    "scope": "Life Sciences",
+   "dateReleased": "2011",
+   "dateSource": "https://doi.org/10.1093/nar/gkaf1193",
    "url": "https://massbank.eu/MassBank/",
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.dk451a",
    "fairsharingMatch": "confirmed",
-   "note": "From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier B), 21 Oct 2026. FAIRsharing record found the same day."
+   "reviewedBy": "JH",
+   "note": "From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier B), 21 Oct 2026. FAIRsharing record found the same day.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.91yrz6",
@@ -8066,10 +8317,25 @@
    "key": "nanopharos_database",
    "name": "NanoPharos Database",
    "decision": "undecided",
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
    "url": "https://www.db.nanopharos.eu/",
    "manuscript": "absent",
    "mentionedIn": [
-    "INTOXICOM 1"
+    "INTOXICOM 1",
+    "INTOXICOM 3"
+   ],
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
    ]
   },
   {
@@ -9116,6 +9382,7 @@
    ],
    "scope": "Life Sciences",
    "url": "https://www.nasa.gov/osdr/",
+   "reviewedBy": "IM",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAPCOv1L3XA9JrqwfIIsEjaE_9SZAaBDP7HeB2G_lfMKU/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared for F4 as NASA's space-biology repository that indexes and serves omics and physiological study data for search.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -9596,15 +9863,20 @@
    "alternateName": [
     "PubChem CID"
    ],
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Standard: identifier schema",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "scope": "Life Sciences",
+   "dateReleased": "2004",
+   "dateSource": "https://doi.org/10.1093/nar/gkv951",
+   "url": "https://registry.identifiers.org/registry/pubchem.compound",
+   "description": "The PubChem Compound Identifier (CID) is the integer accession that NCBI's PubChem gives to each unique chemical structure, obtained by standardising the structures in depositors' substance records. Registered at identifiers.org under the prefix pubchem.compound, a CID can be cited as a compact identifier that resolves to the compound's PubChem record, so data and metadata can refer to a chemical unambiguously.",
    "mentionedIn": [
     "Whitepaper"
    ],
+   "reviewedBy": "JH",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAKdiL1mjp3OMavCvO6J8_ltIRP7R_cxmSh_JMCTqduFg/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: PubChem's unique, resolvable identifiers for chemical compounds.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "fsr": [
@@ -10244,6 +10516,29 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.hzdzq8",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.hzdzq8",
+   "schemaType": "schema:CreativeWork",
+   "key": "schemadotorg",
+   "name": "schema.org",
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema",
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+   ],
+   "scope": "Generic",
+   "dateReleased": "2011-06-02",
+   "dateSource": "https://developers.google.com/search/blog/2011/06/introducing-schemaorg-search-engines",
+   "url": "https://schema.org/",
+   "description": "Schema.org is a shared vocabulary of types and properties for describing people, places, events, datasets and other things as structured data in web pages, written in JSON-LD, RDFa or Microdata. Google, Microsoft and Yahoo! started it in 2011 and Yandex joined later that year; it is now developed openly through a W3C community group. Search engines and other applications read this markup, and Bioschemas builds its life-science profiles on it.",
+   "manuscript": "absent",
+   "fairsharingRecord": "FAIRsharing.hzdzq8",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#science_friction",
    "identifier": "https://w3id.org/fair-tox/dataset#science_friction",
    "schemaType": "schema:CreativeWork",
@@ -10776,13 +11071,23 @@
    "schemaType": "schema:CreativeWork",
    "key": "tess",
    "name": "ELIXIR TeSS",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
    "scope": "Life Sciences",
+   "dateReleased": "2015-03",
+   "dateSource": "https://doi.org/10.7490/f1000research.1110257.1",
    "url": "https://tess.elixir-europe.org/",
+   "description": "TeSS (Training eSupport System) is ELIXIR's online registry of life-science training. It collects descriptions of training events and materials from ELIXIR Nodes and other providers, automatically (for example by harvesting Bioschemas markup) or by manual registration, and makes them searchable through a portal, an API and embeddable widgets.",
    "manuscript": "absent",
    "mentionedIn": [
-    "INTOXICOM 2"
-   ]
+    "INTOXICOM 2",
+    "INTOXICOM 4"
+   ],
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#tg236",
@@ -11074,9 +11379,24 @@
    "key": "toxic_process_ontology",
    "name": "Toxic Process Ontology",
    "decision": "undecided",
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "url": "https://bioportal.bioontology.org/ontologies/TXPO",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
+   ],
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
    ]
   },
   {
@@ -11329,6 +11649,34 @@
    "fsr": [
     "http://purl.org/np/RAT8JraaK8NUg89sUA5I8lJd-FyRfDvaDadRRJm_oC_nU#UBERON"
    ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#uberon_2",
+   "identifier": "https://w3id.org/fair-tox/dataset#uberon_2",
+   "schemaType": "schema:CreativeWork",
+   "key": "uberon_2",
+   "name": "UBERON",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "uberon",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+   ],
+   "scope": "Life Sciences",
+   "subdomains": [
+    "in vitro toxicology",
+    "exposome",
+    "regulatory toxicology"
+   ],
+   "dateSource": "https://bioportal.bioontology.org/ontologies/UBERON",
+   "contactPoint": [
+    "https://orcid.org/0000-0002-6601-2165"
+   ],
+   "url": "https://obophenotype.github.io/uberon/",
+   "description": "Uberon is an integrated cross-species anatomy ontology representing a variety of entities classified according to traditional anatomical criteria such as structure, function and developmental lineage. The ontology includes comprehensive relationships to taxon-specific anatomical ontologies, allowing integration of functional, phenotype and expression data.",
+   "manuscript": "absent",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#umap",
@@ -11651,17 +11999,29 @@
    ]
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#zenodo",
-   "identifier": "https://w3id.org/fair-tox/dataset#zenodo",
+   "@id": "https://doi.org/10.25504/FAIRsharing.wy4egf",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.wy4egf",
    "schemaType": "schema:CreativeWork",
    "key": "zenodo",
    "name": "Zenodo",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Database: repository",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Generalist-Registry"
+   ],
+   "scope": "Generic",
+   "dateReleased": "2013-05-08",
+   "dateSource": "https://sciencenode.org/feature/cern-and-openaireplus-launch-new-european-research-repository.php",
    "url": "https://zenodo.org/",
+   "description": "Zenodo is a general-purpose open repository, built and run by CERN with OpenAIRE, where researchers from any discipline deposit datasets, software, publications and other research outputs. Each upload gets a DataCite DOI so it can be cited. GitHub repositories can be archived automatically, and records can be grouped in communities and linked to funder grants.",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
-   ]
+   ],
+   "fairsharingRecord": "FAIRsharing.wy4egf",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   }
  ],
  "inLanguage": "en",
