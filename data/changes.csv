@@ -3856,3 +3856,4 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-25,curation sheet 2026-10-25,bioschemas_molecularentity,relation,(new),implements bioschemas,Egon,curation-sheet.xlsx
 2026-10-25,curation sheet 2026-10-25,google_datasetsearch,relation,(new),implements schemadotorg,Egon,curation-sheet.xlsx
 2026-10-25,curation sheet 2026-10-25,maoorf,relation,(new),implements oorf,JH,curation-sheet.xlsx
+2026-10-26,curation sheet 2026-10-26,oecd_qsar_toolbox,url,,https://www.oecd.org/en/data/tools/oecd-qsar-toolbox.html,,curation-sheet.xlsx
