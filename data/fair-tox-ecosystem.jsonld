@@ -3582,6 +3582,24 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#dsstox",
+   "identifier": "https://w3id.org/fair-tox/dataset#dsstox",
+   "schemaType": "schema:CreativeWork",
+   "key": "dsstox",
+   "name": "DSSTox",
+   "decision": "undecided",
+   "manuscript": "absent"
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#dtxsid",
+   "identifier": "https://w3id.org/fair-tox/dataset#dtxsid",
+   "schemaType": "schema:CreativeWork",
+   "key": "dtxsid",
+   "name": "DTXSID",
+   "decision": "undecided",
+   "manuscript": "absent"
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#ec_inventory",
    "identifier": "https://w3id.org/fair-tox/dataset#ec_inventory",
    "schemaType": "schema:CreativeWork",
@@ -10389,6 +10407,15 @@
    "fsr": [
     "http://purl.org/np/RAFP-uWPTN5u2kPR8pYeIgdbwyP1_KYZgoogYIv0Wp-fQ#ROR"
    ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#rrid",
+   "identifier": "https://w3id.org/fair-tox/dataset#rrid",
+   "schemaType": "schema:CreativeWork",
+   "key": "rrid",
+   "name": "RRID",
+   "decision": "undecided",
+   "manuscript": "absent"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#s2cie",
