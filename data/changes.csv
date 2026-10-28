@@ -3860,3 +3860,6 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-28,curation sheet 2026-10-28,maoorf,creator,,PARC Toxicology Community,JH,curation-sheet.xlsx
 2026-10-28,curation sheet 2026-10-28,maoorf,contactPoint,,https://orcid.org/0000-0003-1062-5576,JH,curation-sheet.xlsx
 2026-10-28,curation sheet 2026-10-28,omero,url,,https://www.openmicroscopy.org/omero/,,curation-sheet.xlsx
+2026-10-28,curation sheet 2026-10-28,dsstox,(row),(new),DSSTox,,curation-sheet.xlsx
+2026-10-28,curation sheet 2026-10-28,dtxsid,(row),(new),DTXSID,,curation-sheet.xlsx
+2026-10-28,curation sheet 2026-10-28,rrid,(row),(new),RRID,,curation-sheet.xlsx
