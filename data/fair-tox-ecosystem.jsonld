@@ -241,7 +241,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.10.3",
- "dateModified": "2026-10-26",
+ "dateModified": "2026-10-28",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -7508,6 +7508,10 @@
    ],
    "dateReleased": "2026-10-19",
    "dateSource": "https://github.com/eu-parc/maoorf/commit/17e1758cd22ee7a25e30ec751097d4ee0fefe9d5",
+   "creator": "PARC Toxicology Community",
+   "contactPoint": [
+    "https://orcid.org/0000-0003-1062-5576"
+   ],
    "url": "https://eu-parc.github.io/maoorf/",
    "description": "A modular LinkML data model that translates the reporting templates of the OECD Omics Reporting Framework (OORF) into a machine-readable schema, with modules for the study summary, the toxicology experiment, data acquisition and processing (microarray, RNA-seq, qRT-PCR, mass spectrometry, NMR) and data analysis. It lets omics study reports for regulatory toxicology be written, validated and exchanged as structured data. It is a community effort of the PARC toxicology community, still in development and not endorsed by the OECD.",
    "maintained": "in development",
@@ -8960,6 +8964,7 @@
    "key": "omero",
    "name": "OMERO",
    "decision": "undecided",
+   "url": "https://www.openmicroscopy.org/omero/",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 3"
