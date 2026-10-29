@@ -241,7 +241,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.10.4",
- "dateModified": "2026-10-28",
+ "dateModified": "2026-10-29",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -2835,6 +2835,14 @@
     {
      "@type": "prov:Attribution",
      "hadRole": "Regulator"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#dtxsid",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/s13321-017-0247-6"
     }
    ]
   },
@@ -5988,9 +5996,9 @@
    "dateReleased": "2019-01",
    "dateSource": "http://web.archive.org/web/20240425011817/https://www.go-fair.org/today/FAIR-matrix/",
    "creator": "GO FAIR",
-   "url": "https://doi.org/10.1162/dint_a_00038",
+   "url": "https://fipmatrix.knowledgepixels.com/",
    "description": "The GO FAIR FAIR Convergence Matrix: an online questionnaire platform in which communities of practice record, principle by principle, the standards, vocabularies and services they use to implement FAIR. The answers form their FAIR Implementation Profiles. Combining these choices shows where communities converge, so others can reuse proven FAIR implementation options.",
-   "maintained": "discontinued",
+   "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L59",
    "note": "Research 5 Oct 2026 (medium confidence): Identified as the FAIR Convergence Matrix (seed aliases). Manuscript L59 lists 'FIP Matrix tool' next to FIP Wizard and FAIR Connect, so please confirm the identification. The archived GO FAIR page says the Matrix was launched at the first GO FAIR Implementation Network meeting, 15-16 Jan 2019. Paper: Sustkova et al., Data Intelligence 2(1-2), 2020 (DOI registered 2019-11-01). The GO FAIR page now redirects to the GO FAIR Foundation home page, hence 'discontinued'; FIPs are now made with the FIP Wizard (row fip_wizard). FAIRsharing: DataCite shows no FAIRsharing DOI; the web search budget was used up. Proposed 9 Oct 2026: Online questionnaire in which communities record and edit their FAIR implementation choices, producing FAIR Implementation Profiles.",
@@ -7113,7 +7121,14 @@
    "fairsharingRecord": "FAIRsharing.yhLgTV",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (medium confidence): The first ISA-API release, v0.1 (GitHub release and PyPI isatools 0.1.0, 2016-02-29), already contained the ISA-JSON code (isajson.py, isatab2json, JSON validation). The schemas were developed openly on GitHub during 2015. The formal description came later: ISA API paper, GigaScience, 2021-09-16 (doi:10.1093/gigascience/giab060). The FAIRsharing record 'Investigation Study Assay JSON' (FAIRsharing.yhLgTV, Standard/model_and_format, year 2017) was found through DataCite and confirmed with one lookup. The ISA-API is still released (v0.14.x; commits in 2026). Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.yhLgTV returns 'Investigation Study Assay JSON' (ISA-JSON), Standard/model_and_format, status ready. Its homepage https://isa-specs.readthedocs.io/en/latest/isajson.html is identical to the row's URL.) Proposed 9 Oct 2026: JSON schemas serialising the ISA model of study design, samples, protocols and data files, a machine-actionable metadata schema.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.53gp75",
+     "hadRole": "extends",
+     "evidence": "curator"
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.53gp75",
