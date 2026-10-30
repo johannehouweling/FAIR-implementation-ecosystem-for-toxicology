@@ -3863,3 +3863,7 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-28,curation sheet 2026-10-28,dsstox,(row),(new),DSSTox,,curation-sheet.xlsx
 2026-10-28,curation sheet 2026-10-28,dtxsid,(row),(new),DTXSID,,curation-sheet.xlsx
 2026-10-28,curation sheet 2026-10-28,rrid,(row),(new),RRID,,curation-sheet.xlsx
+2026-10-29,curation sheet 2026-10-29,fipmatrix,url,https://doi.org/10.1162/dint_a_00038,https://fipmatrix.knowledgepixels.com/,,curation-sheet.xlsx
+2026-10-29,curation sheet 2026-10-29,fipmatrix,maintained,discontinued,active,,curation-sheet.xlsx
+2026-10-29,curation sheet 2026-10-29,comptox,relation,(new),implements dtxsid,,curation-sheet.xlsx
+2026-10-29,curation sheet 2026-10-29,isajson,relation,(new),extends isatab,,curation-sheet.xlsx
