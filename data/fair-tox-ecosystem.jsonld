@@ -241,7 +241,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.10.5",
- "dateModified": "2026-10-29",
+ "dateModified": "2026-10-30",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -1756,7 +1756,23 @@
    "fairsharingRecord": "FAIRsharing.6k0kwd",
    "fairsharingMatch": "confirmed",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Brazma et al., NAR 2003 (issue 2003-01-01), states that ArrayExpress has accepted data submissions since February 2002 (verified in the PMC full text). FAIRsharing year 2003 is the year of that paper, so the date is corrected to 2002-02. Homepage returned 200 on 2026-10-05. Kept as its own row although it is now hosted in BioStudies, because it keeps its own name, accessions, submission tool and FAIRsharing record. Include: member of the FAIRsharing Toxicology collection (I4). Proposed 9 Oct 2026: Declared for F4 as a domain-specific archive that indexes functional genomics experiments and their MIAME and MINSEQE metadata for search and reuse.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.32b10v",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/nar/gkg091",
+     "note": "Brazma et al. 2003: ArrayExpress uses the annotation standard MIAME."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.x964fb",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/nar/gkg091",
+     "note": "Brazma et al. 2003: ArrayExpress uses the MAGE-ML data exchange format and takes submissions in it."
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#arraytrack",
@@ -2224,7 +2240,33 @@
    "fairsharingRecord": "FAIRsharing.mtjvme",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): McEntyre, Sarkans & Brazma, 'The BioStudies database', Mol Syst Biol 11:847. PubMed gives the e-publication date as 2015-12-23; Crossref gives published-online 2015-12-28 but shows the DOI created on 2015-12-23. FAIRsharing year 2015. The earliest web capture of ebi.ac.uk/biostudies is 2016-08-06. NAR database paper: 2018 (doi 10.1093/nar/gkx965). Year unchanged; the day is added. Proposed 9 Oct 2026: Declared for F1 because it assigns persistent study accessions; it is also an archive that indexes and serves study records, so registry too.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#dixa",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/nar/gkx965",
+     "reviewedBy": "JH",
+     "note": "Sarkans et al. 2018: BioStudies hosts the study descriptions and data of the diXa data warehouse as the diXa project (S-DIXA accessions)."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.6k0kwd",
+     "hadRole": "deprecates",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/nar/gkaa1062",
+     "reviewedBy": "JH",
+     "note": "Sarkans et al. 2021: ArrayExpress is being migrated to BioStudies and all functional genomics data will be archived there; ArrayExpress continues as a BioStudies collection."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/nar/gkx965",
+     "reviewedBy": "JH",
+     "note": "Sarkans et al. 2018: one submission system for ENA, PRIDE, MetaboLights and BioSamples, with BioStudies holding the top-level record of every dataset."
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.f37bb6",
@@ -2307,6 +2349,49 @@
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Date is the online publication of Barupal & Fiehn, Environ Health Perspect, 2019-09-26 (Crossref, Europe PMC). The earliest homepage capture is 2019-11-07, and FAIRsharing has no year. URL updated to https. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#carcinogenomics",
+   "identifier": "https://w3id.org/fair-tox/dataset#carcinogenomics",
+   "schemaType": "schema:CreativeWork",
+   "key": "carcinogenomics",
+   "name": "carcinoGENOMICS (FP6 project)",
+   "alternateName": [
+    "carcinoGENOMICS"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "in vitro toxicology",
+    "toxicogenomics"
+   ],
+   "creator": "EU FP6 carcinoGENOMICS consortium (coordinator Maastricht University)",
+   "url": "https://cordis.europa.eu/project/id/37712",
+   "description": "EU FP6 integrated project (2006 to 2012, coordinated by Maastricht University) that developed in vitro, genomics-based tests for the genotoxic and carcinogenic properties of chemicals. Its study data were captured in ISA-Tab: the ISA software suite was first developed for this project.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Project, not a resource (E1); its products are the ISA framework row (the ISA software suite version one was developed for carcinoGENOMICS: Rocca-Serra et al. 2010, doi 10.1093/bioinformatics/btq415) and the datasets it deposited. CORDIS: grant 37712, 1 Nov 2006 to 30 Apr 2012; project paper Vinken et al. 2008, doi 10.1016/j.mrrev.2008.04.006.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
     {
      "@type": "prov:Attribution",
      "hadRole": "In silico research"
@@ -2847,6 +2932,18 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#conxbase",
+   "identifier": "https://w3id.org/fair-tox/dataset#conxbase",
+   "schemaType": "schema:CreativeWork",
+   "key": "conxbase",
+   "name": "ConXbase",
+   "decision": "undecided",
+   "url": "https://www.altex.org/index.php/altex/article/view/2216",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026: the link given is the abstract book of the 8th World Congress on Alternatives and Animal Use in the Life Sciences, Montreal 2011 (ALTEX 28, special issue, 352 pages); the name ConXbase is found nowhere else (Europe PMC, OpenAlex, Crossref, FAIRsharing, web search). Needs the page of the abstract and a homepage or DOI; otherwise E3. Left unsigned for that reason."
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#cookbook",
    "identifier": "https://w3id.org/fair-tox/dataset#cookbook",
    "schemaType": "schema:SoftwareApplication",
@@ -3354,6 +3451,13 @@
     }
    ],
    "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#isaconfig_dixa",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://bitbucket.org/kanterae/isaconfig-dixa",
+     "note": "The repository holds the ISAcreator configuration files for the diXa project; Hendrickx et al. 2015: data in diXa are described in ISA-Tab."
+    },
     {
      "relation": "https://w3id.org/fair-tox/dataset#tggates",
      "hadRole": "related_to",
@@ -4413,6 +4517,13 @@
      "evidence": "literature",
      "source": "https://doi.org/10.3762/bjnano.6.165",
      "note": "Checked 5 Oct 2026: The database paper describes importing ISA-Tab files into its data model, which also borrows ISA-Tab's protocol-application concept; the FAIRsharing record behind the earlier evidence could not be read to confirm it."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.njqq5b",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.3762/bjnano.6.165",
+     "note": "Jeliazkova et al. 2015: the import formats of the eNanoMapper database were being extended to ISA-Tab-Nano; added next to the existing enm_db implements isatab line."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
@@ -5635,7 +5746,7 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; Comments [ag]; L135, L391",
    "fairsharingMatch": "no record",
-   "note": "Research 5 Oct 2026 (medium confidence): Corrected from 2023. The ALTEX paper (doi 10.14573/altex.2307131, online 2023-08-01) only says that work on an AOP FIP had started within PARC. The 'Reference Adverse Outcome Pathways FIP' v0.0.1 was first published as a nanopublication on 2025-07-14, from FIP Wizard project 3f1ebb12 and declared by the FAIR-AOPs community. The old url pointed to FIP Wizard project 2f1c0e80 ('Adverse Outcome Pathways FIP'), the draft it was copied from (edits January 2023 to December 2024), which was never nanopublished. The url now points to the published FIP. FAIRsharing: no record. Proposed 9 Oct 2026: Community-agreed list of recommended FAIR-enabling resources per FAIR principle for AOPs, which is a reference FAIR Implementation Profile.",
+   "note": "Research 5 Oct 2026 (medium confidence): Corrected from 2023. The ALTEX paper (doi 10.14573/altex.2307131, online 2023-08-01) only says that work on an AOP FIP had started within PARC. The 'Reference Adverse Outcome Pathways FIP' v0.0.1 was first published as a nanopublication on 2025-07-14, from FIP Wizard project 3f1ebb12 and declared by the FAIR-AOPs community. The old url pointed to FIP Wizard project 2f1c0e80 ('Adverse Outcome Pathways FIP'), the draft it was copied from (edits January 2023 to December 2024), which was never nanopublished. The url now points to the published FIP. FAIRsharing: no record. Proposed 9 Oct 2026: Community-agreed list of recommended FAIR-enabling resources per FAIR principle for AOPs, which is a reference FAIR Implementation Profile. Checked 30 Oct 2026 (MM): the declaring FAIR-AOPs community (row fairaop_cluster; its nanopublication says it was initiated in the CIAO project) is not a PARC community, so this FIP is not listed in the PARC space https://w3id.org/spaces/parc, which shows only FIPs of PARC communities. Gerhard Burger suggested listing it there.",
    "buildsOnFair": true,
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
@@ -6486,6 +6597,50 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#hecatos",
+   "identifier": "https://w3id.org/fair-tox/dataset#hecatos",
+   "schemaType": "schema:CreativeWork",
+   "key": "hecatos",
+   "name": "HeCaToS (FP7 project)",
+   "alternateName": [
+    "HeCaToS",
+    "Hepatic and Cardiac Toxicity Systems modelling"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "in vitro toxicology",
+    "toxicogenomics"
+   ],
+   "creator": "EU FP7 HeCaToS consortium (coordinator Maastricht University)",
+   "url": "https://cordis.europa.eu/project/id/602156",
+   "description": "EU FP7 project (2013 to 2018, coordinated by Maastricht University) on systems modelling of hepatic and cardiac toxicity after repeated dosing, with multi-omics data from human in vitro models. Its dataset is published in BioStudies.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Project, not a resource (E1); its product is the HeCaToS multi-omics dataset in BioStudies (Verheijen et al., Scientific Data 2022, doi 10.1038/s41597-022-01825-1, online 2022-11-14). CORDIS: grant 602156, 1 Oct 2013 to 30 Sep 2018.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.amcv1e",
    "identifier": "https://doi.org/10.25504/FAIRsharing.amcv1e",
    "schemaType": "schema:CreativeWork",
@@ -7093,6 +7248,65 @@
    "manuscriptEvidence": "III Data generation; L100"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#isaconfig_dixa",
+   "identifier": "https://w3id.org/fair-tox/dataset#isaconfig_dixa",
+   "schemaType": "schema:CreativeWork",
+   "key": "isaconfig_dixa",
+   "name": "isaconfig-diXa (ISA-Tab configuration for toxicogenomics)",
+   "alternateName": [
+    "isaconfig-diXa",
+    "diXa ISA-Tab configuration"
+   ],
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "dateReleased": "2013-01-21",
+   "dateSource": "https://bitbucket.org/kanterae/isaconfig-dixa",
+   "creator": "EU FP7 diXa consortium",
+   "url": "https://bitbucket.org/kanterae/isaconfig-dixa",
+   "description": "ISAcreator configuration of the diXa project: ISA-Tab templates and controlled fields for describing toxicogenomics studies for deposition in the diXa data warehouse, carrying the study-level fields of SimpleTox into ISA-Tab.",
+   "maintained": "discontinued",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026 (medium confidence): the public Bitbucket repository with the ISAcreator configuration files was created on 2013-01-21 and last updated on 2014-11-07 (Bitbucket API), so the date is the repository release; alternatives are 2014 (diXa warehouse) or 2014-12-12 (Hendrickx et al., doi 10.1093/bioinformatics/btu827). Listed in the RDA Metadata Standards Catalog as msc:m68, a profile of ISA-Tab; no FAIRsharing record found.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#simpletox",
+     "hadRole": "extends",
+     "evidence": "curator",
+     "note": "DJ, 29 Oct 2026: the SimpleTox study-data fields were adapted in the ISA-Tab configuration of diXa."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.53gp75",
+     "hadRole": "profiles",
+     "evidence": "literature",
+     "source": "https://rdamsc.bath.ac.uk/msc/m68",
+     "note": "The RDA Metadata Standards Catalog lists isaconfig-diXa as a profile of ISA-Tab."
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.yhLgTV",
    "identifier": "https://doi.org/10.25504/FAIRsharing.yhLgTV",
    "schemaType": "schema:CreativeWork",
@@ -7168,7 +7382,69 @@
    "fairsharingRecord": "FAIRsharing.53gp75",
    "fairsharingMatch": "confirmed",
    "note": "Research 5 Oct 2026 (high confidence): The year is confirmed. The first description is the RSBI ISA-TAB workshop report, OMICS 12(2) (Crossref issue/online date 2008-06-01; PubMed 2008 Jun). The DOI was registered on 2008-04-30 and PubMed indexed it on 2008-05-02, so the online date is uncertain and I kept year precision. The format was proposed at the workshop held 6-8 Dec 2007 at the EBI, where toxicogenomics was among the RSBI communities. FAIRsharing yearCreation 2010 reflects the ISA software suite. I refined the creator because ISA-Tab started at EMBL-EBI before the team moved to Oxford. Proposed 9 Oct 2026: A FIP declares it for F2; ISA is a metadata model and tabular format for describing study design, samples, protocols and data files.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.ak8p5g",
+     "hadRole": "extends",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/bioinformatics/btq415",
+     "note": "Rocca-Serra et al. 2010: ISA-Tab complements and extends the existing omics formats and shares its syntax and tab-delimited files with ArrayExpress' MAGE-Tab."
+    }
+   ]
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.njqq5b",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.njqq5b",
+   "schemaType": "schema:CreativeWork",
+   "key": "isatabnano",
+   "name": "ISA-TAB-Nano",
+   "alternateName": [
+    "ISA-TAB-Nano"
+   ],
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "nanotoxicology"
+   ],
+   "datePublished": "2013-01-14",
+   "dateSource": "https://doi.org/10.1186/1472-6750-13-2",
+   "creator": "NCI caBIG Nanotechnology Working Group",
+   "url": "https://doi.org/10.1186/1472-6750-13-2",
+   "description": "Extension of the ISA-Tab format for sharing nanomaterial research data in spreadsheets: a material file describes the nanomaterial and its components, and the study and assay files gain columns for material samples and their characterisation. Specified by the Nanotechnology Working Group of NCI caBIG, it was taken up by nanosafety databases such as the eNanoMapper database.",
+   "maintained": "unknown",
+   "manuscript": "absent",
+   "fairsharingRecord": "FAIRsharing.njqq5b",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026 (high confidence): first description Thomas et al., BMC Biotechnology 2013, online 2013-01-14 (Crossref). FAIRsharing record ready, year 2012; its homepage, the NCI wiki page wiki.nci.nih.gov/display/ICR/ISA-TAB-Nano, answered 404 on 29 Oct 2026, so the URL is the paper and the maintenance status is unknown.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.53gp75",
+     "hadRole": "extends",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/1472-6750-13-2",
+     "note": "Thomas et al. 2013: ISA-TAB-Nano is based on the ISA-TAB specification and extends its study file."
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#iuclid",
@@ -7516,6 +7792,102 @@
    ]
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.x964fb",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.x964fb",
+   "schemaType": "schema:CreativeWork",
+   "key": "mageml",
+   "name": "MAGE-ML (MicroArray Gene Expression Markup Language)",
+   "alternateName": [
+    "MAGE-ML",
+    "MicroArray Gene Expression Markup Language"
+   ],
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "scope": "Life Sciences",
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "datePublished": "2002-08-23",
+   "dateSource": "https://doi.org/10.1186/gb-2002-3-9-research0046",
+   "creator": "FGED (MGED) Society; Object Management Group",
+   "url": "https://www.omg.org/spec/GENE/",
+   "description": "XML format of the MGED Society for exchanging microarray gene expression data and their annotation, generated from the MAGE object model and adopted by the Object Management Group as its Gene Expression specification. It carried MIAME-compliant data between laboratories, tools and public repositories such as ArrayExpress until the simpler MAGE-TAB replaced it.",
+   "maintained": "discontinued",
+   "manuscript": "absent",
+   "fairsharingRecord": "FAIRsharing.x964fb",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026 (high confidence): first description Spellman et al., Genome Biology 2002, online 2002-08-23 (Crossref). FAIRsharing deprecated the record on 2016-02-16 and points to MAGE-TAB or ISA-Tab instead. The mged.org homepage that FAIRsharing lists no longer belongs to the MGED Society, so the URL is the OMG Gene Expression specification page.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.32b10v",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/gb-2002-3-9-research0046",
+     "note": "Spellman et al. 2002: MAGE-OM, from which MAGE-ML is generated, is a MIAME-compliant conceptualisation of microarray experiments."
+    }
+   ]
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.ak8p5g",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ak8p5g",
+   "schemaType": "schema:CreativeWork",
+   "key": "magetab",
+   "name": "MAGE-TAB (MicroArray Gene Expression Tabular format)",
+   "alternateName": [
+    "MAGE-TAB",
+    "MicroArray Gene Expression Tabular format"
+   ],
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "scope": "Life Sciences",
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "datePublished": "2006-11-06",
+   "dateSource": "https://doi.org/10.1186/1471-2105-7-489",
+   "creator": "FGED (MGED) Society; EMBL-EBI",
+   "url": "https://www.fged.org/projects/mage-tab/",
+   "description": "Tab-delimited, spreadsheet-based format of the MGED Society for MIAME-compliant microarray data and metadata, with an investigation description file (IDF) and a sample and data relationship file (SDRF). It replaced MAGE-ML as the submission format of ArrayExpress, and ISA-Tab shares its syntax.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingRecord": "FAIRsharing.ak8p5g",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026 (high confidence): first description Rayner et al., BMC Bioinformatics 2006, online 2006-11-06 (Crossref). FAIRsharing record ready, year 2006, homepage fged.org/projects/mage-tab.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.32b10v",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/1471-2105-7-489",
+     "note": "Rayner et al. 2006 present MAGE-TAB as a MIAME-supportive format for microarray data."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.6k0kwd",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/1471-2105-7-489",
+     "note": "Rayner et al. 2006: MAGE-TAB was designed from the structure of ArrayExpress investigations and ArrayExpress accepts submissions in it; ArrayExpress is older, so the link is not drawn as lineage."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.x964fb",
+     "hadRole": "deprecates",
+     "evidence": "FAIRsharing",
+     "source": "https://doi.org/10.25504/FAIRsharing.x964fb",
+     "note": "FAIRsharing deprecated MAGE-ML on 2016-02-16 and points to MAGE-TAB; Rayner et al. 2006 define a unique mapping between MAGE-TAB and MAGE-ML."
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#maoorf",
    "identifier": "https://w3id.org/fair-tox/dataset#maoorf",
    "schemaType": "schema:CreativeWork",
@@ -7620,7 +7992,16 @@
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation; Comments [m]; L99, L363",
    "note": "Research 5 Oct 2026 (medium confidence): There is no release, tag or paper. The GitHub history starts with an initial commit on 2023-05-26, with public work at BioHackathon Europe 2023 (commits 2023-10-30/11-01). The MARS site traces the project back to BioHackathon Europe 2022, and a BioHackathon 2024 report draft is in paper.md. The earliest web capture is 2024-05-11. The status page shows proofs of concept, none deployed, hence 'in development'. I changed the URL to the project website (the repo is github.com/elixir-europe/MARS). I removed 'computational and predictive toxicology' because MARS is a submission tool, not a model. I found no FAIRsharing DOI record through DataCite; FAIRsharing does not register software. Proposed 9 Oct 2026: Framework that automates submitting ISA-JSON-described multi-omics studies to several public repositories, publishing them with consistent metadata and accessions.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.yhLgTV",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://elixir-europe.github.io/MARS/#isa-json-as-metadata-carrier",
+     "note": "The MARS site: ISA-JSON is the metadata carrier of MARS, used to store and exchange metadata between end users and the target repositories, with a MARS ISA-JSON schema of its own. Proposed by JH on 29 Oct 2026."
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#martens2023elixir",
@@ -9045,6 +9426,50 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#ontox",
+   "identifier": "https://w3id.org/fair-tox/dataset#ontox",
+   "schemaType": "schema:CreativeWork",
+   "key": "ontox",
+   "name": "ONTOX (Horizon 2020 project)",
+   "alternateName": [
+    "ONTOX"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration",
+    "Regulatory assessment"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "in vitro toxicology",
+    "computational and predictive toxicology"
+   ],
+   "creator": "EU Horizon 2020 ONTOX consortium (coordinator Vrije Universiteit Brussel)",
+   "url": "https://ontox-project.eu/",
+   "description": "EU Horizon 2020 project (2021 to 2026, coordinated by Vrije Universiteit Brussel) that develops ontology-driven and artificial-intelligence-based repeated dose toxicity testing for next generation risk assessment. Its toxicogenomics data are deposited in BioStudies.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Project, not a resource (E1); kick-off paper Vinken et al., Toxicology 2021, doi 10.1016/j.tox.2021.152846. CORDIS: grant 963845, 1 May 2021 to 31 Oct 2026.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.41af40",
    "identifier": "https://doi.org/10.25504/FAIRsharing.41af40",
    "schemaType": "schema:CreativeWork",
@@ -9603,7 +10028,7 @@
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; Comments [g]; L60",
    "fairsharingMatch": "no record",
-   "note": "Research 5 Oct 2026 (medium confidence): The year 2026 is confirmed and now has a full date. The 'PARC Toxicology' FIP v0.1.0 nanopublication has dct:created 2026-09-07. It comes from FIP Wizard project 618ed60e, drafted since September 2023, with creators from the University of Birmingham and GO FAIR Foundation. The same PARC Toxicology community published earlier FIPs: 'PARC TOXRIC FIP' (first nanopublication 2023-04-17, updated 2024-01-22) and 'PARC Toxicology rFIP' v0.0.1 (2025-06-25) and v0.0.2 (2026-03-02). If the row stands for PARC toxicology FIPs in general, use 2023-04-17. Type changed from 'Standard: model/format' to 'Collection' to match fairaop, since a FIP lists the FAIR-enabling resources a community chose. FAIRsharing: no record. Proposed 9 Oct 2026: The PARC Chemicals Toxicology community's FIP, declaring for each FAIR principle the FAIR-enabling resources it uses, published as nanopublications.",
+   "note": "Research 5 Oct 2026 (medium confidence): The year 2026 is confirmed and now has a full date. The 'PARC Toxicology' FIP v0.1.0 nanopublication has dct:created 2026-09-07. It comes from FIP Wizard project 618ed60e, drafted since September 2023, with creators from the University of Birmingham and GO FAIR Foundation. The same PARC Toxicology community published earlier FIPs: 'PARC TOXRIC FIP' (first nanopublication 2023-04-17, updated 2024-01-22) and 'PARC Toxicology rFIP' v0.0.1 (2025-06-25) and v0.0.2 (2026-03-02). If the row stands for PARC toxicology FIPs in general, use 2023-04-17. Type changed from 'Standard: model/format' to 'Collection' to match fairaop, since a FIP lists the FAIR-enabling resources a community chose. FAIRsharing: no record. Proposed 9 Oct 2026: The PARC Chemicals Toxicology community's FIP, declaring for each FAIR principle the FAIR-enabling resources it uses, published as nanopublications. Checked 30 Oct 2026 (MM): declared by the PARC Toxicology community (row parctoxicology), whose description includes the development of adverse outcome pathways, yet none of the 89 declarations of v0.1.0 names an AOP resource (AOP-Wiki, AOP-KB, AOP Ontology); AOP resources are declared only in the Reference AOP FIP (fairaop). Listed in the PARC space https://w3id.org/spaces/parc with the PARC HBM FIP (parchbmfip) and the PARC TOXRIC FIP (parctoxric).",
    "buildsOnFair": true,
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
@@ -9654,6 +10079,35 @@
    ],
    "note": "FAIR Implementation Community that declares PARC Toxicology FAIR Implementation Profile, from its FIC nanopublication. Retrieved 2026-10-08.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#parctoxric",
+   "identifier": "https://w3id.org/fair-tox/dataset#parctoxric",
+   "schemaType": "schema:CreativeWork",
+   "key": "parctoxric",
+   "name": "PARC TOXRIC FAIR Implementation Profile",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "parcfip",
+   "fairsharingType": "Collection",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "dateReleased": "2023-04-17",
+   "dateSource": "https://w3id.org/np/RAllERFvC1zFXu7uTmQ1Dibvrh-VIr4l1XKM54oQKeZog",
+   "creator": "PARC (Chemicals Toxicology Community)",
+   "url": "https://w3id.org/np/RAllERFvC1zFXu7uTmQ1Dibvrh-VIr4l1XKM54oQKeZog",
+   "description": "Earlier FAIR Implementation Profile of the PARC Toxicology community, published as nanopublications from the FIP Wizard before the PARC Toxicology FIP v0.1.0.",
+   "maintained": "unknown",
+   "manuscript": "absent",
+   "reviewedBy": "MM",
+   "note": "Added 30 Oct 2026 (MM) from the PARC space on Nanodash (https://w3id.org/spaces/parc). Declared by the same PARC Toxicology community as parcfip. The URL is the version of 2024-01-22 that the space lists; its supersedes chain goes back to a first nanopublication of 2023-04-17. Excluded as an earlier profile of the same community, covered by parcfip. Cited in the manuscript, Section II FIP paragraph.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#pbk",
@@ -9806,6 +10260,50 @@
     {
      "@type": "prov:Attribution",
      "hadRole": "Regulator"
+    }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#precisiontox",
+   "identifier": "https://w3id.org/fair-tox/dataset#precisiontox",
+   "schemaType": "schema:CreativeWork",
+   "key": "precisiontox",
+   "name": "PrecisionTox (Horizon 2020 project)",
+   "alternateName": [
+    "PrecisionTox",
+    "Precision Toxicology"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "computational and predictive toxicology"
+   ],
+   "creator": "EU Horizon 2020 PrecisionTox consortium (coordinator University of Birmingham)",
+   "url": "https://www.precisiontox.org/",
+   "description": "EU Horizon 2020 project (2021 to 2026, coordinated by the University of Birmingham) that uses omics across model species and human cells to find evolutionarily conserved toxicity pathways and biomarkers for chemical safety assessment without animal testing.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Project, not a resource (E1); initiative paper in Toxicology Letters 2023, doi 10.1016/j.toxlet.2023.05.004. CORDIS: grant 965406, 1 Feb 2021 to 31 Dec 2026.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
     }
    ]
   },
@@ -10773,6 +11271,67 @@
    "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify."
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#simpletox",
+   "identifier": "https://w3id.org/fair-tox/dataset#simpletox",
+   "schemaType": "schema:CreativeWork",
+   "key": "simpletox",
+   "name": "SimpleTox",
+   "alternateName": [
+    "SimpleTox"
+   ],
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Regulatory assessment"
+   ],
+   "creatorType": [
+    "Regulator"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "regulatory toxicology"
+   ],
+   "datePublished": "2010-08-01",
+   "dateSource": "https://doi.org/10.1186/1479-7364-4-6-428",
+   "creator": "US FDA NCTR",
+   "url": "https://doi.org/10.1186/1479-7364-4-6-428",
+   "description": "Spreadsheet-based format of FDA NCTR for the summary-level animal toxicology study data that accompany toxicogenomics experiments, with the main fields of CDISC SEND combined and extracted. It was the data import format of ArrayTrack and was used for study data from the MAQC project onwards; the diXa project later adapted its fields in ISA-Tab.",
+   "maintained": "discontinued",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Study data format of early toxicogenomics, used from the MAQC project on and adapted in ISA-Tab by diXa. Research 29 Oct 2026 (medium confidence): the earliest description found is the ArrayTrack update, Xu et al., Human Genomics 2010, online 2010-08-01 (Crossref), which calls it an internally developed CDISC/SEND-compliant data import format; DJ reports use since the MAQC project (2005 onwards), so an earlier source would move the date. No homepage, specification document or FAIRsharing record found; the URL is the paper.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Regulator"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#arraytrack",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/1479-7364-4-6-428",
+     "note": "Xu et al. 2010: SimpleTox is ArrayTrack's data import format; ArrayTrack is older, so the link is not drawn as lineage."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.7z842d",
+     "hadRole": "profiles",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1186/1479-7364-4-6-428",
+     "note": "Xu et al. 2010 call SimpleTox a CDISC/SEND-compliant format; DJ: the main fields of SEND, combined and extracted."
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.qv4b3c",
    "identifier": "https://doi.org/10.25504/FAIRsharing.qv4b3c",
    "schemaType": "schema:CreativeWork",
@@ -11290,6 +11849,72 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#toxbank_dw",
+   "identifier": "https://w3id.org/fair-tox/dataset#toxbank_dw",
+   "schemaType": "schema:CreativeWork",
+   "key": "toxbank_dw",
+   "name": "ToxBank Data Warehouse",
+   "alternateName": [
+    "ToxBank"
+   ],
+   "decision": "include",
+   "fairsharingType": "Database: repository",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Data integration"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "in vitro toxicology",
+    "toxicogenomics"
+   ],
+   "datePublished": "2013-01-17",
+   "dateSource": "https://doi.org/10.1002/minf.201200114",
+   "creator": "SEURAT-1 ToxBank consortium",
+   "url": "https://doi.org/10.1002/minf.201200114",
+   "description": "Data warehouse of the SEURAT-1 research cluster for the in vitro and omics data and protocols of its seven FP7 projects on repeated dose systemic toxicity, built on ISA-Tab, RESTful web services, RDF and the OpenTox standards. The toxbank.net site survives only as an archive.",
+   "maintained": "discontinued",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026 (high confidence): first description Kohonen et al., Molecular Informatics 2013, online 2013-01-17 (Crossref, Europe PMC); the abstract names ISA-Tab, REST, RDF and the OpenTox standards as its core technologies. toxbank.net is archive only, so the URL is the paper. No FAIRsharing record found.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#opentox",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1002/minf.201200114",
+     "note": "Kohonen et al. 2013: the data warehouse is built on the OpenTox standards."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.53gp75",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1002/minf.201200114",
+     "note": "Kohonen et al. 2013: the data warehouse is built on the ISA-Tab data exchange format."
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#toxcast",
    "identifier": "https://w3id.org/fair-tox/dataset#toxcast",
    "schemaType": "schema:CreativeWork",
@@ -11598,6 +12223,45 @@
      "evidence": "literature",
      "source": "https://doi.org/10.14573/altex.1909271",
      "note": "Checked 5 Oct 2026: ToxTemp was designed to meet all GD211 requirements and adds user guidance, acceptance criteria and description of the cell system, so as one reporting standard built on another it extends GD211 (FAIRsharing allows implements only from a database to a standard)."
+    }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#transqst",
+   "identifier": "https://w3id.org/fair-tox/dataset#transqst",
+   "schemaType": "schema:CreativeWork",
+   "key": "transqst",
+   "name": "TransQST (IMI2 project)",
+   "alternateName": [
+    "TransQST",
+    "Translational quantitative systems toxicology"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "computational and predictive toxicology"
+   ],
+   "creator": "IMI2 TransQST consortium (coordinator University of Liverpool)",
+   "url": "https://cordis.europa.eu/project/id/116030",
+   "description": "IMI2 project (2017 to 2022, coordinated by the University of Liverpool) that built translational quantitative systems toxicology models of drug safety from omics and clinical data. Its toxicogenomics data are deposited in BioStudies.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Project, not a resource (E1); project paper Ferreira et al., Chemical Research in Toxicology 2020, doi 10.1021/acs.chemrestox.9b00499 (online 2020-01-07). CORDIS: grant 116030, 1 Jan 2017 to 31 Aug 2022; the project website is no longer listed.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
     }
    ]
   },
