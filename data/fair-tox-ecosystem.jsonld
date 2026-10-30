@@ -1830,6 +1830,50 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#aspis",
+   "identifier": "https://w3id.org/fair-tox/dataset#aspis",
+   "schemaType": "schema:CreativeWork",
+   "key": "aspis",
+   "name": "ASPIS cluster",
+   "alternateName": [
+    "ASPIS",
+    "Animal-free Safety assessment of chemicals: Project cluster for Implementation of novel Strategies"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "in vitro toxicology",
+    "toxicogenomics"
+   ],
+   "creator": "ONTOX, PrecisionTox and RISK-HUNT3R consortia",
+   "url": "https://aspis-cluster.eu/",
+   "description": "Animal-free Safety assessment of chemicals: Project cluster for Implementation of novel Strategies, the joint collaboration of the Horizon 2020 projects ONTOX, PrecisionTox and RISK-HUNT3R towards animal-free chemical risk assessment.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Project cluster, not a resource (E1); its projects have rows of their own (ontox, precisiontox, risk_hunt3r), and GC notes that BioStudies collects the toxicogenomics results of the cluster. Homepage read 30 Oct 2026.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.mye76w",
    "identifier": "https://doi.org/10.25504/FAIRsharing.mye76w",
    "schemaType": "schema:CreativeWork",
@@ -2516,6 +2560,69 @@
    "url": "https://www.cdisc.org",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory; L178, L188, L193"
+  },
+  {
+   "@id": "https://doi.org/10.25504/FAIRsharing.ntv8pe",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.ntv8pe",
+   "schemaType": "schema:CreativeWork",
+   "key": "cebs",
+   "name": "Chemical Effects in Biological Systems",
+   "alternateName": [
+    "CEBS"
+   ],
+   "decision": "include",
+   "fairsharingType": "Database: repository",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Data integration"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "regulatory toxicology"
+   ],
+   "datePublished": "2003-01",
+   "dateSource": "https://pubmed.ncbi.nlm.nih.gov/12735106/",
+   "creator": "NIEHS and the US National Toxicology Program",
+   "contactPoint": [
+    "https://ror.org/00j4k1h63"
+   ],
+   "url": "https://cebs.niehs.nih.gov/cebs/",
+   "description": "Public NIEHS repository of toxicology study data: the individual-animal and summary data of the US National Toxicology Program studies, and data deposited by academic, industrial and government laboratories, held with their study design so that studies can be compared and combined. It holds the NTP data collections (now DTT Data Collections) and the complete DrugMatrix database.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingRecord": "FAIRsharing.ntv8pe",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Research 30 Oct 2026 (high confidence): first description Waters et al., EHP Toxicogenomics 111(1T), January 2003 (PubMed 12735106); the DOI 10.1289/ehp.5971 carries its EHP version of May 2003. FAIRsharing year 2003. Lea et al., NAR 2017 (doi 10.1093/nar/gkw1077): CEBS compiles the individual and summary animal data of the NTP testing programme and of other depositors. CEBS is cited as https://doi.org/10.22427/NTP-DATA-1; its NTP Data Collections were renamed DTT Data Collections in September 2025 (release v7.5.2), and release v7.6.1 came out on 24 June 2026. The National Toxicology Program itself would be E1, so CEBS stands for its data.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#drugmatrix",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.22427/NTP-DATA-107-022-001-000-3",
+     "note": "The complete DrugMatrix database (PostgreSQL dump with histopathology, clinical pathology, in vitro assay and normalised microarray data) is deposited in CEBS under its own DOI; Lea et al. 2017 (doi 10.1093/nar/gkw1077): CEBS guided search gives access to the DrugMatrix toxicogenomic profiles. Proposed by JH on 30 Oct 2026."
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.6945dq",
@@ -3345,6 +3452,67 @@
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Excluded E7: bacterial toxins (toxinology and infection) are outside chemical toxicology. Date is the online publication of Chakraborty et al., NAR, 2011-11-17 (Crossref), the same year as FAIRsharing. FAIRsharing status is deprecated, although the static site still resolves."
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#dbzach",
+   "identifier": "https://w3id.org/fair-tox/dataset#dbzach",
+   "schemaType": "schema:CreativeWork",
+   "key": "dbzach",
+   "name": "dbZach",
+   "alternateName": [
+    "dbZACH"
+   ],
+   "decision": "include",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Data integration"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "dateReleased": "2001-09-28",
+   "dateSource": "https://web.archive.org/web/20010928121744/http://dbzach.fst.msu.edu/",
+   "creator": "Zacharewski laboratory, Michigan State University",
+   "contactPoint": [
+    "https://ror.org/05hs6h993"
+   ],
+   "url": "https://doi.org/10.1093/toxsci/kfj097",
+   "description": "Relational database of the Zacharewski laboratory at Michigan State University for toxicology and toxicogenomics data, with tools to enter, retrieve and mine them: genes, clones, sample annotation and protocols, microarray, Affymetrix, real-time PCR and toxicology data, and gene regulation, pathway and orthology information, compliant with MIAME. It is no longer accessible.",
+   "maintained": "discontinued",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 30 Oct 2026 (DJ, list of toxicogenomics database references). Research 30 Oct 2026 (high confidence): the earliest web capture of http://dbzach.fst.msu.edu, 28 Sep 2001, shows the dbZACH interface with gene and clone queries, so it was public by then (lower bound). Burgoon et al., Toxicological Sciences 2006 (online 2006-01-10) describe the MIAME-compliant database, and Burgoon and Zacharewski, Pharmacogenomics 2007 (doi 10.2217/14622416.8.3.287), the information management system. DJ notes that the database is no longer accessible. FAIRsharing: no record.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.32b10v",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/toxsci/kfj097",
+     "note": "Burgoon et al. 2006: the subsystems of dbZach comply with the Minimum Information About a Microarray Experiment (MIAME). Proposed by JH on 30 Oct 2026."
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#dc_data_explorer",
    "identifier": "https://w3id.org/fair-tox/dataset#dc_data_explorer",
    "schemaType": "schema:SoftwareApplication",
@@ -3601,6 +3769,56 @@
    "fairsharingMatch": "confirmed",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The date is a lower bound: a Wayback capture of www.drugbank.ca on 2002-12-09 shows the DrugBank homepage of the Wishart lab with browse and query tools, marked 'Last updated: July 5, 2002'. The FAIRsharing year is 2004. The first describing paper is Wishart et al., NAR, 2006-01-01 (https://doi.org/10.1093/nar/gkj067; PMC release 2005-12-28). URL updated: drugbank.ca now redirects to go.drugbank.com. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#drugmatrix",
+   "identifier": "https://w3id.org/fair-tox/dataset#drugmatrix",
+   "schemaType": "schema:CreativeWork",
+   "key": "drugmatrix",
+   "name": "DrugMatrix",
+   "decision": "include",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Data integration"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "in vitro toxicology",
+    "toxicogenomics"
+   ],
+   "datePublished": "2005-09",
+   "dateSource": "https://doi.org/10.1016/j.jbiotec.2005.03.022",
+   "creator": "Iconix Pharmaceuticals; US National Toxicology Program (NIEHS) from late 2010",
+   "contactPoint": [
+    "https://ror.org/00j4k1h63"
+   ],
+   "url": "https://ntp.niehs.nih.gov/data/drugmatrix",
+   "description": "Toxicogenomics reference database of short-term rat studies of about 600 drugs and other chemicals: gene expression in up to seven tissues and in cultured rat hepatocytes, paired with histopathology, clinical chemistry, haematology and in vitro pharmacology assays. Built by Iconix Pharmaceuticals, it was taken over by the US National Toxicology Program in late 2010 and made free; the complete database is now in CEBS and the gene expression data in GEO.",
+   "maintained": "discontinued",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Research 30 Oct 2026 (high confidence): first description Ganter et al., J Biotechnol 2005 (Crossref: issued September 2005): about 600 compounds profiled in up to seven rat tissues. An NTP presentation (Auerbach, 13 Dec 2012, https://healthandenvironment.org/docs/Auerbach-CHE-2012.pdf) states that Iconix Pharmaceuticals and Entelos owned it, that the NTP acquired it in late 2010 and that the NTP opened it to the public at no fee. The NTP page (read 30 Oct 2026) says the NTP no longer hosts the DrugMatrix and ToxFX web applications; it offers their source code, DrugMatrix PathxGene and the GEO series, and the complete database is in CEBS (https://doi.org/10.22427/NTP-DATA-107-022-001-000-3), hence discontinued. FAIRsharing type knowledgebase because it takes no deposits. FAIRsharing: no record.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.wkggtx",
@@ -5761,6 +5979,14 @@
    ],
    "qualifiedRelation": [
     {
+     "relation": "https://w3id.org/fair-tox/dataset#fip_wizard",
+     "hadRole": "uses",
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
+     "reviewedBy": "MM",
+     "note": "Checked 30 Oct 2026: the provenance of the FIP nanopublication names the FIP Wizard (https://fip.fair-wizard.com/wizard) as its creator, so the profile was built with that tool."
+    },
+    {
      "relation": "https://w3id.org/fair-tox/dataset#fipwiz",
      "hadRole": "implements",
      "evidence": "literature",
@@ -5815,7 +6041,17 @@
    "mentionedIn": [
     "INTOXICOM 5"
    ],
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#ciao",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "http://purl.org/np/RAgsbUg4xWCe6Jgjm6aDAiHiRqb4U6PYbrRvqO3PrDxTk",
+     "reviewedBy": "MM",
+     "note": "Checked 30 Oct 2026: the FAIR-AOPs community nanopublication says the community was initiated within the CIAO project (Modelling the Pathogenesis of COVID-19 Using the Adverse Outcome Pathway Framework) and points to the AOP-Wiki forum thread of the FAIR AOP Cluster, so the two are related without one extending the other."
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fairbydesign",
@@ -6302,6 +6538,46 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#gd409",
+   "identifier": "https://w3id.org/fair-tox/dataset#gd409",
+   "schemaType": "schema:CreativeWork",
+   "key": "gd409",
+   "name": "OECD Guidance on Good Practices and Standardisation of Sample Collection for Omics Analysis (No. 409)",
+   "alternateName": [
+    "OECD Series on Testing and Assessment No. 409",
+    "ENV/CBC/MONO(2025)8"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E8",
+   "fairsharingType": "Policy: institution",
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "Regulator"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "regulatory toxicology"
+   ],
+   "creator": "OECD",
+   "url": "https://one.oecd.org/document/ENV/CBC/MONO(2025)8/en/pdf",
+   "description": "OECD guidance on the steps before omics analysis: how samples are collected, processed and stored, and how sampling protocols and deviations are recorded, so that omics data from toxicology studies are reliable for regulatory use.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Excluded (E8): it standardises how samples are collected, processed and stored for omics analysis rather than how data or metadata are reported or shared; its call to record sampling protocols and deviations makes it a borderline case. OECD Series on Testing and Assessment No. 409, document ENV/CBC/MONO(2025)8. The OECD site refused automated download on 30 Oct 2026, so the scope is taken from its table of contents as indexed by web search.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Regulator"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#gd417",
    "identifier": "https://w3id.org/fair-tox/dataset#gd417",
    "schemaType": "schema:CreativeWork",
@@ -6629,6 +6905,48 @@
    "fairsharingMatch": "no record",
    "reviewedBy": "DJ",
    "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Project, not a resource (E1); its product is the HeCaToS multi-omics dataset in BioStudies (Verheijen et al., Scientific Data 2022, doi 10.1038/s41597-022-01825-1, online 2022-11-14). CORDIS: grant 602156, 1 Oct 2013 to 30 Sep 2018.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#hesi_estar",
+   "identifier": "https://w3id.org/fair-tox/dataset#hesi_estar",
+   "schemaType": "schema:CreativeWork",
+   "key": "hesi_estar",
+   "name": "HESI Emerging Systems Toxicology for the Assessment of Risk (eSTAR) Committee",
+   "alternateName": [
+    "eSTAR"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: institution",
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "creator": "Health and Environmental Sciences Institute (HESI)",
+   "url": "https://hesiglobal.org/emerging-systems-toxicology-for-assessment-of-risk-committee/",
+   "description": "HESI committee whose mission is to develop and deliver systems toxicology approaches for risk assessment, such as transcriptomic biomarkers like TGx-DDI for genotoxicity.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Committee, not a resource (E1); no data or metadata resource of its own was found. Committee page read 30 Oct 2026.",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -8232,6 +8550,13 @@
      "evidence": "FAIRsharing",
      "source": "https://doi.org/10.25504/FAIRsharing.zrmjr7",
      "note": "Checked 5 Oct 2026: The FAIRsharing record says MIAME/Tox was developed as an extension of MIAME for array-based toxicogenomics experiments."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.ntv8pe",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1289/ehp.6697",
+     "note": "Mattes et al. 2004: MIAME/Tox was meant to make toxicogenomics data comparable and ready for deposition in ArrayExpress (via Tox-MIAMExpress) and CEBS. Proposed by JH on 30 Oct 2026."
     }
    ]
   },
@@ -8408,6 +8733,40 @@
      "hadRole": "In silico research"
     }
    ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#msigdb",
+   "identifier": "https://w3id.org/fair-tox/dataset#msigdb",
+   "schemaType": "schema:CreativeWork",
+   "key": "msigdb",
+   "name": "Molecular Signatures Database (MSigDB)",
+   "alternateName": [
+    "MSigDB"
+   ],
+   "decision": "include",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
+   "scope": "Life Sciences",
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "datePublished": "2005-09-30",
+   "dateSource": "https://doi.org/10.1073/pnas.0506580102",
+   "creator": "UC San Diego and Broad Institute",
+   "contactPoint": [
+    "https://ror.org/05a0ya142"
+   ],
+   "url": "https://www.gsea-msigdb.org/gsea/msigdb/",
+   "description": "Resource of tens of thousands of annotated gene sets, in human and mouse collections, for use with Gene Set Enrichment Analysis (GSEA). In toxicogenomics it is used to interpret gene expression changes through gene sets and pathways.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingRecord": "9343",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Research 30 Oct 2026 (high confidence): MSigDB was first described with GSEA by Subramanian et al., PNAS 2005 (Crossref: online 2005-09-30), the paper FAIRsharing cites; FAIRsharing year 2005. The MSigDB homepage (read 30 Oct 2026) calls it a joint project of UC San Diego and Broad Institute. The FAIRsharing record (https://fairsharing.org/9343) has no DOI yet.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#nams",
@@ -9076,6 +9435,52 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#ntp",
+   "identifier": "https://w3id.org/fair-tox/dataset#ntp",
+   "schemaType": "schema:CreativeWork",
+   "key": "ntp",
+   "name": "National Toxicology Program (NTP)",
+   "alternateName": [
+    "NTP"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: institution",
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "regulatory toxicology"
+   ],
+   "creator": "US National Toxicology Program, at NIEHS",
+   "contactPoint": [
+    "https://ror.org/00j4k1h63"
+   ],
+   "url": "https://ntp.niehs.nih.gov/",
+   "description": "US programme, founded in 1978, that generates, interprets and shares toxicological information about potentially hazardous substances. It took over DrugMatrix in late 2010, and its study data are held in CEBS.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Programme, not a resource (E1); its data resource is CEBS (cebs row), which also holds the complete DrugMatrix database. NTP homepage read 30 Oct 2026; the NTP has no ROR record of its own, so the contact is NIEHS.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#oauth",
    "identifier": "https://w3id.org/fair-tox/dataset#oauth",
    "schemaType": "schema:CreativeWork",
@@ -9230,6 +9635,45 @@
    "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/adverse-outcome-pathways.html",
    "manuscript": "named",
    "manuscriptEvidence": "III AOP; L117",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Regulator"
+    }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#oecd_eagmst",
+   "identifier": "https://w3id.org/fair-tox/dataset#oecd_eagmst",
+   "schemaType": "schema:CreativeWork",
+   "key": "oecd_eagmst",
+   "name": "OECD Extended Advisory Group on Molecular Screening and Toxicogenomics (EAGMST)",
+   "alternateName": [
+    "EAGMST"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: institution",
+   "scope": "Toxicology",
+   "phase": "Regulatory assessment",
+   "span": [
+    "Regulatory assessment"
+   ],
+   "creatorType": [
+    "Regulator"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "AOP-based mechanistic knowledge",
+    "regulatory toxicology"
+   ],
+   "creator": "OECD",
+   "url": "https://www.oecd.org/chemicalsafety/adverse-outcome-pathways-molecular-screening-and-toxicogenomics.htm",
+   "description": "OECD advisory group on molecular screening and toxicogenomics that coordinates the OECD programme for developing adverse outcome pathways, launched in 2012.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Advisory group, not a resource (E1); its outputs, such as the OECD Omics Reporting Framework and the AOP knowledge base, are judged in rows of their own. Sources: the OECD programme page (URL) and the page of the Istituto Superiore di Sanità on mechanisms of toxicity and AOPs (https://www.iss.it/en/-/mechanisms-of-toxicity-adverse-outcome-pathways-aops-).",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -9422,6 +9866,44 @@
      "evidence": "manuscript",
      "source": "manuscript draft, line 146",
      "note": "Checked 5 Oct 2026: The draft lists OMEX as the packaging format that complements SBML; an OMEX archive can hold SBML models, but neither standard extends the other."
+    }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#omics2aops",
+   "identifier": "https://w3id.org/fair-tox/dataset#omics2aops",
+   "schemaType": "schema:CreativeWork",
+   "key": "omics2aops",
+   "name": "Omics2AOPs (OECD project)",
+   "alternateName": [
+    "Omics2AOP"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "AOP-based mechanistic knowledge"
+   ],
+   "creator": "Cross-disciplinary expert group of an OECD-endorsed project",
+   "url": "https://assessments.epa.gov/risk/document/&deid=369511",
+   "description": "OECD-endorsed project that builds a method to annotate sets of genes, proteins and metabolites to the key events of adverse outcome pathways, using knowledgebases and ontologies; it held its workshop and kick-off meeting in Ispra, Italy, on 22 to 24 October 2025.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Project, not a resource (E1); no product released yet. Source: the US EPA record of the kick-off workshop (URL), read 30 Oct 2026.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
     }
    ]
   },
@@ -10046,6 +10528,14 @@
     }
    ],
    "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#fip_wizard",
+     "hadRole": "uses",
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
+     "reviewedBy": "MM",
+     "note": "Checked 30 Oct 2026: the provenance of the PARC Toxicology FIP v0.1.0 nanopublication names the FIP Wizard (https://fip.fair-wizard.com/wizard) as its creator, so the profile was built with that tool."
+    },
     {
      "relation": "https://w3id.org/fair-tox/dataset#fipwiz",
      "hadRole": "implements",
@@ -11646,6 +12136,15 @@
      "@type": "prov:Attribution",
      "hadRole": "Regulator"
     }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.ntv8pe",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/toxsci/kfm090",
+     "note": "Fostel et al. 2007: the Tox Biology Checklist was proposed so that study data deposited in databases such as CEBS can be interpreted and compared across studies. Proposed by JH on 30 Oct 2026."
+    }
    ]
   },
   {
@@ -12293,15 +12792,104 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#txg_map",
+   "identifier": "https://w3id.org/fair-tox/dataset#txg_map",
+   "schemaType": "schema:CreativeWork",
+   "key": "txg_map",
+   "name": "TXG-MAP (EFSA project)",
+   "alternateName": [
+    "TXG-MAP"
+   ],
+   "decision": "exclude",
+   "exclusionReason": "E1",
+   "fairsharingType": "Policy: project",
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "Wet-lab research",
+    "In silico research"
+   ],
+   "subdomains": [
+    "toxicogenomics",
+    "AOP-based mechanistic knowledge"
+   ],
+   "creator": "German Federal Institute for Risk Assessment (BfR) and Leiden University, funded by EFSA",
+   "url": "https://www.bfr.bund.de/en/project/nam-projects-in-the-areas-of-aop-development-and-transcriptomics-for-risk-assessment-lot-2/",
+   "description": "EFSA-funded project (November 2023 to November 2027, grant GP/EFSA/ED/2022/01) that is to deliver an integrated toolbox for toxicogenomics data analysis and pathway-based interpretation for safety assessors, with case studies on selected pesticides.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Project, not a resource (E1); related product: the TXG-MAPr tool of Leiden University (txg_mapr row). BfR project page read 30 Oct 2026.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "Wet-lab research"
+    },
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#txg_mapr",
    "identifier": "https://w3id.org/fair-tox/dataset#txg_mapr",
-   "schemaType": "schema:CreativeWork",
+   "schemaType": "schema:SoftwareApplication",
    "key": "txg_mapr",
    "name": "TXG-MAPr",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Tool",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration",
+    "Regulatory assessment"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "in vitro toxicology",
+    "toxicogenomics",
+    "computational and predictive toxicology"
+   ],
+   "datePublished": "2021",
+   "dateSource": "https://doi.org/10.1007/s00204-021-03141-w",
+   "creator": "vdWater-Callegaro lab, LACDR, Leiden University",
+   "contactPoint": [
+    "https://orcid.org/0000-0002-7627-7271"
+   ],
+   "url": "https://txg-mapr.eu/",
+   "description": "TXG‑MAPr is an interactive R Shiny–based bioinformatics platform designed to make toxicogenomic data interpretation intuitive, mechanistic, and test‑system specific. Built on large transcriptomic datasets, TXG‑MAPr organizes high‑dimensional gene expression data into biologically meaningful gene co‑expression network modules using Weighted Gene Co‑expression Network Analysis (WGCNA).",
+   "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 3"
+   ],
+   "fairsharingMatch": "no record",
+   "reviewedBy": "GC",
+   "note": "Decided 30 Oct 2026 with GC's overview of toxicogenomics data, analysis and integration: include (I1-I5 hold). Research 30 Oct 2026: the earliest web capture of https://txg-mapr.eu, 16 Jul 2019, shows \"TXG-MAPr - WGCNA modules based on TG-GATEs data\", before the 2021 paper; the co-expression module map for rat liver was first described by Sutherland et al., Pharmacogenomics J 2017 (doi 10.1038/tpj.2017.17). Related project: the EFSA-funded TXG-MAP project (txg_map row). FAIRsharing: no record.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#tggates",
+     "hadRole": "uses",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1007/s00204-021-03141-w",
+     "note": "Callegaro et al. 2021: the modules of the human hepatocyte TXG-MAPr were obtained from the primary human hepatocyte TG-GATEs dataset. Proposed by JH on 30 Oct 2026."
+    }
    ]
   },
   {

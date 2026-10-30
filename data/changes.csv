@@ -3902,3 +3902,40 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-30,curation sheet 2026-10-30,simpletox,relation,(new),related_to arraytrack,,curation-sheet.xlsx
 2026-10-30,curation sheet 2026-10-30,toxbank_dw,relation,(new),implements isatab,,curation-sheet.xlsx
 2026-10-30,curation sheet 2026-10-30,toxbank_dw,relation,(new),implements opentox,,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,aspis,(row),(new),ASPIS cluster,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,cebs,(row),(new),Chemical Effects in Biological Systems,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,dbzach,(row),(new),dbZach,DJ,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,drugmatrix,(row),(new),DrugMatrix,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,gd409,(row),(new),OECD Guidance on Good Practices and Standardisation of Sample Collection for Omics Analysis (No. 409),GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,hesi_estar,(row),(new),HESI Emerging Systems Toxicology for the Assessment of Risk (eSTAR) Committee,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,msigdb,(row),(new),Molecular Signatures Database (MSigDB),GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,ntp,(row),(new),National Toxicology Program (NTP),GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,oecd_eagmst,(row),(new),OECD Extended Advisory Group on Molecular Screening and Toxicogenomics (EAGMST),GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,omics2aops,(row),(new),Omics2AOPs (OECD project),GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_map,(row),(new),TXG-MAP (EFSA project),GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,decision,undecided,include,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,fairsharingType,,Tool,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Analysis-Service,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,scope,,Toxicology,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,phase,,Data integration,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,span,,Data integration; Regulatory assessment,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,creatorType,,In silico research,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,subdomains,,in vitro toxicology; toxicogenomics; computational and predictive toxicology,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,datePublished,,2021,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,dateSource,,https://doi.org/10.1007/s00204-021-03141-w,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,creator,,"vdWater-Callegaro lab, LACDR, Leiden University",GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,contactPoint,,https://orcid.org/0000-0002-7627-7271,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,url,,https://txg-mapr.eu/,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,description,,"TXG‑MAPr is an interactive R Shiny–based bioinformatics platform designed to make toxicogenomic data interpretation intuitive, mechanistic, and test‑system specific. Built on large transcriptomic datasets, TXG‑MAPr organizes high‑dimensional gene expression data into biologically meaningful gene co‑expression network modules using Weighted Gene Co‑expression Network Analysis (WGCNA).",GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,maintained,,active,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,fairsharingMatch,,no record,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,reviewedBy,,GC,GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,note,,"Decided 30 Oct 2026 with GC's overview of toxicogenomics data, analysis and integration: include (I1-I5 hold). Research 30 Oct 2026: the earliest web capture of https://txg-mapr.eu, 16 Jul 2019, shows ""TXG-MAPr - WGCNA modules based on TG-GATEs data"", before the 2021 paper; the co-expression module map for rat liver was first described by Sutherland et al., Pharmacogenomics J 2017 (doi 10.1038/tpj.2017.17). Related project: the EFSA-funded TXG-MAP project (txg_map row). FAIRsharing: no record.",GC,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,cebs,relation,(new),related_to drugmatrix,,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,dbzach,relation,(new),implements miame,,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,fairaop,relation,(new),uses fip_wizard,MM,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,fairaop_cluster,relation,(new),related_to ciao,MM,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,miametox,relation,(new),related_to cebs,,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,parcfip,relation,(new),uses fip_wizard,MM,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,tbc,relation,(new),related_to cebs,,curation-sheet.xlsx
+2026-10-30,curation sheet 2026-10-30,txg_mapr,relation,(new),uses tggates,,curation-sheet.xlsx
