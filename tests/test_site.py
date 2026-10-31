@@ -109,6 +109,12 @@ class SiteTest(TempDir):
         self.assertEqual(data['meta']['sourceList'][:2], [data['meta']['creator'], site.COLLECTION])
         self.assertIn("(!state.src || n.sources.includes(state.src))", html)
 
+    def test_resources_outside_the_manuscript_scope_are_listed_but_not_drawn(self):
+        html = self.build()[1]['index.html']
+        data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
+        self.assertEqual(data['meta']['outOfScope'], list(model.OUTSIDE_MANUSCRIPT_SCOPE))
+        self.assertLessEqual(set(model.OUTSIDE_MANUSCRIPT_SCOPE), set(model.SUBDOMAINS))   # a misspelt one would leave nothing out
+
     def test_build_follows_the_journal_figure_rules(self):
         # Scientific Data: white only, one sans-serif face, sentence-case labels, the 183 mm export, a data dictionary
         html = self.build()[1]['index.html']

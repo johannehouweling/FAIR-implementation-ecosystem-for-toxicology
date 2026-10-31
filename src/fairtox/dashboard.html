@@ -192,8 +192,6 @@ button.btn:hover { border-color: var(--ink); }
     <div>
       <h3>First published</h3>
       <p>When a resource first became public: the online publication of the paper that first describes it, its first release, or the adoption of a guidance or policy. Each date links to its source. Resources without a known date are in the list but not in the figure.</p>
-      <h3>Versions</h3>
-      <p>The data are versioned and citable: each release has a version number, and every change is recorded in the repository.</p>
     </div>
     </div>
     <details class="dict">
@@ -260,7 +258,8 @@ const GENERIC = META.lanes.filter(l => !META.toxLanes.includes(l));
 const laneNames = () => byCreator() ? [...GENERIC, ...META.creatorLanes] : META.lanes;
 const dated = n => Number.isInteger(n.year);
 const community = n => n.fsrType.some(t => META.communities.includes(t));   // listed, never drawn
-const placed = n => dated(n) && laneNames().includes(laneOf(n)) && !community(n);
+const outOfScope = n => n.subdomains.length > 0 && n.subdomains.every(s => META.outOfScope.includes(s));   // listed, not drawn
+const placed = n => dated(n) && laneNames().includes(laneOf(n)) && !community(n) && !outOfScope(n);
 const TOX = new Set([...META.toxLanes, ...META.creatorLanes]);
 const LANE_DEF = {...META.laneDef, ...META.creatorLaneDef};
 const byName = (a, b) => a.name.localeCompare(b.name);
@@ -319,11 +318,13 @@ const passes = n => (!laneOf(n) || state.lanes.has(laneOf(n))) && (!state.type |
   (!n.fsrCategory || state.cls.has(n.fsrCategory));
 const matches = n => state.q.every(w => hay[n.key].includes(w));
 const offText = ns => {  // why some resources are listed but not drawn
-  const c = ns.filter(community).length, rest = ns.filter(n => !community(n));
+  const c = ns.filter(community).length, s = ns.filter(n => !community(n) && outOfScope(n)).length;
+  const rest = ns.filter(n => !community(n) && !outOfScope(n)), only = META.outOfScope.join(' or ');
   const u = rest.filter(n => !dated(n)).length, l = rest.filter(n => dated(n) && !placed(n)).length;
   const parts = [u && `${plural(u, 'resource has', 'resources have')} no known date`, l && `${plural(l, 'resource has', 'resources have')} no lane`,
+    s && plural(s, `resource serves only ${only}`, `resources serve only ${only}`),
     c && plural(c, 'resource is a FAIR Implementation Community', 'resources are FAIR Implementation Communities')].filter(Boolean);
-  return parts.length ? `${parts.join(', ').replace(/, (?=[^,]*$)/, ' and ')}; ${u + l + c === 1 ? 'it is' : 'they are'} in the list but not in the figure.` : '';
+  return parts.length ? `${parts.join(', ').replace(/, (?=[^,]*$)/, ' and ')}; ${u + l + s + c === 1 ? 'it is' : 'they are'} in the list but not in the figure.` : '';
 };
 
 // Stacking: the fewest tracks a lane needs so that no labels overlap (first fit by left edge), then a few sweeps in
