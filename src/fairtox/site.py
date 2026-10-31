@@ -161,6 +161,7 @@ def page_meta(doc):
         'communities': sorted(v[0] for v in model.fsr_types().values() if v[1] == model.FIC),   # never drawn
         'creatorLanes': list(model.CREATOR_LANE_DEF), 'creatorLaneDef': model.CREATOR_LANE_DEF,
         'subdomains': [[s, model.SUBDOMAIN_LANE[s]] for s in model.SUBDOMAINS],
+        'outOfScope': list(model.OUTSIDE_MANUSCRIPT_SCOPE),   # listed, not drawn; the page never names the manuscript
         'relations': {k: {'id': v[0], 'lineage': v[1], 'definition': v[2]} for k, v in model.RELATIONS.items()},
         'vocab': doc.get('vocabularies', model.VOCABULARIES), 'repo': PUBLIC_REPO, 'pages': PAGES,   # source is private
         # field -> term, for the data dictionary; the prefixes (full IRIs) are not fields

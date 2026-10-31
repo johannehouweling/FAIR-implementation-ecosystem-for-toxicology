@@ -141,7 +141,7 @@ class FipTest(TempDir):
         for code in ('(!n.fsrCategory || state.cls.has(n.fsrCategory))', '<input type="checkbox" id="t-fip">',
                      "const fipOn = !G.print && $('t-fip').checked", '<select id="f-src"',
                      'n.fsrType.some(t => META.communities.includes(t))',
-                     "=> dated(n) && laneNames().includes(laneOf(n)) && !community(n);"):
+                     "=> dated(n) && laneNames().includes(laneOf(n)) && !community(n) && !outOfScope(n);"):
             self.assertIn(code, html)
         nodes, _, declarations = site.nodes_links(model.normalise(fip.enrich(built, fip.read(offline=True))))
         nodes = {n['key']: n for n in nodes}   # every row, before the build leaves out what is not included

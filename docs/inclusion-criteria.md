@@ -119,6 +119,13 @@ Each excluded row carries exactly one code.
   made jointly. FAIR Implementation Communities are listed but not drawn.
 - **Sub-domains** are those of the manuscript (data dictionary, Sub-domains). They are proposed from the section that
   discusses a resource and from its FAIRsharing subjects, and a resource may have several.
+- **Scope of the manuscript.** The manuscript reviews the FAIR resources of experimental and computational toxicology
+  that serve the assessment of chemical risks to human health (Introduction); the dedicated FAIR infrastructures of
+  epidemiology, pharmacovigilance, ecotoxicology and the exposome are outside its scope. Each sub-domain is therefore
+  in scope or outside scope: exposome and eco-toxicology are outside scope, the others in scope. A resource whose
+  sub-domains are all outside scope remains included, in the dataset and in the dashboard's list, but is not drawn in
+  the figure. The dataset itself keeps the wider scope of the ELIXIR Toxicology Community, so that a sub-domain can be
+  brought into scope when its resources are reviewed.
 - **FAIRsharing type** is the FAIRsharing registry and record type, or Tool (data dictionary, FAIRsharing type).
 - **First published** is the earliest date the resource was publicly available or formally described, recorded with
   its basis (data dictionary, Date basis) and its source. Sources are, in order: the DOI metadata of the describing
@@ -211,6 +218,7 @@ Each excluded row carries exactly one code.
 | 23 Oct 2026 | A resource takes every FSR type that applies, chosen in one multi-select FSR type column of the curation sheet: the types of the typology that the FIP's own description gives it when a toxicology FIP declares it, otherwise those its kind gives. It is a FAIR-Enabling Resource when one of its types is one. For a relation, a Tool or a Collection counts as the registry of each of its FSR typology columns. A FAIR Implementation Community has no other type. Rows declared in a toxicology FIP and not yet confirmed were given, as proposals, the other types of their FIP's description. This replaces the one type per resource of 9 Oct 2026 and amends the relation rule of 21 Oct 2026 to match. | Jente Houweling |
 | 23 Oct 2026 | Each resource records who to contact about it, as the ORCID of a person or the ROR of an organisation (`contactPoint`, DCAT's `dcat:contactPoint`, as schema.org has none for a creative work), in a Contact column of the curation sheet after Creator. Creator still names the organisations that made the resource. | Jente Houweling |
 | 23 Oct 2026 | When a relation appears on several lines of the Relations tab and exactly one of them is signed, the signed line decides; the unsigned copies are ignored and listed in the pull request, so a copy never has to be deleted. With no signed line, or more than one, all copies wait as before. | Jente Houweling |
+| 31 Oct 2026 | The sub-domains exposome and eco-toxicology are outside the scope of the manuscript, which reviews experimental and computational toxicology for the assessment of chemical risks to human health; the other sub-domains are in scope. A resource whose sub-domains are all outside scope stays included, in the dataset and in the dashboard's list, but is not drawn in the figure, like a FAIR Implementation Community. Which sub-domains are outside scope is one setting, so that a sub-domain can be brought into scope later. | Jente Houweling |
 
 ## 9. Limitations
 
