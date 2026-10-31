@@ -3939,3 +3939,33 @@ The focus of the T3DB is on providing mechanisms of toxicity and target proteins
 2026-10-30,curation sheet 2026-10-30,parcfip,relation,(new),uses fip_wizard,MM,curation-sheet.xlsx
 2026-10-30,curation sheet 2026-10-30,tbc,relation,(new),related_to cebs,,curation-sheet.xlsx
 2026-10-30,curation sheet 2026-10-30,txg_mapr,relation,(new),uses tggates,,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,biochementity,(row),(new),Biochementity Vocabulary,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,compoundcloud,(row),(new),Compound Cloud Wikibase,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fairimplspace,(row),(new),FAIR Implementation Space,,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,nanodash,(row),(new),Nanodash,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fairaop,reviewedBy,,MM,MM,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fairconnect,maintained,unknown,discontinued,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fairconnect,reviewedBy,,GB,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fip_wizard,dateSource,https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4,https://doi.org/10.1007/978-3-030-65847-2_13,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fip_wizard,creator,GO FAIR Foundation / Data Stewardship Wizard team (CTU Prague),GO FAIR Foundation / Data Stewardship Wizard team (CTU Prague) / KnowledgePixels (Tobias Kuhn),GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fip_wizard,reviewedBy,,GB,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fipmatrix,fsrType,https://w3id.org/fair/fip/terms/Editor,https://w3id.org/fair/fip/terms/FAIR-Analysis-Service; https://w3id.org/fair/fip/terms/FAIR-Visualization-Service,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fipmatrix,dateReleased,2019-01,2024,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fipmatrix,dateSource,http://web.archive.org/web/20240425011817/https://www.go-fair.org/today/FAIR-matrix/,https://github.com/knowledgepixels/fip-matrix,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fipmatrix,creator,GO FAIR,https://orcid.org/0000-0001-5185-8208,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fipmatrix,description,"The GO FAIR FAIR Convergence Matrix: an online questionnaire platform in which communities of practice record, principle by principle, the standards, vocabularies and services they use to implement FAIR. The answers form their FAIR Implementation Profiles. Combining these choices shows where communities converge, so others can reuse proven FAIR implementation options.","The FAIR (Convergence) Matrix is a tool for comparing multiple FAIR Implementation Profiles (FIPs) side by side across research communities.
+While an individual FIP captures the implementation choices of a single community, the matrix aggregates those choices to drive cross-domain harmonization and reuse of proven FAIR Supporting Resources.",GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fipmatrix,reviewedBy,,GB,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,parcfip,reviewedBy,,MM,MM,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,biochementity,relation,(new),uses nanopub,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,compoundcloud,relation,(new),uses wikidata,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fairimplspace,relation,(new),deprecates fairconnect,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fairimplspace,relation,(new),uses nanodash,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fip_wizard,relation,(new),implements fipwiz,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fip_wizard,relation,(new),implements nanopub,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,fipwiz,relation,(new),uses nanopub,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,nanodash,relation,(new),implements nanopub,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,nanodash,relation,(new),related_to fipwiz,JH,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,vhp4safety,relation,(new),uses compoundcloud,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,comptox,relation implements dtxsid reviewedBy,,GB,GB,curation-sheet.xlsx
+2026-10-31,curation sheet 2026-10-31,isajson,relation extends isatab reviewedBy,,Egon,Egon,curation-sheet.xlsx

@@ -241,7 +241,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.10.6",
- "dateModified": "2026-10-30",
+ "dateModified": "2026-10-31",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -1911,6 +1911,40 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#biochementity",
+   "identifier": "https://w3id.org/fair-tox/dataset#biochementity",
+   "schemaType": "schema:CreativeWork",
+   "key": "biochementity",
+   "name": "Biochementity Vocabulary",
+   "decision": "include",
+   "fairsharingType": "Standard: terminology artefact",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Semantic-model",
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+   ],
+   "scope": "Life Sciences",
+   "dateReleased": "2026",
+   "dateSource": "https://w3id.org/spaces/biochementity/r/vocabulary/version/0.0.1",
+   "creator": "PARC (Human Biomonitoring community) / VITO",
+   "contactPoint": [
+    "https://ror.org/04gq0w522"
+   ],
+   "url": "https://w3id.org/spaces/biochementity",
+   "description": "The Biochementity Vocabulary describes biochemical entities used in the PARC HBM Community.",
+   "manuscript": "absent",
+   "reviewedBy": "GB",
+   "note": "Added by GB on 30 Oct 2026. Phase cleared by JH on 31 Oct 2026: a phase applies only to toxicology resources, and the scope is Life Sciences.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.a6dcff",
+     "hadRole": "uses",
+     "evidence": "curator",
+     "reviewedBy": "GB"
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.x38D2k",
    "identifier": "https://doi.org/10.25504/FAIRsharing.x38D2k",
    "schemaType": "schema:CreativeWork",
@@ -2984,6 +3018,62 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#compoundcloud",
+   "identifier": "https://w3id.org/fair-tox/dataset#compoundcloud",
+   "schemaType": "schema:CreativeWork",
+   "key": "compoundcloud",
+   "name": "Compound Cloud Wikibase",
+   "decision": "include",
+   "fairsharingType": "Standard: terminology artefact",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
+    "https://w3id.org/fair/fip/terms/Identifier-service",
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Data integration"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "AOP-based mechanistic knowledge",
+    "regulatory toxicology"
+   ],
+   "dateReleased": "2022",
+   "dateSource": "https://compoundcloud.wikibase.cloud/wiki/User:Egonw",
+   "creator": "VHP4Safety / Egon Willighagen",
+   "contactPoint": [
+    "https://orcid.org/0000-0001-7542-0286"
+   ],
+   "url": "https://compoundcloud.wikibase.cloud/",
+   "description": "The Compound Cloud Wikibase contains information about toxic, safe, and potentially toxic compounds related to the VHP4Safety project.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "reviewedBy": "GB",
+   "note": "Added by GB on 30 Oct 2026. Made by in silico research marked by JH on 31 Oct 2026, as a toxicology resource needs a creator type: the Compound Cloud is a Wikibase of chemical compounds for the VHP4Safety project, whose virtual human platform is built on computational models and data sources (Kienhuis et al., ALTEX 2025, doi 10.14573/altex.2407211).",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.6s749p",
+     "hadRole": "uses",
+     "evidence": "literature",
+     "source": "https://compoundcloud.wikibase.cloud/entity/P5",
+     "reviewedBy": "JH",
+     "note": "Added by GB on 30 Oct 2026 as implements; changed to uses by JH on 31 Oct 2026, as implements is not possible from a terminology to a database. Checked 31 Oct 2026 through the Compound Cloud API: its compounds carry a Wikidata Q identifier (property P5; aflatoxin B1 is Wikidata Q4689278) and its base items carry Wikidata's descriptions, so it builds on Wikidata."
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.tfj7gt",
    "identifier": "https://doi.org/10.25504/FAIRsharing.tfj7gt",
    "schemaType": "schema:CreativeWork",
@@ -3034,7 +3124,8 @@
      "relation": "https://w3id.org/fair-tox/dataset#dtxsid",
      "hadRole": "implements",
      "evidence": "literature",
-     "source": "https://doi.org/10.1186/s13321-017-0247-6"
+     "source": "https://doi.org/10.1186/s13321-017-0247-6",
+     "reviewedBy": "GB"
     }
    ]
   },
@@ -5964,6 +6055,7 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; Comments [ag]; L135, L391",
    "fairsharingMatch": "no record",
+   "reviewedBy": "MM",
    "note": "Research 5 Oct 2026 (medium confidence): Corrected from 2023. The ALTEX paper (doi 10.14573/altex.2307131, online 2023-08-01) only says that work on an AOP FIP had started within PARC. The 'Reference Adverse Outcome Pathways FIP' v0.0.1 was first published as a nanopublication on 2025-07-14, from FIP Wizard project 3f1ebb12 and declared by the FAIR-AOPs community. The old url pointed to FIP Wizard project 2f1c0e80 ('Adverse Outcome Pathways FIP'), the draft it was copied from (edits January 2023 to December 2024), which was never nanopublished. The url now points to the published FIP. FAIRsharing: no record. Proposed 9 Oct 2026: Community-agreed list of recommended FAIR-enabling resources per FAIR principle for AOPs, which is a reference FAIR Implementation Profile. Checked 30 Oct 2026 (MM): the declaring FAIR-AOPs community (row fairaop_cluster; its nanopublication says it was initiated in the CIAO project) is not a PARC community, so this FIP is not listed in the PARC space https://w3id.org/spaces/parc, which shows only FIPs of PARC communities. Gerhard Burger suggested listing it there.",
    "buildsOnFair": true,
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
@@ -6090,12 +6182,54 @@
    "creator": "GO FAIR Foundation and IOS Press (now Sage), with CODATA, DTL and Health-RI",
    "url": "https://fairconnect.pro",
    "description": "An open-access platform for FAIR data stewardship where FAIR-supporting resources, FAIR Implementation Profiles and community good practices are published, searched and discussed. It links the human-readable descriptions in the FAIR Connect journal to their machine-readable nanopublications and offers a search engine and dashboard over them.",
-   "maintained": "unknown",
+   "maintained": "discontinued",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L59, L61",
    "fairsharingMatch": "no record",
+   "reviewedBy": "GB",
    "note": "Research 5 Oct 2026 (low confidence): No launch statement found. The earliest web capture of fairconnect.pro is 2022-10-25, when the site already listed October 2022 events, so 2022 rests only on the web archive. The companion FAIR Connect journal (IOS Press, now Sage, ISSN 2949-799X) published its first articles in January 2023. The archived homepage names GO FAIR Foundation, IOS Press, CODATA, DTL and Health-RI under 'An initiative by'. fairconnect.pro refused connections on 2026-10-05 but was archived live on 2026-06-13, so its status is unknown. No FAIRsharing record found. In the manuscript this is the GO FAIR platform for FIPs and FICs (L61), not the journal. Proposed 9 Oct 2026: A platform that publishes FAIR-supporting resources and FIPs as nanopublications linked to journal articles and indexes them for search.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#fairimplspace",
+   "identifier": "https://w3id.org/fair-tox/dataset#fairimplspace",
+   "schemaType": "schema:CreativeWork",
+   "key": "fairimplspace",
+   "name": "FAIR Implementation Space",
+   "decision": "undecided",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service",
+    "https://w3id.org/fair/fip/terms/Generalist-Registry"
+   ],
+   "scope": "Generic",
+   "dateReleased": "2026",
+   "dateSource": "https://w3id.org/np/RA41_bLIoJeSd_97C8PzUgtKop431O28YJ0lfJ42mp5Nc",
+   "creator": "GO FAIR Foundation / KnowledgePixels",
+   "contactPoint": [
+    "https://ror.org/056j50v04"
+   ],
+   "url": "https://w3id.org/spaces/FAIR-Implementation-Space",
+   "description": "The FAIR Implementation Space is a nanodash space where you can discover FAIR supporting resources declared by data stewards from communities using the GO FAIR Foundation's FAIR Implementation Profile (FIP) approach. You can view individual resources and FIPs and compare multiple FIPs using the FIP Matrix tool.",
+   "manuscript": "absent",
+   "note": "Added by GB on 30 Oct 2026. Phase cleared by JH on 31 Oct 2026: a phase applies only to toxicology resources, and the scope is Generic.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#fairconnect",
+     "hadRole": "deprecates",
+     "evidence": "curator",
+     "reviewedBy": "GB"
+    },
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#nanodash",
+     "hadRole": "uses",
+     "evidence": "literature",
+     "source": "https://w3id.org/spaces/FAIR-Implementation-Space",
+     "reviewedBy": "JH",
+     "note": "Checked 31 Oct 2026: the FAIR Implementation Space is a space in Nanodash: its address redirects to the Nanodash instance of Knowledge Pixels (https://nanodash.knowledgepixels.com/space?id=https://w3id.org/spaces/FAIR-Implementation-Space)."
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fairlite",
@@ -6310,8 +6444,8 @@
     "AOP-based mechanistic knowledge"
    ],
    "dateReleased": "2020",
-   "dateSource": "https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4",
-   "creator": "GO FAIR Foundation / Data Stewardship Wizard team (CTU Prague)",
+   "dateSource": "https://doi.org/10.1007/978-3-030-65847-2_13",
+   "creator": "GO FAIR Foundation / Data Stewardship Wizard team (CTU Prague) / KnowledgePixels (Tobias Kuhn)",
    "url": "https://fip.fair-wizard.com",
    "description": "A web application built on the Data Stewardship Wizard that guides a community through the FIP questionnaire to declare its FAIR implementation choices for each principle. It publishes the resulting FAIR Implementation Profiles, and any newly declared FAIR-enabling resources, as machine-actionable nanopublications.",
    "maintained": "active",
@@ -6321,8 +6455,27 @@
     "INTOXICOM 1"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "GB",
    "note": "Research 5 Oct 2026 (high confidence): The OSF preprint of Schultes et al. (2020-09-21, doi 10.31219/osf.io/2p85g) describes the FIP Wizard as publicly accessible. The LNCS version went online on 2020-12-22, and the earliest web capture of fip-wizard.ds-wizard.org is 2020-12-03. Production moved to fip.fair-wizard.com on 14 May 2025; the old instance now shows a migration notice, and manuscript link [ag] still uses the old host. URL updated accordingly. Subdomain added because the Reference AOP FIP is published through the wizard (manuscript L135). No FAIRsharing record found. Verified 5 Oct 2026: datePublished changed (On 2020-08-10, GO FAIR's public GitHub README for the FIP model added a link to the live FIP Wizard (https://fip-wizard.ds-wizard.org) and published the Wizard's questionnaire export, knowledge model 4.0.6 (commit 'Add FIP Wizard reference & KM exports': https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4). That is 6 weeks before the preprint of 2020-09-21, which itself cites this GitHub page as accessed 2020-08-10. The exact first public day is unknown.) Verified 5 Oct 2026: dateBasis changed (The Wizard was publicly linked for use, with its questionnaire published, before the describing preprint went online.) Verified 5 Oct 2026: dateSource changed (This dated commit (Mon, 10 Aug 2020) is the earliest documented public reference to the FIP Wizard at fip-wizard.ds-wizard.org.) Proposed 9 Oct 2026: Web application where communities compose FAIR Implementation Profiles through a guided questionnaire and publish them as nanopublications: an editor and publishing service.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#fipwiz",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
+     "reviewedBy": "JH",
+     "note": "Checked 30 Oct 2026: the FIP Wizard produces FAIR Implementation Profiles: the provenance of the PARC Toxicology FIP v0.1.0 and of the Reference AOP FIP (https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc) nanopublications names it as their creator."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.a6dcff",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
+     "reviewedBy": "JH",
+     "note": "Checked 30 Oct 2026: the PARC Toxicology FIP v0.1.0 is a nanopublication whose provenance names the FIP Wizard (https://fip.fair-wizard.com/wizard) as its creator, so the wizard publishes FIPs as nanopublications."
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fipmatrix",
@@ -6337,17 +6490,19 @@
    "decision": "include",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Editor"
+    "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service",
+    "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service"
    ],
    "scope": "Generic",
-   "dateReleased": "2019-01",
-   "dateSource": "http://web.archive.org/web/20240425011817/https://www.go-fair.org/today/FAIR-matrix/",
-   "creator": "GO FAIR",
+   "dateReleased": "2024",
+   "dateSource": "https://github.com/knowledgepixels/fip-matrix",
+   "creator": "https://orcid.org/0000-0001-5185-8208",
    "url": "https://fipmatrix.knowledgepixels.com/",
-   "description": "The GO FAIR FAIR Convergence Matrix: an online questionnaire platform in which communities of practice record, principle by principle, the standards, vocabularies and services they use to implement FAIR. The answers form their FAIR Implementation Profiles. Combining these choices shows where communities converge, so others can reuse proven FAIR implementation options.",
+   "description": "The FAIR (Convergence) Matrix is a tool for comparing multiple FAIR Implementation Profiles (FIPs) side by side across research communities.\nWhile an individual FIP captures the implementation choices of a single community, the matrix aggregates those choices to drive cross-domain harmonization and reuse of proven FAIR Supporting Resources.",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L59",
+   "reviewedBy": "GB",
    "note": "Research 5 Oct 2026 (medium confidence): Identified as the FAIR Convergence Matrix (seed aliases). Manuscript L59 lists 'FIP Matrix tool' next to FIP Wizard and FAIR Connect, so please confirm the identification. The archived GO FAIR page says the Matrix was launched at the first GO FAIR Implementation Network meeting, 15-16 Jan 2019. Paper: Sustkova et al., Data Intelligence 2(1-2), 2020 (DOI registered 2019-11-01). The GO FAIR page now redirects to the GO FAIR Foundation home page, hence 'discontinued'; FIPs are now made with the FIP Wizard (row fip_wizard). FAIRsharing: DataCite shows no FAIRsharing DOI; the web search budget was used up. Proposed 9 Oct 2026: Online questionnaire in which communities record and edit their FAIR implementation choices, producing FAIR Implementation Profiles.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
@@ -6381,7 +6536,17 @@
     "INTOXICOM 5"
    ],
    "note": "Research 5 Oct 2026 (high confidence): The FIP paper (Schultes, Magagna et al., 'Reusable FAIR Implementation Profiles as Accelerators of FAIR Convergence') was posted as an OSF preprint on 2020-09-21 (doi 10.31219/osf.io/2p85g), before the LNCS chapter went online on 2020-12-22 (doi 10.1007/978-3-030-65847-2_13, the previous source; year 2020 unchanged). The preprint says prototype FIPs existed from early 2019, but they were not public. FAIRsharing has no record for the FIP itself. The closest record is the FIP Ontology (FAIRsharing.343864, terminology artefact, FAIRsharing year 2019); check whether it should stand for this row. If it is accepted, the type would follow it (Standard: terminology artefact). URL changed from the DOI to the GO FAIR FIP page. Verified 5 Oct 2026: datePublished changed (The row's own homepage (GO FAIR FIP page) was already online on 2020-08-11, 6 weeks before the OSF preprint: https://web.archive.org/web/20200811221637/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/. It already described machine-actionable FIPs and 'a large collection of early-version FIPs'. GO FAIR also published the FIP conceptual model and the FIP questionnaire on GitHub on 2020-08-10 (commit https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4). The preprint itself cites both as 'last accessed 2020/08/10'. The archive capture is only a lower bound, so only the year 2020 is certain.) Verified 5 Oct 2026: dateBasis changed (The FIP was publicly described on GO FAIR's site and GitHub before the first paper went online, so the date is a public release, not the publication of the describing paper.) Verified 5 Oct 2026: dateSource changed (This earliest archived copy of the FIP homepage (2020-08-11) predates the preprint of 2020-09-21.) Verified 5 Oct 2026: fairsharingRecord changed (One lookup of https://fairsharing.org/FAIRsharing.343864 returns id 4362 'FAIR Implementation Profile Ontology'. It is a terminology artefact with homepage https://peta-pico.github.io/FAIR-nanopubs/fip/index-en.html: the vocabulary that FIPs are written in, not the FIP itself. Name, type and homepage all differ from this row (model/format, go-fair.org FIP page).) Verified 5 Oct 2026: fairsharingMatch changed (The proposed record (FIP Ontology) is a related but different resource, so the match is rejected and the field is cleared. The type stays 'Standard: model/format'.) Proposed 9 Oct 2026: The FIP itself: a community's principle-by-principle declaration of chosen FAIR-enabling resources, published as machine-actionable nanopublications.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.a6dcff",
+     "hadRole": "uses",
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
+     "reviewedBy": "JH",
+     "note": "Checked 30 Oct 2026: FIPs are published as nanopublications: the Reference AOP FIP and the PARC Toxicology FIP (https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E) are each a nanopublication typed FAIR Implementation Profile."
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.c7bb32",
@@ -7658,7 +7823,8 @@
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.53gp75",
      "hadRole": "extends",
-     "evidence": "curator"
+     "evidence": "curator",
+     "reviewedBy": "Egon"
     }
    ]
   },
@@ -9088,6 +9254,54 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#nanodash",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanodash",
+   "schemaType": "schema:SoftwareApplication",
+   "key": "nanodash",
+   "name": "Nanodash",
+   "alternateName": [
+    "Nanobench"
+   ],
+   "decision": "include",
+   "fairsharingType": "Tool",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Editor"
+   ],
+   "scope": "Generic",
+   "dateReleased": "2020-02-24",
+   "dateSource": "https://github.com/knowledgepixels/nanodash/releases/tag/nanobench-1.0",
+   "creator": "Knowledge Pixels",
+   "contactPoint": [
+    "https://orcid.org/0000-0002-1267-0234"
+   ],
+   "url": "https://nanodash.net",
+   "description": "Web client, previously called Nanobench, to browse and publish nanopublications: users sign in with ORCID and publish small statements from templates that are themselves nanopublications. Its FAIR Implementation Space lists FAIR Implementation Communities and their FIPs, including the PARC Toxicology FIP and the Reference AOP FIP.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "JH",
+   "note": "Co-author addition 31 Oct 2026 (JH). Research 30 Oct 2026 (high confidence): the GitHub repository knowledgepixels/nanodash, to which peta-pico/nanobench redirects, has its first release, nanobench-1.0, on 2020-02-24; release nanodash-1.61 of 2023-02-23 carries the new name and nanodash-5.21.2 of 2026-10-25 is the latest. Kuhn et al., PeerJ Computer Science 2021 (doi 10.7717/peerj-cs.387, online 2021-03-08) describe it as Nanobench. Toxicology use: SbD4Skin (Computational and Structural Biotechnology Journal 2025, doi 10.1016/j.csbj.2025.08.001) published its skin sensitisation, skin irritation/corrosion and acute dermal toxicity datasets as nanopublications in Nanodash, and nanoPharos (NanoImpact 2025, doi 10.1016/j.impact.2025.100602) integrates with it. The descriptions of five resources declared in the toxicology FIPs (UBERON, BioSamples, ChEBI, FAIRsharing, WorkflowHub) were made in Nanodash, and its FAIR Implementation Space (https://w3id.org/spaces/FAIR-Implementation-Space, read 30 Oct 2026) lists the PARC Toxicology FIP and the Reference AOP FIP. Contact: Tobias Kuhn, the paper's first author (ORCID from Crossref); no ROR record found for Knowledge Pixels. FAIRsharing: no record.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#fipwiz",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://w3id.org/spaces/FAIR-Implementation-Space",
+     "reviewedBy": "JH",
+     "note": "Checked 30 Oct 2026: Nanodash hosts the FAIR Implementation Space, which lists FAIR Implementation Communities and their FIPs, including the PARC Toxicology FIP and the Reference AOP FIP, and recommends the FIP Wizard for publishing declarations; the two are related without one building on the other."
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.a6dcff",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://doi.org/10.7717/peerj-cs.387",
+     "reviewedBy": "JH",
+     "note": "Checked 30 Oct 2026: Kuhn et al. 2021 present Nanobench, now Nanodash, as the interface through which users publish nanopublications from templates; its README calls it a client to browse and publish nanopublications."
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#nanopharos_database",
    "identifier": "https://w3id.org/fair-tox/dataset#nanopharos_database",
    "schemaType": "schema:CreativeWork",
@@ -10510,6 +10724,7 @@
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; Comments [g]; L60",
    "fairsharingMatch": "no record",
+   "reviewedBy": "MM",
    "note": "Research 5 Oct 2026 (medium confidence): The year 2026 is confirmed and now has a full date. The 'PARC Toxicology' FIP v0.1.0 nanopublication has dct:created 2026-09-07. It comes from FIP Wizard project 618ed60e, drafted since September 2023, with creators from the University of Birmingham and GO FAIR Foundation. The same PARC Toxicology community published earlier FIPs: 'PARC TOXRIC FIP' (first nanopublication 2023-04-17, updated 2024-01-22) and 'PARC Toxicology rFIP' v0.0.1 (2025-06-25) and v0.0.2 (2026-03-02). If the row stands for PARC toxicology FIPs in general, use 2023-04-17. Type changed from 'Standard: model/format' to 'Collection' to match fairaop, since a FIP lists the FAIR-enabling resources a community chose. FAIRsharing: no record. Proposed 9 Oct 2026: The PARC Chemicals Toxicology community's FIP, declaring for each FAIR principle the FAIR-enabling resources it uses, published as nanopublications. Checked 30 Oct 2026 (MM): declared by the PARC Toxicology community (row parctoxicology), whose description includes the development of adverse outcome pathways, yet none of the 89 declarations of v0.1.0 names an AOP resource (AOP-Wiki, AOP-KB, AOP Ontology); AOP resources are declared only in the Reference AOP FIP (fairaop). Listed in the PARC space https://w3id.org/spaces/parc with the PARC HBM FIP (parchbmfip) and the PARC TOXRIC FIP (parctoxric).",
    "buildsOnFair": true,
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
@@ -13077,7 +13292,15 @@
     "INTOXICOM 3",
     "INTOXICOM 5"
    ],
-   "reviewedBy": "JH"
+   "reviewedBy": "JH",
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#compoundcloud",
+     "hadRole": "uses",
+     "evidence": "curator",
+     "reviewedBy": "GB"
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#wellfair",
