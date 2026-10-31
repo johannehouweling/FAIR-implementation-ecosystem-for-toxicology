@@ -116,7 +116,8 @@ class SiteTest(TempDir):
         self.assertNotIn('data-theme', html)
         self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
         for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Data integration',
-                     'Regulatory assessment', 'Toxicology infrastructure', 'Year first published',
+                     'Regulatory assessment', 'Toxicology infrastructure', 'b.lane !== META.toxLanes.at(-1)',
+                     'Year first published',
                      'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
                      'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
                      'life-cycle phase they act on (the earliest, if several)', "row('Phase'", "row('Span'",
