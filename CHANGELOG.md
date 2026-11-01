@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.10.7...v0.11.0) (2026-11-01)
+
+
+### Features
+
+* **site:** toxicology infrastructure spans data generation and integration only ([d6e31eb](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/d6e31ebad3c7e3f39ec58e9a4fbe6314033cda6f))
+
 ## [0.10.7](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.10.6...v0.10.7) (2026-10-31)
 
 
