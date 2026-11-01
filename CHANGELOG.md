@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.12.0...v0.13.0) (2026-11-01)
+
+
+### Features
+
+* **sheet:** a Principles tab counts FAIR-enabling resources by principle and scope ([9ca1a74](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/9ca1a74e5f4932e65e6caf8c77f44246644897a4))
+
 ## [0.12.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.11.0...v0.12.0) (2026-11-01)
 
 
