@@ -219,6 +219,43 @@ def _header(ws, columns):
     ws.row_dimensions[1].height = 45
 
 
+SCOPE_HEAD = {'Toxicology': 'Toxicology', 'Life Sciences': 'Life sciences', 'Generic': 'Generic'}
+
+
+def _principles(ws):
+    """The Principles tab: per FAIR principle and scope, the included FAIR-enabling resources one of whose FSR types
+    enables the principle in the FIP ontology, without those whose sub-domains are all outside the manuscript's scope,
+    as in the figure. The counts are formulas over the Resources tab, so they follow every edit."""
+    col = {h: get_column_letter(i) for i, (h, *_) in enumerate(RESOURCE_COLUMNS, 1)}
+    rng = lambda h: f'Resources!${col[h]}$2:${col[h]}'
+    one_of = lambda names: '(' + '|'.join(re.sub(r'([.^$*+?()\[\]{}|\\])', r'\\\1', n) for n in names) + ')'
+    out = one_of(model.OUTSIDE_MANUSCRIPT_SCOPE)
+    ws.append(['Principle', 'FSR type', *SCOPE_HEAD.values()])
+    for c in ws[1]:
+        c.font, c.fill = BOLD, HEAD
+    for group, principles in model.PRINCIPLES.items():
+        ws.append([group])
+        ws.cell(row=ws.max_row, column=1).font = BOLD
+        for p in principles:
+            types = sorted(FSR_LABEL[t] for t, (all_, _) in model.enables().items() if p in all_)
+            named = sorted(FSR_LABEL[t] for t, (_, own) in model.enables().items() if own == {p})   # its own type
+            ws.append([p, ', '.join(named)] + [
+                f'=SUMPRODUCT(({rng("Decision")}="include")*({rng("Scope")}="{scope}")'
+                f'*REGEXMATCH({rng("FSR type")},"(^|[,;] *){one_of(types)}( *[,;]|$)")'
+                f'*(REGEXMATCH({rng("Sub-domains")},"^{out}( *[,;] *{out})*$")=FALSE))' for scope in SCOPE_HEAD])
+            for c in ws[ws.max_row][2:]:
+                c.fill = GREY
+    ws.append([])
+    ws.append([f'Grey, not read back: counted from the Resources tab. A resource counts under each principle that one '
+               f'of its FSR types enables in the FIP ontology ({model.fip_ontology_version()}); resources whose '
+               f'sub-domains are all {" or ".join(model.OUTSIDE_MANUSCRIPT_SCOPE)} are left out, as in the figure.'])
+    ws.column_dimensions['A'].width = 14
+    ws.column_dimensions['B'].width = 42
+    for letter in 'CDE':
+        ws.column_dimensions[letter].width = 14
+    ws.freeze_panes = 'A2'
+
+
 def _sort_key(r):
     lanes = model.LANES + ['']
     return (r.get('decision') == 'exclude', lanes.index(model.lane(r)), r['name'].lower())
@@ -426,6 +463,7 @@ def build(doc, path, added=()):
     src.column_dimensions['A'].width = 16
     src.column_dimensions['B'].width = 100
     src.column_dimensions['C'].width = 70
+    _principles(wb.create_sheet('Principles'))
     wb.save(path)
     return len(rows), len(rels)
 

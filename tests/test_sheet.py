@@ -40,6 +40,19 @@ class SheetTest(TempDir):
         self.assertLessEqual({name for _, name in lists}, set(sheet.LISTS))
         self.assertEqual([(head, name) for head, name in sorted(lists) if head != name], [])
 
+    def test_principles_tab_counts_from_the_resources_tab(self):
+        ws = load_workbook(self.build(model.normalise(fixture())))['Principles']
+        rows = [[c.value for c in r] for r in ws.iter_rows(max_row=18)]
+        self.assertEqual(rows[0], ['Principle', 'FSR type', 'Toxicology', 'Life sciences', 'Generic'])
+        self.assertEqual([r[0] for r in rows[1:]], [x for g, ps in model.PRINCIPLES.items() for x in [g, *ps]])
+        by = {r[0]: r for r in rows}
+        self.assertEqual((by['F1'][1], by['F4'][1]), ('Identifier service', 'Registry'))   # its own type only
+        col = {h: c.column_letter for h, c in zip([h for h, *_ in sheet.RESOURCE_COLUMNS], ws.parent['Resources'][1])}
+        f = by['F4'][2]   # Toxicology: included, the scope, a type that enables F4 (subclasses too), not set aside
+        for part in (f'Resources!${col["Decision"]}$2:${col["Decision"]}="include"', '="Toxicology"',
+                     'Domain-specific registry', 'Generalist registry', 'exposome|eco-toxicology', '=FALSE'):
+            self.assertIn(part, f)
+
     def test_round_trip_without_edits_changes_nothing(self):
         doc = model.normalise(fixture())
         new, changes, problems, notes, _ = sheet.ingest(doc, self.build(doc))
