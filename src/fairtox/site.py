@@ -152,8 +152,8 @@ def public(doc):
 def page_meta(doc):
     return {
         'title': doc['name'], 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
-        'creator': doc['creator']['name'], 'sources': doc.get('sources', {}), 'lanes': model.LANES,
-        'toxLanes': model.TOX_LANES, 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
+        'creator': doc['creator']['name'], 'sources': doc.get('sources', {}), 'lanes': model.FIGURE_LANES,
+        'toxLanes': model.FIGURE_LANES[2:], 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
         'classDef': {CLASSES[k]: v for k, v in CLASS_DEF.items()},
         # the Source filter's options: the curators, the collection, then the FIPs in the dataset
         'sourceList': [doc['creator']['name'], COLLECTION,

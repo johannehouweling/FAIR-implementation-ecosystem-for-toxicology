@@ -107,6 +107,8 @@ LANE_DEF = {
 LANES = list(LANE_DEF)
 TOX_LANES = LANES[2:]
 LANE_OF_PHASE = dict(zip(PHASES, TOX_LANES))
+# The figure draws data integration above data generation (criteria, section 6); the phases keep their life-cycle order.
+FIGURE_LANES = LANES[:2] + ['Data integration', 'Data generation', 'Regulatory assessment']
 # The alternative layout of the toxicology lanes: by creator type, with one lane for resources made jointly.
 CREATOR_LANE_DEF = {
     'Made by wet-lab research': 'Toxicology resources made by wet-lab research only.',

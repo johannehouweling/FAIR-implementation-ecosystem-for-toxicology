@@ -115,7 +115,8 @@ Each excluded row carries exactly one code.
   2016 or later and implements, extends, profiles or recommends a generic resource, such as a toxicology FAIR Implementation Profile building on the FIP.
 - **Lanes.** The dashboard places Generic resources in Generic infrastructure, Life Sciences resources in Life sciences
   infrastructure, and toxicology resources in the lane of their phase (data dictionary, Lanes). Data generation and
-  Data integration together form the toxicology infrastructure; Regulatory assessment stands apart. The toxicology
+  Data integration together form the toxicology infrastructure; Regulatory assessment stands apart. The figure draws
+  Data integration above Data generation; the phases keep their life-cycle order. The toxicology
   lanes can also be arranged by creator type, with one lane for resources made jointly. FAIR Implementation
   Communities are listed but not drawn.
 - **Sub-domains** are those of the manuscript (data dictionary, Sub-domains). They are proposed from the section that
@@ -220,6 +221,7 @@ Each excluded row carries exactly one code.
 | 23 Oct 2026 | Each resource records who to contact about it, as the ORCID of a person or the ROR of an organisation (`contactPoint`, DCAT's `dcat:contactPoint`, as schema.org has none for a creative work), in a Contact column of the curation sheet after Creator. Creator still names the organisations that made the resource. | Jente Houweling |
 | 23 Oct 2026 | When a relation appears on several lines of the Relations tab and exactly one of them is signed, the signed line decides; the unsigned copies are ignored and listed in the pull request, so a copy never has to be deleted. With no signed line, or more than one, all copies wait as before. | Jente Houweling |
 | 31 Oct 2026 | The sub-domains exposome and eco-toxicology are outside the scope of the manuscript, which reviews experimental and computational toxicology for the assessment of chemical risks to human health; the other sub-domains are in scope. A resource whose sub-domains are all outside scope stays included, in the dataset and in the dashboard's list, but is not drawn in the figure, like a FAIR Implementation Community. Which sub-domains are outside scope is one setting, so that a sub-domain can be brought into scope later. | Jente Houweling |
+| 1 Nov 2026 | The figure draws the Data integration lane above Data generation, next to Life sciences infrastructure. Only the order of the lanes changes: the phases keep their life-cycle order, so a resource's phase, span and lane are unchanged, and the curation sheet keeps its order. | Jente Houweling |
 
 ## 9. Limitations
 

@@ -104,6 +104,7 @@ class ModelTest(TempDir):
     def test_lane_rules(self):
         self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')
         self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
+        self.assertEqual(sorted(model.FIGURE_LANES), sorted(model.LANES))   # the figure reorders, never adds or drops
         for phase in model.PHASES:   # the toxicology lanes take the phase names
             self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': phase}), phase)
         self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'creatorType': ['Regulator']}), 'Made by regulators')
