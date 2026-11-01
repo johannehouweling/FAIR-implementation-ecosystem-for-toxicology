@@ -114,9 +114,10 @@ Each excluded row carries exactly one code.
 - **Building on FAIR** is derived, not chosen: a toxicology resource builds on FAIR when it was first published in
   2016 or later and implements, extends, profiles or recommends a generic resource, such as a toxicology FAIR Implementation Profile building on the FIP.
 - **Lanes.** The dashboard places Generic resources in Generic infrastructure, Life Sciences resources in Life sciences
-  infrastructure, and toxicology resources in the lane of their phase (data dictionary, Lanes). The toxicology lanes,
-  which together form the toxicology infrastructure, can also be arranged by creator type, with one lane for resources
-  made jointly. FAIR Implementation Communities are listed but not drawn.
+  infrastructure, and toxicology resources in the lane of their phase (data dictionary, Lanes). Data generation and
+  Data integration together form the toxicology infrastructure; Regulatory assessment stands apart. The toxicology
+  lanes can also be arranged by creator type, with one lane for resources made jointly. FAIR Implementation
+  Communities are listed but not drawn.
 - **Sub-domains** are those of the manuscript (data dictionary, Sub-domains). They are proposed from the section that
   discusses a resource and from its FAIRsharing subjects, and a resource may have several.
 - **Scope of the manuscript.** The manuscript reviews the FAIR resources of experimental and computational toxicology
