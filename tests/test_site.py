@@ -44,7 +44,7 @@ class SiteTest(TempDir):
         self.assertEqual({x['key'] for x in data['nodes']}, included)
         self.assertEqual({x['src'] for x in data['links']}, {'exo'})
         self.assertEqual(set(data['meta']['sources']), {'fairsharing', 'fip'})
-        self.assertEqual(data['meta']['lanes'], model.LANES)
+        self.assertEqual(data['meta']['lanes'], model.FIGURE_LANES)
         self.assertIn('Toxicology infrastructure', html)
         schema = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1))
         self.assertEqual(schema['@type'], 'Dataset')
