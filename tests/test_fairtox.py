@@ -128,6 +128,23 @@ class RepositoryTest(unittest.TestCase):
         own = {str(p) for p in g.predicates() if str(p).startswith(model.TERMS)}
         self.assertEqual(own, set())                           # every field is a standard term, or out of the graph
 
+    def test_queries_run_and_count_the_resources_in_the_figure(self):
+        import contextlib
+        import io
+        from fairtox import cli
+        self.assertEqual([r['key'] for r in fixture()['hasPart'] if model.in_figure(r)], ['ctd', 'oecd_gd'])  # exo: exposome
+        folder = os.path.join(ROOT, 'queries')
+        for name in sorted(os.listdir(folder)):
+            out = io.StringIO()
+            with contextlib.redirect_stdout(out), self.assertRaises(SystemExit) as end:
+                cli.main(['query', os.path.join(folder, name)])
+            self.assertEqual(end.exception.code, 0, name)
+            rows = list(csv.DictReader(io.StringIO(out.getvalue())))
+            self.assertTrue(rows, name)
+            if name == 'resources-by-scope.rq':                # SPARQL agrees with the rule the dashboard draws by
+                drawn = sum(model.in_figure(r) for r in model.normalise(model.load(model.DATASET))['hasPart'])
+                self.assertEqual(sum(int(r['resources']) for r in rows), drawn)
+
 
 if __name__ == '__main__':
     unittest.main()

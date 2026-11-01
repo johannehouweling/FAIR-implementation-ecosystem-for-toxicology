@@ -1,0 +1,17 @@
+# Resources in the figure by scope, and how many of them have no relation.
+PREFIX schema: <http://schema.org/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?scope (COUNT(?resource) AS ?resources) (SUM(?none) AS ?without_relation)
+WHERE {
+  VALUES (?about ?scope) {
+    (<http://www.fairsharing.org/ontology/subject/SRAO_0000401> "Generic")
+    (<http://aims.fao.org/aos/agrovoc/c_4318> "Life Sciences")
+    (<http://purl.obolibrary.org/obo/NCIT_C17206> "Toxicology")
+  }
+  ?resource dct:identifier ?key ; schema:about ?about .
+  BIND(IF(EXISTS { ?resource dcat:qualifiedRelation ?q } || EXISTS { ?r dct:relation ?resource }, 0, 1) AS ?none)
+}
+GROUP BY ?scope
+ORDER BY ?scope

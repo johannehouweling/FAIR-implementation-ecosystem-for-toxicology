@@ -468,6 +468,14 @@ def lane(r):
     return LANE_OF_PHASE.get(r.get('phase'), '')
 
 
+def in_figure(r):
+    """Whether the figure draws a resource, as the dashboard does: included, dated and in a lane, not a FAIR
+    Implementation Community, and not one whose sub-domains are all outside the manuscript's scope."""
+    sub = set(r.get('subdomains', []))
+    return (r.get('decision') == 'include' and FIC not in r.get('fsrType', []) and bool(_year(r)) and bool(lane(r))
+            and not (sub and sub <= set(OUTSIDE_MANUSCRIPT_SCOPE)))
+
+
 def creator_lane(r):
     """Dashboard lane by creator: the toxicology lanes follow the creator types, 'Made jointly' for several."""
     if r.get('scope') != 'Toxicology':
