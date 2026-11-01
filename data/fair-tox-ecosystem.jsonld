@@ -241,7 +241,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.13.0",
- "dateModified": "2026-10-30",
+ "dateModified": "2026-11-01",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -5987,7 +5987,7 @@
      "note": "Checked 30 Oct 2026: the provenance of the FIP nanopublication names the FIP Wizard (https://fip.fair-wizard.com/wizard) as its creator, so the profile was built with that tool."
     },
     {
-     "relation": "https://w3id.org/fair-tox/dataset#fipwiz",
+     "relation": "https://doi.org/10.25504/FAIRsharing.343864",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
@@ -6322,7 +6322,17 @@
    ],
    "fairsharingMatch": "no record",
    "note": "Research 5 Oct 2026 (high confidence): The OSF preprint of Schultes et al. (2020-09-21, doi 10.31219/osf.io/2p85g) describes the FIP Wizard as publicly accessible. The LNCS version went online on 2020-12-22, and the earliest web capture of fip-wizard.ds-wizard.org is 2020-12-03. Production moved to fip.fair-wizard.com on 14 May 2025; the old instance now shows a migration notice, and manuscript link [ag] still uses the old host. URL updated accordingly. Subdomain added because the Reference AOP FIP is published through the wizard (manuscript L135). No FAIRsharing record found. Verified 5 Oct 2026: datePublished changed (On 2020-08-10, GO FAIR's public GitHub README for the FIP model added a link to the live FIP Wizard (https://fip-wizard.ds-wizard.org) and published the Wizard's questionnaire export, knowledge model 4.0.6 (commit 'Add FIP Wizard reference & KM exports': https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4). That is 6 weeks before the preprint of 2020-09-21, which itself cites this GitHub page as accessed 2020-08-10. The exact first public day is unknown.) Verified 5 Oct 2026: dateBasis changed (The Wizard was publicly linked for use, with its questionnaire published, before the describing preprint went online.) Verified 5 Oct 2026: dateSource changed (This dated commit (Mon, 10 Aug 2020) is the earliest documented public reference to the FIP Wizard at fip-wizard.ds-wizard.org.) Proposed 9 Oct 2026: Web application where communities compose FAIR Implementation Profiles through a guided questionnaire and publish them as nanopublications: an editor and publishing service.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.343864",
+     "hadRole": "implements",
+     "evidence": "literature",
+     "source": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
+     "reviewedBy": "JH",
+     "note": "Checked 31 Oct 2026: the nanopublications of both toxicology FIPs are typed with the FIP ontology (fip:FAIR-Implementation-Profile) and name the FIP Wizard as their creator (dct:creator https://fip.fair-wizard.com/wizard)."
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fipmatrix",
@@ -6352,8 +6362,8 @@
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
   {
-   "@id": "https://w3id.org/fair-tox/dataset#fipwiz",
-   "identifier": "https://w3id.org/fair-tox/dataset#fipwiz",
+   "@id": "https://doi.org/10.25504/FAIRsharing.343864",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.343864",
    "schemaType": "schema:CreativeWork",
    "key": "fipwiz",
    "name": "FAIR Implementation Profile (FIP)",
@@ -6363,7 +6373,7 @@
     "domain specific FIPs"
    ],
    "decision": "include",
-   "fairsharingType": "Standard: model/format",
+   "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
@@ -6380,7 +6390,9 @@
     "INTOXICOM 1",
     "INTOXICOM 5"
    ],
-   "note": "Research 5 Oct 2026 (high confidence): The FIP paper (Schultes, Magagna et al., 'Reusable FAIR Implementation Profiles as Accelerators of FAIR Convergence') was posted as an OSF preprint on 2020-09-21 (doi 10.31219/osf.io/2p85g), before the LNCS chapter went online on 2020-12-22 (doi 10.1007/978-3-030-65847-2_13, the previous source; year 2020 unchanged). The preprint says prototype FIPs existed from early 2019, but they were not public. FAIRsharing has no record for the FIP itself. The closest record is the FIP Ontology (FAIRsharing.343864, terminology artefact, FAIRsharing year 2019); check whether it should stand for this row. If it is accepted, the type would follow it (Standard: terminology artefact). URL changed from the DOI to the GO FAIR FIP page. Verified 5 Oct 2026: datePublished changed (The row's own homepage (GO FAIR FIP page) was already online on 2020-08-11, 6 weeks before the OSF preprint: https://web.archive.org/web/20200811221637/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/. It already described machine-actionable FIPs and 'a large collection of early-version FIPs'. GO FAIR also published the FIP conceptual model and the FIP questionnaire on GitHub on 2020-08-10 (commit https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4). The preprint itself cites both as 'last accessed 2020/08/10'. The archive capture is only a lower bound, so only the year 2020 is certain.) Verified 5 Oct 2026: dateBasis changed (The FIP was publicly described on GO FAIR's site and GitHub before the first paper went online, so the date is a public release, not the publication of the describing paper.) Verified 5 Oct 2026: dateSource changed (This earliest archived copy of the FIP homepage (2020-08-11) predates the preprint of 2020-09-21.) Verified 5 Oct 2026: fairsharingRecord changed (One lookup of https://fairsharing.org/FAIRsharing.343864 returns id 4362 'FAIR Implementation Profile Ontology'. It is a terminology artefact with homepage https://peta-pico.github.io/FAIR-nanopubs/fip/index-en.html: the vocabulary that FIPs are written in, not the FIP itself. Name, type and homepage all differ from this row (model/format, go-fair.org FIP page).) Verified 5 Oct 2026: fairsharingMatch changed (The proposed record (FIP Ontology) is a related but different resource, so the match is rejected and the field is cleared. The type stays 'Standard: model/format'.) Proposed 9 Oct 2026: The FIP itself: a community's principle-by-principle declaration of chosen FAIR-enabling resources, published as machine-actionable nanopublications.",
+   "fairsharingRecord": "FAIRsharing.343864",
+   "fairsharingMatch": "confirmed",
+   "note": "Research 5 Oct 2026 (high confidence): The FIP paper (Schultes, Magagna et al., 'Reusable FAIR Implementation Profiles as Accelerators of FAIR Convergence') was posted as an OSF preprint on 2020-09-21 (doi 10.31219/osf.io/2p85g), before the LNCS chapter went online on 2020-12-22 (doi 10.1007/978-3-030-65847-2_13, the previous source; year 2020 unchanged). The preprint says prototype FIPs existed from early 2019, but they were not public. FAIRsharing has no record for the FIP itself. The closest record is the FIP Ontology (FAIRsharing.343864, terminology artefact, FAIRsharing year 2019); check whether it should stand for this row. If it is accepted, the type would follow it (Standard: terminology artefact). URL changed from the DOI to the GO FAIR FIP page. Verified 5 Oct 2026: datePublished changed (The row's own homepage (GO FAIR FIP page) was already online on 2020-08-11, 6 weeks before the OSF preprint: https://web.archive.org/web/20200811221637/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/. It already described machine-actionable FIPs and 'a large collection of early-version FIPs'. GO FAIR also published the FIP conceptual model and the FIP questionnaire on GitHub on 2020-08-10 (commit https://github.com/go-fair-ins/GO-FAIR-Ontology/commit/35c43ef788f5cef6f35afbb4f4e4de99d0743ea4). The preprint itself cites both as 'last accessed 2020/08/10'. The archive capture is only a lower bound, so only the year 2020 is certain.) Verified 5 Oct 2026: dateBasis changed (The FIP was publicly described on GO FAIR's site and GitHub before the first paper went online, so the date is a public release, not the publication of the describing paper.) Verified 5 Oct 2026: dateSource changed (This earliest archived copy of the FIP homepage (2020-08-11) predates the preprint of 2020-09-21.) Verified 5 Oct 2026: fairsharingRecord changed (One lookup of https://fairsharing.org/FAIRsharing.343864 returns id 4362 'FAIR Implementation Profile Ontology'. It is a terminology artefact with homepage https://peta-pico.github.io/FAIR-nanopubs/fip/index-en.html: the vocabulary that FIPs are written in, not the FIP itself. Name, type and homepage all differ from this row (model/format, go-fair.org FIP page).) Verified 5 Oct 2026: fairsharingMatch changed (The proposed record (FIP Ontology) is a related but different resource, so the match is rejected and the field is cleared. The type stays 'Standard: model/format'.) Proposed 9 Oct 2026: The FIP itself: a community's principle-by-principle declaration of chosen FAIR-enabling resources, published as machine-actionable nanopublications. Decided 31 Oct 2026 (JH): the FIP Ontology record stands for this row, as FAIRsharing registers the FIP only as this ontology; the FAIRsharing type follows the record.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
@@ -10537,7 +10549,7 @@
      "note": "Checked 30 Oct 2026: the provenance of the PARC Toxicology FIP v0.1.0 nanopublication names the FIP Wizard (https://fip.fair-wizard.com/wizard) as its creator, so the profile was built with that tool."
     },
     {
-     "relation": "https://w3id.org/fair-tox/dataset#fipwiz",
+     "relation": "https://doi.org/10.25504/FAIRsharing.343864",
      "hadRole": "implements",
      "evidence": "literature",
      "source": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
