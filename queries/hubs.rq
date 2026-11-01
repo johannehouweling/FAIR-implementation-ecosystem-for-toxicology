@@ -1,0 +1,13 @@
+# The most connected resources: relations from and to each resource.
+PREFIX schema: <http://schema.org/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?name (COUNT(DISTINCT ?q) AS ?relations)
+WHERE {
+  ?resource dct:identifier ?key ; schema:name ?name .
+  { ?resource dcat:qualifiedRelation ?q } UNION { ?q dct:relation ?resource }
+}
+GROUP BY ?resource ?name
+ORDER BY DESC(?relations) ?name
+LIMIT 10
