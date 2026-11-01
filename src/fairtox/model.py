@@ -526,6 +526,21 @@ def fsr_offered():
     return sorted({str(c) for c in first | second} | {FIC})
 
 
+# The FAIR principles a FAIR-enabling resource can enable, by group, as the FIP ontology names them.
+PRINCIPLES = {'Findable': ['F1', 'F2', 'F3', 'F4'], 'Accessible': ['A1.1', 'A1.2', 'A2'],
+              'Interoperable': ['I1', 'I2', 'I3'], 'Reusable': ['R1.1', 'R1.2', 'R1.3']}
+
+
+@functools.cache
+def enables():
+    """FER type IRI -> (the principles it enables in the FIP ontology, inherited from its superclasses too; the
+    principles it states itself)."""
+    g, prop, base = fip_ontology(), URIRef(FIP + 'enables'), 'https://w3id.org/fair/principles/terms/'
+    own = lambda c: frozenset(str(p)[len(base):] for p in g.objects(URIRef(c), prop))
+    return {t: (frozenset().union(*map(own, g.transitive_objects(URIRef(t), RDFS.subClassOf))), own(t))
+            for t, (_, _, fer) in fsr_types().items() if fer}
+
+
 def fs_ref(value):
     """Normalise a FAIRsharing reference (DOI, URL, code, numeric id or legacy bsg- id) to 'FAIRsharing.xxx', a numeric
     string or 'bsg-xxx'."""
