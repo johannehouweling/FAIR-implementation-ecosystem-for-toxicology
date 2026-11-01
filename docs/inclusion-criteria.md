@@ -119,15 +119,19 @@ Each excluded row carries exactly one code.
   Data integration above Data generation; the phases keep their life-cycle order. The toxicology
   lanes can also be arranged by creator type, with one lane for resources made jointly. FAIR Implementation
   Communities are listed but not drawn.
-- **Sub-domains** are those of the manuscript (data dictionary, Sub-domains). They are proposed from the section that
-  discusses a resource and from its FAIRsharing subjects, and a resource may have several.
+- **Sub-domains** are those of the manuscript (data dictionary, Sub-domains). Members of the ELIXIR Toxicology
+  Community defined them before resources were collected, and co-authors working in each sub-domain collected and
+  reviewed its resources. They are proposed from the section that discusses a resource and from its FAIRsharing
+  subjects, and a resource may have several. In vivo toxicology was also proposed, but no co-author represents it, so
+  it is not a sub-domain: resources for in vivo studies take the other sub-domains they serve.
 - **Scope of the manuscript.** The manuscript reviews the FAIR resources of experimental and computational toxicology
   that serve the assessment of chemical risks to human health (Introduction); the dedicated FAIR infrastructures of
-  epidemiology, pharmacovigilance, ecotoxicology and the exposome are outside its scope. Each sub-domain is therefore
-  in scope or outside scope: exposome and eco-toxicology are outside scope, the others in scope. A resource whose
-  sub-domains are all outside scope remains included, in the dataset and in the dashboard's list, but is not drawn in
-  the figure. The dataset itself keeps the wider scope of the ELIXIR Toxicology Community, so that a sub-domain can be
-  brought into scope when its resources are reviewed.
+  epidemiology, pharmacovigilance, ecotoxicology and the exposome are outside its scope. Each sub-domain is in scope
+  or outside scope: exposome and eco-toxicology are outside scope because no co-author represents them; the others
+  are in scope. A resource whose sub-domains are all outside scope remains included, in the dataset and in the
+  dashboard's list, but is left out of the figure and the analysis of relations. The dataset itself keeps the wider
+  scope of the ELIXIR Toxicology Community, so that a sub-domain can be brought into scope when its resources are
+  reviewed.
 - **FAIRsharing type** is the FAIRsharing registry and record type, or Tool (data dictionary, FAIRsharing type).
 - **First published** is the earliest date the resource was publicly available or formally described, recorded with
   its basis (data dictionary, Date basis) and its source. Sources are, in order: the DOI metadata of the describing
@@ -231,9 +235,13 @@ Each excluded row carries exactly one code.
 | 31 Oct 2026 | Every resource is checked against FAIRsharing when it enters the dataset, unless it is excluded: FAIRsharing's search for its names and its homepage's domain either gives a record to confirm or shows that FAIRsharing has none. | Jente Houweling |
 | 1 Nov 2026 | The figure draws the Data integration lane above Data generation, next to Life sciences infrastructure. Only the order of the lanes changes: the phases keep their life-cycle order, so a resource's phase, span and lane are unchanged, and the curation sheet keeps its order. | Jente Houweling |
 | 1 Nov 2026 | The curation sheet has a Principles tab that counts, per FAIR principle and scope, the included FAIR-enabling resources one of whose FSR types enables the principle in the FIP ontology, leaving out what the figure leaves out. Its formulas over the Resources tab keep it current. It assigns no principle to a resource: principles still come only from the FIP questions a resource is declared for. | Jente Houweling |
+| 2 Nov 2026 | The sub-domains follow who the community could represent: members of the ELIXIR Toxicology Community defined them before resources were collected, and co-authors working in each sub-domain reviewed its resources. In vivo toxicology, the exposome and eco-toxicology were also proposed but no co-author represents them: in vivo toxicology is not a sub-domain, its resources taking the other sub-domains they serve, and the exposome and eco-toxicology are outside scope for this reason, which the record of 31 Oct 2026 did not state: their resources stay in the dataset but are left out of the figure and the analysis. | Jente Houweling |
 
 ## 9. Limitations
 
+- No co-author represents in vivo toxicology, the exposome or eco-toxicology. Resources of the exposome and
+  eco-toxicology stay in the dataset but are left out of the figure and the analysis; resources for in vivo studies
+  are counted under the other sub-domains they serve.
 - The manuscript is a draft; line references refer to the frozen version, and later drafts may name other resources.
 - The FAIRsharing collection is curated by its maintainers and changes over time; the retrieval date is published
   with the dashboard and the dataset.

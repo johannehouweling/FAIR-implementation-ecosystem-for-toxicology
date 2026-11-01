@@ -1,0 +1,23 @@
+# Relations by the scope of the resource and of its target: which layer builds on which.
+PREFIX schema: <http://schema.org/>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+
+SELECT ?from ?to (COUNT(?q) AS ?relations)
+WHERE {
+  VALUES (?a ?from) {
+    (<http://www.fairsharing.org/ontology/subject/SRAO_0000401> "Generic")
+    (<http://aims.fao.org/aos/agrovoc/c_4318> "Life Sciences")
+    (<http://purl.obolibrary.org/obo/NCIT_C17206> "Toxicology")
+  }
+  VALUES (?b ?to) {
+    (<http://www.fairsharing.org/ontology/subject/SRAO_0000401> "Generic")
+    (<http://aims.fao.org/aos/agrovoc/c_4318> "Life Sciences")
+    (<http://purl.obolibrary.org/obo/NCIT_C17206> "Toxicology")
+  }
+  ?resource dct:identifier ?key ; schema:about ?a ; dcat:qualifiedRelation ?q .
+  ?q dct:relation ?target .
+  ?target dct:identifier ?targetKey ; schema:about ?b .
+}
+GROUP BY ?from ?to
+ORDER BY DESC(?relations) ?from ?to

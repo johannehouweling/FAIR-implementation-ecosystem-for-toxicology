@@ -22,6 +22,8 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
   curator, and source; it is published with the code.
 - `docs/inclusion-criteria.md`: the rules (how resources are selected, classified, related and curated).
 - `docs/data-dictionary.md`: the format (fields with their terms, and the controlled vocabularies).
+- `queries/`: the SPARQL queries behind the counts of relations, hubs and resources without relations, run with
+  `fairtox query` over the resources in the figure.
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
 - `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
 
@@ -56,6 +58,7 @@ uv run --env-file .env fairtox sheet build/curation.xlsx       # curation workbo
 uv run fairtox ingest build/curation-sheet.xlsx                # read the sheet back row by row; --report adds a summary
 uv run --env-file .env fairtox site build/site                 # dashboard, published dataset, CSV files and vocabulary
 uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharing would accept; nothing is posted
+uv run fairtox query queries/hubs.rq                           # a SPARQL query over the resources in the figure; CSV
 ```
 
 `fairsharing`, `fip`, `sheet`, `site` and `export-fairsharing` take `--offline`; `fip --report` writes the

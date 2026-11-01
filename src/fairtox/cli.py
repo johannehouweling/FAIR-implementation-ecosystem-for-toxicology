@@ -174,6 +174,20 @@ def cmd_fip(a):
     return 0
 
 
+def cmd_query(a):
+    import rdflib
+    from fairtox import site
+    doc = model.normalise(_load())
+    ids = {r['@id'] for r in doc['hasPart'] if model.in_figure(r)}
+    doc = site.public(doc)                                  # the published dataset, cut to the resources in the figure
+    doc['hasPart'] = [{**r, 'qualifiedRelation': [q for q in r.get('qualifiedRelation', []) if q['relation'] in ids]}
+                      for r in doc['hasPart'] if r['@id'] in ids]
+    g = rdflib.Graph().parse(data=model.dumps(doc), format='json-ld')
+    with open(a.query, encoding='utf-8') as f:
+        sys.stdout.write(g.query(f.read()).serialize(format='csv').decode('utf-8'))
+    return 0
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog='fairtox', description=__doc__)
     p.add_argument('--version', action='version', version=__version__)
@@ -217,6 +231,9 @@ def main(argv=None):
     s.add_argument('--apply', action='store_true', help='store links to the declared resources and undecided rows for '
                                                         'new ones and their communities (after reviewing the report)')
     s.set_defaults(run=cmd_fip)
+    s = sub.add_parser('query', help='run a SPARQL query (queries/*.rq) over the resources in the figure; CSV out')
+    s.add_argument('query')
+    s.set_defaults(run=cmd_query)
     a = p.parse_args(argv)
     try:
         sys.exit(a.run(a))
