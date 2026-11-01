@@ -57,6 +57,7 @@ jobs:
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         run: |
           rsync -a --delete --exclude .git --exclude README.md --exclude LICENSE --exclude .nojekyll build/site/ dashboard/
+          cp LICENSE-DATA dashboard/LICENSE   # the CC BY-SA 4.0 text verbatim, so GitHub detects the licence
           cd dashboard
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
