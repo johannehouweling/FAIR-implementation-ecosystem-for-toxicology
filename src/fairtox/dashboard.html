@@ -704,7 +704,7 @@ function header() {
     fip.retrieved && `FIP declarations retrieved <span class="num">${esc(fip.retrieved)}</span>`].filter(Boolean).join(' · ');
   $('fs-read').textContent = String((fs || {}).retrieved || '').slice(0, 10);
   $('fip-read').textContent = fip.retrieved || '';
-  $('onto').textContent = fip.ontology || '';
+  $('onto').innerHTML = fip.ontology ? link(META.ontologyIri, fip.ontology) : '';
   // the journal's data citation: Authors. Title, version. Repository URL (year).
   const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '';
   const [where, url] = doi ? ['Zenodo', doi] : ['GitHub', META.repo];

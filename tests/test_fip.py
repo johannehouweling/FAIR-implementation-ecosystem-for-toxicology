@@ -154,12 +154,14 @@ class FipTest(TempDir):
         labels = ('Registry', 'FAIR-Enabling Resource', 'FAIR Implementation Community')
         self.assertEqual([meta['typeIri'].get(x) for x in labels], [model.FIP + 'Registry', model.FER, model.FIC])
         self.assertEqual(meta.get('principleIri', {}).get('F1'), 'https://w3id.org/fair/principles/terms/F1')
+        self.assertTrue(meta.get('ontologyIri', '').startswith(model.FIP + 'FIP-Ontology_'))   # the version read
         html = pathlib.Path(ROOT, 'src', 'fairtox', 'dashboard.html').read_text(encoding='utf-8')
         for code in ("row('FSR type', n.fsrType.map(t => termLink(META.typeIri, t)).join(', '))",
                      "row('Class', n.fsrCategory !== n.fsrType.join() && termLink(META.typeIri, n.fsrCategory))",
                      "row('Principles', n.principles.map(p => termLink(META.principleIri, p)).join(', '))",
                      '<li>${btn(d.src, short(byKey[d.src]))}: ',       # the declaring FIP opens its own details
-                     "isNanopub(n.identifier) && link(n.identifier, 'Nanopublication')"):   # a community's; a FIP's is its URL
+                     "isNanopub(n.identifier) && link(n.identifier, 'Nanopublication')",   # a community's; a FIP's is its URL
+                     "$('onto').innerHTML = fip.ontology ? link(META.ontologyIri, fip.ontology) : ''"):   # the About text
             self.assertIn(code, html)
 
     def test_convergence_rows(self):

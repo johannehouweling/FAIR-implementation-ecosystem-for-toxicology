@@ -502,9 +502,13 @@ def fip_ontology():
     return rdflib.Graph().parse(FIP_ONTOLOGY, format='turtle')
 
 
+def fip_ontology_version_iri():
+    """The IRI of the ontology version read, such as https://w3id.org/fair/fip/terms/FIP-Ontology_20260227."""
+    return str(fip_ontology().value(None, DCTERMS.isVersionOf, URIRef(FIP + 'FIP-Ontology')))
+
+
 def fip_ontology_version():
-    g = fip_ontology()
-    return str(g.value(g.value(None, DCTERMS.isVersionOf, URIRef(FIP + 'FIP-Ontology')), RDFS.label))
+    return str(fip_ontology().value(URIRef(fip_ontology_version_iri()), RDFS.label))
 
 
 @functools.cache
