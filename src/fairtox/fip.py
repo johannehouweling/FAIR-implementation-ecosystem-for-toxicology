@@ -25,6 +25,7 @@ from fairtox import fairsharing, model, web
 FIPS = {'parcfip': 'https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E',
         'fairaop': 'https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc'}
 CACHE = 'build/fip'
+PAUSE = 0.25                # seconds between nanopublication requests
 QUERY = 'https://query.knowledgepixels.com/repo/full'
 REPORT = 'build/fip-match-report.csv'
 CONVERGENCE = 'build/fip-convergence.md'
@@ -104,7 +105,7 @@ def nanopub(iri, offline=False):
         os.makedirs(CACHE, exist_ok=True)
         with open(path, 'w', encoding='utf-8') as f:
             f.write(text)
-        time.sleep(fairsharing.PAUSE)
+        time.sleep(PAUSE)
     return _graph(path)
 
 

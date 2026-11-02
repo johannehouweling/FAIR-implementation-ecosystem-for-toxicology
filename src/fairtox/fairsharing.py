@@ -1,6 +1,8 @@
 """FAIRsharing: the Toxicology collection (3496) and the records of the dataset's rows, and the submission export.
 
-Every read is kept in a local cache, build/fairsharing/records.json; `--offline` reads only that cache.
+Every read is kept in a local cache, build/fairsharing/records.json; `--offline` reads only that cache. FAIRsharing
+is read in full once a day: a later read that day keeps the day's records and reads only what they lack. Requests
+are PAUSE seconds apart, as FAIRsharing asked.
 
 The dataset stores only what is curated (`curate`): new collection members, as undecided rows or proposed matches,
 and the result of searching FAIRsharing for each row never checked against it (`check`).
@@ -24,7 +26,8 @@ from fairtox import model, web
 
 API = 'https://api.fairsharing.org'
 SITE = 'https://fairsharing.org'
-PAUSE = 0.25
+PAUSE = 10                  # seconds from one request to the next: FAIRsharing asked for one every 8 to 12 seconds
+_last = float('-inf')       # when the last request started (time.monotonic)
 CACHE = 'build/fairsharing'
 RECORD_TYPE = {v[1]: k for k, v in model.TYPES.items() if v[1]}
 MAINTAINED = {'ready': 'active', 'deprecated': 'discontinued', 'in_development': 'in development',
@@ -43,6 +46,9 @@ class FairsharingError(web.Unreadable):
 
 
 def _request(method, url, body=None, token=None):
+    global _last
+    time.sleep(max(0, _last + PAUSE - time.monotonic()))
+    _last = time.monotonic()
     headers = {'Accept': 'application/json'}
     data = None
     if body is not None:
@@ -251,15 +257,17 @@ def read(login, password, offline=False):
         raise FairsharingError('FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD are not set (locally: uv run --env-file '
                                '.env fairtox ...); --offline reads the local cache.')
     jwt, records = sign_in(login, password), {}
+    cached = model.load(path) if os.path.exists(path) else {}
+    if cached.get('retrieved') == dt.date.today().isoformat():   # read today: only what is missing is read
+        records = {x['id']: x for x in cached['records']}
 
     def get(rid):
         records[rid] = slim(record(rid, jwt))
-        time.sleep(PAUSE)
         public = slim(lookup(rid))                      # subjects and domains with their IRIs
         records[rid].update({k: public[k] for k in ('subjects', 'domains')})
-        time.sleep(PAUSE)
 
-    get(model.COLLECTION_ID)
+    if model.COLLECTION_ID not in records:
+        get(model.COLLECTION_ID)
     members = sorted({a['other'] for a in records[model.COLLECTION_ID]['associations']
                       if a['outgoing'] and a['label'] == 'collects'})
     if not members:
@@ -272,7 +280,6 @@ def read(login, password, offline=False):
     known = {model.fs_ref(x['doi']) for x in records.values()}
     for code in sorted(x for x in refs if x.startswith('FAIRsharing.') and x not in known):
         rid = slim(lookup(code))['id']   # the public record JSON gives the record id behind a code
-        time.sleep(PAUSE)
         if rid not in records:
             get(rid)
     searches, failed = {}, 0

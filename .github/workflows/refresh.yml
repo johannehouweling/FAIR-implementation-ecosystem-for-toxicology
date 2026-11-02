@@ -65,6 +65,12 @@ jobs:
             build/fip/fip-ontology.ttl
           retention-days: 90
           if-no-files-found: ignore
+      - name: Keep the day's FAIRsharing records for later runs
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: build/fairsharing
+          key: fairsharing-${{ steps.day.outputs.day }}
+          restore-keys: fairsharing-
       - name: Read FAIRsharing
         env:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
