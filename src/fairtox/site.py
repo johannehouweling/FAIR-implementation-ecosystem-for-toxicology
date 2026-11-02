@@ -71,12 +71,17 @@ def fairsharing_url(r):
     return 'https://doi.org/10.25504/' + ref if ref.startswith('FAIRsharing.') else f'https://fairsharing.org/{ref}'
 
 
+def type_labels():
+    """IRI -> label of every FSR type and of the two classes, as the page shows them."""
+    return {**{k: v[0] for k, v in model.fsr_types().items()}, **CLASSES}
+
+
 def nodes_links(doc):
     """Flatten the dataset for the page. Links run from the earlier resource (src, the relation's target) to the
     one that builds on or uses it (dst, the relation's subject), so "CTD implements ExO" is drawn ExO -> CTD. Declarations run
     from a FIP (src) to a resource it declares (dst), with each question and its declaration nanopublication (q)."""
     nodes, key_of = [], {r['@id']: r['key'] for r in doc['hasPart']}
-    fsr = {**{k: v[0] for k, v in model.fsr_types().items()}, **CLASSES}   # IRI -> label
+    fsr = type_labels()
     for r in doc['hasPart']:
         fs = r.get('fairsharing') or {}
         date, basis = model.first_date(r)
@@ -155,6 +160,8 @@ def page_meta(doc):
         'creator': doc['creator']['name'], 'sources': doc.get('sources', {}), 'lanes': model.FIGURE_LANES,
         'toxLanes': model.FIGURE_LANES[2:], 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
         'classDef': {CLASSES[k]: v for k, v in CLASS_DEF.items()},
+        'typeIri': {v: k for k, v in type_labels().items()},   # label -> term, the links in the details
+        'principleIri': fip.principles(),   # F1 -> the FAIR principle's term
         # the Source filter's options: the curators, the collection, then the FIPs in the dataset
         'sourceList': [doc['creator']['name'], COLLECTION,
                        *sorted(label(r) for r in doc['hasPart'] if r['key'] in doc.get('sources', {}).get('fip', {}))],
