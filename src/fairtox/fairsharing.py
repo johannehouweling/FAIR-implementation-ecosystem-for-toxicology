@@ -2,7 +2,8 @@
 
 Every read is kept in a local cache, build/fairsharing/records.json; `--offline` reads only that cache.
 
-The dataset stores only what is curated (`curate`): new collection members, as undecided rows or proposed matches.
+The dataset stores only what is curated (`curate`): new collection members, as undecided rows or proposed matches,
+and the result of searching FAIRsharing for each row never checked against it (`check`).
 Record data, collection membership and associations are added when the site, the sheet or the submission export is
 built (`enrich`), with their retrieval date.
 
@@ -17,6 +18,7 @@ import os
 import re
 import time
 import urllib.error
+import urllib.parse
 
 from fairtox import model, web
 
@@ -32,6 +34,8 @@ STATUS = {v: k for k, v in MAINTAINED.items()}
 # shares_data_with and shares_code_with are kinds of related_to).
 FOLD = {'accepts': 'implements', 'outputs': 'implements', 'shares_data_with': 'related_to',
         'shares_code_with': 'related_to'}
+# Common words left out of a search: with them, FAIRsharing's search answers HTTP 500 to many longer queries.
+COMMON = {'a', 'an', 'and', 'for', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'with'}
 
 
 class FairsharingError(web.Unreadable):
@@ -86,6 +90,12 @@ def record(rid, jwt):
 def lookup(ref):
     """Public record JSON (no login) for one id or FAIRsharing.xxx code."""
     return _request('GET', f'{SITE}/{model.fs_ref(ref)}')
+
+
+def search(q, jwt):
+    """The first page (25 records) of FAIRsharing's search for q, with the fields `propose` compares."""
+    found = _request('POST', f'{API}/search/fairsharing_records?q={urllib.parse.quote(q)}', token=jwt)['data']
+    return [{k: s[k] for k in ('id', 'doi', 'name', 'abbreviation', 'homepage')} for s in map(slim, found)]
 
 
 def _first(*values):
@@ -187,10 +197,16 @@ def find(doc, rec):
     return by_id.get(rec['id']) or (by_code.get(code) if code else None)
 
 
+def row_names(r):
+    """A row's name and other names, each also split at its brackets ("AOP-DB (Adverse Outcome Pathway Database)" is
+    also "AOP-DB" and "Adverse Outcome Pathway Database"), normalised."""
+    texts = [t for t in (r.get('name'), *r.get('alternateName', [])) if t]
+    return list(dict.fromkeys(n for t in texts for n in map(norm_name, (t, *re.split(r'[()]', t))) if n))
+
+
 def propose(r, records):
     """A `to check` proposal for a resource with no FAIRsharing match yet: homepage, then name or abbreviation."""
-    names = {norm_name(r.get('name'))} | {norm_name(x) for x in r.get('alternateName', [])}
-    names.discard('')
+    names = set(row_names(r))
     for rec in records:
         if r.get('url') and rec.get('homepage') and norm_url(r['url']) == norm_url(rec['homepage']):
             return rec, 'same homepage'
@@ -203,9 +219,29 @@ def propose(r, records):
     return None, ''
 
 
+def unchecked(doc):
+    """Rows never checked against FAIRsharing: not excluded, with neither a FAIRsharing record nor a match."""
+    return [r for r in doc['hasPart'] if r.get('decision') != 'exclude' and not r.get('fairsharingMatch')
+            and not r.get('fairsharingRecord')]
+
+
+def queries(r):
+    """What a row is searched for in FAIRsharing: its names (`row_names`) without common words, each cut to its first
+    ten words, and its homepage's host, in letters, digits and dots only. FAIRsharing's search answers HTTP 500 to a
+    slash, a bracket and many queries of more than ten words or with common words (tried on 31 Oct 2026)."""
+    host = (urllib.parse.urlsplit(r.get('url') or '').hostname or '').removeprefix('www.')
+    names = (' '.join([w for w in n.split() if w not in COMMON][:10]) for n in row_names(r))
+    return list(dict.fromkeys(q for q in (*names, host) if q))
+
+
+def _code(rec):
+    return (rec.get('doi') or '').split('/')[-1] or str(rec['id'])
+
+
 def read(login, password, offline=False):
-    """The collection members and the records of the collection and of every row with a FAIRsharing record, read
-    signed in and cached; offline, only the cache is read."""
+    """The collection members, the records of the collection and of every row with a FAIRsharing record, and what
+    FAIRsharing's search finds for each unchecked row (`searches`, by key), read signed in and cached; offline, only
+    the cache is read."""
     path = os.path.join(CACHE, 'records.json')
     if offline:
         if not os.path.exists(path):
@@ -229,7 +265,8 @@ def read(login, password, offline=False):
     if not members:
         raise FairsharingError('no collection members found in the collection record; the REST field names may '
                                'differ: adapt slim().')
-    refs = {model.fs_ref(r.get('fairsharingRecord')) for r in model.load()['hasPart']}
+    doc = model.load()
+    refs = {model.fs_ref(r.get('fairsharingRecord')) for r in doc['hasPart']}
     for rid in sorted((set(members) | {int(x) for x in refs if x.isdigit()}) - set(records)):
         get(rid)
     known = {model.fs_ref(x['doi']) for x in records.values()}
@@ -238,8 +275,23 @@ def read(login, password, offline=False):
         time.sleep(PAUSE)
         if rid not in records:
             get(rid)
+    searches, failed = {}, 0
+    for r in unchecked(doc):
+        hits = {}                                       # in FAIRsharing's order, each record once
+        try:
+            for q in queries(r):
+                for x in search(q, jwt):
+                    hits.setdefault(x['id'], x)
+                time.sleep(PAUSE)
+        except web.Unreadable:                          # not answered, even when asked again: the row stays
+            failed += 1                                 # unchecked until the next read; after three rows in a
+            if failed == 3:                             # row the search is taken to be down
+                break
+            continue
+        failed = 0
+        searches[r['key']] = list(hits.values())
     data = {'retrieved': dt.date.today().isoformat(), 'members': members,
-            'records': [records[k] for k in sorted(records)]}
+            'records': [records[k] for k in sorted(records)], 'searches': searches}
     os.makedirs(CACHE, exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(model.dumps(data))
@@ -256,7 +308,7 @@ def curate(doc, data):
     for rec in data['records']:
         if rec['id'] not in members or find(doc, rec) is not None:
             continue
-        code = (rec.get('doi') or '').split('/')[-1] or str(rec['id'])
+        code = _code(rec)
         hit = next((r for r in open_rows if propose(r, [rec])[0]), None)
         if hit is not None:
             hit.update(fairsharingRecord=code, fairsharingMatch='to check')
@@ -295,6 +347,25 @@ def curate(doc, data):
                 report.append(f"two-hop: {r['key']} {a['label']} FAIRsharing {a['other']} {a['otherName']}")
             elif t is not r and t['@id'] not in linked(r) and r['@id'] not in linked(t):
                 report.append(f"FAIRsharing association, not a relation here: {r['key']} {label} {t['key']}")
+    return report
+
+
+def check(doc, data):
+    """What `fairtox fairsharing --apply` saves, in place, for each unchecked row that FAIRsharing was searched for: the
+    record found by the rules of `propose` that no other row has, to check, or else no record. Returns the report."""
+    report = []
+    for r in unchecked(doc):
+        hits = data.get('searches', {}).get(r['key'])
+        if hits is None:
+            report.append(f"not searched in FAIRsharing, still unchecked: {r['key']}")
+            continue
+        rec, why = propose(r, [x for x in hits if find(doc, x) is None])   # a record is one row's identifier
+        if rec:
+            r.update(fairsharingRecord=_code(rec), fairsharingMatch='to check')
+            report.append(f"proposed match: {r['key']} = FAIRsharing {rec['id']} {rec['name']} ({why})")
+        else:
+            r['fairsharingMatch'] = 'no record'
+            report.append(f"no FAIRsharing record found: {r['key']}")
     return report
 
 

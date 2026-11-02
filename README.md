@@ -42,8 +42,8 @@ Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the vers
 Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row, as the
 [criteria](docs/inclusion-criteria.md#7-process) describe. A freshly built sheet, once uploaded, needs "Allow multiple
 selections" switched on for Sub-domains, FSR type and Phase by hand, because an .xlsx cannot carry it. A workflow
-reads the sheet back three times a day, then FAIRsharing and the FIPs, and keeps one pull request open with what
-changed; it keeps the exported sheet with the run for 90 days.
+reads the sheet back three times a day, then FAIRsharing, checking each new row against it, and the FIPs, and keeps
+one pull request open with what changed; it keeps the exported sheet with the run for 90 days.
 
 ## Commands
 
@@ -52,7 +52,7 @@ Requires [uv](https://docs.astral.sh/uv/). Run from the repository root.
 ```bash
 uv sync
 uv run fairtox validate                                        # check; --strict, used by CI, also fails on warnings
-uv run --env-file .env fairtox fairsharing                     # new FAIRsharing collection members; --apply stores them
+uv run --env-file .env fairtox fairsharing                     # new collection members, unchecked rows searched; --apply stores them
 uv run fairtox fip                                             # FIP match report; --apply stores links and new rows
 uv run --env-file .env fairtox sheet build/curation.xlsx       # curation workbook, edited as a Google Sheet
 uv run fairtox ingest build/curation-sheet.xlsx                # read the sheet back row by row; --report adds a summary

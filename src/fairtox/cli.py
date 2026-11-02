@@ -42,13 +42,19 @@ def cmd_fairsharing(a):
     before = json.loads(json.dumps(doc))
     lines = fairsharing.curate(doc, data)
     changes = model.diff(before, model.normalise(doc))
+    before = json.loads(json.dumps(doc))
+    lines += fairsharing.check(doc, data)
+    checked = model.diff(before, model.normalise(doc))
     _report([f"{len(data['records'])} FAIRsharing records read on {data['retrieved']}; {len(data['members'])} "
-             'collection members'] + lines, a.report, 'FAIRsharing')
+             f"collection members; {len(data.get('searches', {}))} unchecked rows searched"] + lines,
+            a.report, 'FAIRsharing')
     if a.apply:
         if model.save(doc):
-            model.log_changes(changes, f"fairsharing import {data['retrieved']}", 'FAIRsharing Toxicology collection',
-                              dict.fromkeys((c[0] for c in changes), 'fairtox fairsharing'))
-        print(f'{len(changes)} changes applied and logged in {model.CHANGES}')
+            for done, source in ((changes, 'FAIRsharing Toxicology collection'),
+                                 (checked, f'{fairsharing.API}/search/fairsharing_records')):
+                model.log_changes(done, f"fairsharing import {data['retrieved']}", source,
+                                  dict.fromkeys((c[0] for c in done), 'fairtox fairsharing'))
+        print(f'{len(changes) + len(checked)} changes applied and logged in {model.CHANGES}')
     return 0
 
 
@@ -189,12 +195,14 @@ def main(argv=None):
     s = sub.add_parser('validate', help='check the dataset')
     s.add_argument('--strict', action='store_true', help='fail on warnings too')
     s.set_defaults(run=cmd_validate)
-    s = sub.add_parser('fairsharing', help='read the FAIRsharing Toxicology collection and report its new members; '
+    s = sub.add_parser('fairsharing', help='read the FAIRsharing Toxicology collection and report its new members, '
+                                           'and search FAIRsharing for the rows never checked against it; '
                                            'FAIRsharing record data are never stored: the builds read them')
     s.add_argument('--offline', action='store_true', help='read only the local cache in build/fairsharing')
     s.add_argument('--report', metavar='FILE', help='also append the report to a markdown file')
     s.add_argument('--apply', action='store_true', help='store new collection members as undecided rows or proposed '
-                                                        'matches (after reviewing the report)')
+                                                        'matches, and the search results as proposed matches or no '
+                                                        'record (after reviewing the report)')
     s.set_defaults(run=cmd_fairsharing)
     s = sub.add_parser('sheet', help='build the curation workbook')
     s.add_argument('out', help='path of the .xlsx to write')

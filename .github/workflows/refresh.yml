@@ -1,9 +1,10 @@
 name: Data refresh
 
 # Three times a day: read back the curation sheet row by row, then the FAIRsharing Toxicology collection with the
-# repository owner's FAIRsharing login (Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD) and the toxicology
-# FIPs' nanopublications. What changed (edits made in the sheet, new collection members, new resources and links from
-# the FIP declarations) goes into one pull request on the branch data-refresh, updated on each run until a person
+# repository owner's FAIRsharing login (Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD), searching
+# FAIRsharing for every row not yet checked against it, and the toxicology FIPs' nanopublications. What changed (edits
+# made in the sheet, new collection members, FAIRsharing checks, new resources and links from the FIP declarations)
+# goes into one pull request on the branch data-refresh, updated on each run until a person
 # merges it. A sheet row or relation with a problem waits in the sheet and is listed in the pull request; only a sheet
 # that cannot be read stops the run. The sheet is exported with a Google service account that can only view it
 # (secret GOOGLE_CREDENTIALS); setting the secret SHEET_ID switches this on. Nothing is pushed to main; the dashboard

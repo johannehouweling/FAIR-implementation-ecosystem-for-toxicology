@@ -100,6 +100,43 @@ class FairsharingTest(TempDir):
         self.assertEqual(fairsharing.curate(doc, self.data)[0],
                          'proposed match: tool = FAIRsharing 9999 New Tox Database (same homepage)')
 
+    def test_each_unchecked_row_is_searched_and_checked_once(self):
+        doc = model.normalise(fixture())        # unchecked: ctd, oecd_gd and tool; exo is matched, parc excluded
+        ctd = {'id': 1716, 'doi': '10.25504/FAIRsharing.h3tjtr', 'name': 'Comparative Toxicogenomics Database',
+               'abbreviation': 'CTD', 'homepage': 'https://ctdbase.org/'}
+        exo = {'id': 512, 'doi': '10.25504/FAIRsharing.6hna78', 'name': 'A FAIR tool'}   # exo's record: not proposed
+        asked = []
+
+        def search(q, jwt):
+            asked.append(q)
+            if q == 'oecd guidance research data':
+                raise fairsharing.FairsharingError('HTTP 500')
+            return {'ctd': [ctd], 'ctdbase.org': [ctd], 'fair tool': [exo]}.get(q, [])
+        with mock.patch.multiple(fairsharing, CACHE=self.dir, PAUSE=0, sign_in=mock.DEFAULT, search=search,
+                                 record=lambda rid, jwt: REST_LINKED if rid == 3496 else {'id': rid},
+                                 lookup=lambda ref: {'id': 512}), mock.patch.object(model, 'load', return_value=doc):
+            data = fairsharing.read('login', 'password')
+        self.assertEqual(asked, ['comparative toxicogenomics database', 'ctd', 'ctdbase.org',   # name, other names,
+                                 'oecd guidance research data', 'fair tool'])                    # homepage host
+        self.assertEqual(data['searches'], {'ctd': [ctd], 'tool': [exo]})   # the search failed for oecd_gd only
+        self.assertEqual(fairsharing.check(doc, data), [
+            'proposed match: ctd = FAIRsharing 1716 Comparative Toxicogenomics Database (same homepage)',
+            'not searched in FAIRsharing, still unchecked: oecd_gd', 'no FAIRsharing record found: tool'])
+        by = {r['key']: (r.get('fairsharingRecord'), r.get('fairsharingMatch')) for r in model.normalise(doc)['hasPart']}
+        self.assertEqual((by['ctd'], by['oecd_gd'], by['tool'], by['parc']),
+                         (('FAIRsharing.h3tjtr', 'to check'), (None, None), (None, 'no record'), (None, None)))
+        self.assertEqual(fairsharing.check(doc, data), ['not searched in FAIRsharing, still unchecked: oecd_gd'])
+        self.assertEqual(fairsharing.queries({'name': 'OECD Guidance Document on the use of data (GD 417)',
+                                              'url': 'https://www.oecd.org/a/b?c=1'}),   # the parts around brackets
+                         ['oecd guidance document use data gd 417', 'oecd guidance document use data', 'gd 417',
+                          'oecd.org'])
+        long = 'eTRANSAFE: building a sustainable framework to share reproducible drug safety knowledge with the public'
+        self.assertEqual(fairsharing.queries({'name': long}),                             # the first ten words
+                         ['etransafe building sustainable framework share reproducible drug safety knowledge public'])
+        self.assertEqual(fairsharing.propose({'name': 'AOP-DB (Adverse Outcome Pathway Database)'},
+                                             [{'id': 1, 'name': 'Adverse Outcome Pathway Database'}])[1],
+                         'same name or abbreviation')
+
     def test_enrich_adds_the_published_block(self):
         doc = fairsharing.enrich(model.normalise(fixture()), self.data)
         self.assertEqual([(r['key'], r['fairsharing']) for r in doc['hasPart'] if 'fairsharing' in r], [('exo', {
