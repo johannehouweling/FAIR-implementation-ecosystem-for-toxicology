@@ -220,7 +220,7 @@ button.btn:hover { border-color: var(--ink); }
     </section>
     <section aria-labelledby="lic-h">
       <h2 id="lic-h">Licences</h2>
-      <p>Data and figure: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, as required by the FAIRsharing data they include. Code: <a href="https://opensource.org/license/mit">MIT</a>.</p>
+      <p>Data and figure: <span id="lic"></span>, as required by the FAIRsharing data they include. Code: <a href="https://opensource.org/license/mit">MIT</a>.</p>
       <p class="credit"><a href="https://fairsharing.org"><img src="https://api.fairsharing.org/img/fairsharing-attribution.svg" alt="FAIRsharing"></a> Contains information from FAIRsharing, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
     </section>
   </footer>
@@ -442,10 +442,11 @@ function figure(G, svg) {
   for (const yr of yrs) text(X(G, yr), yT, G.SMALL, yr, {'text-anchor': 'middle', fill: C.ink2});
   if (col) text((x0 + xc) / 2, yT, G.SMALL, 'Before 2000', {'text-anchor': 'middle', fill: C.ink2});
   text((xs + x1) / 2, yTitle, G.BIG, 'Year first published', {'text-anchor': 'middle'});
-  if (Y0 < 2016 && 2016 < Y1) {
-    const x = X(G, 2016);
+  const fair = META.fairPublished;
+  if (Y0 < fair && fair < Y1) {
+    const x = X(G, fair);
     el('path', {d: `M${x} ${G.TOP - G.FS * 1.5}V${yA}`, stroke: C.ink2, 'stroke-width': sw * 1.2, 'stroke-dasharray': `${4 * u} ${3 * u}`}, svg);
-    text(x + 4 * u, G.TOP - G.FS * .6, G.FS, 'FAIR principles published, 2016', {'font-weight': bold});
+    text(x + 4 * u, G.TOP - G.FS * .6, G.FS, `FAIR principles published, ${fair}`, {'font-weight': bold});
   }
 
   // Links run from the earlier resource (src) to the one that builds on or uses it (dst); related_to links, which have no
@@ -697,6 +698,7 @@ function table() {
 
 function header() {
   document.title = $('title').textContent = META.title;
+  $('lic').innerHTML = link(META.license.url, META.license.name);
   const fs = (META.sources || {}).fairsharing, fip = Object.values(FIPS)[0] || {};
   $('meta').innerHTML = [plural(NODES.length, 'resource', 'resources'), `version <span class="num">${esc(META.version)}</span>`,
     META.dateModified && `last updated <span class="num">${esc(META.dateModified)}</span>`,
