@@ -84,6 +84,16 @@ class FairsharingTest(TempDir):
                 mock.patch.object(model, 'load', side_effect=lambda *path: load(*path) if path else rows):
             fairsharing.read('login', 'password')
         self.assertEqual(asked, [7])
+        cache = os.path.join(self.dir, 'records.json')     # another day: read in full, unless any day will do
+        kept = {**load(cache), 'retrieved': '2026-01-01'}
+        with open(cache, 'w', encoding='utf-8') as f:
+            f.write(model.dumps(kept))
+        with mock.patch.multiple(fairsharing, CACHE=self.dir, sign_in=mock.DEFAULT, lookup=lambda ref: api[7],
+                                 record=lambda rid, jwt: asked.append(rid) or api[rid]), \
+                mock.patch.object(model, 'load', side_effect=lambda *path: load(*path) if path else rows), \
+                mock.patch.dict(os.environ, {'FAIRSHARING_CACHE_ANY_DAY': '1'}):
+            self.assertEqual(fairsharing.read('login', 'password')['retrieved'], '2026-01-01')
+        self.assertEqual(asked, [7])
 
     def test_requests_are_paused_as_fairsharing_asked(self):
         clock = iter([100.0, 100.0, 103.0, 103.0])

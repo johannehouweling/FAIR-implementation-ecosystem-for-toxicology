@@ -3,8 +3,8 @@ name: CI
 # Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
 # public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
 # The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, in full once a
-# day (later runs reuse the day's cache), and the FIP declarations; a weekly run rebuilds main so the page has the
-# current ones. A build of main that has started is
+# day (later runs reuse the day's cache; a pull request reuses the last one of any day), and the FIP declarations; a
+# weekly run rebuilds main so the page has the current ones. A build of main that has started is
 # never cancelled, so every published build stays in the history of the dashboard repository.
 # After a green build of a push to main, release-please keeps a release pull request open with the next version and
 # its CHANGELOG.md entry, made from the Conventional Commits since the last release; merging it tags the version and
@@ -48,6 +48,8 @@ jobs:
         env:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
           FAIRSHARING_PASSWORD: ${{ secrets.FAIRSHARING_PASSWORD }}
+          # a pull request publishes nothing, so it builds from the last FAIRsharing records kept, of any day
+          FAIRSHARING_CACHE_ANY_DAY: ${{ github.event_name == 'pull_request' && '1' || '' }}
         run: uv run fairtox site build/site
       - name: Check the dataset against the CDIF Discovery profile 1.1
         # CODATA's own SHACL shapes (doc-corediscovery v1.1.1, pinned by commit); warnings are recommendations

@@ -1,8 +1,9 @@
 """FAIRsharing: the Toxicology collection (3496) and the records of the dataset's rows, and the submission export.
 
 Every read is kept in a local cache, build/fairsharing/records.json; `--offline` reads only that cache. FAIRsharing
-is read in full once a day: a later read that day keeps the day's records and reads only what they lack. Requests
-are PAUSE seconds apart, as FAIRsharing asked.
+is read in full once a day: a later read that day keeps the day's records and reads only what they lack; with
+FAIRSHARING_CACHE_ANY_DAY set, as for a pull request's build, which publishes nothing, the kept records of any day
+are used that way. Requests are PAUSE seconds apart, as FAIRsharing asked.
 
 The dataset stores only what is curated (`curate`): new collection members, as undecided rows or proposed matches,
 and the result of searching FAIRsharing for each row never checked against it (`check`).
@@ -258,8 +259,9 @@ def read(login, password, offline=False, search_unchecked=False):
                                '.env fairtox ...); --offline reads the local cache.')
     jwt, records = sign_in(login, password), {}
     cached = model.load(path) if os.path.exists(path) else {}
-    today = cached.get('retrieved') == dt.date.today().isoformat()   # read today: only what is missing is read
-    if today:
+    keep = bool(cached) and (cached['retrieved'] == dt.date.today().isoformat()   # only what is missing is read
+                             or bool(os.environ.get('FAIRSHARING_CACHE_ANY_DAY')))
+    if keep:
         records = {x['id']: x for x in cached['records']}
 
     def get(rid):
@@ -283,7 +285,7 @@ def read(login, password, offline=False, search_unchecked=False):
         rid = slim(lookup(code))['id']   # the public record JSON gives the record id behind a code
         if rid not in records:
             get(rid)
-    searches, failed = dict(cached.get('searches', {})) if today else {}, 0
+    searches, failed = dict(cached.get('searches', {})) if keep else {}, 0
     for r in [r for r in unchecked(doc) if r['key'] not in searches] if search_unchecked else []:
         hits = {}                                       # in FAIRsharing's order, each record once
         try:
@@ -297,7 +299,7 @@ def read(login, password, offline=False, search_unchecked=False):
             continue
         failed = 0
         searches[r['key']] = list(hits.values())
-    data = {'retrieved': dt.date.today().isoformat(), 'members': members,
+    data = {'retrieved': cached['retrieved'] if keep else dt.date.today().isoformat(), 'members': members,
             'records': [records[k] for k in sorted(records)], 'searches': searches}
     os.makedirs(CACHE, exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
