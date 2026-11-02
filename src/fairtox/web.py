@@ -16,11 +16,11 @@ class Unreadable(RuntimeError):
 
 
 def fetch(url, headers=None, data=None, method=None, timeout=120):
-    """The response headers and body. HTTP 429 and 5xx answers, timeouts and failed connections are retried after 5,
+    """The response headers and body. HTTP 429 and 5xx answers, timeouts and failed connections are retried after 10,
     30 and 120 seconds. Any other HTTP error is raised as it is, for the caller to explain; a connection that keeps
     failing raises Unreadable."""
     request = urllib.request.Request(url, data, {**(headers or {}), 'User-Agent': UA}, method=method)
-    for wait in (5, 30, 120, None):
+    for wait in (10, 30, 120, None):
         try:
             with urllib.request.urlopen(request, timeout=timeout) as resp:
                 return resp.headers, resp.read()

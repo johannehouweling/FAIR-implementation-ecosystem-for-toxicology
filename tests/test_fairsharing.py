@@ -76,6 +76,23 @@ class FairsharingTest(TempDir):
             data = fairsharing.read('login', 'password')
         self.assertEqual((data['members'], [x['id'] for x in data['records']]), ([9], [5, 9, 3496]))
         self.assertEqual(model.load(os.path.join(self.dir, 'records.json')), data)   # the cache --offline reads
+        asked, load = [], model.load                     # the same day, only a record not read yet is read
+        rows['hasPart'].append({'fairsharingRecord': '7'})
+        api[7] = {'id': 7}
+        with mock.patch.multiple(fairsharing, CACHE=self.dir, sign_in=mock.DEFAULT, lookup=lambda ref: api[7],
+                                 record=lambda rid, jwt: asked.append(rid) or api[rid]), \
+                mock.patch.object(model, 'load', side_effect=lambda *path: load(*path) if path else rows):
+            fairsharing.read('login', 'password')
+        self.assertEqual(asked, [7])
+
+    def test_requests_are_paused_as_fairsharing_asked(self):
+        clock = iter([100.0, 100.0, 103.0, 103.0])
+        with mock.patch.object(fairsharing, '_last', float('-inf')), mock.patch('time.sleep') as sleep, \
+                mock.patch('time.monotonic', lambda: next(clock)), \
+                mock.patch.object(fairsharing.web, 'fetch', return_value=({}, b'{}')):
+            fairsharing._request('GET', fairsharing.API)
+            fairsharing._request('GET', fairsharing.API)
+        self.assertEqual([c.args[0] for c in sleep.call_args_list], [0, fairsharing.PAUSE - 3])
 
     def test_curate_adds_a_new_member_once(self):
         doc = model.normalise(fixture())

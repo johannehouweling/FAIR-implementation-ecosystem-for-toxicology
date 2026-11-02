@@ -2,8 +2,9 @@ name: CI
 
 # Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
 # public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
-# The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, and the FIP
-# declarations; a weekly run rebuilds main so the page has the current ones. A build of main that has started is
+# The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, in full once a
+# day (later runs reuse the day's cache), and the FIP declarations; a weekly run rebuilds main so the page has the
+# current ones. A build of main that has started is
 # never cancelled, so every published build stays in the history of the dashboard repository.
 # After a green build of a push to main, release-please keeps a release pull request open with the next version and
 # its CHANGELOG.md entry, made from the Conventional Commits since the last release; merging it tags the version and
@@ -35,6 +36,14 @@ jobs:
       - run: uv sync --locked --all-groups
       - run: uv run python -m unittest discover -s tests -v
       - run: uv run fairtox validate --strict
+      - id: day
+        run: echo "day=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+      - name: Keep the day's FAIRsharing records for later runs
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: build/fairsharing
+          key: fairsharing-${{ steps.day.outputs.day }}
+          restore-keys: fairsharing-
       - name: Build the dashboard
         env:
           FAIRSHARING_LOGIN: ${{ secrets.FAIRSHARING_LOGIN }}
