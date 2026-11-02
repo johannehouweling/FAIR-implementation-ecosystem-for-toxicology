@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.14.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.13.0...v0.14.0) (2026-11-02)
+
+
+### Features
+
+* SPARQL queries for the relation counts ([13d1e9b](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/13d1e9b3e516b6aac29e97b0e4235489265d1447))
+
+
+### Fixes
+
+* **data:** refresh 2026-11-01 ([b1ffef5](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/b1ffef5e9fd9b70d5e3bd86f95fd776f192849b3))
+
+
+### Documentation
+
+* sub-domains follow the community's representatives ([9dabf25](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/9dabf25136749a85a3155c4efdffb061a88fc741))
+
 ## [0.13.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.12.0...v0.13.0) (2026-11-01)
 
 
