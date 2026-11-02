@@ -149,6 +149,19 @@ class FipTest(TempDir):
                          ('tox', ['FAIR Implementation Community']))
         self.assertEqual(len(declarations), 3)   # tool and oecd_gd declare exo, oecd_gd declares wlic
 
+    def test_dashboard_links_types_principles_declaring_fips_and_nanopublications(self):
+        meta = site.page_meta(self.curated())   # label -> term, as the details show the labels
+        labels = ('Registry', 'FAIR-Enabling Resource', 'FAIR Implementation Community')
+        self.assertEqual([meta['typeIri'].get(x) for x in labels], [model.FIP + 'Registry', model.FER, model.FIC])
+        self.assertEqual(meta.get('principleIri', {}).get('F1'), 'https://w3id.org/fair/principles/terms/F1')
+        html = pathlib.Path(ROOT, 'src', 'fairtox', 'dashboard.html').read_text(encoding='utf-8')
+        for code in ("row('FSR type', n.fsrType.map(t => termLink(META.typeIri, t)).join(', '))",
+                     "row('Class', n.fsrCategory !== n.fsrType.join() && termLink(META.typeIri, n.fsrCategory))",
+                     "row('Principles', n.principles.map(p => termLink(META.principleIri, p)).join(', '))",
+                     '<li>${btn(d.src, short(byKey[d.src]))}: ',       # the declaring FIP opens its own details
+                     "isNanopub(n.identifier) && link(n.identifier, 'Nanopublication')"):   # a community's; a FIP's is its URL
+            self.assertIn(code, html)
+
     def test_convergence_rows(self):
         principle, version = fip.ontology()       # since 19 Oct 2026 the FIP ontology gives supporting questions a
         principle = {**principle, model.FIP + 'FIP-S-Question-F2-E': 'F2'}       # principle too: not a core question

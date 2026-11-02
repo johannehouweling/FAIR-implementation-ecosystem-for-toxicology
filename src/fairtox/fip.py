@@ -116,6 +116,11 @@ def ontology():
     return {str(q): str(p).rsplit('/', 1)[-1] for q, p in g.subject_objects(F['refers-to-principle'])}, version
 
 
+def principles():
+    """Principle label (such as F1) -> its IRI, as the FIP ontology's questions refer to the FAIR principles."""
+    return {str(p).rsplit('/', 1)[-1]: str(p) for p in model.fip_ontology().objects(None, F['refers-to-principle'])}
+
+
 def read(offline=False):
     """Walk the FIPs: FIP -> declaration index -> valid declarations -> the latest valid description of each declared
     resource. Online, the query answers are renewed and missing nanopublications fetched; offline, only the cache is
