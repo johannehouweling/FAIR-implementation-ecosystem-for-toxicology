@@ -129,12 +129,19 @@ class FairsharingTest(TempDir):
             if q == 'oecd guidance research data':
                 raise fairsharing.FairsharingError('HTTP 500')
             return {'ctd': [ctd], 'ctdbase.org': [ctd], 'fair tool': [exo]}.get(q, [])
+        load = model.load
         with mock.patch.multiple(fairsharing, CACHE=self.dir, PAUSE=0, sign_in=mock.DEFAULT, search=search,
                                  record=lambda rid, jwt: REST_LINKED if rid == 3496 else {'id': rid},
-                                 lookup=lambda ref: {'id': 512}), mock.patch.object(model, 'load', return_value=doc):
-            data = fairsharing.read('login', 'password')
+                                 lookup=lambda ref: {'id': 512}), \
+                mock.patch.object(model, 'load', side_effect=lambda *path: load(*path) if path else doc):
+            fairsharing.read('login', 'password')                   # a build does not search
+            self.assertEqual(asked, [])
+            data = fairsharing.read('login', 'password', search_unchecked=True)
+            again = fairsharing.read('login', 'password', search_unchecked=True)   # the same day: only oecd_gd
         self.assertEqual(asked, ['comparative toxicogenomics database', 'ctd', 'ctdbase.org',   # name, other names,
-                                 'oecd guidance research data', 'fair tool'])                    # homepage host
+                                 'oecd guidance research data', 'fair tool',                     # homepage host
+                                 'oecd guidance research data'])
+        self.assertEqual(again['searches'], data['searches'])
         self.assertEqual(data['searches'], {'ctd': [ctd], 'tool': [exo]})   # the search failed for oecd_gd only
         self.assertEqual(fairsharing.check(doc, data), [
             'proposed match: ctd = FAIRsharing 1716 Comparative Toxicogenomics Database (same homepage)',

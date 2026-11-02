@@ -244,10 +244,10 @@ def _code(rec):
     return (rec.get('doi') or '').split('/')[-1] or str(rec['id'])
 
 
-def read(login, password, offline=False):
-    """The collection members, the records of the collection and of every row with a FAIRsharing record, and what
-    FAIRsharing's search finds for each unchecked row (`searches`, by key), read signed in and cached; offline, only
-    the cache is read."""
+def read(login, password, offline=False, search_unchecked=False):
+    """The collection members, the records of the collection and of every row with a FAIRsharing record and, with
+    `search_unchecked` (only `fairtox fairsharing`), what FAIRsharing's search finds for each unchecked row (`searches`, by key),
+    read signed in and cached; offline, only the cache is read. A row searched the same day is not searched again."""
     path = os.path.join(CACHE, 'records.json')
     if offline:
         if not os.path.exists(path):
@@ -258,7 +258,8 @@ def read(login, password, offline=False):
                                '.env fairtox ...); --offline reads the local cache.')
     jwt, records = sign_in(login, password), {}
     cached = model.load(path) if os.path.exists(path) else {}
-    if cached.get('retrieved') == dt.date.today().isoformat():   # read today: only what is missing is read
+    today = cached.get('retrieved') == dt.date.today().isoformat()   # read today: only what is missing is read
+    if today:
         records = {x['id']: x for x in cached['records']}
 
     def get(rid):
@@ -282,14 +283,13 @@ def read(login, password, offline=False):
         rid = slim(lookup(code))['id']   # the public record JSON gives the record id behind a code
         if rid not in records:
             get(rid)
-    searches, failed = {}, 0
-    for r in unchecked(doc):
+    searches, failed = dict(cached.get('searches', {})) if today else {}, 0
+    for r in [r for r in unchecked(doc) if r['key'] not in searches] if search_unchecked else []:
         hits = {}                                       # in FAIRsharing's order, each record once
         try:
             for q in queries(r):
                 for x in search(q, jwt):
                     hits.setdefault(x['id'], x)
-                time.sleep(PAUSE)
         except web.Unreadable:                          # not answered, even when asked again: the row stays
             failed += 1                                 # unchecked until the next read; after three rows in a
             if failed == 3:                             # row the search is taken to be down
