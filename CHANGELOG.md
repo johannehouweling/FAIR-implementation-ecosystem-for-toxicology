@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.14.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.14.0...v0.14.1) (2026-11-02)
+
+
+### Fixes
+
+* **fairsharing:** let pull request builds reuse the last FAIRsharing read of any day ([66b780f](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/66b780f4ddee9dadaa290772678632e6e7df223c))
+* **fairsharing:** search for unchecked rows only in the refresh ([59d6228](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/59d6228c423faa32e2de1dd99f659deefa5f8f16))
+* **fairsharing:** wait 10 s between requests and read FAIRsharing in full once a day ([8c545c3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/8c545c3bbc83515c44347451f7e33e72898b0498))
+
 ## [0.14.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.13.0...v0.14.0) (2026-11-02)
 
 
