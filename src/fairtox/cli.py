@@ -23,10 +23,11 @@ def cmd_validate(a):
     return 1 if errors or (a.strict and warnings) else 0
 
 
-def _fairsharing(a):
+def _fairsharing(a, search_unchecked=False):
     """FAIRsharing, read with FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD or, with --offline, from the local cache."""
     from fairtox import fairsharing
-    return fairsharing.read(os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD'), a.offline)
+    return fairsharing.read(os.environ.get('FAIRSHARING_LOGIN'), os.environ.get('FAIRSHARING_PASSWORD'), a.offline,
+                            search_unchecked)
 
 
 def _enriched(a):
@@ -38,7 +39,7 @@ def _enriched(a):
 
 def cmd_fairsharing(a):
     from fairtox import fairsharing
-    data, doc = _fairsharing(a), _load()
+    data, doc = _fairsharing(a, search_unchecked=True), _load()
     before = json.loads(json.dumps(doc))
     lines = fairsharing.curate(doc, data)
     changes = model.diff(before, model.normalise(doc))
