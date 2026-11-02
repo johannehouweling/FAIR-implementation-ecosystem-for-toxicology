@@ -163,6 +163,7 @@ def page_meta(doc):
         'typeIri': {v: k for k, v in type_labels().items()},   # label -> term, the links in the details
         'principleIri': fip.principles(),   # F1 -> the FAIR principle's term
         'ontologyIri': model.fip_ontology_version_iri(),   # the version read, linked in the About text
+        'fairPublished': model.FAIR_PUBLISHED, 'license': doc['license'],   # the figure's marker; the licences
         # the Source filter's options: the curators, the collection, then the FIPs in the dataset
         'sourceList': [doc['creator']['name'], COLLECTION,
                        *sorted(label(r) for r in doc['hasPart'] if r['key'] in doc.get('sources', {}).get('fip', {}))],
@@ -225,7 +226,7 @@ FIELDS = [
     ('creatorType, qualifiedAttribution', 'Creator types: who made a toxicology resource; several may apply. In the '
      'layout by creator they set its lane (Made jointly for two or more). In the JSON-LD each is a qualified '
      'attribution whose role (hadRole) is the kind of creator.', 'creatorType'),
-    ('buildsOnFair', 'Derived: true for a toxicology resource first published in 2016 or later that implements, '
+    ('buildsOnFair', f'Derived: true for a toxicology resource first published in {model.FAIR_PUBLISHED} or later that implements, '
                      'extends, profiles or recommends a generic resource. Its label is in italics.', None),
     ('subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'),
     ('datePublished, dateReleased, dateAdopted, dateCreated, date',

@@ -29,6 +29,19 @@ class SiteTest(TempDir):
         counts = site.build(doc, out, offline=True)
         return counts, {f: pathlib.Path(out, f).read_text(encoding='utf-8') for f in self.FILES}
 
+    def test_page_facts_come_from_the_build(self):
+        counts, text = self.build()
+        html = text['index.html']
+        meta = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))['meta']
+        # the year of the FAIR principles is the model's rule for Builds on FAIR; the data licence is the dataset's
+        self.assertEqual((meta.get('fairPublished'), (meta.get('license') or {}).get('name')),
+                         (model.FAIR_PUBLISHED, model.LICENSE['name']))
+        self.assertIn(str(model.FAIR_PUBLISHED), dict((f, d) for f, d, v in site.FIELDS)['buildsOnFair'])
+        self.assertNotIn('FAIR principles published, 2016', html)   # the marker is drawn from META.fairPublished
+        for code in ('const fair = META.fairPublished;', '`FAIR principles published, ${fair}`',
+                     "$('lic').innerHTML = link(META.license.url, META.license.name);"):
+            self.assertIn(code, html)
+
     def test_public_build_holds_included_resources_only(self):
         doc = fixture()
         doc['hasPart'][0]['mentionedIn'] = ['Whitepaper']           # a curation field
