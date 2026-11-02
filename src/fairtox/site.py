@@ -162,6 +162,7 @@ def page_meta(doc):
         'classDef': {CLASSES[k]: v for k, v in CLASS_DEF.items()},
         'typeIri': {v: k for k, v in type_labels().items()},   # label -> term, the links in the details
         'principleIri': fip.principles(),   # F1 -> the FAIR principle's term
+        'ontologyIri': model.fip_ontology_version_iri(),   # the version read, linked in the About text
         # the Source filter's options: the curators, the collection, then the FIPs in the dataset
         'sourceList': [doc['creator']['name'], COLLECTION,
                        *sorted(label(r) for r in doc['hasPart'] if r['key'] in doc.get('sources', {}).get('fip', {}))],
