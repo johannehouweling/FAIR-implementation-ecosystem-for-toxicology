@@ -1,6 +1,6 @@
 [project]
 name = "fairtox"
-version = "0.14.1"
+version = "0.14.2"
 description = "FAIR implementation ecosystem for toxicology: a curated dataset of standards, databases, policies and tools, its curation round trip and dashboard"
 readme = "README.md"
 license = "MIT"
