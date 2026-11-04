@@ -227,7 +227,7 @@ FIELDS = [
      'layout by creator they set its lane (Made jointly for two or more). In the JSON-LD each is a qualified '
      'attribution whose role (hadRole) is the kind of creator.', 'creatorType'),
     ('buildsOnFair', f'Derived: true for a toxicology resource first published in {model.FAIR_PUBLISHED} or later that implements, '
-                     'extends, profiles or recommends a generic resource. Its label is in italics.', None),
+                     'extends or profiles a generic resource. Its label is in italics.', None),
     ('subdomains', 'Toxicology sub-domains the resource serves.', 'subdomains'),
     ('datePublished, dateReleased, dateAdopted, dateCreated, date',
      'When the resource first became public: YYYY, YYYY-MM or YYYY-MM-DD, in the field of what the date refers to '

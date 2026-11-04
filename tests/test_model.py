@@ -90,16 +90,18 @@ class ModelTest(TempDir):
                                exo='Editor Structured-vocabulary'))           # any FER type, any specification type
         self.assertEqual((model.RELATIONS['implements'][2], model.RELATIONS['recommends'][2]),
                          ('The subject implements the standard or FAIR specification.',
-                          'The policy or guidance recommends the target.'))     # the definitions cover the rule
+                          'The data policy recommends the target.'))            # FAIRsharing's wording
 
-    def test_uses_is_a_label_of_the_dataset_s_own(self):
-        self.assertEqual(model.RELATIONS['uses'], (None, True, 'The subject uses the target.'))   # no FAIRsharing id
+    def test_recommends_is_a_policy_pointing_at_a_resource(self):
+        self.assertNotIn('uses', model.RELATIONS)                               # FAIRsharing's labels only
+        self.assertFalse(model.RELATIONS['recommends'][1])                      # not lineage
         doc = fixture()
-        by = {r['key']: r for r in doc['hasPart']}
-        by['oecd_gd']['qualifiedRelation'] = [{'relation': '#exo', 'hadRole': 'uses', 'evidence': 'curator'}]
-        by['tool']['qualifiedRelation'] = [{'relation': '#ctd', 'hadRole': 'uses', 'evidence': 'curator'}]
-        errors, warnings = model.check(model.normalise(doc))
-        self.assertEqual((errors, [w for w in warnings if ' uses ' in w]), ([], []))   # any kinds, never a warning
+        tox = next(r for r in doc['hasPart'] if r['key'] == 'oecd_gd')
+        tox['qualifiedRelation'] = [{'relation': '#tool', 'hadRole': 'recommends', 'evidence': 'curator'}]
+        built = lambda: next(r for r in model.normalise(copy.deepcopy(doc))['hasPart'] if r['key'] == 'oecd_gd')
+        self.assertNotIn('buildsOnFair', built())                               # not a derivation
+        tox['qualifiedRelation'][0]['hadRole'] = 'implements'
+        self.assertTrue(built()['buildsOnFair'])
 
     def test_lane_rules(self):
         self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')

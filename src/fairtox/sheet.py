@@ -109,7 +109,7 @@ CONTEXT_COLUMNS = [
     ('Declared in', None, 'static', 30, GREY_NOTE + 'the toxicology FIPs that declare the resource, with the '
      'questions. The grey rows on the Relations tab list the same declarations.'),
     ('Builds on FAIR', None, 'static', 10, GREY_NOTE + 'yes when the Relations tab says the resource implements, '
-     'extends, profiles or recommends a Generic resource. To change it, edit the Relations tab.'),
+     'extends or profiles a Generic resource. To change it, edit the Relations tab.'),
     ('Lane', None, 'lane', 26, GREY_NOTE + 'where the dashboard draws the resource, from Scope and the earliest '
      'Phase. To change it, change Scope or Phase.'),
     ('Warnings', None, 'static', 44, GREY_NOTE + 'checks that will need attention before release, found when the '

@@ -117,8 +117,9 @@ CREATOR_LANE_DEF = {
     'Made jointly': 'Toxicology resources made by two or more creator types together.',
 }
 CREATOR_LANE_OF = dict(zip(STAKEHOLDER, CREATOR_LANE_DEF))
-# Relation labels that make a toxicology resource count as building on FAIR when they point to a Generic resource.
-BUILDS_ON = ('implements', 'extends', 'profiles', 'recommends')
+# Relation labels that make a toxicology resource count as building on FAIR when they point to a Generic resource;
+# recommends is a policy pointing at a resource, not a derivation.
+BUILDS_ON = ('implements', 'extends', 'profiles')
 FAIR_PUBLISHED = 2016   # the FAIR guiding principles: only later resources can build on FAIR
 SUBDOMAINS = {
     'in vitro toxicology': 'Toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or '
@@ -176,15 +177,16 @@ MATCH = {
     'to check': 'A FAIRsharing record was proposed and needs a curator.',
     'no record': 'FAIRsharing has no record for this resource.',
 }
-# The FAIRsharing record-association labels used here (id, lineage, definition). Read "subject label target".
+# The FAIRsharing record-association labels used here (id, lineage, definition), read "subject label target": ids from
+# GET https://api.fairsharing.org/record_association_labels (18 Oct 2026), meanings from FAIRsharing's pages on
+# relations by record type, https://fairsharing.gitbook.io/fairsharing/associated-records (read 4 Nov 2026).
 RELATIONS = {
     'implements': (1, True, 'The subject implements the standard or FAIR specification.'),
-    'extends': (8, True, 'The subject builds on and extends the target.'),
+    'extends': (8, True, 'The subject extends or builds upon the target.'),
     'profiles': (7, True, 'The standard is a profile of the target standard.'),
-    'recommends': (11, True, 'The policy or guidance recommends the target.'),
-    'deprecates': (9, True, 'The subject replaces the target.'),
-    'related_to': (4, False, 'The resources are related without one building on the other.'),
-    'uses': (None, True, 'The subject uses the target.'),   # the dataset's own: FAIRsharing has no such label
+    'recommends': (11, False, 'The data policy recommends the target.'),
+    'deprecates': (9, True, 'The target has been retired and is no longer actively maintained.'),
+    'related_to': (4, False, 'The resources are related; no more precise label applies.'),
 }
 # Registry pairs FAIRsharing allows per label (GET https://api.fairsharing.org/record_associations/allowed, checked
 # 18 Oct 2026).
@@ -363,10 +365,9 @@ TERM_LINKS = [
     ('hadRole', 'profiles', SKOS.broadMatch, DCTERMS.conformsTo),
     ('hadRole', 'extends', SKOS.closeMatch, 'http://purl.org/spar/cito/extends'),
     ('hadRole', 'extends', SKOS.broadMatch, SCHEMA.isBasedOn),
-    ('hadRole', 'deprecates', SKOS.exactMatch, DCTERMS.replaces),
+    ('hadRole', 'deprecates', SKOS.closeMatch, DCTERMS.replaces),
     ('hadRole', 'related_to', SKOS.exactMatch, DCTERMS.relation),
     ('hadRole', 'recommends', SKOS.broadMatch, DCTERMS.relation),
-    ('hadRole', 'uses', SKOS.broadMatch, DCTERMS.relation),
 ]
 
 
@@ -781,10 +782,7 @@ def check(doc):
 def possible(role, r, t):
     """Whether a relation may hold: FAIRsharing allows its label between the two registries, a Tool or a Collection
     also counting as the registry of each of its FSR columns; implements also from a FAIR-Enabling Resource to a FAIR
-    specification (fip:implements). Not checked while an end lacks the type this needs; a label of the dataset's own
-    is not constrained."""
-    if role not in ALLOWED:
-        return True
+    specification (fip:implements). Not checked while an end lacks the type this needs."""
     fsr = lambda x: [fsr_types()[i] for i in x.get('fsrType', []) if i in fsr_types()]
 
     def regs(x):

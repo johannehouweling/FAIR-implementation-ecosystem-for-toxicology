@@ -456,15 +456,6 @@ class SheetTest(TempDir):
         new, changes, problems, _, _ = sheet.ingest(doc, p)
         self.assertEqual((changes, sorted(x['value'] for x in problems)), ([], ['ctd', 'ctd implements exo']))
 
-    def test_uses_can_be_chosen_on_the_relations_tab(self):
-        doc = model.normalise(fixture())
-        p = self.build(doc)
-        self.assertIn('uses', [c.value for c in load_workbook(p)['Lists']['K']])   # the Relation list
-        self.add(p, {'Resource': 'oecd_gd', 'Relation': 'uses', 'Target': 'exo', 'Evidence': 'literature'},
-                 tab='Relations')
-        new, changes, problems, _, _ = sheet.ingest(doc, p)
-        self.assertEqual((changes, problems), ([('oecd_gd', 'relation', '(new)', 'uses exo', '')], []))
-
     def test_two_lines_with_one_key_or_one_relation_both_wait(self):
         doc = model.normalise(fixture())
         p = self.build(doc)
