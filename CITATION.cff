@@ -12,7 +12,7 @@ authors:
   - given-names: Jente
     family-names: Houweling
   - name: ELIXIR Toxicology Community
-version: 0.14.3 # x-release-please-version
+version: 0.14.4 # x-release-please-version
 date-released: 2026-11-04 # x-release-please-date
 license:
   - CC-BY-SA-4.0

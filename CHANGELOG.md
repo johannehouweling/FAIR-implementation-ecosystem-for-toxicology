@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.14.4](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.14.3...v0.14.4) (2026-11-04)
+
+
+### Fixes
+
+* **data:** uses relations take FAIRsharing labels ([5feec08](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/5feec089a170710d52939b4adb6ff7f92f91b068))
+* **model:** relation labels as FAIRsharing documents them ([73105af](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/73105af55c10ff82fecf941e0df2a252f8be485c))
+
 ## [0.14.3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.14.2...v0.14.3) (2026-11-04)
 
 
