@@ -197,8 +197,7 @@
     "profiles": "https://w3id.org/fair-tox/terms#profiles",
     "recommends": "https://w3id.org/fair-tox/terms#recommends",
     "deprecates": "https://w3id.org/fair-tox/terms#deprecates",
-    "related_to": "https://w3id.org/fair-tox/terms#related_to",
-    "uses": "https://w3id.org/fair-tox/terms#uses"
+    "related_to": "https://w3id.org/fair-tox/terms#related_to"
    }
   },
   "fipDeclaration": {
@@ -389,12 +388,11 @@
   },
   "hadRole": {
    "implements": "The subject implements the standard or FAIR specification.",
-   "extends": "The subject builds on and extends the target.",
+   "extends": "The subject extends or builds upon the target.",
    "profiles": "The standard is a profile of the target standard.",
-   "recommends": "The policy or guidance recommends the target.",
-   "deprecates": "The subject replaces the target.",
-   "related_to": "The resources are related without one building on the other.",
-   "uses": "The subject uses the target."
+   "recommends": "The data policy recommends the target.",
+   "deprecates": "The target has been retired and is no longer actively maintained.",
+   "related_to": "The resources are related; no more precise label applies."
   },
   "declaration": {
    "declares-current-use-of": "The FIP declares that its community uses the target.",
@@ -1406,7 +1404,7 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#aop_wiki_id",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator"
     },
     {
@@ -1950,9 +1948,8 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.a6dcff",
-     "hadRole": "uses",
-     "evidence": "curator",
-     "reviewedBy": "GB"
+     "hadRole": "implements",
+     "evidence": "curator"
     }
    ]
   },
@@ -2925,9 +2922,9 @@
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator",
-     "reviewedBy": "Egon"
+     "note": "Was uses, assigned and signed by Egon; relabelled implements on 4 Nov 2026, as FAIRsharing has no uses label."
     }
    ]
   },
@@ -3197,6 +3194,7 @@
    "fairsharingMatch": "no record",
    "reviewedBy": "GB",
    "note": "Added by GB on 30 Oct 2026. Made by in silico research marked by JH on 31 Oct 2026, as a toxicology resource needs a creator type: the Compound Cloud is a Wikibase of chemical compounds for the VHP4Safety project, whose virtual human platform is built on computational models and data sources (Kienhuis et al., ALTEX 2025, doi 10.14573/altex.2407211).",
+   "buildsOnFair": true,
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -3217,20 +3215,19 @@
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.6s749p",
-     "hadRole": "uses",
+     "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://compoundcloud.wikibase.cloud/entity/P5",
-     "reviewedBy": "JH",
      "note": "Added by GB on 30 Oct 2026 as implements; changed to uses by JH on 31 Oct 2026, as implements is not possible from a terminology to a database. Checked 31 Oct 2026 through the Compound Cloud API: its compounds carry a Wikidata Q identifier (property P5; aflatoxin B1 is Wikidata Q4689278) and its base items carry Wikidata's descriptions, so it builds on Wikidata."
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.87ccfd",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.ddk9t9",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator"
     },
     {
@@ -3240,12 +3237,12 @@
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.qv4b3c",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator"
     }
    ]
@@ -3299,7 +3296,7 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#dsstox",
-     "hadRole": "uses",
+     "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.1016/j.comtox.2019.100096"
     },
@@ -5100,7 +5097,7 @@
     "ELIXIR deposition databases"
    ],
    "decision": "include",
-   "fairsharingType": "Collection",
+   "fairsharingType": "Policy: project",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
@@ -6149,6 +6146,7 @@
    "fairsharingRecord": "FAIRsharing.c26a4e",
    "fairsharingMatch": "confirmed",
    "reviewedBy": "JH",
+   "buildsOnFair": true,
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
     {
@@ -6159,12 +6157,12 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.2b0d92",
-     "hadRole": "uses",
+     "hadRole": "related_to",
      "evidence": "curator"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator"
     }
    ]
@@ -6700,10 +6698,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#fip_wizard",
-     "hadRole": "uses",
+     "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
-     "reviewedBy": "MM",
      "note": "Checked 30 Oct 2026: the provenance of the FIP nanopublication names the FIP Wizard (https://fip.fair-wizard.com/wizard) as its creator, so the profile was built with that tool."
     },
     {
@@ -6853,10 +6850,9 @@
     },
     {
      "relation": "https://w3id.org/fair-tox/dataset#nanodash",
-     "hadRole": "uses",
+     "hadRole": "extends",
      "evidence": "literature",
      "source": "https://w3id.org/spaces/FAIR-Implementation-Space",
-     "reviewedBy": "JH",
      "note": "Checked 31 Oct 2026: the FAIR Implementation Space is a space in Nanodash: its address redirects to the Nanodash instance of Knowledge Pixels (https://nanodash.knowledgepixels.com/space?id=https://w3id.org/spaces/FAIR-Implementation-Space)."
     }
    ]
@@ -7173,10 +7169,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.a6dcff",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "literature",
      "source": "https://w3id.org/np/RAQMnw2u-ZG_zVkVIzEdtYn3o4tYqyhsnOhiWaMLG01Bc",
-     "reviewedBy": "JH",
      "note": "Checked 30 Oct 2026: FIPs are published as nanopublications: the Reference AOP FIP and the PARC Toxicology FIP (https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E) are each a nanopublication typed FAIR Implementation Profile."
     }
    ]
@@ -10122,9 +10117,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator",
-     "reviewedBy": "Egon"
+     "note": "Was uses, assigned and signed by Egon; relabelled implements on 4 Nov 2026, as FAIRsharing has no uses label."
     }
    ]
   },
@@ -11555,10 +11550,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#fip_wizard",
-     "hadRole": "uses",
+     "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://w3id.org/np/RAKa7vUwc8qVbktDqDSpuq7lRrrKcjPKvkB4Tn7WHvr7E",
-     "reviewedBy": "MM",
      "note": "Checked 30 Oct 2026: the provenance of the PARC Toxicology FIP v0.1.0 nanopublication names the FIP Wizard (https://fip.fair-wizard.com/wizard) as its creator, so the profile was built with that tool."
     },
     {
@@ -12622,10 +12616,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.hkk309",
-     "hadRole": "uses",
+     "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.7171/jbt.18-2902-002",
-     "reviewedBy": "JH",
      "note": "Flipped 2 Nov 2026 by JH from 'cellosaurus uses rrid': the RRID system uses Cellosaurus accessions (CVCL) as the RRIDs of cell lines (Bairoch, J Biomol Tech 2018), and Cellosaurus (first public release 2012) predates RRID (pilot from February 2014)."
     }
    ]
@@ -13099,9 +13092,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator",
-     "reviewedBy": "Egon"
+     "note": "Was uses, assigned and signed by Egon; relabelled implements on 4 Nov 2026, as FAIRsharing has no uses label."
     }
    ]
   },
@@ -14047,12 +14040,12 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#large_language_model_llm",
-     "hadRole": "uses",
+     "hadRole": "related_to",
      "evidence": "curator"
     },
     {
      "relation": "https://w3id.org/fair-tox/dataset#toxtemp",
-     "hadRole": "uses",
+     "hadRole": "implements",
      "evidence": "curator"
     }
    ]
@@ -14151,7 +14144,7 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#tggates",
-     "hadRole": "uses",
+     "hadRole": "extends",
      "evidence": "literature",
      "source": "https://doi.org/10.1007/s00204-021-03141-w",
      "note": "Callegaro et al. 2021: the modules of the human hepatocyte TXG-MAPr were obtained from the primary human hepatocyte TG-GATEs dataset. Proposed by JH on 30 Oct 2026."
@@ -14370,9 +14363,8 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#compoundcloud",
-     "hadRole": "uses",
-     "evidence": "curator",
-     "reviewedBy": "GB"
+     "hadRole": "implements",
+     "evidence": "curator"
     }
    ]
   },
