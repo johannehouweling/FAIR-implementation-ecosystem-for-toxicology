@@ -34,10 +34,6 @@ RECORD_TYPE = {v[1]: k for k, v in model.TYPES.items() if v[1]}
 MAINTAINED = {'ready': 'active', 'deprecated': 'discontinued', 'in_development': 'in development',
               'uncertain': 'unknown'}
 STATUS = {v: k for k, v in MAINTAINED.items()}
-# FAIRsharing's sub-labels folded into the six labels the dataset uses (accepts and outputs are kinds of implements;
-# shares_data_with and shares_code_with are kinds of related_to).
-FOLD = {'accepts': 'implements', 'outputs': 'implements', 'shares_data_with': 'related_to',
-        'shares_code_with': 'related_to'}
 # Common words left out of a search: with them, FAIRsharing's search answers HTTP 500 to many longer queries.
 COMMON = {'a', 'an', 'and', 'for', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'with'}
 
@@ -171,8 +167,7 @@ def block(rec, members, today):
             'subjects', 'domains')
     out = {k: rec[k] for k in keep if rec.get(k) not in (None, '')}
     out['inCollection'] = rec['id'] in members
-    out['associations'] = sorted([FOLD.get(a['label'], a['label']), a['other']] for a in rec['associations']
-                                 if a['outgoing'])
+    out['associations'] = sorted([a['label'], a['other']] for a in rec['associations'] if a['outgoing'])
     out['retrieved'] = today
     return out
 
@@ -348,14 +343,13 @@ def curate(doc, data):
         if year and fy and abs(fy - year) > 1:
             report.append(f"{r['key']}: first published {year}, FAIRsharing year of creation {fy}")
         for a in rec['associations']:
-            label = FOLD.get(a['label'], a['label'])
-            if not a['outgoing'] or label not in model.RELATIONS:
+            if not a['outgoing'] or a['label'] == 'collects':   # FAIRsharing's own label; membership is read apart
                 continue
             t = find(doc, by_id.get(a['other'], {'id': a['other']}))
             if t is None:
                 report.append(f"two-hop: {r['key']} {a['label']} FAIRsharing {a['other']} {a['otherName']}")
             elif t is not r and t['@id'] not in linked(r) and r['@id'] not in linked(t):
-                report.append(f"FAIRsharing association, not a relation here: {r['key']} {label} {t['key']}")
+                report.append(f"FAIRsharing association, not a relation here: {r['key']} {a['label']} {t['key']}")
     return report
 
 
@@ -433,8 +427,7 @@ def submission(doc):
         ids = [(rs[k].get('fairsharing') or {}).get('id') for k in (s, t)]
         if [x['hadRole'], ids[1]] in (rs[s].get('fairsharing') or {}).get('associations', []):
             continue
-        reason = ('not a FAIRsharing label' if model.RELATIONS[x['hadRole']][0] is None else
-                  'FAIRsharing does not allow this label between these record types'
+        reason = ('FAIRsharing does not allow this label between these record types'
                   if (model.registry(rs[s]), model.registry(rs[t])) not in model.ALLOWED.get(x['hadRole'], set()) else
                   'not every end is in FAIRsharing or proposed here' if s not in ref or t not in ref else
                   'the only evidence is the unpublished manuscript' if x['evidence'] == 'manuscript' else '')

@@ -79,7 +79,7 @@ class SiteTest(TempDir):
         doc = fixture()
         next(r for r in doc['hasPart'] if r['key'] == 'tool')['decision'] = 'include'
         next(r for r in doc['hasPart'] if r['key'] == 'oecd_gd')['qualifiedRelation'] = [
-            {'relation': '#tool', 'hadRole': 'recommends', 'evidence': 'curator'}]     # builds on a FAIR resource
+            {'relation': '#tool', 'hadRole': 'implements', 'evidence': 'curator'}]     # builds on a FAIR resource
         _, text = self.build(doc=doc)
         html = text['index.html']
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
@@ -209,7 +209,7 @@ class SiteTest(TempDir):
                 self.assertIn((c, SKOS.inScheme, s), terms)
         for triple in ((t['subdomains-regulatory-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
                        (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements')),
-                       (t.uses, SKOS.broadMatch, DCTERMS.relation)):
+                       (t.deprecates, SKOS.closeMatch, DCTERMS.replaces)):
             self.assertIn(triple, terms, triple)
         html = text['index.html']                              # each field shows its term; a fragment opens its resource
         meta = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))['meta']

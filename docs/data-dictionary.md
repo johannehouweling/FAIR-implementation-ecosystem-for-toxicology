@@ -263,28 +263,29 @@ The basis decides the field, and so the term, that holds the date, following Dat
 
 ## Relations
 
-A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used, and one label of the dataset's own, uses, which FAIRsharing cannot hold. Lineage labels are drawn as arrows from the earlier resource to the one building on or using it; related_to has no arrowhead.
+A relation sits on its subject as a DCAT qualified relation and reads the FAIRsharing way, subject first: "CTD implements ExO". Fields: `relation` (the target's `@id`, `dct:relation`), `hadRole` (the label, `dcat:hadRole`), and the curation fields `evidence`, `source`, `reviewedBy` and `note`, which stay out of the graph. Each label is a term of the dataset named after it (`terms:implements`). Six of FAIRsharing's fourteen labels are used, and no others. Their ids and parents come from FAIRsharing's label list (`GET https://api.fairsharing.org/record_association_labels`) and their pairs from its allowed list (`GET https://api.fairsharing.org/record_associations/allowed`), both read on 18 Oct 2026; their meanings come from FAIRsharing's pages on relations from [database](https://fairsharing.gitbook.io/fairsharing/associated-records/from-database-records), [standard](https://fairsharing.gitbook.io/fairsharing/associated-records/from-standards-records), [data policy](https://fairsharing.gitbook.io/fairsharing/associated-records/from-data-policy-records), [collection](https://fairsharing.gitbook.io/fairsharing/associated-records/from-collections) and [FAIRassist](https://fairsharing.gitbook.io/fairsharing/associated-records/from-fairassist-records) records, read on 4 Nov 2026. Lineage labels are drawn as arrows from the earlier resource to the one building on it; recommends and related_to have no arrowhead.
 
 The criteria (section 6) say which relations are possible and what happens to one that is not; the table's last column gives the registry pairs FAIRsharing allows for each label.
 
 | Label (`hadRole`) | FAIRsharing id | Lineage | Meaning | Allowed in FAIRsharing between |
 |---|---|---|---|---|
 | implements | 1 | yes | The subject implements the standard or FAIR specification. | Database to Standard |
-| extends | 8 | yes | The subject builds on and extends the target. | Database to Database, Policy to Policy, Standard to Standard |
+| extends | 8 | yes | The subject extends or builds upon the target. | Database to Database, Policy to Policy, Standard to Standard |
 | profiles | 7 | yes | The standard is a profile of the target standard. | Standard to Standard |
-| recommends | 11 | yes | The policy or guidance recommends the target. | Policy to Collection, Policy to Database, Policy to Standard |
-| deprecates | 9 | yes | The subject replaces the target. | Collection to Collection, Database to Database, Policy to Policy, Standard to Standard |
-| related_to | 4 | no | The resources are related without one building on the other. | Database to Database, Database to Standard, Policy to Policy, Standard to Database, Standard to Standard |
-| uses | none: the dataset's own | yes | The subject uses the target. | not a FAIRsharing label |
+| recommends | 11 | no | The data policy recommends the target. | Policy to Collection, Policy to Database, Policy to Standard |
+| deprecates | 9 | yes | The target has been retired and is no longer actively maintained. | Collection to Collection, Database to Database, Policy to Policy, Standard to Standard |
+| related_to | 4 | no | The resources are related; no more precise label applies. | Database to Database, Database to Standard, Policy to Policy, Standard to Database, Standard to Standard |
 
 FAIRsharing's other eight labels are not used; FAIRsharing publishes no IRIs for any of its labels.
 
 | FAIRsharing label | Here |
 |---|---|
-| accepts, outputs | Read as implements, their parent label, when FAIRsharing data are imported. |
-| shares_code_with, shares_data_with | Read as related_to, their parent label. |
+| accepts, outputs | Not used: children of implements in FAIRsharing's label list (`parent_id`). |
+| shares_code_with, shares_data_with | Not used: children of related_to in FAIRsharing's label list. |
 | collects | Collection membership: read from FAIRsharing when the dashboard is built and published on the collection (`dcat:resource`), not stored. |
 | part_of, measures_principle, has_associated_metric | Only between principles, metrics and benchmarks, which no included resource is. |
+
+The label uses, the dataset's own from 21 Oct to 4 Nov 2026, is no longer used; its relations were relabelled (criteria, decision record).
 
 A FIP row's declarations (`fipDeclaration`) and `declared-by` use FIP ontology properties (`fip:` IRIs), read "FIP property target". They are read at build time (below), are not lineage and cannot be entered in FAIRsharing; the curation sheet shows the declarations as grey rows with evidence FIP.
 
@@ -336,9 +337,9 @@ Each list with terms of the dataset (phase, sub-domains, maintained, relation la
 | implements | `skos:closeMatch` `fip:implements`, SIO is implementation of, `dct:conformsTo` |
 | profiles | `skos:exactMatch` W3C PROF `prof:isProfileOf`; `skos:broadMatch` `dct:conformsTo` |
 | extends | `skos:closeMatch` CiTO extends; `skos:broadMatch` `schema:isBasedOn` |
-| deprecates, related_to | `skos:exactMatch` `dct:replaces`, `dct:relation` |
+| deprecates | `skos:closeMatch` `dct:replaces` |
+| related_to | `skos:exactMatch` `dct:relation` |
 | recommends | `skos:broadMatch` `dct:relation` |
-| uses | `skos:broadMatch` `dct:relation` |
 
 The FAIRsharing type stays text (`schema:additionalType`), as FAIRsharing publishes no IRIs for its registries and record types.
 

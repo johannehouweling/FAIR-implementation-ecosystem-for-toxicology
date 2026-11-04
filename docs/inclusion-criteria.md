@@ -112,7 +112,7 @@ Each excluded row carries exactly one code.
   dictionary, Creator types). A resource made by a consortium gets all types that apply; the organisations are named
   in Creator.
 - **Building on FAIR** is derived, not chosen: a toxicology resource builds on FAIR when it was first published in
-  2016 or later and implements, extends, profiles or recommends a generic resource, such as a toxicology FAIR Implementation Profile building on the FIP.
+  2016 or later and implements, extends or profiles a generic resource, such as a toxicology FAIR Implementation Profile building on the FIP.
 - **Lanes.** The dashboard places Generic resources in Generic infrastructure, Life Sciences resources in Life sciences
   infrastructure, and toxicology resources in the lane of their phase (data dictionary, Lanes). Data generation and
   Data integration together form the toxicology infrastructure; Regulatory assessment stands apart. The figure draws
@@ -137,13 +137,13 @@ Each excluded row carries exactly one code.
   its basis (data dictionary, Date basis) and its source. Sources are, in order: the DOI metadata of the describing
   paper, the first software release, the first ontology release, the publisher's or agency's page, the earliest web
   archive capture (as a lower bound only), and, as a last resort, FAIRsharing's year of creation.
-- **Relations** use the labels of the data dictionary (Relations), which also lists the registry pairs FAIRsharing
-  allows for each label. A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries
+- **Relations** use FAIRsharing's labels only, as FAIRsharing documents them (data dictionary, Relations, which also
+  lists the registry pairs FAIRsharing allows for each label). A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries
   of its two resources; a Tool, which FAIRsharing does not register, or a Collection also counts as the registry of
   each of its FSR typology columns (FAIR Data Policy as a Policy, FAIR specification as a Standard, FAIR Supporting
   Technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification,
-  the domain and range of `fip:implements`. The label uses is always possible, and so is any relation while an end has
-  no FAIRsharing type or is a Tool without an FSR type. A relation that is not possible is a warning (section 7); one
+  the domain and range of `fip:implements`. Any relation is possible while an end has no FAIRsharing type or is a Tool
+  without an FSR type. A relation that is not possible is a warning (section 7); one
   that is possible but that FAIRsharing cannot hold is kept and flagged as not enterable in FAIRsharing. A lineage
   relation to a resource first published in a later year is a warning unless FAIRsharing asserts it. Each relation
   records its evidence (data dictionary, Relation evidence). FIP declarations are not relations.
@@ -236,6 +236,7 @@ Each excluded row carries exactly one code.
 | 1 Nov 2026 | The figure draws the Data integration lane above Data generation, next to Life sciences infrastructure. Only the order of the lanes changes: the phases keep their life-cycle order, so a resource's phase, span and lane are unchanged, and the curation sheet keeps its order. | Jente Houweling |
 | 1 Nov 2026 | The curation sheet has a Principles tab that counts, per FAIR principle and scope, the included FAIR-enabling resources one of whose FSR types enables the principle in the FIP ontology, leaving out what the figure leaves out. Its formulas over the Resources tab keep it current. It assigns no principle to a resource: principles still come only from the FIP questions a resource is declared for. | Jente Houweling |
 | 2 Nov 2026 | The sub-domains follow who the community could represent: members of the ELIXIR Toxicology Community defined them before resources were collected, and co-authors working in each sub-domain reviewed its resources. In vivo toxicology, the exposome and eco-toxicology were also proposed but no co-author represents them: in vivo toxicology is not a sub-domain, its resources taking the other sub-domains they serve, and the exposome and eco-toxicology are outside scope for this reason, which the record of 31 Oct 2026 did not state: their resources stay in the dataset but are left out of the figure and the analysis. | Jente Houweling |
+| 4 Nov 2026 | Relations use FAIRsharing's labels only, as FAIRsharing documents them, which restores the 3 Oct 2026 rule: the label uses of 21 Oct 2026 is withdrawn. Its relations became implements where the resource uses a standard and implements is possible, as in WikiPathways' FAIRsharing record and for the RDF resources of the dataset; the others took FAIRsharing's most generic label for their pair, extends between databases and related_to otherwise. recommends is a policy pointing at a resource: it is not lineage and does not count for Building on FAIR. The definitions of extends, recommends, deprecates and related_to take FAIRsharing's wording. | Jente Houweling |
 
 ## 9. Limitations
 

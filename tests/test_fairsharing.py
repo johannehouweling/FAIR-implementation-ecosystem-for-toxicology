@@ -46,7 +46,7 @@ class FairsharingTest(TempDir):
         self.assertIn({'other': 1698, 'otherName': 'WikiPathways', 'label': 'collects', 'outgoing': True},
                       c['associations'])
         self.assertIn({'other': 7, 'otherName': 'Y', 'label': 'recommends', 'outgoing': False}, c['associations'])
-        self.assertEqual(fairsharing.block(c, set(), '2026-10-05')['associations'], [['collects', 1698], ['implements', 9]])
+        self.assertEqual(fairsharing.block(c, set(), '2026-10-05')['associations'], [['accepts', 9], ['collects', 1698]])
 
     def test_slim_reads_rest_and_public_shapes(self):
         c, e = fairsharing.slim(REST), fairsharing.slim(PUBLIC)
@@ -109,7 +109,7 @@ class FairsharingTest(TempDir):
         self.assertEqual(fairsharing.curate(doc, self.data), [
             'new collection member: newtox (New Tox Database)',
             'exo: first published 2012, FAIRsharing year of creation 2015',
-            'FAIRsharing association, not a relation here: newtox implements exo',
+            'FAIRsharing association, not a relation here: newtox accepts exo',
             'two-hop: newtox related_to FAIRsharing 7777 Other record'])
         new = next(r for r in doc['hasPart'] if r['key'] == 'newtox')
         self.assertEqual((new['decision'], new['manuscript'], new['fairsharingType'], model.first_date(new),
@@ -221,8 +221,7 @@ class FairsharingTest(TempDir):
         by['oecd_gd']['qualifiedRelation'] = [
             {'relation': by['ctd']['@id'], 'hadRole': 'recommends', 'evidence': 'literature'},
             {'relation': by['exo']['@id'], 'hadRole': 'recommends', 'evidence': 'manuscript'},
-            {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'},   # not for a policy
-            {'relation': by['ctd']['@id'], 'hadRole': 'uses', 'evidence': 'literature'}]         # not FAIRsharing's
+            {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'}]   # not for a policy
         read = lambda: fairsharing.submission(fairsharing.enrich(copy.deepcopy(doc), dict(self.data, members=[9999])))
         sub = read()                                      # FAIRsharing was never checked for ctd and oecd_gd
         self.assertEqual((sub['records'], sub['associations']), ([], []))
@@ -242,8 +241,7 @@ class FairsharingTest(TempDir):
                           ('new: oecd_gd', 'recommends', 'new: ctd', None, 11)])
         self.assertEqual({x['item']: x['reason'] for x in sub['heldBack']},
                          {'oecd_gd recommends exo': 'the only evidence is the unpublished manuscript',
-                          'oecd_gd implements exo': 'FAIRsharing does not allow this label between these record types',
-                          'oecd_gd uses ctd': 'not a FAIRsharing label'})
+                          'oecd_gd implements exo': 'FAIRsharing does not allow this label between these record types'})
 
 
 class WebTest(unittest.TestCase):
