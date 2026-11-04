@@ -241,7 +241,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.14.2",
- "dateModified": "2026-11-03",
+ "dateModified": "2026-11-04",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -3298,6 +3298,12 @@
    ],
    "qualifiedRelation": [
     {
+     "relation": "https://w3id.org/fair-tox/dataset#dsstox",
+     "hadRole": "uses",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1016/j.comtox.2019.100096"
+    },
+    {
      "relation": "https://w3id.org/fair-tox/dataset#dtxsid",
      "hadRole": "implements",
      "evidence": "literature",
@@ -3312,11 +3318,27 @@
    "schemaType": "schema:CreativeWork",
    "key": "conxbase",
    "name": "ConXbase",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E4",
+   "fairsharingType": "Database: knowledgebase and repository",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
+   "scope": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "creator": "Netherlands Toxicogenomics Centre (project)",
    "url": "https://www.altex.org/index.php/altex/article/view/2216",
    "manuscript": "absent",
    "fairsharingMatch": "no record",
-   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026: the link given is the abstract book of the 8th World Congress on Alternatives and Animal Use in the Life Sciences, Montreal 2011 (ALTEX 28, special issue, 352 pages); the name ConXbase is found nowhere else (Europe PMC, OpenAlex, Crossref, FAIRsharing, web search). Needs the page of the abstract and a homepage or DOI; otherwise E3. Left unsigned for that reason."
+   "reviewedBy": "DJ",
+   "note": "Co-author addition 29 Oct 2026 (DJ, overview of toxicogenomics data standards). Research 29 Oct 2026: the link given is the abstract book of the 8th World Congress on Alternatives and Animal Use in the Life Sciences, Montreal 2011 (ALTEX 28, special issue, 352 pages); the name ConXbase is found nowhere else (Europe PMC, OpenAlex, Crossref, FAIRsharing, web search). Needs the page of the abstract and a homepage or DOI; otherwise E3. Left unsigned for that reason.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#cookbook",
@@ -5790,6 +5812,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "2973",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2020 kept: no launch date or paper describing the portal was found. The paper FAIRsharing cites (VonHandorf et al., Epigenetics 2018, doi 10.1080/15592294.2018.1454243) reports the underlying datasets, not the portal. Earliest archive capture is 2021-03-04. FAIRsharing deprecated the record on 2026-06-04 for lack of maintenance. The static page still loads, so it is marked discontinued as unmaintained. Proposed 9 Oct 2026: A small portal that indexes and serves chromium epigenomics datasets with curated metadata, publishing primary records at the data generation stage.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
@@ -8310,6 +8333,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.667115",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing gives no year, and no official launch date was found. The JRC's IPCheM portal was online by 2014-11-26 (earliest archive capture; a lower bound, showing modules and participation information). By Dec 2015 'IPCheM Version 3.1' offered data discovery and a viewer (archive). Modules are coordinated by EEA, EFSA and JRC. URL trailing '#' dropped. Verified 5 Oct 2026: datePublished changed (The 2014-11-26 capture (https://web.archive.org/web/20141126151332/http://ipchem.jrc.ec.europa.eu/) is only a public information page: a June 2014 flyer, 'How to participate' and LIFE funding. Its only links into the platform are 'Go to IPCheM for European Agencies' (webgate.ec.testa.eu, the closed sTESTA network) and 'Go to IPCheM for European Commission' (ipchem-portal.jrc.it, internal to JRC). The platform was therefore not publicly available in 2014. The first capture of the public discovery portal (IPCheM Version 3.1, with Discovery and Viewer) is from 2015-12-19, so 2015 is the documented lower bound.) Verified 5 Oct 2026: dateSource changed (Earliest capture of the publicly accessible IPCheM portal (Version 3.1); see datePublished.) Proposed 9 Oct 2026: A portal that receives and indexes chemical monitoring data collections, harmonises them and offers one access point for exposure and risk assessment.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "qualifiedAttribution": [
@@ -12244,6 +12268,7 @@
    "manuscriptEvidence": "III Table 1; L57",
    "fairsharingRecord": "FAIRsharing.acbc28",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): The year 2021 is confirmed and now has a full date. The page was added by pull request #714 'New page - Toxicology data', opened 2021-10-08 and merged 2021-10-20; this is the first commit of pages/your_domain/toxicology_data.md. The page was first archived 2022-05-29. The FAIRsharing collection 7474 mirrors the page and is later (yearCreation 2025; DOI FAIRsharing.acbc28 minted 2026-02-06). Type changed from 'Tool' to 'Collection' to follow the FAIRsharing record. Subdomains filled from the page's sections (in vitro, animal and human data from regulatory studies, ecotoxicology). The FAIRsharing record value is kept as 7474. Proposed 9 Oct 2026: Community guidance setting toxicology data management conventions and recommended resources, applied from generating in vitro data through reusing and integrating existing data.",
    "buildsOnFair": true,
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
@@ -12518,6 +12543,7 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III Toxicogenomics; L167",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): The year 2022 is confirmed. Verheijen et al. (Regul Toxicol Pharmacol) went online 2022-03-02 according to Crossref and OpenAlex; Europe PMC gives 2022-03-03. Earlier code exists on GitHub without releases: MCTverheijen/R-ODAF created 2020-04-01 and R-ODAF/Main 2021-08-27. The Health Canada fork is actively developed (last push 2026-10-02). The creator was a citation and is now the organisations; the url was the DOI and is now the R-ODAF GitHub organisation. Added 'regulatory toxicology' because the framework was built for regulatory use of omics data. FAIRsharing: no record. Proposed 9 Oct 2026: Open-source pipeline that processes a study's raw transcriptomics data into reproducible gene lists, applied when primary omics results are produced.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [

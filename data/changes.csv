@@ -4354,3 +4354,18 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-03,fairsharing import 2026-11-03,tta,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
 2026-11-03,fairsharing import 2026-11-03,wikipathways_aopportal,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
 2026-11-03,fairsharing import 2026-11-03,worldfair,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-04,curation sheet 2026-11-04,conxbase,decision,undecided,exclude,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,exclusionReason,,E4,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,fairsharingType,,Database: knowledgebase and repository,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,scope,,Toxicology,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,phase,,Data integration,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,span,,Data integration,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,subdomains,,toxicogenomics,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,creator,,Netherlands Toxicogenomics Centre (project),DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,conxbase,reviewedBy,,DJ,DJ,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,epicrdb,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,ipchem,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,rdmtox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,rodaf,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-04,curation sheet 2026-11-04,comptox,relation,(new),uses dsstox,,curation-sheet.xlsx
