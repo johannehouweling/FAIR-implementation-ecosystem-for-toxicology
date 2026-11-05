@@ -57,6 +57,26 @@ jobs:
           uvx --from pyshacl==0.40.1 pyshacl --advanced --allow-warnings --data-file-format json-ld
           --shacl https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/doc-corediscovery/a50ccb0c1fe5bef7d1a34f66fdd3affa24590d8d/discoveryDocRules.shacl
           build/site/fair-tox-ecosystem.jsonld
+      - name: Check that the links in the dataset and the documentation resolve
+        # Every link in the dataset (homepages, sources, creators, terms, notes) and in the documentation. A dead link
+        # fails a build of main, so nothing is published with it; a pull request only shows it, as sites come and go.
+        # Links the build adds come from live registries and are not checked. Requests carry a browser's Accept
+        # header; a redirect page without a Location header counts as reached, and 403 or 429 means a site blocks
+        # robots or rate-limits, not that the link is dead. Left out: FAIRsharing, whose records (also by their DOIs,
+        # 10.25504/...) need a login and which asked for at most one request every 8 to 12 seconds; the dataset's
+        # own w3id.org identifiers until that namespace is registered; the Wayback Machine, which throttles bursts
+        # of requests and whose snapshots do not go away; and sites that answer no automated client: apvma.gov.au,
+        # fda.gov (404 to GitHub's runners only), canada.ca (resets HTTP/2 connections) and aop-networkfinder.no,
+        # whose certificate chain lacks its intermediate (browsers fetch it, lychee does not).
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --no-progress --max-concurrency 8 --max-retries 2 --timeout 30
+            --accept 200..=299,300..=399,403,429 --header 'Accept: text/html, */*;q=0.1'
+            --exclude fairsharing.org --exclude doi.org/10.25504 --exclude w3id.org/fair-tox --exclude web.archive.org
+            --exclude apvma.gov.au --exclude fda.gov --exclude canada.ca --exclude aop-networkfinder.no
+            data/fair-tox-ecosystem.jsonld README.md docs/*.md
       - name: Check out the public dashboard repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
