@@ -9,7 +9,7 @@ from unittest import mock
 
 import rdflib
 
-from fairtox import __version__, fairsharing, fip, model, sheet, site
+from fairtox import __version__, fairsharing, fip, model, pids, sheet, site
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -49,7 +49,8 @@ class TempDir(unittest.TestCase):
         for module, name, value in ((fip, 'CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'fip')),
                                     (fip, 'FIPS', {'tool': np_iri('fipA'), 'oecd_gd': np_iri('fipB')}),
                                     (fip, 'REPORT', self.path('report.csv')), (fip, 'CONVERGENCE', self.path('fip.md')),
-                                    (fairsharing, 'CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'fairsharing'))):
+                                    (fairsharing, 'CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'fairsharing')),
+                                    (pids, 'CACHE', os.path.join(ROOT, 'tests', 'fixtures', 'pids'))):
             patcher = mock.patch.object(module, name, value)
             patcher.start()
             self.addCleanup(patcher.stop)

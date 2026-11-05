@@ -75,7 +75,8 @@ TASK_COLUMNS = [
      'sheet is made. Compare them with Phase and correct Phase if they disagree.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
-    ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
+    ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource, or their ROR or ORCID links: the '
+     'dashboard then shows the names registered there.'),
     ('Contact', 'contactPoint', 'several', 26, "Who to contact about the resource: a person's ORCID or an organisation's "
      'ROR, as a link; several separated by ";".'),
     ('First published', 'datePublished', 'date', 14,

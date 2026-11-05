@@ -135,14 +135,17 @@ class FipTest(TempDir):
         by['ctd']['creator'] = 'University of Michigan; NIEHS'   # two creators, their RORs in the same order
         by['ctd']['contactPoint'] = ['https://orcid.org/0000-0002-1825-0097', 'https://ror.org/00jmfr291',
                                      'https://ror.org/00j4k1h63']
+        by['exo']['creator'] = 'https://orcid.org/0000-0001-5185-8208; https://ror.org/04wxnsj81'   # links: names looked up
         built = fairsharing.enrich(copy.deepcopy(doc), fairsharing.read(None, None, offline=True))
         site.build(built, self.path('site'), offline=True)
         html = pathlib.Path(self.path('site'), 'index.html').read_text(encoding='utf-8')
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
         nodes = {n['key']: n for n in data['nodes']}
-        self.assertEqual(nodes['ctd']['ror'], ['https://ror.org/00jmfr291', 'https://ror.org/00j4k1h63'])   # not the ORCID
-        for code in ("const creators = (n.creator || '').split(/;\\s*/).filter(Boolean);",   # each creator links to its ROR
-                     "const creator = (creators.length === n.ror.length ? creators.map((c, i) => link(n.ror[i], c)) "
+        self.assertEqual(nodes['ctd']['creatorIds'], ['https://ror.org/00jmfr291', 'https://ror.org/00j4k1h63'])   # not the ORCID
+        self.assertEqual((nodes['exo']['creator'], nodes['exo']['creatorIds']),   # names from the registries (cached)
+                         ('Maciej Gromelski; DataCite', ['https://orcid.org/0000-0001-5185-8208', 'https://ror.org/04wxnsj81']))
+        for code in ("const creators = (n.creator || '').split(/;\\s*/).filter(Boolean);",   # each creator links to its identifier
+                     "const creator = (creators.length === n.creatorIds.length ? creators.map((c, i) => link(n.creatorIds[i], c)) "
                      ": creators.map(esc)).join(', ');"):   # joined with a comma, as every other row
             self.assertIn(code, html)
         self.assertEqual([(nodes[k]['fsrType'], nodes[k]['fsrCategory']) for k in ('exo', 'ctd')],
