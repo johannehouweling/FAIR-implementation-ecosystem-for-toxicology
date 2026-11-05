@@ -48,7 +48,7 @@ class SheetTest(TempDir):
         by = {r[0]: r for r in rows}
         self.assertEqual((by['F1'][1], by['F4'][1]), ('Identifier service', 'Registry'))   # its own type only
         col = {h: c.column_letter for h, c in zip([h for h, *_ in sheet.RESOURCE_COLUMNS], ws.parent['Resources'][1])}
-        f = by['F4'][2]   # Toxicology: included, the scope, a type that enables F4 (subclasses too), not set aside
+        f = by['F4'][2]   # Toxicology: included, the origin, a type that enables F4 (subclasses too), not set aside
         for part in (f'Resources!${col["Decision"]}$2:${col["Decision"]}="include"', '="Toxicology"',
                      'Domain-specific registry', 'Generalist registry', 'exposome|eco-toxicology', '=FALSE'):
             self.assertIn(part, f)
@@ -100,8 +100,8 @@ class SheetTest(TempDir):
         self.assertEqual(head[head.index('Note') + 1:], list(sheet.FOLDED))   # all context after Note, folded
         row = next(c.row for c in ws['A'] if c.value == 'exo')
         self.assertEqual(ws.cell(row=row, column=head.index('Sub-domains') + 1).value, 'exposome')
-        s = head.index('Scope')                             # FAIRsharing's tags beside the fields they help check
-        self.assertEqual(head[s:s + 4], ['Scope', 'FAIRsharing subjects', 'Phase', 'FAIRsharing domains'])
+        s = head.index('Origin')                             # FAIRsharing's tags beside the fields they help check
+        self.assertEqual(head[s:s + 4], ['Origin', 'FAIRsharing subjects', 'Phase', 'FAIRsharing domains'])
         self.assertEqual({c.fill.fgColor.rgb for c in ws[1]}, {sheet.HEAD.fgColor.rgb})   # one header colour
         row = next(c.row for c in ws['A'] if c.value == 'exo')
         value = lambda h: ws.cell(row=row, column=head.index(h) + 1).value
@@ -138,7 +138,7 @@ class SheetTest(TempDir):
 
     def test_bad_value_is_reported_with_its_cell(self):
         doc = model.normalise(fixture())
-        for column, value in (('Scope', 'Toxicologie'), ('FSR type', 'Databank'),
+        for column, value in (('Origin', 'Toxicologie'), ('FSR type', 'Databank'),
                               ('Phase', 'Data generation, Data integratoin'), ('Sub-domains', 'exposome, ecotox')):
             p = self.build(doc)
             cell = self.edit(p, column, 'ctd', value)

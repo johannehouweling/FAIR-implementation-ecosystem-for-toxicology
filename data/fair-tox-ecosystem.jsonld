@@ -100,7 +100,7 @@
    "@type": "@id",
    "@container": "@set"
   },
-  "scope": {
+  "origin": {
    "@id": "schema:about",
    "@type": "@vocab",
    "@context": {
@@ -240,7 +240,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.14.4",
- "dateModified": "2026-11-04",
+ "dateModified": "2026-11-05",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -325,7 +325,7 @@
    "Collection": "Curated collection of standards, databases and policies.",
    "Tool": "Software or service; FAIRsharing does not register these."
   },
-  "scope": {
+  "origin": {
    "Generic": "Infrastructure not specific to a research domain, including FAIR resources such as the FIP.",
    "Life Sciences": "Life-science infrastructure, not specific to toxicology, that toxicology uses.",
    "Toxicology": "Made for toxicology, including toxicology instances of generic resources."
@@ -430,7 +430,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -476,7 +476,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Generic",
+   "origin": "Generic",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L341"
   },
@@ -494,7 +494,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -543,7 +543,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Assessment-Specification"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -581,7 +581,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: reporting guideline",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -597,7 +597,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -632,7 +632,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Semantic-model"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -712,7 +712,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -760,7 +760,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -833,7 +833,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -875,7 +875,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -951,7 +951,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -995,7 +995,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -1038,7 +1038,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1096,7 +1096,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1139,7 +1139,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -1186,7 +1186,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1226,7 +1226,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1281,7 +1281,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1335,7 +1335,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Policy: society",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -1362,7 +1362,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -1444,7 +1444,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1574,7 +1574,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1619,7 +1619,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -1678,7 +1678,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -1722,7 +1722,7 @@
    "decision": "exclude",
    "exclusionReason": "E7",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "datePublished": "2009-08-13",
    "dateSource": "https://doi.org/10.1186/1471-2164-10-375",
    "creator": "University of Queensland (IMB); QFAB",
@@ -1748,7 +1748,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -1797,7 +1797,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -1851,7 +1851,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -1897,7 +1897,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
     "nanotoxicology"
@@ -1931,7 +1931,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2026",
    "dateSource": "https://w3id.org/spaces/biochementity/r/vocabulary/version/0.0.1",
    "creator": "PARC (Human Biomonitoring community) / VITO",
@@ -1961,7 +1961,7 @@
    "name": "BioImage Archive",
    "decision": "undecided",
    "fairsharingType": "Database: repository",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "https://www.ebi.ac.uk/bioimage-archive/",
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.x38D2k",
@@ -1979,7 +1979,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -2019,7 +2019,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "datePublished": "2017-10-22",
    "dateSource": "http://ceur-ws.org/Vol-1963/paper579.pdf",
    "url": "https://bioschemas.org/",
@@ -2052,7 +2052,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2018-12-07",
    "dateSource": "https://bioschemas.org/profiles/ChemicalSubstance/0.1-DRAFT-2018_12_07",
    "creator": "Bioschemas community (ELIXIR)",
@@ -2088,7 +2088,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2019-11-26",
    "dateSource": "https://bioschemas.org/profiles/ComputationalTool/0.5-DRAFT",
    "creator": "Bioschemas community (ELIXIR)",
@@ -2124,7 +2124,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2019-02-08",
    "dateSource": "https://bioschemas.org/profiles/ComputationalWorkflow/0.1-DRAFT-2019_02_08",
    "creator": "Bioschemas community (ELIXIR)",
@@ -2160,7 +2160,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2017",
    "dateSource": "https://github.com/BioSchemas/bioschemas.github.io/commit/c9d53fa1a32a1296eb6eebbc29a7dd06ef3a5ccf",
    "creator": "Bioschemas community (ELIXIR)",
@@ -2197,7 +2197,7 @@
     "https://w3id.org/fair/fip/terms/Provenance-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2016-02-23",
    "dateSource": "https://github.com/BioSchemas/bioschemas.github.io",
    "creator": "ELIXIR Bioschemas Community",
@@ -2233,7 +2233,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2018-11-14",
    "dateSource": "https://bioschemas.org/profiles/MolecularEntity/0.2-DRAFT-2018_11_14",
    "creator": "Bioschemas community (ELIXIR)",
@@ -2268,7 +2268,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2017",
    "dateSource": "https://github.com/BioSchemas/bioschemas.github.io/commit/cfa46b2c2c",
    "creator": "Bioschemas community (ELIXIR)",
@@ -2307,7 +2307,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -2344,7 +2344,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
     "toxicogenomics"
@@ -2405,7 +2405,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -2449,7 +2449,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -2490,7 +2490,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -2536,7 +2536,7 @@
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "https://commonchemistry.cas.org",
    "fairsharingRecord": "FAIRsharing.e5c86e",
    "fairsharingMatch": "confirmed",
@@ -2557,7 +2557,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2590,7 +2590,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://creativecommons.org/licenses/by/4.0/",
    "fairsharingMatch": "no record",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAR6yeOv4eNPYd6Ep_GngSkGUFUE1LYw2r8X94RlWUFQo/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Creative Commons licence declared in a FIP for R1.1, stating the reuse conditions of data and metadata in any domain.",
@@ -2613,7 +2613,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://creativecommons.org/licenses/by-sa/4.0/",
    "fairsharingMatch": "no record",
    "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAAsw25osO0qOYiHv6i2F55DiOcRuyR3fEzGrpBpznSW8#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for R1.1 as a Creative Commons licence stating the legal terms for reusing data and metadata.",
@@ -2634,7 +2634,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: society",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -2656,7 +2656,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -2716,7 +2716,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -2760,7 +2760,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateAdopted": "1991-05-06",
    "dateSource": "https://eur-lex.europa.eu/eli/reco/1991/337/oj",
    "creator": "European Commission; euroCRIS",
@@ -2793,7 +2793,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -2840,7 +2840,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "nanotoxicology",
     "computational and predictive toxicology"
@@ -2879,7 +2879,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -2939,7 +2939,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -2986,7 +2986,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2007-03",
    "dateSource": "https://en.wikipedia.org/wiki/ChemSpider",
    "creator": "ChemZoo; Royal Society of Chemistry",
@@ -3040,7 +3040,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "nanotoxicology"
    ],
@@ -3069,7 +3069,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -3101,7 +3101,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: society",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -3124,7 +3124,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -3168,7 +3168,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -3258,7 +3258,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -3321,7 +3321,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -3352,7 +3352,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2020",
    "dateSource": "https://doi.org/10.1038/s41597-023-02166-3",
    "creator": "FAIRplus / ELIXIR",
@@ -3383,7 +3383,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -3430,7 +3430,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema",
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -3476,7 +3476,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -3525,7 +3525,7 @@
    "decision": "exclude",
    "exclusionReason": "E7",
    "fairsharingType": "Standard: terminology artefact",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "datePublished": "2003",
    "dateSource": "https://doi.org/10.1016/S1053-4296(03)00031-6",
    "creator": "US National Cancer Institute (CTEP)",
@@ -3554,7 +3554,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -3610,7 +3610,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -3633,7 +3633,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -3681,7 +3681,7 @@
    "decision": "exclude",
    "exclusionReason": "E6",
    "coveredBy": "data_stewardship_wizard_ds",
-   "scope": "Generic",
+   "origin": "Generic",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -3699,7 +3699,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Editor"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2016-12-20",
    "dateSource": "https://github.com/ds-wizard/legacy-wizard/commit/f057bc0f9af7d2947273f8747c312a9b211a6f4f",
    "url": "https://ds-wizard.org/",
@@ -3725,7 +3725,7 @@
     "https://w3id.org/fair/fip/terms/Provenance-model",
     "https://w3id.org/fair/fip/terms/Semantic-model"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateAdopted": "2011-01-24",
    "dateSource": "https://doi.org/10.5438/0001",
    "creator": "DataCite",
@@ -3753,7 +3753,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -3795,7 +3795,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -3836,7 +3836,7 @@
    "decision": "exclude",
    "exclusionReason": "E7",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "datePublished": "2011-11-17",
    "dateSource": "https://doi.org/10.1093/nar/gkr942",
    "creator": "CSIR-Indian Institute of Chemical Biology",
@@ -3862,7 +3862,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -3920,7 +3920,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Integration-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -3977,7 +3977,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -4052,7 +4052,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -4089,7 +4089,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -4125,7 +4125,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Metadata-data-linking-schema"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "1997-10",
    "dateSource": "https://web.archive.org/web/19980204120927/http://www.doi.org:80/",
    "creator": "International DOI Foundation",
@@ -4158,7 +4158,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -4188,7 +4188,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -4241,7 +4241,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Generalist-Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2008-03-20",
    "dateSource": "https://web.archive.org/web/20080516181545/http://datadryad.org/",
    "creator": "National Evolutionary Synthesis Center (NESCent); Dryad",
@@ -4268,7 +4268,7 @@
    ],
    "decision": "undecided",
    "fairsharingType": "Database: repository",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -4308,7 +4308,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "exposome"
    ],
@@ -4358,7 +4358,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -4413,7 +4413,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -4459,7 +4459,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -4507,7 +4507,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -4550,7 +4550,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -4774,7 +4774,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -4816,7 +4816,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -4860,7 +4860,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "https://github.com/edamontology/edam-bioimaging",
    "mentionedIn": [
     "Whitepaper",
@@ -4886,7 +4886,7 @@
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
     "https://w3id.org/fair/fip/terms/FAIR-Publishing-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -4930,7 +4930,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -5002,7 +5002,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -5055,7 +5055,7 @@
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2008-07-14",
    "dateSource": "https://web.archive.org/web/20081203005048/http://www.ebi.ac.uk:80/Information/News/pdf/Press14Jul08_EGA.pdf",
    "url": "https://ega-archive.org/",
@@ -5074,7 +5074,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: institution",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "datePublished": "2012",
    "dateSource": "https://doi.org/10.1016/j.tibtech.2012.02.002",
    "url": "https://elixir-europe.org",
@@ -5101,7 +5101,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateAdopted": "2017-07",
    "dateSource": "https://web.archive.org/web/20170725133703/https://www.elixir-europe.org/platforms/data/elixir-deposition-databases",
    "creator": "ELIXIR",
@@ -5215,7 +5215,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2024-08-01",
    "dateSource": "https://github.com/elixir-europe-training/Learning-Paths-Handbook",
    "url": "https://elixir-europe-training.github.io/Learning-Paths-Handbook/",
@@ -5241,7 +5241,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: model/format",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "url": "https://osf.io/edq3c/",
    "manuscript": "named",
@@ -5262,7 +5262,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: society",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "in vitro toxicology",
     "AOP-based mechanistic knowledge"
@@ -5292,7 +5292,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Metadata-data-linking-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "https://www.ebi.ac.uk/empiar/",
    "fairsharingRecord": "FAIRsharing.dff3ef",
    "fairsharingMatch": "confirmed",
@@ -5313,7 +5313,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "http://www.ebi.ac.uk/ena",
    "fairsharingRecord": "FAIRsharing.dj8nt8",
    "fairsharingMatch": "confirmed",
@@ -5332,7 +5332,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -5368,7 +5368,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -5451,7 +5451,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -5534,7 +5534,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -5567,7 +5567,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "exposome",
     "eco-toxicology"
@@ -5598,7 +5598,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -5642,7 +5642,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -5688,7 +5688,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -5731,7 +5731,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -5787,7 +5787,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -5835,7 +5835,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -5873,7 +5873,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -5930,7 +5930,7 @@
    "exclusionReason": "E6",
    "coveredBy": "etransafe_repro",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -5962,7 +5962,7 @@
    "exclusionReason": "E6",
    "coveredBy": "etransafe_repro",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -5996,7 +5996,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -6036,7 +6036,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -6083,7 +6083,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -6127,7 +6127,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -6179,7 +6179,7 @@
    "decision": "exclude",
    "exclusionReason": "E5",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "creator": "EMBL-EBI",
    "url": "https://europepmc.org",
    "manuscript": "comment only",
@@ -6198,7 +6198,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -6239,7 +6239,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -6300,7 +6300,7 @@
    "exclusionReason": "E6",
    "coveredBy": "eutr_ki",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -6335,7 +6335,7 @@
    "exclusionReason": "E6",
    "coveredBy": "eutr_ki",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -6370,7 +6370,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -6406,7 +6406,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -6455,7 +6455,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "datePublished": "2008-06-19",
    "dateSource": "https://web.archive.org/web/20080725122751/http://bio-ontologies.org.uk/",
    "url": "https://www.ebi.ac.uk/ols4/ontologies/efo",
@@ -6480,7 +6480,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -6528,7 +6528,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "exposome"
    ],
@@ -6546,7 +6546,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: model/format",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -6578,7 +6578,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "url": "https://elixir-europe.org/events/toxicology-meeting-2026",
    "manuscript": "comment only",
@@ -6596,7 +6596,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Generic",
+   "origin": "Generic",
    "manuscript": "cited",
    "manuscriptEvidence": "VI Priorities; L330"
   },
@@ -6609,7 +6609,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L345"
   },
@@ -6620,7 +6620,7 @@
    "key": "fair_data_point_fdp",
    "name": "FAIR Data Point (FDP)",
    "decision": "undecided",
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://www.fairdatapoint.org/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -6637,7 +6637,7 @@
    "name": "FAIR enabling resource (FER)",
    "decision": "exclude",
    "exclusionReason": "E2",
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "manuscript": "absent",
    "mentionedIn": [
@@ -6660,7 +6660,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Reference-FAIR-Implementation-Profile"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -6725,7 +6725,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -6745,7 +6745,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -6784,7 +6784,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Generic",
+   "origin": "Generic",
    "manuscript": "named",
    "manuscriptEvidence": "Throughout; L7, L10, L14, L42, L111-112, L138, L239, L289, L335-336"
   },
@@ -6802,7 +6802,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2022",
    "dateSource": "https://web.archive.org/web/20221025092955/https://fairconnect.pro/",
    "creator": "GO FAIR Foundation and IOS Press (now Sage), with CODATA, DTL and Health-RI",
@@ -6828,7 +6828,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service",
     "https://w3id.org/fair/fip/terms/Generalist-Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2026",
    "dateSource": "https://w3id.org/np/RA41_bLIoJeSd_97C8PzUgtKop431O28YJ0lfJ42mp5Nc",
    "creator": "GO FAIR Foundation / KnowledgePixels",
@@ -6870,7 +6870,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -6896,7 +6896,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -6921,7 +6921,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Generic",
+   "origin": "Generic",
    "creator": "IMI2 FAIRplus consortium",
    "url": "https://fairplus-project.eu",
    "manuscript": "named",
@@ -6937,7 +6937,7 @@
    "exclusionReason": "E6",
    "coveredBy": "cookbook",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "creator": "FAIRplus",
    "url": "https://faircookbook.elixir-europe.org/content/recipes/applied-examples/etox.html",
    "manuscript": "named",
@@ -6959,7 +6959,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Generic",
+   "origin": "Generic",
    "date": "2016",
    "dateSource": "https://doi.org/10.1038/sdata.2016.18",
    "creator": "FORCE11 (Wilkinson et al. 2016)",
@@ -6985,7 +6985,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2011",
    "dateSource": "https://doi.org/10.1093/database/baw075",
    "creator": "University of Oxford (FAIRsharing team)",
@@ -7021,7 +7021,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: society",
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; L61"
@@ -7037,7 +7037,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Generalist-Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2011-01-12",
    "dateSource": "https://web.archive.org/web/20110116044659/http://figshare.com/figblog/2011/01/12/figshare-alpha-release",
    "url": "https://figshare.com/",
@@ -7065,7 +7065,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Editor"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -7119,7 +7119,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service",
     "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2024",
    "dateSource": "https://github.com/knowledgepixels/fip-matrix",
    "creator": "https://orcid.org/0000-0001-5185-8208",
@@ -7149,7 +7149,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2020",
    "dateSource": "https://web.archive.org/web/20200811221637/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/",
    "creator": "GO FAIR Foundation",
@@ -7187,7 +7187,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -7230,7 +7230,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "datePublished": "1971-04",
    "dateSource": "https://www.rfc-editor.org/info/rfc114",
    "creator": "ARPANET Network Working Group; IETF",
@@ -7260,7 +7260,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Validation-Service"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2020-10-02",
    "dateSource": "https://doi.org/10.5281/zenodo.4063720",
    "creator": "PANGAEA (FAIRsFAIR)",
@@ -7285,7 +7285,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Policy: funder",
-   "scope": "Generic",
+   "origin": "Generic",
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -7308,7 +7308,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Practice",
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -7353,7 +7353,7 @@
    "decision": "exclude",
    "exclusionReason": "E8",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -7395,7 +7395,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -7440,7 +7440,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -7480,7 +7480,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -7524,7 +7524,7 @@
    "decision": "exclude",
    "exclusionReason": "E8",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -7563,7 +7563,7 @@
    "decision": "exclude",
    "exclusionReason": "E8",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -7600,7 +7600,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -7631,7 +7631,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2018-09-05",
    "dateSource": "https://blog.google/products/search/making-it-easier-discover-datasets/",
    "url": "https://datasetsearch.research.google.com/",
@@ -7660,7 +7660,7 @@
    "name": "HARMLESS",
    "decision": "exclude",
    "exclusionReason": "E1",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "url": "https://www.harmless-project.eu/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -7679,7 +7679,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Generalist-Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2007",
    "dateSource": "https://web.archive.org/web/20070704082227/http://dvn.iq.harvard.edu/dvn/%3bjsessionid%3d04ef82c2ae4a9c0142f6f2249af5",
    "creator": "Institute for Quantitative Social Science (IQSS), Harvard University, with Harvard Library and Harvard University Information Technology",
@@ -7708,7 +7708,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -7751,7 +7751,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -7796,7 +7796,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -7827,7 +7827,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "datePublished": "1991",
    "dateSource": "https://www.w3.org/Protocols/HTTP/AsImplemented.html",
    "creator": "CERN; IETF",
@@ -7857,7 +7857,7 @@
     "https://w3id.org/fair/fip/terms/Authentication-and-authorization-service",
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "1994-12-15",
    "dateSource": "https://ksi.cpsc.ucalgary.ca/archives/WWW-TALK/www-talk-1994q4/1135.html",
    "creator": "Netscape Communications; IETF",
@@ -7886,7 +7886,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -7923,7 +7923,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -7969,7 +7969,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -8000,7 +8000,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -8043,7 +8043,7 @@
    ],
    "decision": "undecided",
    "fairsharingType": "Database: repository",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "https://www.immport.org/",
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.bpkzqp",
@@ -8066,7 +8066,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2005-04",
    "dateSource": "https://web.archive.org/web/20051013062429/http://www.iupac.org/projects/2000/2000-025-1-800.html",
    "creator": "IUPAC / NIST / InChI Trust",
@@ -8101,7 +8101,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -8144,7 +8144,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2003",
    "dateSource": "https://web.archive.org/web/20031215212402/http://www.ebi.ac.uk:80/intact/index.html",
    "url": "https://www.ebi.ac.uk/intact/home",
@@ -8166,7 +8166,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -8206,7 +8206,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Editor"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -8254,7 +8254,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "url": "https://elixir-europe.org/internal-projects/commissioned-services/integrating-toxicology-community",
    "manuscript": "named",
@@ -8282,7 +8282,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "creator": "ELIXIR Toxicology Community",
    "url": "https://elixir-europe.org/internal-projects/commissioned-services/integrating-toxicology-community",
    "manuscript": "comment only",
@@ -8302,7 +8302,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -8352,7 +8352,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -8402,7 +8402,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: model/format",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "nanotoxicology",
     "exposome",
@@ -8426,7 +8426,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -8484,7 +8484,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology"
    ],
@@ -8526,7 +8526,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
     "nanotoxicology",
@@ -8572,7 +8572,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -8625,7 +8625,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Editor"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -8679,7 +8679,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: society",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "https://iupac.org",
    "manuscript": "comment only",
    "manuscriptEvidence": "II (to-do notes); L28"
@@ -8698,7 +8698,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -8748,7 +8748,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -8790,7 +8790,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -8837,7 +8837,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -8883,7 +8883,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateAdopted": "2014-01-16",
    "dateSource": "https://www.w3.org/TR/2014/REC-json-ld-20140116/",
    "creator": "W3C",
@@ -8914,7 +8914,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Generic",
+   "origin": "Generic",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -8937,7 +8937,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -8966,7 +8966,7 @@
    "key": "large_language_model_llm",
    "name": "Large Language Model (LLM)",
    "decision": "undecided",
-   "scope": "Generic",
+   "origin": "Generic",
    "date": "2024",
    "dateSource": "https://en.wikipedia.org/wiki/Large_language_model",
    "description": "The idea was evolving, but the 2024 release of o1 seems to be the game changer.",
@@ -8992,7 +8992,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -9033,7 +9033,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -9084,7 +9084,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -9138,7 +9138,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -9165,7 +9165,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Publishing-Service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
     "toxicogenomics"
@@ -9204,7 +9204,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -9227,7 +9227,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2011",
    "dateSource": "https://doi.org/10.1093/nar/gkaf1193",
    "url": "https://massbank.eu/MassBank/",
@@ -9261,7 +9261,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "datePublished": "2009-01-15",
    "dateSource": "https://doi.org/10.1093/bioinformatics/btp025",
    "creator": "CNRS; Université Claude Bernard Lyon 1",
@@ -9288,7 +9288,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -9321,7 +9321,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateAdopted": "1960",
    "dateSource": "https://www.nlm.nih.gov/pubs/techbull/mj10/mj10_mesh_anniv.html",
    "creator": "US National Library of Medicine",
@@ -9351,7 +9351,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2012-02",
    "dateSource": "https://www.ebi.ac.uk/sites/ebi.ac.uk/files/groups/external_relations/Documents/ASR_2012_Molecular_Atlas.pdf",
    "creator": "EMBL-EBI",
@@ -9382,7 +9382,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -9413,7 +9413,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -9480,7 +9480,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -9526,7 +9526,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2008-04-01",
    "dateSource": "https://www.fged.org/projects/minseqe",
    "creator": "FGED Society",
@@ -9553,7 +9553,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -9590,7 +9590,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "1984-02-01",
    "dateSource": "https://doi.org/10.1109/MAHC.2020.3020234",
    "creator": "Massachusetts Institute of Technology",
@@ -9619,7 +9619,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -9667,7 +9667,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -9701,7 +9701,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -9738,7 +9738,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -9819,7 +9819,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -9879,7 +9879,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -9909,7 +9909,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -9942,7 +9942,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -9985,7 +9985,7 @@
    "exclusionReason": "E6",
    "coveredBy": "nanocommons_project",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -10021,7 +10021,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Editor"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2020-02-24",
    "dateSource": "https://github.com/knowledgepixels/nanodash/releases/tag/nanobench-1.0",
    "creator": "Knowledge Pixels",
@@ -10062,7 +10062,7 @@
    "key": "nanopharos_database",
    "name": "NanoPharos Database",
    "decision": "undecided",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -10098,7 +10098,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Provenance-model"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -10136,7 +10136,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -10170,7 +10170,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -10214,7 +10214,7 @@
    "decision": "exclude",
    "exclusionReason": "E4",
    "fairsharingType": "Database: repository",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -10239,7 +10239,7 @@
    "name": "NORMAN Bioassays Monitoring Database",
    "decision": "undecided",
    "fairsharingType": "Database: repository",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -10270,7 +10270,7 @@
    ],
    "decision": "undecided",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -10304,7 +10304,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -10356,7 +10356,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: reporting guideline",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -10416,7 +10416,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -10464,7 +10464,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Authentication-and-authorization-service"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateAdopted": "2007-12-04",
    "dateSource": "https://oauth.net/core/1.0/",
    "creator": "OAuth community; IETF",
@@ -10503,7 +10503,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "nanotoxicology"
    ],
@@ -10535,7 +10535,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2006",
    "dateSource": "https://web.archive.org/web/20060502183936/http://obofoundry.org/",
    "creator": "OBO Foundry",
@@ -10574,7 +10574,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -10607,7 +10607,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -10641,7 +10641,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -10679,7 +10679,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -10737,7 +10737,7 @@
    "decision": "exclude",
    "exclusionReason": "E8",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -10775,7 +10775,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -10833,7 +10833,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -10871,7 +10871,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -10909,7 +10909,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -10956,7 +10956,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema",
     "https://w3id.org/fair/fip/terms/Provenance-model"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -11018,7 +11018,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2009-06-29",
    "dateSource": "https://lists-archive.okfn.org/pipermail/odc-discuss/2009-June/000676.html",
    "creator": "Open Knowledge Foundation (Open Data Commons)",
@@ -11040,7 +11040,7 @@
    "key": "openaire",
    "name": "OpenAIRE",
    "decision": "undecided",
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://www.openaire.eu/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -11060,7 +11060,7 @@
    "decision": "exclude",
    "exclusionReason": "E5",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Generic",
+   "origin": "Generic",
    "creator": "OurResearch",
    "url": "https://openalex.org",
    "manuscript": "comment only",
@@ -11080,7 +11080,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -11136,7 +11136,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -11180,7 +11180,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -11220,7 +11220,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Semantic-model"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -11265,7 +11265,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -11306,7 +11306,7 @@
     "https://w3id.org/fair/fip/terms/Identifier-service",
     "https://w3id.org/fair/fip/terms/Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2012-10-16",
    "dateSource": "https://web.archive.org/web/20130314163418/http://about.orcid.org/news/2012/10/16/orcid-launches-registry",
    "creator": "ORCID",
@@ -11343,7 +11343,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "url": "https://www.nasa.gov/osdr/",
    "fairsharingMatch": "no record",
    "reviewedBy": "IM",
@@ -11364,7 +11364,7 @@
    ],
    "decision": "undecided",
    "fairsharingType": "Database: knowledgebase and repository",
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://osf.io/",
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.g4z879",
@@ -11385,7 +11385,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "subdomains": [
     "nanotoxicology"
    ],
@@ -11428,7 +11428,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -11465,7 +11465,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -11510,7 +11510,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -11575,7 +11575,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -11627,7 +11627,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "url": "https://www.eu-parc.eu",
    "mentionedIn": [
     "Whitepaper",
@@ -11653,7 +11653,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Profile"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -11683,7 +11683,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -11740,7 +11740,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -11769,7 +11769,7 @@
    "name": "PINK",
    "decision": "exclude",
    "exclusionReason": "E1",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "url": "https://pink-project.eu/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -11791,7 +11791,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -11837,7 +11837,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -11882,7 +11882,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -11912,7 +11912,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -11943,7 +11943,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
     "computational and predictive toxicology"
@@ -11994,7 +11994,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2004",
    "dateSource": "https://doi.org/10.1093/nar/gkv951",
    "url": "https://registry.identifiers.org/registry/pubchem.compound",
@@ -12032,7 +12032,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -12069,7 +12069,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2012-10-29",
    "dateSource": "https://www.wikidata.org/w/index.php?title=Q1&dir=prev&action=history",
    "creator": "Wikimedia Deutschland; Wikimedia Foundation",
@@ -12101,7 +12101,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Tool",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -12137,7 +12137,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -12172,7 +12172,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -12206,7 +12206,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2021-03-31",
    "dateSource": "https://doi.org/10.5281/zenodo.5110072",
    "creator": "ELIXIR",
@@ -12238,7 +12238,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -12295,7 +12295,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -12327,7 +12327,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Validation-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -12379,7 +12379,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -12437,7 +12437,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -12492,7 +12492,7 @@
    "name": "RISK-HUNT3R",
    "decision": "exclude",
    "exclusionReason": "E1",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "url": "https://www.risk-hunt3r.eu/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -12515,7 +12515,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -12565,7 +12565,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2019-01",
    "dateSource": "https://ror.org/about/history/",
    "creator": "California Digital Library; Crossref; DataCite",
@@ -12597,7 +12597,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2014-02-01",
    "dateSource": "https://doi.org/10.12688/f1000research.6555.1",
    "creator": "University of California San Diego (SciCrunch); Resource Identification Initiative (FORCE11)",
@@ -12638,7 +12638,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -12684,7 +12684,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -12712,7 +12712,7 @@
    "name": "SbD4Nano",
    "decision": "exclude",
    "exclusionReason": "E1",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "url": "https://www.sbd4nano.eu/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -12734,7 +12734,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -12766,7 +12766,7 @@
     "https://w3id.org/fair/fip/terms/Metadata-schema",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2011-06-02",
    "dateSource": "https://developers.google.com/search/blog/2011/06/introducing-schemaorg-search-engines",
    "url": "https://schema.org/",
@@ -12790,7 +12790,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Generic",
+   "origin": "Generic",
    "creator": "Edwards, Mayernik, Batcheller, Bowker and Borgman (2011)",
    "url": "https://doi.org/10.1177/0306312711413314",
    "manuscript": "comment only",
@@ -12810,7 +12810,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Validation-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -12856,7 +12856,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -12897,7 +12897,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -12951,7 +12951,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "toxicogenomics"
    ],
@@ -12978,7 +12978,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -13039,7 +13039,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -13072,7 +13072,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Communication-protocol"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -13112,7 +13112,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -13154,7 +13154,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: model/format",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -13183,7 +13183,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: model/format",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -13209,7 +13209,7 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: reporting guideline",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -13254,7 +13254,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -13310,7 +13310,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -13372,7 +13372,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Integration-Service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2019",
    "dateSource": "https://web.archive.org/web/20191208160125/https://openrisknet.org/e-infrastructure/services/163/",
    "creator": "Fraunhofer SCAI",
@@ -13396,7 +13396,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "dateReleased": "2015-03",
    "dateSource": "https://doi.org/10.7490/f1000research.1110257.1",
    "url": "https://tess.elixir-europe.org/",
@@ -13422,7 +13422,7 @@
    "decision": "exclude",
    "exclusionReason": "E8",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -13463,7 +13463,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -13520,7 +13520,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "creator": "Russell and Burch 1959",
    "manuscript": "comment only",
    "manuscriptEvidence": "IV (to-do notes); L220"
@@ -13537,7 +13537,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -13576,7 +13576,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -13640,7 +13640,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -13681,7 +13681,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -13737,7 +13737,7 @@
    "exclusionReason": "E6",
    "coveredBy": "eutr_ki",
    "fairsharingType": "Database: repository",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation"
@@ -13766,7 +13766,7 @@
    "key": "toxic_process_ontology",
    "name": "Toxic Process Ontology",
    "decision": "undecided",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -13798,7 +13798,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Integration-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -13841,7 +13841,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -13887,7 +13887,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Validation-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -13928,7 +13928,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
     "Data generation",
@@ -13996,7 +13996,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -14062,7 +14062,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: project",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -14104,7 +14104,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -14163,7 +14163,7 @@
    ],
    "decision": "undecided",
    "fairsharingType": "Database: knowledgebase",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -14199,7 +14199,7 @@
     "https://w3id.org/fair/fip/terms/Semantic-model",
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
     "exposome",
@@ -14235,7 +14235,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "in vitro toxicology",
     "exposome",
@@ -14264,7 +14264,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Tool",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "creator": "McInnes, Healy and Melville (2018)",
    "url": "https://umap-learn.readthedocs.io",
    "manuscript": "comment only",
@@ -14281,7 +14281,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "computational and predictive toxicology"
    ],
@@ -14322,7 +14322,7 @@
    "decision": "exclude",
    "exclusionReason": "E1",
    "fairsharingType": "Policy: institution",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -14351,7 +14351,7 @@
    "name": "VHP4Safety",
    "decision": "exclude",
    "exclusionReason": "E1",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "url": "https://vhp4safety.nl/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -14383,7 +14383,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration",
@@ -14429,7 +14429,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "regulatory toxicology"
    ],
@@ -14449,7 +14449,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Generalist-Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2012-10-29",
    "dateSource": "https://www.wikidata.org/w/index.php?title=Q1&dir=prev&action=history",
    "creator": "Wikimedia Deutschland; Wikimedia Foundation",
@@ -14480,7 +14480,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Life Sciences",
+   "origin": "Life Sciences",
    "subdomains": [
     "AOP-based mechanistic knowledge"
    ],
@@ -14512,7 +14512,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
     "Data integration"
@@ -14570,7 +14570,7 @@
    "decision": "exclude",
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
-   "scope": "Toxicology",
+   "origin": "Toxicology",
    "phase": "Regulatory assessment",
    "span": [
     "Regulatory assessment"
@@ -14603,7 +14603,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2020",
    "dateSource": "https://doi.org/10.1038/s41597-025-04786-3",
    "creator": "ELIXIR; University of Manchester",
@@ -14626,7 +14626,7 @@
    "key": "worldfair",
    "name": "WorldFAIR",
    "decision": "undecided",
-   "scope": "Generic",
+   "origin": "Generic",
    "url": "https://worldfair-project.eu/",
    "manuscript": "absent",
    "mentionedIn": [
@@ -14648,7 +14648,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Knowledge-representation-language"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateAdopted": "2001-05-02",
    "dateSource": "https://www.w3.org/TR/2001/REC-xmlschema-1-20010502/",
    "creator": "W3C",
@@ -14678,7 +14678,7 @@
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Generalist-Registry"
    ],
-   "scope": "Generic",
+   "origin": "Generic",
    "dateReleased": "2013-05-08",
    "dateSource": "https://sciencenode.org/feature/cern-and-openaireplus-launch-new-european-research-repository.php",
    "url": "https://zenodo.org/",

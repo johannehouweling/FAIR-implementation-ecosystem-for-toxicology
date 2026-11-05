@@ -20,7 +20,7 @@ PUBLIC_REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
 NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
-               'fairsharingType', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
+               'fairsharingType', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'origin',
                'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'sources', 'fairsharing', 'url', 'creator',
                'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
@@ -93,7 +93,7 @@ def nodes_links(doc):
             'fsrType': [fsr.get(t, t) for t in r.get('fsrType', [])], 'fsrCategory': fsr.get(r.get('fsrCategory'), ''),
             'principles': r.get('principles', []), 'declaredIn': [key_of[f] for f in r.get('declaredIn', [])],
             'declaredBy': key_of.get(r.get('declared-by'), ''), 'registry': model.registry(r) or '',
-            'scope': r.get('scope', ''), 'creatorType': r.get('creatorType', []),
+            'origin': r.get('origin', ''), 'creatorType': r.get('creatorType', []),
             'buildsOnFair': bool(r.get('buildsOnFair')), 'subdomains': r.get('subdomains', []),
             'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
             # where it was found, by the sources the criteria screen; the FIPs come below, once every key has a label
@@ -137,7 +137,7 @@ def public(doc):
             p.pop('fairsharing', None)
         fs = p.get('fairsharing') or {}               # inherited, not curated: FAIRsharing's statements, on its record,
         terms = lambda kind: [{'@id': t['iri'], 'name': t['label']} for t in fs.get(kind, []) if t['iri']]   # IRIs only
-        inherited = {'about': terms('subjects'), 'theme': terms('domains')}   # with the terms of scope and span
+        inherited = {'about': terms('subjects'), 'theme': terms('domains')}   # with the terms of origin and span
         if p.get('fairsharingRecord') and any(inherited.values()):
             p['fairsharingRecord'] = {'@id': 'https://fairsharing.org/' + p['fairsharingRecord'],
                                       **{k: v for k, v in inherited.items() if v}}
@@ -219,7 +219,8 @@ FIELDS = [
                     'Resource (any other FSR). The Class filter uses it; resources without a type always pass it.', None),
     ('principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty '
                    'when no FIP declares it.', None),
-    ('scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'),
+    ('origin', 'Where the resource comes from, what it was made for: generic FAIR, generic life-science or toxicology '
+               'infrastructure.', 'origin'),
     ('phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.',
      'phase'),
     ('span', 'Every data life-cycle phase a toxicology resource acts on, its phase first.', None),
@@ -241,7 +242,7 @@ FIELDS = [
     ('description', 'One to three sentences on what the resource is.', None),
     ('maintained', 'Maintenance status.', 'maintained'),
     ('fairsharingRecord', "FAIRsharing record code or numeric id. In the JSON-LD, a link to the record, with "
-                          "FAIRsharing's subjects (about, as for scope) and domains (theme, as for span), inherited "
+                          "FAIRsharing's subjects (about, as for origin) and domains (theme, as for span), inherited "
                           'when the dataset is built, not curated.', None),
     ('fsr', 'The IRIs under which the FIPs declare the resource, when they differ from its identifier.', None),
     ('fromCollection', 'In resources.csv only. Derived: true for a member of the FAIRsharing Toxicology collection '
