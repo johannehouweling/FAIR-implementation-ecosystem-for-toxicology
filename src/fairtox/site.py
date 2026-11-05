@@ -12,7 +12,7 @@ import re
 from importlib.resources import files
 from pathlib import Path
 
-from fairtox import fip, model
+from fairtox import fip, model, pids
 
 REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology'          # private
 # CI deploys the public build to this public repository, which serves it on GitHub Pages
@@ -21,8 +21,8 @@ PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxico
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
 NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
                'fairsharingType', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'origin',
-               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'sources', 'fairsharing', 'url', 'creator',
-               'maintained', 'description', 'dateSource', 'dateBasis']
+               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'sources', 'fairsharing', 'fsrNanopublication',
+               'url', 'creator', 'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
 # Curation fields and vocabularies that stay out of the build. Relations keep only their label: their evidence and
 # source cite the manuscript draft.
@@ -76,15 +76,20 @@ def type_labels():
     return {**{k: v[0] for k, v in model.fsr_types().items()}, **CLASSES}
 
 
-def nodes_links(doc):
+def nodes_links(doc, names=None):
     """Flatten the dataset for the page. Links run from the earlier resource (src, the relation's target) to the
     one that builds on or uses it (dst, the relation's subject), so "CTD implements ExO" is drawn ExO -> CTD. Declarations run
-    from a FIP (src) to a resource it declares (dst), with each question and its declaration nanopublication (q)."""
-    nodes, key_of = [], {r['@id']: r['key'] for r in doc['hasPart']}
+    from a FIP (src) to a resource it declares (dst), with each question and its declaration nanopublication (q).
+    `names` gives the registered name of each creator given as an ORCID or ROR link (pids.names)."""
+    nodes, key_of, names = [], {r['@id']: r['key'] for r in doc['hasPart']}, names or {}
     fsr = type_labels()
     for r in doc['hasPart']:
         fs = r.get('fairsharing') or {}
         date, basis = model.first_date(r)
+        creators = [c for c in re.split(r';\s*', r.get('creator', '')) if c]
+        # the creators' identifiers, in order: their own links, else the RORs among the contact points
+        ids = creators if creators and all(map(pids.is_pid, creators)) else [
+            c for c in r.get('contactPoint', []) if c.startswith('https://ror.org/')]
         nodes.append({
             'key': r['key'], 'identifier': r.get('identifier', ''), 'name': r['name'].strip(), 'label': label(r),
             'abbr': abbr(r), 'aliases': r.get('alternateName', []), 'year': model._year(r),
@@ -99,7 +104,8 @@ def nodes_links(doc):
             # where it was found, by the sources the criteria screen; the FIPs come below, once every key has a label
             'sources': ([doc['creator']['name']] if r.get('manuscript', 'absent') != 'absent' else [])
                        + ([COLLECTION] if fs.get('inCollection') else []),
-            'fairsharing': fairsharing_url(r), 'url': r.get('url', ''), 'creator': r.get('creator', ''),
+            'fairsharing': fairsharing_url(r), 'fsrNanopublication': r.get('fsrNanopublication', []),
+            'url': r.get('url', ''), 'creator': '; '.join(names.get(c, c) for c in creators), 'creatorIds': ids,
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
             'dateSource': r.get('dateSource', ''), 'dateBasis': basis,
         })
@@ -217,8 +223,8 @@ FIELDS = [
                 'of the criteria. IRIs in the JSON-LD, labels in resources.csv.', None),
     ('fsrCategory', 'Derived from the FSR types: FAIR-Enabling Resource when one of them is, else FAIR Supporting '
                     'Resource (any other FSR). The Class filter uses it; resources without a type always pass it.', None),
-    ('principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty '
-                   'when no FIP declares it.', None),
+    ('principles', 'Derived: the FAIR principles the FSR types enable in the FIP ontology, such as F1; empty when they '
+                   'enable none.', None),
     ('origin', 'Where the resource comes from, what it was made for: generic FAIR, generic life-science or toxicology '
                'infrastructure.', 'origin'),
     ('phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.',
@@ -235,9 +241,10 @@ FIELDS = [
      '(publication, release, adoption, FAIRsharing year, or not recorded). resources.csv gives it as date, with '
      'dateBasis.', 'dateBasis'),
     ('dateSource', 'DOI or URL of the source that shows the date.', None),
-    ('creator', 'Organisations that made the resource.', None),
+    ('creator', 'Organisations that made the resource, or their ORCID or ROR links, whose registered names are read '
+                'from the registries when the page is built.', None),
     ('contactPoint', "Who to contact about the resource: a person's ORCID or an organisation's ROR. In the JSON-LD "
-                     'only.', None),
+                     'only; the details link each creator to its ROR when the RORs match the creators one to one.', None),
     ('url', 'Homepage.', None),
     ('description', 'One to three sentences on what the resource is.', None),
     ('maintained', 'Maintenance status.', 'maintained'),
@@ -254,6 +261,8 @@ FIELDS = [
                                    'qualifiedRelation in the JSON-LD, subject, hadRole and target in relations.csv.',
      'hadRole'),
     ('declaredIn', 'Derived: the FIPs that declare the resource (their keys in resources.csv).', None),
+    ('fsrNanopublication', 'Derived: the nanopublication that declares the resource as a FAIR Supporting Resource, the '
+                           'latest valid one when the page is built; the details link it.', None),
     ('fipDeclaration, declared-by', 'On a FIP, in the JSON-LD, read from its nanopublications (CC0) when the page is '
      'built: its declarations, each a nanopublication (@id) that links a listed resource through one of the '
      'properties below for a FIP question (question) and its principle; and declared-by, the FAIR Implementation '
@@ -317,7 +326,9 @@ def build(doc, outdir, offline=False):
     FAIRsharing added (fairsharing.enrich). The FIP declarations, read online or from the local cache, are added to a
     copy of the dataset, which is not saved."""
     doc = model.normalise(fip.enrich(copy.deepcopy(doc), fip.read(offline)))
-    nodes, links, declarations = nodes_links(doc)
+    names = pids.names([c for r in doc['hasPart'] if r.get('decision') == 'include'
+                        for c in re.split(r';\s*', r.get('creator', ''))], offline)
+    nodes, links, declarations = nodes_links(doc, names)
     doc = public(doc)
     keep = {r['key'] for r in doc['hasPart']}
     nodes = [n for n in nodes if n['key'] in keep]

@@ -178,7 +178,7 @@ def read(offline=False):
     if not offline:   # legacy numeric FAIRsharing pages give their DOI without a login
         ans['fairsharing'] = {n: model.fs_ref(fairsharing.slim(fairsharing.lookup(n))['doi']) for n in numbers}
     # legacy bsg- ids have no public page; each record read signed in lists its own
-    # ponytail: only the records in the FAIRsharing cache (the collection's and the rows'); any other stays unresolved
+    # only the records in the FAIRsharing cache (the collection's and the rows'); any other stays unresolved
     cached = os.path.join(fairsharing.CACHE, 'records.json')
     old = {x: model.fs_ref(rec['doi']) for rec in (model.load(cached)['records'] if os.path.exists(cached) else [])
            if rec.get('doi') for x in rec.get('legacyIds', [])} | ans.get('fairsharing', {})
@@ -306,11 +306,16 @@ def curate(doc, data, matches):
 
 
 def enrich(doc, data):
-    """For the site build, in memory: declared-by and the declarations on each FIP row, sources.fip and the profiles in
-    isBasedOn. A declaration whose target has no row is left out."""
+    """For the site build, in memory: declared-by and the declarations on each FIP row, the FSR nanopublication on each
+    declared row, sources.fip and the profiles in isBasedOn. A declaration whose target has no row is left out."""
     by_key, ids = {r['key']: r for r in doc['hasPart']}, {r['@id'] for r in doc['hasPart']}
+    by_id = {r['@id']: r for r in doc['hasPart']}
     target = {iri: r['@id'] for iri, (r, how) in match(doc, data).items()
               if r and how in ('fsr', 'doi')}           # curated links and DOIs only; name matches wait for review
+    for iri, rid in target.items():   # the latest valid nanopublication that declares the resource as an FSR
+        if data['fsrs'][iri]['description']:
+            r = by_id[rid]
+            r['fsrNanopublication'] = sorted(set(r.get('fsrNanopublication', [])) | {data['fsrs'][iri]['description']})
     for key, f in data['fips'].items():
         mine = sorted((x for x in data['declarations'] if x['fip'] == key and x['target'] in target),
                       key=lambda x: (x['predicate'], target[x['target']], x['@id']))

@@ -41,7 +41,7 @@ The published dataset also has the fields that CODATA's CDIF Discovery profile 1
 
 ## Resource fields
 
-Curated fields are edited in the curation sheet; the column is given. `@id`, `identifier`, `schemaType`, `buildsOnFair` and `fsrCategory` are derived on every save; `declaredIn`, `principles`, `fipDeclaration`, `declared-by` and `fairsharing` are added at build time and never stored. The term is the one the JSON-LD context maps the field to. A field without a term stays out of the RDF graph, as the context has no `@vocab`: the derived fields are there for people and the dashboard, the curation fields for the curators.
+Curated fields are edited in the curation sheet; the column is given. `@id`, `identifier`, `schemaType`, `buildsOnFair`, `fsrCategory` and `principles` are derived on every save; `declaredIn`, `fipDeclaration`, `declared-by`, `fsrNanopublication` and `fairsharing` are added at build time and never stored. The term is the one the JSON-LD context maps the field to. A field without a term stays out of the RDF graph, as the context has no `@vocab`: the derived fields are there for people and the dashboard, the curation fields for the curators.
 
 | Field | Sheet column | Term | Content |
 |---|---|---|---|
@@ -63,13 +63,14 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `qualifiedAttribution` |  | `prov:qualifiedAttribution` | Derived from `creatorType`: one `prov:Attribution` per creator type, whose `dcat:hadRole` is its concept. |
 | `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource that builds on FAIR (criteria, section 6). |
 | `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource or FAIR Supporting Resource (criteria, section 6). |
-| `declaredIn`, `principles` | Declared in, Principles |  | Added at build time from the FIP declarations: the FIPs that declare the resource and the principles of the questions it is declared for (below). |
+| `principles` | Principles |  | Derived: the FAIR principles the resource's FSR types enable in the FIP ontology, in FAIR order; empty when they enable none. The sheet's Principles tab counts them. |
+| `declaredIn` | Declared in |  | Added at build time from the FIP declarations: the FIPs that declare the resource (below). |
 | `fsr` | FIP identifiers | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | Sub-domains (multi-select) | `schema:about` | Sub-domains that apply (list below). |
 | `datePublished`, `dateReleased`, `dateAdopted`, `dateCreated`, `date` | First published, Date basis | `schema:datePublished`, `dct:issued`, `dct:dateAccepted`, `schema:dateCreated`, `dct:date` | When the resource first became public: `YYYY`, `YYYY-MM` or `YYYY-MM-DD`, in the one field of what the date refers to, its date basis (list below). |
 | `dateSource` | Citation | `schema:citation` | DOI or URL that shows the date. |
-| `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information. |
-| `contactPoint` | Contact | `dcat:contactPoint` | Who to contact about the resource: the ORCID of a person (`https://orcid.org/…`) or the ROR of an organisation (`https://ror.org/…`), as a link; several may be given. DCAT's term, as schema.org has no contact point for a creative work. Published in the JSON-LD only, not in resources.csv or on the dashboard. |
+| `creator` | Creator | `schema:creator` | Organisation(s) that made the resource, as information, or their ORCID or ROR links; the dashboard shows the names registered there, read when the page is built. |
+| `contactPoint` | Contact | `dcat:contactPoint` | Who to contact about the resource: the ORCID of a person (`https://orcid.org/…`) or the ROR of an organisation (`https://ror.org/…`), as a link; several may be given. DCAT's term, as schema.org has no contact point for a creative work. Published in the JSON-LD only, not in resources.csv; the dashboard's details link each creator to its ROR when the RORs match the creators one to one, in order. |
 | `url` | URL | `schema:url` | Main web address. |
 | `description` | Description | `schema:description` | One to three sentences; needed to register the resource in FAIRsharing. |
 | `maintained` | Maintained | `schema:creativeWorkStatus` | Maintenance status (list below); not published when unknown. |
@@ -84,6 +85,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `qualifiedRelation` | Relations tab | `dcat:qualifiedRelation` | Relations to other resources (below). |
 | `fipDeclaration` | grey rows on the Relations tab | `schema:hasPart` | On a FIP row: its declarations, read from its nanopublications at build time (below). Never stored. |
 | `declared-by` |  | `fip:declared-by` | On a FIP row: the FAIR Implementation Community that declares it, added at build time (below). Never stored. |
+| `fsrNanopublication` |  | `schema:mainEntityOfPage` | On a declared resource: the nanopublication that declares it as a FAIR Supporting Resource, added at build time (below). Never stored. |
 | `fairsharing` |  |  | FAIRsharing record data, added at build time (below). Never stored. |
 
 ## Lanes
@@ -314,7 +316,7 @@ Read through each FIP's declaration index from the nanopublications of the two t
 | `fipDeclaration` | On a FIP row, one entry per declaration: `@id` (the declaration in its nanopublication), `@type` (`fip:FIP-Declaration`), one of the `declares-…` properties above with the target's `@id`, `question` (the FIP question, such as `fip:FIP-Question-F1-D`), `principle` (its FAIR principle in the FIP ontology, whose version 20260227 validation checks, such as F1) and `considerations` (the community's remarks, when given). |
 | `declared-by` | On a FIP row: the `@id` of the FAIR Implementation Community that declares the FIP, when it has a row. |
 | `declaredIn` | On a declared resource: the `@id`s of the FIPs that declare it. |
-| `principles` | On a declared resource: the principles of the questions it is declared for; absent when no FIP declares it. |
+| `fsrNanopublication` | On a declared resource: the nanopublication that declares it as a FAIR Supporting Resource, the latest valid one for each IRI it is declared under; absent when there is none. Also in resources.csv; the details link it as FSR declaration. |
 | `sources.fip` | Per FIP: `label`, `profile`, `nanopub`, `index` (its declaration index), `fic` (its community), `created`, `licence`, `retrieved`, `declarations` (count, without the no-choice ones), `noChoice` (questions declared with no choice), `invalidated` (declarations skipped), `ontology` (FIP ontology version) and `method`. |
 | `isBasedOn` | The profile of each FIP is added. |
 | `creditText` | Names the nanopublication of each FIP after FAIRsharing (CC0, or as stated in each). |

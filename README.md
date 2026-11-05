@@ -32,8 +32,9 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 The dataset stores only what is curated; FAIRsharing record data and the FIP declarations are read when the outputs are
 built ([data dictionary](docs/data-dictionary.md#fields-added-at-build-time)). FAIRsharing is read with the login in
 `.env` (see `.env.example`). A pull request's build, which publishes nothing, uses the last cache of any day (`FAIRSHARING_CACHE_ANY_DAY`). The FIPs are read from their nanopublications, and the FIP ontology from its IRI
-(`https://w3id.org/fair/fip/terms/`), once, into `build/fip`. `--offline` reads the local caches in `build/fairsharing`
-and `build/fip`, left by an earlier run, instead.
+(`https://w3id.org/fair/fip/terms/`), once, into `build/fip`; the names of creators given as ORCID or ROR links from those registries' public APIs, into
+`build/pids`. `--offline` reads the local caches in `build/fairsharing`, `build/fip` and `build/pids`, left by an earlier
+run, instead.
 
 CI tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
 Discovery profile 1.1 (its SHACL rules, with pyshacl) and, on `main`, publishes the dashboard. Then release-please

@@ -75,7 +75,8 @@ TASK_COLUMNS = [
      'sheet is made. Compare them with Phase and correct Phase if they disagree.'),
     *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for origin '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
-    ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
+    ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource, or their ROR or ORCID links: the '
+     'dashboard then shows the names registered there.'),
     ('Contact', 'contactPoint', 'several', 26, "Who to contact about the resource: a person's ORCID or an organisation's "
      'ROR, as a link; several separated by ";".'),
     ('First published', 'datePublished', 'date', 14,
@@ -104,8 +105,8 @@ CONTEXT_COLUMNS = [
      'with First published; a difference of more than a year is worth a look.'),
     ('Class', None, 'static', 16, GREY_NOTE + 'follows from FSR type: FAIR-Enabling Resource when one of the types '
      'chosen is one, else FAIR Supporting Resource. To change it, change FSR type.'),
-    ('Principles', None, 'static', 12, GREY_NOTE + 'the FAIR principles of the FIP questions the resource is declared '
-     'for. They come from the FIPs, not from this sheet.'),
+    ('Principles', None, 'static', 12, GREY_NOTE + 'the FAIR principles that the FSR types chosen enable. To change '
+     'them, change FSR type.'),
     ('Declared in', None, 'static', 30, GREY_NOTE + 'the toxicology FIPs that declare the resource, with the '
      'questions. The grey rows on the Relations tab list the same declarations.'),
     ('Builds on FAIR', None, 'static', 10, GREY_NOTE + 'yes when the Relations tab says the resource implements, '

@@ -103,8 +103,9 @@ Each excluded row carries exactly one code.
   including regulatory guidance, training material and statements on the FAIR principles, a FAIR practice; a tool or
   service, including software, its service type, such as Editor, FAIR Analysis Service or Validation service. A FAIR
   Implementation Community has no other type. The class (FAIR-Enabling Resource or other FAIR Supporting Resource)
-  follows from the types: a resource is a FAIR-Enabling Resource when one of its types is. FAIR principles are assigned
-  only through the FIP questions a resource is declared for, so a resource that no FIP declares has none.
+  follows from the types: a resource is a FAIR-Enabling Resource when one of its types is. So do the FAIR principles: a
+  resource has the principles its FSR types enable in the FIP ontology, and none when they enable none. The FIP
+  declarations name the FIPs that declare a resource; they assign no principle.
 - **Phase.** A toxicology resource's phase is the data life-cycle phase it acts on, whoever made it (data dictionary,
   Phase). When it acts on several, its phase is the earliest at which it must be applied, and every phase it acts on
   is recorded as its span.
@@ -237,6 +238,7 @@ Each excluded row carries exactly one code.
 | 1 Nov 2026 | The curation sheet has a Principles tab that counts, per FAIR principle and scope, the included FAIR-enabling resources one of whose FSR types enables the principle in the FIP ontology, leaving out what the figure leaves out. Its formulas over the Resources tab keep it current. It assigns no principle to a resource: principles still come only from the FIP questions a resource is declared for. | Jente Houweling |
 | 2 Nov 2026 | The sub-domains follow who the community could represent: members of the ELIXIR Toxicology Community defined them before resources were collected, and co-authors working in each sub-domain reviewed its resources. In vivo toxicology, the exposome and eco-toxicology were also proposed but no co-author represents them: in vivo toxicology is not a sub-domain, its resources taking the other sub-domains they serve, and the exposome and eco-toxicology are outside scope for this reason, which the record of 31 Oct 2026 did not state: their resources stay in the dataset but are left out of the figure and the analysis. | Jente Houweling |
 | 4 Nov 2026 | Relations use FAIRsharing's labels only, as FAIRsharing documents them, which restores the 3 Oct 2026 rule: the label uses of 21 Oct 2026 is withdrawn. Its relations became implements where the resource uses a standard and implements is possible, as in WikiPathways' FAIRsharing record and for the RDF resources of the dataset; the others took FAIRsharing's most generic label for their pair, extends between databases and related_to otherwise. recommends is a policy pointing at a resource: it is not lineage and does not count for Building on FAIR. The definitions of extends, recommends, deprecates and related_to take FAIRsharing's wording. | Jente Houweling |
+| 5 Nov 2026 | The FAIR principles of a resource are those its FSR types enable in the FIP ontology, as the sheet's Principles tab already counts them, which replaces the rule that principles come only from the FIP questions a resource is declared for (1 Nov 2026): a declaration shows that a community uses a resource, its question is one use among those the types enable. The dashboard's details name the declaring FIPs without their questions and link the FSR declaration, the nanopublication that declares the resource as a FAIR Supporting Resource. | Jente Houweling |
 | 5 Nov 2026 | The field scope is renamed origin: it says where a resource comes from, the layer that others build on, and scope collided with the scope of the manuscript. Values, IRIs (`schema:about`) and lanes are unchanged; the change log keeps the old field name in its earlier rows. | Jente Houweling |
 
 ## 9. Limitations
@@ -259,4 +261,5 @@ Each excluded row carries exactly one code.
 - FSR types, phases and spans are proposals until the co-authors confirm them, and a judgement for resources with
   several roles or uses; creator types depend on what is documented about the makers. All are recorded per resource
   so they can be checked and revised.
-- Principles are known only for resources that the two FIPs declare, as read on the retrieval date.
+- Principles follow from the FSR types, as the FIP ontology states which principles each type enables; whether a
+  resource serves them in practice is not assessed.

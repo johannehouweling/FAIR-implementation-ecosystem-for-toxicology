@@ -90,12 +90,25 @@ class FipTest(TempDir):
             'considerations': 'Used for test data.'}])
         self.assertEqual([d['declares-current-use-of'] for d in by['oecd_gd']['fipDeclaration']],
                          sorted([by['wlic']['@id'], by['exo']['@id']]))   # wlic through its fsr link
-        self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']),
-                         ([by['oecd_gd']['@id'], by['tool']['@id']], ['F1']))
+        self.assertEqual((by['exo']['declaredIn'], by['exo'].get('principles')),   # untyped here: principles follow
+                         ([by['oecd_gd']['@id'], by['tool']['@id']], None))        # from the FSR types, not the questions
         self.assertEqual({k: (s['retrieved'], s['declarations']) for k, s in doc['sources']['fip'].items()},
                          {'tool': ('2026-10-08', 1), 'oecd_gd': ('2026-10-08', 2)})
         self.assertEqual(doc['isBasedOn'], sorted([model.COLLECTION_DOI, np_iri('fipA') + '/fip',
                                                    np_iri('fipB') + '#fip']))
+
+    def test_enrich_links_each_declared_row_to_its_fsr_nanopublication(self):
+        doc = model.normalise(fip.enrich(self.curated(), self.data))
+        by = {r['key']: r for r in doc['hasPart']}
+        self.assertEqual(by['exo']['fsrNanopublication'], [np_iri('fsrXtwo')])   # the latest valid one of X
+        self.assertEqual(by['wlic']['fsrNanopublication'], [np_iri('fsrW', 'http://purl.org/np/')])   # through fsr
+        self.assertNotIn('fsrNanopublication', by['tool'])   # a FIP's own nanopublication is its URL
+        self.assertEqual(next(r for r in site.public(doc)['hasPart'] if r['key'] == 'exo')['fsrNanopublication'],
+                         [np_iri('fsrXtwo')])
+        self.assertEqual({n['key']: n for n in site.nodes_links(doc)[0]}['exo']['fsrNanopublication'],
+                         [np_iri('fsrXtwo')])
+        html = pathlib.Path(ROOT, 'src', 'fairtox', 'dashboard.html').read_text(encoding='utf-8')
+        self.assertIn("n.fsrNanopublication.map(u => link(u, 'FSR declaration'))", html)   # after the FAIRsharing record
 
     def test_site_and_sheet_builds_publish_declarations_to_included_rows_only_and_save_nothing(self):
         doc, folder = self.curated(), pathlib.Path(ROOT, 'data')
@@ -119,15 +132,26 @@ class FipTest(TempDir):
         doc = self.curated()
         by = {r['key']: r for r in doc['hasPart']}
         by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.FIP + 'Editor']
+        by['ctd']['creator'] = 'University of Michigan; NIEHS'   # two creators, their RORs in the same order
+        by['ctd']['contactPoint'] = ['https://orcid.org/0000-0002-1825-0097', 'https://ror.org/00jmfr291',
+                                     'https://ror.org/00j4k1h63']
+        by['exo']['creator'] = 'https://orcid.org/0000-0002-1825-0097; https://ror.org/04wxnsj81'   # links: names looked up
         built = fairsharing.enrich(copy.deepcopy(doc), fairsharing.read(None, None, offline=True))
         site.build(built, self.path('site'), offline=True)
         html = pathlib.Path(self.path('site'), 'index.html').read_text(encoding='utf-8')
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
         nodes = {n['key']: n for n in data['nodes']}
+        self.assertEqual(nodes['ctd']['creatorIds'], ['https://ror.org/00jmfr291', 'https://ror.org/00j4k1h63'])   # not the ORCID
+        self.assertEqual((nodes['exo']['creator'], nodes['exo']['creatorIds']),   # names from the registries (cached)
+                         ('Josiah Carberry; DataCite', ['https://orcid.org/0000-0002-1825-0097', 'https://ror.org/04wxnsj81']))
+        for code in ("const creators = (n.creator || '').split(/;\\s*/).filter(Boolean);",   # each creator links to its identifier
+                     "const creator = (creators.length === n.creatorIds.length ? creators.map((c, i) => link(n.creatorIds[i], c)) "
+                     ": creators.map(esc)).join(', ');"):   # joined with a comma, as every other row
+            self.assertIn(code, html)
         self.assertEqual([(nodes[k]['fsrType'], nodes[k]['fsrCategory']) for k in ('exo', 'ctd')],
                          [(['Structured vocabulary'], 'FAIR-Enabling Resource'), (['Editor'], 'FAIR Supporting Resource')])
         self.assertEqual((nodes['exo']['principles'], nodes['exo']['declaredIn'], nodes['oecd_gd']['declaredBy']),
-                         (['F1'], ['oecd_gd'], ''))   # its community, tox, is not included
+                         (['I2'], ['oecd_gd'], ''))   # I2: what a structured vocabulary enables; tox is not included
         self.assertEqual(data['declarations'], [{'src': 'oecd_gd', 'dst': 'exo',
                                                  'q': [['F1-D', np_iri('decD') + '/declaration']]}])
         self.assertEqual(set(data['meta']['classDef']), set(data['meta']['classes']))
@@ -159,8 +183,12 @@ class FipTest(TempDir):
         for code in ("row('FSR type', n.fsrType.map(t => termLink(META.typeIri, t)).join(', '))",
                      "row('Class', n.fsrCategory !== n.fsrType.join() && termLink(META.typeIri, n.fsrCategory))",
                      "row('Principles', n.principles.map(p => termLink(META.principleIri, p)).join(', '))",
-                     '<li>${btn(d.src, short(byKey[d.src]))}: ',       # the declaring FIP opens its own details
+                     "list('Declared usage in', DECLS.filter(d => d.dst === n.key).map(d => "
+                     '`<li>${btn(d.src, short(byKey[d.src]))}</li>`)),',    # the declaring FIP opens its own details, no principle
                      "isNanopub(n.identifier) && link(n.identifier, 'Nanopublication')",   # a community's; a FIP's is its URL
+                     "const made = n => (n.creatorType || []).join(', ');",   # Made by shows each value as stored, as Span does
+                     "const date = n.date ? esc(n.date) + (isUrl(n.dateSource) ? ` · ${link(n.dateSource, 'source')}` : '')\n"
+                     "    : '<span class=\"m\">not known</span>';",   # the date and its source, without the date basis
                      "$('onto').innerHTML = fip.ontology ? link(META.ontologyIri, fip.ontology) : ''"):   # the About text
             self.assertIn(code, html)
 
