@@ -619,6 +619,9 @@ function details(n) {
     ...n.fsrNanopublication.map(u => link(u, 'FSR declaration'))].filter(Boolean);   // the nanopublication that declares a resource as an FSR
   const date = n.date ? esc(n.date) + (isUrl(n.dateSource) ? ` · ${link(n.dateSource, 'source')}` : '')
     : '<span class="m">not known</span>';
+  // "A; B" with their RORs in the same order: each creator links to its ROR; any other count stays text
+  const creators = (n.creator || '').split(/;\s*/).filter(Boolean);
+  const creator = creators.length === n.ror.length ? creators.map((c, i) => link(n.ror[i], c)).join('; ') : esc(n.creator);
   const fip = FIPS[n.key], own = DECLS.filter(d => d.src === n.key).reduce((k, d) => k + d.q.length, 0);
   return [
     `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(n.name)}${dagger(n)}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>`,
@@ -630,7 +633,7 @@ function details(n) {
       row('Declarations', fip && `${fip.declarations}, of which ${own} to resources in this dataset`) +
       row('Lane', !TOX.has(n.lane) && esc(n.lane)) + row('Phase', esc(n.phase)) + row('Span', esc(n.span.join(', '))) +
       row('Made by', esc(made(n))) + row('Builds on FAIR', italic(n) && 'Yes') + row('Sub-domains', esc(n.subdomains.join(', '))) +
-      row('First published', date) + row('Creator', esc(n.creator)) + row('Status', status) + '</dl>',
+      row('First published', date) + row('Creator', creator) + row('Status', status) + '</dl>',
     urls.length && `<p class="links">${urls.join(' · ')}</p>`,
     list('Declared usage in', DECLS.filter(d => d.dst === n.key).map(d => `<li>${btn(d.src, short(byKey[d.src]))}</li>`)),
     list('Declared by', n.declaredBy ? [item(n.declaredBy)] : []),

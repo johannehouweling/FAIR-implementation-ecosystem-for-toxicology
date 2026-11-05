@@ -101,6 +101,7 @@ def nodes_links(doc):
                        + ([COLLECTION] if fs.get('inCollection') else []),
             'fairsharing': fairsharing_url(r), 'fsrNanopublication': r.get('fsrNanopublication', []),
             'url': r.get('url', ''), 'creator': r.get('creator', ''),
+            'ror': [c for c in r.get('contactPoint', []) if c.startswith('https://ror.org/')],   # the creators' RORs
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
             'dateSource': r.get('dateSource', ''), 'dateBasis': basis,
         })
@@ -237,7 +238,7 @@ FIELDS = [
     ('dateSource', 'DOI or URL of the source that shows the date.', None),
     ('creator', 'Organisations that made the resource.', None),
     ('contactPoint', "Who to contact about the resource: a person's ORCID or an organisation's ROR. In the JSON-LD "
-                     'only.', None),
+                     'only; the details link each creator to its ROR when the RORs match the creators one to one.', None),
     ('url', 'Homepage.', None),
     ('description', 'One to three sentences on what the resource is.', None),
     ('maintained', 'Maintenance status.', 'maintained'),
