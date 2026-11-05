@@ -58,16 +58,18 @@ jobs:
           --shacl https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/doc-corediscovery/a50ccb0c1fe5bef7d1a34f66fdd3affa24590d8d/discoveryDocRules.shacl
           build/site/fair-tox-ecosystem.jsonld
       - name: Check that the links in the published files resolve
-        # Every homepage, source, record and nanopublication link in the published CSV files and the documentation.
-        # Left out: FAIRsharing, whose records need a login and which asked for at most one request every 8 to 12
-        # seconds, and the dataset's own w3id.org identifiers until that namespace is registered. A site that blocks
-        # robots (403) or rate-limits (429) is not a dead link.
+        # Every link in the published dataset (homepages, sources, nanopublications, terms) and in the documentation.
+        # The dataset is read as text, where each link ends at its closing quote; in the CSV files, which hold the
+        # same links, a link would run into the next field. Left out: FAIRsharing, whose records (also by their DOIs,
+        # 10.25504/...) need a login and which asked for at most one request every 8 to 12 seconds, and the dataset's
+        # own w3id.org identifiers until that namespace is registered. A site that blocks robots (403) or
+        # rate-limits (429) is not a dead link.
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: >-
-            --no-progress --max-concurrency 8 --max-retries 2 --timeout 30
-            --accept 200..=299,403,429 --exclude fairsharing.org --exclude w3id.org/fair-tox
-            build/site/resources.csv build/site/relations.csv README.md docs/*.md
+            --no-progress --max-concurrency 8 --max-retries 2 --timeout 30 --accept 200..=299,403,429
+            --exclude fairsharing.org --exclude doi.org/10.25504 --exclude w3id.org/fair-tox
+            build/site/fair-tox-ecosystem.jsonld README.md docs/*.md
       - name: Check out the public dashboard repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
