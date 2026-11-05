@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.15.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.14.4...v0.15.0) (2026-11-05)
+
+
+### Features
+
+* rename the field scope to origin ([d7b9aac](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/d7b9aac8ed1c2fdc4b05db52452beea005abda59))
+* **site:** link each creator to its ROR ([f5192d5](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/f5192d5b3da5b67d75735e1076814ef43a63fbab))
+* **site:** show the registered names of creators given as ORCID or ROR links ([a3472ef](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/a3472ef0456c572808d18f2114ccf4f0fe32a57d))
+
+
+### Fixes
+
+* **data:** the dataset was modified on 5 Nov 2026 ([afa6768](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/afa6768f8d1142cf130b9f4a1ad00a276b7b0f18))
+* **site:** join the creators with a comma, as every other row ([6f7eca6](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/6f7eca6ad4b3e62672c2106e8198c5497562583a))
+
 ## [0.14.4](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.14.3...v0.14.4) (2026-11-04)
 
 
