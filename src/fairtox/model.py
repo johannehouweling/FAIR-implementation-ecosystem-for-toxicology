@@ -75,7 +75,8 @@ TYPES = {
     'Collection': ('Collection', 'collection', 15, 'Curated collection of standards, databases and policies.'),
     'Tool': ('Tool', None, None, 'Software or service; FAIRsharing does not register these.'),
 }
-SCOPE = {
+# Where a resource comes from: the layer that others build on.
+ORIGIN = {
     'Generic': 'Infrastructure not specific to a research domain, including FAIR resources such as the FIP.',
     'Life Sciences': 'Life-science infrastructure, not specific to toxicology, that toxicology uses.',
     'Toxicology': 'Made for toxicology, including toxicology instances of generic resources.',
@@ -225,7 +226,7 @@ COLUMN_REGISTRY = dict(zip(TYPOLOGY, ('Policy', 'Standard', 'Database')))
 
 VOCABULARIES = {
     'decision': DECISION, 'exclusionReason': EXCLUSION, 'fairsharingType': {k: v[3] for k, v in TYPES.items()},
-    'scope': SCOPE, 'phase': PHASES, 'creatorType': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
+    'origin': ORIGIN, 'phase': PHASES, 'creatorType': STAKEHOLDER, 'lane': LANE_DEF, 'creatorLane': CREATOR_LANE_DEF,
     'subdomains': SUBDOMAINS, 'dateBasis': DATE_BASIS, 'maintained': MAINTAINED, 'manuscript': MANUSCRIPT,
     'fairsharingMatch': MATCH, 'hadRole': {k: v[2] for k, v in RELATIONS.items()}, 'declaration': FIP_PROPERTIES,
     'evidence': EVIDENCE, 'mentionedIn': ETC_DOCUMENTS,
@@ -241,7 +242,7 @@ T4FS, EDAM, MESH = 'http://purl.obolibrary.org/obo/T4FS_', 'http://edamontology.
 WIKIDATA = 'http://www.wikidata.org/entity/'
 VHP = 'https://vhp4safety.github.io/glossary#'   # VHP4Safety glossary
 SAME = {
-    'scope': {'Generic': 'http://www.fairsharing.org/ontology/subject/SRAO_0000401',   # FAIRsharing's subjects
+    'origin': {'Generic': 'http://www.fairsharing.org/ontology/subject/SRAO_0000401',   # FAIRsharing's subjects
               'Life Sciences': 'http://aims.fao.org/aos/agrovoc/c_4318', 'Toxicology': NCIT_TOXICOLOGY},
     'subdomains': {'in vitro toxicology': WIKIDATA + 'Q6013136', 'nanotoxicology': IUPAC + '15908', 'eco-toxicology': MESH + 'D054750',
                    'exposome': MESH + 'D000081413', 'toxicogenomics': 'http://purl.obolibrary.org/obo/NCIT_C20179',
@@ -315,7 +316,7 @@ CONTEXT = {
     'hasPart': {'@id': 'schema:hasPart', '@container': '@set'},
     'schemaType': '@type', 'key': 'dct:identifier', 'fairsharingType': 'schema:additionalType',
     'fsrType': {'@id': 'rdf:type', '@type': '@id', '@container': '@set'},
-    'scope': _values('schema:about', 'scope', SCOPE),
+    'origin': _values('schema:about', 'origin', ORIGIN),
     'subdomains': _values('schema:about', 'subdomains', SUBDOMAINS, **{'@container': '@set'}),
     'span': _values('dcat:theme', 'phase', PHASES, **{'@container': '@set'}),
     'qualifiedAttribution': {'@id': 'prov:qualifiedAttribution', '@container': '@set',   # derived from creatorType
@@ -388,7 +389,7 @@ def iri(curie):
 # 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by',
 # 'fipDeclaration' and 'fsrNanopublication' exist only in the built site, 'fairsharing' only in the site, the sheet and
 # the submission export.
-CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'fairsharingType', 'fsrType', 'scope',
+CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'fairsharingType', 'fsrType', 'origin',
            'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'contactPoint',
            'url', 'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'fairsharingRecord',
            'fairsharingMatch', 'reviewedBy', 'note']
@@ -464,9 +465,9 @@ def vocabulary(doc):
 def lane(r):
     """Dashboard lane by phase (display only, never stored): generic and life-science resources have
     their own lanes; a toxicology resource sits in the lane of its phase."""
-    if r.get('scope') == 'Generic':
+    if r.get('origin') == 'Generic':
         return 'Generic infrastructure'
-    if r.get('scope') == 'Life Sciences':
+    if r.get('origin') == 'Life Sciences':
         return 'Life sciences infrastructure'
     return LANE_OF_PHASE.get(r.get('phase'), '')
 
@@ -481,7 +482,7 @@ def in_figure(r):
 
 def creator_lane(r):
     """Dashboard lane by creator: the toxicology lanes follow the creator types, 'Made jointly' for several."""
-    if r.get('scope') != 'Toxicology':
+    if r.get('origin') != 'Toxicology':
         return lane(r)
     types = r.get('creatorType') or []
     if len(types) > 1:
@@ -629,8 +630,8 @@ def normalise(doc):
                 declared.setdefault(d[p], []).append((r['@id'], d.get('principle')))
     by_id = {r['@id']: r for r in doc['hasPart']}
     for r in doc['hasPart']:                                # derived: a toxicology resource building on FAIR
-        fair = r.get('scope') == 'Toxicology' and (_year(r) or 0) >= FAIR_PUBLISHED and any(
-            q.get('hadRole') in BUILDS_ON and (by_id.get(q['relation']) or {}).get('scope') == 'Generic'
+        fair = r.get('origin') == 'Toxicology' and (_year(r) or 0) >= FAIR_PUBLISHED and any(
+            q.get('hadRole') in BUILDS_ON and (by_id.get(q['relation']) or {}).get('origin') == 'Generic'
             for q in r.get('qualifiedRelation', []))
         if fair:
             r['buildsOnFair'] = True
@@ -687,7 +688,7 @@ def check(doc):
             continue
         if not r.get('name'):
             e(f'{k}: name is empty')
-        for field, vocab in (('decision', DECISION), ('fairsharingType', TYPES), ('scope', SCOPE), ('phase', PHASES),
+        for field, vocab in (('decision', DECISION), ('fairsharingType', TYPES), ('origin', ORIGIN), ('phase', PHASES),
                              ('dateBasis', DATE_BASIS), ('maintained', MAINTAINED), ('manuscript', MANUSCRIPT),
                              ('fairsharingMatch', MATCH), ('exclusionReason', EXCLUSION)):
             if r.get(field) not in (None, '') and r[field] not in vocab:
@@ -701,10 +702,10 @@ def check(doc):
         if r.get('coveredBy') and (r['coveredBy'] not in by_key or r['coveredBy'] == k):
             e(f'{k}: covered by {r["coveredBy"]!r} is not another row')
         if r.get('decision') != 'exclude' and FIC not in r.get('fsrType', []):   # excluded rows and communities
-            if (r.get('scope') == 'Toxicology') != bool(r.get('phase')):            # are not plotted
-                e(f'{k}: a phase is required exactly when the scope is Toxicology')
-            if (r.get('scope') == 'Toxicology') != bool(r.get('creatorType')):
-                e(f'{k}: at least one creator type is required exactly when the scope is Toxicology')
+            if (r.get('origin') == 'Toxicology') != bool(r.get('phase')):            # are not plotted
+                e(f'{k}: a phase is required exactly when the origin is Toxicology')
+            if (r.get('origin') == 'Toxicology') != bool(r.get('creatorType')):
+                e(f'{k}: at least one creator type is required exactly when the origin is Toxicology')
         for s in r.get('creatorType', []) if isinstance(r.get('creatorType'), list) else []:
             if s not in STAKEHOLDER:
                 e(f'{k}: creator type {s!r} is not an allowed value')
@@ -773,7 +774,7 @@ def check(doc):
                 warnings.append(f'{k}: {role} {t["key"]} is not possible between these kinds of resource')
         if r.get('decision') == 'include':
             missing = (['first published'] if not first_date(r)[0] else []) + \
-                [f for f in ('dateSource', 'url', 'fairsharingType', 'fsrType', 'scope') if not r.get(f)]
+                [f for f in ('dateSource', 'url', 'fairsharingType', 'fsrType', 'origin') if not r.get(f)]
             if r.get('fairsharingMatch') != 'confirmed' and not r.get('description'):
                 missing.append('description')
             if missing:

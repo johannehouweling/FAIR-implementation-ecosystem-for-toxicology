@@ -56,7 +56,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `coveredBy` | Covered by |  | Key of the row that covers this one; required when the exclusion reason is E6. |
 | `fairsharingType` | FAIRsharing type | `schema:additionalType` | FAIRsharing registry and record type, or Tool (list below), as text. |
 | `fsrType` | FSR type (multi-select) | `rdf:type` | FAIR Supporting Resource (FSR) types of the FIP ontology (list below; criteria, sections 5 and 6). |
-| `scope` | Scope | `schema:about` | What the resource was made for (list below). |
+| `origin` | Origin | `schema:about` | Where the resource comes from, what it was made for (list below). |
 | `phase` | the earliest phase chosen in Phase |  | For toxicology resources: the earliest phase of `span` (list below; criteria, section 6). Required for included and undecided toxicology resources. Not in the graph. |
 | `span` | Phase (multi-select) | `dcat:theme` | For toxicology resources: every phase it acts on, in phase order, starting with `phase`. |
 | `creatorType` | one "Made by" column per creator type | via `qualifiedAttribution` | For toxicology resources: the kind of creator; several may apply (list below). Required for included and undecided toxicology resources. |
@@ -77,7 +77,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `manuscript` | In manuscript |  | Whether and how the manuscript names it (list below). Not published. |
 | `manuscriptEvidence` | Manuscript evidence |  | Section and line numbers in the frozen manuscript draft. Not published. |
 | `mentionedIn` | one "ETC" column per document |  | ELIXIR Toxicology Community documents that mention the resource, ticked by curators (list below). Not published. |
-| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `scope`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects, after Scope, and FAIRsharing domains, after Phase. |
+| `fairsharingRecord` | FAIRsharing record | `schema:sameAs` | FAIRsharing record code (`FAIRsharing.xxxxxx`), or the numeric id of a record without a DOI; in the graph, its record page `https://fairsharing.org/<code>`. For a confirmed record, the page carries FAIRsharing's subjects (subject areas) as `schema:about`, the property of `origin`, and its domains (kinds of data, entities and activities) as `dcat:theme`, the property of `span`: FAIRsharing's statements, read when the dataset is built and not curated. The sheet shows them in the grey columns FAIRsharing subjects, after Origin, and FAIRsharing domains, after Phase. |
 | `resource` |  | `dcat:resource` | On the FAIRsharing Toxicology collection only, in the published dataset: the included resources that FAIRsharing lists as its members, read when the dataset is built. |
 | `fairsharingMatch` | FAIRsharing match |  | Whether that record is this resource (list below). |
 | `reviewedBy` | Reviewed by |  | Initials of the curator who confirmed the row (criteria, section 7). A relation has its own. |
@@ -153,9 +153,9 @@ The types are stored as IRIs, such as `https://w3id.org/fair/fip/terms/Registry`
 | FAIR specification | Communication protocol (FER); Crosswalk; FAIR Assessment Specification; FAIR Implementation Profile (FER); Knowledge representation language (FER); Metadata schema (FER); Metadata-data linking schema (FER); Open Digital Rights Language Specification; Provenance model (FER); Reference FAIR Implementation Profile (FER); Semantic model (FER); Structured vocabulary (FER) |
 | FAIR Supporting Technology | Authentication and authorization service (FER); Domain-specific registry (FER); Editor; FAIR Analysis Service; FAIR Enrichment Service; FAIR Publishing Service; FAIR Representation Service; FAIR Visualization Service; FAIRification Workflow; Generalist registry (FER); Identifier service (FER); Integration Service; Provenance tracking service; Registry (FER); Validation service |
 
-### Scope (`scope`)
+### Origin (`origin`)
 
-The IRIs are FAIRsharing's subject terms.
+The IRIs are FAIRsharing's subject terms. Until 5 Nov 2026 the field was called `scope`.
 
 | Value | Meaning | IRI |
 |---|---|---|
