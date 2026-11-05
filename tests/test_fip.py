@@ -142,7 +142,8 @@ class FipTest(TempDir):
         nodes = {n['key']: n for n in data['nodes']}
         self.assertEqual(nodes['ctd']['ror'], ['https://ror.org/00jmfr291', 'https://ror.org/00j4k1h63'])   # not the ORCID
         for code in ("const creators = (n.creator || '').split(/;\\s*/).filter(Boolean);",   # each creator links to its ROR
-                     "creators.length === n.ror.length ? creators.map((c, i) => link(n.ror[i], c)).join('; ') : esc(n.creator)"):
+                     "const creator = (creators.length === n.ror.length ? creators.map((c, i) => link(n.ror[i], c)) "
+                     ": creators.map(esc)).join(', ');"):   # joined with a comma, as every other row
             self.assertIn(code, html)
         self.assertEqual([(nodes[k]['fsrType'], nodes[k]['fsrCategory']) for k in ('exo', 'ctd')],
                          [(['Structured vocabulary'], 'FAIR-Enabling Resource'), (['Editor'], 'FAIR Supporting Resource')])

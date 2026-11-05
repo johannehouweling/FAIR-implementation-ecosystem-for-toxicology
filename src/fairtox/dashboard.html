@@ -621,7 +621,7 @@ function details(n) {
     : '<span class="m">not known</span>';
   // "A; B" with their RORs in the same order: each creator links to its ROR; any other count stays text
   const creators = (n.creator || '').split(/;\s*/).filter(Boolean);
-  const creator = creators.length === n.ror.length ? creators.map((c, i) => link(n.ror[i], c)).join('; ') : esc(n.creator);
+  const creator = (creators.length === n.ror.length ? creators.map((c, i) => link(n.ror[i], c)) : creators.map(esc)).join(', ');
   const fip = FIPS[n.key], own = DECLS.filter(d => d.src === n.key).reduce((k, d) => k + d.q.length, 0);
   return [
     `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(n.name)}${dagger(n)}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>`,
