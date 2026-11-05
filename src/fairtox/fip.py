@@ -178,7 +178,7 @@ def read(offline=False):
     if not offline:   # legacy numeric FAIRsharing pages give their DOI without a login
         ans['fairsharing'] = {n: model.fs_ref(fairsharing.slim(fairsharing.lookup(n))['doi']) for n in numbers}
     # legacy bsg- ids have no public page; each record read signed in lists its own
-    # ponytail: only the records in the FAIRsharing cache (the collection's and the rows'); any other stays unresolved
+    # only the records in the FAIRsharing cache (the collection's and the rows'); any other stays unresolved
     cached = os.path.join(fairsharing.CACHE, 'records.json')
     old = {x: model.fs_ref(rec['doi']) for rec in (model.load(cached)['records'] if os.path.exists(cached) else [])
            if rec.get('doi') for x in rec.get('legacyIds', [])} | ans.get('fairsharing', {})

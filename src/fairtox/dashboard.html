@@ -395,7 +395,7 @@ function layout(shown, links, G) {
   return lanes;
 }
 
-function overlaps(svg) {  // ponytail: O(n^2) over label boxes, fine for a few hundred labels
+function overlaps(svg) {  // O(n^2) over label boxes, fine for a few hundred labels
   const b = [...svg.querySelectorAll('.node text')].map(t => t.getBBox());
   let k = 0;
   for (let i = 0; i < b.length; i++) for (let j = i + 1; j < b.length; j++)
