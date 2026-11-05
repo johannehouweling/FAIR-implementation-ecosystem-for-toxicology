@@ -736,7 +736,7 @@ function addChip(parent, text, on, before = null) {
   l.append(i, ' ' + text); parent.insertBefore(l, before);
   return l;
 }
-// lane chips go by the scope or creator type (Generic, Regulators), their tooltips by the lane's name and definition
+// lane chips go by the origin or creator type (Generic, Regulators), their tooltips by the lane's name and definition
 for (const lane of [...META.lanes, ...META.creatorLanes]) {
   const text = capital(lane.replace(/ infrastructure$|^Made by /, ''));
   const c = addChip(TOX.has(lane) ? $('f-tox') : $('f-lanes'), text, on => on ? state.lanes.add(lane) : state.lanes.delete(lane),

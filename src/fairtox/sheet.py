@@ -31,7 +31,7 @@ def _fsr_list():
 LISTS = {
     'Decision': model.DECISION, 'Exclusion reason': model.EXCLUSION,
     'FAIRsharing type': model.VOCABULARIES['fairsharingType'],
-    'Scope': model.SCOPE, 'Phase': model.PHASES, 'Sub-domains': model.SUBDOMAINS, 'Date basis': model.DATE_BASIS,
+    'Origin': model.ORIGIN, 'Phase': model.PHASES, 'Sub-domains': model.SUBDOMAINS, 'Date basis': model.DATE_BASIS,
     'Maintained': model.MAINTAINED, 'In manuscript': model.MANUSCRIPT, 'FAIRsharing match': model.MATCH,
     'Relation': {k: v[2] for k, v in model.RELATIONS.items()}, 'Evidence': model.EVIDENCE,
     'Keep': {'keep': 'Keep this relation.', 'remove': 'Remove this relation.'},
@@ -66,14 +66,14 @@ TASK_COLUMNS = [
      'Instructions tab says how to choose.'),
     ('FAIRsharing type', 'fairsharingType', 'list:FAIRsharing type', 32,
      'FAIRsharing registry and record type, or Tool.'),
-    ('Scope', 'scope', 'list:Scope', 18, 'Generic, Life Sciences or Toxicology.'),
+    ('Origin', 'origin', 'list:Origin', 18, 'Where the resource comes from: Generic, Life Sciences or Toxicology.'),
     ('FAIRsharing subjects', None, 'static', 24, GREY_NOTE + "FAIRsharing's subjects of the record, read when the "
-     'sheet is made. Compare them with Scope and correct Scope if they disagree.'),
+     'sheet is made. Compare them with Origin and correct Origin if they disagree.'),
     ('Phase', 'span', 'list:Phase', 26,
-     'Every phase it acts on: choose each one that applies. The earliest sets the lane. Only for scope Toxicology.'),
+     'Every phase it acts on: choose each one that applies. The earliest sets the lane. Only for origin Toxicology.'),
     ('FAIRsharing domains', None, 'static', 24, GREY_NOTE + "FAIRsharing's domains of the record, read when the "
      'sheet is made. Compare them with Phase and correct Phase if they disagree.'),
-    *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for scope '
+    *[(CREATOR_HEAD[s], s, 'creator', 12, f'Mark x when {s.lower()} helped create the resource. Only for origin '
        'Toxicology; several may apply.') for s in model.STAKEHOLDER],
     ('Creator', 'creator', 'text', 26, 'Organisation(s) that made the resource.'),
     ('Contact', 'contactPoint', 'several', 26, "Who to contact about the resource: a person's ORCID or an organisation's "
@@ -110,8 +110,8 @@ CONTEXT_COLUMNS = [
      'questions. The grey rows on the Relations tab list the same declarations.'),
     ('Builds on FAIR', None, 'static', 10, GREY_NOTE + 'yes when the Relations tab says the resource implements, '
      'extends or profiles a Generic resource. To change it, edit the Relations tab.'),
-    ('Lane', None, 'lane', 26, GREY_NOTE + 'where the dashboard draws the resource, from Scope and the earliest '
-     'Phase. To change it, change Scope or Phase.'),
+    ('Lane', None, 'lane', 26, GREY_NOTE + 'where the dashboard draws the resource, from Origin and the earliest '
+     'Phase. To change it, change Origin or Phase.'),
     ('Warnings', None, 'static', 44, GREY_NOTE + 'checks that will need attention before release, found when the '
      'sheet was made. Fix the white cells they point at.'),
     ('In manuscript', 'manuscript', 'list:In manuscript', 14, 'cited, named, comment only or absent.'),
@@ -219,18 +219,18 @@ def _header(ws, columns):
     ws.row_dimensions[1].height = 45
 
 
-SCOPE_HEAD = {'Toxicology': 'Toxicology', 'Life Sciences': 'Life sciences', 'Generic': 'Generic'}
+ORIGIN_HEAD = {'Toxicology': 'Toxicology', 'Life Sciences': 'Life sciences', 'Generic': 'Generic'}
 
 
 def _principles(ws):
-    """The Principles tab: per FAIR principle and scope, the included FAIR-enabling resources one of whose FSR types
+    """The Principles tab: per FAIR principle and origin, the included FAIR-enabling resources one of whose FSR types
     enables the principle in the FIP ontology, without those whose sub-domains are all outside the manuscript's scope,
     as in the figure. The counts are formulas over the Resources tab, so they follow every edit."""
     col = {h: get_column_letter(i) for i, (h, *_) in enumerate(RESOURCE_COLUMNS, 1)}
     rng = lambda h: f'Resources!${col[h]}$2:${col[h]}'
     one_of = lambda names: '(' + '|'.join(re.sub(r'([.^$*+?()\[\]{}|\\])', r'\\\1', n) for n in names) + ')'
     out = one_of(model.OUTSIDE_MANUSCRIPT_SCOPE)
-    ws.append(['Principle', 'FSR type', *SCOPE_HEAD.values()])
+    ws.append(['Principle', 'FSR type', *ORIGIN_HEAD.values()])
     for c in ws[1]:
         c.font, c.fill = BOLD, HEAD
     for group, principles in model.PRINCIPLES.items():
@@ -240,9 +240,9 @@ def _principles(ws):
             types = sorted(FSR_LABEL[t] for t, (all_, _) in model.enables().items() if p in all_)
             named = sorted(FSR_LABEL[t] for t, (_, own) in model.enables().items() if own == {p})   # its own type
             ws.append([p, ', '.join(named)] + [
-                f'=SUMPRODUCT(({rng("Decision")}="include")*({rng("Scope")}="{scope}")'
+                f'=SUMPRODUCT(({rng("Decision")}="include")*({rng("Origin")}="{origin}")'
                 f'*REGEXMATCH({rng("FSR type")},"(^|[,;] *){one_of(types)}( *[,;]|$)")'
-                f'*(REGEXMATCH({rng("Sub-domains")},"^{out}( *[,;] *{out})*$")=FALSE))' for scope in SCOPE_HEAD])
+                f'*(REGEXMATCH({rng("Sub-domains")},"^{out}( *[,;] *{out})*$")=FALSE))' for origin in ORIGIN_HEAD])
             for c in ws[ws.max_row][2:]:
                 c.fill = GREY
     ws.append([])
@@ -350,7 +350,7 @@ def build(doc, path, added=()):
             if kind == 'date':
                 c.number_format = '@'
             if kind == 'lane':                              # the earliest phase chosen in Phase
-                s, k = f'{col_of["Scope"]}{n}', f'{col_of["Phase"]}{n}'
+                s, k = f'{col_of["Origin"]}{n}', f'{col_of["Phase"]}{n}'
                 first = ''.join(f'IF(ISNUMBER(FIND("{p}",{k})),"{p}",' for p in model.PHASES) + '""' + ')' * len(model.PHASES)
                 c.value = (f'=IF({s}="Generic","Generic infrastructure",'
                            f'IF({s}="Life Sciences","Life sciences infrastructure",IF({s}="Toxicology",{first},"")))')

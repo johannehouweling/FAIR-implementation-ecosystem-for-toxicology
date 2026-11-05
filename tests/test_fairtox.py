@@ -17,26 +17,26 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def fixture():
     rs = [
         {'key': 'exo', 'name': 'Exposure Ontology', 'alternateName': ['ExO'], 'decision': 'include',
-         'fairsharingType': 'Standard: terminology artefact', 'scope': 'Toxicology', 'phase': 'Data integration',
+         'fairsharingType': 'Standard: terminology artefact', 'origin': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration'],
          'creatorType': ['In silico research'], 'subdomains': ['exposome'], 'datePublished': '2012-01', 'dateBasis': 'publication',
          'dateSource': 'https://doi.org/10.1021/es2033857', 'url': 'https://github.com/CTDbase/exposure-ontology',
          'manuscript': 'named', 'manuscriptEvidence': 'Data generation; L100', 'fairsharingRecord': 'FAIRsharing.6hna78',
          'fairsharingMatch': 'confirmed', 'maintained': 'active'},
         {'key': 'ctd', 'name': 'Comparative Toxicogenomics Database', 'alternateName': ['CTD'], 'decision': 'include',
-         'fairsharingType': 'Database: knowledgebase', 'scope': 'Toxicology', 'phase': 'Data integration',
+         'fairsharingType': 'Database: knowledgebase', 'origin': 'Toxicology', 'phase': 'Data integration',
          'span': ['Data integration', 'Regulatory assessment'],
          'creatorType': ['In silico research', 'Wet-lab research'], 'datePublished': '2004', 'dateBasis': 'publication', 'dateSource': 'https://doi.org/10.1093/nar/gkg044',
          'url': 'https://ctdbase.org', 'description': 'Curated chemical-gene-disease interactions.',
          'manuscript': 'absent', 'maintained': 'active',
          'qualifiedRelation': [{'relation': '#exo', 'hadRole': 'implements', 'evidence': 'FAIRsharing'}]},
         {'key': 'oecd_gd', 'name': 'OECD guidance on research data', 'decision': 'include', 'fairsharingType': 'Policy: institution',
-         'scope': 'Toxicology', 'phase': 'Regulatory assessment', 'span': ['Regulatory assessment'],
+         'origin': 'Toxicology', 'phase': 'Regulatory assessment', 'span': ['Regulatory assessment'],
          'creatorType': ['Regulator'],
          'date': '2026', 'manuscript': 'cited',
          'manuscriptEvidence': 'L190'},
         {'key': 'parc', 'name': 'PARC', 'decision': 'exclude', 'exclusionReason': 'E1', 'manuscript': 'named'},
-        {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'fairsharingType': 'Tool', 'scope': 'Generic'},
+        {'key': 'tool', 'name': 'A FAIR tool', 'decision': 'undecided', 'fairsharingType': 'Tool', 'origin': 'Generic'},
     ]
     return model.new_document(rs)
 
@@ -141,7 +141,7 @@ class RepositoryTest(unittest.TestCase):
             self.assertEqual(end.exception.code, 0, name)
             rows = list(csv.DictReader(io.StringIO(out.getvalue())))
             self.assertTrue(rows, name)
-            if name == 'resources-by-scope.rq':                # SPARQL agrees with the rule the dashboard draws by
+            if name == 'resources-by-origin.rq':                # SPARQL agrees with the rule the dashboard draws by
                 drawn = sum(model.in_figure(r) for r in model.normalise(model.load(model.DATASET))['hasPart'])
                 self.assertEqual(sum(int(r['resources']) for r in rows), drawn)
 

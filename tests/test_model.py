@@ -25,7 +25,7 @@ class ModelTest(TempDir):
 
     def test_each_bad_case_is_an_error(self):
         cases = [
-            ('exo', 'scope', 'Toxicologie', 'not an allowed value'),
+            ('exo', 'origin', 'Toxicologie', 'not an allowed value'),
             ('exo', 'datePublished', '2012-13', 'YYYY'),
             ('exo', 'datePublished', '2999', 'YYYY'),
             ('parc', 'exclusionReason', '', 'exclusion reason is required'),
@@ -104,15 +104,15 @@ class ModelTest(TempDir):
         self.assertTrue(built()['buildsOnFair'])
 
     def test_lane_rules(self):
-        self.assertEqual(model.lane({'scope': 'Generic'}), 'Generic infrastructure')
-        self.assertEqual(model.lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
+        self.assertEqual(model.lane({'origin': 'Generic'}), 'Generic infrastructure')
+        self.assertEqual(model.lane({'origin': 'Life Sciences'}), 'Life sciences infrastructure')
         self.assertEqual(sorted(model.FIGURE_LANES), sorted(model.LANES))   # the figure reorders, never adds or drops
         for phase in model.PHASES:   # the toxicology lanes take the phase names
-            self.assertEqual(model.lane({'scope': 'Toxicology', 'phase': phase}), phase)
-        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'creatorType': ['Regulator']}), 'Made by regulators')
-        self.assertEqual(model.creator_lane({'scope': 'Toxicology', 'creatorType': ['Regulator', 'Wet-lab research']}),
+            self.assertEqual(model.lane({'origin': 'Toxicology', 'phase': phase}), phase)
+        self.assertEqual(model.creator_lane({'origin': 'Toxicology', 'creatorType': ['Regulator']}), 'Made by regulators')
+        self.assertEqual(model.creator_lane({'origin': 'Toxicology', 'creatorType': ['Regulator', 'Wet-lab research']}),
                          'Made jointly')
-        self.assertEqual(model.creator_lane({'scope': 'Life Sciences'}), 'Life sciences infrastructure')
+        self.assertEqual(model.creator_lane({'origin': 'Life Sciences'}), 'Life sciences infrastructure')
 
     def test_building_on_fair_is_derived_from_a_builds_on_relation(self):
         doc = fixture()
@@ -127,7 +127,7 @@ class ModelTest(TempDir):
         self.assertNotIn('buildsOnFair', next(r for r in model.normalise(doc)['hasPart'] if r['key'] == 'exo'))
 
     def test_every_controlled_field_is_checked(self):
-        for field, value in (('fairsharingType', 'Databank'), ('scope', 'Toxicologie'), ('maintained', 'alive')):
+        for field, value in (('fairsharingType', 'Databank'), ('origin', 'Toxicologie'), ('maintained', 'alive')):
             doc = model.normalise(fixture())
             doc['hasPart'][0][field] = value
             self.assertTrue(any(repr(value) in e for e in model.check(doc)[0]), field)

@@ -98,7 +98,7 @@ class SiteTest(TempDir):
         rows = {r['key']: r for r in csv.DictReader(io.StringIO(text['resources.csv']))}
         self.assertEqual((rows['ctd']['creatorType'], rows['oecd_gd']['buildsOnFair'], rows['ctd']['buildsOnFair']),
                          ('Wet-lab research; In silico research', 'True', 'False'))
-        # the two-option layout toggle, the creator lanes, and italics from buildsOnFair rather than the scope
+        # the two-option layout toggle, the creator lanes, and italics from buildsOnFair rather than the origin
         self.assertIn('<legend>Toxicology lanes</legend>', html)
         self.assertEqual(len(re.findall(r'<input type="radio" name="mode"', html)), 2)
         for name in ('checked> Phase</label>', 'Creator', *model.CREATOR_LANE_DEF):

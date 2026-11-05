@@ -184,7 +184,7 @@ class FairsharingTest(TempDir):
         published = {r['key']: r for r in site.public(doc)['hasPart']}
         record = published['exo']['fairsharingRecord']   # inherited: FAIRsharing's statements, on its record
         self.assertEqual(record, {'@id': 'https://fairsharing.org/FAIRsharing.6hna78',
-            'about': [{'@id': 'http://purl.obolibrary.org/obo/NCIT_C20179', 'name': 'Toxicogenomics'}],   # its subjects: scope
+            'about': [{'@id': 'http://purl.obolibrary.org/obo/NCIT_C20179', 'name': 'Toxicogenomics'}],   # its subjects: origin
             'theme': [{'@id': 'http://purl.obolibrary.org/obo/OBI_0500000', 'name': 'study design'}]})   # its domains:
         # the life cycle; a term without an IRI ('exposure') is left out
         unconfirmed = copy.deepcopy(doc)

@@ -80,7 +80,7 @@ Each excluded row carries exactly one code.
 - **Guidance, test guidelines and quality systems.** Guidance on how to report, share or describe data is included as
   a policy; guidelines that only standardise how an experiment is run are excluded (E8).
 - **Generic resource and toxicology instance.** Both are rows when each has its own identity, such as RDMkit and its
-  toxicology page, or FAIRsharing and the Toxicology collection. The toxicology instance has scope Toxicology and a
+  toxicology page, or FAIRsharing and the Toxicology collection. The toxicology instance has origin Toxicology and a
   relation to the generic resource it builds on.
 - **Versions and successors.** A successor is its own row when it has its own name, identifier or paper (for example
   ISA-JSON after ISA-Tab); otherwise it is covered by the original (E6).
@@ -89,11 +89,11 @@ Each excluded row carries exactly one code.
 - **Programmes and their data.** A screening programme counts only through a named data resource (for example the
   ToxCast and Tox21 data rather than the programmes).
 - **Generic web and semantic-web standards** (RDF, OWL, SPARQL, JSON-LD, nanopublications) and FAIR assessment tools
-  (F-UJI) are resources with scope Generic when the manuscript uses them for toxicology.
+  (F-UJI) are resources with origin Generic when the manuscript uses them for toxicology.
 
 ## 6. Classification
 
-- **Scope** says what a resource was made for (data dictionary, Scope).
+- **Origin** says where a resource comes from, what it was made for (data dictionary, Origin).
 - **FSR types.** Each resource gets every type of the FSR typology of the FIP ontology that applies. When a
   toxicology FIP declares the resource, its types are those of the typology that the FIP's own description gives it.
   Otherwise the kind of resource decides: a database, including a portal or a report
@@ -237,6 +237,7 @@ Each excluded row carries exactly one code.
 | 1 Nov 2026 | The curation sheet has a Principles tab that counts, per FAIR principle and scope, the included FAIR-enabling resources one of whose FSR types enables the principle in the FIP ontology, leaving out what the figure leaves out. Its formulas over the Resources tab keep it current. It assigns no principle to a resource: principles still come only from the FIP questions a resource is declared for. | Jente Houweling |
 | 2 Nov 2026 | The sub-domains follow who the community could represent: members of the ELIXIR Toxicology Community defined them before resources were collected, and co-authors working in each sub-domain reviewed its resources. In vivo toxicology, the exposome and eco-toxicology were also proposed but no co-author represents them: in vivo toxicology is not a sub-domain, its resources taking the other sub-domains they serve, and the exposome and eco-toxicology are outside scope for this reason, which the record of 31 Oct 2026 did not state: their resources stay in the dataset but are left out of the figure and the analysis. | Jente Houweling |
 | 4 Nov 2026 | Relations use FAIRsharing's labels only, as FAIRsharing documents them, which restores the 3 Oct 2026 rule: the label uses of 21 Oct 2026 is withdrawn. Its relations became implements where the resource uses a standard and implements is possible, as in WikiPathways' FAIRsharing record and for the RDF resources of the dataset; the others took FAIRsharing's most generic label for their pair, extends between databases and related_to otherwise. recommends is a policy pointing at a resource: it is not lineage and does not count for Building on FAIR. The definitions of extends, recommends, deprecates and related_to take FAIRsharing's wording. | Jente Houweling |
+| 5 Nov 2026 | The field scope is renamed origin: it says where a resource comes from, the layer that others build on, and scope collided with the scope of the manuscript. Values, IRIs (`schema:about`) and lanes are unchanged; the change log keeps the old field name in its earlier rows. | Jente Houweling |
 
 ## 9. Limitations
 
