@@ -21,8 +21,8 @@ PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxico
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
 NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
                'fairsharingType', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'scope',
-               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'sources', 'fairsharing', 'url', 'creator',
-               'maintained', 'description', 'dateSource', 'dateBasis']
+               'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'sources', 'fairsharing', 'fsrNanopublication',
+               'url', 'creator', 'maintained', 'description', 'dateSource', 'dateBasis']
 RELATION_FIELDS = ['subject', 'hadRole', 'target']
 # Curation fields and vocabularies that stay out of the build. Relations keep only their label: their evidence and
 # source cite the manuscript draft.
@@ -99,7 +99,8 @@ def nodes_links(doc):
             # where it was found, by the sources the criteria screen; the FIPs come below, once every key has a label
             'sources': ([doc['creator']['name']] if r.get('manuscript', 'absent') != 'absent' else [])
                        + ([COLLECTION] if fs.get('inCollection') else []),
-            'fairsharing': fairsharing_url(r), 'url': r.get('url', ''), 'creator': r.get('creator', ''),
+            'fairsharing': fairsharing_url(r), 'fsrNanopublication': r.get('fsrNanopublication', []),
+            'url': r.get('url', ''), 'creator': r.get('creator', ''),
             'maintained': r.get('maintained', ''), 'description': r.get('description', ''),
             'dateSource': r.get('dateSource', ''), 'dateBasis': basis,
         })
@@ -217,8 +218,8 @@ FIELDS = [
                 'of the criteria. IRIs in the JSON-LD, labels in resources.csv.', None),
     ('fsrCategory', 'Derived from the FSR types: FAIR-Enabling Resource when one of them is, else FAIR Supporting '
                     'Resource (any other FSR). The Class filter uses it; resources without a type always pass it.', None),
-    ('principles', 'Derived: the FAIR principles of the FIP questions the resource is declared for, such as F1; empty '
-                   'when no FIP declares it.', None),
+    ('principles', 'Derived: the FAIR principles the FSR types enable in the FIP ontology, such as F1; empty when they '
+                   'enable none.', None),
     ('scope', 'What the resource was made for: generic FAIR, generic life-science or toxicology infrastructure.', 'scope'),
     ('phase', 'The data life-cycle phase a toxicology resource acts on, the earliest if several. It sets the lane.',
      'phase'),
@@ -253,6 +254,8 @@ FIELDS = [
                                    'qualifiedRelation in the JSON-LD, subject, hadRole and target in relations.csv.',
      'hadRole'),
     ('declaredIn', 'Derived: the FIPs that declare the resource (their keys in resources.csv).', None),
+    ('fsrNanopublication', 'Derived: the nanopublication that declares the resource as a FAIR Supporting Resource, the '
+                           'latest valid one when the page is built; the details link it.', None),
     ('fipDeclaration, declared-by', 'On a FIP, in the JSON-LD, read from its nanopublications (CC0) when the page is '
      'built: its declarations, each a nanopublication (@id) that links a listed resource through one of the '
      'properties below for a FIP question (question) and its principle; and declared-by, the FAIR Implementation '

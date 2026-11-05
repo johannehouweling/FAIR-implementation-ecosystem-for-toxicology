@@ -306,11 +306,16 @@ def curate(doc, data, matches):
 
 
 def enrich(doc, data):
-    """For the site build, in memory: declared-by and the declarations on each FIP row, sources.fip and the profiles in
-    isBasedOn. A declaration whose target has no row is left out."""
+    """For the site build, in memory: declared-by and the declarations on each FIP row, the FSR nanopublication on each
+    declared row, sources.fip and the profiles in isBasedOn. A declaration whose target has no row is left out."""
     by_key, ids = {r['key']: r for r in doc['hasPart']}, {r['@id'] for r in doc['hasPart']}
+    by_id = {r['@id']: r for r in doc['hasPart']}
     target = {iri: r['@id'] for iri, (r, how) in match(doc, data).items()
               if r and how in ('fsr', 'doi')}           # curated links and DOIs only; name matches wait for review
+    for iri, rid in target.items():   # the latest valid nanopublication that declares the resource as an FSR
+        if data['fsrs'][iri]['description']:
+            r = by_id[rid]
+            r['fsrNanopublication'] = sorted(set(r.get('fsrNanopublication', [])) | {data['fsrs'][iri]['description']})
     for key, f in data['fips'].items():
         mine = sorted((x for x in data['declarations'] if x['fip'] == key and x['target'] in target),
                       key=lambda x: (x['predicate'], target[x['target']], x['@id']))

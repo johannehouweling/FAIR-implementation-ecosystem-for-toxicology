@@ -158,7 +158,7 @@ class SheetTest(TempDir):
                             for r in wb[name].iter_rows(min_row=2, values_only=True) if r[0]]
         exo, ctd = (next(r for r in tab('Resources') if r['Key'] == k) for k in ('exo', 'ctd'))
         self.assertEqual([exo[h] for h in ('FSR type', 'Class', 'Principles', 'Declared in', 'Phase')],
-                         ['Structured vocabulary', 'FAIR-Enabling Resource', 'F1',
+                         ['Structured vocabulary', 'FAIR-Enabling Resource', 'I2',   # I2: what the type enables
                           'OECD guidance on research data (F1-D); A FAIR tool (F1-D)', 'Data integration'])
         self.assertEqual(ctd['Phase'], 'Data integration, Regulatory assessment')   # every phase, in phase order
         self.assertEqual([(x['Resource'], x['Relation'], x['Target'], x['Vocabulary'], x['Question'], x['Use'])

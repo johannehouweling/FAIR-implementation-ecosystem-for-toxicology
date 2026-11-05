@@ -183,7 +183,7 @@ button.btn:hover { border-color: var(--ink); }
       <h3>Sources and types</h3>
       <p>Curation by the ELIXIR Toxicology Community, the <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and the toxicology FAIR Implementation Profiles (FIPs), whose declarations name the resources their communities use; the Source filter shows the resources of one source. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata and the FIP declarations are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
       <h3>FSR types and FIP declarations</h3>
-      <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource or other FAIR Supporting Resource, with each type that applies. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource list its declarations, with links to their nanopublications, and link its FSR type and class to their terms in the FIP ontology and its principles to the FAIR principles.</p>
+      <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource or other FAIR Supporting Resource, with each type that applies. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource name the FIPs that declare it, link the nanopublication that declares the resource as an FSR, and link its FSR type and class to their terms in the FIP ontology and the principles those types enable to the FAIR principles.</p>
     </div>
     <div>
       <h3>Lanes</h3>
@@ -252,7 +252,7 @@ const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
 const label = n => short(n) + dagger(n);
 const laneText = n => n.phase || n.lane || '—';   // toxicology resources show their phase
 // creator types in sentence case: "In silico research, regulator"
-const made = n => capital((n.creatorType || []).map(s => s.charAt(0).toLowerCase() + s.slice(1)).join(', '));
+const made = n => (n.creatorType || []).join(', ');   // each value as stored, as Span and FSR type
 // The toxicology lanes are arranged by phase (lane) or by creator (creatorLane); the generic lanes stay.
 const byCreator = () => $('by-creator').checked;
 const laneOf = n => byCreator() ? n.creatorLane : n.lane;
@@ -612,12 +612,12 @@ function details(n) {
   const row = (term, value) => value ? `<dt>${term}</dt><dd>${value}</dd>` : '';
   const termLink = (iris, t) => link(iris[t] || '', t);   // a label opens its term: an FSR type or class, a FAIR principle
   const btn = (k, text) => `<button type="button" class="in" data-key="${esc(k)}"><u>${esc(text)}</u></button>`;
-  const basis = ((META.vocab || {}).dateBasis || {})[n.dateBasis];
   const status = {discontinued: 'no longer maintained', 'in development': 'in development'}[n.maintained];
   const urls = [isUrl(n.url) && link(n.url, isNanopub(n.url) ? 'Nanopublication' : 'Homepage'),   // a FIP's URL is its nanopublication
     isNanopub(n.identifier) && link(n.identifier, 'Nanopublication'),   // a community's identifier is its FIC nanopublication
-    n.fairsharing && link(n.fairsharing, 'FAIRsharing record')].filter(Boolean);
-  const date = n.date ? esc(n.date) + (isUrl(n.dateSource) ? ` · ${link(n.dateSource, 'source')}` : '') + (basis ? `<div class="m">${esc(basis)}</div>` : '')
+    n.fairsharing && link(n.fairsharing, 'FAIRsharing record'),
+    ...n.fsrNanopublication.map(u => link(u, 'FSR declaration'))].filter(Boolean);   // the nanopublication that declares a resource as an FSR
+  const date = n.date ? esc(n.date) + (isUrl(n.dateSource) ? ` · ${link(n.dateSource, 'source')}` : '')
     : '<span class="m">not known</span>';
   const fip = FIPS[n.key], own = DECLS.filter(d => d.src === n.key).reduce((k, d) => k + d.q.length, 0);
   return [
@@ -632,7 +632,7 @@ function details(n) {
       row('Made by', esc(made(n))) + row('Builds on FAIR', italic(n) && 'Yes') + row('Sub-domains', esc(n.subdomains.join(', '))) +
       row('First published', date) + row('Creator', esc(n.creator)) + row('Status', status) + '</dl>',
     urls.length && `<p class="links">${urls.join(' · ')}</p>`,
-    list('Declared in', DECLS.filter(d => d.dst === n.key).map(d => `<li>${btn(d.src, short(byKey[d.src]))}: ${d.q.map(([q, np]) => link(np, q)).join(', ')}</li>`)),
+    list('Declared usage in', DECLS.filter(d => d.dst === n.key).map(d => `<li>${btn(d.src, short(byKey[d.src]))}</li>`)),
     list('Declared by', n.declaredBy ? [item(n.declaredBy)] : []),
     list('Builds on', LINKS.filter(l => l.lineage && l.dst === n.key).map(l => item(l.src, words(l.label)))),
     list('Built on by', LINKS.filter(l => l.lineage && l.src === n.key).map(l => item(l.dst, '', words(l.label) + ' it'))),

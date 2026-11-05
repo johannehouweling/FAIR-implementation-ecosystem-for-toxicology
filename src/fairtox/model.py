@@ -285,7 +285,7 @@ def _values(term, name, vocab, **entry):
 
 
 # Every field the graph holds has an entry. There is no @vocab, so the others stay out of the graph: derived fields
-# (phase is the earliest phase of the span; principles follow from the declarations), the curation fields, the sources
+# (phase is the earliest phase of the span; principles follow from the FSR types), the curation fields, the sources
 # and vocabularies, and the published FAIRsharing block (sources are linked through isBasedOn, terms by their IRIs).
 CONTEXT = {
     '@version': 1.1,
@@ -334,6 +334,7 @@ CONTEXT = {
     'question': {'@id': 'fip:refers-to-question', '@type': '@id'}, 'considerations': 'fip:considerations',
     **{p: {'@id': 'fip:' + p, '@type': '@id'} for p in FIP_PROPERTIES},
     'fsr': {'@id': 'schema:sameAs', '@type': '@id', '@container': '@set'},
+    'fsrNanopublication': {'@id': 'schema:mainEntityOfPage', '@type': '@id', '@container': '@set'},
 }
 # Links from a value's concept to outside concepts: (list, value, SKOS mapping property, outside concept). Some link
 # an outside concept the dataset uses to another one, such as the IUPAC entry of a MeSH concept.
@@ -384,15 +385,16 @@ def iri(curie):
 
 
 # Curated fields, in file order; edited in the Sheet. '@id', 'identifier', 'schemaType', 'buildsOnFair', 'fsrCategory',
-# 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by' and
-# 'fipDeclaration' exist only in the built site, 'fairsharing' only in the site, the sheet and the submission export.
+# 'declaredIn' and 'principles' are derived, 'fsr' (a declared resource's IRIs in the FIPs) is imported; 'declared-by',
+# 'fipDeclaration' and 'fsrNanopublication' exist only in the built site, 'fairsharing' only in the site, the sheet and
+# the submission export.
 CURATED = ['key', 'name', 'alternateName', 'decision', 'exclusionReason', 'coveredBy', 'fairsharingType', 'fsrType', 'scope',
            'phase', 'span', 'creatorType', 'subdomains', *DATE_FIELDS.values(), 'dateSource', 'creator', 'contactPoint',
            'url', 'description', 'maintained', 'manuscript', 'manuscriptEvidence', 'mentionedIn', 'fairsharingRecord',
            'fairsharingMatch', 'reviewedBy', 'note']
 FIELD_ORDER = ['@id', 'identifier', 'schemaType'] + CURATED + ['buildsOnFair', 'fsrCategory', 'declaredIn', 'principles',
                                                                'qualifiedAttribution', 'fsr', 'qualifiedRelation',
-                                                               'declared-by', 'fipDeclaration',
+                                                               'declared-by', 'fipDeclaration', 'fsrNanopublication',
                                                                'fairsharing']
 RELATION_ORDER = ['relation', 'hadRole', 'evidence', 'source', 'reviewedBy', 'note']
 LIST_FIELDS = {'alternateName', 'subdomains', 'creatorType', 'fsrType', 'span', 'mentionedIn', 'contactPoint'}
@@ -542,6 +544,7 @@ def fsr_offered():
 # The FAIR principles a FAIR-enabling resource can enable, by group, as the FIP ontology names them.
 PRINCIPLES = {'Findable': ['F1', 'F2', 'F3', 'F4'], 'Accessible': ['A1.1', 'A1.2', 'A2'],
               'Interoperable': ['I1', 'I2', 'I3'], 'Reusable': ['R1.1', 'R1.2', 'R1.3']}
+PRINCIPLE_ORDER = [p for group in PRINCIPLES.values() for p in group]
 
 
 @functools.cache
@@ -637,7 +640,8 @@ def normalise(doc):
         r['fsrCategory'] = (FER if any(t[2] for t in types) else FSR) if types else ''   # an FER when one type is
         r['qualifiedAttribution'] = [{'@type': 'prov:Attribution', 'hadRole': t} for t in r.get('creatorType', [])]
         r['declaredIn'] = sorted({fip for fip, _ in declared.get(r['@id'], [])})
-        r['principles'] = sorted({p for _, p in declared.get(r['@id'], []) if p})
+        r['principles'] = sorted({p for t in r.get('fsrType', []) for p in enables().get(t, ((), ()))[0]},
+                                 key=lambda p: (PRINCIPLE_ORDER.index(p) if p in PRINCIPLE_ORDER else len(PRINCIPLE_ORDER), p))
     doc['hasPart'] = sorted((_ordered(r) for r in doc['hasPart']), key=lambda r: r['key'])
     doc['@context'] = CONTEXT
     doc['@id'] = BASE

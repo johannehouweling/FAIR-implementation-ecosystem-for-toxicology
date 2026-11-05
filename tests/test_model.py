@@ -149,10 +149,13 @@ class ModelTest(TempDir):
         by['tool']['declared-by'] = '#parc'
         by['tool']['fipDeclaration'] = [{'@id': 'https://w3id.org/np/RAx', '@type': 'fip:FIP-Declaration',
                                          'declares-current-use-of': 'https://doi.org/10.25504/FAIRsharing.6hna78',
-                                         'question': model.FIP + 'FIP-Question-I2-D', 'principle': 'I2'}]
+                                         'question': model.FIP + 'FIP-Question-F1-D', 'principle': 'F1'}]
         by = {r['key']: r for r in model.normalise(doc)['hasPart']}
         self.assertEqual((by['exo']['fsrCategory'], by['ctd']['fsrCategory']), (model.FER, model.FSR))
+        # principles are what the FSR types enable in the FIP ontology (I2 for a structured vocabulary), not the
+        # question of the declaration; an Editor, no FAIR-Enabling Resource, enables none
         self.assertEqual((by['exo']['declaredIn'], by['exo']['principles']), ([by['tool']['@id']], ['I2']))
+        self.assertEqual(by['ctd'].get('principles', []), [])
         self.assertNotIn('declaredIn', by['parc'])   # declared-by names the FIP's community, not a resource it uses
         self.assertEqual(model.check(doc)[0], [])
 
