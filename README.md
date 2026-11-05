@@ -36,8 +36,8 @@ built ([data dictionary](docs/data-dictionary.md#fields-added-at-build-time)). F
 and `build/fip`, left by an earlier run, instead.
 
 CI tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
-Discovery profile 1.1 (its SHACL rules, with pyshacl), checks that the links in the published dataset and the
-documentation resolve (lychee; FAIRsharing and the dataset's own w3id.org identifiers are left out) and, on `main`,
+Discovery profile 1.1 (its SHACL rules, with pyshacl), checks that the links in the dataset and the
+documentation resolve (lychee; FAIRsharing, the Wayback Machine and the dataset's own w3id.org identifiers are left out) and, on `main`,
 publishes the dashboard. Then release-please
 keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
 Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
