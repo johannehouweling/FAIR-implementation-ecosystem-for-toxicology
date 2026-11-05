@@ -774,7 +774,7 @@
    "datePublished": "2018-02-14",
    "dateSource": "https://doi.org/10.1016/j.taap.2018.02.006",
    "creator": "US EPA",
-   "url": "https://aopdb.epa.gov",
+   "url": "https://web.archive.org/web/20250117222244/https://aopdb.epa.gov/",
    "description": "The US EPA Adverse Outcome Pathway Database (AOP-DB) links AOP information from the AOP-Wiki to public data on genes, chemicals, diseases, pathways, species orthology and ToxCast assays. It supports computational exploration of the molecular targets and biological context of AOPs; this row covers the first version, described in 2018.",
    "maintained": "discontinued",
    "manuscript": "cited",
@@ -3840,7 +3840,7 @@
    "datePublished": "2011-11-17",
    "dateSource": "https://doi.org/10.1093/nar/gkr942",
    "creator": "CSIR-Indian Institute of Chemical Biology",
-   "url": "http://www.hpppi.iicb.res.in/btox/",
+   "url": "https://web.archive.org/web/20250314084634/http://www.hpppi.iicb.res.in/btox/",
    "description": "Database of bacterial exotoxins that cause disease in humans, with toxin sequences, structures and mechanisms of action, and a server that predicts toxins.",
    "maintained": "discontinued",
    "manuscript": "absent",
@@ -6008,7 +6008,7 @@
     "regulatory toxicology"
    ],
    "creator": "IMI2 eTRANSAFE consortium",
-   "url": "https://etransafe.eu",
+   "url": "https://web.archive.org/web/20260612113642/https://etransafe.eu/",
    "manuscript": "cited",
    "manuscriptEvidence": "III Regulatory; L188",
    "mentionedIn": [
@@ -6210,7 +6210,7 @@
     "in vitro toxicology"
    ],
    "creator": "EU H2020 EU-ToxRisk consortium",
-   "url": "https://www.eu-toxrisk.eu",
+   "url": "https://web.archive.org/web/20261005093732/https://www.eu-toxrisk.eu/",
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation; Comments [s]; L101-104, L377",
    "mentionedIn": [
@@ -9954,7 +9954,7 @@
     "nanotoxicology"
    ],
    "creator": "EU H2020 NanoCommons consortium",
-   "url": "https://www.nanocommons.eu",
+   "url": "https://web.archive.org/web/20260225072845/https://www.nanocommons.eu/",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation (nano); L111",
    "mentionedIn": [
@@ -9997,7 +9997,7 @@
     "nanotoxicology"
    ],
    "creator": "NanoCommons (H2020 project)",
-   "url": "https://www.nanocommons.eu",
+   "url": "https://web.archive.org/web/20260225072845/https://www.nanocommons.eu/",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation – Nanotoxicology; L111",
    "qualifiedAttribution": [
@@ -13127,7 +13127,7 @@
    "dateCreated": "2000",
    "dateSource": "https://doi.org/10.25504/FAIRsharing.5fee61",
    "creator": "Nordic Council of Ministers (Chemicals Group) with the product registers of Norway, Sweden, Denmark and Finland",
-   "url": "http://spin2000.net/",
+   "url": "https://web.archive.org/web/20260806071815/http://spin2000.net/",
    "description": "Public database on the use of chemical substances in products in Norway, Sweden, Denmark and Finland. It is derived from the national product registers without disclosing confidential information and gives tonnages, numbers of products, industry sectors (NACE) and use categories per substance and year, online and as a downloadable offline database. It supports exposure assessment and regulatory prioritisation of chemicals.",
    "maintained": "active",
    "manuscript": "absent",
