@@ -189,11 +189,11 @@ class SheetTest(TempDir):
     def test_sub_domains_are_chosen_in_one_cell(self):
         doc = model.normalise(fixture())
         p = self.build(doc)
-        self.edit(p, 'Sub-domains', 'ctd', 'regulatory toxicology, exposome')   # in the order clicked
+        self.edit(p, 'Sub-domains', 'ctd', 'toxicogenomics, exposome')   # in the order clicked
         self.edit(p, 'Sub-domains', 'exo', '')
         new, changes, problems, _, _ = sheet.ingest(doc, p)
         self.assertEqual((changes, problems), ([
-            ('ctd', 'subdomains', '', 'exposome; regulatory toxicology'),            # in the list's order
+            ('ctd', 'subdomains', '', 'exposome; toxicogenomics'),            # in the list's order
             ('exo', 'subdomains', 'exposome', '')], []))
         self.assertEqual(sheet.ingest(new, p)[1:3], ([], []))
 
