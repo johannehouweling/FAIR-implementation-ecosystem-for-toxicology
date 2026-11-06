@@ -123,8 +123,7 @@ Each excluded row carries exactly one code.
 - **Sub-domains** are those of the manuscript (data dictionary, Sub-domains). Members of the ELIXIR Toxicology
   Community defined them before resources were collected, and co-authors working in each sub-domain collected and
   reviewed its resources. They are proposed from the section that discusses a resource and from its FAIRsharing
-  subjects, and a resource may have several. In vivo toxicology was also proposed, but no co-author represents it, so
-  it is not a sub-domain: resources for in vivo studies take the other sub-domains they serve.
+  subjects, and a resource may have several. Conventional toxicology covers in vivo and in vitro studies.
 - **Scope of the manuscript.** The manuscript reviews the FAIR resources of experimental and computational toxicology
   that serve the assessment of chemical risks to human health (Introduction); the dedicated FAIR infrastructures of
   epidemiology, pharmacovigilance, ecotoxicology and the exposome are outside its scope. Each sub-domain is in scope
@@ -240,12 +239,12 @@ Each excluded row carries exactly one code.
 | 4 Nov 2026 | Relations use FAIRsharing's labels only, as FAIRsharing documents them, which restores the 3 Oct 2026 rule: the label uses of 21 Oct 2026 is withdrawn. Its relations became implements where the resource uses a standard and implements is possible, as in WikiPathways' FAIRsharing record and for the RDF resources of the dataset; the others took FAIRsharing's most generic label for their pair, extends between databases and related_to otherwise. recommends is a policy pointing at a resource: it is not lineage and does not count for Building on FAIR. The definitions of extends, recommends, deprecates and related_to take FAIRsharing's wording. | Jente Houweling |
 | 5 Nov 2026 | The FAIR principles of a resource are those its FSR types enable in the FIP ontology, as the sheet's Principles tab already counts them, which replaces the rule that principles come only from the FIP questions a resource is declared for (1 Nov 2026): a declaration shows that a community uses a resource, its question is one use among those the types enable. The dashboard's details name the declaring FIPs without their questions and link the FSR declaration, the nanopublication that declares the resource as a FAIR Supporting Resource. | Jente Houweling |
 | 5 Nov 2026 | The field scope is renamed origin: it says where a resource comes from, the layer that others build on, and scope collided with the scope of the manuscript. Values, IRIs (`schema:about`) and lanes are unchanged; the change log keeps the old field name in its earlier rows. | Jente Houweling |
+| 6 Nov 2026 | The sub-domain in vitro toxicology is renamed conventional toxicology, which covers in vivo and in vitro studies, so that resources for in vivo studies can take it; having no outside concept, it is a term of the dataset, `skos:narrowMatch` Wikidata In vitro toxicology. Regulatory toxicology is no longer a sub-domain: the resources that had it keep their other sub-domains. | Jente Houweling |
 
 ## 9. Limitations
 
-- No co-author represents in vivo toxicology, the exposome or eco-toxicology. Resources of the exposome and
-  eco-toxicology stay in the dataset but are left out of the figure and the analysis; resources for in vivo studies
-  are counted under the other sub-domains they serve.
+- No co-author represents the exposome or eco-toxicology. Their resources stay in the dataset but are left out of
+  the figure and the analysis.
 - The manuscript is a draft; line references refer to the frozen version, and later drafts may name other resources.
 - The FAIRsharing collection is curated by its maintainers and changes over time; the retrieval date is published
   with the dashboard and the dataset.

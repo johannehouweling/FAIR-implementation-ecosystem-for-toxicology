@@ -207,7 +207,7 @@ class SiteTest(TempDir):
                 self.assertEqual(set(terms.objects(c, RDF.type)), {S.DefinedTerm, SKOS.Concept})
                 self.assertTrue(terms.value(c, SKOS.definition), c)
                 self.assertIn((c, SKOS.inScheme, s), terms)
-        for triple in ((t['subdomains-regulatory-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
+        for triple in ((t['subdomains-conventional-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
                        (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements')),
                        (t.deprecates, SKOS.closeMatch, DCTERMS.replaces)):
             self.assertIn(triple, terms, triple)

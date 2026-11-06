@@ -183,25 +183,23 @@ In the graph each creator type is the role (`dcat:hadRole`) of a qualified attri
 
 ### Sub-domains (`subdomains`)
 
-The group is the part of the toxicology life cycle under which the figure lists the sub-domain. Two sub-domains are entries of the IUPAC Gold Book, which holds the IUPAC glossary of terms used in toxicology. Regulatory toxicology, for which no concept exists, is a term of the dataset; it and in vitro toxicology are `skos:broadMatch` NCIT and IUPAC Toxicology.
+The group is the part of the toxicology life cycle under which the figure lists the sub-domain. Two sub-domains are entries of the IUPAC Gold Book, which holds the IUPAC glossary of terms used in toxicology. Conventional toxicology, for which no concept exists, is a term of the dataset: `skos:broadMatch` NCIT and IUPAC Toxicology and `skos:narrowMatch` Wikidata In vitro toxicology.
 
 | Value | Group | IRI |
 |---|---|---|
-| in vitro toxicology | Data generation (definition below). | [Wikidata Q6013136](http://www.wikidata.org/entity/Q6013136) In vitro toxicology |
+| conventional toxicology | Data generation (definition below). | `terms:subdomains-conventional-toxicology`, `skos:narrowMatch` [Wikidata Q6013136](http://www.wikidata.org/entity/Q6013136) In vitro toxicology |
 | nanotoxicology | Data generation. | [IUPAC 10.1351/goldbook.15908](https://doi.org/10.1351/goldbook.15908) nanotoxicology |
 | exposome | Data generation. | [MeSH D000081413](http://id.nlm.nih.gov/mesh/D000081413) Exposome |
 | eco-toxicology | Data generation. | [MeSH D054750](http://id.nlm.nih.gov/mesh/D054750) Ecotoxicology, `skos:exactMatch` IUPAC ecotoxicology |
 | toxicogenomics | Integration and tools. | [NCIT_C20179](http://purl.obolibrary.org/obo/NCIT_C20179) Toxicogenomics, FAIRsharing's subject term, `skos:exactMatch` IUPAC toxicogenomics |
 | AOP-based mechanistic knowledge | Integration and tools. | [MeSH D000073931](http://id.nlm.nih.gov/mesh/D000073931) Adverse Outcome Pathways |
 | computational and predictive toxicology | Integration and tools. | [IUPAC 10.1351/goldbook.15583](https://doi.org/10.1351/goldbook.15583) computational toxicology |
-| regulatory toxicology | Application (definition below). | `terms:subdomains-regulatory-toxicology`, `skos:relatedMatch` Wikidata regulatory science |
 
 | Sub-domain | Definition |
 |---|---|
-| in vitro toxicology | Toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or biochemical systems (after IUPAC, 1993, doi:10.1351/pac199365092003). |
-| regulatory toxicology | Toxicology that collects, processes and evaluates experimental and epidemiological data as the basis for decisions that protect health from the harmful effects of chemical substances, and that develops standard protocols and new test methods for them (after Schwenk et al., 2002, doi:10.1016/S0378-4274(01)00457-X). |
+| conventional toxicology | Toxicology studied in vivo, in living organisms, or in vitro, in the laboratory, usually with isolated organ, tissue, cell or biochemical systems (after IUPAC, 1993, doi:10.1351/pac199365092003). |
 
-The in vitro definition combines the entries toxicology and in vitro of Duffus's IUPAC glossary (1993); Schwenk et al. wrote for the working group on regulatory toxicology of the German Society for Experimental and Clinical Pharmacology and Toxicology.
+The definition combines the entries toxicology, in vivo and in vitro of Duffus's IUPAC glossary (1993).
 
 ### Date basis (`dateBasis`)
 
@@ -325,7 +323,7 @@ Read through each FIP's declaration index from the nanopublications of the two t
 
 Every field in the RDF graph uses a term of schema.org, written `http://schema.org/` as in schema.org's own JSON-LD context, else of DCAT (with the DCTERMS and SKOS terms DCAT uses), and of the FIP ontology (`https://w3id.org/fair/fip/terms/`) for FSR types and FIP declarations. The dataset defines no properties of its own.
 
-The JSON-LD context (JSON-LD 1.1) maps each field to its term (Resource fields) and, through property-scoped contexts, each controlled value to its IRI, so the stored file and the sheet keep readable values. A value is an outside concept where one exists: FAIRsharing's subject terms for the scopes; MeSH, NCIT, the IUPAC Gold Book and Wikidata for seven sub-domains; EFO and SIO for the creator types; the ADMS and EU status lists for in development and discontinued. The other 12 values are the dataset's own terms, under `https://w3id.org/fair-tox/terms#`: the three phases, one sub-domain, one maintenance status, FAIRsharing's six relation labels and the label uses. The dataset defines no properties.
+The JSON-LD context (JSON-LD 1.1) maps each field to its term (Resource fields) and, through property-scoped contexts, each controlled value to its IRI, so the stored file and the sheet keep readable values. A value is an outside concept where one exists: FAIRsharing's subject terms for the scopes; MeSH, NCIT and the IUPAC Gold Book for six sub-domains; EFO and SIO for the creator types; the ADMS and EU status lists for in development and discontinued. The other 11 values are the dataset's own terms, under `https://w3id.org/fair-tox/terms#`: the three phases, one sub-domain, one maintenance status and FAIRsharing's six relation labels. The dataset defines no properties.
 
 Each list with terms of the dataset (phase, sub-domains, maintained, relation labels) is a `schema:DefinedTermSet` and a `skos:ConceptScheme` of the CDIF Concept Scheme profile 1.1, such as `terms:phase-values`, with a definition and its terms as top concepts. Each term is a `schema:DefinedTerm` and `skos:Concept` in its set, named by the stored value and defined by its definition above; a relation label names its term (`terms:implements`), any other value's term is `<list>-<value>` (`terms:phase-data-generation`). Each term links to the closest outside concepts:
 
@@ -334,7 +332,7 @@ Each list with terms of the dataset (phase, sub-domains, maintained, relation la
 | Data generation | `skos:closeMatch` Terms4FAIRskills data production, EDAM Data acquisition |
 | Data integration | `skos:closeMatch` Terms4FAIRskills data integration, EDAM Data integration and warehousing |
 | Regulatory assessment | `skos:relatedMatch` MeSH Risk Assessment, EDAM Regulatory affairs, Terms4FAIRskills data quality, IUPAC weight-of-evidence for toxicity, VHP4Safety glossary Safety Assessment, IATA and Risk Assessment |
-| regulatory toxicology | `skos:broadMatch` NCIT and IUPAC Toxicology; `skos:relatedMatch` Wikidata regulatory science; `dct:source` Schwenk et al. (2002) |
+| conventional toxicology | `skos:broadMatch` NCIT and IUPAC Toxicology; `skos:narrowMatch` Wikidata In vitro toxicology; `dct:source` IUPAC (1993) |
 | active | `skos:closeMatch` EU distribution status Ongoing |
 | implements | `skos:closeMatch` `fip:implements`, SIO is implementation of, `dct:conformsTo` |
 | profiles | `skos:exactMatch` W3C PROF `prof:isProfileOf`; `skos:broadMatch` `dct:conformsTo` |

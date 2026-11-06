@@ -123,22 +123,18 @@ CREATOR_LANE_OF = dict(zip(STAKEHOLDER, CREATOR_LANE_DEF))
 BUILDS_ON = ('implements', 'extends', 'profiles')
 FAIR_PUBLISHED = 2016   # the FAIR guiding principles: only later resources can build on FAIR
 SUBDOMAINS = {
-    'in vitro toxicology': 'Toxicology studied in vitro: in the laboratory, usually with isolated organ, tissue, cell or '
-                           'biochemical systems (after IUPAC, 1993, doi:10.1351/pac199365092003).',
+    'conventional toxicology': 'Toxicology studied in vivo, in living organisms, or in vitro, in the laboratory, '
+                               'usually with isolated organ, tissue, cell or biochemical systems (after IUPAC, 1993, '
+                               'doi:10.1351/pac199365092003).',
     'nanotoxicology': 'Data generation.',
     'exposome': 'Data generation.',
     'eco-toxicology': 'Data generation.',
     'toxicogenomics': 'Integration and tools.',
     'AOP-based mechanistic knowledge': 'Integration and tools.',
     'computational and predictive toxicology': 'Integration and tools.',
-    'regulatory toxicology': 'Toxicology that collects, processes and evaluates experimental and epidemiological data as '
-                             'the basis for decisions that protect health from the harmful effects of chemical '
-                             'substances, and that develops standard protocols and new test methods for them (after '
-                             'Schwenk et al., 2002, doi:10.1016/S0378-4274(01)00457-X).',
 }
 # The lane each sub-domain belongs to in the manuscript (Figure 2 caption): used to group the dashboard filters.
-SUBDOMAIN_LANE = {s: ('Data generation' if i < 4 else 'Data integration' if i < 7 else 'Regulatory assessment')
-                  for i, s in enumerate(SUBDOMAINS)}
+SUBDOMAIN_LANE = {s: 'Data generation' if i < 4 else 'Data integration' for i, s in enumerate(SUBDOMAINS)}
 # Sub-domains outside the scope of the manuscript (criteria, section 6); the others are in scope. A resource whose
 # sub-domains are all outside it is listed on the dashboard but not drawn. Empty the tuple to draw them again.
 OUTSIDE_MANUSCRIPT_SCOPE = ('exposome', 'eco-toxicology')
@@ -244,7 +240,7 @@ VHP = 'https://vhp4safety.github.io/glossary#'   # VHP4Safety glossary
 SAME = {
     'origin': {'Generic': 'http://www.fairsharing.org/ontology/subject/SRAO_0000401',   # FAIRsharing's subjects
               'Life Sciences': 'http://aims.fao.org/aos/agrovoc/c_4318', 'Toxicology': NCIT_TOXICOLOGY},
-    'subdomains': {'in vitro toxicology': WIKIDATA + 'Q6013136', 'nanotoxicology': IUPAC + '15908', 'eco-toxicology': MESH + 'D054750',
+    'subdomains': {'nanotoxicology': IUPAC + '15908', 'eco-toxicology': MESH + 'D054750',
                    'exposome': MESH + 'D000081413', 'toxicogenomics': 'http://purl.obolibrary.org/obo/NCIT_C20179',
                    'AOP-based mechanistic knowledge': MESH + 'D000073931',
                    'computational and predictive toxicology': IUPAC + '15583'},
@@ -351,10 +347,9 @@ TERM_LINKS = [
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, VHP + 'VHP0000103'),    # safety assessment
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, VHP + 'VHP0000159'),    # IATA
     ('phase', 'Regulatory assessment', SKOS.relatedMatch, VHP + 'VHP0000101'),    # risk assessment
-    ('subdomains', 'regulatory toxicology', SKOS.relatedMatch, WIKIDATA + 'Q2448782'),   # regulatory science
-    ('subdomains', 'regulatory toxicology', DCTERMS.source, 'https://doi.org/10.1016/S0378-4274(01)00457-X'),
-    *[('subdomains', s, SKOS.broadMatch, o) for s in ('in vitro toxicology', 'regulatory toxicology')
-      for o in (NCIT_TOXICOLOGY, IUPAC + 'T06417')],
+    ('subdomains', 'conventional toxicology', SKOS.narrowMatch, WIKIDATA + 'Q6013136'),   # in vitro toxicology
+    ('subdomains', 'conventional toxicology', DCTERMS.source, 'https://doi.org/10.1351/pac199365092003'),
+    *[('subdomains', 'conventional toxicology', SKOS.broadMatch, o) for o in (NCIT_TOXICOLOGY, IUPAC + 'T06417')],
     ('subdomains', 'eco-toxicology', SKOS.exactMatch, IUPAC + '14399'),
     ('subdomains', 'toxicogenomics', SKOS.exactMatch, IUPAC + '16156'),
     ('creatorType', 'Regulator', SKOS.closeMatch, 'http://purl.obolibrary.org/obo/OBI_0000450'),   # regulatory agency
