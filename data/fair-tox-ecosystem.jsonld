@@ -1976,7 +1976,7 @@
    ],
    "origin": "Life Sciences",
    "dateReleased": "2026",
-   "dateSource": "https://w3id.org/spaces/biochementity/r/vocabulary/version/0.0.1",
+   "dateSource": "https://w3id.org/np/RAMa0IVaPLUnQ1sXOdPQfQ1eu2Rh-CVq6yi65tUXFubM8",
    "creator": "PARC (Human Biomonitoring community) / VITO",
    "contactPoint": [
     "https://ror.org/04gq0w522"
@@ -7397,7 +7397,7 @@
    "dateReleased": "2020",
    "dateSource": "https://web.archive.org/web/20200811221637/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/",
    "creator": "GO FAIR Foundation",
-   "url": "https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/",
+   "url": "https://web.archive.org/web/20260716153121/https://www.go-fair.org/how-to-go-fair/fair-implementation-profile/",
    "description": "A FAIR Implementation Profile lists, principle by principle, the FAIR-enabling resources (standards, vocabularies, identifier schemes, repositories, licences) that a community of practice has chosen. FIPs are published as machine-actionable nanopublications, so communities can document, compare and reuse each other's choices and move towards interoperable solutions.",
    "maintained": "active",
    "manuscript": "cited",
@@ -7860,7 +7860,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.6xq0ee",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (medium confidence): Ashburner et al., Nat Genet 25(1), May 2000 (Crossref issued 2000-05; PubMed 2000 May). The 2000 GO documentation says the collaboration began in summer 1998, which matches FAIRsharing year 1998 (project start). The earliest web captures (geneontology.org, Stanford GO pages) are from May-June 2000; any public release in 1999 is undocumented, hence medium confidence. FAIRsharing.6xq0ee (Standard/terminology_artefact, year 1998, ready) was found through DataCite/Bioregistry and confirmed with one lookup. Verified 5 Oct 2026: datePublished changed (SGD's NAR database paper (https://doi.org/10.1093/nar/28.1.77; received 1999-10-01, published 2000-01-01) already cites the public GO pages at http://genome-www.stanford.edu/GO and says SGD pages link to 'Gene Ontology controlled vocabulary terms'. Rubin et al., Science, March 2000 (PMC2754258), also points to geneontology.org, and the GO site footer reads 'copyright © 1999–2026'. GO was therefore public in 1999, before the May 2000 Nat Genet paper.) Verified 5 Oct 2026: dateBasis changed (The earliest documented event is public availability in 1999, earlier than the first describing paper (May 2000).) Verified 5 Oct 2026: dateSource changed (This SGD NAR 2000 paper (received 1999-10-01) documents that the GO web pages and GO term links were live in 1999.) Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.6xq0ee returns 'Gene Ontology' (GO), Standard/terminology_artefact, status ready, homepage http://www.geneontology.org, citing doi:10.1038/75556. It is clearly the same resource.) Proposed 9 Oct 2026: Declared in a FIP for I2, it is an ontology giving identified terms with qualified relations for annotating gene functions, processes and components.",
+   "note": "Research 5 Oct 2026 (medium confidence): Ashburner et al., Nat Genet 25(1), May 2000 (Crossref issued 2000-05; PubMed 2000 May). The 2000 GO documentation says the collaboration began in summer 1998, which matches FAIRsharing year 1998 (project start). The earliest web captures (geneontology.org, Stanford GO pages) are from May-June 2000; any public release in 1999 is undocumented, hence medium confidence. FAIRsharing.6xq0ee (Standard/terminology_artefact, year 1998, ready) was found through DataCite/Bioregistry and confirmed with one lookup. Verified 5 Oct 2026: datePublished changed (SGD's NAR database paper (https://doi.org/10.1093/nar/28.1.77; received 1999-10-01, published 2000-01-01) already cites the public GO pages at https://web.archive.org/web/20000829115254/http://genome-www.stanford.edu/GO/ and says SGD pages link to 'Gene Ontology controlled vocabulary terms'. Rubin et al., Science, March 2000 (PMC2754258), also points to geneontology.org, and the GO site footer reads 'copyright © 1999–2026'. GO was therefore public in 1999, before the May 2000 Nat Genet paper.) Verified 5 Oct 2026: dateBasis changed (The earliest documented event is public availability in 1999, earlier than the first describing paper (May 2000).) Verified 5 Oct 2026: dateSource changed (This SGD NAR 2000 paper (received 1999-10-01) documents that the GO web pages and GO term links were live in 1999.) Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.6xq0ee returns 'Gene Ontology' (GO), Standard/terminology_artefact, status ready, homepage http://www.geneontology.org, citing doi:10.1038/75556. It is clearly the same resource.) Proposed 9 Oct 2026: Declared in a FIP for I2, it is an ontology giving identified terms with qualified relations for annotating gene functions, processes and components.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
     "I2",
