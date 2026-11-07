@@ -133,8 +133,6 @@ SUBDOMAINS = {
     'AOP-based mechanistic knowledge': 'Integration and tools.',
     'computational and predictive toxicology': 'Integration and tools.',
 }
-# The lane each sub-domain belongs to in the manuscript (Figure 2 caption): used to group the dashboard filters.
-SUBDOMAIN_LANE = {s: 'Data generation' if i < 4 else 'Data integration' for i, s in enumerate(SUBDOMAINS)}
 # Sub-domains outside the scope of the manuscript (criteria, section 6); the others are in scope. A resource whose
 # sub-domains are all outside it is listed on the dashboard but not drawn. Empty the tuple to draw them again.
 OUTSIDE_MANUSCRIPT_SCOPE = ('exposome', 'eco-toxicology')
