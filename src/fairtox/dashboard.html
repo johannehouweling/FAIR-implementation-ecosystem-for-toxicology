@@ -749,14 +749,7 @@ for (const lane of [...META.lanes, ...META.creatorLanes]) {
 }
 for (const c of META.classes) addChip($('f-class'), c, on => on ? state.cls.add(c) : state.cls.delete(c)).title = META.classDef[c];
 $('t-links').parentNode.title = `Lines for the relations: ${Object.keys(META.relations).map(words).join(', ')}`;
-for (const lane of META.lanes) {
-  const subs = META.subdomains.filter(s => s[1] === lane);
-  if (!subs.length) continue;
-  const g = document.createElement('optgroup');
-  g.label = lane;
-  for (const [s] of subs) g.append(new Option(capital(s), s));
-  $('f-sub').append(g);
-}
+for (const s of META.subdomains) $('f-sub').append(new Option(capital(s), s));
 for (const s of META.sourceList) $('f-src').append(new Option(s));
 $('f-type').addEventListener('change', ev => { state.type = ev.target.value; render(); });
 $('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; render(); });
