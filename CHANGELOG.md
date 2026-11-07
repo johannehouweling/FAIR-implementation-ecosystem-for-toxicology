@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.16.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.15.0...v0.16.0) (2026-11-07)
+
+
+### Features
+
+* conventional toxicology replaces in vitro toxicology; regulatory toxicology withdrawn ([6d3bc30](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/6d3bc309b4b182b43a6ce6ba07973e4455b2952f))
+* **site:** list the sub-domains in one list, not grouped by phase ([72c6246](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/72c6246f79400ead16bbf0331a0303508a0aa686))
+
+
+### Fixes
+
+* **data:** refresh 2026-11-07 ([fb6e9b0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/fb6e9b0d5903e51880e71c48bf88525302d00749))
+* **data:** seven homepages that no longer exist become their Wayback snapshots ([71c0ae8](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/71c0ae8ab1cf50f6d35df837e4989c64427293f7))
+* **data:** three dead links become the same page in the Wayback Machine or the version's nanopublication ([5287068](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/52870686d5bab146e3e283fffd46729975e99f33))
+
 ## [0.15.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.14.4...v0.15.0) (2026-11-05)
 
 
