@@ -244,7 +244,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.15.0",
- "dateModified": "2026-11-06",
+ "dateModified": "2026-11-07",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -3006,6 +3006,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.m3jtpg",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. First public release was ChEMBL_01: the web interface and downloads went live on 2009-10-28 (ChEMBL blog; FTP README dated 28/10/2009). This agrees with the FAIRsharing year 2009. The first describing paper, Gaulton et al., NAR, online 2011-09-23 (https://doi.org/10.1093/nar/gkr777), is later. Included through membership of the FAIRsharing Toxicology collection. Proposed 9 Oct 2026: Declared in a FIP for I2, where its stable compound and target identifiers act as controlled vocabulary for metadata.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -3241,7 +3242,7 @@
    "identifier": "https://doi.org/10.25504/FAIRsharing.ad3f2b",
    "schemaType": "schema:CreativeWork",
    "key": "combine_coll",
-   "name": "COMBINE FAIRsharing collection",
+   "name": "COMBINE (Computational Modeling in Biology Network) FAIRsharing collection",
    "alternateName": [
     "Computational Modeling (COMBINE)",
     "FAIRsharing.ad3f2b"
@@ -3259,12 +3260,13 @@
    "dateSource": "https://web.archive.org/web/20190823150934/https://fairsharing.org/collection/ComputationalModelingCOMBINE",
    "creator": "COMBINE (with FAIRsharing)",
    "url": "https://fairsharing.org/FAIRsharing.ad3f2b",
-   "description": "A FAIRsharing collection, maintained with the COMBINE network, that groups the community standards for computational modelling in biology (e.g. SBML, CellML, SED-ML, SBGN and the COMBINE archive format) with related resources. It gives modellers one curated entry point to interoperable formats for exchanging, annotating and simulating models.",
+   "description": "A FAIRsharing collection, maintained  with the COMBINE network, that groups the community standards for computational modelling in biology (e.g. SBML, CellML, SED-ML, SBGN and the COMBINE archive format) with related resources. It gives modellers one curated entry point to interoperable formats for exchanging and annotating computational models in biology.",
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; L145, L155",
    "fairsharingRecord": "FAIRsharing.ad3f2b",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): The archived FAIRsharing page of the collection (legacy id bsg-c000012, maintainer M. Hucka) reads 'Record added: Feb. 16, 2016'. The collection is cited in Sansone et al. 2019 (doi 10.1038/s41587-019-0080-8). Its DOI 10.25504/FAIRsharing.ad3f2b was only registered at DataCite on 2025-06-12. A single public FAIRsharing lookup confirms record 3495 'Computational Modeling (COMBINE)': registry Collection, status ready, homepage co.mbine.org. Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.ad3f2b returns id 3495 'Computational Modeling (COMBINE)': registry Collection, status ready, homepage http://co.mbine.org/. This matches the row's alias and the collection described.) Proposed 9 Oct 2026: A curated FAIRsharing collection indexing the community standards for computational modelling in biology, a domain-specific entry point for finding them.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -4340,6 +4342,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.353yat",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The date is a lower bound: a Wayback capture of www.drugbank.ca on 2002-12-09 shows the DrugBank homepage of the Wishart lab with browse and query tools, marked 'Last updated: July 5, 2002'. The FAIRsharing year is 2004. The first describing paper is Wishart et al., NAR, 2006-01-01 (https://doi.org/10.1093/nar/gkj067; PMC release 2005-12-28). URL updated: drugbank.ca now redirects to go.drugbank.com. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -5789,7 +5792,7 @@
    "dateSource": "https://doi.org/10.1038/nbt1346",
    "creator": "EnvO Consortium (from the Genomic Standards Consortium)",
    "url": "http://environmentontology.org/",
-   "description": "An OBO Foundry ontology of environments: biomes, environmental features and systems, environmental materials and processes. Its terms annotate where organisms and samples come from, so environmental metadata can be integrated and searched across databases.",
+   "description": "ENVO is a community ontology in OBO foundry of environmental entities of all kinds, from microscopic to intergalactic scales. ENVO currently deals with 'environmental systems' (i.e. environments) particularly 'biomes' and environments determined by a material entity that assumes the role of an 'environmental feature' (e.g. a digestive tract environment). It also handles 'environmental materials' like soil, water.",
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
@@ -5797,6 +5800,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.azqskx",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): FAIRsharing year 2007 is supported by other sources. EnvO is in the OBO Foundry registry listed in Smith et al. 2007 (Nat Biotechnol, online 2007-11-07). environmentontology.org was archived on 2008-05-18, and the MIGS paper (2008-05-08) cites EnvO as an existing project. First dedicated paper: Buttigieg et al. 2013-12-11 (doi:10.1186/2041-1480-4-43). The homepage's https certificate fails; http works. Subdomains proposed for environmental and exposure context. Proposed 9 Oct 2026: OBO ontology used as a controlled vocabulary of environments and environmental materials for annotating where samples and organisms come from.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -6317,6 +6321,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.b5c52c",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): ECHA press release ECHA/PR/17/11 (Helsinki, 14 June 2017, read from the 2017 web-archive copy) announced the launch; the first capture of the site is 2017-08-01. FAIRsharing year 2016 is when the Commission-ECHA delegation agreement was signed (end of 2016), so the date is corrected. The homepage refuses scripted requests (403), but web-archive captures up to May 2026 show it live. Include: member of the FAIRsharing Toxicology collection (I4). Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -7451,6 +7456,7 @@
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.c7bb32",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): No launch announcement or FAIRsharing year was found. The earliest web-archive capture of the page titled 'Food and Feed Information Portal Database | FIP' is 2022-12-20, a lower bound. The description is widened from flavourings to all modules listed in the portal's application routes. Include: member of the FAIRsharing Toxicology collection (I4). Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -7682,8 +7688,7 @@
    "decision": "include",
    "fairsharingType": "Database: repository",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Identifier-service",
-    "https://w3id.org/fair/fip/terms/Registry"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Life Sciences",
    "subdomains": [
@@ -7693,16 +7698,16 @@
    "dateSource": "https://web.archive.org/web/20000815073701/http://www.ncbi.nlm.nih.gov/geo/info/news.cgi",
    "creator": "NCBI",
    "url": "https://www.ncbi.nlm.nih.gov/geo/",
-   "description": "NCBI's public archive for high-throughput functional genomics data, mostly microarray and sequencing-based gene expression studies. It stores raw and processed data with MIAME-oriented descriptions under stable accessions, so toxicogenomics datasets can be retrieved and reanalysed.",
+   "description": "NCBI's publically available archive for high-throughput functional genomics data, mostly microarray and sequencing-based gene expression studies. It stores raw and processed data with MIAME-oriented descriptions under stable accessions, so toxicogenomics datasets can be retrieved and reanalysed.",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "V Challenges; L235",
    "fairsharingRecord": "FAIRsharing.5hc8vt",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): The GEO news page (archived August 2000) dates the relaunch of the GEO website, with the repository open for submissions and all submissions publicly accessible, to 2000-07-25. An informational site without the repository went up in October 1999. Clough & Barrett 2016 (doi 10.1007/978-1-4939-3578-9_5) say NCBI launched the GEO database in 2000, and sample GSM1 has been public since 2000-09-28. First paper: Edgar et al., NAR 2002 (doi 10.1093/nar/30.1.207). The FAIRsharing record FAIRsharing.5hc8vt is Database/repository with year 2002. Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.5hc8vt returns id 1975 'Gene Expression Omnibus' (GEO): Database/repository, homepage https://www.ncbi.nlm.nih.gov/geo/. This is identical to the row's name and URL.) Proposed 9 Oct 2026: Declared for F4 and F1: GEO indexes functional genomics records for search and assigns them stable accessions, so registry and identifier service.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
-    "F1",
     "F4"
    ],
    "qualifiedRelation": [
@@ -8205,6 +8210,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.d6e8fa",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): Earliest evidence found, used as a lower bound: Purchase 1989 (Pol J Occup Med 2(4):337-49, PMID 2489435) reports that IPCS produces ICSCs. Later evidence: a 1992 review of the printed cards (https://doi.org/10.1016/0304-3894(92)87024-a), 349 English cards by 1993 (PMID 8255257), online at NIOSH by 1997-1998 (web archive) and in the ILO database later. The project start date was not found and there is no FAIRsharing year. URL updated to the page the old one now redirects to. Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: dateBasis changed (Purchase 1989 (https://pubmed.ncbi.nlm.nih.gov/2489435/) reviews international work on existing chemicals and only mentions that IPCS produces ICSCs. It is not the paper that first describes the cards, so 1989 is a lower bound for their release. This fits WHO's World Health of December 1988, which announced 'the planned publication of some 400 ... International Chemical Safety Cards this year and next' (https://iris.who.int/handle/10665/52739).) Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -8233,6 +8239,7 @@
    ],
    "origin": "Life Sciences",
    "subdomains": [
+    "conventional toxicology",
     "computational and predictive toxicology"
    ],
    "dateReleased": "2011-07",
@@ -8245,6 +8252,7 @@
    "manuscriptEvidence": "III Computational; L147",
    "fairsharingRecord": "FAIRsharing.2b0d92",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): The first description is Juty, Le Novère & Laibe, NAR Database issue, published online 2011-12-02 (Crossref/Europe PMC). The earliest web capture of identifiers.org is 2012-07-25. The service grew out of the MIRIAM Registry (2006), which FAIRsharing lists as 'Identifiers.org Central Registry' (FAIRsharing.n14rc8, database, year 2006). The record that fits this identifier-schema row is 'Identifiers.org namespace' (FAIRsharing.2b0d92, Standard/identifier_schema, year 2012). I found it through DataCite (prefix 10.25504) and confirmed it with one JSON lookup. Homepage responded on 2026-10-05. Verified 5 Oct 2026: datePublished changed (The Identifiers.org news page (captured 2012-07-27: https://web.archive.org/web/20120727025443/http://identifiers.org/news) lists for 2011: 'July: Beta version of Identifiers.org goes live' and 'September: Identifiers.org leaves the beta stage!'. The NAR paper (received 2011-09-16) also calls the URL scheme 'recently introduced'. The service was therefore public months before the 2011-12-02 paper. Use 2011-09 if a public beta should not count.) Verified 5 Oct 2026: dateBasis changed (The earliest event is the public (beta) launch in July 2011, not the paper.) Verified 5 Oct 2026: dateSource changed (This news page dates the launch: July 2011, beta live.) Verified 5 Oct 2026: fairsharingMatch changed (One JSON lookup of https://fairsharing.org/FAIRsharing.2b0d92 returns 'Identifiers.org namespace', Standard/identifier_schema, status ready, homepage docs.identifiers.org/pages/identification_scheme.html. Its description is the Identifiers.org compact-identifier resolution service, which matches this identifier-schema row.) Proposed 9 Oct 2026: Registry and resolver of namespace prefixes and compact identifiers that makes data references globally unique and resolvable, an identifier service.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -10870,6 +10878,7 @@
    "manuscriptEvidence": "III Data generation (nano); L109",
    "fairsharingRecord": "FAIRsharing.284e1z",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): I corrected the date from 2009. 2009 matches the OBI release of 2009-11-02 used in Brinkman et al. 2010 (doi:10.1186/2041-1480-1-S1-S7), but an OBI OWL file was already public at obi.sourceforge.net (web capture 2007-08-07). The OBI site, which says OBI was renamed from FuGO, existed by Jan 2007, and the SourceForge project was created 2006-09-20. FuGO, the predecessor, was described in OMICS 2006 (doi:10.1089/omi.2006.10.199). FAIRsharing gives 2008, and the main paper is Bandrowski et al., PLoS One 2016 (the previous source). 2007 is used as a web-archive lower bound. Verified 5 Oct 2026: datePublished changed (OBI is FuGO renamed: 'The FuGO effort was rechristened the Ontology for Biomedical Investigations' (Bandrowski et al. 2016, PMC4851331). FuGO was first described in OMICS 10(2) 2006 (doi:10.1089/omi.2006.10.199; Crossref print 2006-06, online 2006-07). FuGO.owl itself (223 classes) was public at fugo.sourceforge.net/ontology/FuGO.owl by 2006-09-06 (https://web.archive.org/web/20060906041903/http://fugo.sourceforge.net/ontology/FuGO.owl). Both are earlier than the 2007 OBI.owl capture.) Verified 5 Oct 2026: dateBasis changed (The earliest event is the 2006 OMICS paper that first describes the ontology (as FuGO). FuGO.owl was also public in 2006.) Verified 5 Oct 2026: dateSource changed (Whetzel et al., 'Development of FuGO: an ontology for functional genomics investigations', OMICS 2006, is the first describing paper of OBI under its original name.) Proposed 9 Oct 2026: OBO ontology giving controlled terms and relations that model investigations, protocols, assays and data transformations for machine-readable experimental metadata.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -12192,13 +12201,14 @@
     "Regulator"
    ],
    "subdomains": [
+    "conventional toxicology",
     "eco-toxicology"
    ],
    "dateReleased": "2009",
    "dateSource": "https://web.archive.org/web/20091227082216/http://www.ineris.fr/substances/fr/content/sitemap",
    "creator": "INERIS (French National Institute for Industrial Environment and Risks)",
    "url": "https://substances.ineris.fr/",
-   "description": "French INERIS portal that brings together toxicological, ecotoxicological, physico-chemical, technical-economic and regulatory information on chemical substances. It includes INERIS toxicological and environmental data sheets, acute toxicity thresholds for accidents and environmental quality standards, mainly in French.",
+   "description": "French INERIS portal that brings together toxicological, ecotoxicological, physico-chemical, environmental fate and behaviour, production and use data, and regulatory information on chemical substances produced by national and international reference organisations. It includes INERIS toxicological and environmental data sheets, acute toxicity thresholds for accidents and environmental quality standards, mainly in French.",
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
@@ -12206,6 +12216,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.b71e74",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2009 confirmed by the archive: the INERIS Portail Substances Chimiques was online by 2009-12-27 (earliest capture of www.ineris.fr/substances), and a March 2010 capture shows 'Copyright 2009, Version: 1'. The exact launch date was not found. Now at substances.ineris.fr. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -13151,6 +13162,7 @@
    ],
    "origin": "Life Sciences",
    "subdomains": [
+    "AOP-based mechanistic knowledge",
     "computational and predictive toxicology"
    ],
    "dateReleased": "2001-03-02",
@@ -13166,6 +13178,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.9qv71f",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): I corrected the date from 2003. sbml.org says the SBML Level 1 Version 1 specification was 'made available on 2001-03-02'. The 2003 Bioinformatics paper (doi:10.1093/bioinformatics/btg015, 2003-03-01) was the previous source and is a later description. FAIRsharing year 1999 is the project start; the SBML FAQ says the name was conceived around 2000. Initial development to 2003 was funded through the ERATO Kitano project at Caltech. Proposed 9 Oct 2026: An XML language for encoding computational models of biological processes so that machines can exchange, reuse and simulate them.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
