@@ -4547,3 +4547,59 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-07,curation sheet 2026-11-07,portail_substances_chimiques_psc,reviewedBy,,IM,IM,curation-sheet.xlsx
 2026-11-07,curation sheet 2026-11-07,sbml,subdomains,computational and predictive toxicology,AOP-based mechanistic knowledge; computational and predictive toxicology,IM,curation-sheet.xlsx
 2026-11-07,curation sheet 2026-11-07,sbml,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_br_hazardous_waste,(row),(new),Biennial Hazardous Waste Report Data,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_cdr,(row),(new),Chemical Data Reporting (CDR) public data,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_chad,(row),(new),Consolidated Human Activity Database (CHAD),,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_cpdat,(row),(new),Chemical and Products Database (CPDat),,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_naknowbase,(row),(new),NaKnowBase,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_ow_aquatic_criteria,(row),(new),National Recommended Aquatic Life Criteria,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_ow_pfas_aquatic_benchmarks,(row),(new),Clean Water Act Aquatic Life Benchmarks for Eight Data-Limited PFAS,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_sems_contaminants,(row),(new),SEMS Superfund Site Contaminant Records,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_toxrefdb,(row),(new),Toxicity Reference Database (ToxRefDB),,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_toxvaldb,(row),(new),Toxicity Values Database (ToxValDB),,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_tri_basic_plus,(row),(new),TRI Basic Plus data files,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,epa_ucmr5_occurrence,(row),(new),UCMR 5 Drinking-Water Contaminant Occurrence Data,,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,nice,(row),(new),NICE curated data sets (NTP Integrated Chemical Environment),,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,ntp_ames,(row),(new),DTT Bacterial Reverse Mutation (Ames) data (CEBS),,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,inhand,fsrType,https://w3id.org/fair/fip/terms/Structured-vocabulary,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,inhand,subdomains,,conventional toxicology; nanotoxicology; AOP-based mechanistic knowledge,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,inhand,description,"An internationally harmonised nomenclature, with diagnostic criteria, for proliferative and non-proliferative lesions in laboratory animals. The toxicologic pathology societies publish it one organ system at a time, and it is maintained on the goRENI platform. It standardises how histopathology findings in non-clinical safety studies are recorded and supports the controlled terminology used for regulatory data exchange (SEND).","An internationally harmonised nomenclature, with diagnostic criteria, for proliferative and non-proliferative lesions in laboratory animals - it is maintained on the goRENI platform. It standardises how histopathology findings in non-clinical safety studies are recorded and supports the controlled terminology used for regulatory data exchange (SEND).",IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,inhand,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,intob,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,intob,exclusionReason,,E4,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,intob,fsrType,https://w3id.org/fair/fip/terms/Editor,https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service; https://w3id.org/fair/fip/terms/FAIR-Representation-Service,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,intob,description,"INTOB is a cloud-based data management application with an integrated database and a controlled vocabulary of effects. It records phenotypic observations and metadata from organism-level toxicity tests, mainly the zebrafish embryo acute toxicity test, so that results can be compared and reanalysed across studies.","INTOB as a web-based software solution for collecting and managing zebrafish embryo toxicity data in an  integrated database with a controlled vocabulary of effects. The centralized storage allowed researchers to efficiently search, retrieve and analyze the compiled data. INTOB's infrastructure supported comprehensive data analyses, enabling the identification of patterns, assessment of control variability, and exploration of chemical modes of action based on morphological fingerprints.",IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,intob,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,miametox,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,miametox,exclusionReason,,E8,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,miametox,coveredBy,,arrayexpress,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,miametox,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,miametox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,miate,subdomains,toxicogenomics,conventional toxicology,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,miate,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,mitnano,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,mitnano,description,"A modular minimum information table that sets out what to report with experimental results on the biological effects of engineered nanomaterials. Its six modules are general information, material, biological model, exposure, endpoint read-out, and analysis and statistics. It supports structured, harmonised documentation of nanosafety studies so the data can be reused.","A modular minimum information table that sets out what to report with experimental results on the biological effects of engineered nanomaterials. Its six modules are: general information, material information, biological model information, exposure information, endpoint readout information, and analysis and statistics. It supports structured, harmonised documentation of nanosafety studies so the data can be reused.",IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,mitnano,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,nanodash,fsrType,https://w3id.org/fair/fip/terms/Editor,https://w3id.org/fair/fip/terms/Editor; https://w3id.org/fair/fip/terms/Registry,JH,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,nanopub,fsrType,https://w3id.org/fair/fip/terms/Provenance-model,https://w3id.org/fair/fip/terms/FAIR-Publishing-Service; https://w3id.org/fair/fip/terms/Provenance-model,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,nanopub,subdomains,AOP-based mechanistic knowledge,,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,nanopub,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,norman_susdat,description,"Merged and curated database of more than 100,000 substances of environmental concern, compiled from the suspect lists contributed to the NORMAN Suspect List Exchange. It adds harmonised identifiers (CAS, SMILES, InChIKey, PubChem CID, DTXSID), MS-ready structures and predicted properties and ecotoxicity thresholds. It supports suspect and non-target screening, prioritisation and exposure assessment of emerging contaminants.","Merged and curated database of more than 100,000 substances of environmental concern, compiled from the substances contributed to the NORMAN Suspect List Exchange. It adds harmonised identifiers (CAS, SMILES, InChIKey, PubChem CID, DTXSID), MS-ready structures and predicted properties and ecotoxicity thresholds. It supports suspect and non-target screening, prioritisation and exposure assessment of emerging contaminants in the environment.",IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,norman_susdat,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,oorf,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema; https://w3id.org/fair/fip/terms/Provenance-model,https://w3id.org/fair/fip/terms/FAIR-Practice; https://w3id.org/fair/fip/terms/Metadata-schema,IM,curation-sheet.xlsx
+2026-11-08,curation sheet 2026-11-08,oorf,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-08,fairsharing import 2026-11-08,epa_br_hazardous_waste,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_cdr,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_chad,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_cpdat,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_naknowbase,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_ow_aquatic_criteria,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_ow_pfas_aquatic_benchmarks,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_sems_contaminants,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_toxrefdb,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_toxvaldb,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_tri_basic_plus,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,epa_ucmr5_occurrence,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,nice,fairsharingRecord,,9432,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,nice,fairsharingMatch,,to check,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-08,fairsharing import 2026-11-08,ntp_ames,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
