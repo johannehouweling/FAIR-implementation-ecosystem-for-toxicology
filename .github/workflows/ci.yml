@@ -66,8 +66,10 @@ jobs:
         # 10.25504/...) need a login and which asked for at most one request every 8 to 12 seconds; the dataset's
         # own w3id.org identifiers until that namespace is registered; the Wayback Machine, which throttles bursts
         # of requests and whose snapshots do not go away; and sites that answer no automated client: apvma.gov.au,
-        # fda.gov (404 to GitHub's runners only), canada.ca (resets HTTP/2 connections) and aop-networkfinder.no,
-        # whose certificate chain lacks its intermediate (browsers fetch it, lychee does not).
+        # fda.gov (404 to GitHub's runners only), canada.ca (resets HTTP/2 connections), aop-networkfinder.no (its
+        # certificate chain lacks its intermediate, which browsers fetch but lychee does not), ega-archive.org and
+        # proconsortium.org (intermittent connection failures), and one Europe PMC full-text endpoint that
+        # intermittently returns HTTP 500.
         continue-on-error: ${{ github.event_name == 'pull_request' }}
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
@@ -76,6 +78,8 @@ jobs:
             --accept 200..=299,300..=399,403,429 --header 'Accept: text/html, */*;q=0.1'
             --exclude fairsharing.org --exclude doi.org/10.25504 --exclude w3id.org/fair-tox --exclude web.archive.org
             --exclude apvma.gov.au --exclude fda.gov --exclude canada.ca --exclude aop-networkfinder.no
+            --exclude ega-archive.org --exclude proconsortium.org
+            --exclude ebi.ac.uk/europepmc/webservices/rest/PMC1241500/fullTextXML
             data/fair-tox-ecosystem.jsonld README.md docs/*.md
       - name: Check out the public dashboard repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
