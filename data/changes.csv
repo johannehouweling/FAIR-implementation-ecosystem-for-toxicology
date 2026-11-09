@@ -4603,3 +4603,86 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-08,fairsharing import 2026-11-08,nice,fairsharingRecord,,9432,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
 2026-11-08,fairsharing import 2026-11-08,nice,fairsharingMatch,,to check,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
 2026-11-08,fairsharing import 2026-11-08,ntp_ames,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-09,curation sheet 2026-11-09,molecular_adverse_outcome,(row),(new),Molecular Adverse Outcome Pathways,MM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aopdb_v2,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aophelp_2025,decision,exclude,include,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aophelp_2025,exclusionReason,E6,,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aophelp_2025,coveredBy,aophelp,,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aophelp_2025,fsrType,https://w3id.org/fair/fip/terms/FAIR-Analysis-Service,https://w3id.org/fair/fip/terms/FAIR-Analysis-Service; https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service; https://w3id.org/fair/fip/terms/FAIR-Visualization-Service,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aophelp_2025,description,"AOP-helpFinder 3.0 is the third major version of AOP-helpFinder. It adds network views of the stressor-event and event-event (key event relationship) links found by text mining, and annotates them with data from external sources such as AOP-Wiki, KEGG, WikiPathways, Reactome, UniProt and disease-gene databases.","AOP-helpFinder 3.0 is the third major version of AOP-helpFinder. AOP-helpFinder is a web tool for identification and extraction of associations between stressors and biological events at various level of the biological organization (molecular initiating event (MIE), key event (KE), and adverse outcome (AO)) so researchers can collect literature evidence to build and weigh adverse outcome. The third version adds network views of the stressor-event and event-event (key event relationship) links found by text mining, and annotates them with data from external sources such as AOP-Wiki, KEGG, WikiPathways, Reactome, UniProt and disease-gene databases.",IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aophelp_2025,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,aopnet,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,arrayexpress,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,bao,fsrType,https://w3id.org/fair/fip/terms/Structured-vocabulary,https://w3id.org/fair/fip/terms/Semantic-model; https://w3id.org/fair/fip/terms/Structured-vocabulary,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,bao,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,bioschemas_chemicalsubstance,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,cas_rn,fsrType,https://w3id.org/fair/fip/terms/Identifier-service,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,cas_rn,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,chebi,subdomains,nanotoxicology; computational and predictive toxicology,conventional toxicology; nanotoxicology; computational and predictive toxicology,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,chebi,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,chemspider,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ciao,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ciao,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ciao,description,(Modelling the Pathogenesis of COVID-19 Using the Adverse Output Pathway Framework),(Modelling the Pathogenesis of COVID-19 Using the Adverse Outcome Pathway Framework),JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ciao,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,cl,fsrType,https://w3id.org/fair/fip/terms/Structured-vocabulary,https://w3id.org/fair/fip/terms/Semantic-model; https://w3id.org/fair/fip/terms/Structured-vocabulary,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,cl,subdomains,nanotoxicology,conventional toxicology; nanotoxicology,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,cl,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,compact_identifier,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,compact_identifier,exclusionReason,,E6,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,compact_identifier,coveredBy,,identifiersorg,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,compact_identifier,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,cookbook,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,cosing,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ctd,description,"Public knowledgebase in which biocurators extract chemical-gene, chemical-disease, gene-disease and chemical exposure relationships from the literature. These are integrated with external data such as GO and pathways to infer chemical-gene-disease networks. It helps generate hypotheses on how environmental chemicals affect human health.","Public knowledgebase in which curators extract chemical-gene, chemical-disease, gene-disease and chemical exposure relationships from the literature. These are integrated with external data such as GO and pathways to infer chemical-gene-disease networks. It helps generate hypotheses on how environmental chemicals affect human health.",IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ctd,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,danish_q_sar_database,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ec_inventory,fsrType,https://w3id.org/fair/fip/terms/Identifier-service,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ec_inventory,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,echa_bpr,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,echa_chem_reach,name,"ECHA CHEM - Registration, Evaluation, Authorisation and Restriction of Chemicals Regulation",ECHA CHEM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,echa_chem_reach,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,echa_clp,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,echa_clp,exclusionReason,,E6,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,echa_clp,coveredBy,,echa_chem_reach,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,echa_clp,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,epa_aquatic_life_benchmarks,url,https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/aquatic-life-benchmarks-and-ecological-risk#benchmarks,https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/aquatic-life-benchmarks-and-ecological-risk,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,epa_aquatic_life_benchmarks,description,"Table from EPA's Office of Pesticide Programs giving freshwater toxicity benchmarks for registered pesticides and their degradates: acute and chronic values for fish, invertebrates and plants. Each value links to the EPA risk assessment it comes from, with Office of Water criteria shown where they exist. States, tribes and others use it to interpret pesticide levels measured in water and to decide which sites to follow up.","Table from EPA's Office of Pesticide Programs (OPP) giving freshwater toxicity benchmarks for registered pesticides and their degradation products: acute and chronic values for fish, invertebrates and plants. For each of the chemicals listed, the table provides a link to the source documents from which each of the benchmarks is extracted.  EPA uses Harmonized Test Guidelines and the Evaluation Guidelines for Ecological Toxicity Data in the Open Literature to evaluate the quality and utility of the studies. The toxicity data used to develop Aquatic Life Benchmarks are extracted from the most recent publicly available OPP risk assessment for the individual pesticide and are typically based on the most sensitive value for each taxon. Aquatic Life Benchmarks are estimates of the concentrations below which pesticides are not expected to represent a risk of concern for aquatic life. The Office of Water criteria shows where risks exist. It is used by State, tribal, and local governments  to interpret pesticide levels measured in water and to decide which sites to follow up.",IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,epa_aquatic_life_benchmarks,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,epa_chemview,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,fairsharing,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,fip_wizard,subdomains,AOP-based mechanistic knowledge,,GB,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,fipwiz,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,fuji,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,large_language_model_llm,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,large_language_model_llm,exclusionReason,,E2,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,large_language_model_llm,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ntp_ames,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ntp_ames,exclusionReason,,E6,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ntp_ames,coveredBy,,cebs,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,ntp_ames,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,obi,fsrType,https://w3id.org/fair/fip/terms/Structured-vocabulary,https://w3id.org/fair/fip/terms/Semantic-model; https://w3id.org/fair/fip/terms/Structured-vocabulary,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,obi,subdomains,nanotoxicology,,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,openfoodtox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,owl,subdomains,nanotoxicology,,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,owl,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,pro,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,rdf,subdomains,AOP-based mechanistic knowledge,,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,rdf,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,send,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,send,exclusionReason,,E7,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,send,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/Domain-Specific-Registry; https://w3id.org/fair/fip/terms/Metadata-schema,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,send,description,"A CDISC standard that specifies how data from nonclinical (animal) toxicology studies are organised, formatted and coded for exchange and electronic submission to regulators such as the US FDA. Its implementation guides define domains, variables and controlled terminology so study data can be reviewed, pooled and reused consistently.","A CDISC standard that specifies how data from nonclinical (animal) toxicology studies are organised, formatted, and coded for exchange and electronic submission to regulators such as the US FDA. Its implementation guides define domains, variables and controlled terminology so study data can be reviewed, pooled, and reused consistently.",IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,send,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,sparql,name,SPARQL,SPARQL Query,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,sparql,subdomains,AOP-based mechanistic knowledge,,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,sysbiotop_moving,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,sysbiotop_moving,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,sysbiotop_moving,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,tbc,description,"A checklist of the information that should accompany data from a toxicology or toxicogenomics study: subject characteristics, treatment and sample collection, husbandry and disposition, and the study timeline. It was proposed so that study data deposited in databases such as CEBS could be interpreted and compared across studies. It is no longer maintained.","A checklist of the information that should accompany data from a toxicology or toxicogenomics study: subject characteristics, treatment and sample collection, husbandry and disposition, and the study timeline. It was proposed so that study data deposited in databases such as CEBS ( Chemical Effects in Biological Systems) could be interpreted and compared across studies.",IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,tbc,maintained,discontinued,active,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,tbc,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,tggates,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,worldfair,decision,undecided,exclude,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,worldfair,exclusionReason,,E1,JH,curation-sheet.xlsx
+2026-11-09,curation sheet 2026-11-09,worldfair,reviewedBy,,JH,JH,curation-sheet.xlsx
