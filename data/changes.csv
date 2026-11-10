@@ -4686,3 +4686,189 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-09,curation sheet 2026-11-09,worldfair,decision,undecided,exclude,JH,curation-sheet.xlsx
 2026-11-09,curation sheet 2026-11-09,worldfair,exclusionReason,,E1,JH,curation-sheet.xlsx
 2026-11-09,curation sheet 2026-11-09,worldfair,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,agritox,creator,INRA; ANSES,https://ror.org/0471kz689; https://ror.org/05y503v71,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ammar_mi,creator,Maastricht University (BiGCaT),https://ror.org/02jz4aj89,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,aop_ec,creator,US EPA; EC JRC,https://ror.org/03tns0030; https://ror.org/04j5wtv36,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,aop_ec,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,dateReleased,,2019-07,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,dateSource,,https://doi.org/10.1093/nar/gkz1033,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,creator,,https://ror.org/02catss52,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,description,,"EMBL-EBI's public archive for biological images from any imaging modality and scale, from molecules to whole organisms, for datasets linked to a publication or of value beyond a single experiment; patient-identifiable medical images are excluded. It implements the REMBI metadata guidelines, archives data for related image resources such as EMPIAR and IDR, and is adding OME-Zarr access for interactive viewing and streaming.",JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,maintained,,active,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,bioimage_archive,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,biomodels,creator,EMBL-EBI,https://ror.org/02catss52,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,biosd,creator,EMBL-EBI,https://ror.org/02catss52,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,biostudies,creator,EMBL-EBI,https://ror.org/02catss52,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,biu,span,Data integration,Data integration; Regulatory assessment,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,biu,creator,German Environment Agency (UBA),https://ror.org/0329ynx05,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,biu,description,"Database of the German Environment Agency on the ChemInfo platform. It collects monitoring data on biocidal active substances in water, wastewater, soil, sediment, sewage sludge and biota from Germany, Austria and Switzerland, together with approval status, physicochemical properties and CLP classification. Environmental occurrence data for biocides can be searched and exported.","Database of the German Environment Agency on the ChemInfo platform. The site provides environmental monitoring data for biocidal substances from Germany, Austria, and Switzerland, including measurements in water, wastewater, soil, sediment, sewage sludge, and biota, together with approval status, physicochemical properties and CLP classification. Environmental occurrence data for biocides can be searched and exported.",IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,biu,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,blood_exposome_db,creator,UC Davis (West Coast Metabolomics Center),https://ror.org/05rrcem69,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,cesar,creator,Environment and Climate Change Canada; Health Canada,https://ror.org/026ny0e17; https://ror.org/05p8nb362,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,comptox,subdomains,conventional toxicology; exposome; computational and predictive toxicology,conventional toxicology; exposome; eco-toxicology,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,comptox,dateReleased,2016-04,2016-08,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,comptox,dateSource,https://doi.org/10.1186/s13321-017-0247-6,https://www.epa.gov/comptox-tools/comptox-chemicals-dashboard-about,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,comptox,creator,US EPA,https://ror.org/03tns0030,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,comptox,description,"US EPA web application built on the curated DSSTox substance and structure database. For about a million chemicals it brings together physicochemical, fate, exposure, use, in vivo toxicity and ToxCast/Tox21 in vitro bioactivity data. Batch search, identifier mapping and downloads make these data reusable for computational toxicology and risk assessment.","US EPA web application built on the curated DSSTox substance and structure database for about a million chemicals.  The available data includes, but is not limited to, chemical properties, environmental fate and transport, hazard (e.g., point of departure, legacy toxicity values, screening levels, exposure limits), in vitro to in vivo extrapolation (IVIVE), exposure, use categories, toxic release inventory, monitoring data), bioactivity (e.g., high-throughput data from ToxCast and Tox21 efforts).Batch search, identifier mapping and downloads make these data reusable for computational toxicology and risk assessment.",IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,comptox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,crahub,fairsharingType,,Database: knowledgebase,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,crahub,dateReleased,,2025-03-13,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,crahub,dateSource,,https://crahub.eu/news,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dc_data_explorer,subdomains,conventional toxicology; toxicogenomics,conventional toxicology; toxicogenomics; AOP-based mechanistic knowledge; computational and predictive toxicology,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dc_data_explorer,dateReleased,2017-07-12,2017-01-13,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dc_data_explorer,dateSource,https://doi.org/10.5281/zenodo.831444,https://github.com/DouglasConnect/opentox-toxcast/tags?after=api1.31,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dc_data_explorer,creator,Douglas Connect (now Edelweiss Connect),https://ror.org/05cpjy057,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dc_data_explorer,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsfp,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsfp,subdomains,,exposome,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsfp,datePublished,,2019-06,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsfp,dateSource,,https://doi.org/10.1016/j.trac.2019.04.008,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsfp,creator,,NORMAN Association,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsfp,description,,"NORMAN platform that archives full-scan liquid and gas chromatography high-resolution mass spectrometry (LC-HRMS, GC-HRMS) data of environmental samples as digitally frozen samples. The archived samples can be screened retrospectively for thousands of substances by exact mass, predicted retention time, isotopic fit and fragment ions, supporting suspect and non-target screening across monitoring campaigns.",,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsfp,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,fairsharingType,,Database: knowledgebase,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,origin,,Toxicology,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,phase,,Data integration,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,span,,Data integration; Regulatory assessment,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,creatorType,,Regulator,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,subdomains,,computational and predictive toxicology,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,datePublished,,2019-11-01,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,dateSource,,https://doi.org/10.1016/j.comtox.2019.100096,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,creator,,https://ror.org/03tns0030,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,url,,https://www.epa.gov/comptox-tools/distributed-structure-searchable-toxicity-dsstox-database,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,description,,"US EPA's curated database of chemical substances, in which each substance's names and CAS Registry Numbers are linked to one accurate chemical structure and a permanent DSSTox substance identifier (DTXSID). It covers more than a million substances on lists of interest to EPA and other agencies and is the chemistry foundation of the CompTox Chemicals Dashboard, so that toxicity, bioactivity and property data can be associated with the right chemical and used in structure-based models.",,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dsstox,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,fairsharingType,,Standard: identifier schema,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,fsrType,,https://w3id.org/fair/fip/terms/Identifier-service,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,origin,,Toxicology,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,phase,,Data generation,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,span,,Data generation; Data integration,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,creatorType,,Regulator,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,subdomains,,computational and predictive toxicology,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,dateReleased,,2016-04,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,dateSource,,https://doi.org/10.1186/s13321-017-0247-6,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,creator,,https://ror.org/03tns0030,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,url,,https://registry.identifiers.org/registry/comptox,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,description,,"The DSSTox substance identifier (DTXSID) is the permanent identifier that US EPA's DSSTox database gives each curated substance, which can be a single chemical, a mixture, a polymer or a chemical family; it is written as DTXSID followed by digits. It resolves to the substance's record in the CompTox Chemicals Dashboard, also through identifiers.org (prefix comptox), so data on the same substance can be linked across databases.",,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,echemportal,creator,OECD,https://ror.org/0438wbg98,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ecotox,creator,US EPA,https://ror.org/03tns0030,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ecotox,description,"US EPA knowledgebase of curated single-chemical toxicity test results for aquatic organisms, terrestrial plants and wildlife, taken from the literature and coded with controlled vocabularies. Its searchable, downloadable records, linked to other chemical resources, support ecological risk assessment, water-quality criteria and model development.","US EPA knowledgebase of curated single-chemical toxicity test results for aquatic organisms, terrestrial plants and wildlife, taken from the literature and coded with controlled vocabularies. Its searchable, downloadable records, linked to other chemical resources, support ecological risk assessment, water-quality criteria, and model development.",IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ecotox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ectothes,phase,Data integration,Data generation,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ectothes,span,Data integration,Data generation; Data integration,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ectothes,creator,INIST-CNRS,https://ror.org/02mn0vt57,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ectothes,description,"A bilingual French-English SKOS thesaurus of about 4,700 ecotoxicology concepts, published by INIST-CNRS on the Loterre platform. It covers pollutants and their effects on ecosystems and human health, as well as organisms, places and chemical compounds. It provides controlled, linkable terms with synonyms for indexing and searching ecotoxicology literature and data.","A bilingual French-English SKOS thesaurus of about 4,700 ecotoxicology concepts, published by INIST-CNRS on the Loterre platform. It covers pollutants and their effects on ecosystems and human health. It also contains terms from geography, animal and plant taxonomy and chemical compounds. It uses polyhierarchy. Concepts are grouped into semantic categories. It provides controlled, linkable terms with synonyms for indexing and searching ecotoxicology literature and data.",IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ectothes,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,efsa_fairmem,creator,EFSA,https://ror.org/056nc1c48,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,efsa_fairmem,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,elixir_depdb,creator,ELIXIR,https://ror.org/044rwnt51,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ensembl,creator,EMBL-EBI and Wellcome Sanger Institute,https://ror.org/02catss52; https://ror.org/05cy4wa09,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_br_hazardous_waste,dateReleased,,1989-03,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_br_hazardous_waste,dateSource,,https://www.osti.gov/biblio/5765711,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cdr,dateReleased,,2013-02-11,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cdr,dateSource,,https://www.epa.gov/archive/epapages/newsroom_archive/newsreleases/22372fbe760c424085257b0f00686b31.html,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cdr,url,https://www.epa.gov/chemical-data-reporting/access-cdr-data#2024,https://www.epa.gov/chemical-data-reporting/access-cdr-data,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_chad,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_chad,datePublished,,2000-11-01,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_chad,dateSource,,https://doi.org/10.1038/sj.jea.7500114,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_chad,creator,US EPA,https://ror.org/03tns0030,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_chad,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cpdat,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cpdat,dateReleased,,2017-08-28,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cpdat,dateSource,,https://doi.org/10.23645/epacomptox.5352997.v1,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cpdat,creator,"US EPA, Center for Computational Toxicology and Exposure",https://ror.org/03tns0030,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_cpdat,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_integrated_risk_information,creator,US EPA,https://ror.org/03tns0030,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_naknowbase,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_naknowbase,dateReleased,,2020-12-29,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_naknowbase,dateSource,,https://doi.org/10.6084/m9.figshare.13499292.v1,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_naknowbase,creator,"US EPA, Office of Research and Development",https://ror.org/03tns0030,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_naknowbase,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ow_aquatic_criteria,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ow_aquatic_criteria,dateReleased,,1998-12-07,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ow_aquatic_criteria,dateSource,,https://www.federalregister.gov/documents/1998/12/07/98-30272/national-recommended-water-quality-criteria,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ow_aquatic_criteria,creator,"US EPA, Office of Water",https://ror.org/03tns0030,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ow_aquatic_criteria,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_substance_registry_services,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_substance_registry_services,exclusionReason,,E5,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_substance_registry_services,creator,US EPA,https://ror.org/03tns0030,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_substance_registry_services,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxrefdb,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxrefdb,subdomains,conventional toxicology,conventional toxicology; computational and predictive toxicology,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxrefdb,datePublished,,2008-10-20,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxrefdb,dateSource,,https://doi.org/10.1289/ehp.0800074,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxrefdb,creator,"US EPA, Center for Computational Toxicology and Exposure",https://ror.org/03tns0030,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxrefdb,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxvaldb,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxvaldb,dateReleased,,2016,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxvaldb,dateSource,,https://doi.org/10.1016/j.comtox.2025.100365,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxvaldb,creator,"US EPA, Center for Computational Toxicology and Exposure",https://ror.org/03tns0030,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_toxvaldb,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ucmr5_occurrence,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ucmr5_occurrence,dateReleased,,2023-08-17,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ucmr5_occurrence,dateSource,,https://web.archive.org/web/20230817190517/https://www.epa.gov/dwucmr/data-summary-fifth-unregulated-contaminant-monitoring-rule,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ucmr5_occurrence,creator,"US EPA, Office of Water",https://ror.org/03tns0030,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,epa_ucmr5_occurrence,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,exo,creator,CTD team (NC State University) and US EPA,https://ror.org/04tj63d06; https://ror.org/03tns0030,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,exo,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fair_data_point_fdp,fairsharingType,,Standard: model/format,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fair_data_point_fdp,fsrType,,https://w3id.org/fair/fip/terms/Communication-protocol; https://w3id.org/fair/fip/terms/FAIR-Publishing-Service; https://w3id.org/fair/fip/terms/Metadata-schema,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fair_data_point_fdp,dateReleased,,2017-02-10,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fair_data_point_fdp,dateSource,,https://github.com/FAIRDataTeam/FAIRDataPoint/tree/0.1-beta,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fair_data_point_fdp,description,,"A metadata service, defined by an open specification with a reference implementation, through which data owners publish machine-readable metadata about their datasets and other digital objects in a FAIR way. It serves DCAT and Dublin Core metadata through a REST API based on the Linked Data Platform, and FAIR Data Points can notify an index so that networks of them can be searched together.",,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fair_data_point_fdp,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fairimplspace,dateReleased,2026,2026-09-08,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,fairimplspace,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,ghs_j,creator,"NITE (National Institute of Technology and Evaluation, Japan)",https://ror.org/044jdke57,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,immport,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,immport,creator,,https://ror.org/043z4tv69,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,immport,description,,"NIAID's open-access repository and analysis platform for immunology data, which archives and shares clinical-trial, mechanistic-study and assay data, such as flow cytometry and gene expression, with their protocols, from NIAID-funded and other studies. Shared studies can be searched and downloaded by any registered researcher, and data templates and a data model support standardised submission.",,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,immport,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,isajson,creator,"ISA team, University of Oxford",https://ror.org/052gg0110,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,isatab,creator,"ISA team (EMBL-EBI, later University of Oxford)",https://ror.org/02catss52; https://ror.org/052gg0110,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,nanoaop,creator,Maastricht University (BiGCaT),https://ror.org/02jz4aj89,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,nice,dateReleased,,2017-03,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,nice,dateSource,,https://ntp.niehs.nih.gov/whatwestudy/niceatm/comptox/ct-ice/ice,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,subdomains,,exposome; eco-toxicology,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,dateReleased,,2019,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,dateSource,,https://web.archive.org/web/20190825113313/https://www.norman-network.com/nds/bioassay/,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,creator,,NORMAN Association,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,description,,"Database of the NORMAN network for results of bioassays (effect-based methods) applied to environmental samples. It holds in vitro and in vivo effect data for river water, such as receptor activity (estrogen, androgen, glucocorticoid, thyroid), mutagenicity, cytotoxicity, algal growth inhibition and zebrafish embryo toxicity, searchable by country, site, bioassay, endpoint and effect concentration. Data providers submit results with NORMAN Data Collection Templates.",JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,maintained,,active,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_bioassays,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_ecotox,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_ecotox,subdomains,,eco-toxicology,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_ecotox,creator,,NORMAN Association,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_ecotox,description,,"Database of the NORMAN network with experimental ecotoxicity endpoints and quality targets from different regulatory frameworks for the substances of the NORMAN Substance Database. Experts check the reliability of studies with the CRED criteria, derive quality targets online following EC guidelines and agree on a Lowest PNEC per substance, experimental or QSAR-predicted, for prioritisation.",,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,norman_ecotox,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_existing_chemicals_database,creator,OECD,https://ror.org/0438wbg98,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,decision,undecided,include,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,fairsharingType,,Tool,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry; https://w3id.org/fair/fip/terms/FAIR-Analysis-Service,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,origin,,Toxicology,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,phase,,Data integration,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,span,,Data integration; Regulatory assessment,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,creatorType,,In silico research; Regulator,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,subdomains,,computational and predictive toxicology,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,dateReleased,,2008-03,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,dateSource,,"https://web.archive.org/web/20080420135721/http://www.oecd.org/document/23/0,3343,en_2649_34379_33957015_1_1_1_1,00.html",JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,creator,,https://ror.org/0438wbg98; https://ror.org/01ayrdf49; Laboratory of Mathematical Chemistry,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,description,,"Free software application of the OECD, co-owned with ECHA, that supports chemical hazard assessment while reducing animal testing. It retrieves experimental data from many databases, profiles chemicals and simulates their metabolism, and groups them into categories of analogues, so that data gaps can be filled by read-across, trend analysis or QSAR models and the results reported transparently, for example for regulatory use.",JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,maintained,,active,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oecd_qsar_toolbox,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,oht,creator,OECD,https://ror.org/0438wbg98,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,t3db,creator,University of Alberta (Wishart group),https://ror.org/0160cpw27,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,temowl,creator,Fraunhofer SCAI,https://ror.org/00trw9c49,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,uba_etox,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,uba_etox,subdomains,,eco-toxicology,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,uba_etox,creator,,https://ror.org/0329ynx05,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,uba_etox,description,,"Information system of the German Environment Agency (UBA), now a module of ChemInfo, with aquatic and terrestrial ecotoxicity effect data and national and international environmental quality criteria, standards and targets. It focuses on substances relevant to deriving environmental quality standards under the Water Framework Directive and to assessing measured concentrations in soil, biota and water.",,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,uba_etox,maintained,,active,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,wikipathways,creator,Gladstone Institutes / Maastricht University (BiGCaT),https://ror.org/02jz4aj89; https://ror.org/038321296,,curation-sheet.xlsx
+2026-11-10,curation sheet 2026-11-10,dtxsid,relation,(new),related_to dsstox,,curation-sheet.xlsx
