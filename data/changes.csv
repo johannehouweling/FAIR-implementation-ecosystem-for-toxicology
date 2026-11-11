@@ -4872,3 +4872,23 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-10,curation sheet 2026-11-10,uba_etox,maintained,,active,,curation-sheet.xlsx
 2026-11-10,curation sheet 2026-11-10,wikipathways,creator,Gladstone Institutes / Maastricht University (BiGCaT),https://ror.org/02jz4aj89; https://ror.org/038321296,,curation-sheet.xlsx
 2026-11-10,curation sheet 2026-11-10,dtxsid,relation,(new),related_to dsstox,,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,ammar_mi,datePublished,2022-07-05,,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,ammar_mi,dateReleased,,2024-03-27,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,ammar_mi,dateSource,https://doi.org/10.26434/chemrxiv-2022-l8vk8,https://github.com/NSDRA/nsdra-maturity-indicators/releases,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,ammar_mi,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,blood_exposome_db,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,crahub,name,Chemical Risk Assessment Datahub (CRA HUB),Chemical Risk Assessment Datahub (CRA HUB)- Laboratory Dashboard),IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,crahub,subdomains,exposome,conventional toxicology; exposome; toxicogenomics,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,crahub,creator,"Instituto de Salud Carlos III, National Centre for Environmental Health (CNSA), within PARC","RECETOX, Masaryk University + Instituto de Salud Carlos III, National Centre for Environmental Health (CNSA)",IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,crahub,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,epa_br_hazardous_waste,span,Data generation,Data generation; Regulatory assessment,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,epa_br_hazardous_waste,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,minseqe,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,nanoaop,fsrType,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,https://w3id.org/fair/fip/terms/FAIR-Representation-Service,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,nanoaop,description,"An RDF knowledge graph that combines literature-curated physicochemical data on nanomaterials with AOP information from the AOP-Wiki, using ontology terms and European Registry of Materials identifiers. A public SPARQL endpoint supports federated queries that relate nanomaterial properties to molecular initiating events and key events.","An RDF knowledge graph that combines curated physicochemical data of nanomaterials from literature, with AOP information from the AOP-Wiki, using ontology terms and European Registry of Materials identifiers. A public SPARQL endpoint supports federated queries that relate nanomaterial properties to molecular initiating events and key events.",IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,nanoaop,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,openrisknet,fsrType,https://w3id.org/fair/fip/terms/Registry,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,openrisknet,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,recipe_aop,datePublished,2024-11-05,2026-07-16,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,recipe_aop,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-11,curation sheet 2026-11-11,s2cie,reviewedBy,,IM,IM,curation-sheet.xlsx
