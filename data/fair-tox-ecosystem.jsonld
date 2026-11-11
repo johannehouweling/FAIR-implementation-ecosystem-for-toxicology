@@ -456,6 +456,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.73888a",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The producer page (ANSES on data.gouv.fr) says INRA created AGRITOX in 1986, matching the FAIRsharing year. That is a creation year; online availability is documented only from the first web capture on inra.fr/agritox (2001-07-22). Linked from eChemPortal since 2011-03-09. agritox.anses.fr no longer resolves; data are now published as open files on data.gouv.fr (last update 2026-06-10). Stakeholder Regulator: the data were validated by official assessment bodies and ANSES maintains it, although INRA is a research institute. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -511,7 +512,7 @@
    "dateSource": "https://web.archive.org/web/20200701123743/https://www.industrialchemicals.gov.au/",
    "creator": "AICIS (Australian Government)",
    "url": "https://services.industrialchemicals.gov.au",
-   "description": "Online database search portal of Australia's industrial chemicals regulator, which replaced NICNAS in July 2020. It gives access to the Australian Inventory of Industrial Chemicals, published human-health and environmental hazard, exposure and risk assessments (including reports inherited from NICNAS) and risk-management recommendations.",
+   "description": "Online database search portal of Australia's industrial chemicals regulator, which replaced National Industrial Chemicals Notification and Assessment Scheme (NICNAS) in July 2020. It gives access to the Australian Inventory of Industrial Chemicals which is a searchable database of around 40,000 chemicals that are being manufactured or imported (introduced) into Australia for industrial use. It included published human-health and environmental hazard, exposure and risk assessments (including reports inherited from NICNAS) and risk-management recommendations.",
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
@@ -519,6 +520,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.79e002",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. Included as AICIS's database (the 'AICIS Database Search Portal', called 'AICIS assessments' in eChemPortal) rather than the regulator itself, because FAIRsharing registers it as a knowledgebase; consider renaming the row. AICIS started on 1 July 2020, and the Wayback capture of that day shows its site already offering inventory and assessment search. The services portal itself is first captured 2022-10-05. FAIRsharing year 2020 agrees. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -2473,6 +2475,14 @@
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#dixa",
+     "hadRole": "deprecates",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1093/nar/gkx965",
+     "reviewedBy": "JH",
+     "note": "Sarkans et al. 2018: BioStudies hosts the study descriptions and data of the diXa data warehouse as the diXa project (S-DIXA accessions)."
+    },
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#dixa",
      "hadRole": "related_to",
      "evidence": "literature",
      "source": "https://doi.org/10.1093/nar/gkx965",
@@ -2575,7 +2585,7 @@
    "dateSource": "https://doi.org/10.1289/EHP4713",
    "creator": "https://ror.org/05rrcem69",
    "url": "https://bloodexposome.org/",
-   "description": "Database of chemicals reported in human blood. It was built by text-mining PubMed and PubChem and merging chemical lists from metabolomics, exposure science, toxicology and nutrition. It supports exposome research and the annotation of untargeted metabolomics and exposomics data.",
+   "description": "The Blood Exposome Database catalogues the chemicals (endogenous and exogenous) that are expected and detected in human blood specimens. The database was created using a text mining approach using the NCBI PubChem , NCBI PubMed and NCBI PMC databases. Additionally, data from biomonitoring surveys and metabolomics datasets (publicly available) for human blood specimens are also covered in the database. It supports exposome research and the annotation of untargeted metabolomics and exposomics data.",
    "maintained": "active",
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.68a369",
@@ -2938,7 +2948,7 @@
    "dateReleased": "2009-02-05",
    "dateSource": "https://www.echemportal.org/echemportal/content/news",
    "creator": "https://ror.org/026ny0e17; https://ror.org/05p8nb362",
-   "url": "https://www.canada.ca/en/health-canada/services/chemical-substances.html",
+   "url": "https://pollution-waste.canada.ca/substances-search/Substance",
    "description": "Canadian repository of risk and other regulatory assessment reports on existing substances under the Canadian Environmental Protection Act, from the Priority Substances List and the Chemicals Management Plan. Each report covers substance identity, exposure, effects and risk characterisation. Reports are reached through eChemPortal and Health Canada's chemical substances portal.",
    "maintained": "active",
    "manuscript": "absent",
@@ -2947,6 +2957,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.750d23",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. CESAR is known mainly as an eChemPortal source (participant 3; see https://www.echemportal.org/echemportal/content/participants/3). The date is the eChemPortal news item of 2009-02-05 announcing CESAR as a newly participating report collection (also in https://www.echemportal.org/echemportal/api/news). The assessments themselves are older. FAIRsharing has no year. Homepage is live (modified 2025-03-04). Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -3099,7 +3110,7 @@
    "dateSource": "http://web.archive.org/web/20190821200437/https://gsbl.de/",
    "creator": "German federal and Länder authorities (ChemInfo cooperation, UBA)",
    "url": "https://recherche.chemikalieninfo.de/",
-   "description": "Chemical information system run jointly by the German federal and state authorities as the successor of the GSBL substance data pool. For each substance it compiles identity, physicochemical, toxicological and ecotoxicological data, environmental occurrence, hazard and emergency-response information and the relevant legal provisions. A public subset can be searched without registration; the full data set is open to authorities and emergency services.",
+   "description": "Chemical information system run jointly by the German federal and state authorities as the successor of the GSBL substance data pool. For each substance it compiles identity, physicochemical, toxicological and ecotoxicological data, environmental occurrence, hazard and emergency-response information and the relevant legal provisions. A subset of information can be searched without registration by the user; the full data set is open to authorities and emergency services.",
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
@@ -3107,6 +3118,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.b5a070",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): The history section on chemikalieninfo.de says the GSBL agreement ended on 2015-12-31, the ChemInfo cooperation started on 2016-01-01 and the online search application was completed in December 2021. Web-archive captures of recherche.chemikalieninfo.de start in 2022-01. The predecessor 'GSBL public' was online by 2003 (gsbl.de capture); use 2003 instead if the GSBL lineage should count. There is no FAIRsharing year. Scope, stakeholder and subdomains filled (were empty). Include: member of the FAIRsharing Toxicology collection (I4). Verified 5 Oct 2026: datePublished changed (ChemInfo could be searched publicly under its own name before the December 2021 relaunch. The gsbl.de homepage captured 2019-08-21 reads 'Willkommen bei ChemInfo! ... Unsere Datenbank ist weiterhin uneingeschänkt für Sie verfügbar ... Stoffinformationssystem ChemInfo public, einem Auszug aus dem Gesamtsystem', with a link to the public search (http://web.archive.org/web/20190821200437/https://gsbl.de/). The 2019-04-04 capture still says 'GSBL public', so 2019 is a lower bound. December 2021 is only when the rebuilt search application was completed (chemikalieninfo.de history). Use 2003 instead if the GSBL lineage counts, as the note says.) Verified 5 Oct 2026: dateSource changed (Source for the 2019 lower bound (see datePublished). dateBasis stays release.) Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -6247,7 +6259,7 @@
    "dateSource": "https://www.epa.gov/system/files/other-files/2022-02/iris-timeline-11-2020_update.json",
    "creator": "https://ror.org/03tns0030",
    "url": "https://www.epa.gov/iris",
-   "description": "US EPA programme and database of chemical health hazard assessments. Each assessment has a peer-reviewed toxicological review and toxicity values such as oral reference doses, inhalation reference concentrations and cancer slope factors or unit risks. It gives agencies and others a consistent, citable source of human-health toxicity values for risk assessment.",
+   "description": "US EPA programme and database of human health hazard assessments of chemicals,  which includes toxicity values such as oral reference doses and inhalation reference concentrations from chronic exposures and cancer hazard assessments,  inhalation unit risks. It gives agencies and others a consistent, citable source of human-health toxicity values for risk assessment erived from scientific evaluations of the available toxicological, epidemiological, and mechanistic evidence for chemicals.",
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
@@ -6255,6 +6267,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.e1124d",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Source is EPA's IRIS history timeline, the data file behind the 'History of IRIS' section of the About IRIS page. IRIS was created in 1985 as an internal EPA database and the first summaries were added in 1987. It was made public in 1988, first by e-mail and then through NLM TOXNET and NTIS, and went on the internet in March 1997. Wikipedia's '1987' refers to the internal summaries. There is no FAIRsharing year. Include: member of the FAIRsharing Toxicology collection (I4). Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -11100,7 +11113,7 @@
    "fairsharingType": "Tool",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Editor",
-    "https://w3id.org/fair/fip/terms/Registry"
+    "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service"
    ],
    "origin": "Generic",
    "dateReleased": "2020-02-24",
@@ -11116,10 +11129,7 @@
    "fairsharingMatch": "no record",
    "reviewedBy": "JH",
    "note": "Co-author addition 31 Oct 2026 (JH). Research 30 Oct 2026 (high confidence): the GitHub repository knowledgepixels/nanodash, to which peta-pico/nanobench redirects, has its first release, nanobench-1.0, on 2020-02-24; release nanodash-1.61 of 2023-02-23 carries the new name and nanodash-5.21.2 of 2026-10-25 is the latest. Kuhn et al., PeerJ Computer Science 2021 (doi 10.7717/peerj-cs.387, online 2021-03-08) describe it as Nanobench. Toxicology use: SbD4Skin (Computational and Structural Biotechnology Journal 2025, doi 10.1016/j.csbj.2025.08.001) published its skin sensitisation, skin irritation/corrosion and acute dermal toxicity datasets as nanopublications in Nanodash, and nanoPharos (NanoImpact 2025, doi 10.1016/j.impact.2025.100602) integrates with it. The descriptions of five resources declared in the toxicology FIPs (UBERON, BioSamples, ChEBI, FAIRsharing, WorkflowHub) were made in Nanodash, and its FAIR Implementation Space (https://w3id.org/spaces/FAIR-Implementation-Space, read 30 Oct 2026) lists the PARC Toxicology FIP and the Reference AOP FIP. Contact: Tobias Kuhn, the paper's first author (ORCID from Crossref); no ROR record found for Knowledge Pixels. FAIRsharing: no record.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "F4"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.343864",
@@ -14606,7 +14616,7 @@
    "dateSource": "https://doi.org/10.1093/nar/gkp934",
    "creator": "https://ror.org/0160cpw27",
    "url": "https://www.t3db.ca/",
-   "description": "Bioinformatics knowledgebase of common toxic substances, such as pollutants, pesticides, drugs and food toxins. Each toxin record links to its protein targets, mechanisms of action, toxicity values, and chemical and spectral data, and can be searched by text, structure or sequence. It was later presented as the Toxic Exposome Database.",
+   "description": "Bioinformatics knowledgebase of common toxic substances, such as pollutants, pesticides, drugs and food toxins. Each toxin record links to its protein targets, mechanisms of action, toxicity values, and chemical and spectral data, and can be searched by text, structure or sequence. It was later presented as the Toxic Exposome Database. Potential applications of T3DB include toxin metabolism prediction, toxin/drug interaction prediction, and general toxin hazard awareness by the public, making it applicable to various fields. Overall, the variety and accessibility of the T3DB make it a valuable resource for both the casual user and the advanced researcher.",
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
@@ -14614,6 +14624,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.psn0h2",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Lim et al., NAR, online 2009-11-06 (Crossref, Europe PMC); FAIRsharing year 2009 agrees. First web capture 2009-11-24 (t3db.org). The 2015 update is titled 'T3DB: the toxic exposome database' (https://doi.org/10.1093/nar/gku1004). Not E7, because it covers chemical toxicants and not only venoms or bacterial toxins. The site sits behind a Cloudflare challenge (403 to scripts) but is live in 2025 captures; URL moved to https. Include: member of the FAIRsharing Toxicology collection (I4). Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -15220,6 +15231,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.emw61v",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (low confidence): FAIRsharing year 2011 replaced. Richard, Yang & Judson 2008 describe ToxML as an existing public standard, and Yang et al. 2008 use it (Toxicol Mech Methods 18(2-3)). Leadscope offered the public schema for download (archived page 2009-05-18). The dedicated paper, Ali et al. 2013 (Lhasa), is used as url. toxml.org no longer resolves (FAIRsharing status: deprecated). The origin, around 2005-2007, could not be dated more precisely. Verified 5 Oct 2026: datePublished changed (An earlier documented public release exists. The Wayback capture of Leadscope's ToxML page from 2006-03-20 (http://web.archive.org/web/20060320041511/http://www.leadscope.com/toxml.php) describes ToxML as an XML database standard based on a toxicity controlled vocabulary and offers 'Download the public ToxML schema (version 2.0)'. The page shows copyright 2005 and a LIST Consortium meeting of 5-7 Oct 2005. This lower bound predates Richard et al. 2008 (doi:10.1080/15376510701857452). Leadscope homepage captures from 2004-2005 do not mention ToxML, and the 2006 toxml.org capture is an unrelated German placeholder page, so 2006 is the earliest documented year.) Verified 5 Oct 2026: dateBasis changed (The earliest evidence is the public schema download on Leadscope's ToxML page, captured 2006-03-20 (http://web.archive.org/web/20060320041511/http://www.leadscope.com/toxml.php). That is a public release, not a describing paper.) Verified 5 Oct 2026: dateSource changed (This archived page shows 'Download the public ToxML schema (version 2.0)' by 2006-03-20, earlier than the 2008 paper. It is the earliest web-archive capture, so it is a lower bound.) Proposed 9 Oct 2026: An XML schema with controlled vocabulary that structures toxicity study results for exchange, database integration and QSAR modelling.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -15881,6 +15893,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.1x53qk",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Agrawal et al., NAR 2024 (doi 10.1093/nar/gkad960) says WikiPathways was launched in 2007. The web archive shows the wiki live on 2007-09-28, and the FAIRsharing year is 2007. The previous value, 2008, came from the first paper (Pico et al., PLoS Biol, online 2008-07-22, doi 10.1371/journal.pbio.0060184), which postdates the launch. Creator changed from 'WikiPathways community' to the founding groups, Gladstone and BiGCaT (2008 paper affiliations). Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
