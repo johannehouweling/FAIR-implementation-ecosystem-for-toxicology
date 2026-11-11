@@ -42,9 +42,10 @@ DECISION = {
     'undecided': 'Not yet screened, or left for the co-authors to decide.',
 }
 EXCLUSION = {
-    'E1': 'Organisation, project, initiative, consortium, community or event; its named product is listed instead.',
-    'E2': 'Principle, framework, method or approach, or a publication only, rather than a resource that '
-          'can be used directly; a standard, database, policy or tool that puts it into practice is listed instead.',
+    'E1': 'Organisation, project, initiative, consortium, community or event, not a resource. Each of its named '
+          'products gets its own row.',
+    'E2': 'Principle, framework, method, approach or publication, not a usable resource. A standard, database, '
+          'policy or tool that applies it gets its own row.',
     'E3': 'Unnamed or not identifiable (no homepage or DOI).',
     'E4': 'Never publicly available.',
     'E5': 'No documented toxicology use.',

@@ -57,8 +57,8 @@ Each excluded row carries exactly one code.
 
 | Code | Reason | Examples from the manuscript |
 |---|---|---|
-| E1 | Organisation, project, initiative, consortium, community or event; its named product is listed instead. For a FAIR Implementation Community (FIC), see section 5. | EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus |
-| E2 | Principle, framework, method or approach, or a publication only, rather than a resource that can be used directly; a standard, database, policy or tool that puts it into practice is listed instead. | The FAIR principles (shown as the 2016 line in the figure), the AOP framework, IATA |
+| E1 | Organisation, project, initiative, consortium, community or event, not a resource. Each of its named products gets its own row. For a FAIR Implementation Community (FIC), see section 5. | EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus |
+| E2 | Principle, framework, method, approach or publication, not a usable resource. A standard, database, policy or tool that applies it gets its own row. | The FAIR principles (shown as the 2016 line in the figure), the AOP framework, IATA |
 | E3 | Unnamed or not identifiable (no homepage or DOI). | Services or pipelines mentioned in passing without a name |
 | E4 | Never publicly available. | A resource that cannot be found online and has no archived release |
 | E5 | No documented toxicology use. | A generic resource named only outside a toxicology context |
