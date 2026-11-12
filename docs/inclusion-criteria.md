@@ -42,14 +42,15 @@ first-release years, DOIs, FAIRsharing records and relations were used as eviden
 
 A candidate is included when all of these hold:
 
-- **I1** It is a resource, not an organisation, project, community, event or publication, except a FAIR
-  Implementation Community (section 5).
-- **I2** It is named and identifiable: it has a homepage or a DOI.
+- **I1** It is a resource, including a publication, guideline or standard, not an organisation, project, community or
+  event, except a FAIR Implementation Community (section 5).
+- **I2** It is named and identifiable: it has a homepage or a DOI. When the URL no longer resolves, a Wayback Machine
+  URL is valid.
 - **I3** It is or was publicly available. Discontinued resources are kept and marked as discontinued.
 - **I4** Its use in toxicology is documented: it is named in the manuscript in a toxicology context, it is a member
   of the FAIRsharing Toxicology collection, it is declared in a toxicology FIP, it is mentioned in an ELIXIR
   Toxicology Community document, or a co-author added it or listed it in a repository inventory (section 2).
-- **I5** It makes data or metadata findable, accessible, interoperable or reusable.
+- **I5** It supports making data or metadata findable, accessible, interoperable or reusable.
 
 ## 4. Exclusion reasons
 
@@ -57,14 +58,14 @@ Each excluded row carries exactly one code.
 
 | Code | Reason | Examples from the manuscript |
 |---|---|---|
-| E1 | Organisation, project, initiative, consortium, community or event, not a resource. Each of its named products gets its own row. For a FAIR Implementation Community (FIC), see section 5. | EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus |
-| E2 | Principle, framework, method, approach or publication, not a usable resource. A standard, database, policy or tool that applies it gets its own row. | The FAIR principles (shown as the 2016 line in the figure), the AOP framework, IATA |
-| E3 | Unnamed or not identifiable (no homepage or DOI). | Services or pipelines mentioned in passing without a name |
+| E1 | Organisation, project, initiative, consortium, community or event, not a resource. Each of its named resources or research outputs gets its own row. For a FAIR Implementation Community (FIC), see section 5. | EU-ToxRisk, eNanoMapper (the project), NanoCommons (the project), OpenRiskNet, eTRANSAFE, FAIRplus |
+| E2 | Principle, framework, concept, opinion, strategy, plan or roadmap that does not have the potential to provide a basis for the development of FAIR supporting resources. | The AOP framework, IATA |
+| E3 | Unnamed or not identifiable (no homepage or DOI), and not found in the Wayback Machine. | Services or pipelines mentioned in passing without a name |
 | E4 | Never publicly available. | A resource that cannot be found online and has no archived release |
-| E5 | No documented toxicology use. | A generic resource named only outside a toxicology context |
+| E5 | No documented toxicology use. Withdrawn on 12 Nov 2026: no longer assigned. | A generic resource named only outside a toxicology context |
 | E6 | Duplicate, version or component of another row (see Covered by). | An alternative name or a version without its own identity |
-| E7 | Outside chemical toxicology, such as toxinology or clinical adverse-event grading. | Toxinology or clinical adverse-event grading resources |
-| E8 | Test method or guideline that standardises an experiment rather than data or metadata. | An OECD test guideline that describes how to run an assay |
+| E7 | Outside chemical toxicology, which here does not include adverse events, preclinical safety testing of pharmaceuticals, pesticides and veterinary medicines, or drug safety related to product manufacturing and R&D. | Toxinology or clinical adverse-event grading resources |
+| E8 | Test method or guideline that standardises an experiment rather than data or metadata. Withdrawn on 12 Nov 2026: no longer assigned. | An OECD test guideline that describes how to run an assay |
 
 ## 5. Rules for borderline cases
 
@@ -78,7 +79,7 @@ Each excluded row carries exactly one code.
 - **Availability.** A resource the manuscript names but that cannot be found (for example the eTRANSAFE knowledge
   hub, ToxDataExplorer) stays undecided until the co-authors confirm it exists or existed (I3).
 - **Guidance, test guidelines and quality systems.** Guidance on how to report, share or describe data is included as
-  a policy; guidelines that only standardise how an experiment is run are excluded (E8).
+  a policy, and so is a guideline that standardises how an experiment is run (I1).
 - **Generic resource and toxicology instance.** Both are rows when each has its own identity, such as RDMkit and its
   toxicology page, or FAIRsharing and the Toxicology collection. The toxicology instance has origin Toxicology and a
   relation to the generic resource it builds on.
@@ -242,6 +243,7 @@ Each excluded row carries exactly one code.
 | 5 Nov 2026 | The field scope is renamed origin: it says where a resource comes from, the layer that others build on, and scope collided with the scope of the manuscript. Values, IRIs (`schema:about`) and lanes are unchanged; the change log keeps the old field name in its earlier rows. | Jente Houweling |
 | 6 Nov 2026 | The sub-domain in vitro toxicology is renamed conventional toxicology, which covers in vivo and in vitro studies, so that resources for in vivo studies can take it; having no outside concept, it is a term of the dataset, `skos:narrowMatch` Wikidata In vitro toxicology. Regulatory toxicology is no longer a sub-domain: the resources that had it keep their other sub-domains. | Jente Houweling |
 | 12 Nov 2026 | The relation label uses is allowed again as the dataset's own label: "The subject uses the target." It is lineage, FAIRsharing cannot hold it, the possibility rule does not constrain it, and it does not count for Building on FAIR. This amends the 4 Nov 2026 rule that relations use FAIRsharing's labels only. Of the 22 relations relabelled on 4 Nov 2026, the three that a co-author had assigned and signed as uses, each from a resource to RDF, are uses again with that signature; the other 19 keep the FAIRsharing label they took. | Jente Houweling |
+| 12 Nov 2026 | The criteria are reworded after a pass through the curation sheet with a co-author. A publication, guideline or standard is a resource (I1), so a guideline that standardises how an experiment is run is included as a policy, and E8 is withdrawn. A Wayback Machine URL identifies a resource whose URL no longer resolves (I2, E3). A resource has to support making data or metadata findable, accessible, interoperable or reusable (I5). E1 speaks of named resources or research outputs. E2 covers only a principle, framework, concept, opinion, strategy, plan or roadmap that does not have the potential to provide a basis for the development of FAIR supporting resources; methods, approaches and publications are no longer excluded by it. E5 is withdrawn. E7 says what chemical toxicology does not include here. E5 and E8 keep their meaning for the rows that still carry them and are no longer assigned. | Jente Houweling |
 
 ## 9. Limitations
 

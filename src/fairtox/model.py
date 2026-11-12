@@ -43,15 +43,18 @@ DECISION = {
 }
 EXCLUSION = {
     'E1': 'Organisation, project, initiative, consortium, community or event, not a resource. Each of its named '
-          'products gets its own row.',
-    'E2': 'Principle, framework, method, approach or publication, not a usable resource. A standard, database, '
-          'policy or tool that applies it gets its own row.',
-    'E3': 'Unnamed or not identifiable (no homepage or DOI).',
+          'resources or research outputs gets its own row.',
+    'E2': 'Principle, framework, concept, opinion, strategy, plan or roadmap that does not have the potential to '
+          'provide a basis for the development of FAIR supporting resources.',
+    'E3': 'Unnamed or not identifiable (no homepage or DOI), and not found in the Wayback Machine.',
     'E4': 'Never publicly available.',
-    'E5': 'No documented toxicology use.',
+    'E5': 'No documented toxicology use. Withdrawn on 12 Nov 2026: no longer assigned.',
     'E6': 'Duplicate, version or component of another row (see Covered by).',
-    'E7': 'Outside chemical toxicology, such as toxinology or clinical adverse-event grading.',
-    'E8': 'Test method or guideline that standardises an experiment rather than data or metadata.',
+    'E7': 'Outside chemical toxicology, which here does not include adverse events, preclinical safety testing of '
+          'pharmaceuticals, pesticides and veterinary medicines, or drug safety related to product manufacturing '
+          'and R&D.',
+    'E8': 'Test method or guideline that standardises an experiment rather than data or metadata. Withdrawn on '
+          '12 Nov 2026: no longer assigned.',
 }
 # FAIRsharing registry and record type (id) behind each type label; Tool is ours, FAIRsharing registers no software.
 TYPES = {

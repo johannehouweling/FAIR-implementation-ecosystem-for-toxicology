@@ -176,13 +176,12 @@ INSTRUCTIONS = [
     'follows from this tab.',
 ]
 CRITERIA_TEXT = [
-    'I1 It is a resource, not an organisation, project, community, event or publication, except a FAIR Implementation '
-    'Community identified by its FIC nanopublication.',
-    'I2 It is named and identifiable (homepage or DOI).',
+    'I1 It is a resource (including publications, guidelines and standards).',
+    'I2 It is named and identifiable (homepage or DOI). If the URL no longer resolves, a Wayback Machine URL is '
+    'valid.',
     'I3 It is or was publicly available.',
-    'I4 Its use in toxicology is documented: in the manuscript, in the FAIRsharing Toxicology collection, in a '
-    'toxicology FIP, in an ELIXIR Toxicology Community document, or by a co-author who added it.',
-    'I5 It makes data or metadata findable, accessible, interoperable or reusable.',
+    'I4 Its use in toxicology is documented.',
+    'I5 It supports making data or metadata findable, accessible, interoperable or reusable.',
 ]
 
 
