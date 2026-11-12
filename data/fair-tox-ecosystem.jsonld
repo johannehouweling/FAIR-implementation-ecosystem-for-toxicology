@@ -196,7 +196,8 @@
     "profiles": "https://w3id.org/fair-tox/terms#profiles",
     "recommends": "https://w3id.org/fair-tox/terms#recommends",
     "deprecates": "https://w3id.org/fair-tox/terms#deprecates",
-    "related_to": "https://w3id.org/fair-tox/terms#related_to"
+    "related_to": "https://w3id.org/fair-tox/terms#related_to",
+    "uses": "https://w3id.org/fair-tox/terms#uses"
    }
   },
   "fipDeclaration": {
@@ -395,7 +396,8 @@
    "profiles": "The standard is a profile of the target standard.",
    "recommends": "The data policy recommends the target.",
    "deprecates": "The target has been retired and is no longer actively maintained.",
-   "related_to": "The resources are related; no more precise label applies."
+   "related_to": "The resources are related; no more precise label applies.",
+   "uses": "The subject uses the target."
   },
   "declaration": {
    "declares-current-use-of": "The FIP declares that its community uses the target.",
@@ -3087,9 +3089,9 @@
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "implements",
+     "hadRole": "uses",
      "evidence": "curator",
-     "note": "Was uses, assigned and signed by Egon; relabelled implements on 4 Nov 2026, as FAIRsharing has no uses label."
+     "reviewedBy": "Egon"
     }
    ]
   },
@@ -11235,9 +11237,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "implements",
+     "hadRole": "uses",
      "evidence": "curator",
-     "note": "Was uses, assigned and signed by Egon; relabelled implements on 4 Nov 2026, as FAIRsharing has no uses label."
+     "reviewedBy": "Egon"
     }
    ]
   },
@@ -14460,9 +14462,9 @@
    "qualifiedRelation": [
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
-     "hadRole": "implements",
+     "hadRole": "uses",
      "evidence": "curator",
-     "note": "Was uses, assigned and signed by Egon; relabelled implements on 4 Nov 2026, as FAIRsharing has no uses label."
+     "reviewedBy": "Egon"
     }
    ]
   },
