@@ -427,7 +427,8 @@ def submission(doc):
         ids = [(rs[k].get('fairsharing') or {}).get('id') for k in (s, t)]
         if [x['hadRole'], ids[1]] in (rs[s].get('fairsharing') or {}).get('associations', []):
             continue
-        reason = ('FAIRsharing does not allow this label between these record types'
+        reason = ('not a FAIRsharing label' if model.RELATIONS[x['hadRole']][0] is None else
+                  'FAIRsharing does not allow this label between these record types'
                   if (model.registry(rs[s]), model.registry(rs[t])) not in model.ALLOWED.get(x['hadRole'], set()) else
                   'not every end is in FAIRsharing or proposed here' if s not in ref or t not in ref else
                   'the only evidence is the unpublished manuscript' if x['evidence'] == 'manuscript' else '')

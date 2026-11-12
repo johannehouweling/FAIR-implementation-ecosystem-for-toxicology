@@ -137,13 +137,14 @@ Each excluded row carries exactly one code.
   its basis (data dictionary, Date basis) and its source. Sources are, in order: the DOI metadata of the describing
   paper, the first software release, the first ontology release, the publisher's or agency's page, the earliest web
   archive capture (as a lower bound only), and, as a last resort, FAIRsharing's year of creation.
-- **Relations** use FAIRsharing's labels only, as FAIRsharing documents them (data dictionary, Relations, which also
-  lists the registry pairs FAIRsharing allows for each label). A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries
+- **Relations** use FAIRsharing's labels, as FAIRsharing documents them (data dictionary, Relations, which also
+  lists the registry pairs FAIRsharing allows for each label), and one label of the dataset's own, uses, for a
+  resource that uses another. A relation must be possible: FAIRsharing allows its label between the FAIRsharing registries
   of its two resources; a Tool, which FAIRsharing does not register, or a Collection also counts as the registry of
   each of its FSR typology columns (FAIR Data Policy as a Policy, FAIR specification as a Standard, FAIR Supporting
   Technology as a Database); and implements is also possible from a FAIR-Enabling Resource to a FAIR specification,
-  the domain and range of `fip:implements`. Any relation is possible while an end has no FAIRsharing type or is a Tool
-  without an FSR type. A relation that is not possible is a warning (section 7); one
+  the domain and range of `fip:implements`; uses is not constrained. Any relation is possible while an end has no
+  FAIRsharing type or is a Tool without an FSR type. A relation that is not possible is a warning (section 7); one
   that is possible but that FAIRsharing cannot hold is kept and flagged as not enterable in FAIRsharing. A lineage
   relation to a resource first published in a later year is a warning unless FAIRsharing asserts it. Each relation
   records its evidence (data dictionary, Relation evidence). FIP declarations are not relations.
@@ -240,6 +241,7 @@ Each excluded row carries exactly one code.
 | 5 Nov 2026 | The FAIR principles of a resource are those its FSR types enable in the FIP ontology, as the sheet's Principles tab already counts them, which replaces the rule that principles come only from the FIP questions a resource is declared for (1 Nov 2026): a declaration shows that a community uses a resource, its question is one use among those the types enable. The dashboard's details name the declaring FIPs without their questions and link the FSR declaration, the nanopublication that declares the resource as a FAIR Supporting Resource. | Jente Houweling |
 | 5 Nov 2026 | The field scope is renamed origin: it says where a resource comes from, the layer that others build on, and scope collided with the scope of the manuscript. Values, IRIs (`schema:about`) and lanes are unchanged; the change log keeps the old field name in its earlier rows. | Jente Houweling |
 | 6 Nov 2026 | The sub-domain in vitro toxicology is renamed conventional toxicology, which covers in vivo and in vitro studies, so that resources for in vivo studies can take it; having no outside concept, it is a term of the dataset, `skos:narrowMatch` Wikidata In vitro toxicology. Regulatory toxicology is no longer a sub-domain: the resources that had it keep their other sub-domains. | Jente Houweling |
+| 12 Nov 2026 | The relation label uses is allowed again as the dataset's own label: "The subject uses the target." It is lineage, FAIRsharing cannot hold it, the possibility rule does not constrain it, and it does not count for Building on FAIR. This amends the 4 Nov 2026 rule that relations use FAIRsharing's labels only. Of the 22 relations relabelled on 4 Nov 2026, the three that a co-author had assigned and signed as uses, each from a resource to RDF, are uses again with that signature; the other 19 keep the FAIRsharing label they took. | Jente Houweling |
 
 ## 9. Limitations
 
