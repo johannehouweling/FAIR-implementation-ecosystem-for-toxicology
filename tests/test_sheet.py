@@ -456,6 +456,20 @@ class SheetTest(TempDir):
         new, changes, problems, _, _ = sheet.ingest(doc, p)
         self.assertEqual((changes, sorted(x['value'] for x in problems)), ([], ['ctd', 'ctd implements exo']))
 
+    def test_uses_can_be_chosen_on_the_relations_tab(self):
+        doc = model.normalise(fixture())
+        p = self.build(doc)
+        self.assertIn('uses', [c.value for c in load_workbook(p)['Lists']['K']])   # the Relation list
+        self.add(p, {'Resource': 'oecd_gd', 'Relation': 'uses', 'Target': 'exo', 'Evidence': 'literature'},
+                 tab='Relations')
+        new, changes, problems, _, _ = sheet.ingest(doc, p)
+        self.assertEqual((changes, problems), ([('oecd_gd', 'relation', '(new)', 'uses exo', '')], []))
+        ws = load_workbook(self.build(new))['Relations']                           # the line in a sheet made later
+        head = [c.value for c in ws[1]]
+        line = next(r for r in ws.iter_rows(min_row=2, values_only=True) if r[:3] == ('oecd_gd', 'uses', 'exo'))
+        self.assertEqual((line[head.index('Vocabulary')], line[head.index('Enterable in FAIRsharing')]),
+                         ('this dataset', 'no'))                                   # not FAIRsharing's, so not enterable
+
     def test_two_lines_with_one_key_or_one_relation_both_wait(self):
         doc = model.normalise(fixture())
         p = self.build(doc)

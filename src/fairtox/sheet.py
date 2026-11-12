@@ -130,7 +130,7 @@ RELATION_COLUMNS = [
      'row, what a FIP declares.'),
     ('Target', 'target', 'keys', 16, 'Key of the earlier or related resource.'),
     ('Vocabulary', None, 'static', 12, GREY_NOTE + 'where the relation label comes from: FAIRsharing on the white '
-     'lines, a FIP on the grey ones.'),
+     'lines, or this dataset for uses, and a FIP on the grey ones.'),
     ('Reads as', None, 'reads', 60, GREY_NOTE + 'the line as a sentence, Resource, Relation, Target, to check that '
      'you have the direction right.'),
     ('Evidence', 'evidence', 'list:Evidence', 13, 'Where the relation is stated.'),
@@ -437,7 +437,8 @@ def build(doc, path, added=()):
                 pair = (model.registry(by_key[x['subject']]), model.registry(by_key[x['target']]))
                 c.value = 'yes' if pair in model.ALLOWED.get(x['hadRole'], set()) else 'no'
             elif head == 'Vocabulary':
-                c.value = 'FIP ontology' if fixed else 'FAIRsharing'
+                c.value = ('FIP ontology' if fixed else
+                           'FAIRsharing' if model.RELATIONS[x['hadRole']][0] else 'this dataset')
             elif kind == 'version' and not fixed:
                 c.value = model.relation_hash(x)
             elif field:

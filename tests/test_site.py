@@ -209,7 +209,8 @@ class SiteTest(TempDir):
                 self.assertIn((c, SKOS.inScheme, s), terms)
         for triple in ((t['subdomains-conventional-toxicology'], SKOS.broadMatch, URIRef(model.NCIT_TOXICOLOGY)),
                        (t.implements, SKOS.closeMatch, URIRef(model.FIP + 'implements')),
-                       (t.deprecates, SKOS.closeMatch, DCTERMS.replaces)):
+                       (t.deprecates, SKOS.closeMatch, DCTERMS.replaces),
+                       (t.uses, SKOS.broadMatch, DCTERMS.relation)):
             self.assertIn(triple, terms, triple)
         html = text['index.html']                              # each field shows its term; a fragment opens its resource
         meta = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))['meta']

@@ -92,8 +92,17 @@ class ModelTest(TempDir):
                          ('The subject implements the standard or FAIR specification.',
                           'The data policy recommends the target.'))            # FAIRsharing's wording
 
+    def test_uses_is_a_label_of_the_dataset_s_own(self):
+        self.assertEqual(model.RELATIONS['uses'], (None, True, 'The subject uses the target.'))   # no FAIRsharing id
+        doc = fixture()
+        by = {r['key']: r for r in doc['hasPart']}
+        by['oecd_gd']['qualifiedRelation'] = [{'relation': '#exo', 'hadRole': 'uses', 'evidence': 'curator'}]
+        by['tool']['qualifiedRelation'] = [{'relation': '#ctd', 'hadRole': 'uses', 'evidence': 'curator'}]
+        errors, warnings = model.check(model.normalise(doc))
+        self.assertEqual((errors, [w for w in warnings if ' uses ' in w]), ([], []))   # any kinds, never a warning
+        self.assertNotIn('buildsOnFair', by['oecd_gd'])                         # using is not building on
+
     def test_recommends_is_a_policy_pointing_at_a_resource(self):
-        self.assertNotIn('uses', model.RELATIONS)                               # FAIRsharing's labels only
         self.assertFalse(model.RELATIONS['recommends'][1])                      # not lineage
         doc = fixture()
         tox = next(r for r in doc['hasPart'] if r['key'] == 'oecd_gd')

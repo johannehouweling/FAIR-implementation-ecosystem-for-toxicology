@@ -221,7 +221,8 @@ class FairsharingTest(TempDir):
         by['oecd_gd']['qualifiedRelation'] = [
             {'relation': by['ctd']['@id'], 'hadRole': 'recommends', 'evidence': 'literature'},
             {'relation': by['exo']['@id'], 'hadRole': 'recommends', 'evidence': 'manuscript'},
-            {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'}]   # not for a policy
+            {'relation': by['exo']['@id'], 'hadRole': 'implements', 'evidence': 'literature'},   # not for a policy
+            {'relation': by['ctd']['@id'], 'hadRole': 'uses', 'evidence': 'literature'}]         # not FAIRsharing's
         read = lambda: fairsharing.submission(fairsharing.enrich(copy.deepcopy(doc), dict(self.data, members=[9999])))
         sub = read()                                      # FAIRsharing was never checked for ctd and oecd_gd
         self.assertEqual((sub['records'], sub['associations']), ([], []))
@@ -241,7 +242,8 @@ class FairsharingTest(TempDir):
                           ('new: oecd_gd', 'recommends', 'new: ctd', None, 11)])
         self.assertEqual({x['item']: x['reason'] for x in sub['heldBack']},
                          {'oecd_gd recommends exo': 'the only evidence is the unpublished manuscript',
-                          'oecd_gd implements exo': 'FAIRsharing does not allow this label between these record types'})
+                          'oecd_gd implements exo': 'FAIRsharing does not allow this label between these record types',
+                          'oecd_gd uses ctd': 'not a FAIRsharing label'})
 
 
 class WebTest(unittest.TestCase):
