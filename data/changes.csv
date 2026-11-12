@@ -4959,3 +4959,9 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-12,curation sheet 2026-11-12,suppl_rules,reviewedBy,,IM,IM,curation-sheet.xlsx
 2026-11-12,curation sheet 2026-11-12,tbc,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
 2026-11-12,curation sheet 2026-11-12,temowl,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-12,decisions 2026-11-12,chemblrdf,relation,implements rdf,(removed),JH,decision record 12 Nov 2026
+2026-11-12,decisions 2026-11-12,nanopub,relation,implements rdf,(removed),JH,decision record 12 Nov 2026
+2026-11-12,decisions 2026-11-12,sparql,relation,implements rdf,(removed),JH,decision record 12 Nov 2026
+2026-11-12,decisions 2026-11-12,chemblrdf,relation,(new),uses rdf,JH,decision record 12 Nov 2026
+2026-11-12,decisions 2026-11-12,nanopub,relation,(new),uses rdf,JH,decision record 12 Nov 2026
+2026-11-12,decisions 2026-11-12,sparql,relation,(new),uses rdf,JH,decision record 12 Nov 2026
