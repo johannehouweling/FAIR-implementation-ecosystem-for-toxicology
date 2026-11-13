@@ -57,9 +57,18 @@ jobs:
           uvx --from pyshacl==0.40.1 pyshacl --advanced --allow-warnings --data-file-format json-ld
           --shacl https://raw.githubusercontent.com/Cross-Domain-Interoperability-Framework/doc-corediscovery/a50ccb0c1fe5bef7d1a34f66fdd3affa24590d8d/discoveryDocRules.shacl
           build/site/fair-tox-ecosystem.jsonld
+      - name: Read back the links that resolved in earlier runs
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lycheecache
+          key: links-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: links-
       - name: Check that the links in the dataset and the documentation resolve
         # Every link in the dataset (homepages, sources, creators, terms, notes) and in the documentation. A dead link
         # fails a build of main, so nothing is published with it; a pull request only shows it, as sites come and go.
+        # A link that resolved in the last seven days is not requested again (lychee's cache, kept between runs), so
+        # a site that is down or slow for a while does not stop a build. A link that fails is never kept: every run
+        # requests it again until it resolves.
         # Links the build adds come from live registries and are not checked. Requests carry a browser's Accept
         # header; a redirect page without a Location header counts as reached, and 403 or 429 means a site blocks
         # robots or rate-limits, not that the link is dead. Left out: FAIRsharing, whose records (also by their DOIs,
@@ -74,13 +83,20 @@ jobs:
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: >-
-            --no-progress --max-concurrency 8 --max-retries 2 --timeout 30
+            --no-progress --max-concurrency 8 --max-retries 2 --timeout 30 --cache --max-cache-age 7d
             --accept 200..=299,300..=399,403,429 --header 'Accept: text/html, */*;q=0.1'
             --exclude fairsharing.org --exclude doi.org/10.25504 --exclude w3id.org/fair-tox --exclude web.archive.org
             --exclude apvma.gov.au --exclude fda.gov --exclude canada.ca --exclude aop-networkfinder.no
             --exclude ega-archive.org --exclude proconsortium.org
             --exclude ebi.ac.uk/europepmc/webservices/rest/PMC1241500/fullTextXML
             data/fair-tox-ecosystem.jsonld README.md docs/*.md
+      - name: Keep the links that resolved for later runs
+        # also after a failed check, so that the next run requests only the links that failed
+        if: ${{ !cancelled() && hashFiles('.lycheecache') != '' }}
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .lycheecache
+          key: links-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Check out the public dashboard repository
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
