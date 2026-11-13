@@ -982,10 +982,10 @@
    "schemaType": "schema:CreativeWork",
    "key": "aopdevhandbook",
    "name": "AOP Developers' Handbook",
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Standard: reporting guideline",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Metadata-schema"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "origin": "Toxicology",
    "phase": "Data integration",
@@ -1008,10 +1008,7 @@
    "manuscript": "absent",
    "fairsharingMatch": "no record",
    "reviewedBy": "MM",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "F2"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -1071,10 +1068,13 @@
    "alternateName": [
     "jaylet2023"
    ],
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "aophelp_2025",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
+    "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service",
+    "https://w3id.org/fair/fip/terms/FAIR-Visualization-Service"
    ],
    "origin": "Toxicology",
    "phase": "Data integration",
@@ -1091,7 +1091,7 @@
    "dateSource": "https://doi.org/10.1289/EHP4200",
    "creator": "Universite Paris Cite / Inserm",
    "url": "https://aop-helpfinder.u-paris-sciences.fr/",
-   "description": "AOP-helpFinder is a web tool with open code that text-mines PubMed abstracts. It finds where chemical stressors and biological events (molecular initiating events, key events, adverse outcomes) are mentioned together, so researchers can collect literature evidence to build and weigh adverse outcome pathways.",
+   "description": "AOP-helpFinder is a web tool for identification and extraction of associations between stressors and biological events at various level of the biological organization (molecular initiating event (MIE), key event (KE), and adverse outcome (AO)) so researchers can collect literature evidence to build and weigh adverse outcome pathways. AOP-helpFinder is a hybrid tool, combining text mining and graph theory. AOP-helpFinder screens abstracts available from the PubMed database, to decipher co-mentioned terms (e.g. a stressor and a MIE).",
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; L132",
@@ -1099,6 +1099,7 @@
     "INTOXICOM 5"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): The year 2019 is confirmed and now has a full date. Carvaillo et al. (EHP) first describe the tool; Crossref gives the online date 2019-04-17. The GitHub repo jecarvaill/aop-helpFinder was created 2019-02-12 but has no release. Later papers: the webserver (doi 10.1093/bioinformatics/btab750, online 2021-10-30) and v2.0 (doi 10.1016/j.envint.2023.108017, 2023-06-03). The url was the v2.0 paper DOI; it is now the live webserver, which runs v3.0. FAIRsharing: no record. The tool is missing from the FAIRsharing record list (sitemap of 2 Oct 2026, 6,263 records) and from the FAIRsharing DOIs in DataCite; FAIRsharing does not register software. Proposed 9 Oct 2026: Online text-mining service that analyses PubMed abstracts to link stressors with AOP events, gathering literature evidence to build AOPs in data integration.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
@@ -2012,7 +2013,7 @@
     "https://ror.org/04gq0w522"
    ],
    "url": "https://nanodash.knowledgepixels.com/resource?88&id=https://w3id.org/spaces/biochementity/r/vocabulary",
-   "description": "The Biochemical and Chemical Entity Vocabulary describes the bio(chemical) entities measured in the humam body and monitored in the environment extracted from the research studies done under the PARC HBM Community.",
+   "description": "The Biochemical and Chemical Entity Vocabulary describes the bio(chemical) entities measured in the humam body and monitored in the environment related to the research studies within the PARC HBM Community.",
    "maintained": "active",
    "manuscript": "absent",
    "fairsharingMatch": "no record",
@@ -2307,16 +2308,14 @@
    "decision": "include",
    "fairsharingType": "Collection",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Metadata-schema",
-    "https://w3id.org/fair/fip/terms/Provenance-model",
-    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
    ],
    "origin": "Life Sciences",
    "dateReleased": "2016-02-23",
    "dateSource": "https://github.com/BioSchemas/bioschemas.github.io",
    "creator": "ELIXIR Bioschemas Community",
-   "url": "https://bioschemas.org",
-   "description": "List the sites that use Bioschemas markup to - a direct link to the site, an example deployment page, and a link to test the markup syntax using the Schema.org Markup Validation tool is provided",
+   "url": "https://bioschemas.org/developer/liveDeploys",
+   "description": "Lists the sites that use Bioschemas markup to - a direct link to the site, an example deployment page, and a link to test the markup syntax using the Schema.org Markup Validation tool is provided.",
    "maintained": "active",
    "fairsharingRecord": "FAIRsharing.a847f0",
    "fairsharingMatch": "confirmed",
@@ -2324,9 +2323,7 @@
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA8FeBmXjIXHxm2Zlbyd_BQmviLa4Xa8WhfFf70n4VRP0/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared for F2 and R1.2 as Bioschemas markup, whose schema.org profiles carry descriptive and provenance metadata; FAIRsharing records it as a collection of deployments.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
-    "F2",
-    "I2",
-    "R1.2"
+    "F2"
    ],
    "fsr": [
     "https://fairsharing.org/fairsharing_records/3517"
@@ -3096,8 +3093,7 @@
    "decision": "include",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Semantic-model",
-    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Life Sciences",
    "subdomains": [
@@ -3119,8 +3115,7 @@
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. First public release was ChEMBL_01: the web interface and downloads went live on 2009-10-28 (ChEMBL blog; FTP README dated 28/10/2009). This agrees with the FAIRsharing year 2009. The first describing paper, Gaulton et al., NAR, online 2011-09-23 (https://doi.org/10.1093/nar/gkr777), is later. Included through membership of the FAIRsharing Toxicology collection. Proposed 9 Oct 2026: Declared in a FIP for I2, where its stable compound and target identifiers act as controlled vocabulary for metadata.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
-    "I2",
-    "I3"
+    "F4"
    ],
    "fsr": [
     "http://purl.org/np/RAVAVosrskaZNJP2MtoEkVlNJXyuY4hB5fW2D4jOb4OvQ#ChEMBL"
@@ -4014,7 +4009,7 @@
     "https://ror.org/04wxnsj81"
    ],
    "url": "https://schema.datacite.org/",
-   "description": "The DataCite Metadata Schema is a set of core properties, with documentation and an XML schema, for describing research outputs registered with DataCite DOIs. Its mandatory and recommended properties support accurate identification, citation and retrieval of datasets and other resources.",
+   "description": "The DataCite Metadata Schema is a set of core properties, with documentation and an XML schema, for describing research outputs registered with DataCite DOIs. Its mandatory and recommended properties support accurate identification, citation and retrieval of datasets and other resources. The ontology is available in https://www.sparontologies.net/ontologies",
    "maintained": "active",
    "fairsharingRecord": "FAIRsharing.me4qwe",
    "fairsharingMatch": "confirmed",
@@ -5328,10 +5323,9 @@
    "description": "eData is a data entry and formatting Shiny application (app) in the Source to Outcome Pathway/Risk Assessment Database family, designed to make extracting data on chemical concentrations in the environment from papers and reports easier.",
    "maintained": "active",
    "manuscript": "absent",
-   "fairsharingRecord": "FAIRsharing.2ad284",
-   "fairsharingMatch": "to check",
+   "fairsharingMatch": "no record",
    "reviewedBy": "IM",
-   "note": "Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: eData is a Shiny application for entering and formatting data, made at NIVA. FAIRsharing type Tool set by JH on 12 Nov 2026: it is software.",
+   "note": "Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: eData is a Shiny application for entering and formatting data, made at NIVA. FAIRsharing type Tool set by JH on 12 Nov 2026: it is software. FAIRsharing match set to no record by JH on 13 Nov 2026: the proposed record, FAIRsharing 6655 \"eData\" (FAIRsharing year of creation 2002), is not this resource, which was first published in 2026.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
