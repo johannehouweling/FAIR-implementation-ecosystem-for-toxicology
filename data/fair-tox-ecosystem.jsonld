@@ -245,7 +245,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.16.1",
- "dateModified": "2026-11-12",
+ "dateModified": "2026-11-13",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -424,6 +424,16 @@
   }
  },
  "hasPart": [
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#advancednano_go_fair_fip",
+   "identifier": "https://w3id.org/fair-tox/dataset#advancednano_go_fair_fip",
+   "schemaType": "schema:CreativeWork",
+   "key": "advancednano_go_fair_fip",
+   "name": "AdvancedNano GO FAIR FIP",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record"
+  },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.73888a",
    "identifier": "https://doi.org/10.25504/FAIRsharing.73888a",
@@ -800,6 +810,7 @@
     "INTOXICOM 5"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Pittman et al., Toxicol Appl Pharmacol, available online 2018-02-14 (Europe PMC; Crossref issue 2018-03). The paper says v1 was not available for public download: its relationships were integrated into the CompTox Dashboard and other components were available on request. The first public web interface came with v2 (2021). aopdb.epa.gov no longer resolves (NXDOMAIN on 2026-10-05; last web capture 2024-11-02), so discontinued is confirmed. I found no FAIRsharing DOI record through DataCite and did not search FAIRsharing itself. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -897,7 +908,7 @@
    "decision": "include",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+    "https://w3id.org/fair/fip/terms/FAIR-Representation-Service"
    ],
    "origin": "Toxicology",
    "phase": "Data integration",
@@ -920,12 +931,10 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; L129",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): Mortensen et al., Front Toxicol, online 2022-02-14 (Crossref/Europe PMC; received 2021-10-28). The supporting repo github.com/BiGCAT-UM/AOP-DB-RDF holds only notebooks and setup instructions; its first commit is 2021-12-13. The endpoint's launch date is not documented. The SPARQL endpoint named in the paper answered on 2026-10-05 (about 12.7 M triples), so I set it as URL (previously the DOI) and marked the resource active, though the repo has not changed since 2023-04. I added Maastricht University (BiGCaT) to the creator; the work was EPA-led. I found no FAIRsharing DOI record through DataCite. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "buildsOnFair": true,
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "F4"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -1164,10 +1173,12 @@
    "alternateName": [
     "AOP-KB"
    ],
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "aopwiki",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Registry"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Toxicology",
    "phase": "Data integration",
@@ -1191,6 +1202,7 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; L117",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): The AOP-KB was established by the OECD with the EU reference laboratory (JRC) and US EPA in 2014 (Environ Health Toxicol 2018, doi:10.5620/eht.e2018002; Martens et al. 2018, doi:10.3389/fgene.2018.00661: 'emerged in 2014'). Its first module, AOP-Wiki 1.0, was released 2014-09-28, and the aopkb.org hub page was captured 2014-12-01. aopkb.oecd.org served an AOP/KE search hub until June 2026 and has redirected (301) to aopwiki.org/aops since August 2026. I marked it active because the content lives on in the AOP-Wiki; 'discontinued' is also defensible for the hub page itself. I found no FAIRsharing DOI record through DataCite. Verified 5 Oct 2026: maintained changed (https://aopkb.oecd.org now answers HTTP 301 to https://aopwiki.org/aops (checked 2026-10-05). The AOP-KB hub and its search no longer exist as a resource of their own; only the AOP-Wiki, which has its own row, continues. 'active' (maintained and available) does not fit a homepage that permanently redirects to another resource.) Proposed 9 Oct 2026: Declared in a FIP as the F4 registry indexing AOPs, it supports AOP development and their OECD review for regulatory use.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -1338,6 +1350,7 @@
     "Whitepaper"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Changed 2017 to 2015-11-04: GitHub/Zenodo v1.0.0 'Bulgogi' (doi 10.5281/zenodo.33226) is described as the first release of the AOPO; the Burgoon paper appeared online 2017-09-08 (doi 10.1089/aivt.2017.0012). URL changed from the paper DOI to the GitHub repository. Creator: L. Burgoon, US Army ERDC (paper affiliation). Maintained changed from active to unknown: no content commits since Sept 2017, only a 2019 PURL fix merged in 2024. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: OWL ontology supplying shared AOP terms and class axioms for reasoning, used to annotate and integrate AOP knowledge such as AOP-Wiki RDF.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -1397,7 +1410,7 @@
    "decision": "include",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Registry"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Toxicology",
    "phase": "Data integration",
@@ -1427,6 +1440,7 @@
     "INTOXICOM 5"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): I refined the year 2014 to the Release 1.0 date. The AOP-Wiki release notes (archived 2015) list alpha and beta releases from 2013-06-30, which were login-restricted (a 2013 web capture says 'beta phase, access limited'), and Release 1.0 on 2014-09-28. Patlewicz et al. 2017 (doi:10.1093/toxsci/kfw207) also says 'publicly accessible since September 2014'. The qualifiedRelation FAIRsharing.1x53qk is WikiPathways, not AOP-Wiki. I found no FAIRsharing DOI record for AOP-Wiki through DataCite, and it is not in the Toxicology collection list in the dataset. Proposed 9 Oct 2026: A FIP declares it as the registry for F4; AOPs are built from evidence there and reviewed for OECD regulatory endorsement.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -1482,7 +1496,7 @@
    "decision": "include",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+    "https://w3id.org/fair/fip/terms/FAIR-Representation-Service"
    ],
    "origin": "Toxicology",
    "phase": "Data integration",
@@ -1499,7 +1513,7 @@
    "dateSource": "https://doi.org/10.5281/zenodo.2654857",
    "creator": "Maastricht University (BiGCaT)",
    "url": "https://aopwiki.rdf.bigcat-bioinformatics.org",
-   "description": "A Linked Data version of the AOP-Wiki, converted from the AOP-Wiki XML export into RDF and served through a public SPARQL endpoint. It maps AOPs, key events and stressors to external gene, protein and chemical identifiers, so AOP knowledge can be queried and combined with other resources.",
+   "description": "A Linked Data version of the AOP-Wiki, converted from the AOP-Wiki XML export into RDF and served through a public SPARQL endpoint. The RDF content for all the AOP-Wiki content were mapped with additional semantic annotations, persistent identifiers, and extended identifiers for genes and chemicals, so AOP knowledge can be queried and combined with other resources. The semantic annotation was done using 8 standard metadata vocabularies and 17 domain-specific ontologies and vocabularies.",
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III AOP; V Challenges; L126, L129, L245",
@@ -1507,12 +1521,10 @@
     "INTOXICOM 3"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): Changed 2022 to 2019-04-30: the first public release, v1.0 on GitHub/Zenodo (doi 10.5281/zenodo.2654857), already holds the XML-to-Turtle conversion script. Also: poster 2019-02-19 (doi 10.6084/m9.figshare.7735067), ChemRxiv preprint 2021-01-06 (doi 10.26434/chemrxiv.13524191.v1), paper e-pub 2022-03-17 (doi 10.1089/aivt.2021.0010). Endpoint live; repository updated 2026-10-04 (v2.1, June 2026). FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "buildsOnFair": true,
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "F4"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -1837,15 +1849,16 @@
   {
    "@id": "https://w3id.org/fair-tox/dataset#arraytrack",
    "identifier": "https://w3id.org/fair-tox/dataset#arraytrack",
-   "schemaType": "schema:SoftwareApplication",
+   "schemaType": "schema:CreativeWork",
    "key": "arraytrack",
-   "name": "ArrayTrack HCA-PCA Standalone Package",
+   "name": "ArrayTrack",
    "alternateName": [
     "arraytrack"
    ],
    "decision": "include",
-   "fairsharingType": "Tool",
+   "fairsharingType": "Database: knowledgebase and repository",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
     "https://w3id.org/fair/fip/terms/FAIR-Analysis-Service"
    ],
    "origin": "Toxicology",
@@ -1864,15 +1877,18 @@
    "datePublished": "2003-11",
    "dateSource": "https://doi.org/10.1289/ehp.6497",
    "creator": "US FDA NCTR",
-   "url": "https://www.fda.gov/science-research/bioinformatics-tools/arraytracktm-hca-pca-standalone-package-powerful-data-exploring-tools",
+   "url": "https://doi.org/10.1289/ehp.6497",
    "description": "ArrayTrack is FDA NCTR software that combines a MIAME-supportive microarray database, local copies of public annotation libraries and analysis tools. It was used to store, analyse and interpret toxicogenomics and pharmacogenomics data, including genomic data submitted to FDA.",
    "maintained": "discontinued",
    "manuscript": "comment only",
    "manuscriptEvidence": "Comments [ap]; L406",
    "fairsharingMatch": "no record",
-   "reviewedBy": "IM",
+   "reviewedBy": "DJ",
    "note": "Research 5 Oct 2026 (high confidence): The year 2003 is confirmed. Tong et al., EHP 111(15), November 2003, is the first description; Crossref and Europe PMC give only the print issue date, with no separate online date. Development started in 2001 (Xu et al. 2010, doi 10.1186/1479-7364-4-6-428). The full ArrayTrack system is no longer distributed. FDA now offers only the 'ArrayTrack HCA-PCA standalone package' (page current as of 2024-02-02), so that page replaces the DOI as url. FAIRsharing: no record. Proposed 9 Oct 2026: FDA software with a MIAME-supportive database: stores and analyses primary microarray data, interprets them with annotation libraries, and supported regulatory review.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "F4"
+   ],
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -1981,7 +1997,7 @@
    "identifier": "https://w3id.org/fair-tox/dataset#biochementity",
    "schemaType": "schema:CreativeWork",
    "key": "biochementity",
-   "name": "Biochementity Vocabulary",
+   "name": "Biochemical and Chemical Entity Vocabulary",
    "decision": "include",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
@@ -1995,8 +2011,9 @@
    "contactPoint": [
     "https://ror.org/04gq0w522"
    ],
-   "url": "https://w3id.org/spaces/biochementity",
-   "description": "The Biochementity Vocabulary describes biochemical entities used in the PARC HBM Community.",
+   "url": "https://nanodash.knowledgepixels.com/resource?88&id=https://w3id.org/spaces/biochementity/r/vocabulary",
+   "description": "The Biochemical and Chemical Entity Vocabulary describes the bio(chemical) entities measured in the humam body and monitored in the environment extracted from the research studies done under the PARC HBM Community.",
+   "maintained": "active",
    "manuscript": "absent",
    "fairsharingMatch": "no record",
    "reviewedBy": "GB",
@@ -2404,6 +2421,43 @@
    ]
   },
   {
+   "@id": "https://doi.org/10.25504/FAIRsharing.fd7e23",
+   "identifier": "https://doi.org/10.25504/FAIRsharing.fd7e23",
+   "schemaType": "schema:CreativeWork",
+   "key": "bioschemas_trainingmaterial",
+   "name": "Bioschemas TrainingMaterial Profile",
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema"
+   ],
+   "origin": "Life Sciences",
+   "dateReleased": "2017-10-05",
+   "dateSource": "https://github.com/BioSchemas/specifications/commits/master/TrainingMaterial",
+   "url": "https://bioschemas.org/profiles/TrainingMaterial/1.0-RELEASE",
+   "description": "A Bioschemas profile, built on the schema.org LearningResource type, that sets out the properties for marking up life-science training materials on web pages: a minimum of name, description, keywords and the profile it conforms to, plus recommended ones such as audience, prerequisites, learning outcomes and licence. Materials marked up this way can be harvested automatically by training registries such as ELIXIR TeSS and by search engines.",
+   "manuscript": "absent",
+   "mentionedIn": [
+    "INTOXICOM 2"
+   ],
+   "fairsharingRecord": "FAIRsharing.fd7e23",
+   "fairsharingMatch": "confirmed",
+   "reviewedBy": "JH",
+   "note": "FAIRsharing match confirmed by JH on 12 Nov 2026: record FAIRsharing.fd7e23 is 'Bioschemas TrainingMaterial', homepage https://bioschemas.org/profiles/TrainingMaterial.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "F2"
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#bioschemas",
+     "hadRole": "implements",
+     "evidence": "curator",
+     "reviewedBy": "Egon"
+    }
+   ]
+  },
+  {
    "@id": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
    "identifier": "https://doi.org/10.25504/FAIRsharing.ewjdq6",
    "schemaType": "schema:CreativeWork",
@@ -2666,20 +2720,24 @@
    "alternateName": [
     "CAS Common Chemistry"
    ],
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
-    "https://w3id.org/fair/fip/terms/Identifier-service"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Life Sciences",
+   "dateAdopted": "1965",
+   "dateSource": "https://commonchemistry.cas.org/",
+   "creator": "American Chemical Society",
    "url": "https://commonchemistry.cas.org",
+   "description": "CAS Common Chemistry is an open community resource for accessing chemical information of nearly 500,000 chemical substances from CAS REGISTRY®",
+   "maintained": "active",
    "fairsharingRecord": "FAIRsharing.e5c86e",
    "fairsharingMatch": "confirmed",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RASnX7q_SpoIYrFTj47gYGzkQDxOujlzP0ooAPknI9W3U/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it resolves CAS Registry Numbers to openly accessible substance records.",
+   "reviewedBy": "IM",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RASnX7q_SpoIYrFTj47gYGzkQDxOujlzP0ooAPknI9W3U/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it resolves CAS Registry Numbers to openly accessible substance records. Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration, Regulatory assessment): a phase applies only to toxicology resources, and the origin is Life Sciences.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
-    "F1",
     "F4"
    ]
   },
@@ -3355,7 +3413,7 @@
    "schemaType": "schema:CreativeWork",
    "key": "compoundcloud",
    "name": "Compound Cloud Wikibase",
-   "decision": "include",
+   "decision": "undecided",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
@@ -4208,8 +4266,7 @@
     "diXa",
     "diXa data warehouse"
    ],
-   "decision": "exclude",
-   "exclusionReason": "E3",
+   "decision": "include",
    "fairsharingType": "Database: knowledgebase and repository",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
@@ -4236,6 +4293,7 @@
    "maintained": "discontinued",
    "manuscript": "comment only",
    "manuscriptEvidence": "III Toxicogenomics (notes); L164",
+   "fairsharingMatch": "no record",
    "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Refined 2015 (print issue, May 2015) to the online date 2014-12-12 (Crossref, Europe PMC). The portal named in the paper, www.dixa-fp7.eu, is now a parked domain and the EBI warehouse URL redirects to a team page, so the URL stays the DOI and discontinued is confirmed. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Verified 5 Oct 2026: datePublished changed (On 2013-08-27 the diXa homepage linked the Data Warehouse only in its 'Members' box (https://web.archive.org/web/20130827153007/http://www.dixa-fp7.eu/). By 2014-02-07 the homepage had a public 'Enter the diXa data warehouse' button linking to wwwdev.ebi.ac.uk/fg/dixa (https://web.archive.org/web/20140207104020/http://www.dixa-fp7.eu/). So the warehouse was public about 10 months before the paper's online date. A capture is only a lower bound, so year precision is used, as for SEND. The workshop report describing diXa (doi 10.1007/s00204-014-1387-3, online 2014-10-19) also comes before the paper.) Verified 5 Oct 2026: dateBasis changed (The earliest documented date is the public availability (launch) of the warehouse, shown in a web archive capture, not the 2014-12-12 paper.) Verified 5 Oct 2026: dateSource changed (This is the earliest capture showing the public 'Enter the diXa data warehouse' entry point. The Aug 2013 capture still lists the warehouse under Members only.) Proposed 9 Oct 2026: Domain repository for toxicogenomics data that took deposits through templates and linked chemical, molecular and phenotype records, acting on deposition and integration. IM: Instead ChemAgora can be used here)https://data.jrc.ec.europa.eu/dataset/jrc-eurl-ecvam-chemagora",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
@@ -4397,7 +4455,8 @@
    "schemaType": "schema:CreativeWork",
    "key": "drugbank",
    "name": "DrugBank",
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E7",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
@@ -4585,7 +4644,7 @@
    "dateSource": "https://doi.org/10.1016/j.jfca.2021.104058",
    "creator": "NIH Office of Dietary Supplements (ODS) and National Library of Medicine (NLM)",
    "url": "https://dsld.od.nih.gov/",
-   "description": "Public NIH database of the full label content of dietary supplement products sold in the United States (ingredients and amounts, claims, warnings and label images) for current and historical products, searchable online and downloadable through an API. It supports research on supplement composition and exposure, including screening for potentially harmful ingredients.",
+   "description": "The Dietary Supplement Label Database (DSLD) is a publicly accessible database maintained by the U.S. National Institutes of Health (NIH) Office of Dietary Supplements. It contains current and historical label information from dietary supplement products marketed in the United States (ingredients and amounts, label claims, warnings and label images) for current and historical products, searchable online and downloadable through an API. It supports research on supplement composition and exposure, including screening for potentially harmful ingredients.",
    "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
@@ -4593,6 +4652,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.c5b513",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2013 replaced by 2008: NIH papers say the DSLD was launched in 2008 (J Food Compos Anal 2021, doi 10.1016/j.jfca.2021.104058) and created in 2008 (J Nutr 2018, doi 10.1093/jn/nxy082). 2013 matches the move to dsld.nlm.nih.gov (earliest archive capture 2013-05-09; FASEB J 2013 abstract doi 10.1096/fasebj.27.1_supplement.848.1). A predecessor, NLM's Dietary Supplements Labels Database, was online by Oct 2007 (archive). The homepage returns 403 to scripted requests but is live (archived 2026-08-01). Scope Life Sciences because it is a nutrition and public-health resource; toxicology uses it for supplement exposure and harmful ingredients. Verified 5 Oct 2026: datePublished changed (The row's own dateSource (Saldanha et al., JFCA 2021, https://doi.org/10.1016/j.jfca.2021.104058; full text PMC8336909) says a DSLD prototype was discussed at a project meeting in late 2008 and demonstrated in 2009, and 'The first version was deployed in 2013' with about 17,000 labels. The abstract's 'Launched in 2008' therefore refers to the project, not public availability. 2013 is supported by the April 2013 FASEB J abstract 'DSLD Will Capture Information from Dietary Supplement (DS) Labels' (doi 10.1096/fasebj.27.1_supplement.848.1), the earliest dsld.nlm.nih.gov capture (2013-05-09) and FAIRsharing year 2013. The basis stays release.) Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -5236,6 +5296,51 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#edata",
+   "identifier": "https://w3id.org/fair-tox/dataset#edata",
+   "schemaType": "schema:SoftwareApplication",
+   "key": "edata",
+   "name": "eData",
+   "decision": "include",
+   "fairsharingType": "Tool",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service"
+   ],
+   "origin": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "eco-toxicology",
+    "AOP-based mechanistic knowledge"
+   ],
+   "datePublished": "2026-10-10",
+   "dateSource": "https://doi.org/10.1093/inteam/vjag163",
+   "creator": "NIVA",
+   "contactPoint": [
+    "https://orcid.org/0000-0002-7534-0937"
+   ],
+   "url": "https://nivanorge.github.io/STOPeData/",
+   "description": "eData is a data entry and formatting Shiny application (app) in the Source to Outcome Pathway/Risk Assessment Database family, designed to make extracting data on chemical concentrations in the environment from papers and reports easier.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingRecord": "FAIRsharing.2ad284",
+   "fairsharingMatch": "to check",
+   "reviewedBy": "IM",
+   "note": "Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: eData is a Shiny application for entering and formatting data, made at NIVA. FAIRsharing type Tool set by JH on 12 Nov 2026: it is software.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#edelweissdata",
    "identifier": "https://w3id.org/fair-tox/dataset#edelweissdata",
    "schemaType": "schema:SoftwareApplication",
@@ -5688,16 +5793,22 @@
    "alternateName": [
     "ENA"
    ],
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Database: repository",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Life Sciences",
+   "subdomains": [
+    "toxicogenomics"
+   ],
+   "datePublished": "2008-10-31",
+   "dateSource": "https://doi.org/10.1093/nar/gkn765",
    "url": "http://www.ebi.ac.uk/ena",
    "fairsharingRecord": "FAIRsharing.dj8nt8",
    "fairsharingMatch": "confirmed",
-   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RALDg8eNc5pweUOSKpwV7oswGbh1x2cCpujmFTT3C6dtw/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F4; this domain-specific nucleotide sequence archive indexes deposited records and makes them searchable.",
+   "reviewedBy": "IM",
+   "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RALDg8eNc5pweUOSKpwV7oswGbh1x2cCpujmFTT3C6dtw/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F4; this domain-specific nucleotide sequence archive indexes deposited records and makes them searchable. Research 12 Nov 2026 (medium confidence): first described under this name in Cochrane et al., 'Petabyte-scale innovations at the European Nucleotide Archive', Nucleic Acids Research 37 (Database issue), doi 10.1093/nar/gkn765, published online 2008-10-31 (Europe PMC). The ENA then comprised the EMBL Nucleotide Sequence Database and the Ensembl Trace Archive; FAIRsharing's year of creation is 1980. Dated like UniProt, by the first paper under the current name.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
     "F4"
@@ -6466,8 +6577,7 @@
    "schemaType": "schema:CreativeWork",
    "key": "epa_substance_registry_services",
    "name": "EPA Substance Registry Services",
-   "decision": "exclude",
-   "exclusionReason": "E5",
+   "decision": "include",
    "fairsharingType": "Database: knowledgebase",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
@@ -6740,6 +6850,69 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#erm_id_db",
+   "identifier": "https://w3id.org/fair-tox/dataset#erm_id_db",
+   "schemaType": "schema:CreativeWork",
+   "key": "erm_id_db",
+   "name": "ERM Identifier Database",
+   "decision": "include",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Identifier-service"
+   ],
+   "origin": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "nanotoxicology"
+   ],
+   "dateReleased": "2023-08-29",
+   "dateSource": "https://github.com/NanoCommons/erm-database",
+   "creator": "NanoCommons",
+   "contactPoint": [
+    "https://orcid.org/0000-0001-7542-0286"
+   ],
+   "url": "https://github.com/NanoCommons/identifiers/blob/master/readme.md",
+   "description": "The European Registry of Materials is a simple registry with the sole purpose to mint material identifiers to be used by research projects throughout the life cycle of their project. The identifier is nothing more than that identifier, and not by default linked to any information.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
+   "note": "Co-author addition 2 Nov 2026 (EW). Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: the identifier database is kept by NanoCommons in a GitHub repository, and the European Registry of Materials it serves is marked the same way. Contact 'Egon' written as his ORCID link by JH on 12 Nov 2026: Contact takes an ORCID or ROR link.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "F1"
+   ],
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#google_datasetsearch",
+     "hadRole": "uses",
+     "evidence": "curator"
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.2gpf81",
+     "hadRole": "uses",
+     "evidence": "curator"
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.c26a4e",
+     "hadRole": "implements",
+     "evidence": "curator"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#etox",
    "identifier": "https://w3id.org/fair-tox/dataset#etox",
    "schemaType": "schema:CreativeWork",
@@ -6808,7 +6981,8 @@
    "manuscriptEvidence": "III Regulatory; Comments [ar]; L188, L411",
    "mentionedIn": [
     "Whitepaper",
-    "FAIRSharing"
+    "FAIRSharing",
+    "INTOXICOM 2"
    ],
    "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): Date: Pognan et al., Pharmaceuticals, online 2021-03-08 (Crossref), the first full description of the ToxHub; confirms the previous inventory's 2021. E4 proposed because the hub was never public. The paper says ToxHub ran in a secure cloud for eTRANSAFE partners. The project's 'Publicly accessible results' page (http://web.archive.org/web/20230608060414/https://etransafe.eu/publicly-accessible-results/) lists Flame, Rosetta Stone, PretoxTM, models and code, but not the hub. The etransafe.eu domain has lapsed, so the URL is the paper DOI. Co-authors to confirm, as docs/inclusion-criteria.md asks for this row. FAIRsharing not searched because the web-search budget had run out. Verified 5 Oct 2026: decision changed (docs/inclusion-criteria.md §5 'Availability' names the eTRANSAFE knowledge hub as a row that stays undecided until the co-authors confirm I3, and this row's note says the co-authors still have to confirm. The evidence supports E4 only as a proposal. Pognan et al. 2021 (PMC7999019, https://doi.org/10.3390/ph14030237) says ToxHub ran in a secure cloud with components open to eTRANSAFE partners. The archived 'Publicly accessible results' page (http://web.archive.org/web/20230608060414/https://etransafe.eu/publicly-accessible-results/) does not list the hub.) Verified 5 Oct 2026: exclusionReason changed (Cleared because the decision returns to undecided. E4 stays as the proposal in the note.) Proposed 9 Oct 2026: A database that indexes and serves records under stable identifiers, typed Domain-specific registry as databases are in FIPs.",
@@ -6938,7 +7112,8 @@
     "eTRANSAFE research reproducibility guidelines",
     "eTRANSAFE: Building a sustainable framework to share reproducible drug safety knowledge with the public domain"
    ],
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E7",
    "fairsharingType": "Policy: project",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
@@ -6966,6 +7141,7 @@
     "Whitepaper"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): F1000Research v1 published 2022-03-07 (Crossref, Europe PMC); it presents the reproducibility, FAIR data-sharing and model-verification guidelines. No earlier public deliverable found in DataCite. Maintained set to discontinued: the IMI2 project has ended and etransafe.eu now shows a domain-reseller page (2026-10-05). Added 'computational and predictive toxicology' because of the model-verification guidelines. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: Project guidelines setting conventions for FAIR sharing of drug-safety data and verification of predictive models, applied when integrating data and building models.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
@@ -7485,6 +7661,7 @@
    ],
    "manuscript": "cited",
    "manuscriptEvidence": "I Introduction; L7",
+   "reviewedBy": "JH",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -7703,6 +7880,7 @@
     "INTOXICOM 5"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedRelation": [
     {
@@ -7907,9 +8085,11 @@
     "R1.2",
     "R1.3"
    ],
-   "decision": "exclude",
-   "exclusionReason": "E2",
+   "decision": "include",
    "fairsharingType": "Standard: principle",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
+   ],
    "origin": "Generic",
    "date": "2016",
    "dateSource": "https://doi.org/10.1038/sdata.2016.18",
@@ -7920,7 +8100,8 @@
    "manuscriptEvidence": "Throughout (I-VI); L7, L10, L14, L18, L40, L86, L92, L94, L96, L112, L116, L148, L175, L184, L188, L190, L205, L222, L264, L267, L301, L330",
    "fairsharingRecord": "FAIRsharing.WWI10U",
    "fairsharingMatch": "confirmed",
-   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify."
+   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.2abjs5",
@@ -8266,8 +8447,7 @@
    "decision": "include",
    "fairsharingType": "Standard: reporting guideline",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/FAIR-Practice",
-    "https://w3id.org/fair/fip/terms/Metadata-schema"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "origin": "Toxicology",
    "phase": "Data generation",
@@ -8292,10 +8472,7 @@
    "fairsharingMatch": "no record",
    "reviewedBy": "JH",
    "note": "Research 5 Oct 2026 (medium confidence): Year taken from the original OECD monograph ENV/JM/MONO(2014)35 (Series on Testing and Assessment No. 211). The 2017-04-13 DOI (10.1787/9789264274730-en) is the later OECD Publishing edition, so dateSource now points to the 2014 document (OECD blocks automated access; exact day not verified). Type changed from Policy: institution to Standard: reporting guideline: GD 211 is a template for reporting method descriptions, like the OORF, which FAIRsharing registers as a reporting guideline. Added 'in vitro toxicology'. URL set to the OECD page. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: A template specifying the metadata describing an in vitro method, completed when the method is documented and used by regulators to judge its data. Decided 1 Nov 2026 (JH): FAIR practice added as a second type, as GD 211 is OECD guidance whose core is a reporting template; it stays a Metadata schema, as the PARC Toxicology FIP types the comparable OECD Omics Reporting Framework.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "F2"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -8366,15 +8543,19 @@
    "creatorType": [
     "Regulator"
    ],
-   "dateAdopted": "2025-12-03",
+   "subdomains": [
+    "conventional toxicology"
+   ],
+   "datePublished": "2025-12-03",
    "dateSource": "https://doi.org/10.1787/8d49ec1d-en",
    "creator": "OECD",
    "url": "https://www.oecd.org/en/publications/guidance-document-on-the-generation-reporting-and-use-of-research-data-for-regulatory-assessments_8d49ec1d-en.html",
-   "description": "OECD guidance on how research data, for example from academic studies that do not follow test guidelines, should be generated, reported and evaluated so they can be used in regulatory chemical assessments. It sets expectations for documentation and data availability that make such data reusable by regulators.",
+   "description": "OECD guidance on how research data, for example, from academic studies that do not follow test guidelines, should be generated, reported and evaluated so they can be used in regulatory chemical assessments. It sets expectations for documentation and data availability that make such data reusable by regulators.",
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III Regulatory; L190",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Published online 2025-12-03 (Crossref, doi 10.1787/8d49ec1d-en). URL filled with the OECD page given in the Crossref record. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: OECD guidance, a community convention, on how researchers generate and report research data and how regulators evaluate them for chemical assessments.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
@@ -9407,6 +9588,20 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#isa-ro-crate",
+   "identifier": "https://w3id.org/fair-tox/dataset#isa-ro-crate",
+   "schemaType": "schema:CreativeWork",
+   "key": "isa-ro-crate",
+   "name": "ISA RO-Crate Profile",
+   "decision": "undecided",
+   "origin": "Life Sciences",
+   "dateSource": "https://doi.org/10.5281/zenodo.13748893",
+   "url": "https://zenodo.org/records/14999642",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record"
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#isa_ext",
    "identifier": "https://w3id.org/fair-tox/dataset#isa_ext",
    "schemaType": "schema:CreativeWork",
@@ -9721,7 +9916,7 @@
    "decision": "include",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "origin": "Toxicology",
    "phase": "Data generation",
@@ -9730,6 +9925,9 @@
    ],
    "creatorType": [
     "Wet-lab research"
+   ],
+   "subdomains": [
+    "conventional toxicology"
    ],
    "datePublished": "2012-02-16",
    "dateSource": "https://doi.org/10.1351/pac-rec-11-06-03",
@@ -9740,11 +9938,9 @@
    "manuscript": "comment only",
    "manuscriptEvidence": "II (to-do notes); L28",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Published online 2012-02-16 (Crossref); authors Templeton, Schwenk, Klein and Duffus. Static IUPAC Recommendation; the DOI resolves. No listed subdomain fits. FAIRsharing: DataCite shows other IUPAC records (e.g. the Gold Book) but none for this glossary; records without a DOI not checked. Proposed 9 Oct 2026: Glossary of agreed, defined immunotoxicology terms, a controlled vocabulary applied when immunotoxicity data are reported.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "I2"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -9774,17 +9970,18 @@
    "decision": "include",
    "fairsharingType": "Standard: terminology artefact",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
-    "Data generation",
-    "Data integration",
-    "Regulatory assessment"
+    "Data generation"
    ],
    "creatorType": [
     "Wet-lab research"
+   ],
+   "subdomains": [
+    "conventional toxicology"
    ],
    "datePublished": "2007-07",
    "dateSource": "https://doi.org/10.1351/pac200779071153",
@@ -9795,11 +9992,9 @@
    "manuscript": "comment only",
    "manuscriptEvidence": "II (to-do notes); L28",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Pure Appl Chem 79(7), July 2007; DOI registered 2007-07-06 (Crossref). Crossref's 2009-01-01 'online' date reflects a later platform load. This row is the 2nd edition; the 1st edition is the 1993 'Glossary for chemists of terms used in toxicology' (doi 10.1351/pac199365092003), which has no row. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: Glossary of recommended toxicology and risk-assessment definitions, a structured vocabulary applied from reporting study data through integration to regulatory assessment.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "I2"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -10224,6 +10419,7 @@
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation; Comments [m]; L99, L363",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): There is no release, tag or paper. The GitHub history starts with an initial commit on 2023-05-26, with public work at BioHackathon Europe 2023 (commits 2023-10-30/11-01). The MARS site traces the project back to BioHackathon Europe 2022, and a BioHackathon 2024 report draft is in paper.md. The earliest web capture is 2024-05-11. The status page shows proofs of concept, none deployed, hence 'in development'. I changed the URL to the project website (the repo is github.com/elixir-europe/MARS). I removed 'computational and predictive toxicology' because MARS is a submission tool, not a model. I found no FAIRsharing DOI record through DataCite; FAIRsharing does not register software. Proposed 9 Oct 2026: Framework that automates submitting ISA-JSON-described multi-omics studies to several public repositories, publishing them with consistent metadata and accessions.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedRelation": [
@@ -10407,7 +10603,7 @@
    "decision": "include",
    "fairsharingType": "Database: repository",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Registry"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Life Sciences",
    "dateReleased": "2012-02",
@@ -10650,6 +10846,16 @@
      "note": "Checked 5 Oct 2026: The draft presents MIRIAM as an annotation guideline that complements SBML, and FAIRsharing notes that MIRIAM works with any structured model format, so neither one builds on the other."
     }
    ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#miribel",
+   "identifier": "https://w3id.org/fair-tox/dataset#miribel",
+   "schemaType": "schema:CreativeWork",
+   "key": "miribel",
+   "name": "MIRIBEL",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#mit_license",
@@ -11010,6 +11216,7 @@
    "creator": "NanoCommons consortium",
    "manuscript": "cited",
    "manuscriptEvidence": "III Data generation (nano); L111",
+   "reviewedBy": "JH",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -11040,6 +11247,7 @@
    "creator": "NanoCommons consortium",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation (nano); L111",
+   "reviewedBy": "JH",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -11174,27 +11382,54 @@
    ]
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#nanopharos",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanopharos",
+   "schemaType": "schema:CreativeWork",
+   "key": "nanopharos",
+   "name": "nanoPharos",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record"
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#nanopharos_database",
    "identifier": "https://w3id.org/fair-tox/dataset#nanopharos_database",
    "schemaType": "schema:CreativeWork",
    "key": "nanopharos_database",
    "name": "NanoPharos Database",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Database: knowledgebase",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
    "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
-    "Data generation"
+    "Data generation",
+    "Data integration"
    ],
    "creatorType": [
     "In silico research"
    ],
-   "url": "https://www.db.nanopharos.eu/",
+   "datePublished": "2020-10-13",
+   "dateSource": "https://www.mdpi.com/2079-4991/10/10/2017",
+   "contactPoint": [
+    "https://ror.org/03wwn0z54"
+   ],
+   "url": "https://pharos.novamechanics.com/nanopharos.html",
+   "description": "The NanoPharos database has curated dataset in a ready to modelling format of NPs,  including physicochemical, structural, assay-related descriptors and atomistic computational descriptors.",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1",
     "INTOXICOM 3"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
+   "note": "FAIRsharing type Database: knowledgebase set by JH on 12 Nov 2026: the Description calls it a database of curated datasets. Contact written as the ROR link of NovaMechanics by JH on 12 Nov 2026: Contact takes an ORCID or ROR link. It was 'info@novamechanics.com; info@entelos.eu'; ROR has no record for Entelos.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "F4"
+   ],
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -11280,6 +11515,16 @@
      "hadRole": "Wet-lab research"
     }
    ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#nanosafety_data_interface",
+   "identifier": "https://w3id.org/fair-tox/dataset#nanosafety_data_interface",
+   "schemaType": "schema:CreativeWork",
+   "key": "nanosafety_data_interface",
+   "name": "Nanosafety Data Interface",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#negdata_opinion",
@@ -11368,6 +11613,16 @@
      "hadRole": "In silico research"
     }
    ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#ninchi",
+   "identifier": "https://w3id.org/fair-tox/dataset#ninchi",
+   "schemaType": "schema:CreativeWork",
+   "key": "ninchi",
+   "name": "ninchi",
+   "decision": "undecided",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record"
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#noeffect_repo",
@@ -11572,6 +11827,7 @@
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation (nano); L108",
+   "reviewedBy": "JH",
    "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify.",
    "qualifiedAttribution": [
     {
@@ -11586,19 +11842,54 @@
    "schemaType": "schema:CreativeWork",
    "key": "nsdi",
    "name": "NanoSafety Data Interface",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Database: repository",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
+   ],
+   "origin": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "conventional toxicology",
+    "nanotoxicology"
+   ],
    "datePublished": "2021-05-20",
    "dateSource": "https://doi.org/10.1038/s41565-021-00911-6",
+   "creator": "IdeaConsult LTD.",
+   "contactPoint": [
+    "https://orcid.org/0000-0002-4322-6179"
+   ],
+   "url": "https://enanomapper.adma.ai/",
+   "description": "A FAIR-aligned interface to nanosafety data, with aggregated search and access across physicochemical, bio-nano interaction, human toxicity, omics, ecotoxicological and exposure data (Jeliazkova et al. 2021).",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 5"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "EW",
+   "note": "Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: the interface is software of the company IdeaConsult. FSR type Domain-specific registry (a database is a registry, as for the eNanoMapper database) and the Description (from the abstract of Jeliazkova et al. 2021, doi 10.1038/s41565-021-00911-6) added by JH on 12 Nov 2026.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "F4"
+   ],
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
    "qualifiedRelation": [
     {
-     "relation": "https://w3id.org/fair-tox/dataset#enanomapper",
+     "relation": "https://doi.org/10.25504/FAIRsharing.r18yt0",
      "hadRole": "extends",
-     "evidence": "curator"
+     "evidence": "curator",
+     "note": "Target changed by JH on 12 Nov 2026 from the eNanoMapper project (enanomapper), which is excluded as E1, to the eNanoMapper database (enm_db): a relation points at a resource."
     }
    ]
   },
@@ -12092,16 +12383,46 @@
   {
    "@id": "https://w3id.org/fair-tox/dataset#omero",
    "identifier": "https://w3id.org/fair-tox/dataset#omero",
-   "schemaType": "schema:CreativeWork",
+   "schemaType": "schema:SoftwareApplication",
    "key": "omero",
    "name": "OMERO",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Tool",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service"
+   ],
+   "origin": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "conventional toxicology",
+    "nanotoxicology"
+   ],
+   "datePublished": "2005",
+   "dateSource": "https://doi.org/10.1186/gb-2005-6-5-r47",
+   "creator": "University of Dundee & Open Microscopy Environment",
    "url": "https://www.openmicroscopy.org/omero/",
+   "description": "OMERO is an enterprise image data management platform that enables access, processing, sharing, analysis and where appropriate publication of scientific image data and metadata.",
+   "maintained": "active",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 3"
    ],
-   "fairsharingMatch": "no record"
+   "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
+   "note": "Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: OMERO is image data management software of the Open Microscopy Environment (University of Dundee). FAIRsharing type Tool set by JH on 12 Nov 2026: it is software.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.27tnee",
@@ -12544,6 +12865,7 @@
     "Whitepaper"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): Changed 2008 (the OpenTox FP7 project start, not the resource) to 2009. An opentox.org API page captured 2009-10-27 says the initial interface specifications (API 1.0) were completed for July 2009. API 1.1 followed in Nov 2009, and Hardy et al. 2010 (e-pub 2010-08-31) is the formal description. Maintained changed from active to discontinued: opentox.org no longer resolves, and the opentox-api GitHub repository is a one-commit stub pointing to it; AMBIT/eNanoMapper still implement the API. Added 'computational and predictive toxicology'. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: An RDF/OWL data model and REST interface specification letting distributed predictive toxicology services exchange compounds, datasets and models for integration and modelling.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -12673,14 +12995,26 @@
    "alternateName": [
     "OSF"
    ],
-   "decision": "undecided",
+   "decision": "include",
    "fairsharingType": "Database: knowledgebase and repository",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Generalist-Registry"
+   ],
    "origin": "Generic",
+   "dateReleased": "2012",
+   "dateSource": "https://www.cos.io/timeline?hsCtaTracking=be7a2018-3932-4b64-b3c3-8af7c8706762%7C491c02e9-7f53-4c68-b8a0-0acb6ad54462",
+   "creator": "Center for Open Science",
    "url": "https://osf.io/",
+   "description": "The Open Science Framework (OSF) is a free, open-source research management and collaboration platform developed by the Center for Open Science (COS). It is designed to support transparent, reproducible, and shareable research throughout the entire research lifecycle",
    "manuscript": "absent",
    "fairsharingRecord": "FAIRsharing.g4z879",
    "fairsharingMatch": "confirmed",
-   "note": "From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier A), 21 Oct 2026. FAIRsharing record found the same day."
+   "reviewedBy": "IM",
+   "note": "From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier A), 21 Oct 2026. FAIRsharing record found the same day. Phase cleared by JH on 12 Nov 2026 (was: Data generation): a phase applies only to toxicology resources, and the origin is Generic.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "F4"
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.atygwy",
@@ -12738,7 +13072,7 @@
     "PARC data strategy"
    ],
    "decision": "exclude",
-   "exclusionReason": "E3",
+   "exclusionReason": "E2",
    "fairsharingType": "Policy: project",
    "origin": "Toxicology",
    "phase": "Regulatory assessment",
@@ -12778,8 +13112,10 @@
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
    ],
    "origin": "Toxicology",
-   "phase": "Regulatory assessment",
+   "phase": "Data generation",
    "span": [
+    "Data generation",
+    "Data integration",
     "Regulatory assessment"
    ],
    "creatorType": [
@@ -12793,7 +13129,7 @@
    "dateSource": "http://purl.org/np/RAvuwR9iDrKdPeDCZAxMhW_wDmwuIYDSOcQaZ_QBFZs8M",
    "creator": "EU Horizon Europe partnership",
    "url": "https://www.eu-parc.eu",
-   "description": "EU public-public partnership that develops regulatory risk assessment of chemicals and brings novel assessment methods and next-generation risk assessment tools into regulatory practice.",
+   "description": "EU public-public partnership that develops and brings novel assessment methods and next-generation risk assessment tools into regulatory practice.",
    "manuscript": "named",
    "manuscriptEvidence": "III Table 1; III Data generation; III AOP; III Computational; L60, L112, L135, L158, L399",
    "fairsharingMatch": "no record",
@@ -12941,7 +13277,8 @@
    "alternateName": [
     "PARCToxicology"
    ],
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E1",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/FAIR-Implementation-Community"
    ],
@@ -12955,6 +13292,7 @@
     "INTOXICOM 5"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "FAIR Implementation Community that declares PARC Toxicology FAIR Implementation Profile, from its FIC nanopublication. Retrieved 2026-10-08.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
@@ -13002,7 +13340,7 @@
    "decision": "include",
    "fairsharingType": "Standard: model/format",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Metadata-schema"
+    "https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service"
    ],
    "origin": "Toxicology",
    "phase": "Data integration",
@@ -13026,11 +13364,9 @@
    "manuscript": "comment only",
    "manuscriptEvidence": "III Computational (reference notes); Comments [am]; L158, L399",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): Computational Toxicology vol. 39 (Sept 2026), article 100426. The DOI was registered 2026-06-06 and the CC-BY licence runs from 2026-06-09, so the article was online in June 2026 (exact day not in Crossref). No preprint found; the reference list cites the SBML specifications. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Verified 5 Oct 2026: url changed (The standard has its own homepage, the 'FAIR PBK standard' specification site (HTTP 200 on 2026-10-05). It cites the Computational Toxicology paper. Its repository is github.com/fair-pbk/fair-pbk-standard, with v1.0.0 tagged 2026-06-13. The paper DOI should be the URL only when no homepage exists.) Proposed 9 Oct 2026: SBML-based exchange standard specifying how PBK models are encoded and annotated, applied when models are built and when risk assessors reuse them.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "F2"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -13296,6 +13632,7 @@
    ],
    "fairsharingRecord": "FAIRsharing.qt3w7z",
    "fairsharingMatch": "confirmed",
+   "reviewedBy": "IM",
    "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 2004 confirmed: PubChem was launched in 2004 as part of the NIH Molecular Libraries Roadmap (Kim et al., NAR 2016, doi 10.1093/nar/gkv951). Earliest archive capture is 2004-09-23. First dedicated paper: Wang et al. 2009 (doi 10.1093/nar/gkp456). Proposed 9 Oct 2026: A chemistry repository that indexes and serves deposited substance, compound and bioassay records from many contributors, with web and programmatic search.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -13330,7 +13667,7 @@
    "decision": "include",
    "fairsharingType": "Standard: identifier schema",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Identifier-service"
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
    ],
    "origin": "Life Sciences",
    "dateReleased": "2004",
@@ -13345,7 +13682,7 @@
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAKdiL1mjp3OMavCvO6J8_ltIRP7R_cxmSh_JMCTqduFg/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: PubChem's unique, resolvable identifiers for chemical compounds.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
-    "F1"
+    "F4"
    ],
    "fsr": [
     "https://w3id.org/np/RALGzv6X0tjUaQ--X_7HYv5L7w1P5AUQh_-hLDnrpBGSM#PubChemCID"
@@ -13678,8 +14015,7 @@
     "Regulatory assessment"
    ],
    "creatorType": [
-    "Wet-lab research",
-    "In silico research"
+    "Wet-lab research"
    ],
    "subdomains": [
     "conventional toxicology"
@@ -13695,16 +14031,31 @@
    "maintained": "active",
    "manuscript": "absent",
    "fairsharingMatch": "no record",
-   "note": "Co-author addition 2 Nov 2026 (JH). Research 2 Nov 2026 (high confidence): Crouzet et al., Environ Int 174:107910 (doi 10.1016/j.envint.2023.107910), received 2023-01-04, available online 2023-03-31, read in the open copy https://hal.science/hal-04094681. The paper gives the tool's address, says that Université Paris Cité developed the questionnaire and maintains the web interface, and that the work was supported by OBERON (H2020 grant 825712) and the Pepper platform, whose expertise shaped the data management questions. The questions draw on the readiness criteria of Bal-Price et al. 2018, the ToxTemp template (Krebs et al. 2019; row toxtemp) and OECD GD 211 (row gd211). The earliest web capture (2022-08-15, the Citation) already shows the questionnaire, so First published is that year, a lower bound. The site answered on 2 Nov 2026; its menu names Contact SysTox and Contact Pepper. Made by (medium confidence): in silico research for SysTox, Karine Audouze's computational group at Université Paris Cité (https://ipop.u-paris.fr/systox/), and wet-lab research for Pepper, the validation platform for endocrine disruptor test methods. Typed like ToxRTool and SciRAP: it checks the information on a test method against what validating bodies request (I5).",
+   "reviewedBy": "JH",
+   "note": "Co-author addition 2 Nov 2026 (JH). Research 2 Nov 2026 (high confidence): Crouzet et al., Environ Int 174:107910 (doi 10.1016/j.envint.2023.107910), received 2023-01-04, available online 2023-03-31, read in the open copy https://hal.science/hal-04094681. The paper gives the tool's address, says that Université Paris Cité developed the questionnaire and maintains the web interface, and that the work was supported by OBERON (H2020 grant 825712) and the Pepper platform, whose expertise shaped the data management questions. The questions draw on the readiness criteria of Bal-Price et al. 2018, the ToxTemp template (Krebs et al. 2019; row toxtemp) and OECD GD 211 (row gd211). The earliest web capture (2022-08-15, the Citation) already shows the questionnaire, so First published is that year, a lower bound. The site answered on 2 Nov 2026; its menu names Contact SysTox and Contact Pepper. Made by: wet-lab research, decided by JH on 4 Nov 2026; the proposal of 2 Nov also named in silico research for SysTox, Karine Audouze's computational group at Université Paris Cité (https://ipop.u-paris.fr/systox/), next to wet-lab research for Pepper, the validation platform for endocrine disruptor test methods. Typed like ToxRTool and SciRAP: it checks the information on a test method against what validating bodies request (I5).",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
      "hadRole": "Wet-lab research"
+    }
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#gd211",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1016/j.envint.2023.107910",
+     "reviewedBy": "JH",
+     "note": "Crouzet et al. 2023, section 2.1: the questions of the self-assessment questionnaire were inspired from, among others, the OECD guidance document for describing non-guideline in vitro test methods, which is GD 211. Labelled related_to by JH on 3 Nov 2026: the questionnaire does not use GD 211 itself, and extends is not possible between a tool and a standard."
     },
     {
-     "@type": "prov:Attribution",
-     "hadRole": "In silico research"
+     "relation": "https://w3id.org/fair-tox/dataset#toxtemp",
+     "hadRole": "related_to",
+     "evidence": "literature",
+     "source": "https://doi.org/10.1016/j.envint.2023.107910",
+     "reviewedBy": "JH",
+     "note": "Crouzet et al. 2023, section 2.1: the questions of the self-assessment questionnaire were inspired from, among others, the template for cell-based test methods of Krebs et al. 2019, which is ToxTemp. Labelled related_to by JH on 3 Nov 2026: the questionnaire does not use ToxTemp itself, and extends is not possible between a tool and a standard."
     }
    ]
   },
@@ -13845,6 +14196,24 @@
    "reviewedBy": "JH"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#ro-crate",
+   "identifier": "https://w3id.org/fair-tox/dataset#ro-crate",
+   "schemaType": "schema:CreativeWork",
+   "key": "ro-crate",
+   "name": "Research Object Crate specification",
+   "decision": "undecided",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Editor"
+   ],
+   "origin": "Generic",
+   "dateSource": "https://doi.org/10.5281/zenodo.3406497",
+   "url": "https://www.researchobject.org/ro-crate/",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#rodaf",
    "identifier": "https://w3id.org/fair-tox/dataset#rodaf",
    "schemaType": "schema:SoftwareApplication",
@@ -13906,7 +14275,8 @@
    "decision": "include",
    "fairsharingType": "Standard: identifier schema",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Identifier-service"
+    "https://w3id.org/fair/fip/terms/Identifier-service",
+    "https://w3id.org/fair/fip/terms/Registry"
    ],
    "origin": "Generic",
    "dateReleased": "2019-01",
@@ -13926,7 +14296,8 @@
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAhknXQZhXhF2F6PFH5-krSCeiq1bmHSgGrimuLCCq8nY/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared for F1 as the persistent, resolvable identifier scheme for research organisations named in metadata. Research 1 Nov 2026 (high confidence): The ROR history page says the first registry, the Minimum Viable Registry, was launched in January 2019 at a community meeting at PIDapalooza in Dublin. The blog post 'Announcing our first prototype' (10 Feb 2019) says the team released a working API and search interface the month before and held the community meeting on 22 January. The ror.org capture of 2019-01-22 already states that all ROR IDs and metadata are CC0. Planning ran from 2016 as the Org ID initiative. A steering group of California Digital Library, Crossref, DataCite and Digital Science built the pilot, seeded with GRID data. California Digital Library, Crossref and DataCite signed the governance agreement in May 2020. FAIRsharing: the ROR ID Schema record FAIRsharing.f73143, found by a name search of FAIRsharing on 1 Nov 2026.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
-    "F1"
+    "F1",
+    "F4"
    ],
    "fsr": [
     "http://purl.org/np/RAFP-uWPTN5u2kPR8pYeIgdbwyP1_KYZgoogYIv0Wp-fQ#ROR"
@@ -14191,6 +14562,7 @@
    "manuscript": "cited",
    "manuscriptEvidence": "V Challenges; L267",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (medium confidence): The earliest archive capture of scirap.org (2013-08-14) already shows evaluation criteria and reporting checklists, plus a news item on a 31 May thesis defence. So the site was online by mid-2013 (lower bound). Criteria proposed in Beronius et al., online 2014-01-30 (doi:10.1002/jat.2991); resource described in Molander et al., HERA, online 2014-09-30 (doi:10.1080/10807039.2014.928104). scirap.org now redirects to a Karolinska Institutet page updated in 2026. Added Stockholm University to creator, and eco-toxicology and in vitro toxicology to subdomains (SciRAP has CRED and in vitro tools). FAIRsharing: DataCite shows no FAIRsharing DOI; the web search budget was used up. Proposed 9 Oct 2026: Web tool checking studies against reporting, reliability and relevance criteria, applied when researchers report studies and when assessors evaluate them.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
@@ -14228,7 +14600,8 @@
    "manuscriptEvidence": "III Computational; L146",
    "fairsharingRecord": "FAIRsharing.6f7m6j",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (high confidence): I corrected the date from 2011. SED-ML was first described in Köhn & Le Novère, 'SED-ML - An XML Format for the Implementation of the MIASE Guidelines', CMSB 2008, LNCS 5307 (Crossref issued 2008; DOI registered 2008-10-04). The previous source, Waltemath et al., BMC Syst Biol, online 2011-12-15, is a later description. FAIRsharing year 2008 agrees. The current specification is Level 1 Version 5 (COMBINE). Proposed 9 Oct 2026: XML format that describes simulation experiment setups on computational models in a structured, machine-readable way, so a metadata schema.",
+   "reviewedBy": "IM",
+   "note": "Research 5 Oct 2026 (high confidence): I corrected the date from 2011. SED-ML was first described in Köhn & Le Novère, 'SED-ML - An XML Format for the Implementation of the MIASE Guidelines', CMSB 2008, LNCS 5307 (Crossref issued 2008; DOI registered 2008-10-04). The previous source, Waltemath et al., BMC Syst Biol, online 2011-12-15, is a later description. FAIRsharing year 2008 agrees. The current specification is Level 1 Version 5 (COMBINE). Proposed 9 Oct 2026: XML format that describes simulation experiment setups on computational models in a structured, machine-readable way, so a metadata schema. Phase cleared by JH on 12 Nov 2026 (was: Data integration): a phase applies only to toxicology resources, and the origin is Life Sciences.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
     "F2"
@@ -14422,7 +14795,8 @@
    ],
    "fairsharingRecord": "FAIRsharing.qv4b3c",
    "fairsharingMatch": "confirmed",
-   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1980 replaced: SMILES was first formally described by Weininger in J Chem Inf Comput Sci, Feb 1988 (doi 10.1021/ci00057a005). It was developed in the 1980s at the US EPA Duluth laboratory and later maintained by Daylight. The FAIRsharing record and homepage describe OpenSMILES, the open community specification, which was online by 2007-11-01 (archive). The https version of opensmiles.org does not respond, so the url stays on http. Verified 5 Oct 2026: datePublished changed (SMILES was first formally described in a US EPA Environmental Research Brief, EPA/600/M-87/021: Anderson, Veith and Weininger, 'SMILES: A Line Notation and Computerized Interpreter for Chemical Structures', ERL-Duluth, dated 'August 1987' on its cover (https://nepis.epa.gov/Exe/ZyPDF.cgi/2000CAUR.PDF?Dockey=2000CAUR.PDF). That is six months before the J Chem Inf Comput Sci paper (issued 1988-02-01). The basis stays publication.) Verified 5 Oct 2026: dateSource changed (The 1987 EPA report is the earliest formal description (see datePublished).) Proposed 9 Oct 2026: A formal line notation that writes chemical structures as strings for machine exchange and in silico tools, rather than a resolvable identifier.",
+   "reviewedBy": "IM",
+   "note": "Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1980 replaced: SMILES was first formally described by Weininger in J Chem Inf Comput Sci, Feb 1988 (doi 10.1021/ci00057a005). It was developed in the 1980s at the US EPA Duluth laboratory and later maintained by Daylight. The FAIRsharing record and homepage describe OpenSMILES, the open community specification, which was online by 2007-11-01 (archive). The https version of opensmiles.org does not respond, so the url stays on http. Verified 5 Oct 2026: datePublished changed (SMILES was first formally described in a US EPA Environmental Research Brief, EPA/600/M-87/021: Anderson, Veith and Weininger, 'SMILES: A Line Notation and Computerized Interpreter for Chemical Structures', ERL-Duluth, dated 'August 1987' on its cover (https://nepis.epa.gov/Exe/ZyPDF.cgi/2000CAUR.PDF?Dockey=2000CAUR.PDF). That is six months before the J Chem Inf Comput Sci paper (issued 1988-02-01). The basis stays publication.) Verified 5 Oct 2026: dateSource changed (The 1987 EPA report is the earliest formal description (see datePublished).) Proposed 9 Oct 2026: A formal line notation that writes chemical structures as strings for machine exchange and in silico tools, rather than a resolvable identifier. Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration, Regulatory assessment): a phase applies only to toxicology resources, and the origin is Life Sciences.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
     "I1"
@@ -14465,6 +14839,74 @@
      "hadRole": "uses",
      "evidence": "curator",
      "reviewedBy": "Egon"
+    }
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#spdx",
+   "identifier": "https://w3id.org/fair-tox/dataset#spdx",
+   "schemaType": "schema:CreativeWork",
+   "key": "spdx",
+   "name": "System Package Data Exchange (SPDX) Specification (ISO/IEC 5962:2021)",
+   "decision": "undecided",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Metadata-schema",
+    "https://w3id.org/fair/fip/terms/Semantic-model"
+   ],
+   "origin": "Generic",
+   "creator": "Linux Foundation",
+   "contactPoint": [
+    "https://ror.org/02krvw113"
+   ],
+   "url": "https://spdx.dev/",
+   "description": "The SPDX specification is a freely available international open standard (ISO/IEC 5962:2021) capable of representing systems with software components in as SBOMs (Software Bill of Materials) and other AI, data and security references supporting a range of risk management use cases.",
+   "manuscript": "absent",
+   "fairsharingRecord": "FAIRsharing.fde054",
+   "fairsharingMatch": "to check",
+   "reviewedBy": "IM",
+   "note": "Phase cleared by JH on 12 Nov 2026 (was: Data integration): a phase applies only to toxicology resources, and the origin is Generic.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "F2",
+    "I3"
+   ]
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#spdx-license",
+   "identifier": "https://w3id.org/fair-tox/dataset#spdx-license",
+   "schemaType": "schema:CreativeWork",
+   "key": "spdx-license",
+   "name": "SPDX License List",
+   "decision": "include",
+   "fairsharingType": "Standard: terminology artefact",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/Data-usage-license",
+    "https://w3id.org/fair/fip/terms/Structured-vocabulary"
+   ],
+   "origin": "Generic",
+   "dateReleased": "2010-08-01",
+   "dateSource": "https://web.archive.org/web/20110128200808/spdx.org/licenses",
+   "creator": "Linux Foundation",
+   "contactPoint": [
+    "https://ror.org/02krvw113"
+   ],
+   "url": "https://spdx.org/licenses/",
+   "description": "SPDX License List is a standardised, machine‑readable, controlled vocabulary of licence identifiers used across software, data, hardware, and documentation ecosystems.",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
+   "note": "Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration): a phase applies only to toxicology resources, and the origin is Generic.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
+   "principles": [
+    "I2",
+    "R1.1"
+   ],
+   "qualifiedRelation": [
+    {
+     "relation": "https://w3id.org/fair-tox/dataset#spdx",
+     "hadRole": "implements",
+     "evidence": "curator"
     }
    ]
   },
@@ -14916,6 +15358,46 @@
    "manuscriptEvidence": "IV (to-do notes); L220"
   },
   {
+   "@id": "https://w3id.org/fair-tox/dataset#tox-template-guide",
+   "identifier": "https://w3id.org/fair-tox/dataset#tox-template-guide",
+   "schemaType": "schema:CreativeWork",
+   "key": "tox-template-guide",
+   "name": "Tox Template User Guide",
+   "decision": "include",
+   "fairsharingType": "Policy: project",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
+   ],
+   "origin": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "conventional toxicology"
+   ],
+   "dateReleased": "2026-10-03",
+   "dateSource": "https://eu-parc.github.io/tox-template-guide/",
+   "creator": "PARC Toxicology Community",
+   "url": "https://eu-parc.github.io/tox-template-guide/",
+   "description": "The user guide is meant for researchers in various PARC projects (funded under the Horizon Europe: Grant agreement N. 101057014) working on generating data from conventional in vitro toxicity assessments to fill data reporting templates so that data reported  is FAIR.",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
+   "note": "Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: the guide is data stewardship guidance of the PARC Toxicology Community. FAIRsharing type Policy: project set by JH on 12 Nov 2026: guidance issued by a project, as for the eTRANSAFE reproducibility guidance.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
+  },
+  {
    "@id": "https://w3id.org/fair-tox/dataset#tox21",
    "identifier": "https://w3id.org/fair-tox/dataset#tox21",
    "schemaType": "schema:CreativeWork",
@@ -15161,7 +15643,8 @@
    "schemaType": "schema:CreativeWork",
    "key": "toxic_process_ontology",
    "name": "Toxic Process Ontology",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E7",
    "origin": "Toxicology",
    "phase": "Data integration",
    "span": [
@@ -15176,6 +15659,7 @@
     "INTOXICOM 1"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -15285,7 +15769,7 @@
    "decision": "include",
    "fairsharingType": "Tool",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Validation-Service"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "origin": "Toxicology",
    "phase": "Regulatory assessment",
@@ -15307,6 +15791,7 @@
    "manuscript": "cited",
    "manuscriptEvidence": "IV (to-do notes); V Challenges; L212, L267",
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): Schneider et al., Toxicol Lett 189(2):138-144; PubMed e-pub 2009-05-27 (accepted 2009-05-19). The ECVAM download page (archived 2013-2015) now redirects to the general EURL ECVAM page, and no current download was found, so maintained is 'unknown'. Included as guidance that supports data reuse, like CRED and SciRAP. It is borderline for I5 because it evaluates data rather than describing it. Added the in vitro toxicology subdomain (the tool has a separate in vitro part). FAIRsharing: DataCite shows no FAIRsharing DOI; the web search budget was used up. Proposed 9 Oct 2026: Tool that checks toxicity studies against reliability criteria and assigns Klimisch categories, applied when studies are evaluated for regulatory use.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
@@ -15325,7 +15810,7 @@
    "decision": "include",
    "fairsharingType": "Standard: reporting guideline",
    "fsrType": [
-    "https://w3id.org/fair/fip/terms/Metadata-schema"
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "origin": "Toxicology",
    "phase": "Data generation",
@@ -15344,7 +15829,7 @@
    "dateSource": "https://doi.org/10.14573/altex.1909271",
    "creator": "University of Konstanz (EU-ToxRisk)",
    "url": "https://doi.org/10.14573/altex.1909271",
-   "description": "A structured template, developed within EU-ToxRisk and aligned with OECD GD 211, for describing cell-based toxicological test methods comprehensively and in a standard order. It captures the metadata needed to judge the readiness, relevance and reliability of in vitro methods and their data for regulatory use.",
+   "description": "A structured template, developed within EU-ToxRisk and aligned with OECD GD 211, for describing cell-based toxicological test methods comprehensively and in a standard order. It suggests the metadata needed to judge the readiness, relevance and reliability of in vitro methods and their data for regulatory use.",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory (draft bullet); L191",
@@ -15352,11 +15837,9 @@
     "INTOXICOM 3"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
    "note": "Research 5 Oct 2026 (high confidence): ALTEX 36(4):682-699: accepted 2019-09-30, DOI registered 2019-10-26 (Crossref) and indexed in PubMed 2019-10-29, so online in October 2019. Creator changed from the author list to the organisation (University of Konstanz, within EU-ToxRisk). Added 'in vitro toxicology' because it is a template for cell-based methods. FAIRsharing: no DOI-bearing record found via DataCite; records without a DOI not checked. Proposed 9 Oct 2026: Reporting template capturing method metadata when describing in vitro tests, later used to judge their reliability and relevance in regulatory assessment.",
-   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
-   "principles": [
-    "F2"
-   ],
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -15426,18 +15909,47 @@
   {
    "@id": "https://w3id.org/fair-tox/dataset#tta",
    "identifier": "https://w3id.org/fair-tox/dataset#tta",
-   "schemaType": "schema:CreativeWork",
+   "schemaType": "schema:SoftwareApplication",
    "key": "tta",
    "name": "ToxTempAssistant",
-   "decision": "undecided",
+   "decision": "include",
+   "fairsharingType": "Tool",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service"
+   ],
+   "origin": "Toxicology",
+   "phase": "Data generation",
+   "span": [
+    "Data generation",
+    "Regulatory assessment"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
+   "subdomains": [
+    "conventional toxicology"
+   ],
    "datePublished": "2025-07-01",
    "dateSource": "https://doi.org/10.1016/j.toxlet.2025.07.214",
+   "contactPoint": [
+    "https://orcid.org/0000-0002-6465-4498"
+   ],
    "url": "http://toxtempassistant.vhp4safety.nl/",
+   "description": "ToxTempAssistant is an LLM-based tool that is designed to generate draft documents to record systematically experimental data generation and analysis. The aim is to allow toxicologists to focus on reviewing and refining content rather than performing repetitive manual data entry. ToxTempAssistant functions exclusively as a documentation aid and does not make medical or legal decisions.",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 3"
    ],
    "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
+   "note": "Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: ToxTempAssistant is a software tool built on a large language model.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ],
    "qualifiedRelation": [
     {
      "relation": "https://w3id.org/fair-tox/dataset#large_language_model_llm",
@@ -15698,17 +16210,18 @@
    "decision": "include",
    "fairsharingType": "Database: knowledgebase and repository",
    "fsrType": [
+    "https://w3id.org/fair/fip/terms/Domain-Specific-Registry",
     "https://w3id.org/fair/fip/terms/Identifier-service"
    ],
    "origin": "Life Sciences",
    "subdomains": [
-    "computational and predictive toxicology"
+    "AOP-based mechanistic knowledge"
    ],
    "datePublished": "2003-12",
    "dateSource": "https://doi.org/10.1093/nar/gkh131",
    "creator": "UniProt Consortium (EMBL-EBI, SIB, PIR)",
    "url": "https://www.uniprot.org",
-   "description": "A comprehensive, freely available resource of protein sequences and functional information. It combines the expert-curated Swiss-Prot and the automatically annotated TrEMBL sections with the UniRef clusters and the UniParc archive. Its stable accessions and many cross-references are used to identify proteins unambiguously when annotating models, pathways and mechanistic toxicology data.",
+   "description": "A comprehensive, freely available resource of protein sequences and functional information. It combines the expert-curated Swiss-Prot and the automatically annotated TrEMBL (unreviewed) sections with the UniRef clusters and the UniParc archive. Its stable accessions and many cross-references are used to identify proteins unambiguously when annotating models, pathways and mechanistic toxicology data.",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Computational; L147",
@@ -15717,10 +16230,12 @@
    ],
    "fairsharingRecord": "FAIRsharing.s1ne3g",
    "fairsharingMatch": "confirmed",
-   "note": "Research 5 Oct 2026 (medium confidence): First paper: Apweiler et al., 'UniProt: the Universal Protein knowledgebase', NAR 2004 database issue. Its DOI was registered on 2003-12-17, it entered PubMed on 2003-12-19, and the issue is dated 2004-01-01. The web archive shows uniprot.org as a project page in October 2003 and a working Knowledgebase/UniRef/UniParc site by 2004-01-29, so the public release was around December 2003. FAIRsharing year 2002 is when the consortium formed (uniprot.org/help/about), not when the resource became public. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.s1ne3g returns id 2077 'UniProt Knowledgebase' (UniProtKB): knowledgebase_and_repository, homepage https://www.uniprot.org. This is identical to the row's URL and type. The row's first paper is titled 'UniProt: the Universal Protein knowledgebase' (doi 10.1093/nar/gkh131).) Proposed 9 Oct 2026: Its stable accessions identify proteins unambiguously in annotations, and it indexes and serves curated protein sequence and function records.",
+   "reviewedBy": "IM",
+   "note": "Research 5 Oct 2026 (medium confidence): First paper: Apweiler et al., 'UniProt: the Universal Protein knowledgebase', NAR 2004 database issue. Its DOI was registered on 2003-12-17, it entered PubMed on 2003-12-19, and the issue is dated 2004-01-01. The web archive shows uniprot.org as a project page in October 2003 and a working Knowledgebase/UniRef/UniParc site by 2004-01-29, so the public release was around December 2003. FAIRsharing year 2002 is when the consortium formed (uniprot.org/help/about), not when the resource became public. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.s1ne3g returns id 2077 'UniProt Knowledgebase' (UniProtKB): knowledgebase_and_repository, homepage https://www.uniprot.org. This is identical to the row's URL and type. The row's first paper is titled 'UniProt: the Universal Protein knowledgebase' (doi 10.1093/nar/gkh131).) Proposed 9 Oct 2026: Its stable accessions identify proteins unambiguously in annotations, and it indexes and serves curated protein sequence and function records. Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration): a phase applies only to toxicology resources, and the origin is Life Sciences.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
-    "F1"
+    "F1",
+    "F4"
    ],
    "qualifiedRelation": [
     {
@@ -16068,6 +16583,59 @@
    ],
    "fairsharingMatch": "no record",
    "reviewedBy": "JH"
+  },
+  {
+   "@id": "https://w3id.org/fair-tox/dataset#wprdf",
+   "identifier": "https://w3id.org/fair-tox/dataset#wprdf",
+   "schemaType": "schema:CreativeWork",
+   "key": "wprdf",
+   "name": "WikiPathways RDF",
+   "decision": "include",
+   "fairsharingType": "Standard: model/format",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Representation-Service"
+   ],
+   "origin": "Life Sciences",
+   "subdomains": [
+    "toxicogenomics",
+    "AOP-based mechanistic knowledge"
+   ],
+   "datePublished": "2016-06-23",
+   "dateSource": "https://doi.org/10.1371/journal.pcbi.1004989",
+   "creator": "WikiPathways",
+   "contactPoint": [
+    "https://orcid.org/0000-0001-7542-0286"
+   ],
+   "url": "https://rdf.wikipathways.org/",
+   "description": "WikiPathways RDF is the Resource Description Framework (RDF) representation of the WikiPathways database, designed to make biological pathway knowledge machine-readable, interoperable, and queryable using Semantic Web technologies",
+   "maintained": "active",
+   "manuscript": "absent",
+   "fairsharingMatch": "no record",
+   "reviewedBy": "IM",
+   "note": "Co-author addition 2 Nov 2026 (EW). Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration, Regulatory assessment): a phase applies only to toxicology resources, and the origin is Life Sciences. Contact 'Egon' written as his ORCID link by JH on 12 Nov 2026: Contact takes an ORCID or ROR link.",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
+   "qualifiedRelation": [
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.2b0d92",
+     "hadRole": "uses",
+     "evidence": "curator"
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.87ccfd",
+     "hadRole": "uses",
+     "evidence": "curator"
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.atygwy",
+     "hadRole": "uses",
+     "evidence": "curator"
+    },
+    {
+     "relation": "https://doi.org/10.25504/FAIRsharing.p77ph9",
+     "hadRole": "uses",
+     "evidence": "curator"
+    }
+   ]
   },
   {
    "@id": "https://doi.org/10.25504/FAIRsharing.df383c",

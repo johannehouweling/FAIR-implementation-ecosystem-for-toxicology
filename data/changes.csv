@@ -4965,3 +4965,214 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-12,decisions 2026-11-12,chemblrdf,relation,(new),uses rdf,JH,decision record 12 Nov 2026
 2026-11-12,decisions 2026-11-12,nanopub,relation,(new),uses rdf,JH,decision record 12 Nov 2026
 2026-11-12,decisions 2026-11-12,sparql,relation,(new),uses rdf,JH,decision record 12 Nov 2026
+2026-11-13,curation sheet 2026-11-13,advancednano_go_fair_fip,(row),(new),AdvancedNano GO FAIR FIP,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,bioschemas_trainingmaterial,(row),(new),Bioschemas TrainingMaterial Profile,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,edata,(row),(new),eData,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,erm_id_db,(row),(new),ERM Identifier Database,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,isa-ro-crate,(row),(new),ISA RO-Crate Profile,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,miribel,(row),(new),MIRIBEL,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos,(row),(new),nanoPharos,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanosafety_data_interface,(row),(new),Nanosafety Data Interface,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ninchi,(row),(new),ninchi,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ro-crate,(row),(new),Research Object Crate specification,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,spdx,(row),(new),System Package Data Exchange (SPDX) Specification (ISO/IEC 5962:2021),IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,spdx-license,(row),(new),SPDX License List,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tox-template-guide,(row),(new),Tox Template User Guide,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,wprdf,(row),(new),WikiPathways RDF,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopdb,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopdbrdf,fsrType,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,https://w3id.org/fair/fip/terms/FAIR-Representation-Service,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopdbrdf,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopkb,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopkb,exclusionReason,,E6,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopkb,coveredBy,,aopwiki,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopkb,fsrType,https://w3id.org/fair/fip/terms/Registry,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopkb,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopo,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopwiki,fsrType,https://w3id.org/fair/fip/terms/Registry,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopwiki,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopwikirdf,fsrType,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,https://w3id.org/fair/fip/terms/FAIR-Representation-Service,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopwikirdf,description,"A Linked Data version of the AOP-Wiki, converted from the AOP-Wiki XML export into RDF and served through a public SPARQL endpoint. It maps AOPs, key events and stressors to external gene, protein and chemical identifiers, so AOP knowledge can be queried and combined with other resources.","A Linked Data version of the AOP-Wiki, converted from the AOP-Wiki XML export into RDF and served through a public SPARQL endpoint. The RDF content for all the AOP-Wiki content were mapped with additional semantic annotations, persistent identifiers, and extended identifiers for genes and chemicals, so AOP knowledge can be queried and combined with other resources. The semantic annotation was done using 8 standard metadata vocabularies and 17 domain-specific ontologies and vocabularies.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,aopwikirdf,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,arraytrack,name,ArrayTrack HCA-PCA Standalone Package,ArrayTrack,DJ,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,arraytrack,fairsharingType,Tool,Database: knowledgebase and repository,DJ,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,arraytrack,fsrType,https://w3id.org/fair/fip/terms/FAIR-Analysis-Service,https://w3id.org/fair/fip/terms/Domain-Specific-Registry; https://w3id.org/fair/fip/terms/FAIR-Analysis-Service,DJ,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,arraytrack,url,https://www.fda.gov/science-research/bioinformatics-tools/arraytracktm-hca-pca-standalone-package-powerful-data-exploring-tools,https://doi.org/10.1289/ehp.6497,DJ,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,arraytrack,reviewedBy,IM,DJ,DJ,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,biochementity,name,Biochementity Vocabulary,Biochemical and Chemical Entity Vocabulary,GB,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,biochementity,url,https://w3id.org/spaces/biochementity,https://nanodash.knowledgepixels.com/resource?88&id=https://w3id.org/spaces/biochementity/r/vocabulary,GB,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,biochementity,description,The Biochementity Vocabulary describes biochemical entities used in the PARC HBM Community.,The Biochemical and Chemical Entity Vocabulary describes the bio(chemical) entities measured in the humam body and monitored in the environment extracted from the research studies done under the PARC HBM Community.,GB,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,biochementity,maintained,,active,GB,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,fsrType,https://w3id.org/fair/fip/terms/Domain-Specific-Registry; https://w3id.org/fair/fip/terms/Identifier-service,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,dateAdopted,,1965,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,dateSource,,https://commonchemistry.cas.org/,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,creator,,American Chemical Society,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,description,,"CAS Common Chemistry is an open community resource for accessing chemical information of nearly 500,000 chemical substances from CAS REGISTRY®",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,maintained,,active,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,cas_common_chemistry,note,Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RASnX7q_SpoIYrFTj47gYGzkQDxOujlzP0ooAPknI9W3U/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it resolves CAS Registry Numbers to openly accessible substance records.,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RASnX7q_SpoIYrFTj47gYGzkQDxOujlzP0ooAPknI9W3U/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for F1: it resolves CAS Registry Numbers to openly accessible substance records. Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration, Regulatory assessment): a phase applies only to toxicology resources, and the origin is Life Sciences.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,compoundcloud,decision,include,undecided,GB,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,dixa,decision,exclude,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,dixa,exclusionReason,E3,,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,drugbank,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,drugbank,exclusionReason,,E7,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,dsld,description,"Public NIH database of the full label content of dietary supplement products sold in the United States (ingredients and amounts, claims, warnings and label images) for current and historical products, searchable online and downloadable through an API. It supports research on supplement composition and exposure, including screening for potentially harmful ingredients.","The Dietary Supplement Label Database (DSLD) is a publicly accessible database maintained by the U.S. National Institutes of Health (NIH) Office of Dietary Supplements. It contains current and historical label information from dietary supplement products marketed in the United States (ingredients and amounts, label claims, warnings and label images) for current and historical products, searchable online and downloadable through an API. It supports research on supplement composition and exposure, including screening for potentially harmful ingredients.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,dsld,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ena,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ena,subdomains,,toxicogenomics,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ena,datePublished,,2008-10-31,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ena,dateSource,,https://doi.org/10.1093/nar/gkn765,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ena,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ena,note,Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RALDg8eNc5pweUOSKpwV7oswGbh1x2cCpujmFTT3C6dtw/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F4; this domain-specific nucleotide sequence archive indexes deposited records and makes them searchable.,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RALDg8eNc5pweUOSKpwV7oswGbh1x2cCpujmFTT3C6dtw/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FIP declares it for F4; this domain-specific nucleotide sequence archive indexes deposited records and makes them searchable. Research 12 Nov 2026 (medium confidence): first described under this name in Cochrane et al., 'Petabyte-scale innovations at the European Nucleotide Archive', Nucleic Acids Research 37 (Database issue), doi 10.1093/nar/gkn765, published online 2008-10-31 (Europe PMC). The ENA then comprised the EMBL Nucleotide Sequence Database and the Ensembl Trace Archive; FAIRsharing's year of creation is 1980. Dated like UniProt, by the first paper under the current name.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,epa_substance_registry_services,decision,exclude,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,epa_substance_registry_services,exclusionReason,E5,,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,etransafe,mentionedIn,Whitepaper; FAIRSharing,Whitepaper; FAIRSharing; INTOXICOM 2,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,etransafe_repro,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,etransafe_repro,exclusionReason,,E7,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,etransafe_repro,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,exposome_sharing,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,fairaop_cluster,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,fairprinc,decision,exclude,include,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,fairprinc,exclusionReason,E2,,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,fairprinc,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,gd211,fsrType,https://w3id.org/fair/fip/terms/FAIR-Practice; https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,gd417,subdomains,,conventional toxicology,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,gd417,datePublished,,2025-12-03,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,gd417,dateAdopted,2025-12-03,,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,gd417,description,"OECD guidance on how research data, for example from academic studies that do not follow test guidelines, should be generated, reported and evaluated so they can be used in regulatory chemical assessments. It sets expectations for documentation and data availability that make such data reusable by regulators.","OECD guidance on how research data, for example, from academic studies that do not follow test guidelines, should be generated, reported and evaluated so they can be used in regulatory chemical assessments. It sets expectations for documentation and data availability that make such data reusable by regulators.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,gd417,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,iupac_immunotox,fsrType,https://w3id.org/fair/fip/terms/Structured-vocabulary,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,iupac_immunotox,subdomains,,conventional toxicology,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,iupac_immunotox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,iupac_toxgloss,fsrType,https://w3id.org/fair/fip/terms/Structured-vocabulary,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,iupac_toxgloss,span,Data generation; Data integration; Regulatory assessment,Data generation,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,iupac_toxgloss,subdomains,,conventional toxicology,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,iupac_toxgloss,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,mars,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,metabolights,fsrType,https://w3id.org/fair/fip/terms/Registry,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanocommons_meta,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanocommons_onto,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,fairsharingType,,Database: knowledgebase,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,span,Data generation,Data generation; Data integration,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,datePublished,,2020-10-13,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,dateSource,,https://www.mdpi.com/2079-4991/10/10/2017,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,contactPoint,,https://ror.org/03wwn0z54,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,url,https://www.db.nanopharos.eu/,https://pharos.novamechanics.com/nanopharos.html,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,description,,"The NanoPharos database has curated dataset in a ready to modelling format of NPs,  including physicochemical, structural, assay-related descriptors and atomistic computational descriptors.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nanopharos_database,note,,FAIRsharing type Database: knowledgebase set by JH on 12 Nov 2026: the Description calls it a database of curated datasets. Contact written as the ROR link of NovaMechanics by JH on 12 Nov 2026: Contact takes an ORCID or ROR link. It was 'info@novamechanics.com; info@entelos.eu'; ROR has no record for Entelos.,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsc,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,decision,undecided,include,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,fairsharingType,,Database: repository,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,origin,,Toxicology,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,phase,,Data generation,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,span,,Data generation,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,creatorType,,In silico research,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,subdomains,,conventional toxicology; nanotoxicology,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,creator,,IdeaConsult LTD.,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,contactPoint,,https://orcid.org/0000-0002-4322-6179,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,url,,https://enanomapper.adma.ai/,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,description,,"A FAIR-aligned interface to nanosafety data, with aggregated search and access across physicochemical, bio-nano interaction, human toxicity, omics, ecotoxicological and exposure data (Jeliazkova et al. 2021).",EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,reviewedBy,,EW,EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,note,,"Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: the interface is software of the company IdeaConsult. FSR type Domain-specific registry (a database is a registry, as for the eNanoMapper database) and the Description (from the abstract of Jeliazkova et al. 2021, doi 10.1038/s41565-021-00911-6) added by JH on 12 Nov 2026.",EW,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,fairsharingType,,Tool,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,origin,,Toxicology,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,phase,,Data generation,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,span,,Data generation,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,creatorType,,In silico research,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,subdomains,,conventional toxicology; nanotoxicology,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,datePublished,,2005,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,dateSource,,https://doi.org/10.1186/gb-2005-6-5-r47,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,creator,,University of Dundee & Open Microscopy Environment,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,description,,"OMERO is an enterprise image data management platform that enables access, processing, sharing, analysis and where appropriate publication of scientific image data and metadata.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,maintained,,active,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,omero,note,,"Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: OMERO is image data management software of the Open Microscopy Environment (University of Dundee). FAIRsharing type Tool set by JH on 12 Nov 2026: it is software.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,opentox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,fsrType,,https://w3id.org/fair/fip/terms/Generalist-Registry,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,dateReleased,,2012,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,dateSource,,https://www.cos.io/timeline?hsCtaTracking=be7a2018-3932-4b64-b3c3-8af7c8706762%7C491c02e9-7f53-4c68-b8a0-0acb6ad54462,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,creator,,Center for Open Science,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,description,,"The Open Science Framework (OSF) is a free, open-source research management and collaboration platform developed by the Center for Open Science (COS). It is designed to support transparent, reproducible, and shareable research throughout the entire research lifecycle",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,osf,note,"From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier A), 21 Oct 2026. FAIRsharing record found the same day.","From the co-author's repository inventory (tox_repository_list_v3, tab repositories, tier A), 21 Oct 2026. FAIRsharing record found the same day. Phase cleared by JH on 12 Nov 2026 (was: Data generation): a phase applies only to toxicology resources, and the origin is Generic.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,parc,exclusionReason,E3,E2,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,parc_partnership,phase,Regulatory assessment,Data generation,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,parc_partnership,span,Regulatory assessment,Data generation; Data integration; Regulatory assessment,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,parc_partnership,description,EU public-public partnership that develops regulatory risk assessment of chemicals and brings novel assessment methods and next-generation risk assessment tools into regulatory practice.,EU public-public partnership that develops and brings novel assessment methods and next-generation risk assessment tools into regulatory practice.,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,parctoxicology,decision,undecided,exclude,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,parctoxicology,exclusionReason,,E1,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,parctoxicology,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,pbk,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,pbk,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,pubchem,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,pubchem_cid,fsrType,https://w3id.org/fair/fip/terms/Identifier-service,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,readedtest,creatorType,Wet-lab research; In silico research,Wet-lab research,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,readedtest,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,readedtest,note,"Co-author addition 2 Nov 2026 (JH). Research 2 Nov 2026 (high confidence): Crouzet et al., Environ Int 174:107910 (doi 10.1016/j.envint.2023.107910), received 2023-01-04, available online 2023-03-31, read in the open copy https://hal.science/hal-04094681. The paper gives the tool's address, says that Université Paris Cité developed the questionnaire and maintains the web interface, and that the work was supported by OBERON (H2020 grant 825712) and the Pepper platform, whose expertise shaped the data management questions. The questions draw on the readiness criteria of Bal-Price et al. 2018, the ToxTemp template (Krebs et al. 2019; row toxtemp) and OECD GD 211 (row gd211). The earliest web capture (2022-08-15, the Citation) already shows the questionnaire, so First published is that year, a lower bound. The site answered on 2 Nov 2026; its menu names Contact SysTox and Contact Pepper. Made by (medium confidence): in silico research for SysTox, Karine Audouze's computational group at Université Paris Cité (https://ipop.u-paris.fr/systox/), and wet-lab research for Pepper, the validation platform for endocrine disruptor test methods. Typed like ToxRTool and SciRAP: it checks the information on a test method against what validating bodies request (I5).","Co-author addition 2 Nov 2026 (JH). Research 2 Nov 2026 (high confidence): Crouzet et al., Environ Int 174:107910 (doi 10.1016/j.envint.2023.107910), received 2023-01-04, available online 2023-03-31, read in the open copy https://hal.science/hal-04094681. The paper gives the tool's address, says that Université Paris Cité developed the questionnaire and maintains the web interface, and that the work was supported by OBERON (H2020 grant 825712) and the Pepper platform, whose expertise shaped the data management questions. The questions draw on the readiness criteria of Bal-Price et al. 2018, the ToxTemp template (Krebs et al. 2019; row toxtemp) and OECD GD 211 (row gd211). The earliest web capture (2022-08-15, the Citation) already shows the questionnaire, so First published is that year, a lower bound. The site answered on 2 Nov 2026; its menu names Contact SysTox and Contact Pepper. Made by: wet-lab research, decided by JH on 4 Nov 2026; the proposal of 2 Nov also named in silico research for SysTox, Karine Audouze's computational group at Université Paris Cité (https://ipop.u-paris.fr/systox/), next to wet-lab research for Pepper, the validation platform for endocrine disruptor test methods. Typed like ToxRTool and SciRAP: it checks the information on a test method against what validating bodies request (I5).",JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,ror,fsrType,https://w3id.org/fair/fip/terms/Identifier-service,https://w3id.org/fair/fip/terms/Identifier-service; https://w3id.org/fair/fip/terms/Registry,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,scirap,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,sedml,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,sedml,note,"Research 5 Oct 2026 (high confidence): I corrected the date from 2011. SED-ML was first described in Köhn & Le Novère, 'SED-ML - An XML Format for the Implementation of the MIASE Guidelines', CMSB 2008, LNCS 5307 (Crossref issued 2008; DOI registered 2008-10-04). The previous source, Waltemath et al., BMC Syst Biol, online 2011-12-15, is a later description. FAIRsharing year 2008 agrees. The current specification is Level 1 Version 5 (COMBINE). Proposed 9 Oct 2026: XML format that describes simulation experiment setups on computational models in a structured, machine-readable way, so a metadata schema.","Research 5 Oct 2026 (high confidence): I corrected the date from 2011. SED-ML was first described in Köhn & Le Novère, 'SED-ML - An XML Format for the Implementation of the MIASE Guidelines', CMSB 2008, LNCS 5307 (Crossref issued 2008; DOI registered 2008-10-04). The previous source, Waltemath et al., BMC Syst Biol, online 2011-12-15, is a later description. FAIRsharing year 2008 agrees. The current specification is Level 1 Version 5 (COMBINE). Proposed 9 Oct 2026: XML format that describes simulation experiment setups on computational models in a structured, machine-readable way, so a metadata schema. Phase cleared by JH on 12 Nov 2026 (was: Data integration): a phase applies only to toxicology resources, and the origin is Life Sciences.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,smiles,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,smiles,note,"Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1980 replaced: SMILES was first formally described by Weininger in J Chem Inf Comput Sci, Feb 1988 (doi 10.1021/ci00057a005). It was developed in the 1980s at the US EPA Duluth laboratory and later maintained by Daylight. The FAIRsharing record and homepage describe OpenSMILES, the open community specification, which was online by 2007-11-01 (archive). The https version of opensmiles.org does not respond, so the url stays on http. Verified 5 Oct 2026: datePublished changed (SMILES was first formally described in a US EPA Environmental Research Brief, EPA/600/M-87/021: Anderson, Veith and Weininger, 'SMILES: A Line Notation and Computerized Interpreter for Chemical Structures', ERL-Duluth, dated 'August 1987' on its cover (https://nepis.epa.gov/Exe/ZyPDF.cgi/2000CAUR.PDF?Dockey=2000CAUR.PDF). That is six months before the J Chem Inf Comput Sci paper (issued 1988-02-01). The basis stays publication.) Verified 5 Oct 2026: dateSource changed (The 1987 EPA report is the earliest formal description (see datePublished).) Proposed 9 Oct 2026: A formal line notation that writes chemical structures as strings for machine exchange and in silico tools, rather than a resolvable identifier.","Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (high confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. FAIRsharing year 1980 replaced: SMILES was first formally described by Weininger in J Chem Inf Comput Sci, Feb 1988 (doi 10.1021/ci00057a005). It was developed in the 1980s at the US EPA Duluth laboratory and later maintained by Daylight. The FAIRsharing record and homepage describe OpenSMILES, the open community specification, which was online by 2007-11-01 (archive). The https version of opensmiles.org does not respond, so the url stays on http. Verified 5 Oct 2026: datePublished changed (SMILES was first formally described in a US EPA Environmental Research Brief, EPA/600/M-87/021: Anderson, Veith and Weininger, 'SMILES: A Line Notation and Computerized Interpreter for Chemical Structures', ERL-Duluth, dated 'August 1987' on its cover (https://nepis.epa.gov/Exe/ZyPDF.cgi/2000CAUR.PDF?Dockey=2000CAUR.PDF). That is six months before the J Chem Inf Comput Sci paper (issued 1988-02-01). The basis stays publication.) Verified 5 Oct 2026: dateSource changed (The 1987 EPA report is the earliest formal description (see datePublished).) Proposed 9 Oct 2026: A formal line notation that writes chemical structures as strings for machine exchange and in silico tools, rather than a resolvable identifier. Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration, Regulatory assessment): a phase applies only to toxicology resources, and the origin is Life Sciences.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxic_process_ontology,decision,undecided,exclude,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxic_process_ontology,exclusionReason,,E7,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxic_process_ontology,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxrtool,fsrType,https://w3id.org/fair/fip/terms/Validation-Service,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxrtool,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxtemp,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxtemp,description,"A structured template, developed within EU-ToxRisk and aligned with OECD GD 211, for describing cell-based toxicological test methods comprehensively and in a standard order. It captures the metadata needed to judge the readiness, relevance and reliability of in vitro methods and their data for regulatory use.","A structured template, developed within EU-ToxRisk and aligned with OECD GD 211, for describing cell-based toxicological test methods comprehensively and in a standard order. It suggests the metadata needed to judge the readiness, relevance and reliability of in vitro methods and their data for regulatory use.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,toxtemp,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,fairsharingType,,Tool,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,origin,,Toxicology,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,phase,,Data generation,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,span,,Data generation; Regulatory assessment,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,creatorType,,In silico research,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,subdomains,,conventional toxicology,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,contactPoint,,https://orcid.org/0000-0002-6465-4498,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,description,,ToxTempAssistant is an LLM-based tool that is designed to generate draft documents to record systematically experimental data generation and analysis. The aim is to allow toxicologists to focus on reviewing and refining content rather than performing repetitive manual data entry. ToxTempAssistant functions exclusively as a documentation aid and does not make medical or legal decisions.,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,tta,note,,"Made by in silico research marked by JH on 12 Nov 2026, as a toxicology resource needs a creator type: ToxTempAssistant is a software tool built on a large language model.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,uniprot,fsrType,https://w3id.org/fair/fip/terms/Identifier-service,https://w3id.org/fair/fip/terms/Domain-Specific-Registry; https://w3id.org/fair/fip/terms/Identifier-service,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,uniprot,subdomains,computational and predictive toxicology,AOP-based mechanistic knowledge,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,uniprot,description,"A comprehensive, freely available resource of protein sequences and functional information. It combines the expert-curated Swiss-Prot and the automatically annotated TrEMBL sections with the UniRef clusters and the UniParc archive. Its stable accessions and many cross-references are used to identify proteins unambiguously when annotating models, pathways and mechanistic toxicology data.","A comprehensive, freely available resource of protein sequences and functional information. It combines the expert-curated Swiss-Prot and the automatically annotated TrEMBL (unreviewed) sections with the UniRef clusters and the UniParc archive. Its stable accessions and many cross-references are used to identify proteins unambiguously when annotating models, pathways and mechanistic toxicology data.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,uniprot,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,uniprot,note,"Research 5 Oct 2026 (medium confidence): First paper: Apweiler et al., 'UniProt: the Universal Protein knowledgebase', NAR 2004 database issue. Its DOI was registered on 2003-12-17, it entered PubMed on 2003-12-19, and the issue is dated 2004-01-01. The web archive shows uniprot.org as a project page in October 2003 and a working Knowledgebase/UniRef/UniParc site by 2004-01-29, so the public release was around December 2003. FAIRsharing year 2002 is when the consortium formed (uniprot.org/help/about), not when the resource became public. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.s1ne3g returns id 2077 'UniProt Knowledgebase' (UniProtKB): knowledgebase_and_repository, homepage https://www.uniprot.org. This is identical to the row's URL and type. The row's first paper is titled 'UniProt: the Universal Protein knowledgebase' (doi 10.1093/nar/gkh131).) Proposed 9 Oct 2026: Its stable accessions identify proteins unambiguously in annotations, and it indexes and serves curated protein sequence and function records.","Research 5 Oct 2026 (medium confidence): First paper: Apweiler et al., 'UniProt: the Universal Protein knowledgebase', NAR 2004 database issue. Its DOI was registered on 2003-12-17, it entered PubMed on 2003-12-19, and the issue is dated 2004-01-01. The web archive shows uniprot.org as a project page in October 2003 and a working Knowledgebase/UniRef/UniParc site by 2004-01-29, so the public release was around December 2003. FAIRsharing year 2002 is when the consortium formed (uniprot.org/help/about), not when the resource became public. Type changed from 'Database: knowledgebase' to match the FAIRsharing record type (knowledgebase_and_repository). Verified 5 Oct 2026: fairsharingMatch changed (One lookup of https://fairsharing.org/FAIRsharing.s1ne3g returns id 2077 'UniProt Knowledgebase' (UniProtKB): knowledgebase_and_repository, homepage https://www.uniprot.org. This is identical to the row's URL and type. The row's first paper is titled 'UniProt: the Universal Protein knowledgebase' (doi 10.1093/nar/gkh131).) Proposed 9 Oct 2026: Its stable accessions identify proteins unambiguously in annotations, and it indexes and serves curated protein sequence and function records. Phase cleared by JH on 12 Nov 2026 (was: Data generation, Data integration): a phase applies only to toxicology resources, and the origin is Life Sciences.",IM,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,relation,extends enanomapper,(removed),,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,bioschemas_trainingmaterial,relation,(new),implements bioschemas,Egon,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,erm_id_db,relation,(new),implements european_registry_of_materials,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,erm_id_db,relation,(new),uses enm_ont,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,erm_id_db,relation,(new),uses google_datasetsearch,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,nsdi,relation,(new),extends enm_db,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,readedtest,relation,(new),related_to gd211,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,readedtest,relation,(new),related_to toxtemp,JH,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,spdx-license,relation,(new),implements spdx,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,wprdf,relation,(new),uses identifiersorg,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,wprdf,relation,(new),uses owl,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,wprdf,relation,(new),uses rdf,,curation-sheet.xlsx
+2026-11-13,curation sheet 2026-11-13,wprdf,relation,(new),uses sparql,,curation-sheet.xlsx
+2026-11-13,fairsharing import 2026-11-13,advancednano_go_fair_fip,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,dixa,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,edata,fairsharingRecord,,FAIRsharing.2ad284,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,edata,fairsharingMatch,,to check,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,erm_id_db,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,isa-ro-crate,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,miribel,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,nanopharos,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,nanosafety_data_interface,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,ninchi,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,ro-crate,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,spdx,fairsharingRecord,,FAIRsharing.fde054,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,spdx,fairsharingMatch,,to check,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,spdx-license,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,tox-template-guide,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-13,fairsharing import 2026-11-13,wprdf,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
