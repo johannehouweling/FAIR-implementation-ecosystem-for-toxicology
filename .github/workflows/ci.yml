@@ -38,8 +38,9 @@ jobs:
       - run: uv run fairtox validate --strict
       - id: day
         run: echo "day=$(date -u +%F)" >> "$GITHUB_OUTPUT"
-      - name: Keep the day's FAIRsharing records for later runs
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      - name: Read back the FAIRsharing records kept by earlier runs
+        id: fairsharing
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: build/fairsharing
           key: fairsharing-${{ steps.day.outputs.day }}
@@ -51,6 +52,13 @@ jobs:
           # a pull request publishes nothing, so it builds from the last FAIRsharing records kept, of any day
           FAIRSHARING_CACHE_ANY_DAY: ${{ github.event_name == 'pull_request' && '1' || '' }}
         run: uv run fairtox site build/site
+      - name: Keep the day's FAIRsharing records for later runs
+        # right after the read, so that a later step that fails does not throw them away
+        if: steps.fairsharing.outputs.cache-hit != 'true'
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: build/fairsharing
+          key: fairsharing-${{ steps.day.outputs.day }}
       - name: Check the dataset against the CDIF Discovery profile 1.1
         # CODATA's own SHACL shapes (doc-corediscovery v1.1.1, pinned by commit); warnings are recommendations
         run: >-
