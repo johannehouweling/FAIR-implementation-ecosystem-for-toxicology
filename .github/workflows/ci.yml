@@ -73,11 +73,11 @@ jobs:
           key: links-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: links-
       - name: Check that the links in the dataset and the documentation resolve
-        # Every link in the dataset (homepages, sources, creators, terms, notes) and in the documentation. A dead link
-        # fails a build of main, so nothing is published with it; a pull request only shows it, as sites come and go.
-        # A link that resolved in the last seven days is not requested again (lychee's cache, kept between runs), so
-        # a site that is down or slow for a while does not stop a build. A link that fails is never kept: every run
-        # requests it again until it resolves.
+        # Every link in the dataset (homepages, sources, creators, terms, notes) and in the documentation. A link that
+        # fails is listed in the run's summary and marks this step, but does not stop the build: sites go down and
+        # come back, and the dataset is not wrong while they do.
+        # A link that resolved in the last seven days is not requested again (lychee's cache, kept between runs). A
+        # link that fails is never kept: every run requests it again until it resolves.
         # Links the build adds come from live registries and are not checked. Requests carry a browser's Accept
         # header; a redirect page without a Location header counts as reached, and 403 or 429 means a site blocks
         # robots or rate-limits, not that the link is dead. Left out: FAIRsharing, whose records (also by their DOIs,
@@ -88,7 +88,7 @@ jobs:
         # certificate chain lacks its intermediate, which browsers fetch but lychee does not), ega-archive.org and
         # proconsortium.org (intermittent connection failures), and one Europe PMC full-text endpoint that
         # intermittently returns HTTP 500.
-        continue-on-error: ${{ github.event_name == 'pull_request' }}
+        continue-on-error: true
         uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
         with:
           args: >-
