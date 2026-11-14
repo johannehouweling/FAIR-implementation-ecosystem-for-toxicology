@@ -203,7 +203,7 @@ class SiteTest(TempDir):
         self.assertEqual({data.value(a, RDF.type) for a in attributions}, {PROV.Attribution})
         self.assertIn(URIRef('http://www.ebi.ac.uk/efo/EFO_0009742'), {data.value(a, DCAT.hadRole) for a in attributions})
         self.assertEqual(data.value(record, S.about), root)
-        self.assertEqual(str(data.value(data.value(root, S.identifier), S.value)), model.BASE)
+        self.assertEqual(str(data.value(data.value(root, S.identifier), S.value)), model.DOI)   # its Zenodo DOI
         self.assertEqual(len(set(data.objects(root, S.distribution))), len(site.DOWNLOADS))
         fields = set(data.objects(root, S.variableMeasured))          # each field with its term and description
         self.assertTrue(fields and all(data.value(v, S.propertyID) and data.value(v, S.description) for v in fields))

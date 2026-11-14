@@ -90,5 +90,6 @@ each.
 
 ## How to cite
 
-Cite the dataset with the metadata in [CITATION.cff](CITATION.cff) and credit FAIRsharing. Built by the ELIXIR
-Toxicology Community.
+Cite the dataset with the metadata in [CITATION.cff](CITATION.cff) and credit FAIRsharing. Zenodo archives its
+versions: https://doi.org/10.5281/zenodo.24215047 stands for all of them, and each version has a DOI of its own.
+Built by the ELIXIR Toxicology Community.
