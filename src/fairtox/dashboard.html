@@ -500,7 +500,8 @@ function figure(G, svg) {
     const rise = !v && back && t.x - rt - h > s.x;                                 // leave upwards or downwards
     const out = arch ? [side * q, -q] : rise ? [0, Math.sign(t.y - s.y)] : [side, 0], dir = v ? [q, v * q] : [1, 0];
     const p0 = [s.x + out[0] * rs, s.y + out[1] * rs], tip = [t.x - dir[0] * rt, t.y - dir[1] * rt], e = [tip[0] - dir[0] * h, tip[1] - dir[1] * h];
-    const c = Math.max(k, Math.abs(e[0] - p0[0]) / 2), m = Math.max(k, Math.abs(e[1] - p0[1]) / 2), yr = s.y - G.TRACK / 2;
+    // m: how far back a 45-degree entry reaches, to the labels' left edge (layout) at most, so that no link leaves the figure
+    const c = Math.max(k, Math.abs(e[0] - p0[0]) / 2), m = Math.max(k, Math.min(Math.abs(e[1] - p0[1]) / 2, e[0] - G.M - 8 * u)), yr = s.y - G.TRACK / 2;
     const d = arch ? `M${pt(p0)}Q${pt([p0[0] + side * j, yr])} ${pt([p0[0] + 2 * side * j, yr])}H${e[0] - 2 * j}Q${pt([e[0] - j, yr])} ${pt(e)}`
       : rise ? `M${pt(p0)}C${pt([p0[0], p0[1] + .55 * (e[1] - p0[1])])} ${pt([e[0] - .55 * (e[0] - p0[0]), e[1]])} ${pt(e)}`   // a quarter ellipse
       : `M${pt(p0)}C${pt([p0[0] + side * c, p0[1]])} ${pt(v ? [e[0] - m, e[1] - v * m] : [e[0] - c, e[1]])} ${pt(e)}`;
