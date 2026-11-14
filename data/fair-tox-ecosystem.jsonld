@@ -23,6 +23,11 @@
   "creator": "schema:creator",
   "version": "schema:version",
   "inLanguage": "schema:inLanguage",
+  "givenName": "schema:givenName",
+  "familyName": "schema:familyName",
+  "affiliation": "schema:affiliation",
+  "funding": "schema:funding",
+  "funder": "schema:funder",
   "dateModified": "schema:dateModified",
   "license": {
    "@id": "schema:license",
@@ -253,14 +258,312 @@
   "url": "https://creativecommons.org/licenses/by-sa/4.0/"
  },
  "creator": {
-  "@type": "schema:Organization",
-  "name": "ELIXIR Toxicology Community",
-  "url": "https://elixir-europe.org/communities/toxicology",
-  "parentOrganization": {
-   "@id": "https://ror.org/044rwnt51",
-   "@type": "schema:Organization",
-   "name": "ELIXIR"
-  }
+  "@list": [
+   {
+    "@id": "https://orcid.org/0009-0005-3680-0645",
+    "@type": "schema:Person",
+    "name": "Jente Houweling",
+    "givenName": "Jente",
+    "familyName": "Houweling",
+    "identifier": "https://orcid.org/0009-0005-3680-0645",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/01cesdt21",
+      "@type": "schema:Organization",
+      "name": "National Institute for Public Health and the Environment (RIVM)",
+      "identifier": "https://ror.org/01cesdt21"
+     },
+     {
+      "@id": "https://ror.org/02jz4aj89",
+      "@type": "schema:Organization",
+      "name": "Maastricht University",
+      "identifier": "https://ror.org/02jz4aj89"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-6396-0848",
+    "@type": "schema:Person",
+    "name": "Indrani Mahapatra",
+    "givenName": "Indrani",
+    "familyName": "Mahapatra",
+    "identifier": "https://orcid.org/0000-0002-6396-0848",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/03angcq70",
+      "@type": "schema:Organization",
+      "name": "University of Birmingham",
+      "identifier": "https://ror.org/03angcq70"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0003-1062-5576",
+    "@type": "schema:Person",
+    "name": "Gerhard Burger",
+    "givenName": "Gerhard",
+    "familyName": "Burger",
+    "identifier": "https://orcid.org/0000-0003-1062-5576",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/027bh9e22",
+      "@type": "schema:Organization",
+      "name": "Leiden University",
+      "identifier": "https://ror.org/027bh9e22"
+     },
+     {
+      "@id": "https://ror.org/056j50v04",
+      "@type": "schema:Organization",
+      "name": "GO FAIR Foundation",
+      "identifier": "https://ror.org/056j50v04"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0003-3828-7724",
+    "@type": "schema:Person",
+    "name": "Arif Dönmez",
+    "givenName": "Arif",
+    "familyName": "Dönmez",
+    "identifier": "https://orcid.org/0000-0003-3828-7724",
+    "affiliation": [
+     {
+      "@type": "schema:Organization",
+      "name": "DNTOX GmbH"
+     },
+     {
+      "@id": "https://ror.org/0163xqp73",
+      "@type": "schema:Organization",
+      "name": "Leibniz Institute of Environmental Medicine (IUF)",
+      "identifier": "https://ror.org/0163xqp73"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-8618-2487",
+    "@type": "schema:Person",
+    "name": "Danyel Jennen",
+    "givenName": "Danyel",
+    "familyName": "Jennen",
+    "identifier": "https://orcid.org/0000-0002-8618-2487",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/02jz4aj89",
+      "@type": "schema:Organization",
+      "name": "Maastricht University",
+      "identifier": "https://ror.org/02jz4aj89"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0003-0593-2598",
+    "@type": "schema:Person",
+    "name": "Saurav Kumar",
+    "givenName": "Saurav",
+    "familyName": "Kumar",
+    "identifier": "https://orcid.org/0000-0003-0593-2598",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/03k3ky186",
+      "@type": "schema:Organization",
+      "name": "German Federal Institute for Risk Assessment (BfR)",
+      "identifier": "https://ror.org/03k3ky186"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-9795-5967",
+    "@type": "schema:Person",
+    "name": "Vikas Kumar",
+    "givenName": "Vikas",
+    "familyName": "Kumar",
+    "identifier": "https://orcid.org/0000-0002-9795-5967",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/03k3ky186",
+      "@type": "schema:Organization",
+      "name": "German Federal Institute for Risk Assessment (BfR)",
+      "identifier": "https://ror.org/03k3ky186"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-6465-4498",
+    "@type": "schema:Person",
+    "name": "Anne Kienhuis",
+    "givenName": "Anne",
+    "familyName": "Kienhuis",
+    "identifier": "https://orcid.org/0000-0002-6465-4498",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/01cesdt21",
+      "@type": "schema:Organization",
+      "name": "National Institute for Public Health and the Environment (RIVM)",
+      "identifier": "https://ror.org/01cesdt21"
+     },
+     {
+      "@id": "https://ror.org/04pp8hn57",
+      "@type": "schema:Organization",
+      "name": "Utrecht University",
+      "identifier": "https://ror.org/04pp8hn57"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-7627-7271",
+    "@type": "schema:Person",
+    "name": "Giulia Callegaro",
+    "givenName": "Giulia",
+    "familyName": "Callegaro",
+    "identifier": "https://orcid.org/0000-0002-7627-7271",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/027bh9e22",
+      "@type": "schema:Organization",
+      "name": "Leiden University",
+      "identifier": "https://ror.org/027bh9e22"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0001-7525-4089",
+    "@type": "schema:Person",
+    "name": "Karine Audouze",
+    "givenName": "Karine",
+    "familyName": "Audouze",
+    "identifier": "https://orcid.org/0000-0001-7525-4089",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/05f82e368",
+      "@type": "schema:Organization",
+      "name": "Université Paris Cité",
+      "identifier": "https://ror.org/05f82e368"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-3496-6669",
+    "@type": "schema:Person",
+    "name": "Marc Teunis",
+    "givenName": "Marc",
+    "familyName": "Teunis",
+    "identifier": "https://orcid.org/0000-0002-3496-6669",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/028z9kw20",
+      "@type": "schema:Organization",
+      "name": "HU University of Applied Sciences Utrecht",
+      "identifier": "https://ror.org/028z9kw20"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-4409-1974",
+    "@type": "schema:Person",
+    "name": "Rob Stierum",
+    "givenName": "Rob",
+    "familyName": "Stierum",
+    "identifier": "https://orcid.org/0000-0002-4409-1974",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/01bnjb948",
+      "@type": "schema:Organization",
+      "name": "TNO",
+      "identifier": "https://ror.org/01bnjb948"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0003-4250-4584",
+    "@type": "schema:Person",
+    "name": "Iseult Lynch",
+    "givenName": "Iseult",
+    "familyName": "Lynch",
+    "identifier": "https://orcid.org/0000-0003-4250-4584",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/03angcq70",
+      "@type": "schema:Organization",
+      "name": "University of Birmingham",
+      "identifier": "https://ror.org/03angcq70"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-5301-3142",
+    "@type": "schema:Person",
+    "name": "Chris Evelo",
+    "givenName": "Chris",
+    "familyName": "Evelo",
+    "identifier": "https://orcid.org/0000-0002-5301-3142",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/02jz4aj89",
+      "@type": "schema:Organization",
+      "name": "Maastricht University",
+      "identifier": "https://ror.org/02jz4aj89"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0003-2230-0840",
+    "@type": "schema:Person",
+    "name": "Marvin Martens",
+    "givenName": "Marvin",
+    "familyName": "Martens",
+    "identifier": "https://orcid.org/0000-0003-2230-0840",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/02jz4aj89",
+      "@type": "schema:Organization",
+      "name": "Maastricht University",
+      "identifier": "https://ror.org/02jz4aj89"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0001-7542-0286",
+    "@type": "schema:Person",
+    "name": "Egon Willighagen",
+    "givenName": "Egon",
+    "familyName": "Willighagen",
+    "identifier": "https://orcid.org/0000-0001-7542-0286",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/02jz4aj89",
+      "@type": "schema:Organization",
+      "name": "Maastricht University",
+      "identifier": "https://ror.org/02jz4aj89"
+     }
+    ]
+   },
+   {
+    "@id": "https://orcid.org/0000-0002-2477-1139",
+    "@type": "schema:Person",
+    "name": "Sara Morsy",
+    "givenName": "Sara",
+    "familyName": "Morsy",
+    "identifier": "https://orcid.org/0000-0002-2477-1139",
+    "affiliation": [
+     {
+      "@id": "https://ror.org/0267vjk41",
+      "@type": "schema:Organization",
+      "name": "University of Hertfordshire",
+      "identifier": "https://ror.org/0267vjk41"
+     }
+    ]
+   },
+   {
+    "@type": "schema:Organization",
+    "name": "ELIXIR Toxicology Community",
+    "url": "https://elixir-europe.org/communities/toxicology",
+    "parentOrganization": {
+     "@id": "https://ror.org/044rwnt51",
+     "@type": "schema:Organization",
+     "name": "ELIXIR"
+    }
+   }
+  ]
  },
  "creditText": "Contains information from FAIRsharing (https://fairsharing.org), licensed CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/).",
  "isBasedOn": [
@@ -16778,6 +17081,58 @@
    "@type": "schema:DefinedTerm",
    "name": "Data management",
    "identifier": "http://edamontology.org/topic_3071"
+  }
+ ],
+ "funding": [
+  {
+   "@type": "schema:MonetaryGrant",
+   "name": "Virtual Human Platform for Safety Assessment (VHP4Safety)",
+   "identifier": {
+    "@value": "NWA-ORC 1292.19.272"
+   },
+   "funder": {
+    "@id": "https://ror.org/04jsz6e67",
+    "@type": "schema:Organization",
+    "name": "Dutch Research Council (NWO)",
+    "identifier": "https://ror.org/04jsz6e67"
+   }
+  },
+  {
+   "@type": "schema:MonetaryGrant",
+   "name": "ELIXIR implementation study INTOXICOM",
+   "identifier": {
+    "@value": "NL-2023-INTOXICOM"
+   },
+   "funder": {
+    "@id": "https://ror.org/044rwnt51",
+    "@type": "schema:Organization",
+    "name": "ELIXIR",
+    "identifier": "https://ror.org/044rwnt51"
+   }
+  },
+  {
+   "@type": "schema:MonetaryGrant",
+   "name": "European Partnership for the Assessment of Risks from Chemicals",
+   "identifier": "https://doi.org/10.3030/101057014",
+   "funder": {
+    "@id": "https://ror.org/00k4n6c32",
+    "@type": "schema:Organization",
+    "name": "European Commission",
+    "identifier": "https://ror.org/00k4n6c32"
+   }
+  },
+  {
+   "@type": "schema:MonetaryGrant",
+   "name": "Horizon Europe Guarantee Fund",
+   "identifier": {
+    "@value": "10045979"
+   },
+   "funder": {
+    "@id": "https://ror.org/05ar5fy68",
+    "@type": "schema:Organization",
+    "name": "Innovate UK",
+    "identifier": "https://ror.org/05ar5fy68"
+   }
   }
  ]
 }

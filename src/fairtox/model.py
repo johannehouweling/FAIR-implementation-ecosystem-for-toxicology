@@ -297,6 +297,8 @@ CONTEXT = {
     'name': 'schema:name', 'alternateName': {'@id': 'schema:alternateName', '@container': '@set'},
     'description': 'schema:description', 'url': 'schema:url',   # text, as CDIF requires
     'creator': 'schema:creator', 'version': 'schema:version', 'inLanguage': 'schema:inLanguage',
+    'givenName': 'schema:givenName', 'familyName': 'schema:familyName', 'affiliation': 'schema:affiliation',
+    'funding': 'schema:funding', 'funder': 'schema:funder',
     'dateModified': 'schema:dateModified', 'license': {'@id': 'schema:license', '@type': '@id'},
     'creditText': 'schema:creditText', 'isBasedOn': {'@id': 'schema:isBasedOn', '@type': '@id'},
     'wasDerivedFrom': {'@id': 'prov:wasDerivedFrom', '@type': '@id'},
@@ -415,7 +417,8 @@ def new_document(resources=()):
                        'Resource or another FAIR Supporting Resource, curated '
                        'by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with '
                        'first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.',
-        'version': __version__, 'dateModified': '', 'inLanguage': 'en', 'license': LICENSE, 'creator': CREATOR,
+        'version': __version__, 'dateModified': '', 'inLanguage': 'en', 'license': LICENSE,
+        'creator': {'@list': [*AUTHORS, CREATOR]}, 'funding': FUNDING,
         'keywords': KEYWORDS, 'creditText': FAIRSHARING_CREDIT, 'isBasedOn': [COLLECTION_DOI],
         'sources': {}, 'vocabularies': VOCABULARIES, 'hasPart': list(resources),
     }
@@ -430,7 +433,63 @@ CREATOR = {'@type': 'schema:Organization', 'name': 'ELIXIR Toxicology Community'
 KEYWORDS = [{'@id': i, '@type': 'schema:DefinedTerm', 'name': n, 'identifier': i} for n, i in (
     ('Toxicology', NCIT_TOXICOLOGY), ('FAIR Supporting Resource', FSR),
     ('FAIR Implementation Profile', FIP + 'FAIR-Implementation-Profile'), ('Data management', EDAM + 'topic_3071'))]
-HEADER = ('description', 'inLanguage', 'license', 'creator', 'keywords')
+
+
+def _org(name, ror=None):
+    """A schema.org organisation, identified by its ROR ID when it has one."""
+    return {**({'@id': 'https://ror.org/' + ror} if ror else {}), '@type': 'schema:Organization', 'name': name,
+            **({'identifier': 'https://ror.org/' + ror} if ror else {})}
+
+
+# The authors' affiliations, named as in the paper, with their ROR IDs (DNTOX GmbH has none).
+ORGS = {'rivm': _org('National Institute for Public Health and the Environment (RIVM)', '01cesdt21'),
+        'um': _org('Maastricht University', '02jz4aj89'), 'bham': _org('University of Birmingham', '03angcq70'),
+        'leiden': _org('Leiden University', '027bh9e22'), 'gff': _org('GO FAIR Foundation', '056j50v04'),
+        'dntox': _org('DNTOX GmbH'), 'iuf': _org('Leibniz Institute of Environmental Medicine (IUF)', '0163xqp73'),
+        'bfr': _org('German Federal Institute for Risk Assessment (BfR)', '03k3ky186'),
+        'uu': _org('Utrecht University', '04pp8hn57'), 'upc': _org('Université Paris Cité', '05f82e368'),
+        'hu': _org('HU University of Applied Sciences Utrecht', '028z9kw20'), 'tno': _org('TNO', '01bnjb948'),
+        'herts': _org('University of Hertfordshire', '0267vjk41')}
+# The authors in the order of the paper, with their ORCID iDs; CITATION.cff lists the same people in the same order.
+AUTHORS = [{'@id': 'https://orcid.org/' + orcid, '@type': 'schema:Person', 'name': f'{given} {family}',
+            'givenName': given, 'familyName': family, 'identifier': 'https://orcid.org/' + orcid,
+            'affiliation': [ORGS[a] for a in affiliations.split()]}
+           for given, family, orcid, affiliations in (
+               ('Jente', 'Houweling', '0009-0005-3680-0645', 'rivm um'),
+               ('Indrani', 'Mahapatra', '0000-0002-6396-0848', 'bham'),
+               ('Gerhard', 'Burger', '0000-0003-1062-5576', 'leiden gff'),
+               ('Arif', 'Dönmez', '0000-0003-3828-7724', 'dntox iuf'),
+               ('Danyel', 'Jennen', '0000-0002-8618-2487', 'um'),
+               ('Saurav', 'Kumar', '0000-0003-0593-2598', 'bfr'),
+               ('Vikas', 'Kumar', '0000-0002-9795-5967', 'bfr'),
+               ('Anne', 'Kienhuis', '0000-0002-6465-4498', 'rivm uu'),
+               ('Giulia', 'Callegaro', '0000-0002-7627-7271', 'leiden'),
+               ('Karine', 'Audouze', '0000-0001-7525-4089', 'upc'),
+               ('Marc', 'Teunis', '0000-0002-3496-6669', 'hu'),
+               ('Rob', 'Stierum', '0000-0002-4409-1974', 'tno'),
+               ('Iseult', 'Lynch', '0000-0003-4250-4584', 'bham'),
+               ('Chris', 'Evelo', '0000-0002-5301-3142', 'um'),
+               ('Marvin', 'Martens', '0000-0003-2230-0840', 'um'),
+               ('Egon', 'Willighagen', '0000-0001-7542-0286', 'um'),
+               ('Sara', 'Morsy', '0000-0002-2477-1139', 'herts'))]
+# The grants behind the dataset, its dashboard and the paper: an identifier that is not a link stays text.
+FUNDING = [{'@type': 'schema:MonetaryGrant', 'name': name,
+            'identifier': grant if grant.startswith('https://') else {'@value': grant}, 'funder': funder}
+           for name, grant, funder in (
+               ('Virtual Human Platform for Safety Assessment (VHP4Safety)', 'NWA-ORC 1292.19.272',
+                _org('Dutch Research Council (NWO)', '04jsz6e67')),
+               ('ELIXIR implementation study INTOXICOM', 'NL-2023-INTOXICOM', _org('ELIXIR', '044rwnt51')),
+               ('European Partnership for the Assessment of Risks from Chemicals',
+                'https://doi.org/10.3030/101057014', _org('European Commission', '00k4n6c32')),
+               ('Horizon Europe Guarantee Fund', '10045979',
+                _org('Innovate UK', '05ar5fy68')))]
+HEADER = ('description', 'inLanguage', 'license', 'creator', 'funding', 'keywords')
+
+
+def citation_authors():
+    """The authors as a data citation names them in the journal's style: up to five by name, else the first et al."""
+    names = [f"{a['familyName']}, {''.join(p[0] + '.' for p in a['givenName'].split())}" for a in AUTHORS]
+    return names[0] + ' et al.' if len(names) > 5 else ', '.join(names[:-1]) + ' & ' + names[-1]
 
 
 def vocabulary(doc):

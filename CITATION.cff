@@ -11,6 +11,72 @@ abstract: >-
 authors:
   - given-names: Jente
     family-names: Houweling
+    orcid: https://orcid.org/0009-0005-3680-0645
+    affiliation: National Institute for Public Health and the Environment (RIVM); Maastricht University
+  - given-names: Indrani
+    family-names: Mahapatra
+    orcid: https://orcid.org/0000-0002-6396-0848
+    affiliation: University of Birmingham
+  - given-names: Gerhard
+    family-names: Burger
+    orcid: https://orcid.org/0000-0003-1062-5576
+    affiliation: Leiden University; GO FAIR Foundation
+  - given-names: Arif
+    family-names: Dönmez
+    orcid: https://orcid.org/0000-0003-3828-7724
+    affiliation: DNTOX GmbH; Leibniz Institute of Environmental Medicine (IUF)
+  - given-names: Danyel
+    family-names: Jennen
+    orcid: https://orcid.org/0000-0002-8618-2487
+    affiliation: Maastricht University
+  - given-names: Saurav
+    family-names: Kumar
+    orcid: https://orcid.org/0000-0003-0593-2598
+    affiliation: German Federal Institute for Risk Assessment (BfR)
+  - given-names: Vikas
+    family-names: Kumar
+    orcid: https://orcid.org/0000-0002-9795-5967
+    affiliation: German Federal Institute for Risk Assessment (BfR)
+  - given-names: Anne
+    family-names: Kienhuis
+    orcid: https://orcid.org/0000-0002-6465-4498
+    affiliation: National Institute for Public Health and the Environment (RIVM); Utrecht University
+  - given-names: Giulia
+    family-names: Callegaro
+    orcid: https://orcid.org/0000-0002-7627-7271
+    affiliation: Leiden University
+  - given-names: Karine
+    family-names: Audouze
+    orcid: https://orcid.org/0000-0001-7525-4089
+    affiliation: Université Paris Cité
+  - given-names: Marc
+    family-names: Teunis
+    orcid: https://orcid.org/0000-0002-3496-6669
+    affiliation: HU University of Applied Sciences Utrecht
+  - given-names: Rob
+    family-names: Stierum
+    orcid: https://orcid.org/0000-0002-4409-1974
+    affiliation: TNO
+  - given-names: Iseult
+    family-names: Lynch
+    orcid: https://orcid.org/0000-0003-4250-4584
+    affiliation: University of Birmingham
+  - given-names: Chris
+    family-names: Evelo
+    orcid: https://orcid.org/0000-0002-5301-3142
+    affiliation: Maastricht University
+  - given-names: Marvin
+    family-names: Martens
+    orcid: https://orcid.org/0000-0003-2230-0840
+    affiliation: Maastricht University
+  - given-names: Egon
+    family-names: Willighagen
+    orcid: https://orcid.org/0000-0001-7542-0286
+    affiliation: Maastricht University
+  - given-names: Sara
+    family-names: Morsy
+    orcid: https://orcid.org/0000-0002-2477-1139
+    affiliation: University of Hertfordshire
   - name: ELIXIR Toxicology Community
 version: 0.16.1 # x-release-please-version
 date-released: 2026-11-11 # x-release-please-date
