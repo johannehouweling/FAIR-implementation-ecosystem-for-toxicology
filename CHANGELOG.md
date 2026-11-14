@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.0.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.16.1...v1.0.0) (2026-11-14)
+
+
+### Features
+
+* credit the authors and their grants by ORCID, ROR and grant identifier ([de246cf](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/de246cfc2db980840c633705d824769b15b6a642))
+* **dashboard:** colour the publication export by infrastructure ([9b14a29](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/9b14a297aaa9fdabf81e8bcc8cd319f88fc6a05f))
+* **figures:** draw Figures 1 and 2 in the repository ([2c0a141](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/2c0a141deacebfe5d9ed19e3cfa186eb56c40c92))
+* **model:** allow the relation label uses again ([94f5461](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/94f5461e19134292febe935eb6293abb58ae42f0))
+* tell Zenodo the authors, licence and grants of the dataset ([c295db5](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/c295db5f3ca68c3e55758e9f22f6ced0305763fa))
+
+
+### Fixes
+
+* **dashboard:** keep a relation line inside the figure ([41b2a1e](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/41b2a1e96ad690dfd648ebf8d026f66d2fecb9bf))
+* **data:** contacts, dates and types for rows that wait in the sheet ([9d1d903](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/9d1d903e059a65b9152ee19192fd77c69a254b81))
+* **data:** date the TRI Basic Plus files and exclude a duplicate row ([b756bc8](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/b756bc885b0c1e21027b75afae7fb282588a1020))
+* **data:** fill dates, descriptions and types by source ([3f029e3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/3f029e3a72b58ce296d9003e84770e1b1c7c0c8a))
+* **data:** refresh 2026-11-12 ([52f6aa2](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/52f6aa2b88efa4c16da7b80fa3db1daa43568866))
+* **data:** refresh 2026-11-13 ([ee2694d](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/ee2694d6cb8069d78821e4c7647df810e1c23eb0))
+* **data:** refresh 2026-11-13 ([6f69802](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/6f698022b87bfce2356adc8fb871015b2863a6ef))
+* **data:** refresh 2026-11-14 ([ca75415](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/ca75415e546ee11a808de73f070fd7557778c85f))
+* **data:** three relations are uses again ([e319691](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/e319691e19fff1b078bb094c27f4c8b3d17366bb))
+
+
+### Documentation
+
+* **criteria:** reword the criteria and withdraw E5 and E8 ([465d099](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/465d099201893e216609f96242dea67d84938418))
+
 ## [0.16.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.16.0...v0.16.1) (2026-11-11)
 
 

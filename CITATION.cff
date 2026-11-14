@@ -78,8 +78,8 @@ authors:
     orcid: https://orcid.org/0000-0002-2477-1139
     affiliation: University of Hertfordshire
   - name: ELIXIR Toxicology Community
-version: 0.16.1 # x-release-please-version
-date-released: 2026-11-11 # x-release-please-date
+version: 1.0.0 # x-release-please-version
+date-released: 2026-11-14 # x-release-please-date
 license:
   - CC-BY-SA-4.0
   - MIT
