@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.1.0...v1.1.1) (2026-11-14)
+
+
+### Fixes
+
+* **data:** exclude two licences and keep a citation out of a resource's names ([87ad77c](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/87ad77cfa763161f67b04481eff78ddd4ee9c735))
+
+
+### Documentation
+
+* **criteria:** a single licence is covered by the SPDX License List ([2ee9183](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/2ee9183f09aaa4b9d725dd9355a920c282dcfc23))
+* **readme:** show the dataset's DOI as a badge ([2c44b79](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/2c44b79199e22428b6957b544dcaa0305a45edfa))
+
 ## [1.1.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.0.0...v1.1.0) (2026-11-14)
 
 
