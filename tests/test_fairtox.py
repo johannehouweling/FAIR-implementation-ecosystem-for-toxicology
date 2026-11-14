@@ -3,6 +3,7 @@ uv run python -m unittest discover -s tests -v"""
 import csv
 import json
 import os
+import re
 import tempfile
 import unittest
 from unittest import mock
@@ -78,6 +79,18 @@ class RepositoryTest(unittest.TestCase):
         dataset = os.path.join(ROOT, model.DATASET)
         if os.path.exists(dataset):
             self.assertEqual(model.load(dataset)['version'], __version__)
+
+    def test_the_same_authors_in_citation_cff_and_the_dataset(self):
+        # CITATION.cff, which Zenodo and GitHub read, names the dataset's creators in the same order with the same iDs
+        with open(os.path.join(ROOT, 'CITATION.cff'), encoding='utf-8') as f:
+            cff = f.read().split('\nauthors:\n', 1)[1].split('\nversion:', 1)[0]
+        people = re.findall(r'given-names: (.+)\n +family-names: (.+)\n +orcid: (\S+)\n +affiliation: (.+)', cff)
+        self.assertEqual([(a['givenName'], a['familyName'], a['identifier'], '; '.join(o['name'] for o in a['affiliation']))
+                          for a in model.AUTHORS], people)
+        self.assertTrue(cff.rstrip().endswith(f'- name: {model.CREATOR["name"]}'))
+        creator = model.load(os.path.join(ROOT, model.DATASET))['creator']['@list']
+        self.assertEqual(creator, [*model.AUTHORS, model.CREATOR])
+        self.assertEqual(model.citation_authors(), 'Houweling, J. et al.')
 
     def test_every_vocabulary_value_is_documented_as_the_code_defines_it(self):
         docs = {}

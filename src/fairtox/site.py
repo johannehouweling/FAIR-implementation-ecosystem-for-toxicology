@@ -102,7 +102,7 @@ def nodes_links(doc, names=None):
             'buildsOnFair': bool(r.get('buildsOnFair')), 'subdomains': r.get('subdomains', []),
             'fromCollection': bool(fs.get('inCollection')) and r.get('manuscript', 'absent') == 'absent',
             # where it was found, by the sources the criteria screen; the FIPs come below, once every key has a label
-            'sources': ([doc['creator']['name']] if r.get('manuscript', 'absent') != 'absent' else [])
+            'sources': ([model.CREATOR['name']] if r.get('manuscript', 'absent') != 'absent' else [])
                        + ([COLLECTION] if fs.get('inCollection') else []),
             'fairsharing': fairsharing_url(r), 'fsrNanopublication': r.get('fsrNanopublication', []),
             'url': r.get('url', ''), 'creator': '; '.join(names.get(c, c) for c in creators), 'creatorIds': ids,
@@ -112,7 +112,7 @@ def nodes_links(doc, names=None):
     fips, label_of = {k for n in nodes for k in n['declaredIn']}, {n['key']: n['label'] for n in nodes}
     for n in nodes:   # a FIP is a source of what it declares and of itself; a row no source names was added by the curators
         n['sources'] += [label_of[k] for k in n['declaredIn']] + ([n['label']] if n['key'] in fips else [])
-        n['sources'] = n['sources'] or [doc['creator']['name']]
+        n['sources'] = n['sources'] or [model.CREATOR['name']]
     links = [{'src': x['target'], 'dst': x['subject'], 'label': x['hadRole'], 'lineage': model.RELATIONS[x['hadRole']][1]}
              for x in model.relation_rows(doc)]
     declared = {}
@@ -163,7 +163,8 @@ def public(doc):
 def page_meta(doc):
     return {
         'title': doc['name'], 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
-        'creator': doc['creator']['name'], 'sources': doc.get('sources', {}), 'lanes': model.FIGURE_LANES,
+        'creator': model.CREATOR['name'], 'authors': model.citation_authors(),   # the curators; the cited authors
+        'sources': doc.get('sources', {}), 'lanes': model.FIGURE_LANES,
         'toxLanes': model.FIGURE_LANES[2:], 'laneDef': model.LANE_DEF, 'classes': list(CLASSES.values()),
         'classDef': {CLASSES[k]: v for k, v in CLASS_DEF.items()},
         'typeIri': {v: k for k, v in type_labels().items()},   # label -> term, the links in the details
@@ -171,7 +172,7 @@ def page_meta(doc):
         'ontologyIri': model.fip_ontology_version_iri(),   # the version read, linked in the About text
         'fairPublished': model.FAIR_PUBLISHED, 'license': doc['license'],   # the figure's marker; the licences
         # the Source filter's options: the curators, the collection, then the FIPs in the dataset
-        'sourceList': [doc['creator']['name'], COLLECTION,
+        'sourceList': [model.CREATOR['name'], COLLECTION,
                        *sorted(label(r) for r in doc['hasPart'] if r['key'] in doc.get('sources', {}).get('fip', {}))],
         'communities': sorted(v[0] for v in model.fsr_types().values() if v[1] == model.FIC),   # never drawn
         'creatorLanes': list(model.CREATOR_LANE_DEF), 'creatorLaneDef': model.CREATOR_LANE_DEF,
@@ -195,7 +196,8 @@ def schema_org(doc):
         '@context': 'https://schema.org', '@type': 'Dataset', 'name': doc['name'], 'description': doc['description'],
         'url': PAGES, 'version': doc['version'], 'dateModified': doc.get('dateModified', ''),
         'license': doc['license']['@id'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
-        'creator': {'@type': 'Organization', 'name': doc['creator']['name']},
+        'creator': [*({'@type': 'Person', 'name': a['name'], 'sameAs': a['identifier']} for a in model.AUTHORS),
+                    {'@type': 'Organization', 'name': model.CREATOR['name']}],
         'keywords': ['FAIR', 'toxicology', 'FAIR supporting resources', 'FAIRsharing', 'research data management'],
         'distribution': [
             {'@type': 'DataDownload', 'encodingFormat': 'application/ld+json',
@@ -303,7 +305,7 @@ def discovery(doc, out):
                          for name, (media, spec) in DOWNLOADS.items()],
         'subjectOf': {'@id': PAGES + 'fair-tox-ecosystem.jsonld', '@type': 'schema:Dataset',
                       'additionalType': 'dcat:CatalogRecord', 'about': model.BASE, 'conformsTo': CDIF,
-                      'maintainer': doc['creator'],
+                      'maintainer': model.CREATOR,
                       'sdDatePublished': doc.get('dateModified', '')},
     }
 
@@ -332,11 +334,11 @@ def build(doc, outdir, offline=False):
     doc = public(doc)
     keep = {r['key'] for r in doc['hasPart']}
     nodes = [n for n in nodes if n['key'] in keep]
-    sources = {doc['creator']['name'], COLLECTION, *(n['label'] for n in nodes)}
+    sources = {model.CREATOR['name'], COLLECTION, *(n['label'] for n in nodes)}
     for n in nodes:   # as in public(): FIPs and communities that are not included are left out
         n['declaredIn'] = [k for k in n['declaredIn'] if k in keep]
         n['declaredBy'] = n['declaredBy'] if n['declaredBy'] in keep else ''
-        n['sources'] = [s for s in n['sources'] if s in sources] or [doc['creator']['name']]
+        n['sources'] = [s for s in n['sources'] if s in sources] or [model.CREATOR['name']]
     links = [x for x in links if x['src'] in keep and x['dst'] in keep]
     declarations = [x for x in declarations if x['src'] in keep and x['dst'] in keep]
     page = files('fairtox').joinpath('dashboard.html').read_text(encoding='utf-8')

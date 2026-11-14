@@ -19,7 +19,8 @@ The dataset is one JSON-LD file, `data/fair-tox-ecosystem.jsonld`, licensed CC B
 | `dateModified` | Date of the last change to the content. |
 | `inLanguage` | `en`. |
 | `license` | CC BY-SA 4.0 (name and URL), required because the dataset contains FAIRsharing data. |
-| `creator` | The ELIXIR Toxicology Community, an organisation within ELIXIR (ROR `https://ror.org/044rwnt51`). |
+| `creator` | An ordered list (`@list`): the authors in the order of the paper, each a `schema:Person` with `givenName`, `familyName`, their ORCID iD as `@id` and `identifier`, and their affiliations as `schema:Organization` with their ROR ID; then the ELIXIR Toxicology Community, an organisation within ELIXIR (ROR `https://ror.org/044rwnt51`). `CITATION.cff` lists the same people in the same order. |
+| `funding` | The grants behind the dataset, its dashboard and the paper, each a `schema:MonetaryGrant` with a `name`, its `identifier` (the grant's DOI where the funder mints one, else its number as text) and its `funder` as a `schema:Organization` with its ROR ID. |
 | `creditText` | Attribution to FAIRsharing; the published dataset adds the nanopublications of the two FIPs. |
 | `isBasedOn` | The FAIRsharing Toxicology collection; the published dataset adds the profiles of the two FIPs. |
 | `sources` | What each source contributed, with versions and checksums; `inventory` names a co-author's repository list and the keys of the resources taken from it. The published dataset keeps only `fairsharing` and `fip`, each with its retrieval date (see Fields added at build time). |

@@ -715,7 +715,7 @@ function header() {
   const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '';
   const [where, url] = doi ? ['Zenodo', doi] : ['GitHub', META.repo];
   const year = String(META.dateModified || '').slice(0, 4) || new Date().getFullYear();
-  $('cite').innerHTML = `${esc(META.creator)}. ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`;
+  $('cite').innerHTML = `${esc(META.authors)} ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`;   // the authors end with a full stop
   $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
   $('lane-defs').innerHTML = [...META.lanes, ...META.creatorLanes].map(l => `<dt>${esc(l)}</dt><dd>${esc(LANE_DEF[l])}</dd>`).join('');
   if (isUrl(META.collection)) $('coll').href = META.collection;
