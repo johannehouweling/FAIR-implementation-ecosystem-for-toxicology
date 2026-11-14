@@ -41,8 +41,8 @@ run, instead.
 
 CI tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
 Discovery profile 1.1 (its SHACL rules, with pyshacl), checks that the links in the dataset and the
-documentation resolve (lychee; a dead link fails a build of `main` and is only shown on a pull request; a link that
-resolved in the last seven days is not requested again, so a site that is down for a while does not stop a build;
+documentation resolve (lychee; a link that fails is listed in the run's summary and does not stop the build; a link
+that resolved in the last seven days is not requested again;
 FAIRsharing, the Wayback Machine,
 the dataset's own w3id.org identifiers and a few sites that answer no automated client are left out), redraws the
 figures and, on `main`, publishes the dashboard and commits the figures that changed. Then release-please
