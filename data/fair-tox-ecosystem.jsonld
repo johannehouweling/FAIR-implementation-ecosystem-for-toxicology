@@ -3090,6 +3090,9 @@
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
    "origin": "Generic",
+   "contactPoint": [
+    "https://ror.org/02ed4cj64"
+   ],
    "url": "https://creativecommons.org/licenses/by/4.0/",
    "fairsharingMatch": "no record",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RAR6yeOv4eNPYd6Ep_GngSkGUFUE1LYw2r8X94RlWUFQo/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Creative Commons licence declared in a FIP for R1.1, stating the reuse conditions of data and metadata in any domain.",
@@ -3116,6 +3119,9 @@
     "https://w3id.org/fair/fip/terms/Data-usage-license"
    ],
    "origin": "Generic",
+   "contactPoint": [
+    "https://ror.org/02ed4cj64"
+   ],
    "url": "https://creativecommons.org/licenses/by-sa/4.0/",
    "fairsharingMatch": "no record",
    "note": "Surfaced by Reference AOP FAIR Implementation Profile declaration https://w3id.org/np/RAAsw25osO0qOYiHv6i2F55DiOcRuyR3fEzGrpBpznSW8#declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for R1.1 as a Creative Commons licence stating the legal terms for reusing data and metadata.",
@@ -3781,8 +3787,9 @@
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.ddk9t9",
-     "hadRole": "implements",
-     "evidence": "curator"
+     "hadRole": "uses",
+     "evidence": "curator",
+     "reviewedBy": "JH"
     },
     {
      "relation": "https://doi.org/10.25504/FAIRsharing.e5c86e",
@@ -4551,6 +4558,10 @@
    "key": "diamonds",
    "name": "Diamonds (TNO)",
    "decision": "undecided",
+   "fairsharingType": "Database: knowledgebase",
+   "contactPoint": [
+    "https://ror.org/01bnjb948"
+   ],
    "url": "https://diamonds.tno.nl/",
    "manuscript": "absent",
    "fairsharingMatch": "no record"
@@ -5580,6 +5591,8 @@
     "https://w3id.org/fair/fip/terms/Structured-vocabulary"
    ],
    "origin": "Life Sciences",
+   "dateReleased": "2017-02-13",
+   "dateSource": "https://github.com/edamontology/edam-bioimaging/releases/tag/alpha01",
    "url": "https://github.com/edamontology/edam-bioimaging",
    "mentionedIn": [
     "Whitepaper",
@@ -6071,6 +6084,9 @@
     "https://w3id.org/fair/fip/terms/Metadata-data-linking-schema"
    ],
    "origin": "Life Sciences",
+   "contactPoint": [
+    "https://ror.org/02catss52"
+   ],
    "url": "https://www.ebi.ac.uk/empiar/",
    "fairsharingRecord": "FAIRsharing.dff3ef",
    "fairsharingMatch": "confirmed",
@@ -11194,6 +11210,7 @@
    "key": "miribel",
    "name": "MIRIBEL",
    "decision": "undecided",
+   "fairsharingType": "Standard: reporting guideline",
    "manuscript": "absent",
    "fairsharingMatch": "no record"
   },
@@ -11474,7 +11491,8 @@
     "NanoCommons KB",
     "NanoCommons datasets"
    ],
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E4",
    "fairsharingType": "Database: knowledgebase and repository",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Domain-Specific-Registry"
@@ -11863,6 +11881,7 @@
    "key": "nanosafety_data_interface",
    "name": "Nanosafety Data Interface",
    "decision": "undecided",
+   "fairsharingType": "Database: knowledgebase",
    "manuscript": "absent",
    "fairsharingMatch": "no record"
   },
@@ -12061,6 +12080,8 @@
    "subdomains": [
     "eco-toxicology"
    ],
+   "date": "2019-08-25",
+   "dateSource": "https://web.archive.org/web/20190825112423/https://www.norman-network.com/nds/ecotox/",
    "creator": "NORMAN Association",
    "url": "https://www.norman-network.com/nds/ecotox/",
    "description": "Database of the NORMAN network with experimental ecotoxicity endpoints and quality targets from different regulatory frameworks for the substances of the NORMAN Substance Database. Experts check the reliability of studies with the CRED criteria, derive quality targets online following EC guidelines and agree on a Lowest PNEC per substance, experimental or QSAR-predicted, for prioritisation.",
