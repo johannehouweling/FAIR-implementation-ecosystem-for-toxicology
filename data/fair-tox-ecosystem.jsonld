@@ -7051,6 +7051,8 @@
    "subdomains": [
     "exposome"
    ],
+   "date": "2012-05-01",
+   "dateSource": "https://web.archive.org/web/20120501140727/http://www.epa.gov/tri/tridata/data/basicplus/index.html",
    "creator": "US EPA",
    "url": "https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-plus-data-files-calendar-years-1987-present",
    "description": "Facility-level releases and waste management of toxic chemicals that US facilities report each year to the Toxics Release Inventory, from 1987.",
@@ -11880,7 +11882,9 @@
    "schemaType": "schema:CreativeWork",
    "key": "nanosafety_data_interface",
    "name": "Nanosafety Data Interface",
-   "decision": "undecided",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "nsdi",
    "fairsharingType": "Database: knowledgebase",
    "manuscript": "absent",
    "fairsharingMatch": "no record"
