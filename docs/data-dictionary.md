@@ -31,7 +31,7 @@ The published dataset also has the fields that CODATA's CDIF Discovery profile 1
 
 | Field | Meaning |
 |---|---|
-| `identifier` | Persistent identifier, as a `schema:PropertyValue`: the Zenodo DOI once deposited, until then `https://w3id.org/fair-tox/dataset`. |
+| `identifier` | Persistent identifier, as a `schema:PropertyValue`: the Zenodo DOI that stands for all versions, `https://doi.org/10.5281/zenodo.24215047`. |
 | `url` | The dashboard. |
 | `datePublished` | Release date (`date-released` in CITATION.cff). |
 | `temporalCoverage` | Years in which the resources were first published, such as `1965/2026`. |

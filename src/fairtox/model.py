@@ -31,6 +31,7 @@ FIP_ONTOLOGY_VERSION = 'FIP Ontology version 20260227'
 NANOPUB_RE = re.compile(r'^https?://(w3id|purl)\.org/np/')
 COLLECTION_ID = 3496
 COLLECTION_DOI = 'https://doi.org/10.25504/FAIRsharing.f60a10'
+DOI = 'https://doi.org/10.5281/zenodo.24215047'   # the dataset on Zenodo: this DOI stands for all its versions
 FAIRSHARING_CREDIT = ('Contains information from FAIRsharing (https://fairsharing.org), licensed CC BY-SA 4.0 '
                       '(https://creativecommons.org/licenses/by-sa/4.0/).')
 
@@ -411,7 +412,7 @@ FS_CODE_RE = re.compile(r'FAIRsharing\.[A-Za-z0-9]+')
 
 def new_document(resources=()):
     return {
-        '@context': CONTEXT, '@id': BASE, '@type': 'schema:Dataset',
+        '@context': CONTEXT, '@id': BASE, '@type': 'schema:Dataset', 'identifier': DOI,
         'name': 'FAIR implementation ecosystem for toxicology',
         'description': 'Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling '
                        'Resource or another FAIR Supporting Resource, curated '
@@ -483,7 +484,7 @@ FUNDING = [{'@type': 'schema:MonetaryGrant', 'name': name,
                 'https://doi.org/10.3030/101057014', _org('European Commission', '00k4n6c32')),
                ('Horizon Europe Guarantee Fund', '10045979',
                 _org('Innovate UK', '05ar5fy68')))]
-HEADER = ('description', 'inLanguage', 'license', 'creator', 'funding', 'keywords')
+HEADER = ('identifier', 'description', 'inLanguage', 'license', 'creator', 'funding', 'keywords')
 
 
 def citation_authors():

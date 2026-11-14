@@ -92,6 +92,11 @@ class RepositoryTest(unittest.TestCase):
         self.assertEqual(creator, [*model.AUTHORS, model.CREATOR])
         self.assertEqual(model.citation_authors(), 'Houweling, J. et al.')
 
+    def test_the_same_doi_in_citation_cff_and_the_dataset(self):
+        with open(os.path.join(ROOT, 'CITATION.cff'), encoding='utf-8') as f:
+            self.assertIn(f"\ndoi: {model.DOI.removeprefix('https://doi.org/')}\n", f.read())
+        self.assertEqual(model.load(os.path.join(ROOT, model.DATASET))['identifier'], model.DOI)
+
     def test_every_vocabulary_value_is_documented_as_the_code_defines_it(self):
         docs = {}
         for name in ('data-dictionary.md', 'inclusion-criteria.md'):
