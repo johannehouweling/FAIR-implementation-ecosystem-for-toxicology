@@ -15,7 +15,7 @@ from test_fairtox import TempDir, fixture
 
 class SiteTest(TempDir):
     FILES = ('index.html', 'fair-tox-ecosystem.jsonld', 'resources.csv', 'relations.csv', 'terms.ttl', 'terms.jsonld',
-             'context.jsonld')
+             'context.jsonld', '.zenodo.json')
 
     def build(self, doc=None):
         doc = doc or fixture()
@@ -144,6 +144,18 @@ class SiteTest(TempDir):
                      'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
                      *model.CREATOR_LANE_DEF):
             self.assertIn(text, html, text)
+
+    def test_zenodo_is_told_the_authors_with_orcid_and_affiliation(self):
+        meta = json.loads(self.build()[1]['.zenodo.json'])       # published with the dataset, for its Zenodo record
+        self.assertEqual((meta['upload_type'], meta['license'], meta['title']),
+                         ('dataset', 'cc-by-sa-4.0', model.new_document()['name']))
+        self.assertEqual([(c['name'], 'https://orcid.org/' + c['orcid']) for c in meta['creators']],
+                         [(f"{a['familyName']}, {a['givenName']}", a['@id']) for a in model.AUTHORS])
+        self.assertEqual(meta['creators'][0]['affiliation'],
+                         'National Institute for Public Health and the Environment (RIVM); Maastricht University')
+        self.assertEqual(meta['contributors'], [{'name': model.CREATOR['name'], 'type': 'ResearchGroup'}])
+        self.assertIn({'identifier': site.REPO, 'relation': 'isCompiledBy', 'resource_type': 'software'},
+                      meta['related_identifiers'])               # the record links to the code
 
     def test_vocabulary_context_and_anchors_resolve_our_iris(self):
         import rdflib

@@ -19,6 +19,9 @@ REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-to
 PUBLIC_REPO = 'https://github.com/johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline'
 PAGES = 'https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxicology-timeline/'
 CRITERIA = REPO + '/blob/main/docs/inclusion-criteria.md'
+KEYWORDS = ['FAIR', 'toxicology', 'FAIR supporting resources', 'FAIRsharing', 'research data management']
+# The grants that Zenodo's award list holds (zenodo.org/api/awards, read 14 Nov 2026), as funder DOI::grant number
+ZENODO_GRANTS = ('10.13039/501100000780::101057014', '10.13039/100014013::10045979')
 NODE_FIELDS = ['key', 'identifier', 'name', 'label', 'abbr', 'aliases', 'year', 'date', 'lane', 'creatorLane', 'phase', 'span',
                'fairsharingType', 'fsrType', 'fsrCategory', 'principles', 'declaredIn', 'declaredBy', 'registry', 'origin',
                'creatorType', 'buildsOnFair', 'subdomains', 'fromCollection', 'sources', 'fairsharing', 'fsrNanopublication',
@@ -198,7 +201,7 @@ def schema_org(doc):
         'license': doc['license']['@id'], 'creditText': doc['creditText'], 'isBasedOn': doc.get('isBasedOn', []),
         'creator': [*({'@type': 'Person', 'name': a['name'], 'sameAs': a['identifier']} for a in model.AUTHORS),
                     {'@type': 'Organization', 'name': model.CREATOR['name']}],
-        'keywords': ['FAIR', 'toxicology', 'FAIR supporting resources', 'FAIRsharing', 'research data management'],
+        'keywords': KEYWORDS,
         'distribution': [
             {'@type': 'DataDownload', 'encodingFormat': 'application/ld+json',
              'contentUrl': PAGES + 'fair-tox-ecosystem.jsonld'},
@@ -209,6 +212,23 @@ def schema_org(doc):
     if doc.get('identifier'):
         d['identifier'] = doc['identifier']
     return d
+
+
+def zenodo(doc):
+    """What Zenodo is told when it archives a release of the dashboard repository through its GitHub link
+    (.zenodo.json, published with the dataset): the dataset's title, description, version and licence, its authors
+    in the dataset's order with ORCID iD and affiliations, the community as research group, the grants that
+    Zenodo's award list holds, and links to the code and to the FAIRsharing collection."""
+    return {'title': doc['name'], 'upload_type': 'dataset', 'description': doc['description'],
+            'version': doc['version'], 'license': 'cc-by-sa-4.0', 'language': 'eng', 'access_right': 'open',
+            'keywords': KEYWORDS,
+            'creators': [{'name': f"{a['familyName']}, {a['givenName']}", 'orcid': a['identifier'].rsplit('/', 1)[1],
+                          'affiliation': '; '.join(o['name'] for o in a['affiliation'])} for a in model.AUTHORS],
+            'contributors': [{'name': model.CREATOR['name'], 'type': 'ResearchGroup'}],
+            'grants': [{'id': g} for g in ZENODO_GRANTS],
+            'related_identifiers': [{'identifier': REPO, 'relation': 'isCompiledBy', 'resource_type': 'software'},
+                                    {'identifier': model.COLLECTION_DOI, 'relation': 'isDerivedFrom',
+                                     'resource_type': 'dataset'}]}
 
 
 # The data dictionary, one entry per field or group of fields: names, definition, and the controlled list it takes.
@@ -350,7 +370,8 @@ def build(doc, outdir, offline=False):
                                                   'meta': page_meta(doc)}))
     out = {'index.html': page, 'resources.csv': _csv(NODE_FIELDS, nodes),
            'relations.csv': _csv(RELATION_FIELDS, model.relation_rows(doc)), 'terms.ttl': terms.serialize(format='turtle'),
-           'terms.jsonld': model.dumps(jsonld), 'context.jsonld': model.dumps({'@context': model.CONTEXT})}
+           'terms.jsonld': model.dumps(jsonld), 'context.jsonld': model.dumps({'@context': model.CONTEXT}),
+           '.zenodo.json': model.dumps(zenodo(doc))}
     out['fair-tox-ecosystem.jsonld'] = model.dumps({**doc, **discovery(doc, out)})
     leaks = [name for name, text in out.items() if re.search('manuscript', text, re.I)]
     if leaks:   # a last guard: the public pages go live from CI
