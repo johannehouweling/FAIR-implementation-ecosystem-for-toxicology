@@ -249,7 +249,8 @@ const kind = n => SHAPE[n.registry] || 'tool';
 const TYPES = [['standard', 'Standard'], ['database', 'Database or collection'], ['policy', 'Policy'], ['tool', 'Tool']];
 const italic = n => n.buildsOnFair === true;
 const dagger = n => n.maintained === 'discontinued' ? ' †' : '';
-const label = n => short(n) + dagger(n);
+// labels in print are plain, without the dagger and the italics, which the list and the details still show
+const slant = (n, G) => !G.print && italic(n);
 const laneText = n => n.phase || n.lane || '—';   // toxicology resources show their phase
 // creator types in sentence case: "In silico research, regulator"
 const made = n => (n.creatorType || []).join(', ');   // each value as stored, as Span and FSR type
@@ -277,21 +278,29 @@ const Y1 = (years.length ? Math.max(...years) : YB) + 1;
 const units = y => y < YB ? (y - Y0) * K : (Y0 < YB ? COL + BREAK : 0) + (y - YB);
 // Two geometries in SVG user units. The screen figure is 1440 units wide, about a pixel each. The print figure is 183 mm
 // wide in points (1 unit = 1 pt) in the journal's type sizes: labels 5 pt, the journal's minimum; lane titles, axis
-// title and bracket 7 pt; ticks and key 6 pt; strokes about 0.5 pt; markers about 4 pt. M is the bracket, LEFT the start
+// title and bracket 7 pt; ticks 6 pt; strokes about 0.5 pt; markers about 4 pt. M is the bracket, LEFT the start
 // of the axis; the axis ends TAIL before the right edge, a margin for the labels of the latest years; u scales the
-// small offsets.
+// small offsets. Print is set in Arial alone, so that it is laid out and drawn alike wherever it is made.
 const SCREEN = {W: 1440, M: 30, LEFT: 66, RIGHT: 12, TAIL: 150, FS: 11, BIG: 12.5, SMALL: 10.5, R: 6, TRACK: 18, HEAD: 24,
   GAP: 10, PAD: 4, SEP: 14, TOP: 30, SW: 1, RING_W: 1.5, u: 1};
 const PRINT = {W: 183 / 25.4 * 72, M: 11, LEFT: 20, RIGHT: 2, TAIL: 65, FS: 5, BIG: 7, SMALL: 6, R: 2, TRACK: 6.5, HEAD: 10,
-  GAP: 4, PAD: 1, SEP: 5, TOP: 11, SW: .5, RING_W: .5, u: .4, print: true};
+  GAP: 4, PAD: 1, SEP: 5, TOP: 11, SW: .5, RING_W: .5, u: .4, print: true, FACES: ['Arial']};
+// In print, colour gives the infrastructure a lane belongs to and shape the type of a resource. The lanes of one
+// infrastructure share a bar in its colour at the left, with its name along it.
+const ORIGIN = {[GENERIC[0]]: 'Generic', [GENERIC[1]]: 'Life sciences', [META.toxLanes.at(-1)]: 'Regulatory'};
+const origin = lane => ORIGIN[lane] || 'Toxicology';
+const HUE = {Generic: '#eb6834', 'Life sciences': '#1baf7a', Toxicology: '#6250d6', Regulatory: '#a23b8f'};
+const ARROW = '#4a3aa7';
+const tint = c => '#' + [1, 3, 5].map(i => Math.round(255 - .55 * (255 - parseInt(c.slice(i, i + 2), 16)))
+  .toString(16).padStart(2, '0')).join('');   // 55 % of the colour on white
 const XU = (G, v) => G.LEFT + v / units(Y1) * (G.W - G.LEFT - G.RIGHT - G.TAIL), X = (G, y) => XU(G, units(y));
 let rad = (n, G) => G.R;
 const css = name => getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
 const C = Object.fromEntries(['bg', 'ink', 'ink-2', 'grid', 'edge', 'standard', 'database', 'policy', 'tool', 'sans'].map(k => [k.replace('-', ''), css(k)]));
-const PRINT_FONT = "'Helvetica Neue', Helvetica, Arial, sans-serif";
+const PRINT_FONT = 'Arial, Helvetica, sans-serif';
 const ctx = document.createElement('canvas').getContext('2d');
 // the widest of the faces the stack may fall back to, so that labels keep clear of each other in any of them
-const textWidth = (s, size, style = '') => Math.max(...['"Helvetica Neue"', 'Helvetica', 'Arial'].map(f => {
+const textWidth = (s, size, style = '', faces = ['"Helvetica Neue"', 'Helvetica', 'Arial']) => Math.max(...faces.map(f => {
   ctx.font = `${style}100px ${f}, sans-serif`;
   return ctx.measureText(s).width;
 })) * size / 100;
@@ -342,14 +351,14 @@ function layout(shown, links, G) {
     const ns = shown.filter(n => laneOf(n) === lane);
     if (!ns.length) continue;
     for (const n of ns) {
-      const w = s => textWidth(s, G.FS, italic(n) ? 'italic ' : ''), col = n.year < YB;
+      const w = s => textWidth(s, G.FS, slant(n, G) ? 'italic ' : '', G.FACES), col = n.year < YB, mark = G.print ? '' : dagger(n);
       n.x = X(G, n.year + .5);
-      n.text = label(n);
+      n.text = short(n) + mark;
       if (col) {
         const room = Math.max(brk - n.x - dx, n.x - dx - edge), words = short(n).split(' ');
         for (const alt of [short(n).replace(/ \(.*\)$/, ''), n.abbr, ...(n.aliases || []).filter(x => /^[A-Z][A-Z0-9-]+$/.test(x))])
-          if (alt && w(n.text) > room && w(alt + dagger(n)) < w(n.text)) n.text = alt + dagger(n);
-        while (w(n.text) > room && words.length > 1) { words.pop(); n.text = words.join(' ') + '…' + dagger(n); }
+          if (alt && w(n.text) > room && w(alt + mark) < w(n.text)) n.text = alt + mark;
+        while (w(n.text) > room && words.length > 1) { words.pop(); n.text = words.join(' ') + '…' + mark; }
       }
       n.w = w(n.text);
       n.flip = n.x + dx + n.w > (col ? brk : right);
@@ -363,15 +372,17 @@ function layout(shown, links, G) {
       if (t < 0) { t = ends.length; ends.push(0); }
       ends[t] = n.r; n.track = t;
     }
-    lanes.push({lane, nodes: ns, tracks: ends.length});
+    // in print the lanes have no title, nor the room above them for one; the creator lanes keep theirs
+    const title = !G.print || META.creatorLanes.includes(lane) ? lane : '';
+    lanes.push({lane, nodes: ns, tracks: ends.length, title, head: title ? G.HEAD : G.HEAD * .4});
   }
-  const trackY = (b, t) => b.y0 + G.HEAD + (t + .5) * G.TRACK;
+  const trackY = (b, t) => b.y0 + b.head + (t + .5) * G.TRACK;
   const place = () => {
     let y = G.TOP;
     for (const b of lanes) {
       b.y0 = y;
       for (const n of b.nodes) n.y = trackY(b, n.track);
-      b.y1 = y + G.HEAD + b.tracks * G.TRACK + G.PAD;
+      b.y1 = y + b.head + b.tracks * G.TRACK + G.PAD;
       y = b.y1 + G.SEP;
     }
   };
@@ -406,12 +417,29 @@ function overlaps(svg) {  // O(n^2) over label boxes, fine for a few hundred lab
 const aria = n => [`${n.name}${n.abbr ? ` (${n.abbr})` : ''}`, `first published ${n.date}`, n.fairsharingType || 'type not set', laneText(n),
   made(n) && 'made by ' + made(n).toLowerCase(), italic(n) && 'builds on FAIR', dagger(n) && 'no longer maintained'].filter(Boolean).join(', ');
 
+// The links without the lineage relations that a chain of other lineage relations implies (a transitive reduction).
+function reduced(links) {
+  const out = {};
+  for (const l of links) if (l.lineage) (out[l.src] ||= []).push(l.dst);
+  const implied = l => {
+    const seen = new Set([l.src]), stack = (out[l.src] || []).filter(k => k !== l.dst);
+    while (stack.length) {
+      const k = stack.pop();
+      if (k === l.dst) return true;
+      if (!seen.has(k)) { seen.add(k); stack.push(...(out[k] || [])); }
+    }
+    return false;
+  };
+  return links.filter(l => !l.lineage || !implied(l));
+}
+
 // Draws the current view into svg in geometry G, on white: lanes separated by hairlines, an x axis, the relations, the
 // resources, then the lane titles on top, and the key. No gridlines, no shaded bands, text in the two inks only.
 function figure(G, svg) {
   for (const n of NODES) { n.pass = passes(n); n.shown = n.pass && placed(n); }
   const shown = NODES.filter(n => n.shown);
-  const links = LINKS.filter(l => byKey[l.src] && byKey[l.src].shown && byKey[l.dst] && byKey[l.dst].shown);
+  const pairs = LINKS.filter(l => byKey[l.src] && byKey[l.src].shown && byKey[l.dst] && byKey[l.dst].shown);
+  const links = G.print ? reduced(pairs) : pairs;
   const lanes = layout(shown, links, G), u = G.u, sw = G.SW, dx = G.R + 5 * u, a = 7 * u;
   const bold = G.print ? 'bold' : 600;   // in print a weight every editor maps to Helvetica or Arial Bold
   svg.textContent = '';
@@ -421,11 +449,11 @@ function figure(G, svg) {
   // text that lines may cross: a white halo on screen; in print a white box behind it, as not every editor draws halos
   const clear = (x, y, size, s, extra, parent, style = '') => {
     if (!G.print) return text(x, y, size, s, {stroke: C.bg, 'stroke-width': 3, 'paint-order': 'stroke', 'stroke-linejoin': 'round', ...extra}, parent);
-    const w = textWidth(s, size, style);
+    const w = textWidth(s, size, style, G.FACES);
     el('rect', {x: extra['text-anchor'] === 'end' ? x - w : x, y: y - size * .85, width: w, height: size * 1.1, fill: C.bg}, parent);
     return text(x, y, size, s, extra, parent);
   };
-  const arrow = (x, y, parent, deg = 0) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill: C.edge,
+  const arrow = (x, y, parent, deg = 0, fill = C.edge) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill,
     ...(deg ? {transform: `rotate(${deg} ${x} ${y})`} : {})}, parent);
 
   for (const b of lanes.slice(1)) el('path', {d: `M${G.M + 4 * u} ${b.y0 - G.SEP / 2}H${G.W - G.RIGHT}`, stroke: C.grid, 'stroke-width': sw}, svg);
@@ -456,12 +484,15 @@ function figure(G, svg) {
   // the target still lies to its right, else on the left, and comes round on the left; so it never starts where links
   // into the source end. Between two resources on one track it runs half a track above, clear of labels and markers,
   // when the target is close, labelled on its left or behind other resources of the track.
+  // In print only lineage within the toxicology infrastructure is dark, an arrow; every other relation is a light line
+  // in a tint of the colour of the upper lane it links, drawn first, under the arrows.
+  const dark = l => !G.print || l.lineage && [l.src, l.dst].every(k => origin(laneOf(byKey[k])) === 'Toxicology');
   const gLinks = el('g', {fill: 'none'}, svg), pt = xy => xy.join(' '), q = Math.SQRT1_2, j = 4 * u;
   let nLinks = 0;
-  if ($('t-links').checked) for (const l of links) {
+  if ($('t-links').checked) for (const l of links.sort((x, y) => dark(x) - dark(y))) {
     let s = byKey[l.src], t = byKey[l.dst];
     if (!l.lineage && t.x < s.x) [s, t] = [t, s];
-    const rs = rad(s, G) + u, rt = rad(t, G) + 3 * u, h = l.lineage ? a / 2 : 0, k = 28 * u;   // h: the line stops mid-arrowhead
+    const rs = rad(s, G) + u, rt = rad(t, G) + 3 * u, h = l.lineage && dark(l) ? a / 2 : 0, k = 28 * u;   // h: the line stops mid-arrowhead
     const flat = Math.abs(t.y - s.y) < G.TRACK / 2, back = t.x - rt - h < s.x + rs + 2 * k;
     const blocked = flat && shown.some(n => n !== s && n !== t && Math.abs(n.y - s.y) < 1 && n.r > Math.min(s.x, t.x) && n.l < Math.max(s.x, t.x));
     const v = flat && (back || t.flip || blocked) ? 1 : t.flip ? Math.sign(t.y - s.y) : 0;   // enter from the left (0), upper (1) or lower (-1) left
@@ -475,8 +506,9 @@ function figure(G, svg) {
       : `M${pt(p0)}C${pt([p0[0] + side * c, p0[1]])} ${pt(v ? [e[0] - m, e[1] - v * m] : [e[0] - c, e[1]])} ${pt(e)}`;
     // on screen lineage links are opaque (3.6:1 on white), related ones lighter
     const g = el('g', G.print ? {} : {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, ...(l.lineage ? {} : {opacity: .45})}, gLinks);
-    const p = el('path', {d, stroke: C.edge, 'stroke-width': sw * (l.lineage ? 1.2 : .9)}, g);
-    if (l.lineage) arrow(tip[0], tip[1], g, 45 * v);
+    const ink = !G.print ? C.edge : dark(l) ? ARROW : tint(HUE[origin(laneOf(s.y < t.y ? s : t))]);
+    const p = el('path', {d, stroke: ink, 'stroke-width': sw * (!dark(l) ? .7 : l.lineage ? 1.2 : .9)}, g);
+    if (l.lineage && dark(l)) arrow(tip[0], tip[1], g, 45 * v, ink);
     nLinks++;
   }
   // FIP declarations, on screen only and when switched on: dotted lines from each FIP to the resources it declares
@@ -487,17 +519,31 @@ function figure(G, svg) {
   }
   const gNodes = el('g', {}, svg);
   for (const b of lanes) for (const n of b.nodes) {
-    const k = kind(n), col = C[k];
+    const k = kind(n), col = G.print ? HUE[origin(b.lane)] : C[k];
     const g = el('g', G.print ? {} : {class: 'node', 'data-key': n.key, tabindex: 0, role: 'button', 'aria-label': aria(n)}, gNodes);
     const s = shape(k, n.x, n.y, G.R, g);
     for (const [attr, v] of [['fill', col], ['stroke', C.bg], ['stroke-width', G.RING_W]]) s.setAttribute(attr, v);
     if (!G.print) s.setAttribute('class', 'mark');
     const t = clear(n.flip ? n.x - dx : n.x + dx, n.y + G.FS * .35, G.FS, n.text, {'text-anchor': n.flip ? 'end' : 'start',
-      ...(italic(n) ? {'font-style': 'italic'} : {})}, g, italic(n) ? 'italic ' : '');
+      ...(slant(n, G) ? {'font-style': 'italic'} : {})}, g, slant(n, G) ? 'italic ' : '');
     if (!G.print) el('circle', {cx: n.x, cy: n.y, r: 12, fill: 'transparent'}, g);
   }
-  for (const b of lanes) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, b.lane, {'font-weight': bold}, svg, bold + ' ');
-  const tox = lanes.filter(b => TOX.has(b.lane) && b.lane !== META.toxLanes.at(-1));   // regulatory assessment apart
+  for (const b of lanes) if (b.title) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, b.title, {'font-weight': bold}, svg, bold + ' ');
+  if (G.print) {   // a bar in the colour of each infrastructure, along its lanes, and its name where it fits, reading upwards
+    const runs = [];
+    for (const b of lanes) {
+      const r = runs.at(-1), name = origin(b.lane);
+      if (r && r.name === name) r.y1 = b.y1; else runs.push({name, y0: b.y0, y1: b.y1});
+    }
+    for (const {name, y0, y1} of runs) {
+      const x = G.M - 8 * u, mid = (y0 + y1) / 2, len = textWidth(name, G.BIG, bold + ' ', G.FACES) + 2;
+      el('path', {d: `M${G.M} ${y0}V${y1}`, stroke: HUE[name], 'stroke-width': sw * 3}, svg);
+      if (len > y1 - y0) continue;
+      el('rect', {x: x - G.BIG * .8, y: mid - len / 2, width: G.BIG * 1.06, height: len, fill: C.bg}, svg);   // as behind labels
+      text(x, mid, G.BIG, name, {transform: `rotate(-90 ${x} ${mid})`, 'text-anchor': 'middle', 'font-weight': bold});
+    }
+  }
+  const tox = G.print ? [] : lanes.filter(b => TOX.has(b.lane) && b.lane !== META.toxLanes.at(-1));   // regulatory assessment apart
   if (tox.length) {  // together, the other toxicology lanes are toxicology infrastructure
     const y0 = tox[0].y0, y1 = tox[tox.length - 1].y1, mid = (y0 + y1) / 2, x = G.M - 8 * u;
     const name = ['Toxicology infrastructure', 'Toxicology'].find(s => textWidth(s, G.BIG, bold + ' ') < y1 - y0);
@@ -507,6 +553,12 @@ function figure(G, svg) {
     }
   }
 
+  const finish = H => {
+    bg.setAttribute('height', H);
+    svg.setAttribute('viewBox', `0 0 ${+G.W.toFixed(2)} ${H}`);
+    return {H, shown, lanes, nLinks};
+  };
+  if (G.print) return finish(Math.ceil(yTitle + G.BIG * .3 + 10 * u));   // no key in print: it ends under the axis title
   // the key, inside the SVG so that an export carries it
   const step = 16 * u, mid = G.SMALL * .35;
   let lx = x0, ly = yTitle + G.SMALL * 2.2 + 8 * u;
@@ -519,7 +571,7 @@ function figure(G, svg) {
     lx += w + 6 * u + tw + step;
   };
   const sample = (lineage, dash) => (x, y) => {
-    const g = el('g', G.print || lineage ? {} : {opacity: .45}, svg), end = x + 28 * u;
+    const g = el('g', lineage ? {} : {opacity: .45}, svg), end = x + 28 * u;
     el('path', {d: `M${x} ${y}H${lineage ? end - a / 2 : end}`, fill: 'none', stroke: C.edge, 'stroke-width': sw * (lineage ? 1.2 : .9),
       ...(dash ? {'stroke-dasharray': dash} : {})}, g);
     if (lineage) arrow(end, y, g);
@@ -535,10 +587,7 @@ function figure(G, svg) {
   item(28 * u, sample(true), 'Points to the resource that builds on or uses the other');
   item(28 * u, sample(false), 'Related');
   if (fipOn) item(28 * u, (x, y) => el('path', {d: `M${x} ${y}H${x + 28 * u}`, ...dots}, svg), 'Declared in a FIP');
-  const H = Math.ceil(ly + G.SMALL * .5 + 10 * u);
-  bg.setAttribute('height', H);
-  svg.setAttribute('viewBox', `0 0 ${+G.W.toFixed(2)} ${H}`);
-  return {H, shown, lanes, nLinks};
+  return finish(Math.ceil(ly + G.SMALL * .5 + 10 * u));
 }
 
 function draw() {  // the screen figure
@@ -553,7 +602,7 @@ function draw() {  // the screen figure
   paint();
 }
 
-// The current view laid out for print: 183 mm wide, 1 unit = 1 pt, white, editable text in Helvetica or Arial.
+// The current view laid out for print: 183 mm wide, 1 unit = 1 pt, white, editable text in Arial.
 function printFigure() {
   const svg = document.createElementNS(NS, 'svg'), {H} = figure(PRINT, svg), mm = H * 25.4 / 72;
   svg.querySelectorAll('text').forEach(t => t.setAttribute('font-family', PRINT_FONT));
