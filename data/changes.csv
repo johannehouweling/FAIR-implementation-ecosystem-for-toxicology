@@ -5261,3 +5261,227 @@ While an individual FIP captures the implementation choices of a single communit
 2026-11-14,decisions 2026-11-14,nanosafety_data_interface,decision,undecided,exclude,JH,"decision of 14 Nov 2026 (JH): the same resource as nsdi, which has the same homepage (https://enanomapper.adma.ai/) and is already included"
 2026-11-14,decisions 2026-11-14,nanosafety_data_interface,exclusionReason,,E6,JH,"decision of 14 Nov 2026 (JH): the same resource as nsdi, which has the same homepage (https://enanomapper.adma.ai/) and is already included"
 2026-11-14,decisions 2026-11-14,nanosafety_data_interface,coveredBy,,nsdi,JH,"decision of 14 Nov 2026 (JH): the same resource as nsdi, which has the same homepage (https://enanomapper.adma.ai/) and is already included"
+2026-11-14,curation sheet 2026-11-14,cc_by_nc_4_0,(row),(new),Attribution-NonCommercial 4.0 International,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_nc_nd_4_0,(row),(new),Attribution-NonCommercial-NoDerivatives 4.0 International,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_nc_sa_4_0,(row),(new),Attribution-NonCommercial-ShareAlike 4.0 International,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_nd_4_0,(row),(new),Attribution-NoDerivatives 4.0 International,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,efsa_de_food_feed_contaminants,(row),(new),German National Testing Results: Chemical Contaminants in Food and Feed,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,gestis_stoffdatenbank,(row),(new),GESTIS-Stoffdatenbank,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,bioschemas_computationaltool,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/Metadata-schema; https://w3id.org/fair/fip/terms/Provenance-model,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,bioschemas_computationalworkflow,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/Metadata-schema; https://w3id.org/fair/fip/terms/Provenance-model,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,bioschemas_dataset_profile,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/Metadata-schema; https://w3id.org/fair/fip/terms/Provenance-model,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,bioschemas_deploys,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,bioschemas_trainingmaterial,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/Metadata-schema; https://w3id.org/fair/fip/terms/Provenance-model,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,bioschemas_trainingmaterial,maintained,,active,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cas_common_chemistry,decision,include,exclude,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cas_common_chemistry,exclusionReason,,E6,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cas_common_chemistry,coveredBy,,cas_rn,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,decision,undecided,exclude,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,exclusionReason,,E6,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,coveredBy,,spdx-license,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,dateReleased,,2013,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,dateSource,,https://creativecommons.org/licenses/by/4.0/,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,creator,,Creative Commons,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,description,,"CC licenses are a global digital public good and part of the essential infrastructure that makes sharing online possible. CC BY license enables reusers to distribute, remix, adapt, and build upon the material in any medium or format, so long as attribution is given to the creator. The license allows for commercial use.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_4_0,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,decision,undecided,exclude,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,exclusionReason,,E6,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,coveredBy,,spdx-license,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,dateReleased,,2013,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,dateSource,,https://creativecommons.org/licenses/by-sa/4.0/,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,creator,,Creative Commons,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,description,,"CC licenses are a global digital public good and part of the essential infrastructure that makes sharing online possible. CC BY -SA 4.0 licence allows to share (i.e.,  copy and redistribute the material in any medium or format for any purpose, even commercially) and adapt (i.e., remix, transform, and build upon the material for any purpose, even commercially). Credit must be given to you, the creator. Adaptations must be shared under the same terms.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cc_by_sa_4_0,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,chemblrdf,maintained,,unknown,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,chemblrdf,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cheminfo,description,"Chemical information system run jointly by the German federal and state authorities as the successor of the GSBL substance data pool. For each substance it compiles identity, physicochemical, toxicological and ecotoxicological data, environmental occurrence, hazard and emergency-response information and the relevant legal provisions. A subset of information can be searched without registration by the user; the full data set is open to authorities and emergency services.","Chemical information system managed jointly by the German federal and state authorities as the successor of the GSBL substance data pool. For each substance it compiles identity, physicochemical, toxicological and ecotoxicological data, environmental occurrence, hazard and emergency-response information and the relevant legal provisions. A subset of information can be searched without registration by the user; the full data set is open to authorities and emergency services.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cure,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cure,exclusionReason,E2,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cure,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,cure,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,data_stewardship_wizard_ds,maintained,,active,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,origin,,Life Sciences,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,dateReleased,,2019-08-21,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,dateSource,,https://web.archive.org/web/20260000000000*/diamonds.tno.nl,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,creator,,https://ror.org/01bnjb948,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,description,,"DIAMONDS brings together Data, Knowledge and Algorithms from Clinical studies to Omics data to Personalized Health data. Traceable from original Raw measurements to Cleaned, Processed data ready to use. Knowledge ranges from Biological Knowledge from Curated databases and Textmining to manually Curated Triples from TNO experts. All are captured and connected to Source information through Standardized Pipelines and Workflows Protocols. Diverse tools and algorithms such as Statistical tools, Text mining methods, Scripts, Decision Trees, Bayesian/Dynamic Networks and Network Visualization. Only few resources are publically available.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,maintained,,active,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,diamonds,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,dtxsid,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,subdomains,,exposome,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,creator,,EDAM Community (open source),IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,url,https://github.com/edamontology/edam-bioimaging,https://bioportal.bioontology.org/ontologies/EDAM-BIOIMAGING,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,description,,"An ontology of imaging and related techniques and technologies, image processing and analysis, image data and formats, within bio- and other sciences. EDAM Bioimaging is an extension to the EDAM ontology (edamontology.org), dedicated to imaging and (bio)image informatics.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,maintained,,active,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,edam_bioimaging,note,"Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RActkbKpUUZl9EtWhK7GulD6KUMegCy5W5MWohX-oJzoo/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2 and I3: an ontology of bioimaging concepts with identifiers, definitions and relations.","Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RActkbKpUUZl9EtWhK7GulD6KUMegCy5W5MWohX-oJzoo/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for I2 and I3: an ontology of bioimaging concepts with identifiers, definitions and relations. Phase cleared by JH on 12 Nov 2026 (was: Data generation): a phase applies only to toxicology resources, and the origin is Life Sciences.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,efsa_fairmem,creator,https://ror.org/056nc1c48,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ega,description,,"The European Genome-phenome Archive (EGA) is a global network for permanent archiving and sharing of personally identifiable genetic, phenotypic, and clinical data generated for the purposes of biomedical research projects or in the context of research-focused healthcare systems.
+
+The EGA is jointly managed by the European Bioinformatics Institute (EMBL-EBI) in Cambridge (UK) and the Centre for Genomic Regulation (CRG) in Barcelona",JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,empiar,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,empiar,subdomains,,conventional toxicology; nanotoxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,empiar,dateReleased,,2016,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,empiar,dateSource,,https://doi.org/10.1093/nar/gkac1062,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,empiar,creator,,EMBL's European Bioinformatics Institute,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,empiar,description,,"The Electron Microscopy Public Image Archive is a public resource for raw images underpinning 3D cryo-EM maps and tomograms (themselves archived in EMDB). EMPIAR also accommodates 3D datasets obtained with volume EM techniques and soft and hard X-ray tomography. All data archived in EMPIAR can be re-used freely without any conditions or restrictions (""CC0"" license model).",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,empiar,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,epa_cdr,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,epa_cdr,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,epa_ow_pfas_aquatic_benchmarks,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,epa_sems_contaminants,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,epa_sems_contaminants,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,epa_tri_basic_plus,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,epa_tri_basic_plus,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,etox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,european_registry_of_materials,subdomains,,nanotoxicology,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,eutr_ki,datePublished,2020-07-06,2024-10,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,eutr_ki,dateSource,https://doi.org/10.1007/s00204-020-02802-6,https://doi.org/10.1016/j.tiv.2024.105903,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,eutr_ki,url,https://doi.org/10.1016/j.tiv.2024.105903,https://www.ebi.ac.uk/biostudies/studies/?facet.collection=eu-toxrisk,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,eutr_ki,maintained,unknown,active,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,expexplorer,origin,Toxicology,Life Sciences,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,expexplorer,phase,Data generation,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,expexplorer,span,Data generation; Data integration,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,expexplorer,creatorType,In silico research; Regulator,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,expexplorer,mentionedIn,,FAIRSharing,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,expexplorer,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairimplspace,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairlite,decision,exclude,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairlite,exclusionReason,E2,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairlite,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairlite,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairmodels,decision,exclude,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairmodels,exclusionReason,E2,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairmodels,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairmodels,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fairplus,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,gd409,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,gd409,exclusionReason,E8,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,gd409,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,givimp,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,givimp,exclusionReason,E8,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,givimp,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,givimp,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,glp,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,glp,exclusionReason,E8,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,glp,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,glp,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,google_datasetsearch,fsrType,https://w3id.org/fair/fip/terms/Registry,https://w3id.org/fair/fip/terms/Generalist-Registry,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,immport,decision,undecided,exclude,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,immport,exclusionReason,,E7,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,immport,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,inchi,fsrType,https://w3id.org/fair/fip/terms/Identifier-service; https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/Identifier-service,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,inchi,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,intob,fsrType,https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service; https://w3id.org/fair/fip/terms/FAIR-Representation-Service,https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service; https://w3id.org/fair/fip/terms/FAIR-Publishing-Service; https://w3id.org/fair/fip/terms/FAIR-Representation-Service,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,isajson,subdomains,conventional toxicology,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,isatab,url,https://isa-tools.org,https://isa-specs.readthedocs.io/en/latest/isamodel.html,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,kherroubi,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,kherroubi,exclusionReason,E2,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,kherroubi,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,kherroubi,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,klimisch,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,klimisch,exclusionReason,E2,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,klimisch,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,klimisch,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miame,fsrType,https://w3id.org/fair/fip/terms/Metadata-schema,https://w3id.org/fair/fip/terms/FAIR-Practice; https://w3id.org/fair/fip/terms/Metadata-schema,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miame,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,minseqe,subdomains,,toxicogenomics,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,name,MIRIBEL,Minimum Information Reporting in Bio–Nano Experimental Literature,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,origin,,Toxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,phase,,Data generation,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,span,,Data generation,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,creatorType,,Wet-lab research,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,subdomains,,nanotoxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,datePublished,,2019-06-06,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,dateSource,,https://doi.org/10.1038/s41565-018-0246-4,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,url,,https://doi.org/10.1038/s41565-018-0246-4,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,description,,"MIRIBEL is minimum information standard for experimental literature investigating bio–nano interactions. This standard consists of specific components to be reported, divided into three categories: material characterisation, biological characterisation, and details of experimental protocols.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,miribel,note,,JH 14 Nov 2026: Made by wet-lab research marked by its definition (creator: the bio-nano researchers who wrote doi:10.1038/s41565-018-0246-4).,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanocommons,subdomains,nanotoxicology,nanotoxicology; eco-toxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanocommons,url,https://ssl.biomax.de/nanocommons/,https://nanocommons.github.io/user-handbook/data-management/data-resources/NanoCommons-KB/,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanocommons,description,"A knowledge base built in the H2020 NanoCommons project on Biomax's BioXM platform. It brings together nanomaterial characterisation, exposure and (eco)toxicity data from projects and the literature, and offers harmonised, ontology-annotated access to these nanosafety data with analysis tools.","A knowledge base developed by the H2020 NanoCommons project on Biomax's BioXM platform. It brings together nanomaterial characterisation, exposure and (eco)toxicity data from projects and the literature, and offers harmonised, ontology-annotated access to these nanosafety data with analysis tools.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanocommons,maintained,unknown,in development,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanocommons,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanopub,fsrType,https://w3id.org/fair/fip/terms/FAIR-Publishing-Service; https://w3id.org/fair/fip/terms/Provenance-model,https://w3id.org/fair/fip/terms/Knowledge-representation-language,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,origin,,Toxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,phase,,Data generation,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,span,,Data generation,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,creatorType,,In silico research,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,subdomains,,nanotoxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,dateReleased,,2023-12-09,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,dateSource,,https://web.archive.org/web/20260000000000*/https://enanomapper.adma.ai/,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,creator,,Ideaconsult Ltd.,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,url,,https://enanomapper.adma.ai/,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,nanosafety_data_interface,note,,"JH 14 Nov 2026: Made by in silico research marked by its definition (creator: Ideaconsult Ltd.). JH 14 Nov 2026: excluded as a duplicate of nsdi (NanoSafety Data Interface), which has the same homepage.",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,name,ninchi,Nanomaterials InChI,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,fsrType,,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,origin,,Toxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,phase,,Data generation,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,span,,Data generation,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,creatorType,,In silico research,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,subdomains,,nanotoxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,datePublished,,2020-12-11,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,dateSource,,https://doi.org/10.3390/nano10122493,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,url,,https://nanocommons.github.io/user-handbook/demonstration-cases/NInChI-demonstration-case/,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,description,,Encoding the multi-component structures of nanomaterials (NMs) in a machine-readable format to enable linking of datasets for nanoinformatics and regulatory applications.,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,maintained,,in development,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,ninchi,note,,JH 14 Nov 2026: Made by in silico research marked by its definition (creator: the nanoinformatics authors of doi:10.3390/nano10122493). Decision set to undecided: it was empty.,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,norman_ecotox,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,norman_ecotox,manuscript,absent,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,norman_ecotox,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,oecd_tg,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,oecd_tg,exclusionReason,E8,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,oecd_tg,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,oecd_tg,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,openaire,decision,undecided,include,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,openaire,fairsharingType,,Database: repository,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,openaire,fsrType,,https://w3id.org/fair/fip/terms/Generalist-Registry,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,openaire,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,osdr,decision,undecided,exclude,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,osdr,exclusionReason,,E7,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,osf,maintained,,active,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,pbk,fsrType,https://w3id.org/fair/fip/terms/FAIR-Enrichment-Service,https://w3id.org/fair/fip/terms/FAIR-Practice,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,pro,fsrType,https://w3id.org/fair/fip/terms/Structured-vocabulary,https://w3id.org/fair/fip/terms/Semantic-model; https://w3id.org/fair/fip/terms/Structured-vocabulary,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,pubchem_cid,fsrType,https://w3id.org/fair/fip/terms/Domain-Specific-Registry,https://w3id.org/fair/fip/terms/Identifier-service,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,qsardb,origin,Life Sciences,Toxicology,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,qsardb,phase,,Data integration,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,qsardb,span,,Data integration; Regulatory assessment,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,qsardb,creatorType,,In silico research,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,qsardb,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,qsardb,note,"Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The previous inventory value 2014 (to verify) was the format paper: Ruusmann et al., J Cheminform, online 2014-05-14, doi 10.1186/1758-2946-6-25. The repository paper is Ruusmann et al. 2015 (doi 10.1186/s13321-015-0082-6, the one FAIRsharing cites). The first item in the repository was made available on 2012-05-14 (handle 10967/4), and the repository was archived live on 2013-03-31. The qsardb.org site with the format specification existed by 2009-02-27 (archive); FAIRsharing year is 2008. QsarDB stands for 'QSAR DataBank'; FAIRsharing's name 'QSAR DataBase' is inaccurate. The FAIRsharing record has a DOI, so its code FAIRsharing.ad3e10 replaces the numeric id 4904. Scope set to Life Sciences because the repository covers QSAR/QSPR for any endpoint; FAIRsharing subjects are broad, from chemistry to materials. Toxicology/In silico research would also be defensible. Verified 5 Oct 2026: fairsharingRecord changed (Minor consistency fix. The FAIRsharing record has DOI 10.25504/FAIRsharing.ad3e10 (in the fairsharing block, and @id already uses it). The row's research note says this code replaces the numeric id 4904, but the field was not updated.) Proposed 9 Oct 2026: Repository that accepts QSAR models and data with persistent handles, indexing them so in silico models can be found and reused.","Added from the FAIRsharing Toxicology collection on 2026-10-05. Research 5 Oct 2026 (medium confidence): Added from the FAIRsharing Toxicology collection on 2026-10-05. The previous inventory value 2014 (to verify) was the format paper: Ruusmann et al., J Cheminform, online 2014-05-14, doi 10.1186/1758-2946-6-25. The repository paper is Ruusmann et al. 2015 (doi 10.1186/s13321-015-0082-6, the one FAIRsharing cites). The first item in the repository was made available on 2012-05-14 (handle 10967/4), and the repository was archived live on 2013-03-31. The qsardb.org site with the format specification existed by 2009-02-27 (archive); FAIRsharing year is 2008. QsarDB stands for 'QSAR DataBank'; FAIRsharing's name 'QSAR DataBase' is inaccurate. The FAIRsharing record has a DOI, so its code FAIRsharing.ad3e10 replaces the numeric id 4904. Scope set to Life Sciences because the repository covers QSAR/QSPR for any endpoint; FAIRsharing subjects are broad, from chemistry to materials. Toxicology/In silico research would also be defensible. Verified 5 Oct 2026: fairsharingRecord changed (Minor consistency fix. The FAIRsharing record has DOI 10.25504/FAIRsharing.ad3e10 (in the fairsharing block, and @id already uses it). The row's research note says this code replaces the numeric id 4904, but the field was not updated.) Proposed 9 Oct 2026: Repository that accepts QSAR models and data with persistent handles, indexing them so in silico models can be found and reused. JH 14 Nov 2026: Made by in silico research marked by its definition (creator: University of Tartu (Institute of Chemistry)).",IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,sparql,name,SPARQL Query,SPARQL 1.1 Protocol,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,sparql,alternateName,SPARQL endpoint,,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,suppl_rules,name,Ten simple rules for making the supplement increase your paper’s impact,Ten simple rules for papers supplements,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,suppl_rules,exclusionReason,E3,E2,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,suppl_rules,reviewedBy,JH,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,tg236,decision,exclude,include,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,tg236,exclusionReason,E8,,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,tg236,fsrType,,https://w3id.org/fair/fip/terms/FAIR-Practice,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,tg236,reviewedBy,,JH,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,vhp4safety_platform,reviewedBy,,IM,IM,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,biostudies,relation,related_to dixa,(removed),JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,efsa_fairmem,relation,(new),recommends fairprinc,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,fipmatrix,relation,(new),implements fipwiz,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,https,relation,(new),extends http,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,wikidata,relation,(new),implements qid,JH,curation-sheet.xlsx
+2026-11-14,curation sheet 2026-11-14,wprdf,relation,(new),related_to wikipathways,JH,curation-sheet.xlsx
+2026-11-14,fairsharing import 2026-11-14,cure,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,efsa_de_food_feed_contaminants,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,fairlite,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,fairmodels,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,gestis_stoffdatenbank,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,givimp,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,glp,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,kherroubi,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,klimisch,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,oecd_tg,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
+2026-11-14,fairsharing import 2026-11-14,tg236,fairsharingMatch,,no record,fairtox fairsharing,https://api.fairsharing.org/search/fairsharing_records
