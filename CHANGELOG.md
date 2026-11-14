@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.0.0...v1.1.0) (2026-11-14)
+
+
+### Features
+
+* cite the dataset by its Zenodo DOI ([b0ff33b](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/b0ff33bc9cd76d1597aa40d65b93751bc382724d))
+
 ## [1.0.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v0.16.1...v1.0.0) (2026-11-14)
 
 
