@@ -48,6 +48,10 @@ the dataset's own w3id.org identifiers and a few sites that answer no automated 
 figures and, on `main`, publishes the dashboard and commits the figures that changed. Then release-please
 keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
 Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
+Zenodo archives every release of the dashboard repository, as a dataset, through its GitHub link, and reads its
+`.zenodo.json`, which the build writes: the authors with ORCID iD and affiliation, the licence, the grants, the
+version and a link to this repository. The dashboard repository gets its release, with the same tag, by hand once
+the build has published it: `gh release create vX.Y.Z --repo johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline`.
 Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row, as the
 [criteria](docs/inclusion-criteria.md#7-process) describe. A freshly built sheet, once uploaded, needs "Allow multiple
 selections" switched on for Sub-domains, FSR type and Phase by hand, because an .xlsx cannot carry it. A workflow
