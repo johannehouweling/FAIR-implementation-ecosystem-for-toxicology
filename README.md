@@ -1,6 +1,7 @@
 # FAIR implementation ecosystem for toxicology
 
 [![CI](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/actions/workflows/ci.yml/badge.svg)](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/actions/workflows/ci.yml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24215047.svg)](https://doi.org/10.5281/zenodo.24215047)
 [![Data: CC BY-SA 4.0](https://img.shields.io/badge/data-CC%20BY--SA%204.0-lightgrey)](LICENSE-DATA)
 [![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)](LICENSE)
 
