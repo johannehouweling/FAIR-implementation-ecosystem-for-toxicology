@@ -245,7 +245,7 @@
  "name": "FAIR implementation ecosystem for toxicology",
  "description": "Standards, databases, policies and tools used in toxicology, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource, curated by the ELIXIR Toxicology Community together with the FAIRsharing Toxicology collection, with first publication dates, FAIRsharing types, lifecycle phases, sub-domains and relations.",
  "version": "0.16.1",
- "dateModified": "2026-11-13",
+ "dateModified": "2026-11-14",
  "license": {
   "@id": "https://creativecommons.org/licenses/by-sa/4.0/",
   "@type": "schema:CreativeWork",
@@ -3887,9 +3887,10 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "date": "2026",
+   "datePublished": "2026-03-27",
    "dateSource": "https://doi.org/10.1038/s41540-026-00651-0",
    "url": "https://doi.org/10.1038/s41540-026-00651-0",
+   "description": "Guidelines proposing that computational models of biological systems, especially mechanistic models in medicine, physiology and systems biology, be Credible, Understandable, Reproducible and Extensible (CURE), as a complement to the FAIR principles.",
    "maintained": "unknown",
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; reference notes; L150, L156",
@@ -6547,6 +6548,8 @@
    "subdomains": [
     "exposome"
    ],
+   "date": "2016-10-19",
+   "dateSource": "https://web.archive.org/web/20161019100458/https://www.epa.gov/enviro/sems-search-user-guide",
    "creator": "US EPA",
    "url": "https://www.epa.gov/enviro/sems-search-user-guide",
    "description": "Contaminant records of US Superfund sites in the Superfund Enterprise Management System.",
@@ -7994,17 +7997,31 @@
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
    "origin": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "date": "2025",
+   "datePublished": "2025",
    "dateSource": "https://doi.org/10.14573/altex.2502021",
    "creator": "Cronin et al. 2025",
    "url": "https://doi.org/10.14573/altex.2502021",
+   "description": "The FAIR Lite principles, proposed to ensure the utility of computational toxicology models by making them findable, accessible, interoperable and reusable.",
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; reference notes; L148, L159",
-   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify."
+   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fairmodels",
@@ -8020,17 +8037,31 @@
    "exclusionReason": "E2",
    "fairsharingType": "Standard: principle",
    "origin": "Toxicology",
+   "phase": "Data integration",
+   "span": [
+    "Data integration"
+   ],
+   "creatorType": [
+    "In silico research"
+   ],
    "subdomains": [
     "computational and predictive toxicology"
    ],
-   "date": "2023",
+   "datePublished": "2023-05",
    "dateSource": "https://doi.org/10.1016/j.yrtph.2023.105385",
    "creator": "Cronin et al. 2023",
    "url": "https://doi.org/10.1016/j.yrtph.2023.105385",
+   "description": "Recommendations for making in silico predictive models for toxicology findable, accessible, interoperable and reusable (FAIR), so that models and their predictions can be found, assessed and reused.",
    "maintained": "active",
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; reference notes; Comments [am]; L148, L153, L157, L398",
-   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify."
+   "note": "Year, sources and FAIRsharing record taken over from the previous inventory (2 Oct 2026); to verify.",
+   "qualifiedAttribution": [
+    {
+     "@type": "prov:Attribution",
+     "hadRole": "In silico research"
+    }
+   ]
   },
   {
    "@id": "https://w3id.org/fair-tox/dataset#fairplus",
@@ -8085,7 +8116,7 @@
     "https://w3id.org/fair/fip/terms/FAIR-Practice"
    ],
    "origin": "Generic",
-   "date": "2016",
+   "datePublished": "2016-03-15",
    "dateSource": "https://doi.org/10.1038/sdata.2016.18",
    "creator": "FORCE11 (Wilkinson et al. 2016)",
    "url": "https://doi.org/10.1038/sdata.2016.18",
@@ -8498,13 +8529,15 @@
    "subdomains": [
     "toxicogenomics"
    ],
+   "dateAdopted": "2025",
+   "dateSource": "https://one.oecd.org/document/ENV/CBC/MONO(2025)8/en/pdf",
    "creator": "OECD",
    "url": "https://one.oecd.org/document/ENV/CBC/MONO(2025)8/en/pdf",
    "description": "OECD guidance on the steps before omics analysis: how samples are collected, processed and stored, and how sampling protocols and deviations are recorded, so that omics data from toxicology studies are reliable for regulatory use.",
    "maintained": "active",
    "manuscript": "absent",
    "fairsharingMatch": "no record",
-   "reviewedBy": "GC",
+   "reviewedBy": "JH",
    "note": "Co-author addition 30 Oct 2026 (GC, overview of toxicogenomics data, analysis and integration). Excluded (E8): it standardises how samples are collected, processed and stored for omics analysis rather than how data or metadata are reported or shared; its call to record sampling protocols and deviations makes it a borderline case. OECD Series on Testing and Assessment No. 409, document ENV/CBC/MONO(2025)8. The OECD site refused automated download on 30 Oct 2026, so the scope is taken from its table of contents as indexed by web search.",
    "qualifiedAttribution": [
     {
@@ -8670,10 +8703,11 @@
    "creatorType": [
     "Regulator"
    ],
-   "date": "2018",
+   "dateAdopted": "2018-12-10",
    "dateSource": "https://doi.org/10.1787/9789264304796-en",
    "creator": "OECD",
    "url": "https://doi.org/10.1787/9789264304796-en",
+   "description": "OECD guidance document on Good In Vitro Method Practices (GIVIMP), which sets out the scientific, technical and quality practices for developing and implementing in vitro methods for the regulatory safety assessment of chemicals.",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory; L188",
@@ -8706,8 +8740,11 @@
    "creatorType": [
     "Regulator"
    ],
+   "dateAdopted": "1981-05-12",
+   "dateSource": "https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0194",
    "creator": "OECD",
    "url": "https://doi.org/10.1787/9789264078536-en",
+   "description": "The OECD Principles of Good Laboratory Practice, a quality system for the organisation and conditions under which non-clinical health and environmental safety studies are planned, performed, monitored, recorded, archived and reported.",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory; L188, L190",
    "qualifiedAttribution": [
@@ -10145,8 +10182,11 @@
    "subdomains": [
     "computational and predictive toxicology"
    ],
+   "datePublished": "2025-01-10",
+   "dateSource": "https://doi.org/10.1371/journal.pcbi.1012702",
    "creator": "Kherroubi Garcia et al. 2025",
    "url": "https://doi.org/10.1371/journal.pcbi.1012702",
+   "description": "Ten simple rules for sharing computational models in a way that is at least good enough for others to reuse them, and for moving towards better model-sharing practices, as no agreed standard for sharing models exists.",
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; L147"
   },
@@ -10172,8 +10212,11 @@
    "creatorType": [
     "Wet-lab research"
    ],
+   "datePublished": "1997-02",
+   "dateSource": "https://doi.org/10.1006/rtph.1996.1076",
    "creator": "Klimisch et al. 1997",
    "url": "https://doi.org/10.1006/rtph.1996.1076",
+   "description": "A systematic approach for evaluating the quality of experimental toxicological and ecotoxicological data, which assigns each study a reliability category (the Klimisch score) for use in hazard and risk assessment.",
    "manuscript": "cited",
    "manuscriptEvidence": "IV (to-do notes); V Challenges; L212, L267",
    "qualifiedAttribution": [
@@ -12318,8 +12361,11 @@
    "subdomains": [
     "conventional toxicology"
    ],
+   "dateAdopted": "1981-05-12",
+   "dateSource": "https://legalinstruments.oecd.org/en/instruments/OECD-LEGAL-0194",
    "creator": "OECD",
    "url": "https://www.oecd.org/en/topics/sub-issues/testing-of-chemicals/test-guidelines.html",
+   "description": "The OECD Guidelines for the Testing of Chemicals, internationally agreed test methods for the physical-chemical properties, environmental fate, ecotoxicity and health effects of chemicals, used in regulatory safety testing and accepted between countries under the OECD Mutual Acceptance of Data.",
    "manuscript": "named",
    "manuscriptEvidence": "III Regulatory; L106, L190",
    "qualifiedAttribution": [
@@ -12651,7 +12697,10 @@
    "name": "OpenAIRE",
    "decision": "undecided",
    "origin": "Generic",
+   "date": "2010-01-16",
+   "dateSource": "https://web.archive.org/web/20100116112958/http://www.openaire.eu:80/",
    "url": "https://www.openaire.eu/",
+   "description": "OpenAIRE, a European open science infrastructure whose services aggregate and link publications, datasets, software, projects and funders in the OpenAIRE Graph and support open access and open science monitoring.",
    "manuscript": "absent",
    "mentionedIn": [
     "INTOXICOM 1"
@@ -15018,6 +15067,9 @@
    "decision": "exclude",
    "exclusionReason": "E3",
    "fairsharingType": "Standard: reporting guideline",
+   "fsrType": [
+    "https://w3id.org/fair/fip/terms/FAIR-Practice"
+   ],
    "origin": "Toxicology",
    "phase": "Data generation",
    "span": [
@@ -15026,10 +15078,14 @@
    "creatorType": [
     "Wet-lab research"
    ],
+   "datePublished": "2026-06-22",
+   "dateSource": "https://doi.org/10.1371/journal.pcbi.1014419",
    "url": "https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1014419",
+   "description": "Ten simple rules for organising supplementary information so that it is consistently formatted, accessible and easy to navigate, and so supports the transparency and credibility of a paper.",
    "manuscript": "comment only",
    "manuscriptEvidence": "VI (to-do notes); L339",
-   "reviewedBy": "IM",
+   "reviewedBy": "JH",
+   "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource",
    "qualifiedAttribution": [
     {
      "@type": "prov:Attribution",
@@ -15256,10 +15312,11 @@
     "conventional toxicology",
     "eco-toxicology"
    ],
-   "date": "2013",
+   "dateAdopted": "2013",
    "dateSource": "https://doi.org/10.1787/9789264203709-en",
    "creator": "OECD",
    "url": "https://doi.org/10.1787/9789264203709-en",
+   "description": "OECD Test Guideline 236, the Fish Embryo Acute Toxicity (FET) test, which determines the acute toxicity of chemicals to the embryonic stages of zebrafish (Danio rerio).",
    "maintained": "active",
    "manuscript": "named",
    "manuscriptEvidence": "III Data generation; L106",
