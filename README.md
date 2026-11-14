@@ -5,8 +5,8 @@
 [![Code: MIT](https://img.shields.io/badge/code-MIT-lightgrey)](LICENSE)
 
 A curated dataset of the resources used in toxicology to make data and metadata findable, accessible, interoperable
-and reusable, with the code to curate it and to publish its dashboard. It underlies Figure 2 of the ELIXIR Toxicology
-Community paper on ten years of the FAIR principles in toxicology (in preparation). The dataset combines the
+and reusable, with the code to curate it and to publish its dashboard. It underlies Figures 1 and 2 of the ELIXIR
+Toxicology Community paper on ten years of the FAIR principles in toxicology (in preparation). The dataset combines the
 resources named in the paper, the FAIRsharing Toxicology collection and the resources declared in two toxicology
 FAIR Implementation Profiles (FIPs). For each resource it records when it was first published, its FAIRsharing type,
 its types in the FIP ontology, its toxicology life-cycle phase and span, its sub-domains and its relations to other
@@ -26,6 +26,9 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
   `fairtox query` over the resources in the figure.
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
 - `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
+- `figures/`: Figures 1 and 2 of the paper, as SVG and PDF, with the two scripts that make them from the built
+  dashboard and the dataset; `ro-crate-metadata.json` describes the folder as an RO-Crate. The scripts need Arial, and
+  Figure 1 Google Chrome.
 
 ## Data flow
 
@@ -41,8 +44,8 @@ Discovery profile 1.1 (its SHACL rules, with pyshacl), checks that the links in 
 documentation resolve (lychee; a dead link fails a build of `main` and is only shown on a pull request; a link that
 resolved in the last seven days is not requested again, so a site that is down for a while does not stop a build;
 FAIRsharing, the Wayback Machine,
-the dataset's own w3id.org identifiers and a few sites that answer no automated client are left out) and, on `main`,
-publishes the dashboard. Then release-please
+the dataset's own w3id.org identifiers and a few sites that answer no automated client are left out), redraws the
+figures and, on `main`, publishes the dashboard and commits the figures that changed. Then release-please
 keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
 Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
 Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row, as the
@@ -65,6 +68,8 @@ uv run fairtox ingest build/curation-sheet.xlsx                # read the sheet 
 uv run --env-file .env fairtox site build/site                 # dashboard, published dataset, CSV files and vocabulary
 uv run --env-file .env fairtox export-fairsharing build/       # what FAIRsharing would accept; nothing is posted
 uv run fairtox query queries/hubs.rq                           # a SPARQL query over the resources in the figure; CSV
+uv run --group figures python figures/fig1_ecosystem.py        # Figure 1, from the dashboard in build/site or at an address given
+uv run --group figures python figures/fig2_fers.py             # Figure 2 and the counts of its legend, from the dataset
 ```
 
 `fairsharing`, `fip`, `sheet`, `site` and `export-fairsharing` take `--offline`; `fip --report` writes the
