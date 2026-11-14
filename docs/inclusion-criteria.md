@@ -85,6 +85,8 @@ Each excluded row carries exactly one code.
   relation to the generic resource it builds on.
 - **Versions and successors.** A successor is its own row when it has its own name, identifier or paper (for example
   ISA-JSON after ISA-Tab); otherwise it is covered by the original (E6).
+- **Licences.** A single data usage licence is not a row of its own: the SPDX License List, which lists it, covers
+  it (E6).
 - **RDF conversions.** A conversion is its own row only with its own identifier, endpoint or paper (AOP-Wiki RDF,
   AOP-DB RDF).
 - **Programmes and their data.** A screening programme counts only through a named data resource (for example the
@@ -244,6 +246,7 @@ Each excluded row carries exactly one code.
 | 6 Nov 2026 | The sub-domain in vitro toxicology is renamed conventional toxicology, which covers in vivo and in vitro studies, so that resources for in vivo studies can take it; having no outside concept, it is a term of the dataset, `skos:narrowMatch` Wikidata In vitro toxicology. Regulatory toxicology is no longer a sub-domain: the resources that had it keep their other sub-domains. | Jente Houweling |
 | 12 Nov 2026 | The relation label uses is allowed again as the dataset's own label: "The subject uses the target." It is lineage, FAIRsharing cannot hold it, the possibility rule does not constrain it, and it does not count for Building on FAIR. This amends the 4 Nov 2026 rule that relations use FAIRsharing's labels only. Of the 22 relations relabelled on 4 Nov 2026, the three that a co-author had assigned and signed as uses, each from a resource to RDF, are uses again with that signature; the other 19 keep the FAIRsharing label they took. | Jente Houweling |
 | 12 Nov 2026 | The criteria are reworded after a pass through the curation sheet with a co-author. A publication, guideline or standard is a resource (I1), so a guideline that standardises how an experiment is run is included as a policy, and E8 is withdrawn. A Wayback Machine URL identifies a resource whose URL no longer resolves (I2, E3). A resource has to support making data or metadata findable, accessible, interoperable or reusable (I5). E1 speaks of named resources or research outputs. E2 covers only a principle, framework, concept, opinion, strategy, plan or roadmap that does not have the potential to provide a basis for the development of FAIR supporting resources; methods, approaches and publications are no longer excluded by it. E5 is withdrawn. E7 says what chemical toxicology does not include here. E5 and E8 keep their meaning for the rows that still carry them and are no longer assigned. | Jente Houweling |
+| 14 Nov 2026 | A single data usage licence is not a row of its own: the SPDX License List, which lists it, covers it (E6). The MIT License and the Open Data Commons Open Database License, both declared in the PARC Toxicology FIP, are excluded so. | Jente Houweling |
 
 ## 9. Limitations
 

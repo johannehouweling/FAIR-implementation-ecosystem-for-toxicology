@@ -10792,10 +10792,7 @@
    "identifier": "https://w3id.org/fair-tox/dataset#kherroubi",
    "schemaType": "schema:CreativeWork",
    "key": "kherroubi",
-   "name": "Best practices for computational model sharing (Kherroubi et al.)",
-   "alternateName": [
-    "Kherroubi et al."
-   ],
+   "name": "Best practices for computational model sharing (Kherroubi Garcia et al.)",
    "decision": "include",
    "fairsharingType": "Standard: principle",
    "fsrType": [
@@ -10813,7 +10810,6 @@
    "manuscript": "cited",
    "manuscriptEvidence": "III Computational; L147",
    "fairsharingMatch": "no record",
-   "reviewedBy": "JH",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Supporting-Resource"
   },
   {
@@ -11564,7 +11560,9 @@
    "schemaType": "schema:CreativeWork",
    "key": "mit_license",
    "name": "MIT License",
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "spdx-license",
    "fairsharingType": "Policy: institution",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Data-usage-license"
@@ -11577,7 +11575,6 @@
    "description": "A short permissive license that lets anyone use, copy, change and redistribute software, also commercially, on condition that the copyright and permission notice is kept. It states reuse terms for code plainly and has a standard identifier (SPDX: MIT).",
    "maintained": "active",
    "fairsharingMatch": "no record",
-   "reviewedBy": "JH",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA1kZtzg9KRtjmZkQrv1QLBwSenrs902pQjVl7YrwLokk/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: Declared in a FIP for R1.1 as a permissive licence stating the legal terms under which data and software may be reused. Research 1 Nov 2026 (medium confidence): Saltzer, 'The Origin of the “MIT License”', IEEE Annals of the History of Computing 42(4), 2020 (DOI 10.1109/MAHC.2020.3020234), documents that the MIT-LCS copyright and permission notice was first used for the 1 February 1984 distribution of PC/IP and calls it probably the first notice that can be called the MIT License; a reworded version was first applied to X Window System X10R3 on 22 February 1986, which the name sometimes refers to specifically. The OSI text on the row's URL is a later descendant whose first date was not established.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
@@ -13403,7 +13400,9 @@
    "schemaType": "schema:CreativeWork",
    "key": "open_data_commons_open_database",
    "name": "Open Data Commons Open Database License",
-   "decision": "include",
+   "decision": "exclude",
+   "exclusionReason": "E6",
+   "coveredBy": "spdx-license",
    "fairsharingType": "Policy: institution",
    "fsrType": [
     "https://w3id.org/fair/fip/terms/Data-usage-license"
@@ -13416,7 +13415,6 @@
    "description": "An open license from Open Data Commons for databases. Anyone may share, adapt and reuse a database under it, provided they credit the source and release adapted databases under the same terms, so the conditions for reusing data are explicit.",
    "maintained": "active",
    "fairsharingMatch": "no record",
-   "reviewedBy": "JH",
    "note": "Surfaced by PARC Toxicology FAIR Implementation Profile declaration https://w3id.org/np/RA2JNDITBax4q6wB58XKcBAiL9BBJBbaQmVtlmjexur-s/declaration; screen against I1-I5. Retrieved 2026-10-08. Proposed 9 Oct 2026: A FAIR Implementation Profile declares it for R1.1: an open licence setting the legal terms for reusing databases. Research 1 Nov 2026 (high confidence): Rufus Pollock announced the release of ODbL v1.0 on behalf of the Open Data Commons Advisory Council on Monday 29 June 2009 (odc-discuss, the Open Knowledge Foundation's own list archive), after an 18-month development and 6-month consultation. The original announcement page on opendatacommons.org (2009/06/29) now returns 404.",
    "fsrCategory": "https://w3id.org/fair/fip/terms/FAIR-Enabling-Resource",
    "principles": [
