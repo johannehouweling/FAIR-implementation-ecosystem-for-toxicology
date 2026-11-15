@@ -126,6 +126,7 @@ class SiteTest(TempDir):
         data = json.loads(re.search(r'<script id="data" type="application/json">(.*?)</script>', html, re.S).group(1))
         self.assertEqual(data['meta']['outOfScope'], list(model.OUTSIDE_MANUSCRIPT_SCOPE))
         self.assertLessEqual(set(model.OUTSIDE_MANUSCRIPT_SCOPE), set(model.SUBDOMAINS))   # a misspelt one would leave nothing out
+        self.assertIn('!n.subdomains.includes(state.sub)', html)   # drawn when a visitor chooses their sub-domain
 
     def test_build_follows_the_journal_figure_rules(self):
         # Scientific Data: white only, one sans-serif face, sentence-case labels, the 183 mm export, a data dictionary
