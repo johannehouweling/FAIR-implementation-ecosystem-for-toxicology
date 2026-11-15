@@ -12,7 +12,6 @@
 :root {
   color-scheme: light;
   --bg: #ffffff; --ink: #0b0b0b; --ink-2: #52514e; --grid: #e1e0d9; --rule: #898781; --edge: #898781;
-  --standard: #2a78d6; --database: #eb6834; --policy: #199e70; --tool: #4a3aa7;
   --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 [hidden] { display: none !important; }
@@ -285,8 +284,8 @@ const SCREEN = {W: 1440, M: 30, LEFT: 66, RIGHT: 12, TAIL: 150, FS: 11, BIG: 12.
   GAP: 10, PAD: 4, SEP: 14, TOP: 30, SW: 1, RING_W: 1.5, u: 1};
 const PRINT = {W: 183 / 25.4 * 72, M: 11, LEFT: 20, RIGHT: 2, TAIL: 65, FS: 5, BIG: 7, SMALL: 6, R: 2, TRACK: 6.5, HEAD: 10,
   GAP: 4, PAD: 1, SEP: 5, TOP: 11, SW: .5, RING_W: .5, u: .4, print: true, FACES: ['Arial']};
-// In print, colour gives the infrastructure a lane belongs to and shape the type of a resource. The lanes of one
-// infrastructure share a bar in its colour at the left, with its name along it.
+// Colour gives the infrastructure a lane belongs to and shape the type of a resource, on screen as in print. The lanes
+// of one infrastructure share a bar in its colour at the left, with its name along it.
 const ORIGIN = {[GENERIC[0]]: 'Generic', [GENERIC[1]]: 'Life sciences', [META.toxLanes.at(-1)]: 'Regulatory'};
 const origin = lane => ORIGIN[lane] || 'Toxicology';
 const HUE = {Generic: '#eb6834', 'Life sciences': '#1baf7a', Toxicology: '#6250d6', Regulatory: '#a23b8f'};
@@ -296,7 +295,7 @@ const tint = c => '#' + [1, 3, 5].map(i => Math.round(255 - .55 * (255 - parseIn
 const XU = (G, v) => G.LEFT + v / units(Y1) * (G.W - G.LEFT - G.RIGHT - G.TAIL), X = (G, y) => XU(G, units(y));
 let rad = (n, G) => G.R;
 const css = name => getComputedStyle(document.documentElement).getPropertyValue('--' + name).trim();
-const C = Object.fromEntries(['bg', 'ink', 'ink-2', 'grid', 'edge', 'standard', 'database', 'policy', 'tool', 'sans'].map(k => [k.replace('-', ''), css(k)]));
+const C = Object.fromEntries(['bg', 'ink', 'ink-2', 'grid', 'edge', 'sans'].map(k => [k.replace('-', ''), css(k)]));
 const PRINT_FONT = 'Arial, Helvetica, sans-serif';
 const ctx = document.createElement('canvas').getContext('2d');
 // the widest of the faces the stack may fall back to, so that labels keep clear of each other in any of them
@@ -520,7 +519,7 @@ function figure(G, svg) {
   }
   const gNodes = el('g', {}, svg);
   for (const b of lanes) for (const n of b.nodes) {
-    const k = kind(n), col = G.print ? HUE[origin(b.lane)] : C[k];
+    const k = kind(n), col = HUE[origin(b.lane)];
     const g = el('g', G.print ? {} : {class: 'node', 'data-key': n.key, tabindex: 0, role: 'button', 'aria-label': aria(n)}, gNodes);
     const s = shape(k, n.x, n.y, G.R, g);
     for (const [attr, v] of [['fill', col], ['stroke', C.bg], ['stroke-width', G.RING_W]]) s.setAttribute(attr, v);
@@ -530,28 +529,18 @@ function figure(G, svg) {
     if (!G.print) el('circle', {cx: n.x, cy: n.y, r: 12, fill: 'transparent'}, g);
   }
   for (const b of lanes) if (b.title) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, b.title, {'font-weight': bold}, svg, bold + ' ');
-  if (G.print) {   // a bar in the colour of each infrastructure, along its lanes, and its name where it fits, reading upwards
-    const runs = [];
-    for (const b of lanes) {
-      const r = runs.at(-1), name = origin(b.lane);
-      if (r && r.name === name) r.y1 = b.y1; else runs.push({name, y0: b.y0, y1: b.y1});
-    }
-    for (const {name, y0, y1} of runs) {
-      const x = G.M - 8 * u, mid = (y0 + y1) / 2, len = textWidth(name, G.BIG, bold + ' ', G.FACES) + 2;
-      el('path', {d: `M${G.M} ${y0}V${y1}`, stroke: HUE[name], 'stroke-width': sw * 3}, svg);
-      if (len > y1 - y0) continue;
-      el('rect', {x: x - G.BIG * .8, y: mid - len / 2, width: G.BIG * 1.06, height: len, fill: C.bg}, svg);   // as behind labels
-      text(x, mid, G.BIG, name, {transform: `rotate(-90 ${x} ${mid})`, 'text-anchor': 'middle', 'font-weight': bold});
-    }
+  // a bar in the colour of each infrastructure, along its lanes, and its name where it fits, reading upwards
+  const runs = [];
+  for (const b of lanes) {
+    const r = runs.at(-1), name = origin(b.lane);
+    if (r && r.name === name) r.y1 = b.y1; else runs.push({name, y0: b.y0, y1: b.y1});
   }
-  const tox = G.print ? [] : lanes.filter(b => TOX.has(b.lane) && b.lane !== META.toxLanes.at(-1));   // regulatory assessment apart
-  if (tox.length) {  // together, the other toxicology lanes are toxicology infrastructure
-    const y0 = tox[0].y0, y1 = tox[tox.length - 1].y1, mid = (y0 + y1) / 2, x = G.M - 8 * u;
-    const name = ['Toxicology infrastructure', 'Toxicology'].find(s => textWidth(s, G.BIG, bold + ' ') < y1 - y0);
-    if (name) {
-      el('path', {d: `M${G.M + 5 * u} ${y0}H${G.M}V${y1}H${G.M + 5 * u}`, fill: 'none', stroke: C.ink2, 'stroke-width': sw * 1.2}, svg);
-      text(x, mid, G.BIG, name, {transform: `rotate(-90 ${x} ${mid})`, 'text-anchor': 'middle', 'font-weight': bold, fill: C.ink2});
-    }
+  for (const {name, y0, y1} of runs) {
+    const x = G.M - 8 * u, mid = (y0 + y1) / 2, len = textWidth(name, G.BIG, bold + ' ', G.FACES) + 2;
+    el('path', {d: `M${G.M} ${y0}V${y1}`, stroke: HUE[name], 'stroke-width': sw * 3}, svg);
+    if (len > y1 - y0) continue;
+    el('rect', {x: x - G.BIG * .8, y: mid - len / 2, width: G.BIG * 1.06, height: len, fill: C.bg}, svg);   // as behind labels
+    text(x, mid, G.BIG, name, {transform: `rotate(-90 ${x} ${mid})`, 'text-anchor': 'middle', 'font-weight': bold});
   }
 
   const finish = H => {
@@ -579,7 +568,7 @@ function figure(G, svg) {
   };
   for (const [k, name] of TYPES) item(2 * G.R, (x, y) => {
     const s = shape(k, x + G.R, y, G.R, svg);
-    s.setAttribute('fill', C[k]); s.setAttribute('stroke', C.bg); s.setAttribute('stroke-width', G.RING_W);
+    s.setAttribute('fill', C.ink2); s.setAttribute('stroke', C.bg); s.setAttribute('stroke-width', G.RING_W);
   }, name);
   lx += step;
   item(textWidth('†', G.SMALL), (x, y) => text(x, y + mid, G.SMALL, '†', {fill: C.ink2}), 'No longer maintained');
