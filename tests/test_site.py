@@ -58,7 +58,6 @@ class SiteTest(TempDir):
         self.assertEqual({x['src'] for x in data['links']}, {'exo'})
         self.assertEqual(set(data['meta']['sources']), {'fairsharing', 'fip'})
         self.assertEqual(data['meta']['lanes'], model.FIGURE_LANES)
-        self.assertIn('Toxicology infrastructure', html)
         schema = json.loads(re.search(r'<script type="application/ld\+json">(.*?)</script>', html, re.S).group(1))
         self.assertEqual(schema['@type'], 'Dataset')
         self.assertIn('fairsharing-attribution.svg', html)
@@ -133,10 +132,10 @@ class SiteTest(TempDir):
         html = self.build()[1]['index.html']
         self.assertNotIn('prefers-color-scheme', html)
         self.assertNotIn('data-theme', html)
+        self.assertNotIn('C[k]', html)                         # no colour by type: colour gives the infrastructure
         self.assertIn('"Helvetica Neue", Helvetica, Arial, sans-serif', html)
         for text in ('Generic infrastructure', 'Life sciences infrastructure', 'Data generation', 'Data integration',
-                     'Regulatory assessment', 'Toxicology infrastructure', 'b.lane !== META.toxLanes.at(-1)',
-                     'Year first published',
+                     'Regulatory assessment', 'Year first published',
                      'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
                      'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
                      'life-cycle phase they act on (the earliest, if several)', "row('Phase'", "row('Span'",
