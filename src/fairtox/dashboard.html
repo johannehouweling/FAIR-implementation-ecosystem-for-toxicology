@@ -260,7 +260,8 @@ const GENERIC = META.lanes.filter(l => !META.toxLanes.includes(l));
 const laneNames = () => byCreator() ? [...GENERIC, ...META.creatorLanes] : META.lanes;
 const dated = n => Number.isInteger(n.year);
 const community = n => n.fsrType.some(t => META.communities.includes(t));   // listed, never drawn
-const outOfScope = n => n.subdomains.length > 0 && n.subdomains.every(s => META.outOfScope.includes(s));   // listed, not drawn
+// listed; drawn only when the Sub-domain filter asks for one of its sub-domains
+const outOfScope = n => n.subdomains.length > 0 && n.subdomains.every(s => META.outOfScope.includes(s)) && !n.subdomains.includes(state.sub);
 const placed = n => dated(n) && laneNames().includes(laneOf(n)) && !community(n) && !outOfScope(n);
 const TOX = new Set([...META.toxLanes, ...META.creatorLanes]);
 const LANE_DEF = {...META.laneDef, ...META.creatorLaneDef};
@@ -334,7 +335,7 @@ const offText = ns => {  // why some resources are listed but not drawn
   const parts = [u && `${plural(u, 'resource has', 'resources have')} no known date`, l && `${plural(l, 'resource has', 'resources have')} no lane`,
     s && plural(s, `resource serves only ${only}`, `resources serve only ${only}`),
     c && plural(c, 'resource is a FAIR Implementation Community', 'resources are FAIR Implementation Communities')].filter(Boolean);
-  return parts.length ? `${parts.join(', ').replace(/, (?=[^,]*$)/, ' and ')}; ${u + l + s + c === 1 ? 'it is' : 'they are'} in the list but not in the figure.` : '';
+  return parts.length ? `${parts.join(', ').replace(/, (?=[^,]*$)/, ' and ')}; ${u + l + s + c === 1 ? 'it is' : 'they are'} in the list but not in the figure.${s ? ` Choose ${only} as the sub-domain to draw its resources.` : ''}` : '';
 };
 
 // Stacking: the fewest tracks a lane needs so that no labels overlap (first fit by left edge), then a few sweeps in

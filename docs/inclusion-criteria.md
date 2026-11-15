@@ -132,9 +132,9 @@ Each excluded row carries exactly one code.
   epidemiology, pharmacovigilance, ecotoxicology and the exposome are outside its scope. Each sub-domain is in scope
   or outside scope: exposome and eco-toxicology are outside scope because no co-author represents them; the others
   are in scope. A resource whose sub-domains are all outside scope remains included, in the dataset and in the
-  dashboard's list, but is left out of the figure and the analysis of relations. The dataset itself keeps the wider
-  scope of the ELIXIR Toxicology Community, so that a sub-domain can be brought into scope when its resources are
-  reviewed.
+  dashboard's list, but is left out of the figure and the analysis of relations; the dashboard draws it only when a
+  visitor chooses one of its sub-domains. The dataset itself keeps the wider scope of the ELIXIR Toxicology
+  Community, so that a sub-domain can be brought into scope when its resources are reviewed.
 - **FAIRsharing type** is the FAIRsharing registry and record type, or Tool (data dictionary, FAIRsharing type).
 - **First published** is the earliest date the resource was publicly available or formally described, recorded with
   its basis (data dictionary, Date basis) and its source. Sources are, in order: the DOI metadata of the describing
@@ -247,6 +247,7 @@ Each excluded row carries exactly one code.
 | 12 Nov 2026 | The relation label uses is allowed again as the dataset's own label: "The subject uses the target." It is lineage, FAIRsharing cannot hold it, the possibility rule does not constrain it, and it does not count for Building on FAIR. This amends the 4 Nov 2026 rule that relations use FAIRsharing's labels only. Of the 22 relations relabelled on 4 Nov 2026, the three that a co-author had assigned and signed as uses, each from a resource to RDF, are uses again with that signature; the other 19 keep the FAIRsharing label they took. | Jente Houweling |
 | 12 Nov 2026 | The criteria are reworded after a pass through the curation sheet with a co-author. A publication, guideline or standard is a resource (I1), so a guideline that standardises how an experiment is run is included as a policy, and E8 is withdrawn. A Wayback Machine URL identifies a resource whose URL no longer resolves (I2, E3). A resource has to support making data or metadata findable, accessible, interoperable or reusable (I5). E1 speaks of named resources or research outputs. E2 covers only a principle, framework, concept, opinion, strategy, plan or roadmap that does not have the potential to provide a basis for the development of FAIR supporting resources; methods, approaches and publications are no longer excluded by it. E5 is withdrawn. E7 says what chemical toxicology does not include here. E5 and E8 keep their meaning for the rows that still carry them and are no longer assigned. | Jente Houweling |
 | 14 Nov 2026 | A single data usage licence is not a row of its own: the SPDX License List, which lists it, covers it (E6). The MIT License and the Open Data Commons Open Database License, both declared in the PARC Toxicology FIP, are excluded so. | Jente Houweling |
+| 15 Nov 2026 | The dashboard draws a resource whose sub-domains are all outside scope when a visitor chooses one of its sub-domains; without that choice it stays in the list only, and the figure and the analysis leave it out as before. A visitor who chose exposome saw 6 of its 23 resources. | Jente Houweling |
 
 ## 9. Limitations
 
