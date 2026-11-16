@@ -372,8 +372,10 @@ function layout(shown, links, G) {
       if (t < 0) { t = ends.length; ends.push(0); }
       ends[t] = n.r; n.track = t;
     }
-    // in print the lanes have no title, nor the room above them for one; the creator lanes keep theirs
-    const title = !G.print || META.creatorLanes.includes(lane) ? lane : '';
+    // A toxicology lane has its title, the phase or the creator. A generic lane is named along its bar, and by its title
+    // only when it is too low for that name. In print only the creator lanes have a title, for want of room above the others.
+    const fits = textWidth(origin(lane), G.BIG, '600 ') + 2 <= G.HEAD * .4 + ends.length * G.TRACK + G.PAD;
+    const title = (G.print ? META.creatorLanes.includes(lane) : TOX.has(lane) || !fits) ? lane : '';
     lanes.push({lane, nodes: ns, tracks: ends.length, title, head: title ? G.HEAD : G.HEAD * .4});
   }
   const trackY = (b, t) => b.y0 + b.head + (t + .5) * G.TRACK;
@@ -529,17 +531,20 @@ function figure(G, svg) {
       ...(slant(n, G) ? {'font-style': 'italic'} : {})}, g, slant(n, G) ? 'italic ' : '');
     if (!G.print) el('circle', {cx: n.x, cy: n.y, r: 12, fill: 'transparent'}, g);
   }
-  for (const b of lanes) if (b.title) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, b.title, {'font-weight': bold}, svg, bold + ' ');
-  // a bar in the colour of each infrastructure, along its lanes, and its name where it fits, reading upwards
+  // lane titles, on screen in italics, apart from the bold names along the bars
+  for (const b of lanes) if (b.title) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, b.title,
+    G.print ? {'font-weight': bold} : {'font-style': 'italic'}, svg, bold + ' ');
+  // a bar in the colour of each infrastructure, along its lanes, and its name, reading upwards, where it fits and the
+  // title of a generic lane does not stand in for it
   const runs = [];
   for (const b of lanes) {
-    const r = runs.at(-1), name = origin(b.lane);
-    if (r && r.name === name) r.y1 = b.y1; else runs.push({name, y0: b.y0, y1: b.y1});
+    const r = runs.at(-1), name = origin(b.lane), said = !!b.title && !TOX.has(b.lane);
+    if (r && r.name === name) { r.y1 = b.y1; r.said &&= said; } else runs.push({name, y0: b.y0, y1: b.y1, said});
   }
-  for (const {name, y0, y1} of runs) {
+  for (const {name, y0, y1, said} of runs) {
     const x = G.M - 8 * u, mid = (y0 + y1) / 2, len = textWidth(name, G.BIG, bold + ' ', G.FACES) + 2;
     el('path', {d: `M${G.M} ${y0}V${y1}`, stroke: HUE[name], 'stroke-width': sw * 3}, svg);
-    if (len > y1 - y0) continue;
+    if (said || len > y1 - y0) continue;
     el('rect', {x: x - G.BIG * .8, y: mid - len / 2, width: G.BIG * 1.06, height: len, fill: C.bg}, svg);   // as behind labels
     text(x, mid, G.BIG, name, {transform: `rotate(-90 ${x} ${mid})`, 'text-anchor': 'middle', 'font-weight': bold});
   }
