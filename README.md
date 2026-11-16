@@ -56,7 +56,7 @@ the build has published it: `gh release create vX.Y.Z --repo johannehouweling/FA
 Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row, as the
 [criteria](docs/inclusion-criteria.md#7-process) describe. A freshly built sheet, once uploaded, needs "Allow multiple
 selections" switched on for Sub-domains, FSR type and Phase by hand, because an .xlsx cannot carry it. A workflow
-reads the sheet back three times a day, then FAIRsharing, checking each new row against it, and the FIPs, and keeps
+reads the sheet back once a week, then FAIRsharing, checking each new row against it, and the FIPs, and keeps
 one pull request open with what changed; it keeps the exported sheet with the run for 90 days.
 
 ## Commands

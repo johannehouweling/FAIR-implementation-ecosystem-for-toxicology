@@ -152,7 +152,7 @@ NOT_INITIALS = 'initials only, in one word; a remark goes in Note'
 FOLDED = tuple(h for h, *_ in CONTEXT_COLUMNS)   # context, not tasks: grouped and collapsed
 INSTRUCTIONS = [
     'Edit the white cells only. Grey is read-only: computed, or read from FAIRsharing and the FIPs, and ignored when '
-    'the sheet is read back. You cannot break anything: the sheet is read back three times a day, every edit is '
+    'the sheet is read back. You cannot break anything: the sheet is read back once a week, every edit is '
     'checked, and a row with a problem waits here.',
     'Find your rows on the Resources tab: filter Sub-domains, or filter Reviewed by on blanks. Choose each sub-domain '
     'that applies.',

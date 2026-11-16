@@ -183,7 +183,7 @@ Each excluded row carries exactly one code.
    row by putting their initials in Reviewed by once every value up to Note is checked, and a relation likewise on the
    Relations tab; its values are then curator decisions. The folded context is not covered. A process that later
    changes a confirmed value empties Reviewed by, so the row is confirmed again. The data refresh reads the Sheet back
-   with `fairtox ingest` three times a day, row by row, and keeps the changes in one pull request for review. A row or
+   with `fairtox ingest` once a week, row by row, and keeps the changes in one pull request for review. A row or
    relation with a problem, or one that would add an error or a warning, waits in the Sheet (a row with its relations)
    and is listed in the pull request until it is fixed; two lines with the same key both wait, and so do two lines with
    the same relation unless exactly one of them is signed: that line decides, and the unsigned copies are ignored and
@@ -248,6 +248,7 @@ Each excluded row carries exactly one code.
 | 12 Nov 2026 | The criteria are reworded after a pass through the curation sheet with a co-author. A publication, guideline or standard is a resource (I1), so a guideline that standardises how an experiment is run is included as a policy, and E8 is withdrawn. A Wayback Machine URL identifies a resource whose URL no longer resolves (I2, E3). A resource has to support making data or metadata findable, accessible, interoperable or reusable (I5). E1 speaks of named resources or research outputs. E2 covers only a principle, framework, concept, opinion, strategy, plan or roadmap that does not have the potential to provide a basis for the development of FAIR supporting resources; methods, approaches and publications are no longer excluded by it. E5 is withdrawn. E7 says what chemical toxicology does not include here. E5 and E8 keep their meaning for the rows that still carry them and are no longer assigned. | Jente Houweling |
 | 14 Nov 2026 | A single data usage licence is not a row of its own: the SPDX License List, which lists it, covers it (E6). The MIT License and the Open Data Commons Open Database License, both declared in the PARC Toxicology FIP, are excluded so. | Jente Houweling |
 | 15 Nov 2026 | The dashboard draws a resource whose sub-domains are all outside scope when a visitor chooses one of its sub-domains; without that choice it stays in the list only, and the figure and the analysis leave it out as before. A visitor who chose exposome saw 6 of its 23 resources. | Jente Houweling |
+| 16 Nov 2026 | The data refresh runs once a week, on Monday, instead of three times a day (18 Oct 2026), which puts less load on FAIRsharing, read in the same run. A read-back can also be started by hand. | Jente Houweling |
 
 ## 9. Limitations
 
