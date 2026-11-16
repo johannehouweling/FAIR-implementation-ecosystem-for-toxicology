@@ -1,6 +1,6 @@
 name: Data refresh
 
-# Three times a day: read back the curation sheet row by row, then the FAIRsharing Toxicology collection with the
+# Once a week: read back the curation sheet row by row, then the FAIRsharing Toxicology collection with the
 # repository owner's FAIRsharing login (Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD), searching
 # FAIRsharing for every row not yet checked against it, and the toxicology FIPs' nanopublications. What changed (edits
 # made in the sheet, new collection members, FAIRsharing checks, new resources and links from the FIP declarations)
@@ -13,7 +13,8 @@ name: Data refresh
 
 on:
   schedule:
-    - cron: '17 5,11,17 * * *'
+    # Monday, well before CI's weekly build of main, which then reuses the day's FAIRsharing records
+    - cron: '17 3 * * 1'
   workflow_dispatch:
 
 permissions:
