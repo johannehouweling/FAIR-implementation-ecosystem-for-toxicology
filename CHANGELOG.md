@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.1.1...v1.2.0) (2026-11-16)
+
+
+### Features
+
+* **dashboard:** colour the timeline by infrastructure ([f7ed196](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/f7ed19692a6e78c275e1e498e648495bb9bc229b))
+* **dashboard:** draw resources outside scope when their sub-domain is chosen ([d7ac254](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/d7ac2547b7251130854a6045c1fc3969377ce21b))
+
+
+### Fixes
+
+* **dashboard:** name each lane once ([86e8fee](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/86e8fee9348e348988d48cb1b4b6015a195cbc83))
+
 ## [1.1.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.1.0...v1.1.1) (2026-11-14)
 
 
