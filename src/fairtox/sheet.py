@@ -238,7 +238,7 @@ def _principles(ws):
         ws.cell(row=ws.max_row, column=1).font = BOLD
         for p in principles:
             types = sorted(FSR_LABEL[t] for t, (all_, _) in model.enables().items() if p in all_)
-            named = sorted(FSR_LABEL[t] for t, (_, own) in model.enables().items() if own == {p})   # its own type
+            named = model.principle_names()[p]   # its own type
             ws.append([p, ', '.join(named)] + [
                 f'=SUMPRODUCT(({rng("Decision")}="include")*({rng("Origin")}="{origin}")'
                 f'*REGEXMATCH({rng("FSR type")},"(^|[,;] *){one_of(types)}( *[,;]|$)")'

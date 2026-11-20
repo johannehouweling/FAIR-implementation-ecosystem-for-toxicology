@@ -26,7 +26,8 @@ Dashboard: https://johannehouweling.github.io/FAIR-implementation-ecosystem-toxi
 - `queries/`: the SPARQL queries behind the counts of relations, hubs and resources without relations, run with
   `fairtox query` over the resources in the figure.
 - `CHANGELOG.md`: what changed in each version; versions are tagged (`v0.2.0`).
-- `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests.
+- `src/fairtox/`: the `fairtox` command line tool; `tests/`: its tests; one of them opens the dashboard in Google
+  Chrome and is skipped without the figures group (`uv sync --all-groups`).
 - `figures/`: Figures 1 and 2 of the paper, as SVG and PDF, with the two scripts that make them from the built
   dashboard and the dataset; `ro-crate-metadata.json` describes the folder as an RO-Crate. The scripts need Arial, and
   Figure 1 Google Chrome.

@@ -72,6 +72,15 @@ fieldset { border: 0; padding: 0; margin: 0; min-width: 0; display: flex; flex-w
 #fig .node.dim > :not(text) { opacity: .16; }
 #fig .node.dim text { fill: var(--ink-2); }
 .notes { margin: -6px 0 0; color: var(--ink-2); font-size: 13px; max-width: 110ch; }
+/* one view at a time, the timeline, the FER typology, the list or the text about the data: a radio group, set as tabs, shows it */
+.tabs { gap: 4px 22px; margin-bottom: -8px; font-size: 15px; }
+.tabs label { padding: 2px 0 5px; color: var(--ink-2); cursor: pointer; }
+.tabs label:has(:checked) { padding-bottom: 3px; color: var(--ink); border-bottom: 2px solid; }
+.tabs label:has(:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
+/* drawn 800 units wide, about a pixel each; narrower boxes scroll, as for the timeline */
+#alluvial { display: block; width: 100%; min-width: 640px; max-width: 800px; height: auto; margin: 0 auto; }
+#alluvial .band, #alluvial .pick { cursor: pointer; }
+#alluvial:has(.on) .band:not(.on) { opacity: .16; }
 
 .panel { box-sizing: border-box; padding: 14px 16px 16px; background: var(--bg); border: 1px solid var(--grid); border-radius: 8px; font-size: 13.5px; overflow-wrap: anywhere; }
 .panel p { margin: 4px 0 0; }
@@ -157,32 +166,41 @@ button.btn:hover { border-color: var(--ink); }
     </details>
   </div>
 
+  <!-- the fragment with a view's value shows that view: #fer-typology, #resources, #about -->
+  <fieldset id="view" class="tabs">
+    <legend class="sr">View</legend>
+    <label><input class="sr" type="radio" name="view" value="timeline" checked> Timeline</label>
+    <label><input class="sr" type="radio" name="view" value="fer-typology" id="v-typology"> FER typology</label>
+    <label><input class="sr" type="radio" name="view" value="resources" id="v-list"> Resources</label>
+    <label><input class="sr" type="radio" name="view" value="about" id="v-about"> About</label>
+  </fieldset>
+
   <div class="viz" id="viz">
     <a class="skip fig-skip" href="#list">Skip the figure</a>
-    <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Timeline of the FAIR implementation ecosystem for toxicology"></svg></div>
-    <aside id="panel" class="panel" aria-label="Details of the selected resource" hidden></aside>
+    <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Timeline of the FAIR implementation ecosystem for toxicology"></svg><svg id="alluvial" xmlns="http://www.w3.org/2000/svg" role="group" hidden></svg></div>
+    <aside id="panel" class="panel" aria-label="Details of the selection" hidden></aside>
   </div>
   <p class="notes" id="notes" aria-live="polite"></p>
 
   <section id="list" class="list" tabindex="-1" aria-labelledby="list-h">
-    <h2 id="list-h">Resources</h2>
+    <h2 id="list-h" class="sr">Resources</h2>
     <div class="tablewrap"><table>
-      <caption id="cap"></caption>
+      <caption id="cap" aria-live="polite"></caption>
       <thead><tr id="thead"></tr></thead>
       <tbody id="tbody"></tbody>
     </table></div>
   </section>
 
-  <section class="about" aria-labelledby="about-h">
+  <section id="about" class="about" aria-labelledby="about-h">
     <h2 id="about-h">About the data</h2>
     <div class="cols">
     <div>
       <h3>What is listed</h3>
-      <p>Standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the list but not in the figure.</p>
+      <p>Standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the Resources list but not in the timeline.</p>
       <h3>Sources and types</h3>
       <p>Curation by the ELIXIR Toxicology Community, the <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and the toxicology FAIR Implementation Profiles (FIPs), whose declarations name the resources their communities use; the Source filter shows the resources of one source. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata, the FIP declarations and the registered names of creators given as ORCID or ROR links are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
       <h3>FSR types and FIP declarations</h3>
-      <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource or other FAIR Supporting Resource, with each type that applies. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource name the FIPs that declare it, link the nanopublication that declares the resource as an FSR, and link its FSR type and class to their terms in the FIP ontology and the principles those types enable to the FAIR principles.</p>
+      <p>Resources are typed in the FIP ontology (<span id="onto"></span>), after the typology of FAIR Supporting Resources (FSRs) of <a href="https://ceur-ws.org/Vol-3882/foam-5.pdf">Magagna et al. 2024, CEUR-WS Vol-3882</a>: FAIR-Enabling Resource (FER) or other FAIR Supporting Resource, with each type that applies. A FIP declares which resources its community uses for each FAIR principle. The FIP declarations switch draws dotted lines from each FIP to the resources it declares; the details of a resource name the FIPs that declare it, link the nanopublication that declares the resource as an FSR, and link its FSR type and class to their terms in the FIP ontology and the principles those types enable to the FAIR principles. The FER typology view counts, for each FAIR principle, the resources in the timeline one of whose FSR types enables it, by origin; it follows the filters and the search.</p>
     </div>
     <div>
       <h3>Lanes</h3>
@@ -191,7 +209,7 @@ button.btn:hover { border-color: var(--ink); }
     </div>
     <div>
       <h3>First published</h3>
-      <p>When a resource first became public: the online publication of the paper that first describes it, its first release, or the adoption of a guidance or policy. Each date links to its source. Resources without a known date are in the list but not in the figure.</p>
+      <p>When a resource first became public: the online publication of the paper that first describes it, its first release, or the adoption of a guidance or policy. Each date links to its source. Resources without a known date are in the Resources list but not in the timeline.</p>
     </div>
     </div>
     <details class="dict">
@@ -219,7 +237,7 @@ button.btn:hover { border-color: var(--ink); }
     </section>
     <section aria-labelledby="lic-h">
       <h2 id="lic-h">Licences</h2>
-      <p>Data and figure: <span id="lic"></span>, as required by the FAIRsharing data they include. Code: <a href="https://opensource.org/license/mit">MIT</a>.</p>
+      <p>Data and figures: <span id="lic"></span>, as required by the FAIRsharing data they include. Code: <a href="https://opensource.org/license/mit">MIT</a>.</p>
       <p class="credit"><a href="https://fairsharing.org"><img src="https://api.fairsharing.org/img/fairsharing-attribution.svg" alt="FAIRsharing"></a> Contains information from FAIRsharing, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
     </section>
   </footer>
@@ -322,20 +340,22 @@ function shape(type, x, y, r, parent) {  // circle = standard, square = database
   return el('path', {d: `M${x} ${y - r * 1.2}L${x + r * 1.15} ${y + r * .9}L${x - r * 1.15} ${y + r * .9}Z`}, parent);
 }
 
-const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), cls: new Set(META.classes), type: '', sub: '', src: '', q: [], sel: null, col: 3, dir: 1};
+const state = {lanes: new Set([...META.lanes, ...META.creatorLanes]), cls: new Set(META.classes), type: '', sub: '', src: '', q: [], sel: null, pick: null, col: 3, dir: 1};
 // resources without an FSR type pass the Class filter
 const passes = n => (!laneOf(n) || state.lanes.has(laneOf(n))) && (!state.type || n.registry === state.type) &&
   (!state.sub || n.subdomains.includes(state.sub)) && (!state.src || n.sources.includes(state.src)) &&
   (!n.fsrCategory || state.cls.has(n.fsrCategory));
 const matches = n => state.q.every(w => hay[n.key].includes(w));
-const offText = ns => {  // why some resources are listed but not drawn
+// what the filters let pass, for the list, and what of that the figures draw
+const mark = () => { for (const n of NODES) { n.pass = passes(n); n.shown = n.pass && placed(n); } };
+const offText = ns => {  // why some resources are listed but not drawn in the timeline, and so not counted in the FER typology
   const c = ns.filter(community).length, s = ns.filter(n => !community(n) && outOfScope(n)).length;
   const rest = ns.filter(n => !community(n) && !outOfScope(n)), only = META.outOfScope.join(' or ');
   const u = rest.filter(n => !dated(n)).length, l = rest.filter(n => dated(n) && !placed(n)).length;
   const parts = [u && `${plural(u, 'resource has', 'resources have')} no known date`, l && `${plural(l, 'resource has', 'resources have')} no lane`,
     s && plural(s, `resource serves only ${only}`, `resources serve only ${only}`),
     c && plural(c, 'resource is a FAIR Implementation Community', 'resources are FAIR Implementation Communities')].filter(Boolean);
-  return parts.length ? `${parts.join(', ').replace(/, (?=[^,]*$)/, ' and ')}; ${u + l + s + c === 1 ? 'it is' : 'they are'} in the list but not in the figure.${s ? ` Choose ${only} as the sub-domain to draw its resources.` : ''}` : '';
+  return parts.length ? `${parts.join(', ').replace(/, (?=[^,]*$)/, ' and ')}; ${u + l + s + c === 1 ? 'it is' : 'they are'} in the Resources list but not in the timeline or the FER typology.${s ? ` Choose ${only} as the sub-domain to show that sub-domain's resources in both.` : ''}` : '';
 };
 
 // Stacking: the fewest tracks a lane needs so that no labels overlap (first fit by left edge), then a few sweeps in
@@ -435,10 +455,10 @@ function reduced(links) {
   return links.filter(l => !l.lineage || !implied(l));
 }
 
-// Draws the current view into svg in geometry G, on white: lanes separated by hairlines, an x axis, the relations, the
+// Draws the timeline as filtered into svg in geometry G, on white: lanes separated by hairlines, an x axis, the relations, the
 // resources, then the lane titles on top, and the key. No gridlines, no shaded bands, text in the two inks only.
 function figure(G, svg) {
-  for (const n of NODES) { n.pass = passes(n); n.shown = n.pass && placed(n); }
+  mark();
   const shown = NODES.filter(n => n.shown);
   const pairs = LINKS.filter(l => byKey[l.src] && byKey[l.src].shown && byKey[l.dst] && byKey[l.dst].shown);
   const links = G.print ? reduced(pairs) : pairs;
@@ -593,12 +613,12 @@ function draw() {  // the screen figure
   fig.dataset.overlaps = overlaps(fig);
   fig.setAttribute('aria-label', `Timeline of ${plural(shown.length, 'resource', 'resources')} for toxicology, ${Y0} to ${Y1 - 1}, ` +
     `in ${plural(lanes.length, 'lane', 'lanes')} (${lanes.map(b => b.lane).join(', ')}), with ${plural(nLinks, 'relation', 'relations')} drawn. ` +
-    'The list below gives the same resources.');
+    'The Resources view lists the same resources.');
   notes();
   paint();
 }
 
-// The current view laid out for print: 183 mm wide, 1 unit = 1 pt, white, editable text in Arial.
+// The timeline as filtered, laid out for print: 183 mm wide, 1 unit = 1 pt, white, editable text in Arial.
 function printFigure() {
   const svg = document.createElementNS(NS, 'svg'), {H} = figure(PRINT, svg), mm = H * 25.4 / 72;
   svg.querySelectorAll('text').forEach(t => t.setAttribute('font-family', PRINT_FONT));
@@ -610,7 +630,7 @@ window.publicationSVG = () => printFigure().svg;
 
 function notes() {
   const hits = NODES.filter(n => n.pass && matches(n)).length;
-  $('notes').textContent = [`${plural(+fig.dataset.nodes, 'resource', 'resources')} and ${plural(+fig.dataset.links, 'relation', 'relations')} in the figure` +
+  $('notes').textContent = [`${plural(+fig.dataset.nodes, 'resource', 'resources')} and ${plural(+fig.dataset.links, 'relation', 'relations')} in the timeline` +
     (state.q.length ? `; ${plural(hits, 'resource matches', 'resources match')} the search.` : '.'), offText(NODES.filter(n => n.pass)), 'Select a resource for its details.']
     .filter(Boolean).join(' ');
 }
@@ -630,9 +650,9 @@ function paint() {
   });
 }
 
-function showTip(n, x, y) {
+function showTip(title, text, x, y) {
   const t = $('tip');
-  t.innerHTML = `<b>${esc(n.name)}</b><span>${esc([n.year, n.fairsharingType].filter(Boolean).join(' · '))}</span>`;
+  t.innerHTML = `<b>${esc(title)}</b><span>${esc(text)}</span>`;
   t.hidden = false;
   const bw = t.offsetWidth, bh = t.offsetHeight;
   t.style.left = Math.max(8, Math.min(x + 14, innerWidth - bw - 8)) + 'px';
@@ -640,14 +660,17 @@ function showTip(n, x, y) {
 }
 const hideTip = () => { $('tip').hidden = true; };
 const nodeOf = ev => { const g = ev.target.closest && ev.target.closest('.node'); return g ? byKey[g.dataset.key] : null; };
-fig.addEventListener('pointermove', ev => { const n = nodeOf(ev); if (n) showTip(n, ev.clientX, ev.clientY); else hideTip(); });
+fig.addEventListener('pointermove', ev => {
+  const n = nodeOf(ev);
+  if (n) showTip(n.name, [n.year, n.fairsharingType].filter(Boolean).join(' · '), ev.clientX, ev.clientY); else hideTip();
+});
 fig.addEventListener('pointerleave', hideTip);
 fig.addEventListener('click', ev => { const n = nodeOf(ev); if (n) select(n.key); });
 fig.addEventListener('keydown', ev => {
   const n = nodeOf(ev);
   if (n && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); select(n.key); }
 });
-document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { hideTip(); if (state.sel) closePanel(); } });
+document.addEventListener('keydown', ev => { if (ev.key === 'Escape') { hideTip(); if ((state.sel || state.pick) && !$('viz').hidden) closePanel(); } });
 
 function details(n) {
   // each item reads as a sentence about this resource: "extends OBI", "eNanoMapper database implements it"
@@ -691,25 +714,151 @@ function details(n) {
 function select(key) {
   if (!byKey[key]) return;
   state.sel = key;
+  state.pick = null;
   $('panel').innerHTML = details(byKey[key]);
   $('panel').hidden = false;
   $('viz').classList.add('open');
   hideTip();
   paint();
+  light(null);
   $('p-name').focus();
 }
 function closePanel() {
-  const g = fig.querySelector(`.node[data-key="${CSS.escape(state.sel)}"]`);
-  state.sel = null;
+  // back to what was chosen: in the FER typology view the principle (a band's too) or the origin, also from a
+  // resource of its list when the panel is closed from inside it, not when a filter closes it; else the resource
+  const s = state.pick || typologyOn() && $('panel').contains(document.activeElement) && state.last;
+  const g = s ? alluv.querySelector(s.p ? `.pick[data-p="${s.p}"]` : `.pick[data-o="${s.o}"]`)
+    : typologyOn() ? $('panel').contains(document.activeElement) && $('v-typology')   // a resource of the timeline closed here: the tab
+    : fig.querySelector(`.node[data-key="${CSS.escape(state.sel)}"]`);
+  state.sel = state.pick = null;
   $('panel').hidden = true;
   $('viz').classList.remove('open');
   paint();
-  if (g) g.focus();   // scrolls back to the resource when the panel was below the figure
+  // scrolls back to what was chosen when the panel was below the figure; not from the search box, which Escape has still to empty
+  if (g && document.activeElement !== $('q')) g.focus();
+  light(null);   // after the focus, which lights what it lands on
 }
 $('panel').addEventListener('click', ev => {
   const b = ev.target.closest('button');
   if (b) b.hasAttribute('data-close') ? closePanel() : select(b.dataset.key);
 });
+
+// The FER typology view: the FAIR principles that the resources of the timeline enable, by origin, as an alluvial. A
+// resource counts under each principle that one of its FSR types enables, so a band is as high as its resources are
+// many, and the numbers on the right count each resource once. Drawn 800 units wide, about a pixel each: U a
+// resource, SLOT the least height of a principle, a line of text; XB the brackets, XC the principles, XL and XR the
+// bars on the left and on the right, NW the width of a bar.
+const alluv = $('alluvial'), typologyOn = () => $('v-typology').checked;
+const ORIGINS = Object.keys(META.vocab.origin), oName = o => capital(o.toLowerCase());   // "Life sciences", as in HUE
+const ENABLED_BY = Object.assign({}, ...Object.values(META.principles));   // F1 -> the FER types that enable it alone
+// the resources in the timeline that match the search and enable principle p (any, without p), of origin o (any, without o)
+const enablers = (p, o) => NODES.filter(n => n.shown && matches(n) && (!o || n.origin === o) &&
+  (p ? n.principles.includes(p) : n.principles.some(q => q in ENABLED_BY)));
+const heading = s => s.p && s.o ? `${s.p} · ${oName(s.o)}` : s.p ? `${s.p} · ${ENABLED_BY[s.p].join(', ')}` : oName(s.o);
+const A = {W: 800, U: 2.2, SLOT: 16, GAP: 5, GROUP: 14, TOP: 40, XB: 20, XC: 30, XL: 322, XR: 630, NW: 7};
+function alluvial() {
+  mark();
+  const U = A.U, x0 = A.XL + A.NW, xm = (x0 + A.XR) / 2, xr = A.XR + A.NW * 1.5 + 8;
+  alluv.textContent = '';
+  alluv.setAttribute('font-family', C.sans);
+  const bg = el('rect', {x: 0, y: 0, width: A.W, fill: C.bg}, alluv), gBands = el('g', {}, alluv);
+  const text = (x, y, size, s, extra, parent = alluv) => el('text', {x, y, 'font-size': size, fill: C.ink, ...extra}, parent, s);
+  // left: a slot for each principle, the principles of a group along a bracket
+  const rows = [];
+  let y = A.TOP;
+  for (const [group, ps] of Object.entries(META.principles)) {
+    const y0 = y;
+    for (const p in ps) {
+      const by = ORIGINS.map(o => enablers(p, o).length), total = by.reduce((a, b) => a + b, 0), h = Math.max(total * U, A.SLOT);
+      rows.push({p, by, total, y0: y, h, y: y + (h - total * U) / 2});
+      y += h + A.GAP;
+    }
+    const y1 = y - A.GAP, mid = (y0 + y1) / 2;
+    el('path', {d: `M${A.XB} ${y0}V${y1}`, stroke: C.ink2, 'stroke-width': 1}, alluv);
+    text(A.XB - 7, mid, SCREEN.SMALL, group, {transform: `rotate(-90 ${A.XB - 7} ${mid})`, 'text-anchor': 'middle', fill: C.ink2});
+    y = y1 + A.GROUP;
+  }
+  const bottom = y - A.GROUP;
+  // right: a bar for each origin, as high as its bands together, the bars spread over the height of the left
+  const high = ORIGINS.map((o, i) => rows.reduce((s, r) => s + r.by[i], 0) * U), at = [];
+  const free = (bottom - A.TOP - high.reduce((a, b) => a + b, 0)) / Math.max(ORIGINS.length - 1, 1);
+  y = A.TOP;
+  for (const h of high) { at.push(y); y += h + free; }
+  // the bands, the largest first, so that none hides a smaller one; a white edge parts those that cross
+  const to = [...at], bands = [];
+  for (const r of rows) {
+    let a = r.y;
+    r.by.forEach((v, i) => { if (v) { bands.push({p: r.p, i, v, a, b: to[i]}); a += v * U; to[i] += v * U; } });
+  }
+  for (const {p, i, v, a, b} of bands.sort((s, t) => t.v - s.v || s.i - t.i)) el('path', {class: 'band', 'data-p': p, 'data-o': ORIGINS[i],
+    d: `M${x0} ${a}C${xm} ${a} ${xm} ${b} ${A.XR} ${b}V${b + v * U}C${xm} ${b + v * U} ${xm} ${a + v * U} ${x0} ${a + v * U}Z`,
+    fill: tint(HUE[oName(ORIGINS[i])]), stroke: C.bg, 'stroke-width': 1, 'paint-order': 'stroke'}, gBands);
+  // each principle and each origin is a button to its resources; its whole slot answers the pointer
+  for (const r of rows) {
+    const ink = r.total ? C.ink : C.ink2, name = ENABLED_BY[r.p].join(', '), base = r.y0 + r.h / 2 + 4;
+    const g = el('g', {class: 'pick', 'data-p': r.p, tabindex: 0, role: 'button', 'aria-label': `${r.p}, ${name}: ${plural(r.total, 'resource', 'resources')}` +
+      (r.total ? ` (${r.by.map((k, i) => `${k} ${oName(ORIGINS[i]).toLowerCase()}`).join(', ')})` : '')}, alluv);
+    el('rect', {x: A.XB + 4, y: r.y0, width: x0 - A.XB - 4, height: r.h, fill: 'transparent'}, g);
+    el('rect', {x: A.XL, y: r.y, width: A.NW, height: r.total * U, fill: C.ink}, g);
+    text(A.XC, base, SCREEN.BIG, r.p, {'font-weight': 600, fill: ink}, g);
+    text(A.XC + 42, base, SCREEN.FS, name, {fill: ink}, g);
+    text(A.XL - 6, base, SCREEN.FS, r.total, {'text-anchor': 'end', fill: ink}, g);
+  }
+  ORIGINS.forEach((o, i) => {
+    const k = enablers(null, o).length, name = oName(o), mid = at[i] + high[i] / 2;
+    const g = el('g', {class: 'pick', 'data-o': o, tabindex: 0, role: 'button', 'aria-label': `${name}: ${plural(k, 'resource', 'resources')}`}, alluv);
+    el('rect', {x: A.XR, y: Math.min(at[i], mid - 16), width: A.W - A.XR - 4, height: Math.max(high[i], 32), fill: 'transparent'}, g);
+    el('rect', {x: A.XR, y: at[i], width: A.NW * 1.5, height: high[i], fill: HUE[name]}, g);
+    text(xr, mid - 2, SCREEN.BIG, name, {'font-weight': 600, fill: k ? C.ink : C.ink2}, g);
+    text(xr, mid + 13, SCREEN.FS, plural(k, 'resource', 'resources'), {fill: C.ink2}, g);
+  });
+  text(A.XC, 16, SCREEN.SMALL, 'FAIR principle and the FER type that enables it', {fill: C.ink2});
+  text(xr, 16, SCREEN.SMALL, 'Origin', {fill: C.ink2});
+  const H = Math.ceil(bottom + 14), all = enablers().length, seen = NODES.filter(n => n.shown && matches(n)).length;
+  bg.setAttribute('height', H);
+  alluv.setAttribute('viewBox', `0 0 ${A.W} ${H}`);
+  alluv.setAttribute('aria-label', `FAIR principles that ${plural(all, 'resource', 'resources')} of the timeline${state.q.length ? ' matching the search' : ''} ` +
+    `${all === 1 ? 'enables' : 'enable'}, by origin. Resources per principle: ` +
+    `${rows.map(r => `${r.p} ${r.total}`).join(', ')}. Select a principle or an origin for its resources; the Resources view lists all resources.`);
+  $('notes').textContent = `${all} of the ${plural(seen, 'resource', 'resources')} in the timeline${state.q.length ? ' matching the search' : ''} ` +
+    `${all === 1 ? 'enables' : 'enable'} a FAIR principle. A resource counts under each principle that one of its FSR types enables in the FIP ontology: ` +
+    'the bands count a resource once for each of its principles, the numbers on the right once. Select a band, a principle or an origin for its resources.';
+}
+// Pointing at a band, a principle or an origin lights its bands and fades the others; so does what is chosen.
+function light(s) {
+  alluv.querySelectorAll('.band').forEach(b => b.classList.toggle('on', !!s && (!s.p || b.dataset.p === s.p) && (!s.o || b.dataset.o === s.o)));
+}
+const chosen = ev => { const g = ev.target.closest && ev.target.closest('.band, .pick'); return g ? {p: g.dataset.p, o: g.dataset.o} : null; };
+alluv.addEventListener('pointermove', ev => {
+  const s = chosen(ev);
+  light(s || state.pick);
+  if (s) showTip(heading(s), plural(enablers(s.p, s.o).length, 'resource', 'resources'), ev.clientX, ev.clientY); else hideTip();
+});
+alluv.addEventListener('pointerleave', () => { hideTip(); light(state.pick); });
+// on the box, not the figure: a figure that listens for the focus becomes a stop of its own for the Tab key
+alluv.parentNode.addEventListener('focusin', ev => light(chosen(ev) || state.pick));
+alluv.parentNode.addEventListener('focusout', () => light(state.pick));
+alluv.addEventListener('click', ev => { const s = chosen(ev); if (s) pick(s); });
+alluv.addEventListener('keydown', ev => {
+  const s = chosen(ev);
+  if (s && (ev.key === 'Enter' || ev.key === ' ')) { ev.preventDefault(); pick(s); }
+});
+// What is chosen opens its resources in the details panel, by origin, each a button to its own details.
+function pick(s, focus = true) {
+  const lists = ORIGINS.filter(o => !s.o || o === s.o).map(o => [o, enablers(s.p, o).sort(byName)]).filter(([, ns]) => ns.length);
+  state.pick = state.last = s;
+  state.sel = null;
+  $('panel').innerHTML = `<div class="p-head"><h2 id="p-name" tabindex="-1">${esc(heading(s))}</h2><button type="button" class="close" data-close aria-label="Close the details">×</button></div>` +
+    `<p class="m">${plural(lists.reduce((k, [, ns]) => k + ns.length, 0), 'resource', 'resources')} whose FSR types enable ${s.p ? link(META.principleIri[s.p], s.p) : 'a FAIR principle'}</p>` +
+    lists.map(([o, ns]) => (s.o ? '' : `<h3>${esc(oName(o))} · ${ns.length}</h3>`) +
+      `<ul class="rel">${ns.map(n => `<li><button type="button" data-key="${esc(n.key)}"><u>${esc(n.name)}</u></button></li>`).join('')}</ul>`).join('');
+  $('panel').hidden = false;
+  $('viz').classList.add('open');
+  hideTip();
+  paint();
+  light(s);
+  if (focus) $('p-name').focus();
+}
 
 // The list: the resources that pass the filters and match the search, sortable by any column.
 const COLS = [
@@ -801,7 +950,14 @@ $('f-sub').addEventListener('change', ev => { state.sub = ev.target.value; rende
 $('f-src').addEventListener('change', ev => { state.src = ev.target.value; render(); });
 ['t-links', 't-fip'].forEach(id => $(id).addEventListener('change', render));
 $('f-mode').addEventListener('change', render);
-$('q').addEventListener('input', ev => { state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean); paint(); table(); notes(); });
+$('view').addEventListener('change', () => { alluv.parentNode.scrollLeft = 0; render(); });   // a new view starts at its left
+// the skip links lead to the list, a view of its own
+for (const a of document.querySelectorAll('.skip')) a.addEventListener('click', () => { $('v-list').checked = true; render(); });
+$('q').addEventListener('input', ev => {   // the timeline dims what does not match; the FER typology counts what does
+  state.q = ev.target.value.toLowerCase().split(/\s+/).filter(Boolean);
+  if (typologyOn()) return render();
+  paint(); table(); notes();
+});
 
 function save(text, name) {
   const a = document.createElement('a');
@@ -810,16 +966,17 @@ function save(text, name) {
   document.body.append(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
-function svgText() {  // the screen figure as drawn, without the search and selection dimming
-  const svg = fig.cloneNode(true), box = fig.viewBox.baseVal;
+function svgText() {  // the screen figure in view as drawn, without the search and selection dimming
+  const cur = typologyOn() ? alluv : fig, svg = cur.cloneNode(true), box = cur.viewBox.baseVal;
   svg.setAttribute('width', box.width); svg.setAttribute('height', box.height);
   svg.querySelectorAll('[style]').forEach(e => e.removeAttribute('style'));
   return '<?xml version="1.0" encoding="UTF-8"?>\n' + new XMLSerializer().serializeToString(svg);
 }
 $('b-export').addEventListener('click', () => {
   hideTip();
-  save(svgText(), 'fair-tox-ecosystem.svg');
-  $('export-msg').textContent = 'Saved fair-tox-ecosystem.svg.';
+  const name = typologyOn() ? 'fair-tox-fer-typology.svg' : 'fair-tox-ecosystem.svg';
+  save(svgText(), name);
+  $('export-msg').textContent = `Saved ${name}.`;
 });
 $('b-print').addEventListener('click', () => {
   hideTip();
@@ -835,15 +992,32 @@ function render() {
   // closed, the fold still says how many of its filters hide resources
   const set = [...$('more').querySelectorAll('input')].filter(i => i.checked !== i.defaultChecked && !i.closest('[hidden]')).length;
   $('more-n').textContent = set ? ` (${set} active)` : '';
-  draw(); table();
+  // one view at a time: a figure with its note, the list, or the text about the data, which nothing filters
+  const view = document.querySelector('#view :checked').value, timeline = view === 'timeline', on = typologyOn();
+  fig.toggleAttribute('hidden', !timeline);
+  alluv.toggleAttribute('hidden', !on);
+  $('viz').hidden = $('notes').hidden = !timeline && !on;
+  $('list').hidden = view !== 'resources';
+  $('about').hidden = view !== 'about';
+  document.querySelector('.controls').hidden = view === 'about';
+  $('b-export').parentNode.hidden = !timeline && !on;   // the exports are of the figure in view,
+  $('b-print').parentNode.hidden = !timeline;           // the publication export of the timeline alone
+  // so are the settings of how it is drawn: the arrangement of its lanes, its relations and the FIP declarations
+  for (const e of [$('f-mode'), $('t-links').parentNode, $('t-fip').parentNode]) e.hidden = !timeline;
+  if (timeline) draw(); else if (on) alluvial(); else mark();
+  table();
   if (state.sel && !byKey[state.sel].pass) closePanel();   // a filter hid the selected resource: undim the figure
+  if (state.pick) on ? pick(state.pick, false) : closePanel();   // what was chosen keeps its panel, with its resources now
 }
 header(); dictionary(); render();
 // The fragment opens its resource (https://w3id.org/fair-tox/dataset#ctd) or its term in the data dictionary
-// (https://w3id.org/fair-tox/terms#phase-data-generation); any other fragment does nothing.
-const hash = location.hash.slice(1), term = $(hash);
+// (https://w3id.org/fair-tox/terms#phase-data-generation), or shows a view (#fer-typology); any other fragment
+// does nothing.
+const hash = location.hash.slice(1), term = $(hash), view = hash === 'list' ? $('v-list') : document.querySelector(`#view [value="${CSS.escape(hash)}"]`);   // #list: where the skip links lead
 if (Object.hasOwn(byKey, hash)) select(hash);
-else if (term && $('dict').contains(term)) { term.closest('details').open = true; term.scrollIntoView(); }
+else if (term && $('dict').contains(term)) { $('v-about').checked = term.closest('details').open = true; render(); term.scrollIntoView(); }
+else if (view) { view.checked = true; render(); }
+addEventListener('pageshow', ev => ev.persisted || render());   // a return by the history restores the controls after this script ran
 </script>
 </body>
 </html>

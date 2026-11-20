@@ -172,6 +172,8 @@ def page_meta(doc):
         'classDef': {CLASSES[k]: v for k, v in CLASS_DEF.items()},
         'typeIri': {v: k for k, v in type_labels().items()},   # label -> term, the links in the details
         'principleIri': fip.principles(),   # F1 -> the FAIR principle's term
+        # group -> principle -> the FER types that enable it alone: the rows of the FER typology view
+        'principles': {g: {p: model.principle_names()[p] for p in ps} for g, ps in model.PRINCIPLES.items()},
         'ontologyIri': model.fip_ontology_version_iri(),   # the version read, linked in the About text
         'fairPublished': model.FAIR_PUBLISHED, 'license': doc['license'],   # the figure's marker; the licences
         # the Source filter's options: the curators, the collection, then the FIPs in the dataset
