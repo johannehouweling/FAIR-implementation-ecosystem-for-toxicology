@@ -23,8 +23,7 @@ ORIGINS = list(COLOUR)                                         # top to bottom o
 drawn = [r for r in model.normalise(model.load())['hasPart'] if model.in_figure(r)]
 enabling = {p: [r for r in drawn if p in r.get('principles', [])] for p in model.PRINCIPLE_ORDER}
 count = {p: {o: sum(r['origin'] == o for r in rs) for o in ORIGINS} for p, rs in enabling.items()}
-label = {p: ', '.join(sorted(model.fsr_types()[t][0] for t, (_, own) in model.enables().items() if own == {p}))
-         for p in count}
+label = {p: ', '.join(names) for p, names in model.principle_names().items()}
 resources = {o: len({r['@id'] for rs in enabling.values() for r in rs if r['origin'] == o}) for o in ORIGINS}
 
 font_manager.findfont('Arial', fallback_to_default=False)      # stops here when Arial is missing

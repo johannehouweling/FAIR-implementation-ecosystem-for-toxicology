@@ -38,9 +38,37 @@ class SiteTest(TempDir):
                          (model.FAIR_PUBLISHED, model.LICENSE['name']))
         self.assertIn(str(model.FAIR_PUBLISHED), dict((f, d) for f, d, v in site.FIELDS)['buildsOnFair'])
         self.assertNotIn('FAIR principles published, 2016', html)   # the marker is drawn from META.fairPublished
+        # the FER typology view draws the model's principles, each named by the FSR types that enable it alone
+        self.assertEqual({g: list(ps) for g, ps in meta['principles'].items()}, model.PRINCIPLES)
+        self.assertEqual(meta['principles']['Findable']['F4'], ['Registry'])
         for code in ('const fair = META.fairPublished;', '`FAIR principles published, ${fair}`',
-                     "$('lic').innerHTML = link(META.license.url, META.license.name);"):
+                     "$('lic').innerHTML = link(META.license.url, META.license.name);",
+                     'Object.entries(META.principles)', 'value="fer-typology"', '> FER typology</label>', 'id="alluvial"'):
             self.assertIn(code, html)
+
+    def test_the_page_counts_principles_as_the_figure_script_does(self):
+        # run in a browser: the FER typology view of the page counts what figures/fig2_fers.py counts, the resources
+        # the figure draws (model.in_figure) under each principle of theirs, by origin
+        try:
+            from playwright.sync_api import sync_playwright
+        except ImportError:
+            self.skipTest('needs the figures group and Google Chrome: uv sync --all-groups')
+        doc = fixture()
+        by = {r['key']: r for r in doc['hasPart']}
+        by['exo']['fsrType'], by['ctd']['fsrType'] = [model.FIP + 'Structured-vocabulary'], [model.FIP + 'Persistency-Policy']
+        self.build(doc)
+        drawn = [r for r in model.normalise(doc)['hasPart'] if model.in_figure(r)]   # ctd; not exo, exposome only
+        want = {p: {o: sum(p in r.get('principles', []) and r['origin'] == o for r in drawn) for o in model.ORIGIN}
+                for p in model.PRINCIPLE_ORDER}
+        with sync_playwright() as pw:
+            browser = pw.chromium.launch(channel='chrome')
+            page = browser.new_page(offline=True)   # the page links FAIRsharing's attribution image: no request
+            page.goto(pathlib.Path(self.path('site'), 'index.html').as_uri() + '#fer-typology')
+            got = page.evaluate('Object.fromEntries(Object.keys(ENABLED_BY).map(p => '
+                                '[p, Object.fromEntries(ORIGINS.map(o => [o, enablers(p, o).length]))]))')
+            browser.close()
+        self.assertEqual(got, want)
+        self.assertEqual(want['F4']['Toxicology'], 1)
 
     def test_public_build_holds_included_resources_only(self):
         doc = fixture()

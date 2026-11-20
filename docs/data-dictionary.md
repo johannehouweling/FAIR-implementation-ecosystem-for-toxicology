@@ -64,7 +64,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `qualifiedAttribution` |  | `prov:qualifiedAttribution` | Derived from `creatorType`: one `prov:Attribution` per creator type, whose `dcat:hadRole` is its concept. |
 | `buildsOnFair` | Builds on FAIR |  | Derived: true for a toxicology resource that builds on FAIR (criteria, section 6). |
 | `fsrCategory` | Class |  | Derived from `fsrType`: FAIR-Enabling Resource or FAIR Supporting Resource (criteria, section 6). |
-| `principles` | Principles |  | Derived: the FAIR principles the resource's FSR types enable in the FIP ontology, in FAIR order; empty when they enable none. The sheet's Principles tab counts them. |
+| `principles` | Principles |  | Derived: the FAIR principles the resource's FSR types enable in the FIP ontology, in FAIR order; empty when they enable none. The sheet's Principles tab and the dashboard's FER typology view count them. |
 | `declaredIn` | Declared in |  | Added at build time from the FIP declarations: the FIPs that declare the resource (below). |
 | `fsr` | FIP identifiers | `schema:sameAs` | Stored by `fairtox fip --apply`: the IRIs under which the FIPs declare the resource, when they differ from its `@id`. Replaced on each import. |
 | `subdomains` | Sub-domains (multi-select) | `schema:about` | Sub-domains that apply (list below). |
@@ -346,7 +346,7 @@ Each list with terms of the dataset (phase, sub-domains, maintained, relation la
 
 The FAIRsharing type stays text (`schema:additionalType`), as FAIRsharing publishes no IRIs for its registries and record types.
 
-`fairtox site <outdir>` writes the terms as `terms.ttl` and `terms.jsonld`, and the context as `context.jsonld`, next to the dashboard's `index.html`; CI publishes them with the dashboard. In the dashboard's data dictionary each field shows its term and has an anchor, its name; each term of the dataset has an anchor, its name, where its IRI lands (`#phase-data-generation`, `#implements`); and a resource's `#key` opens that resource (`#ctd`).
+`fairtox site <outdir>` writes the terms as `terms.ttl` and `terms.jsonld`, and the context as `context.jsonld`, next to the dashboard's `index.html`; CI publishes them with the dashboard. In the dashboard's data dictionary each field shows its term and has an anchor, its name; each term of the dataset has an anchor, its name, where its IRI lands (`#phase-data-generation`, `#implements`); a resource's `#key` opens that resource (`#ctd`); and `#timeline`, `#fer-typology`, `#resources` and `#about` show those tabs.
 
 ## Change log
 

@@ -618,6 +618,11 @@ def enables():
             for t, (_, _, fer) in fsr_types().items() if fer}
 
 
+def principle_names():
+    """Principle -> the names of the FER types that enable that principle alone, by which the figures name it."""
+    return {p: sorted(fsr_types()[t][0] for t, (_, own) in enables().items() if own == {p}) for p in PRINCIPLE_ORDER}
+
+
 def fs_ref(value):
     """Normalise a FAIRsharing reference (DOI, URL, code, numeric id or legacy bsg- id) to 'FAIRsharing.xxx', a numeric
     string or 'bsg-xxx'."""
