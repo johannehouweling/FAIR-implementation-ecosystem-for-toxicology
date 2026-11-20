@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.2.0...v1.2.1) (2026-11-20)
+
+
+### Dashboard and code
+
+* **dashboard:** caption the timeline, name the curators in the introduction and widen the lane bars ([4c730a5](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/4c730a5b61a24d29e7ede7d01ef82ae80ece98b3))
+* **dashboard:** cite the dataset as Zenodo does, with a button to copy the citation ([2b8bfc9](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/2b8bfc9dbc70ebbcd922ceffea2b5df4bf55842a))
+* **dashboard:** colour the relations by lane, with arrows only for lineage within toxicology ([f5cd06a](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/f5cd06aaa1d03b3856417118d5d05d8b23421c12))
+* **dashboard:** name and link FAIRsharing and the FIPs in the header ([63ab19c](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/63ab19c5d21351da738b04cb1dd91a18a069d252))
+* **dashboard:** say in the timeline's caption what its arrows and its lines are ([327632c](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/327632cb1feec1be86a7af0404f8a986d439fae3))
+* **dashboard:** show the timeline, the FER typology, the resources and the about text in tabs ([7f67a05](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/7f67a055837002a6763fad576a5f0ca45e48cf4b))
+* show only released versions on the dashboard and link each to its Zenodo DOI ([db83d52](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/db83d52831b996e865bf8519fd3fea0d2fba69a7))
+
+
+### Documentation
+
+* raise the middle number of the version for data and the last for any other change ([fd96b53](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/fd96b530adcd70c49cf55e033582f0494c495025))
+
 ## [1.2.0](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.1.1...v1.2.0) (2026-11-16)
 
 
