@@ -475,7 +475,7 @@ function figure(G, svg) {
     el('rect', {x: extra['text-anchor'] === 'end' ? x - w : x, y: y - size * .85, width: w, height: size * 1.1, fill: C.bg}, parent);
     return text(x, y, size, s, extra, parent);
   };
-  const arrow = (x, y, parent, deg = 0, fill = C.edge) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill,
+  const arrow = (x, y, parent, deg) => el('path', {d: `M${x} ${y}l${-a} ${-a / 2}v${a}Z`, fill: ARROW,
     ...(deg ? {transform: `rotate(${deg} ${x} ${y})`} : {})}, parent);
 
   for (const b of lanes.slice(1)) el('path', {d: `M${G.M + 4 * u} ${b.y0 - G.SEP / 2}H${G.W - G.RIGHT}`, stroke: C.grid, 'stroke-width': sw}, svg);
@@ -506,15 +506,15 @@ function figure(G, svg) {
   // the target still lies to its right, else on the left, and comes round on the left; so it never starts where links
   // into the source end. Between two resources on one track it runs half a track above, clear of labels and markers,
   // when the target is close, labelled on its left or behind other resources of the track.
-  // In print only lineage within the toxicology infrastructure is dark, an arrow; every other relation is a light line
-  // in a tint of the colour of the upper lane it links, drawn first, under the arrows.
-  const dark = l => !G.print || l.lineage && [l.src, l.dst].every(k => origin(laneOf(byKey[k])) === 'Toxicology');
+  // Only lineage within the toxicology infrastructure is dark, an arrow; every other relation is a light line in a
+  // tint of the colour of the upper lane it links, drawn first, under the arrows.
+  const dark = l => l.lineage && [l.src, l.dst].every(k => origin(laneOf(byKey[k])) === 'Toxicology');
   const gLinks = el('g', {fill: 'none'}, svg), pt = xy => xy.join(' '), q = Math.SQRT1_2, j = 4 * u;
   let nLinks = 0;
   if ($('t-links').checked) for (const l of links.sort((x, y) => dark(x) - dark(y))) {
     let s = byKey[l.src], t = byKey[l.dst];
     if (!l.lineage && t.x < s.x) [s, t] = [t, s];
-    const rs = rad(s, G) + u, rt = rad(t, G) + 3 * u, h = l.lineage && dark(l) ? a / 2 : 0, k = 28 * u;   // h: the line stops mid-arrowhead
+    const rs = rad(s, G) + u, rt = rad(t, G) + 3 * u, h = dark(l) ? a / 2 : 0, k = 28 * u;   // h: the line stops mid-arrowhead
     const flat = Math.abs(t.y - s.y) < G.TRACK / 2, back = t.x - rt - h < s.x + rs + 2 * k;
     const blocked = flat && shown.some(n => n !== s && n !== t && Math.abs(n.y - s.y) < 1 && n.r > Math.min(s.x, t.x) && n.l < Math.max(s.x, t.x));
     const v = flat && (back || t.flip || blocked) ? 1 : t.flip ? Math.sign(t.y - s.y) : 0;   // enter from the left (0), upper (1) or lower (-1) left
@@ -527,11 +527,10 @@ function figure(G, svg) {
     const d = arch ? `M${pt(p0)}Q${pt([p0[0] + side * j, yr])} ${pt([p0[0] + 2 * side * j, yr])}H${e[0] - 2 * j}Q${pt([e[0] - j, yr])} ${pt(e)}`
       : rise ? `M${pt(p0)}C${pt([p0[0], p0[1] + .55 * (e[1] - p0[1])])} ${pt([e[0] - .55 * (e[0] - p0[0]), e[1]])} ${pt(e)}`   // a quarter ellipse
       : `M${pt(p0)}C${pt([p0[0] + side * c, p0[1]])} ${pt(v ? [e[0] - m, e[1] - v * m] : [e[0] - c, e[1]])} ${pt(e)}`;
-    // on screen lineage links are opaque (3.6:1 on white), related ones lighter
-    const g = el('g', G.print ? {} : {class: 'edge', 'data-src': l.src, 'data-dst': l.dst, ...(l.lineage ? {} : {opacity: .45})}, gLinks);
-    const ink = !G.print ? C.edge : dark(l) ? ARROW : tint(HUE[origin(laneOf(s.y < t.y ? s : t))]);
-    const p = el('path', {d, stroke: ink, 'stroke-width': sw * (!dark(l) ? .7 : l.lineage ? 1.2 : .9)}, g);
-    if (l.lineage && dark(l)) arrow(tip[0], tip[1], g, 45 * v, ink);
+    const g = el('g', G.print ? {} : {class: 'edge', 'data-src': l.src, 'data-dst': l.dst}, gLinks);
+    const ink = dark(l) ? ARROW : tint(HUE[origin(laneOf(s.y < t.y ? s : t))]);
+    const p = el('path', {d, stroke: ink, 'stroke-width': sw * (dark(l) ? 1.2 : .7)}, g);
+    if (dark(l)) arrow(tip[0], tip[1], g, 45 * v);
     nLinks++;
   }
   // FIP declarations, on screen only and when switched on: dotted lines from each FIP to the resources it declares
@@ -586,11 +585,11 @@ function figure(G, svg) {
     text(lx + w + 6 * u, ly, G.SMALL, s, {fill: C.ink2});
     lx += w + 6 * u + tw + step;
   };
-  const sample = (lineage, dash) => (x, y) => {
-    const g = el('g', lineage ? {} : {opacity: .45}, svg), end = x + 28 * u;
-    el('path', {d: `M${x} ${y}H${lineage ? end - a / 2 : end}`, fill: 'none', stroke: C.edge, 'stroke-width': sw * (lineage ? 1.2 : .9),
-      ...(dash ? {'stroke-dasharray': dash} : {})}, g);
-    if (lineage) arrow(end, y, g);
+  const sample = arrowed => (x, y) => {   // the two kinds of line as drawn: the arrow, and a light line in the four tints
+    const end = x + 28 * u;
+    if (!arrowed) return Object.values(HUE).forEach((c, i) => el('path', {d: `M${x + i * 7 * u} ${y}h${7 * u}`, stroke: tint(c), 'stroke-width': sw * .7}, svg));
+    el('path', {d: `M${x} ${y}H${end - a / 2}`, stroke: ARROW, 'stroke-width': sw * 1.2}, svg);
+    arrow(end, y, svg);
   };
   for (const [k, name] of TYPES) item(2 * G.R, (x, y) => {
     const s = shape(k, x + G.R, y, G.R, svg);
@@ -600,8 +599,8 @@ function figure(G, svg) {
   item(textWidth('†', G.SMALL), (x, y) => text(x, y + mid, G.SMALL, '†', {fill: C.ink2}), 'No longer maintained');
   if (shown.some(italic)) item(textWidth('Italic', G.SMALL, 'italic '), (x, y) => text(x, y + mid, G.SMALL, 'Italic', {fill: C.ink2, 'font-style': 'italic'}),
     'label: toxicology resource building on FAIR');
-  item(28 * u, sample(true), 'Points to the resource that builds on or uses the other');
-  item(28 * u, sample(false), 'Related');
+  item(28 * u, sample(true), 'Within toxicology: points to the resource that builds on or uses the other');
+  item(28 * u, sample(false), 'Other relations, in the colour of the upper lane');
   if (fipOn) item(28 * u, (x, y) => el('path', {d: `M${x} ${y}H${x + 28 * u}`, ...dots}, svg), 'Declared in a FIP');
   return finish(Math.ceil(ly + G.SMALL * .5 + 10 * u));
 }
