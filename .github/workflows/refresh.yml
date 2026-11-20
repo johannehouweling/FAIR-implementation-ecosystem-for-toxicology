@@ -89,7 +89,7 @@ jobs:
           branch: data-refresh
           delete-branch: true
           author: 'github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>'
-          commit-message: 'fix(data): refresh ${{ steps.day.outputs.day }}'
+          commit-message: 'feat(data): refresh ${{ steps.day.outputs.day }}'
           title: Data refresh ${{ steps.day.outputs.day }}
           body-path: build/refresh.md
       - name: Show the report

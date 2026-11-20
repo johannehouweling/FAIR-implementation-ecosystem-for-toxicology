@@ -194,7 +194,7 @@ Each excluded row carries exactly one code.
 5. **Release.** A version is released by merging the release pull request (README, Data flow); CI makes the release
    only after the tests pass and `fairtox validate --strict` finds no error or warning. The dashboard changes only
    with a release, once for each version, and Zenodo archives that version, so the dashboard shows a version Zenodo
-   holds.
+   holds. The middle number of a version rises when the data changed, the last number for any other change.
 
 ## 8. Decision record
 
@@ -252,6 +252,7 @@ Each excluded row carries exactly one code.
 | 15 Nov 2026 | The dashboard draws a resource whose sub-domains are all outside scope when a visitor chooses one of its sub-domains; without that choice it stays in the list only, and the figure and the analysis leave it out as before. A visitor who chose exposome saw 6 of its 23 resources. | Jente Houweling |
 | 16 Nov 2026 | The data refresh runs once a week, on Monday, instead of three times a day (18 Oct 2026), which puts less load on FAIRsharing, read in the same run. A read-back can also be started by hand. | Jente Houweling |
 | 20 Nov 2026 | The dashboard changes only with a release, once for each version, and its repository makes the release that Zenodo archives, so the dashboard shows the version Zenodo holds and links its DOI. Until now every merge to main changed the dashboard and its release was made by hand, which was once missed. | Jente Houweling |
+| 20 Nov 2026 | The middle number of a version rises when the data changed and the last number for any other change (dashboard, code, documentation), because the data matter most to who cites the dataset. Until 1.2.0 a new feature raised the middle number and a data refresh the last. | Jente Houweling |
 
 ## 9. Limitations
 
