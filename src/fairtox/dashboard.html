@@ -114,7 +114,7 @@ td:nth-child(4) { white-space: nowrap; }
 
 .about { padding-top: 8px; }
 .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 6px 40px; }
-.about h3 { margin-top: 10px; }
+.about h3, .about .cols > div > p:first-child { margin-top: 10px; }   /* the columns start level, with or without a heading */
 .about p, .about dl { margin: 3px 0 0; color: var(--ink-2); max-width: 66ch; }
 .about dt { margin-top: 6px; color: var(--ink); font-weight: 500; }
 .about dd { margin: 0; }
@@ -143,7 +143,7 @@ button.btn:hover { border-color: var(--ink); }
 <div class="page">
   <header>
     <h1 id="title">FAIR implementation ecosystem for toxicology</h1>
-    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR). Each resource sits at the year it was first published: generic and life-science resources in a lane each, toxicology resources in the lane of the data life-cycle phase they act on (the earliest, if several) or, when the lanes are arranged by creator, of who made them. Lines show which resources build on others.</p>
+    <p class="lede">Standards, databases, policies and tools that make toxicology data findable, accessible, interoperable and reusable (FAIR), curated by the <a href="https://elixir-europe.org/communities/toxicology">ELIXIR Toxicology Community</a>.</p>
     <p class="meta" id="meta"></p>
   </header>
 
@@ -180,6 +180,7 @@ button.btn:hover { border-color: var(--ink); }
     <div class="figure"><svg id="fig" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Timeline of the FAIR implementation ecosystem for toxicology"></svg><svg id="alluvial" xmlns="http://www.w3.org/2000/svg" role="group" hidden></svg></div>
     <aside id="panel" class="panel" aria-label="Details of the selection" hidden></aside>
   </div>
+  <p class="notes" id="how">Each resource sits at the year it was first published: generic and life-science resources in a lane each, toxicology resources in the lane of the data life-cycle phase they act on (the earliest, if several) or, when the lanes are arranged by creator, of who made them. Lines show which resources build on others.</p>
   <p class="notes" id="notes" aria-live="polite"></p>
 
   <section id="list" class="list" tabindex="-1" aria-labelledby="list-h">
@@ -192,10 +193,9 @@ button.btn:hover { border-color: var(--ink); }
   </section>
 
   <section id="about" class="about" aria-labelledby="about-h">
-    <h2 id="about-h">About the data</h2>
+    <h2 id="about-h" class="sr">About the data</h2>
     <div class="cols">
     <div>
-      <h3>What is listed</h3>
       <p>Standards, databases, policies and guidance, collections, and tools or services that make data or metadata findable, accessible, interoperable or reusable, each typed as a FAIR-Enabling Resource or another FAIR Supporting Resource. Projects, initiatives and communities are not listed themselves, only the resources they made, except communities with a registered FAIR Implementation Community nanopublication: these are in the Resources list but not in the timeline.</p>
       <h3>Sources and types</h3>
       <p>Curation by the ELIXIR Toxicology Community, the <a id="coll" href="https://fairsharing.org">FAIRsharing Toxicology collection</a> and the toxicology FAIR Implementation Profiles (FIPs), whose declarations name the resources their communities use; the Source filter shows the resources of one source. Types follow the FAIRsharing registries; software and services, which FAIRsharing does not register, are listed as tools. FAIRsharing metadata, the FIP declarations and the registered names of creators given as ORCID or ROR links are read when the page is built; this version read FAIRsharing on <span class="num" id="fs-read"></span> and the FIPs on <span class="num" id="fip-read"></span>.</p>
@@ -553,8 +553,8 @@ function figure(G, svg) {
   // lane titles, on screen in italics, apart from the bold names along the bars
   for (const b of lanes) if (b.title) clear(G.M + 12 * u, b.y0 + G.HEAD * .62, G.BIG, b.title,
     G.print ? {'font-weight': bold} : {'font-style': 'italic'}, svg, bold + ' ');
-  // a bar in the colour of each infrastructure, along its lanes, and its name, reading upwards, where it fits and the
-  // title of a generic lane does not stand in for it
+  // a bar in the colour of each infrastructure, along its lanes, on screen as wide as the bars of the FER typology,
+  // and its name, reading upwards, where it fits and the title of a generic lane does not stand in for it
   const runs = [];
   for (const b of lanes) {
     const r = runs.at(-1), name = origin(b.lane), said = !!b.title && !TOX.has(b.lane);
@@ -562,7 +562,7 @@ function figure(G, svg) {
   }
   for (const {name, y0, y1, said} of runs) {
     const x = G.M - 8 * u, mid = (y0 + y1) / 2, len = textWidth(name, G.BIG, bold + ' ', G.FACES) + 2;
-    el('path', {d: `M${G.M} ${y0}V${y1}`, stroke: HUE[name], 'stroke-width': sw * 3}, svg);
+    el('path', {d: `M${G.M} ${y0}V${y1}`, stroke: HUE[name], 'stroke-width': G.print ? sw * 3 : A.NW}, svg);
     if (said || len > y1 - y0) continue;
     el('rect', {x: x - G.BIG * .8, y: mid - len / 2, width: G.BIG * 1.06, height: len, fill: C.bg}, svg);   // as behind labels
     text(x, mid, G.BIG, name, {transform: `rotate(-90 ${x} ${mid})`, 'text-anchor': 'middle', 'font-weight': bold});
@@ -1013,8 +1013,8 @@ function render() {
   document.querySelector('.controls').hidden = view === 'about';
   $('b-export').parentNode.hidden = !timeline && !on;   // the exports are of the figure in view,
   $('b-print').parentNode.hidden = !timeline;           // the publication export of the timeline alone
-  // so are the settings of how it is drawn: the arrangement of its lanes, its relations and the FIP declarations
-  for (const e of [$('f-mode'), $('t-links').parentNode, $('t-fip').parentNode]) e.hidden = !timeline;
+  // so are how to read it and the settings of how it is drawn: the arrangement of its lanes, its relations and the FIP declarations
+  for (const e of [$('how'), $('f-mode'), $('t-links').parentNode, $('t-fip').parentNode]) e.hidden = !timeline;
   if (timeline) draw(); else if (on) alluvial(); else mark();
   table();
   if (state.sel && !byKey[state.sel].pass) closePanel();   // a filter hid the selected resource: undim the figure
