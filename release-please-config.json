@@ -4,8 +4,8 @@
   "include-component-in-tag": false,
   "bump-minor-pre-major": true,
   "changelog-sections": [
-    {"type": "feat", "section": "Features"},
-    {"type": "fix", "section": "Fixes"},
+    {"type": "feat", "section": "Data"},
+    {"type": "fix", "section": "Dashboard and code"},
     {"type": "docs", "section": "Documentation"}
   ],
   "packages": {

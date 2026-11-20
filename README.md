@@ -49,9 +49,10 @@ FAIRsharing, the Wayback Machine,
 the dataset's own w3id.org identifiers and a few sites that answer no automated client are left out), redraws the
 figures and, on `main`, commits the figures that changed. Then release-please
 keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
-Commits (`feat`, `fix`, `docs`) since the last release. Merging it releases that version: release-please tags it
-and publishes a GitHub release, and the build publishes the dashboard, once for each version, so the dashboard
-always shows a released version.
+Commits (`feat`, `fix`, `docs`) since the last release. A change to the data is committed as `feat(data)` and raises
+the middle number of the version; any other change is a `fix` or `docs` and raises the last. Merging the release
+pull request releases that version: release-please tags it and publishes a GitHub release, and the build publishes
+the dashboard, once for each version, so the dashboard always shows a released version.
 Zenodo archives every release of the dashboard repository, as a dataset, through its GitHub link, and reads its
 `.zenodo.json`, which the build writes: the authors with ORCID iD and affiliation, the licence, the grants, the
 version and a link to this repository. The dashboard repository gets its release, with the same tag, from a workflow
