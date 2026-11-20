@@ -167,7 +167,7 @@ class SiteTest(TempDir):
                      'Regulatory assessment', 'Year first published',
                      'Before 2000', 'window.publicationSVG', '183mm', 'Data dictionary',
                      'as required by the FAIRsharing data they include', 'Toxicology lanes', '> Phase</label>',
-                     'life-cycle phase they act on (the earliest, if several)', "row('Phase'", "row('Span'",
+                     'assigned to the earliest data life-cycle phase they act on', "row('Phase'", "row('Span'",
                      "{t: 'Span'", "{t: 'FSR type'", 'FIP declarations', 'All sources',
                      'Magagna et al. 2024, CEUR-WS Vol-3882', 'are read when the page is built',
                      *model.CREATOR_LANE_DEF):
