@@ -488,9 +488,9 @@ HEADER = ('identifier', 'description', 'inLanguage', 'license', 'creator', 'fund
 
 
 def citation_authors():
-    """The authors as a data citation names them in the journal's style: up to five by name, else the first et al."""
-    names = [f"{a['familyName']}, {''.join(p[0] + '.' for p in a['givenName'].split())}" for a in AUTHORS]
-    return names[0] + ' et al.' if len(names) > 5 else ', '.join(names[:-1]) + ' & ' + names[-1]
+    """The authors as Zenodo cites the dataset: each by family name and initials, the last after an ampersand."""
+    names = [f"{a['familyName']}, {' '.join(p[0] + '.' for p in a['givenName'].split())}" for a in AUTHORS]
+    return ', '.join([*names[:-1], '& ' + names[-1]]) if names[1:] else names[0]
 
 
 def vocabulary(doc):

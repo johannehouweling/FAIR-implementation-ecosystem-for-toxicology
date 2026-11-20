@@ -90,7 +90,8 @@ class RepositoryTest(unittest.TestCase):
         self.assertTrue(cff.rstrip().endswith(f'- name: {model.CREATOR["name"]}'))
         creator = model.load(os.path.join(ROOT, model.DATASET))['creator']['@list']
         self.assertEqual(creator, [*model.AUTHORS, model.CREATOR])
-        self.assertEqual(model.citation_authors(), 'Houweling, J. et al.')
+        cited = model.citation_authors()   # as Zenodo cites the dataset: every author, the last after an ampersand
+        self.assertTrue(cited.startswith('Houweling, J., Mahapatra, I., ') and cited.endswith(', & Morsy, S.'), cited)
 
     def test_the_same_doi_in_citation_cff_and_the_dataset(self):
         with open(os.path.join(ROOT, 'CITATION.cff'), encoding='utf-8') as f:
