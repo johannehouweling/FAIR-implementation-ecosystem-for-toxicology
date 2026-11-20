@@ -27,7 +27,7 @@ button, input, select { font: inherit; }
 .skip.fig-skip { top: 8px; left: 8px; }
 .skip.fig-skip:not(:focus) { clip-path: inset(50%); }
 .m { color: var(--ink-2); }
-.num { font-variant-numeric: tabular-nums; }
+.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .page { box-sizing: border-box; max-width: 1600px; margin: 0 auto; padding: 28px 16px 40px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 h1 { font-size: 25px; line-height: 1.25; font-weight: 650; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
 h2 { font-size: 16px; font-weight: 600; margin: 0; }
@@ -899,8 +899,10 @@ function header() {
   const fs = (META.sources || {}).fairsharing, fip = Object.values(FIPS)[0] || {};
   $('meta').innerHTML = [plural(NODES.length, 'resource', 'resources'), `version <span class="num" id="version">${esc(META.version)}</span>`,
     META.dateModified && `last updated <span class="num">${esc(META.dateModified)}</span>`,
-    fs && fs.retrieved && `FAIRsharing data retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`,
-    fip.retrieved && `FIP declarations retrieved <span class="num">${esc(fip.retrieved)}</span>`].filter(Boolean).join(' · ');
+    // each source links to itself: the FAIRsharing collection, and the nanopublication of each FIP that was read
+    fs && fs.retrieved && `${link(META.collection, 'FAIRsharing resources')} retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`,
+    fip.retrieved && `FIP declarations (${Object.keys(FIPS).filter(k => byKey[k]).map(k => link(byKey[k].url, short(byKey[k]))).join(', ')}) ` +
+      `retrieved <span class="num">${esc(fip.retrieved)}</span>`].filter(Boolean).join(' · ');
   $('fs-read').textContent = String((fs || {}).retrieved || '').slice(0, 10);
   $('fip-read').textContent = fip.retrieved || '';
   $('onto').innerHTML = fip.ontology ? link(META.ontologyIri, fip.ontology) : '';
