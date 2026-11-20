@@ -192,7 +192,9 @@ Each excluded row carries exactly one code.
    edited replaces its relation; a relation whose line is deleted is left unchanged and listed in the pull request, and
    Keep set to remove drops it.
 5. **Release.** A version is released by merging the release pull request (README, Data flow); CI makes the release
-   only after the tests pass and `fairtox validate --strict` finds no error or warning.
+   only after the tests pass and `fairtox validate --strict` finds no error or warning. The dashboard changes only
+   with a release, once for each version, and Zenodo archives that version, so the dashboard shows a version Zenodo
+   holds.
 
 ## 8. Decision record
 
@@ -249,6 +251,7 @@ Each excluded row carries exactly one code.
 | 14 Nov 2026 | A single data usage licence is not a row of its own: the SPDX License List, which lists it, covers it (E6). The MIT License and the Open Data Commons Open Database License, both declared in the PARC Toxicology FIP, are excluded so. | Jente Houweling |
 | 15 Nov 2026 | The dashboard draws a resource whose sub-domains are all outside scope when a visitor chooses one of its sub-domains; without that choice it stays in the list only, and the figure and the analysis leave it out as before. A visitor who chose exposome saw 6 of its 23 resources. | Jente Houweling |
 | 16 Nov 2026 | The data refresh runs once a week, on Monday, instead of three times a day (18 Oct 2026), which puts less load on FAIRsharing, read in the same run. A read-back can also be started by hand. | Jente Houweling |
+| 20 Nov 2026 | The dashboard changes only with a release, once for each version, and its repository makes the release that Zenodo archives, so the dashboard shows the version Zenodo holds and links its DOI. Until now every merge to main changed the dashboard and its release was made by hand, which was once missed. | Jente Houweling |
 
 ## 9. Limitations
 

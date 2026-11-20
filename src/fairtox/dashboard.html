@@ -897,18 +897,28 @@ function header() {
   document.title = $('title').textContent = META.title;
   $('lic').innerHTML = link(META.license.url, META.license.name);
   const fs = (META.sources || {}).fairsharing, fip = Object.values(FIPS)[0] || {};
-  $('meta').innerHTML = [plural(NODES.length, 'resource', 'resources'), `version <span class="num">${esc(META.version)}</span>`,
+  $('meta').innerHTML = [plural(NODES.length, 'resource', 'resources'), `version <span class="num" id="version">${esc(META.version)}</span>`,
     META.dateModified && `last updated <span class="num">${esc(META.dateModified)}</span>`,
     fs && fs.retrieved && `FAIRsharing data retrieved <span class="num">${esc(String(fs.retrieved).slice(0, 10))}</span>`,
     fip.retrieved && `FIP declarations retrieved <span class="num">${esc(fip.retrieved)}</span>`].filter(Boolean).join(' · ');
   $('fs-read').textContent = String((fs || {}).retrieved || '').slice(0, 10);
   $('fip-read').textContent = fip.retrieved || '';
   $('onto').innerHTML = fip.ontology ? link(META.ontologyIri, fip.ontology) : '';
-  // the journal's data citation: Authors. Title, version. Repository URL (year).
+  // the journal's data citation: Authors. Title, version. Repository URL (year). The DOI is that of all versions
+  // until Zenodo, asked when the page opens, names the DOI of the version shown, to which the version above then
+  // links too: Zenodo gives a version its DOI when it archives the release, after the page is built.
   const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '';
-  const [where, url] = doi ? ['Zenodo', doi] : ['GitHub', META.repo];
   const year = String(META.dateModified || '').slice(0, 4) || new Date().getFullYear();
-  $('cite').innerHTML = `${esc(META.authors)} ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`;   // the authors end with a full stop
+  const cite = (where, url) => { $('cite').innerHTML = `${esc(META.authors)} ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`; };   // the authors end with a full stop
+  cite(...(doi ? ['Zenodo', doi] : ['GitHub', META.repo]));
+  const all = /zenodo\.(\d+)$/.exec(doi);
+  if (all) fetch('https://zenodo.org/api/records?all_versions=true&q=' + encodeURIComponent(`conceptrecid:${all[1]} AND metadata.version:"${META.version}"`))
+    .then(r => r.json()).then(found => {
+      const hit = found.hits.hits.find(h => h.metadata.version === META.version);
+      if (!hit) return;
+      cite('Zenodo', 'https://doi.org/' + hit.doi);
+      $('version').innerHTML = link('https://doi.org/' + hit.doi, META.version);
+    }).catch(() => {});   // offline, or no answer: the DOI of all versions stays
   $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
   $('lane-defs').innerHTML = [...META.lanes, ...META.creatorLanes].map(l => `<dt>${esc(l)}</dt><dd>${esc(LANE_DEF[l])}</dd>`).join('');
   if (isUrl(META.collection)) $('coll').href = META.collection;

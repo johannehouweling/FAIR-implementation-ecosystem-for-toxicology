@@ -1,10 +1,13 @@
 name: CI
 
 # Tests and validates every push and pull request. On main it builds the public dashboard and publishes it to the
-# public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy key SITE_DEPLOY_KEY.
+# public repository johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline (GitHub Pages), using the deploy
+# key SITE_DEPLOY_KEY, when that repository has no tag of the version built: once for each version, after its release
+# pull request is merged. A workflow there, which this build keeps in place (.github/dashboard-release.yml), then makes
+# the release with that tag, which Zenodo archives, so the dashboard, the dataset and Zenodo carry the same version.
 # The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, in full once a
 # day (later runs reuse the day's cache; a pull request reuses the last one of any day), and the FIP declarations; a
-# weekly run rebuilds main so the page has the current ones. A build of main that has started is
+# weekly run builds main, and publishes a version that the dashboard still lacks. A build of main that has started is
 # never cancelled, so every published build stays in the history of the dashboard repository.
 # Every build redraws the figures (figures/); a build of main commits them when they changed.
 # After a green build of a push to main, release-please keeps a release pull request open with the next version and
@@ -106,25 +109,6 @@ jobs:
         with:
           path: .lycheecache
           key: links-${{ github.run_id }}-${{ github.run_attempt }}
-      - name: Check out the public dashboard repository
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline
-          ssh-key: ${{ secrets.SITE_DEPLOY_KEY }}
-          path: dashboard
-      - name: Publish the dashboard
-        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
-        run: |
-          rsync -a --delete --exclude .git --exclude README.md --exclude LICENSE --exclude .nojekyll build/site/ dashboard/
-          cp LICENSE-DATA dashboard/LICENSE   # the CC BY-SA 4.0 text verbatim, so GitHub detects the licence
-          cd dashboard
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --cached --quiet; then echo "The dashboard did not change."; exit 0; fi
-          git commit -m "chore(site): publish the dashboard built from ${GITHUB_SHA::7}"
-          git push
       - name: Install Arial for the figures
         # Microsoft's core fonts, whose licence the package asks to accept; the last line fails when they did not arrive
         run: |
@@ -141,6 +125,36 @@ jobs:
         with:
           name: figures
           path: figures
+      - name: Does the dashboard lack this version?
+        # Only then does this build publish; the dashboard repository tags a version once a build has published it.
+        id: version
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          version=$(jq -er .version build/site/.zenodo.json)
+          tag=$(git ls-remote --tags https://github.com/johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline "refs/tags/v$version")
+          if [ -n "$tag" ]; then echo "The dashboard has version $version: this build publishes nothing."; exit 0; fi
+          echo "new=true" >> "$GITHUB_OUTPUT"
+      - name: Check out the public dashboard repository
+        if: steps.version.outputs.new == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline
+          ssh-key: ${{ secrets.SITE_DEPLOY_KEY }}
+          path: dashboard
+      - name: Publish the dashboard
+        if: steps.version.outputs.new == 'true'
+        run: |
+          rsync -a --delete --exclude .git --exclude .github --exclude README.md --exclude LICENSE --exclude .nojekyll build/site/ dashboard/
+          cp LICENSE-DATA dashboard/LICENSE   # the CC BY-SA 4.0 text verbatim, so GitHub detects the licence
+          mkdir -p dashboard/.github/workflows
+          cp .github/dashboard-release.yml dashboard/.github/workflows/release.yml
+          cd dashboard
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "The dashboard did not change."; exit 0; fi
+          git commit -m "chore(site): publish the dashboard built from ${GITHUB_SHA::7}"
+          git push
   figures:
     # Commits the figures that a build of main has drawn, when a drawing or a count changed. The PDF of the timeline
     # carries its build time, so it does not decide.
