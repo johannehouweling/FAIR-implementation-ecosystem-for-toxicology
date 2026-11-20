@@ -131,6 +131,8 @@ footer p { margin: 0 0 6px; overflow-wrap: anywhere; }
 .plain { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
 button.btn { padding: 3px 11px; color: var(--ink); background: var(--bg); border: 1px solid var(--rule); border-radius: 6px; cursor: pointer; }
 button.btn:hover { border-color: var(--ink); }
+.copy { padding: 0 2px; color: var(--ink-2); background: none; border: 0; cursor: pointer; vertical-align: -2px; }
+.copy:hover { color: var(--ink); }
 .credit img { height: 30px; width: auto; margin-right: 8px; padding: 2px 6px; vertical-align: middle; background: #fff; border-radius: 4px; }
 #tip { position: fixed; z-index: 4; pointer-events: none; box-sizing: border-box; max-width: min(320px, calc(100vw - 16px)); padding: 6px 10px; background: var(--bg); color: var(--ink);
   border: 1px solid var(--rule); border-radius: 6px; font-size: 12.5px; box-shadow: 0 4px 14px rgba(0, 0, 0, .12); }
@@ -232,7 +234,7 @@ button.btn:hover { border-color: var(--ink); }
     </section>
     <section aria-labelledby="cite-h">
       <h2 id="cite-h">How to cite</h2>
-      <p id="cite"></p>
+      <p><span id="cite"></span> <button id="b-cite" class="copy" type="button" title="Copy the citation" aria-label="Copy the citation"><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 3v-.5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1H3"/></svg></button> <span id="cite-msg" class="m" role="status"></span></p>
       <p id="repo"></p>
     </section>
     <section aria-labelledby="lic-h">
@@ -906,19 +908,20 @@ function header() {
   $('fs-read').textContent = String((fs || {}).retrieved || '').slice(0, 10);
   $('fip-read').textContent = fip.retrieved || '';
   $('onto').innerHTML = fip.ontology ? link(META.ontologyIri, fip.ontology) : '';
-  // the journal's data citation: Authors. Title, version. Repository URL (year). The DOI is that of all versions
-  // until Zenodo, asked when the page opens, names the DOI of the version shown, to which the version above then
-  // links too: Zenodo gives a version its DOI when it archives the release, after the page is built.
+  // the citation as Zenodo gives it: Authors (year). Title (Version) [Dataset]. Zenodo. DOI. The DOI is that of all
+  // versions until Zenodo, asked when the page opens, names the DOI and the year of the version shown, to which the
+  // version above then links too: Zenodo gives a version its DOI when it archives the release, after the page is built.
   const doi = META.doi ? (isUrl(META.doi) ? META.doi : 'https://doi.org/' + META.doi) : '';
-  const year = String(META.dateModified || '').slice(0, 4) || new Date().getFullYear();
-  const cite = (where, url) => { $('cite').innerHTML = `${esc(META.authors)} ${esc(META.title)}, version ${esc(META.version)}. ${where} ${link(url, url)} (${esc(year)}).`; };   // the authors end with a full stop
+  const cite = (where, url, year = String(META.dateModified || '').slice(0, 4) || new Date().getFullYear()) => {
+    $('cite').innerHTML = `${esc(META.authors)} (${esc(year)}). ${esc(META.title)} (Version ${esc(META.version)}) [Dataset]. ${where}. ${link(url, url)}`;
+  };
   cite(...(doi ? ['Zenodo', doi] : ['GitHub', META.repo]));
   const all = /zenodo\.(\d+)$/.exec(doi);
   if (all) fetch('https://zenodo.org/api/records?all_versions=true&q=' + encodeURIComponent(`conceptrecid:${all[1]} AND metadata.version:"${META.version}"`))
     .then(r => r.json()).then(found => {
       const hit = found.hits.hits.find(h => h.metadata.version === META.version);
       if (!hit) return;
-      cite('Zenodo', 'https://doi.org/' + hit.doi);
+      cite('Zenodo', 'https://doi.org/' + hit.doi, (hit.metadata.publication_date || '').slice(0, 4) || undefined);
       $('version').innerHTML = link('https://doi.org/' + hit.doi, META.version);
     }).catch(() => {});   // offline, or no answer: the DOI of all versions stays
   $('repo').innerHTML = `Repository: ${link(META.repo, 'GitHub')}`;
@@ -989,6 +992,7 @@ $('b-export').addEventListener('click', () => {
   save(svgText(), name);
   $('export-msg').textContent = `Saved ${name}.`;
 });
+$('b-cite').addEventListener('click', () => navigator.clipboard?.writeText($('cite').textContent).then(() => { $('cite-msg').textContent = 'Copied.'; }));
 $('b-print').addEventListener('click', () => {
   hideTip();
   const {svg, mm} = printFigure();
