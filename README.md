@@ -47,13 +47,16 @@ documentation resolve (lychee; a link that fails is listed in the run's summary 
 that resolved in the last seven days is not requested again;
 FAIRsharing, the Wayback Machine,
 the dataset's own w3id.org identifiers and a few sites that answer no automated client are left out), redraws the
-figures and, on `main`, publishes the dashboard and commits the figures that changed. Then release-please
+figures and, on `main`, commits the figures that changed. Then release-please
 keeps a release pull request open with the next version and its `CHANGELOG.md` entry, made from the Conventional
-Commits (`feat`, `fix`, `docs`) since the last release; merging it tags the version and publishes a GitHub release.
+Commits (`feat`, `fix`, `docs`) since the last release. Merging it releases that version: release-please tags it
+and publishes a GitHub release, and the build publishes the dashboard, once for each version, so the dashboard
+always shows a released version.
 Zenodo archives every release of the dashboard repository, as a dataset, through its GitHub link, and reads its
 `.zenodo.json`, which the build writes: the authors with ORCID iD and affiliation, the licence, the grants, the
-version and a link to this repository. The dashboard repository gets its release, with the same tag, by hand once
-the build has published it: `gh release create vX.Y.Z --repo johannehouweling/FAIR-implementation-ecosystem-toxicology-timeline`.
+version and a link to this repository. The dashboard repository gets its release, with the same tag, from a workflow
+of its own, which the build keeps in place (`.github/dashboard-release.yml`). The dashboard asks Zenodo for the DOI
+of the version it shows when it opens, and links the DOI of all versions until Zenodo has archived that version.
 Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` reads it back row by row, as the
 [criteria](docs/inclusion-criteria.md#7-process) describe. A freshly built sheet, once uploaded, needs "Allow multiple
 selections" switched on for Sub-domains, FSR type and Phase by hand, because an .xlsx cannot carry it. A workflow

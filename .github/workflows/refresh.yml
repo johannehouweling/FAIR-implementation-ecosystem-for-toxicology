@@ -7,9 +7,9 @@ name: Data refresh
 # goes into one pull request on the branch data-refresh, updated on each run until a person
 # merges it. A sheet row or relation with a problem waits in the sheet and is listed in the pull request; only a sheet
 # that cannot be read stops the run. The sheet is exported with a Google service account that can only view it
-# (secret GOOGLE_CREDENTIALS); setting the secret SHEET_ID switches this on. Nothing is pushed to main; the dashboard
-# is redeployed after the pull request is merged. Each run keeps the exported sheet and the FIP ontology it read for
-# 90 days.
+# (secret GOOGLE_CREDENTIALS); setting the secret SHEET_ID switches this on. Nothing is pushed to main; the merged
+# changes reach the dashboard with the next release. Each run keeps the exported sheet and the FIP ontology it read
+# for 90 days.
 
 on:
   schedule:
