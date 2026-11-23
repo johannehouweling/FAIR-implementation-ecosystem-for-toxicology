@@ -3,7 +3,9 @@
 Every read is kept in a local cache, build/fairsharing/records.json; `--offline` reads only that cache. FAIRsharing
 is read in full once a day: a later read that day keeps the day's records and reads only what they lack; with
 FAIRSHARING_CACHE_ANY_DAY set, as for a pull request's build, which publishes nothing, the kept records of any day
-are used that way. Requests are PAUSE seconds apart, as FAIRsharing asked.
+are used that way. Requests are PAUSE seconds apart, and each record is asked for once a day, as FAIRsharing asks: the
+public record JSON only for what neither the REST record nor the last read gives, the IRIs of new or changed subjects
+and domains and the record id behind a new FAIRsharing.xxx code.
 
 The dataset stores only what is curated (`curate`): new collection members, as undecided rows or proposed matches,
 and the result of searching FAIRsharing for each row never checked against it (`check`).
@@ -258,11 +260,19 @@ def read(login, password, offline=False, search_unchecked=False):
                              or bool(os.environ.get('FAIRSHARING_CACHE_ANY_DAY')))
     if keep:
         records = {x['id']: x for x in cached['records']}
+    last = {x['id']: x for x in cached.get('records', [])}     # the last read, of any day
 
-    def get(rid):
-        records[rid] = slim(record(rid, jwt))
-        public = slim(lookup(rid))                      # subjects and domains with their IRIs
-        records[rid].update({k: public[k] for k in ('subjects', 'domains')})
+    def labels(rec):
+        return [sorted(t['label'] for t in rec[k]) for k in ('subjects', 'domains')]
+
+    def get(rid, public=None):
+        rec, kept = slim(record(rid, jwt)), last.get(rid)
+        if kept and labels(kept) == labels(rec):         # the same subjects and domains keep their IRIs
+            public = kept
+        elif not public:
+            public = slim(lookup(rid))                  # subjects and domains with their IRIs
+        rec.update({k: public[k] for k in ('subjects', 'domains')})
+        records[rid] = rec
 
     if model.COLLECTION_ID not in records:
         get(model.COLLECTION_ID)
@@ -275,11 +285,14 @@ def read(login, password, offline=False, search_unchecked=False):
     refs = {model.fs_ref(r.get('fairsharingRecord')) for r in doc['hasPart']}
     for rid in sorted((set(members) | {int(x) for x in refs if x.isdigit()}) - set(records)):
         get(rid)
-    known = {model.fs_ref(x['doi']) for x in records.values()}
-    for code in sorted(x for x in refs if x.startswith('FAIRsharing.') and x not in known):
-        rid = slim(lookup(code))['id']   # the public record JSON gives the record id behind a code
-        if rid not in records:
-            get(rid)
+    ids = {model.fs_ref(x['doi']): x['id'] for x in (*last.values(), *records.values())}
+    for code in sorted(x for x in refs if x.startswith('FAIRsharing.')):
+        public = None
+        if code not in ids:                             # the public record JSON gives the record id behind a new code
+            public = slim(lookup(code))
+            ids[code] = public['id']
+        if ids[code] not in records:
+            get(ids[code], public)
     searches, failed = dict(cached.get('searches', {})) if keep else {}, 0
     for r in [r for r in unchecked(doc) if r['key'] not in searches] if search_unchecked else []:
         hits = {}                                       # in FAIRsharing's order, each record once
