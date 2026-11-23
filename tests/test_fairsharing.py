@@ -95,6 +95,36 @@ class FairsharingTest(TempDir):
             self.assertEqual(fairsharing.read('login', 'password')['retrieved'], '2026-01-01')
         self.assertEqual(asked, [7])
 
+    def test_each_record_is_asked_for_once_a_day(self):
+        tox = [{'label': 'Toxicology', 'iri': 'http://example.org/toxicology'}]
+        api = {3496: {'id': 3496, 'subjects': ['Toxicology'],
+                      'record_associations': [{'record_assoc_label': 'collects', 'linked_record': {'id': 9}}]},
+               9: {'id': 9, 'subjects': ['Toxicology']},
+               5: {'id': 5, 'subjects': ['Toxicology'], 'doi': '10.25504/FAIRsharing.five'}}
+        rows, load, cache = {'hasPart': [{'fairsharingRecord': 'FAIRsharing.five'}]}, model.load, \
+            os.path.join(self.dir, 'records.json')
+        asked, looked_up = [], []
+
+        def lookup(ref):
+            looked_up.append(ref)
+            return {'id': 5 if ref == 'FAIRsharing.five' else ref, 'tags': {'subjects': tox}}
+
+        for day in (1, 2):
+            asked.clear(), looked_up.clear()
+            if day == 2:                                 # another day, with a subject added to record 9
+                kept = {**load(cache), 'retrieved': '2026-01-01'}
+                with open(cache, 'w', encoding='utf-8') as f:
+                    f.write(model.dumps(kept))
+                api[9]['subjects'] = ['Toxicology', 'Genomics']
+            with mock.patch.multiple(fairsharing, CACHE=self.dir, sign_in=mock.DEFAULT, lookup=lookup,
+                                     record=lambda rid, jwt: asked.append(rid) or api[rid]), \
+                    mock.patch.object(model, 'load', side_effect=lambda *path: load(*path) if path else rows), \
+                    mock.patch.dict(os.environ, {'FAIRSHARING_CACHE_ANY_DAY': ''}):
+                data = fairsharing.read('login', 'password')
+            self.assertEqual(asked, [3496, 9, 5])
+            self.assertEqual(looked_up, [3496, 9, 'FAIRsharing.five'] if day == 1 else [9])
+        self.assertEqual(next(x for x in data['records'] if x['id'] == 5)['subjects'], tox)   # its IRIs kept
+
     def test_requests_are_paused_as_fairsharing_asked(self):
         clock = iter([100.0, 100.0, 103.0, 103.0])
         with mock.patch.object(fairsharing, '_last', float('-inf')), mock.patch('time.sleep') as sleep, \
