@@ -1,11 +1,11 @@
 """FAIRsharing: the Toxicology collection (3496) and the records of the dataset's rows, and the submission export.
 
 Every read is kept in a local cache, build/fairsharing/records.json; `--offline` reads only that cache. FAIRsharing
-is read in full once a day: a later read that day keeps the day's records and reads only what they lack; with
-FAIRSHARING_CACHE_ANY_DAY set, as for a pull request's build, which publishes nothing, the kept records of any day
-are used that way. Requests are PAUSE seconds apart, and each record is asked for once a day, as FAIRsharing asks: the
-public record JSON only for what neither the REST record nor the last read gives, the IRIs of new or changed subjects
-and domains and the record id behind a new FAIRsharing.xxx code.
+is read in full once a week (MAX_AGE days): a later read keeps the records of the last full read and reads only what
+they lack; with FAIRSHARING_CACHE_ANY_DAY set, as for a pull request's build, which publishes nothing, the kept
+records of any age are used that way. Requests are PAUSE seconds apart, and a read asks for each record once, as
+FAIRsharing asks: the public record JSON only for what neither the REST record nor the last read gives, the IRIs of
+new or changed subjects and domains and the record id behind a new FAIRsharing.xxx code.
 
 The dataset stores only what is curated (`curate`): new collection members, as undecided rows or proposed matches,
 and the result of searching FAIRsharing for each row never checked against it (`check`).
@@ -30,6 +30,7 @@ from fairtox import model, web
 API = 'https://api.fairsharing.org'
 SITE = 'https://fairsharing.org'
 PAUSE = 10                  # seconds from one request to the next: FAIRsharing asked for one every 8 to 12 seconds
+MAX_AGE = 7                 # days a full read is kept: FAIRsharing asks to cache rather than read a record again
 _last = float('-inf')       # when the last request started (time.monotonic)
 CACHE = 'build/fairsharing'
 RECORD_TYPE = {v[1]: k for k, v in model.TYPES.items() if v[1]}
@@ -245,7 +246,8 @@ def _code(rec):
 def read(login, password, offline=False, search_unchecked=False):
     """The collection members, the records of the collection and of every row with a FAIRsharing record and, with
     `search_unchecked` (only `fairtox fairsharing`), what FAIRsharing's search finds for each unchecked row (`searches`, by key),
-    read signed in and cached; offline, only the cache is read. A row searched the same day is not searched again."""
+    read signed in and cached; offline, only the cache is read. A row searched since the last full read is not
+    searched again."""
     path = os.path.join(CACHE, 'records.json')
     if offline:
         if not os.path.exists(path):
@@ -256,8 +258,8 @@ def read(login, password, offline=False, search_unchecked=False):
                                '.env fairtox ...); --offline reads the local cache.')
     jwt, records = sign_in(login, password), {}
     cached = model.load(path) if os.path.exists(path) else {}
-    keep = bool(cached) and (cached['retrieved'] == dt.date.today().isoformat()   # only what is missing is read
-                             or bool(os.environ.get('FAIRSHARING_CACHE_ANY_DAY')))
+    keep = bool(cached) and (dt.date.today() - dt.date.fromisoformat(cached['retrieved']) < dt.timedelta(MAX_AGE)
+                             or bool(os.environ.get('FAIRSHARING_CACHE_ANY_DAY')))   # only what is missing is read
     if keep:
         records = {x['id']: x for x in cached['records']}
     last = {x['id']: x for x in cached.get('records', [])}     # the last read, of any day
