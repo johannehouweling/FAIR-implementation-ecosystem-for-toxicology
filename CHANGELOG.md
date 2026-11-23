@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.2](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.2.1...v1.2.2) (2026-11-23)
+
+
+### Dashboard and code
+
+* **fairsharing:** ask FAIRsharing for each record once a day ([4c599fd](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/4c599fd8f7e765fa92013126a9313801540a1380))
+* **fairsharing:** read FAIRsharing in full once a week ([1383400](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/1383400b934dff0ebc14ce830995ac0cbb142a5f))
+
 ## [1.2.1](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.2.0...v1.2.1) (2026-11-20)
 
 
