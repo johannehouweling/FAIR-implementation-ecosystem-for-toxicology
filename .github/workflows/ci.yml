@@ -6,7 +6,7 @@ name: CI
 # pull request is merged. A workflow there, which this build keeps in place (.github/dashboard-release.yml), then makes
 # the release with that tag, which Zenodo archives, so the dashboard, the dataset and Zenodo carry the same version.
 # The build reads FAIRsharing, with the Actions secrets FAIRSHARING_LOGIN and FAIRSHARING_PASSWORD, in full once a
-# day (later runs reuse the day's cache; a pull request reuses the last one of any day), and the FIP declarations; a
+# week (later runs reuse that read; a pull request reuses the last one of any age), and the FIP declarations; a
 # weekly run builds main, and publishes a version that the dashboard still lacks. A build of main that has started is
 # never cancelled, so every published build stays in the history of the dashboard repository.
 # Every build redraws the figures (figures/); a build of main commits them when they changed.

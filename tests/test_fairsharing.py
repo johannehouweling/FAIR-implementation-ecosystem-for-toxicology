@@ -1,5 +1,6 @@
 """Tests of fairtox.fairsharing and fairtox.web: reading FAIRsharing, curating its data, the submission export."""
 import copy
+import datetime as dt
 import os
 import unittest
 import urllib.error
@@ -84,7 +85,7 @@ class FairsharingTest(TempDir):
                 mock.patch.object(model, 'load', side_effect=lambda *path: load(*path) if path else rows):
             fairsharing.read('login', 'password')
         self.assertEqual(asked, [7])
-        cache = os.path.join(self.dir, 'records.json')     # another day: read in full, unless any day will do
+        cache = os.path.join(self.dir, 'records.json')     # a week later: read in full, unless any day will do
         kept = {**load(cache), 'retrieved': '2026-01-01'}
         with open(cache, 'w', encoding='utf-8') as f:
             f.write(model.dumps(kept))
@@ -95,7 +96,7 @@ class FairsharingTest(TempDir):
             self.assertEqual(fairsharing.read('login', 'password')['retrieved'], '2026-01-01')
         self.assertEqual(asked, [7])
 
-    def test_each_record_is_asked_for_once_a_day(self):
+    def test_a_full_read_asks_for_each_record_once_and_is_kept_for_a_week(self):
         tox = [{'label': 'Toxicology', 'iri': 'http://example.org/toxicology'}]
         api = {3496: {'id': 3496, 'subjects': ['Toxicology'],
                       'record_associations': [{'record_assoc_label': 'collects', 'linked_record': {'id': 9}}]},
@@ -109,10 +110,13 @@ class FairsharingTest(TempDir):
             looked_up.append(ref)
             return {'id': 5 if ref == 'FAIRsharing.five' else ref, 'tags': {'subjects': tox}}
 
-        for day in (1, 2):
+        days_ago = (dt.date.today() - dt.timedelta(fairsharing.MAX_AGE - 1)).isoformat()
+        for retrieved, records, lookups in ((None, [3496, 9, 5], [3496, 9, 'FAIRsharing.five']),
+                                            ('2026-01-01', [3496, 9, 5], [9]),   # later, a subject added to 9
+                                            (days_ago, [], [])):                 # within the week: nothing is asked
             asked.clear(), looked_up.clear()
-            if day == 2:                                 # another day, with a subject added to record 9
-                kept = {**load(cache), 'retrieved': '2026-01-01'}
+            if retrieved:
+                kept = {**load(cache), 'retrieved': retrieved}
                 with open(cache, 'w', encoding='utf-8') as f:
                     f.write(model.dumps(kept))
                 api[9]['subjects'] = ['Toxicology', 'Genomics']
@@ -121,8 +125,7 @@ class FairsharingTest(TempDir):
                     mock.patch.object(model, 'load', side_effect=lambda *path: load(*path) if path else rows), \
                     mock.patch.dict(os.environ, {'FAIRSHARING_CACHE_ANY_DAY': ''}):
                 data = fairsharing.read('login', 'password')
-            self.assertEqual(asked, [3496, 9, 5])
-            self.assertEqual(looked_up, [3496, 9, 'FAIRsharing.five'] if day == 1 else [9])
+            self.assertEqual((asked, looked_up), (records, lookups))
         self.assertEqual(next(x for x in data['records'] if x['id'] == 5)['subjects'], tox)   # its IRIs kept
 
     def test_requests_are_paused_as_fairsharing_asked(self):
