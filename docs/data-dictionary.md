@@ -49,7 +49,7 @@ Curated fields are edited in the curation sheet; the column is given. `@id`, `id
 | `@id` |  |  | FIC nanopublication of a FAIR Implementation Community, else the FAIRsharing DOI when the match is confirmed, else `https://w3id.org/fair-tox/dataset#key`. |
 | `identifier` | Identifier | `schema:identifier` | Derived: the `@id` as an absolute IRI, the resource's persistent identifier. |
 | `schemaType` |  | `rdf:type` | Derived: `schema:SoftwareApplication` for a tool, else `schema:CreativeWork`, next to the FSR types. |
-| `key` | Key | `dct:identifier` | Stable short identifier: lowercase letters, digits, `_` or `-`. Never changes. |
+| `key` | Key | `dct:identifier` | Stable short identifier: lowercase letters, digits, `_` or `-`. A new key is made from whole words of the abbreviation or name, at most 16 characters. Never changes. |
 | `name` | Name | `schema:name` | Full name. |
 | `alternateName` | Aliases | `schema:alternateName` | Abbreviations and other names; the first short one is shown in the figure. |
 | `decision` | Decision |  | Screening decision (list below). |
