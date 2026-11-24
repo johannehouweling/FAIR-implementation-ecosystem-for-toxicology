@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.2.2...v1.2.3) (2026-11-24)
+
+
+### Dashboard and code
+
+* **model:** make new keys at most 16 characters, in whole words ([24b783d](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/24b783d39a303b8048c6662366e557c1b1366ad5))
+
 ## [1.2.2](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.2.1...v1.2.2) (2026-11-23)
 
 
