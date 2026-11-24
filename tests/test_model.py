@@ -10,6 +10,11 @@ from test_fairtox import TempDir, fixture
 
 
 class ModelTest(TempDir):
+    def test_a_new_key_is_whole_words_of_at_most_16_characters(self):
+        self.assertEqual(model.slug('Best practices for computational model sharing'), 'best_practices')
+        self.assertEqual(model.slug('Pharmacogenomics knowledgebase'), 'pharmacogenomics')
+        self.assertEqual(model.slug('ToxTemp', {'toxtemp'}), 'toxtemp_2')
+
     def test_fixture_is_valid_and_normalised(self):
         doc = model.normalise(fixture())
         errors, warnings = model.check(doc)

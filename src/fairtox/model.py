@@ -638,10 +638,10 @@ def slug(text, taken=()):
     """A new key from a name or abbreviation, unique among `taken`."""
     words = [w for w in re.split(r'[^a-z0-9]+', str(text).lower()) if w]
     base = ''
-    for w in words:                                   # whole words only, at most 32 characters
-        if base and len(base) + 1 + len(w) > 32:
+    for w in words:                                   # whole words only, at most 16 characters
+        if base and len(base) + 1 + len(w) > 16:
             break
-        base = f'{base}_{w}' if base else w[:32]
+        base = f'{base}_{w}' if base else w[:16]
     base = base or 'resource'
     key, n = base, 2
     while key in taken:
