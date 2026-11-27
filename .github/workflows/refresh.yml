@@ -9,7 +9,8 @@ name: Data refresh
 # that cannot be read stops the run. The sheet is exported with a Google service account that can only view it
 # (secret GOOGLE_CREDENTIALS); setting the secret SHEET_ID switches this on. Nothing is pushed to main; the merged
 # changes reach the dashboard with the next release. Each run keeps the exported sheet and the FIP ontology it read
-# for 90 days.
+# for 90 days. Each run's report, the pull request's description, also replaces the description of the open issue
+# "Data refresh report", so the report can be read in a week with nothing to merge as well.
 
 on:
   schedule:
@@ -19,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
   pull-requests: write
 
 concurrency:
@@ -83,6 +85,7 @@ jobs:
       - run: uv run python -m unittest discover -s tests
       - run: uv run fairtox validate
       - name: Open or update the pull request if the dataset changed
+        id: pr
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           add-paths: data
@@ -92,6 +95,18 @@ jobs:
           commit-message: 'feat(data): refresh ${{ steps.day.outputs.day }}'
           title: Data refresh ${{ steps.day.outputs.day }}
           body-path: build/refresh.md
+      # The action closes the pull request, or opens none, when nothing changed
+      - name: Show the report in the issue Data refresh report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DAY: ${{ steps.day.outputs.day }}
+          RUN: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          PR: ${{ steps.pr.outputs.pull-request-operation != 'closed' && steps.pr.outputs.pull-request-url || 'nothing to merge' }}
+        run: |
+          { echo "Data refresh $DAY ([run]($RUN)): $PR"; echo; cat build/refresh.md; } > build/issue.md
+          n=$(gh issue list --state open --limit 100 --json number,title --jq 'map(select(.title == "Data refresh report"))[0].number // empty')
+          if [ -n "$n" ]; then gh issue edit "$n" --body-file build/issue.md
+          else gh issue create --title "Data refresh report" --body-file build/issue.md; fi
       - name: Show the report
         if: always()
         run: if [ -f build/refresh.md ]; then cat build/refresh.md >> "$GITHUB_STEP_SUMMARY"; fi
