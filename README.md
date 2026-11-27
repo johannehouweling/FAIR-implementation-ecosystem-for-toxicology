@@ -62,7 +62,8 @@ Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` 
 [criteria](docs/inclusion-criteria.md#7-process) describe. A freshly built sheet, once uploaded, needs "Allow multiple
 selections" switched on for Sub-domains, FSR type and Phase by hand, because an .xlsx cannot carry it. A workflow
 reads the sheet back once a week, then FAIRsharing, checking each new row against it, and the FIPs, and keeps
-one pull request open with what changed; it keeps the exported sheet with the run for 90 days.
+one pull request open with what changed, and each run's report in the open issue "Data refresh report"; it keeps the
+exported sheet with the run for 90 days.
 
 ## Commands
 
