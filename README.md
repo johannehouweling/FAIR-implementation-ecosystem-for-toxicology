@@ -54,7 +54,8 @@ Commits (`feat`, `fix`, `docs`) since the last release. A change to the data is 
 the middle number of the version; any other change is a `fix` or `docs` and raises the last. Merging the release
 pull request releases that version: release-please tags it and publishes a GitHub release, and the build publishes
 the dashboard, once for each version, so the dashboard always shows a released version.
-Dependabot proposes the updates of the actions and of the Python packages once a month, one pull request for each.
+Dependabot proposes the updates of the actions and of the Python packages once a month, one pull request for each;
+its runs get no secrets, so they lint, test and validate but build no dashboard.
 Zenodo archives every release of the dashboard repository, as a dataset, through its GitHub link, and reads its
 `.zenodo.json`, which the build writes: the authors with ORCID iD and affiliation, the licence, the grants, the
 version and a link to this repository. The dashboard repository gets its release, with the same tag, from a workflow
