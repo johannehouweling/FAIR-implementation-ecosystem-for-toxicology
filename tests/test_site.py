@@ -7,8 +7,6 @@ import re
 import unittest
 import warnings
 
-import rdflib
-
 from fairtox import fairsharing, model, site
 from test_fairtox import TempDir, fixture
 

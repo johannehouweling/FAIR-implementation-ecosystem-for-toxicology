@@ -1,6 +1,5 @@
 """Tests of fairtox.model: vocabularies, normalising and checking the dataset, the change log."""
 import copy
-import warnings
 from unittest import mock
 
 import rdflib
