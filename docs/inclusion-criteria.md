@@ -253,6 +253,7 @@ Each excluded row carries exactly one code.
 | 16 Nov 2026 | The data refresh runs once a week, on Monday, instead of three times a day (18 Oct 2026), which puts less load on FAIRsharing, read in the same run. A read-back can also be started by hand. | Jente Houweling |
 | 20 Nov 2026 | The dashboard changes only with a release, once for each version, and its repository makes the release that Zenodo archives, so the dashboard shows the version Zenodo holds and links its DOI. Until now every merge to main changed the dashboard and its release was made by hand, which was once missed. | Jente Houweling |
 | 20 Nov 2026 | The middle number of a version rises when the data changed and the last number for any other change (dashboard, code, documentation), because the data matter most to who cites the dataset. Until 1.2.0 a new feature raised the middle number and a data refresh the last. | Jente Houweling |
+| 26 Nov 2026 | Each change in `data/changes.csv` has its own UUID, made when it is logged and never changed: date, round, key and field together do not identify a change, and a whole line changes when it is corrected. The changes logged earlier got theirs on 26 Nov 2026. | Jente Houweling |
 
 ## 9. Limitations
 

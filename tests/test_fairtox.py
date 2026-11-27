@@ -124,6 +124,13 @@ class RepositoryTest(unittest.TestCase):
             if r.get('reviewedBy'):
                 self.assertGreater(sign.get(r['key'], -1), outside.get(r['key'], -1), r['key'])
 
+    def test_every_change_has_its_own_uuid(self):
+        with open(os.path.join(ROOT, model.CHANGES), newline='', encoding='utf-8') as f:
+            ids = [r['id'] for r in csv.DictReader(f)]
+        uuid4 = re.compile(r'[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}')
+        self.assertEqual([i for i in ids if not uuid4.fullmatch(i)], [])
+        self.assertEqual(len(set(ids)), len(ids))
+
     def test_no_two_public_resources_share_a_figure_label(self):
         dataset = os.path.join(ROOT, model.DATASET)
         if not os.path.exists(dataset):
