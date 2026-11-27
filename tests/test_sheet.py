@@ -327,7 +327,7 @@ class SheetTest(TempDir):
         os.makedirs(self.path('data'))
         model.save(doc, self.path(model.DATASET))
         with open(self.path(model.CHANGES), 'w', encoding='utf-8') as f:
-            f.write('date,round,key,field,old,new,by,source\n')
+            f.write('id,date,round,key,field,old,new,by,source\n')
         p = self.build(doc)
         self.edit(p, 'Relation', 'ctd', 'related_to', tab='Relations')
         self.edit(p, 'Reviewed by', 'ctd', 'IM', tab='Relations')
@@ -535,7 +535,7 @@ class SheetTest(TempDir):
         os.makedirs(self.path('data'))
         model.save(doc, self.path(model.DATASET))
         with open(self.path(model.CHANGES), 'w', encoding='utf-8') as f:
-            f.write('date,round,key,field,old,new,by,source\n')
+            f.write('id,date,round,key,field,old,new,by,source\n')
         p = self.build(doc)
         self.edit(p, 'First published', 'ctd', '2003')
         self.edit(p, 'Reviewed by', 'ctd', 'JH')

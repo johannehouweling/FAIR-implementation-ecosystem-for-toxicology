@@ -13,6 +13,7 @@ import json
 import os
 import re
 import tempfile
+import uuid
 
 import rdflib
 from rdflib import DCTERMS, OWL, RDF, RDFS, SKOS, Literal, URIRef
@@ -974,8 +975,8 @@ def _text(v):
 
 
 def log_changes(changes, round_name, source, by=None, path=CHANGES):
-    """Append (key, field, old, new) rows to the change log; `by` maps key -> curator initials. A change with a fifth
-    item, such as a relation read back with its own Reviewed by, is logged under that name."""
+    """Append (key, field, old, new) rows to the change log, each with a new UUID; `by` maps key -> curator initials.
+    A change with a fifth item, such as a relation read back with its own Reviewed by, is logged under that name."""
     if not changes:
         return
     new = not os.path.exists(path)
@@ -984,7 +985,7 @@ def log_changes(changes, round_name, source, by=None, path=CHANGES):
     with open(path, 'a', newline='', encoding='utf-8') as f:
         w = csv.writer(f)
         if new:
-            w.writerow(['date', 'round', 'key', 'field', 'old', 'new', 'by', 'source'])
+            w.writerow(['id', 'date', 'round', 'key', 'field', 'old', 'new', 'by', 'source'])
         for key, field, old, new_value, *who in changes:
-            w.writerow([today, round_name, key, field, old, new_value, who[0] if who else (by or {}).get(key, ''),
-                        source])
+            w.writerow([uuid.uuid4(), today, round_name, key, field, old, new_value,
+                        who[0] if who else (by or {}).get(key, ''), source])
