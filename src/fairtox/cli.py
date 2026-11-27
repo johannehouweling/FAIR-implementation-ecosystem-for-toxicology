@@ -17,8 +17,8 @@ def cmd_validate(a):
     errors, warnings = model.check(_load())
     for e in errors:
         print('error:', e)
-    for w in warnings:
-        print('warning:', w)
+    _report([f'warning: {w}' for w in warnings], a.report if warnings else None,   # no section without warnings
+            'Warnings that stop main until they are fixed')
     print(f'{len(errors)} errors, {len(warnings)} warnings')
     return 1 if errors or (a.strict and warnings) else 0
 
@@ -77,6 +77,10 @@ def cmd_sheet(a):
     os.makedirs(os.path.dirname(os.path.abspath(a.out)), exist_ok=True)
     n, m = sheet.build(doc, a.out, added=added)
     print(f'{a.out}: {n} resources, {m} relations')
+    if a.compare:
+        found = sheet.drift(a.compare, a.out)
+        more = [f'and {len(found) - 100} more'] if len(found) > 100 else []   # a description holds 65,536 characters
+        _report(found[:100] + more or ['none'], a.report, f'Where {os.path.basename(a.compare)} differs from a fresh build')
     return 0
 
 
@@ -195,6 +199,7 @@ def main(argv=None):
     sub = p.add_subparsers(dest='command', required=True)
     s = sub.add_parser('validate', help='check the dataset')
     s.add_argument('--strict', action='store_true', help='fail on warnings too')
+    s.add_argument('--report', metavar='FILE', help='also append the warnings to a markdown file')
     s.set_defaults(run=cmd_validate)
     s = sub.add_parser('fairsharing', help='read the FAIRsharing Toxicology collection and report its new members, '
                                            'and search FAIRsharing for the rows never checked against it; '
@@ -209,6 +214,9 @@ def main(argv=None):
     s.add_argument('out', help='path of the .xlsx to write')
     s.add_argument('--offline', action='store_true', help='read FAIRsharing and the FIP declarations from the local '
                                                           'caches in build/fairsharing and build/fip')
+    s.add_argument('--compare', metavar='XLSX', help='list where this workbook, such as the exported live sheet, '
+                                                     'differs from the one built')
+    s.add_argument('--report', metavar='FILE', help='also append that list to a markdown file')
     s.set_defaults(run=cmd_sheet)
     s = sub.add_parser('ingest', help='read a curated workbook back into the dataset')
     s.add_argument('workbook')
