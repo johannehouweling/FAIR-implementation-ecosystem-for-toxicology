@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.2.4](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.2.3...v1.2.4) (2026-11-27)
+
+
+### Dashboard and code
+
+* give each change in the log its own UUID ([dace936](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/dace93631337ab5d09b3b5b1ffc3af813ad2396b))
+* list the strict warnings and the sheet's differences in the refresh report ([b31927e](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/b31927e4ef21a9b7521c87ae3318a036f540e24f))
+* **sheet:** read the signed line, not its unsigned copy, when comparing with a build ([4b62d6e](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/4b62d6ec6670c2d376603c9614a73dcfc6723343))
+
+
+### Documentation
+
+* link the Software Heritage archive ([c56a345](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/commit/c56a3456a6ac7ffa52891d3c03cf9015d73081d2))
+
 ## [1.2.3](https://github.com/johannehouweling/FAIR-implementation-ecosystem-for-toxicology/compare/v1.2.2...v1.2.3) (2026-11-24)
 
 
