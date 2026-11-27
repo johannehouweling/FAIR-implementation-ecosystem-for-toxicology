@@ -301,6 +301,18 @@ class SheetTest(TempDir):
         new, changes, problems, notes, _ = sheet.ingest(added, p)
         self.assertEqual((changes, [x['value'] for x in problems], notes), ([], ['ctd related_to exo'], []))
 
+    def test_drift_lists_where_a_sheet_differs_from_a_fresh_build(self):
+        doc = model.normalise(fixture())
+        fresh = self.path('fresh.xlsx')
+        sheet.build(doc, fresh)
+        p = self.build(doc)
+        self.assertEqual(sheet.drift(p, fresh), [])
+        self.edit(p, 'First published', 'ctd', '2003')
+        self.edit(p, 'Note', 'ctd', 'Checked.', tab='Relations')
+        self.assertEqual([x.split('(')[1] for x in sheet.drift(p, fresh)],
+                         ["ctd, First published): '2003', fresh build '2004'",
+                          "ctd implements exo, Note): 'Checked.', fresh build ''"])
+
     def test_a_relation_signed_with_its_edit_is_not_reported_under_other_initials(self):
         doc = model.normalise(fixture())
         os.makedirs(self.path('data'))

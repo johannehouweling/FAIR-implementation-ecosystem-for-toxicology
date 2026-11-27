@@ -62,8 +62,9 @@ Co-authors curate in a Google Sheet made with `fairtox sheet`; `fairtox ingest` 
 [criteria](docs/inclusion-criteria.md#7-process) describe. A freshly built sheet, once uploaded, needs "Allow multiple
 selections" switched on for Sub-domains, FSR type and Phase by hand, because an .xlsx cannot carry it. A workflow
 reads the sheet back once a week, then FAIRsharing, checking each new row against it, and the FIPs, and keeps
-one pull request open with what changed, and each run's report in the open issue "Data refresh report"; it keeps the
-exported sheet with the run for 90 days.
+one pull request open with what changed, and each run's report in the open issue "Data refresh report"; the report
+also lists the warnings that would stop main and where the live sheet differs from a fresh build; the run keeps the
+exported sheet for 90 days.
 
 ## Commands
 
@@ -84,7 +85,9 @@ uv run --group figures python figures/fig2_fers.py             # Figure 2 and th
 ```
 
 `fairsharing`, `fip`, `sheet`, `site` and `export-fairsharing` take `--offline`; `fip --report` writes the
-choices of the two FIPs per FIP question to `build/fip-convergence.md`.
+choices of the two FIPs per FIP question to `build/fip-convergence.md`. `validate --report` adds the warnings to a
+markdown file, and `sheet --compare` lists where a workbook, such as the exported live sheet, differs from the one
+built.
 
 ## Licences
 

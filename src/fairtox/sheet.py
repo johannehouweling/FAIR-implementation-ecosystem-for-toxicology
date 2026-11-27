@@ -2,6 +2,7 @@
 curated copy back into the dataset with every check, reporting problems by sheet cell."""
 import copy
 import datetime as dt
+import os
 import re
 
 from openpyxl import Workbook, load_workbook
@@ -768,3 +769,50 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
             return c
         return (*c, rel_by.get((c[0], *model.relation_of(*c[1:4])), ''))
     return new, [credit(c) for c in model.diff(doc, new)], problems, notes, reviewer
+
+
+def _pair(x, y, n=60):
+    """Both values, from just before where they first differ."""
+    i = max(0, len(os.path.commonprefix([x, y])) - 20)
+    return ', fresh build '.join(repr('…' * (i > 0) + v[i:i + n] + '…' * (len(v) > i + n)) for v in (x, y))
+
+
+SAME_IF_EMPTY = ('Decision', 'In manuscript', 'Evidence')       # an empty cell there reads back as the dataset's value
+
+
+def _differs(h, x, y, multi):
+    if h in multi:                                  # a multi-select reads back in any order
+        return set(x.split(', ')) != set(y.split(', '))
+    return x != y and not (not x and h in SAME_IF_EMPTY)
+
+
+def drift(live, fresh):
+    """Where a workbook, such as the exported live sheet, differs from a fresh build: the notes on the column heads, the
+    rows and relation lines that only one of them has (removed lines aside), and the cells read back, each with what the
+    workbook shows and what the build has. Grey cells are left out, since a build recomputes them."""
+    books, found = [load_workbook(p) for p in (live, fresh)], []
+    for tab, columns, key in (('Resources', RESOURCE_COLUMNS, ('Key',)),
+                              ('Relations', RELATION_COLUMNS, ('Resource', 'Relation', 'Target'))):
+        read = [h for h, f, k, *_ in columns if f and k not in GREY_KINDS]
+        multi = {h for h, f, *_ in columns if f in MULTI}
+        heads, lines = [], []
+        for wb in books:
+            ws = wb[tab]
+            head = [_text(c.value) for c in ws[1]]
+            heads.append({h: (get_column_letter(c.column), c.comment.text if c.comment else '')
+                          for h, c in zip(head, ws[1]) if h})
+            rows = {}
+            for n, cells in enumerate(ws.iter_rows(min_row=2, values_only=True), 2):
+                v = {h: 'x' if t.lower() in MARKED else t for h, t in zip(head, map(_text, cells))}   # x or a tick
+                if any(v.get(h) for h in read) and v.get('Keep') != 'remove':
+                    rows[' '.join(v.get(h, '') for h in key)] = n, v
+            lines.append(rows)
+        (ha, hb), (a, b) = heads, lines
+        found += [f'{tab}: column {h} is missing' for h in hb if h not in ha]
+        found += [f'{tab}!{ha[h][0]}1: the note on {h} differs' for h in hb if h in ha and ha[h][1] != hb[h][1]]
+        found += [f'{tab}!A{a[k][0]}: {k} is only in the sheet' for k in sorted(a.keys() - b.keys())]
+        found += [f'{tab}: {k} is not in the sheet' for k in sorted(b.keys() - a.keys())]
+        found += [f'{tab}!{ha[h][0]}{a[k][0]} ({k}, {h}): {_pair(a[k][1].get(h, ""), b[k][1].get(h, ""))}'
+                  for k in sorted(a.keys() & b.keys()) for h in read
+                  if h in ha and _differs(h, a[k][1].get(h, ''), b[k][1].get(h, ''), multi)]
+    return found
