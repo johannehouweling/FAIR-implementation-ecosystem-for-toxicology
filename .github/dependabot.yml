@@ -1,0 +1,23 @@
+# Once a month, one pull request with the updates of the actions, which the workflows pin by commit, and one with
+# the updates of the Python packages in uv.lock. Neither commit type makes a release.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: ci
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      python:
+        patterns: ['*']
+    commit-message:
+      prefix: chore
+      include: scope

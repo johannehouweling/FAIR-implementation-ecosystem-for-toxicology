@@ -41,7 +41,7 @@ built ([data dictionary](docs/data-dictionary.md#fields-added-at-build-time)). F
 `build/pids`. `--offline` reads the local caches in `build/fairsharing`, `build/fip` and `build/pids`, left by an earlier
 run, instead.
 
-CI tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
+CI lints the code (ruff, its pyflakes rules), tests every change, runs `fairtox validate --strict`, checks the published dataset against CODATA's CDIF
 Discovery profile 1.1 (its SHACL rules, with pyshacl), checks that the links in the dataset and the
 documentation resolve (lychee; a link that fails is listed in the run's summary and does not stop the build; a link
 that resolved in the last seven days is not requested again;
@@ -53,6 +53,7 @@ Commits (`feat`, `fix`, `docs`) since the last release. A change to the data is 
 the middle number of the version; any other change is a `fix` or `docs` and raises the last. Merging the release
 pull request releases that version: release-please tags it and publishes a GitHub release, and the build publishes
 the dashboard, once for each version, so the dashboard always shows a released version.
+Dependabot proposes the updates of the actions and of the Python packages once a month, one pull request for each.
 Zenodo archives every release of the dashboard repository, as a dataset, through its GitHub link, and reads its
 `.zenodo.json`, which the build writes: the authors with ORCID iD and affiliation, the licence, the grants, the
 version and a link to this repository. The dashboard repository gets its release, with the same tag, from a workflow

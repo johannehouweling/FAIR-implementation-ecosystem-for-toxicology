@@ -8,8 +8,6 @@ import tempfile
 import unittest
 from unittest import mock
 
-import rdflib
-
 from fairtox import __version__, fairsharing, fip, model, pids, sheet, site
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
