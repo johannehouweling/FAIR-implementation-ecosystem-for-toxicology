@@ -313,6 +313,15 @@ class SheetTest(TempDir):
                          ["ctd, First published): '2003', fresh build '2004'",
                           "ctd implements exo, Note): 'Checked.', fresh build ''"])
 
+    def test_drift_reads_the_signed_line_and_not_its_unsigned_copy(self):
+        doc = model.normalise(fixture())
+        fresh = self.path('fresh.xlsx')
+        sheet.build(doc, fresh)
+        p = self.build(doc)
+        self.edit(p, 'Reviewed by', 'ctd', 'MM', tab='Relations')
+        self.add(p, {'Resource': 'ctd', 'Relation': 'implements', 'Target': 'exo'}, tab='Relations')   # a bare copy
+        self.assertEqual(sheet.drift(p, fresh), ["Relations!L2 (ctd implements exo, Reviewed by): 'MM', fresh build ''"])
+
     def test_a_relation_signed_with_its_edit_is_not_reported_under_other_initials(self):
         doc = model.normalise(fixture())
         os.makedirs(self.path('data'))

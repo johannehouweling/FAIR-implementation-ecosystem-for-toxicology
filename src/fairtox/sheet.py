@@ -653,11 +653,7 @@ def ingest(doc, path, force=False, read_back=(), refused=None):
         t = tuple(_text(c[head[h]].value) if head[h] < len(c) else '' for h in ('Resource', 'Relation', 'Target'))
         if any(t) and t[1] not in model.FIP_PROPERTIES:
             lines.setdefault(t, []).append((c[0].row, bool(_text(c[head['Reviewed by']].value))))
-    copies = {}                                             # of several lines, the one signed line decides
-    for ls in lines.values():
-        signed = [n for n, s in ls if s]
-        if len(ls) > 1 and len(signed) == 1:
-            copies.update({n: signed[0] for n, s in ls if not s})
+    copies = _copies(lines)
     rel_row, rel_by, moved = {}, {}, set()
     for cells in ws.iter_rows(min_row=2):
         n = cells[0].row
@@ -786,6 +782,17 @@ def _differs(h, x, y, multi):
     return x != y and not (not x and h in SAME_IF_EMPTY)
 
 
+def _copies(lines):
+    """Of several lines of one relation, the one signed line decides: each unsigned copy's row, with the signed line's.
+    lines holds each relation's lines as (row, signed)."""
+    copies = {}
+    for ls in lines.values():
+        signed = [n for n, s in ls if s]
+        if len(ls) > 1 and len(signed) == 1:
+            copies.update({n: signed[0] for n, s in ls if not s})
+    return copies
+
+
 def drift(live, fresh):
     """Where a workbook, such as the exported live sheet, differs from a fresh build: the notes on the column heads, the
     rows and relation lines that only one of them has (removed lines aside), and the cells read back, each with what the
@@ -801,12 +808,15 @@ def drift(live, fresh):
             head = [_text(c.value) for c in ws[1]]
             heads.append({h: (get_column_letter(c.column), c.comment.text if c.comment else '')
                           for h, c in zip(head, ws[1]) if h})
-            rows = {}
+            seen, group = [], {}
             for n, cells in enumerate(ws.iter_rows(min_row=2, values_only=True), 2):
                 v = {h: 'x' if t.lower() in MARKED else t for h, t in zip(head, map(_text, cells))}   # x or a tick
-                if any(v.get(h) for h in read) and v.get('Keep') != 'remove':
-                    rows[' '.join(v.get(h, '') for h in key)] = n, v
-            lines.append(rows)
+                if any(v.get(h) for h in read):
+                    seen.append((n, ' '.join(v.get(h, '') for h in key), v))
+                    if tab == 'Relations' and v.get('Relation') not in model.FIP_PROPERTIES:
+                        group.setdefault(seen[-1][1], []).append((n, bool(v.get('Reviewed by'))))
+            copies = _copies(group)                         # ignored, as in ingest
+            lines.append({k: (n, v) for n, k, v in seen if n not in copies and v.get('Keep') != 'remove'})
         (ha, hb), (a, b) = heads, lines
         found += [f'{tab}: column {h} is missing' for h in hb if h not in ha]
         found += [f'{tab}!{ha[h][0]}1: the note on {h} differs' for h in hb if h in ha and ha[h][1] != hb[h][1]]
